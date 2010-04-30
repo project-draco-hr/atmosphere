@@ -1,0 +1,24 @@
+{
+  reaper.scheduleAtFixedRate(new Runnable(){
+    public void run(){
+      Iterator<CachedMessage> i=queue.iterator();
+      CachedMessage e;
+      while (i.hasNext()) {
+        e=i.next();
+        if (logger.isLoggable(Level.FINE)) {
+          logger.fine("Message: " + e.message());
+        }
+        if (System.currentTimeMillis() - e.currentTime() > maxCachedinMs) {
+          if (logger.isLoggable(Level.FINE)) {
+            logger.fine("Pruning: " + e.message());
+          }
+          queue.remove(e);
+        }
+ else {
+          break;
+        }
+      }
+    }
+  }
+,0,60,TimeUnit.SECONDS);
+}

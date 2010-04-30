@@ -1,0 +1,4 @@
+String dir
+String cpath
+String cpathProp
+boolean addTools

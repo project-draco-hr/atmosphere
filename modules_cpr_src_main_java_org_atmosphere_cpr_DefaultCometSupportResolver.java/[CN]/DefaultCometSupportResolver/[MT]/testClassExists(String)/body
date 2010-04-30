@@ -1,0 +1,11 @@
+{
+  try {
+    return testClass != null && testClass.length() > 0 && Class.forName(testClass) != null;
+  }
+ catch (  ClassNotFoundException ex) {
+    return false;
+  }
+catch (  NoClassDefFoundError ex) {
+    return false;
+  }
+}

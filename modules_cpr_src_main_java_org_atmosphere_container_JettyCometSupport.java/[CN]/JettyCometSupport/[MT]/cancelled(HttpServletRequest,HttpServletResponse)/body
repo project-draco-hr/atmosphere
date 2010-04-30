@@ -1,0 +1,5 @@
+{
+  Continuation c=ContinuationSupport.getContinuation(req,null);
+  if (c != null)   c.reset();
+  return super.cancelled(req,res);
+}

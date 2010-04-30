@@ -1,0 +1,22 @@
+{
+  req.setAttribute(BROADCASTER_FACTORY,broadcasterFactory);
+  req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
+  try {
+    return cometSupport.service(req,res);
+  }
+ catch (  IllegalStateException ex) {
+    if (ex.getMessage() != null && ex.getMessage().startsWith("Tomcat failed")) {
+      if (!isFilter) {
+        logger.warning(ex.getMessage());
+        logger.warning("Using the BlockingIOCometSupport.");
+      }
+      cometSupport=new BlockingIOCometSupport(config);
+      service(req,res);
+    }
+ else {
+      logger.log(Level.SEVERE,"AtmosphereServlet exception",ex);
+      throw ex;
+    }
+  }
+  return null;
+}

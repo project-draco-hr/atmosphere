@@ -1,0 +1,43 @@
+{
+  Action action=suspended(req,res);
+  if (req.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) == null) {
+    if (action.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending" + res);
+      }
+      suspend(action,req,res);
+    }
+ else     if (action.type == Action.TYPE.RESUME) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Resuming" + res);
+      }
+      if (supportSession()) {
+        AsyncContext asyncContext=(AsyncContext)req.getSession().getAttribute("org.atmosphere.container.asyncContext");
+        if (asyncContext != null) {
+          asyncContext.complete();
+        }
+      }
+      Action nextAction=resumed(req,res);
+      if (nextAction.type == Action.TYPE.SUSPEND) {
+        if (logger.isLoggable(Level.FINE)) {
+          logger.fine("Suspending after Resuming" + res);
+          suspend(action,req,res);
+        }
+      }
+    }
+  }
+ else {
+    if (action.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending " + res);
+      }
+    }
+ else     if (action.type == Action.TYPE.RESUME) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Resume " + res);
+      }
+      req.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
+    }
+  }
+  return action;
+}

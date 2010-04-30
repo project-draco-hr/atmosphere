@@ -1,0 +1,3 @@
+{
+  return scheduleFixedBroadcast(o,0,period,t);
+}

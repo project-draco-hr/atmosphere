@@ -1,0 +1,6 @@
+{
+  if (tuples.containsKey(contextPath)) {
+    throw new RuntimeException("duplicate context root in configuration :" + contextPath);
+  }
+  tuples.put(contextPath,className);
+}

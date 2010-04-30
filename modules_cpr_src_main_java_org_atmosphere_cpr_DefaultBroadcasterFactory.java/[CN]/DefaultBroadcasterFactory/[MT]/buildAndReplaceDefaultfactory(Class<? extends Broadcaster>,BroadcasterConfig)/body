@@ -1,0 +1,6 @@
+{
+  if (factory == null) {
+    factory=new DefaultBroadcasterFactory(clazz,config);
+  }
+  return factory;
+}

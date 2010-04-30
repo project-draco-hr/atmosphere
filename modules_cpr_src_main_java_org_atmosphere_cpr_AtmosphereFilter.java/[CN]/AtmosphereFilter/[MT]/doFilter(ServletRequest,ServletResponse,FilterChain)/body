@@ -1,0 +1,6 @@
+{
+  Action a=as.doCometSupport((HttpServletRequest)request,(HttpServletResponse)response);
+  if (a == null || a.type != Action.TYPE.SUSPEND) {
+    chain.doFilter(request,response);
+  }
+}

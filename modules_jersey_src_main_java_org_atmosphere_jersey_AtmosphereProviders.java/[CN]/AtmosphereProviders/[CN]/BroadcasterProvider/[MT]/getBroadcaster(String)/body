@@ -1,0 +1,8 @@
+{
+  try {
+    return broadcastFactory.lookup(JerseyBroadcaster.class,topic);
+  }
+ catch (  Throwable ex) {
+    throw new WebApplicationException(ex);
+  }
+}

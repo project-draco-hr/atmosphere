@@ -1,0 +1,7 @@
+{
+  AtmosphereAdapter adapter=new AtmosphereAdapter();
+  adapter.setHandleStaticResources(true);
+  adapter.setContextPath(context);
+  adapter.setServletPath(getServletPath(servletUrlPattern));
+  return adapter;
+}

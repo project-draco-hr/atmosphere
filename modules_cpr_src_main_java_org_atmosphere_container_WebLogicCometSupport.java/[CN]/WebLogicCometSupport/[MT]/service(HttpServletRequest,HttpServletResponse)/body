@@ -1,0 +1,20 @@
+{
+  Action action=suspended(req,res);
+  if (action.type == Action.TYPE.SUSPEND) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.fine("Suspending" + res);
+    }
+  }
+ else   if (action.type == Action.TYPE.RESUME) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.fine("Resuming" + res);
+    }
+    Action nextAction=resumed(req,res);
+    if (nextAction.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending after Resuming" + res);
+      }
+    }
+  }
+  return action;
+}

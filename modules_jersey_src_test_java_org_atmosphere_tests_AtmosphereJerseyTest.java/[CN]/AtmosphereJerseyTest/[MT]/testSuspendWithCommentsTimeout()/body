@@ -1,0 +1,17 @@
+{
+  System.out.println("Running testSuspendWithCommentsTimeout");
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    Response r=c.prepareGet(urlTarget + "/withComments").execute().get(10,TimeUnit.SECONDS);
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+    String resume=r.getResponseBody();
+    assertEquals(r.getContentType().toLowerCase(),"text/plain; charset=iso-8859-1");
+    assertEquals(resume,AtmosphereResourceImpl.createCompatibleStringJunk());
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}

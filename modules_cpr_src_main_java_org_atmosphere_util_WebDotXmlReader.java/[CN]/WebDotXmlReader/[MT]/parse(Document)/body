@@ -1,0 +1,44 @@
+{
+  Element element=document.getDocumentElement();
+  NodeList servlets=element.getElementsByTagName("servlet");
+  String atmosphereServletName=null;
+  for (int i=0; i < servlets.getLength(); i++) {
+    Node m=servlets.item(i);
+    NodeList list=m.getChildNodes();
+    for (int j=0; j < list.getLength(); j++) {
+      Node n=list.item(j);
+      if (n.getNodeName().equals("servlet-name")) {
+        atmosphereServletName=n.getFirstChild().getNodeValue();
+      }
+      if (n.getNodeName().equals("servlet-class")) {
+        if (n.getFirstChild().getNodeValue().equals(ATMOSPHERE_SERVLET)) {
+          break;
+        }
+      }
+    }
+  }
+  NodeList servletMappings=element.getElementsByTagName("servlet-mapping");
+  for (int i=0; i < servletMappings.getLength(); i++) {
+    Node m=servletMappings.item(i);
+    NodeList list=m.getChildNodes();
+    String urlMapping=null;
+    String servletName=null;
+    for (int j=0; j < list.getLength(); j++) {
+      Node n=list.item(j);
+      if (n.getNodeName().equals("servlet-name")) {
+        servletName=n.getFirstChild().getNodeValue();
+        if (!servletName.equals(atmosphereServletName)) {
+          servletName=null;
+        }
+      }
+      if (n.getNodeName().equals("url-pattern")) {
+        urlMapping=n.getFirstChild().getNodeValue();
+      }
+      if (servletName != null && urlMapping != null) {
+        mappings.add(urlMapping);
+        servletName=null;
+        urlMapping=null;
+      }
+    }
+  }
+}

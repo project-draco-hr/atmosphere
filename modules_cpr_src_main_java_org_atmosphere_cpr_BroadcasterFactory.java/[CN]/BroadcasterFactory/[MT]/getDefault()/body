@@ -1,0 +1,6 @@
+{
+  if (factory == null) {
+    factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,AtmosphereServlet.getBroadcasterConfig());
+  }
+  return factory;
+}

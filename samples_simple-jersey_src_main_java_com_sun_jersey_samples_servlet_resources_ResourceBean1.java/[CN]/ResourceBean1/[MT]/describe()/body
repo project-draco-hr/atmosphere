@@ -1,0 +1,3 @@
+{
+  return "Hello World from resource 1 in servlet: '" + servletConfig.getServletName() + "', path: '"+ servletRequest.getServletPath()+ "'";
+}

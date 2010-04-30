@@ -1,0 +1,4 @@
+{
+  r.getBroadcaster().delayBroadcast(o,period,TimeUnit.SECONDS);
+  return this;
+}

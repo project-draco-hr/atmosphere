@@ -1,0 +1,13 @@
+{
+  if (n > 0) {
+    for (    FilterConfigImpl filter : filters) {
+      if (filter != null) {
+        filter.recycle();
+      }
+    }
+    filters=null;
+  }
+  if (servlet != null) {
+    servlet.destroy();
+  }
+}

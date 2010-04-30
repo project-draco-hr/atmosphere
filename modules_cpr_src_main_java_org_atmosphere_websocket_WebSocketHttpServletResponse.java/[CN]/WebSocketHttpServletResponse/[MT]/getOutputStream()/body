@@ -1,0 +1,14 @@
+{
+  return new ServletOutputStream(){
+    public void write(    int i) throws java.io.IOException {
+      webSocketSupport.write(frame,new byte[]{(byte)i});
+    }
+    public void write(    byte[] bytes) throws java.io.IOException {
+      webSocketSupport.write(frame,bytes);
+    }
+    public void write(    byte[] bytes,    int start,    int offset) throws java.io.IOException {
+      webSocketSupport.write(frame,bytes,start,offset);
+    }
+  }
+;
+}

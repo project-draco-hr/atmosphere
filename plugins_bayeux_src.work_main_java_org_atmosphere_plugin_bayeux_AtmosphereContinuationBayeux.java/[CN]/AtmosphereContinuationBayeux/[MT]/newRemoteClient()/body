@@ -1,0 +1,5 @@
+{
+  ClientImpl client=new AtmosphereBayeuxClient(this);
+  addClient(client,null);
+  return client;
+}

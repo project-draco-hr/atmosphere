@@ -1,0 +1,25 @@
+{
+  Injector injector=(Injector)config.getServletContext().getAttribute(Injector.class.getName());
+  GuiceContainer guiceServlet=injector.getInstance(GuiceContainer.class);
+  setUseStreamForFlushingComments(false);
+  ReflectorServletProcessor rsp=new ReflectorServletProcessor();
+  setDefaultBroadcasterClassName(JERSEY_BROADCASTER);
+  setUseStreamForFlushingComments(true);
+  rsp.setServlet(guiceServlet);
+  rsp.setFilterClassName(GUICE_FILTER);
+  getAtmosphereConfig().setSupportSession(false);
+  String mapping=sc.getInitParameter(PROPERTY_SERVLET_MAPPING);
+  if (mapping == null) {
+    mapping="/*";
+  }
+  Map<String,String> props=injector.getInstance(Key.get(new TypeLiteral<Map<String,String>>(){
+  }
+,Names.named(JERSEY_PROPERTIES)));
+  if (props != null) {
+    for (    String p : props.keySet()) {
+      addInitParameter(p,props.get(p));
+    }
+  }
+  addAtmosphereHandler(mapping,rsp);
+  return true;
+}

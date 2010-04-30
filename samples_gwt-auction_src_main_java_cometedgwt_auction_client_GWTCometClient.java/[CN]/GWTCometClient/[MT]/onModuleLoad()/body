@@ -1,0 +1,37 @@
+{
+  buttonSendMessage.addClickListener(new ClickListener(){
+    public void onClick(    Widget sender){
+      if (!"".equals(textBoxNewMessage.getText())) {
+        JSONArray array=new JSONArray();
+        array.set(0,new JSONString(textBoxNewMessage.getText()));
+        JSONObject container=new JSONObject();
+        container.put("value",array);
+        streamingService.sendMessage(textBoxTopic.getText(),container);
+        textBoxNewMessage.setText("");
+        textBoxNewMessage.setFocus(true);
+      }
+    }
+  }
+);
+  buttonSendMessage.setEnabled(false);
+  buttonSubscribe.addClickListener(new ClickListener(){
+    public void onClick(    Widget sender){
+      if (!"".equals(textBoxTopic.getText())) {
+        streamingService.subScribeToEvent(textBoxTopic.getText(),new ChatCallback(textBoxTopic.getText()));
+        buttonSendMessage.setEnabled(true);
+      }
+    }
+  }
+);
+  buttonSubscribe.setEnabled(false);
+  textAreaHistory.setSize("300","300");
+  textAreaHistory.setEnabled(false);
+  textBoxTopic.setText("chat");
+  RootPanel.get("slot1").add(textAreaHistory);
+  RootPanel.get("slot2").add(textBoxNewMessage);
+  RootPanel.get("slot3").add(buttonSendMessage);
+  RootPanel.get("slot4").add(textBoxTopic);
+  RootPanel.get("slot5").add(buttonSubscribe);
+  streamingService=StreamingServiceGWTClientImpl.getInstance();
+  streamingService.subScribeToEvent("keepAlive",new KeepAliveCallback());
+}

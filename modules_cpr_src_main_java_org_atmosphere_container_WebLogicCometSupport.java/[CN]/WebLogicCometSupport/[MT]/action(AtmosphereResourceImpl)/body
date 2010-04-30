@@ -1,0 +1,14 @@
+{
+  super.action(actionEvent);
+  if (actionEvent.action().type == Action.TYPE.RESUME && (config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
+    try {
+      RequestResponseKey rrk=(RequestResponseKey)actionEvent.getRequest().getSession().getAttribute(RRK);
+      AbstractAsyncServlet.notify(rrk,null);
+    }
+ catch (    IOException ex) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.log(Level.FINE,"",ex);
+      }
+    }
+  }
+}

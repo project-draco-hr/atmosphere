@@ -1,0 +1,12 @@
+{
+  response.setContentType("text/html;charset=ISO-8859-1");
+  AtmosphereResource e=(AtmosphereResource)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+  if (!e.getBroadcaster().getID().equals("GWT")) {
+synchronized (e.getBroadcaster()) {
+      e.getBroadcaster().setID("GWT");
+      e.getBroadcaster().getBroadcasterConfig().addFilter(new GWTBroadcasterFilter());
+    }
+  }
+  sendKeepAlive(response.getOutputStream());
+  e.suspend();
+}

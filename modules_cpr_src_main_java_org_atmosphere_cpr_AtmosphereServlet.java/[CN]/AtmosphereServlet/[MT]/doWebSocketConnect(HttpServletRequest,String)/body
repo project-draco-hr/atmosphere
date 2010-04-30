@@ -1,0 +1,27 @@
+{
+  if (logger.isLoggable(Level.INFO)) {
+    logger.info("WebSocket upgrade requested");
+  }
+  return new WebSocket(){
+    private WebSocketProcessor webSocketProcessor;
+    public void onConnect(    WebSocket.Outbound outbound){
+      webSocketProcessor=new WebSocketProcessor(AtmosphereServlet.this,new JettyWebSocketSupport(outbound));
+      try {
+        webSocketProcessor.connect(request);
+      }
+ catch (      IOException e) {
+        logger.log(Level.WARNING,"",e);
+      }
+    }
+    public void onMessage(    byte frame,    String data){
+      webSocketProcessor.broadcast(frame,data);
+    }
+    public void onMessage(    byte frame,    byte[] data,    int offset,    int length){
+      webSocketProcessor.broadcast(frame,new String(data,offset,length));
+    }
+    public void onDisconnect(){
+      webSocketProcessor.close();
+    }
+  }
+;
+}

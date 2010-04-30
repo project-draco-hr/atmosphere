@@ -1,0 +1,5 @@
+{
+  this.us=us;
+  this.user=name;
+  this.usd=usd;
+}

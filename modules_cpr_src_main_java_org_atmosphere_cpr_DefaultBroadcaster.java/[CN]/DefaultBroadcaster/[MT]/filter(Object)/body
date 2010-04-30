@@ -1,0 +1,5 @@
+{
+  BroadcastAction a=bc.filter(msg);
+  if (a.action() == BroadcastAction.ACTION.ABORT || msg == null)   return null;
+ else   return a.message();
+}

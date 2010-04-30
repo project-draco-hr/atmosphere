@@ -1,0 +1,15 @@
+{
+  Vector<URL> jarsV=new Vector<URL>();
+  if (dir != null) {
+    URL url=getURL(dir,"classes");
+    if (url != null)     jarsV.addElement(url);
+    addToClassPath(jarsV,dir);
+  }
+  if (cpath != null)   addJarsFromClassPath(jarsV,cpath);
+  if (cpathProp != null) {
+    String cpath1=System.getProperty(cpathProp);
+    addJarsFromClassPath(jarsV,cpath1);
+  }
+  if (addTools)   addToolsJar(jarsV);
+  return getClassPath(jarsV);
+}

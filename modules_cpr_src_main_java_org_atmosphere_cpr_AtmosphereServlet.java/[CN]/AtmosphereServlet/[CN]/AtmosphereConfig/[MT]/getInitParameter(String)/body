@@ -1,0 +1,7 @@
+{
+  String s=initParams.get(name);
+  if (s != null) {
+    return s;
+  }
+  return AtmosphereServlet.this.getInitParameter(name);
+}

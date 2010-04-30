@@ -1,0 +1,19 @@
+{
+  if (cell < 0 || cell > 8) {
+    return false;
+  }
+  if (winner != -1) {
+    return false;
+  }
+  if (board[cell] != 0) {
+    return false;
+  }
+  turnNum++;
+  if (turnNum % 2 == 1) {
+    board[cell]=X;
+  }
+ else {
+    board[cell]=O;
+  }
+  return true;
+}

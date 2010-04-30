@@ -1,0 +1,9 @@
+{
+  this.atmosphereHandler=atmosphereHandler;
+  try {
+    this.broadcaster=BroadcasterFactory.getDefault().get();
+  }
+ catch (  Exception t) {
+    throw new RuntimeException(t);
+  }
+}

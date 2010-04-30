@@ -1,0 +1,7 @@
+{
+  if (!mapping.startsWith("/")) {
+    mapping="/" + mapping;
+  }
+  AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(h,broadcaster);
+  atmosphereHandlers.put(mapping,w);
+}

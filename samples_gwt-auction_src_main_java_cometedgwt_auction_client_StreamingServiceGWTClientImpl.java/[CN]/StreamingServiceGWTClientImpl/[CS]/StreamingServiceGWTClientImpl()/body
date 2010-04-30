@@ -1,0 +1,8 @@
+{
+  callbacks.put("keepAliveInternal",internalKeepAliveCallback);
+  callbacks.put("restartStreamingInternal",restartStreamingCallback);
+  ((ServiceDefTarget)service).setServiceEntryPoint(GWT.getModuleBaseURL() + "streamingService");
+  setUpNativeCode(this);
+  restartStreamingFromIFrame();
+  createWatchDogTimer();
+}

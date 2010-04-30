@@ -1,0 +1,3 @@
+{
+  this(DefaultBroadcaster.class.getSimpleName());
+}

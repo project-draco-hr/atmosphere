@@ -1,0 +1,16 @@
+{
+  Action action=null;
+  action=suspended(req,res);
+  if (action.type == Action.TYPE.SUSPEND) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.fine("Suspending " + res);
+    }
+  }
+ else   if (action.type == Action.TYPE.RESUME) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.fine("Resume " + res);
+    }
+    req.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
+  }
+  return action;
+}

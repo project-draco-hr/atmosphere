@@ -1,0 +1,5 @@
+{
+  this.clazz=clazz;
+  this.config=config;
+  if (factory == null)   this.factory=this;
+}

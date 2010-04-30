@@ -1,0 +1,4 @@
+{
+  HttpServletRequest request=r.getRequest();
+  return retrieveUsingHeader(request.getHeader(HEADER_CACHE));
+}

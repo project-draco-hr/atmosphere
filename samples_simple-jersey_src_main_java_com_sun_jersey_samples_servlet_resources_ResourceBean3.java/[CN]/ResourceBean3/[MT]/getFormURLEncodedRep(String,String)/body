@@ -1,0 +1,9 @@
+{
+  Form urlProps=new Form();
+  urlProps.add("representation","FormURLEncodedRepresentation");
+  urlProps.add("name","Master Duke");
+  urlProps.add("sex","male");
+  urlProps.add("arg1",arg1);
+  urlProps.add("arg2",arg2);
+  return urlProps;
+}

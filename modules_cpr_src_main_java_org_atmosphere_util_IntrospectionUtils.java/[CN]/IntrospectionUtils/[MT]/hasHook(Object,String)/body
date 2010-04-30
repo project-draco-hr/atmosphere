@@ -1,0 +1,18 @@
+{
+  try {
+    Method myMethods[]=findMethods(obj.getClass());
+    for (int i=0; i < myMethods.length; i++) {
+      if (methodN.equals(myMethods[i].getName())) {
+        Class<?> declaring=myMethods[i].getDeclaringClass();
+        Class<?> parentOfDeclaring=declaring.getSuperclass();
+        if (!"java.lang.Object".equals(parentOfDeclaring.getName())) {
+          return true;
+        }
+      }
+    }
+  }
+ catch (  Exception ex) {
+    ex.printStackTrace();
+  }
+  return false;
+}

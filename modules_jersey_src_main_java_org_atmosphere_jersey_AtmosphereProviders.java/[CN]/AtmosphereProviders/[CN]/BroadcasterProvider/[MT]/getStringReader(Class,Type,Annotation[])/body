@@ -1,0 +1,23 @@
+{
+  if (type.getClass().isAssignableFrom(Broadcaster.class)) {
+    return null;
+  }
+  return new StringReader(){
+    public Object fromString(    String topic){
+      Broadcaster broadcaster=getBroadcaster(topic);
+      if (broadcaster == null) {
+        try {
+          BroadcasterFactory bp=(BroadcasterFactory)req.getAttribute(AtmosphereServlet.BROADCASTER_FACTORY);
+          broadcaster=bp.get();
+        }
+ catch (        Throwable ex) {
+          throw new WebApplicationException(ex);
+        }
+        broadcaster.setID(topic);
+      }
+      req.setAttribute(AtmosphereFilter.INJECTED_BROADCASTER,broadcaster);
+      return broadcaster;
+    }
+  }
+;
+}

@@ -1,0 +1,3 @@
+{
+  atmosphereHandlers.clear();
+}

@@ -1,0 +1,18 @@
+{
+  if (supportSession()) {
+    HttpSession session=req.getSession(true);
+    session.setMaxInactiveInterval(-1);
+  }
+  req.setAttribute(AtmosphereServlet.SUPPORT_SESSION,supportSession());
+  AtmosphereHandlerWrapper g=map(req);
+  AtmosphereResourceImpl re=new AtmosphereResourceImpl(config,g.broadcaster,req,res,this);
+  req.setAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE,re);
+  req.setAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER,g.atmosphereHandler);
+  g.atmosphereHandler.onRequest(re);
+  config.mapBroadcasterToAtmosphereHandler(re.getBroadcaster(),g);
+  if (re.getAtmosphereResourceEvent().isSuspended()) {
+    req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
+    aliveRequests.put(req,re);
+  }
+  return re.action();
+}

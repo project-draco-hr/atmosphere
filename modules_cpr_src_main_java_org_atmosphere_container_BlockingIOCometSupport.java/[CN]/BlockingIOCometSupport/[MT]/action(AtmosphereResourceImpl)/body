@@ -1,0 +1,29 @@
+{
+  try {
+    if (actionEvent.action().type == Action.TYPE.RESUME) {
+      int latchId=-1;
+      HttpServletRequest req=actionEvent.getRequest();
+      if (req.getAttribute(LATCH) != null) {
+        latchId=(Integer)req.getAttribute(LATCH);
+      }
+      if (latchId == -1 && supportSession()) {
+        if (req.getSession().getAttribute(LATCH) != null) {
+          latchId=(Integer)req.getSession().getAttribute(String.valueOf(req.hashCode()));
+        }
+      }
+      String s=config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE);
+      if (latchId != -1 && (s == null || s.equalsIgnoreCase("false"))) {
+        CountDownLatch latch=latchs.remove(latchId);
+        latch.countDown();
+      }
+ else       if (req.getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) == null) {
+        logger.log(Level.SEVERE,"Unable to resume the suspended connection");
+      }
+    }
+  }
+ catch (  Exception ex) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.log(Level.FINE,"",ex);
+    }
+  }
+}

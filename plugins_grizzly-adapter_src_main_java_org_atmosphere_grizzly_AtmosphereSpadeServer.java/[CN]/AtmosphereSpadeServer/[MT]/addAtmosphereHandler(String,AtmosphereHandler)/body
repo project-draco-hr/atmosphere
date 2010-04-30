@@ -1,0 +1,10 @@
+{
+  defaultToJersey=false;
+  AtmosphereAdapter a=new AtmosphereAdapter();
+  a.setServletInstance(aa.getServletInstance());
+  a.addAtmosphereHandler(mapping,h);
+  a.setServletPath(mapping);
+  a.setHandleStaticResources(true);
+  gws.addGrizzlyAdapter(a,new String[]{mapping});
+  return this;
+}

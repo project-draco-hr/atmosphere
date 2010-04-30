@@ -1,0 +1,7 @@
+{
+  if (filters.contains(e))   return false;
+  if (e instanceof BroadcastFilterLifecycle) {
+    ((BroadcastFilterLifecycle)e).init();
+  }
+  return filters.offer(e);
+}

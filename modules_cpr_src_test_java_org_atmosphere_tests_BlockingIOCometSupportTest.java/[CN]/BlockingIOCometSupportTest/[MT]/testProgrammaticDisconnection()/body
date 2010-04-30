@@ -1,0 +1,40 @@
+{
+  System.out.println("Running testProgrammaticDisconnection");
+  final CountDownLatch latch=new CountDownLatch(1);
+  atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
+    private long currentTime;
+    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      currentTime=System.currentTimeMillis();
+      event.suspend();
+    }
+    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      try {
+        assertTrue(event.isCancelled());
+        long time=System.currentTimeMillis() - currentTime;
+        if (time > 20000 && time < 25000) {
+          assertTrue(true);
+        }
+ else {
+          assertFalse(false);
+        }
+      }
+  finally {
+        latch.countDown();
+      }
+    }
+  }
+,new RecyclableBroadcaster("suspend"));
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    Response r=c.prepareGet(urlTarget).execute().get();
+    if (latch.getCount() != 0) {
+      fail("timedout");
+    }
+    assertNotNull(r);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}

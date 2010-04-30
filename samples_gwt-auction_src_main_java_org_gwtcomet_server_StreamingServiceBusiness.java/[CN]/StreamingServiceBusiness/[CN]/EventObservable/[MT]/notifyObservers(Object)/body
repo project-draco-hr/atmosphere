@@ -1,0 +1,5 @@
+{
+  setChanged();
+  super.notifyObservers(arg);
+  notifyAll();
+}

@@ -1,0 +1,4 @@
+{
+  String setter="set" + capitalize(name);
+  return invokeProperty(o,setter,name,value);
+}

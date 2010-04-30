@@ -1,0 +1,16 @@
+{
+  try {
+    File f=new File(System.getProperty("java.home") + "/../lib/tools.jar");
+    if (!f.exists()) {
+      f=new File(System.getProperty("java.home") + "/lib/tools.jar");
+      if (f.exists()) {
+        if (logger.isLoggable(Level.FINE))         logger.fine("Detected strange java.home value " + System.getProperty("java.home") + ", it should point to jre");
+      }
+    }
+    URL url=new URL("file","",f.getAbsolutePath());
+    v.addElement(url);
+  }
+ catch (  MalformedURLException ex) {
+    ex.printStackTrace();
+  }
+}

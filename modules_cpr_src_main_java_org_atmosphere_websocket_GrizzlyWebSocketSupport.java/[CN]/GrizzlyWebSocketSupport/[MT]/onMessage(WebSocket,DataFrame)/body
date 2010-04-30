@@ -1,0 +1,3 @@
+{
+  webSocketProcessor.broadcast((byte)0x00,dataFrame.getTextPayload());
+}

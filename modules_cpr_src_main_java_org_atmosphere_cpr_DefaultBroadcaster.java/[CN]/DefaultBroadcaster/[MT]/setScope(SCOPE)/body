@@ -1,0 +1,11 @@
+{
+  this.scope=scope;
+  try {
+    if (scope == SCOPE.REQUEST) {
+      broadcasterCache=bc.getBroadcasterCache().getClass().newInstance();
+    }
+  }
+ catch (  Exception e) {
+    LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+  }
+}

@@ -1,0 +1,16 @@
+{
+  if (message instanceof String) {
+    bufferedMessage.get().append(message);
+    if (bufferedMessage.get().length() < maxBufferedString) {
+      return new BroadcastAction(ACTION.ABORT,message);
+    }
+ else {
+      message=bufferedMessage.toString();
+      bufferedMessage.get().delete(0,bufferedMessage.get().length());
+      return new BroadcastAction(ACTION.CONTINUE,message);
+    }
+  }
+ else {
+    return new BroadcastAction(message);
+  }
+}

@@ -1,0 +1,24 @@
+{
+  CountDownLatch latch=new CountDownLatch(1);
+  int hash=latch.hashCode();
+  req.setAttribute(LATCH,hash);
+  latchs.put(hash,latch);
+  if (supportSession()) {
+    req.getSession().setAttribute(String.valueOf(req.hashCode()),hash);
+  }
+  try {
+    if (action.timeout != -1) {
+      latch.await(action.timeout,TimeUnit.MILLISECONDS);
+    }
+ else {
+      latch.await();
+    }
+  }
+ catch (  InterruptedException ex) {
+    logger.log(Level.FINEST,"",ex);
+  }
+ finally {
+    latchs.remove(hash);
+    timedout(req,res);
+  }
+}

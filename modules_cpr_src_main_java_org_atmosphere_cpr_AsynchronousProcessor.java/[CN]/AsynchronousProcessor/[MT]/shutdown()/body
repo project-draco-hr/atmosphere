@@ -1,0 +1,13 @@
+{
+  closedDetector.shutdownNow();
+  for (  AtmosphereResource r : aliveRequests.values()) {
+    try {
+      r.resume();
+    }
+ catch (    Throwable t) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.log(Level.FINE,"",t);
+      }
+    }
+  }
+}

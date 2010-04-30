@@ -1,0 +1,11 @@
+{
+  HttpServletResponse res=event.getResource().getResponse();
+  if (event.isResuming()) {
+    res.getWriter().write("Atmosphere Sample closed<br/>");
+    res.getWriter().write("</body></html>");
+  }
+ else {
+    res.getWriter().write(event.getMessage().toString());
+  }
+  res.getWriter().flush();
+}

@@ -1,0 +1,24 @@
+{
+  if (broadcasterFactory == null) {
+    broadcasterFactory=new DefaultBroadcasterFactory((Class<Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName),broadcasterConfig);
+    config.broadcasterFactory=broadcasterFactory;
+  }
+  Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();
+  AtmosphereHandlerWrapper w;
+  Entry<String,AtmosphereHandlerWrapper> e;
+  while (i.hasNext()) {
+    e=i.next();
+    w=e.getValue();
+    if (w.broadcaster == null) {
+      w.broadcaster=broadcasterFactory.get();
+    }
+ else {
+      w.broadcaster.setBroadcasterConfig(broadcasterConfig);
+    }
+    w.broadcaster.setID(e.getKey());
+  }
+  if (broadcasterCacheClassName != null) {
+    broadcasterConfig.setBroadcasterCache((BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(broadcasterCacheClassName).newInstance());
+  }
+  logger.info("Using " + broadcasterClassName + " with a Thread Pool size of : "+ BroadcasterConfig.numOfProcessor);
+}

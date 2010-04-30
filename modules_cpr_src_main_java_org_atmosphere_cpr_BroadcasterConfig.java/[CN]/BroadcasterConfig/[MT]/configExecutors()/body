@@ -1,0 +1,4 @@
+{
+  executorService=Executors.newFixedThreadPool(numOfProcessor);
+  defaultExecutorService=executorService;
+}

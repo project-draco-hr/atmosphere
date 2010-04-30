@@ -1,0 +1,33 @@
+{
+  Continuation c=ContinuationSupport.getContinuation(req,null);
+  Action action=null;
+  if (!c.isResumed() && !c.isPending()) {
+    action=suspended(req,res);
+    if (action.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending " + res);
+      }
+      if (action.timeout != -1) {
+        c.suspend(action.timeout);
+      }
+ else {
+        c.suspend(0);
+      }
+    }
+  }
+ else {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.fine("Resuming " + res);
+    }
+    if (!resumed.remove(c)) {
+      c.reset();
+      if (req.getAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT) == null) {
+        timedout(req,res);
+      }
+ else {
+        resumed(req,res);
+      }
+    }
+  }
+  return action;
+}

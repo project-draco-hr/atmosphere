@@ -1,0 +1,37 @@
+{
+  try {
+    super.init(sc);
+    ServletConfig scFacade=new ServletConfig(){
+      public String getServletName(){
+        return sc.getServletName();
+      }
+      public ServletContext getServletContext(){
+        return sc.getServletContext();
+      }
+      public String getInitParameter(      String name){
+        String param=sc.getInitParameter(name);
+        if (param == null) {
+          return initParams.get(name);
+        }
+        return param;
+      }
+      public Enumeration<String> getInitParameterNames(){
+        return sc.getInitParameterNames();
+      }
+    }
+;
+    doInitParams(scFacade);
+    detectGoogleAppEngine(scFacade);
+    loadConfiguration(scFacade);
+    autoDetectContainer();
+    configureBroadcaster();
+    cometSupport.init(scFacade);
+    initAtmosphereServletProcessor(scFacade);
+    logger.log(Level.INFO,"Atmosphere Framework " + Version.getRawVersion() + " started.");
+  }
+ catch (  Throwable t) {
+    logger.log(Level.SEVERE,"",t);
+    if (t instanceof ServletException)     throw (ServletException)t;
+    throw new ServletException(t.getCause());
+  }
+}

@@ -1,0 +1,14 @@
+{
+  long timeStamp=(Long)ce.getCometContext().getAttribute("Time");
+  try {
+    if ((System.currentTimeMillis() - timeStamp) >= ce.getCometContext().getExpirationDelay()) {
+      timedout(req,res);
+    }
+ else {
+      cancelled(req,res);
+    }
+  }
+ catch (  ServletException ex) {
+    logger.log(Level.WARNING,"",ex);
+  }
+}

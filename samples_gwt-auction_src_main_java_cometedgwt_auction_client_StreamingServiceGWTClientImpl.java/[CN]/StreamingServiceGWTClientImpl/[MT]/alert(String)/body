@@ -1,0 +1,10 @@
+{
+  if (GWT.isScript()) {
+    RootPanel debugDiv=RootPanel.get("debug");
+    if (debugDiv != null) {
+    }
+  }
+ else {
+    GWT.log(message,null);
+  }
+}

@@ -1,0 +1,24 @@
+{
+  HttpServletRequest req=event.getResource().getRequest();
+  HttpServletResponse res=event.getResource().getResponse();
+  if (event.getMessage() == null)   return;
+  String e=event.getMessage().toString();
+  String name=e;
+  String message="";
+  if (e.indexOf("**") > 0) {
+    name=e.substring(0,e.indexOf("**"));
+    message=e.substring(e.indexOf("**") + 2);
+  }
+  String msg=BEGIN_SCRIPT_TAG + toJsonp(name,message) + END_SCRIPT_TAG;
+  if (event.isCancelled()) {
+    event.getResource().getBroadcaster().broadcast(req.getSession().getAttribute("name") + " has left");
+  }
+ else   if (event.isResuming() || event.isResumedOnTimeout()) {
+    String script="<script>window.parent.app.listen();\n</script>";
+    res.getWriter().write(script);
+  }
+ else {
+    res.getWriter().write(msg);
+  }
+  res.getWriter().flush();
+}

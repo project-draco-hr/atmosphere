@@ -1,0 +1,19 @@
+{
+  if (broadcasterCache != null) {
+    broadcasterCache.stop();
+  }
+  if (executorService != null) {
+    executorService.shutdown();
+  }
+  if (defaultExecutorService != null) {
+    defaultExecutorService.shutdown();
+  }
+  if (scheduler != null) {
+    scheduler.shutdown();
+  }
+  for (  BroadcastFilter f : filters) {
+    if (f instanceof BroadcastFilterLifecycle) {
+      ((BroadcastFilterLifecycle)f).destroy();
+    }
+  }
+}

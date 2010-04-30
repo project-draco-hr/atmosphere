@@ -1,0 +1,8 @@
+{
+  if (!preferBlocking && testClassExists(SERVLET_30)) {
+    return new Servlet30Support(config);
+  }
+ else {
+    return new BlockingIOCometSupport(config);
+  }
+}

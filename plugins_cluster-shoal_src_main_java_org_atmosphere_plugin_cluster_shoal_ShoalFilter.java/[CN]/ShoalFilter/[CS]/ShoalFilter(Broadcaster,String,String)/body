@@ -1,0 +1,10 @@
+{
+  this.bc=bc;
+  try {
+    serverName=InetAddress.getLocalHost().getHostAddress() + "-" + containerName+ "-"+ count.getAndIncrement();
+  }
+ catch (  UnknownHostException ex) {
+    serverName+=containerName;
+  }
+  this.clusterName=clusterName;
+}

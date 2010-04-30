@@ -1,0 +1,7 @@
+{
+  Iterator<AtmosphereResource> i=b.getAtmosphereResources();
+  while (i.hasNext()) {
+    HttpServletRequest r=(HttpServletRequest)i.next().getRequest();
+    r.setAttribute(AtmosphereServlet.RESUME_ON_BROADCAST,new Boolean(true));
+  }
+}

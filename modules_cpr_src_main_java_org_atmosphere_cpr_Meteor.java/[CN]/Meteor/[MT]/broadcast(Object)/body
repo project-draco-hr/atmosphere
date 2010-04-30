@@ -1,0 +1,4 @@
+{
+  r.getBroadcaster().broadcast(o);
+  return this;
+}

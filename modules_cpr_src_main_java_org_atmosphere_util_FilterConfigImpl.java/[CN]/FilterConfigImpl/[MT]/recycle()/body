@@ -1,0 +1,6 @@
+{
+  if (this.filter != null) {
+    filter.destroy();
+  }
+  this.filter=null;
+}

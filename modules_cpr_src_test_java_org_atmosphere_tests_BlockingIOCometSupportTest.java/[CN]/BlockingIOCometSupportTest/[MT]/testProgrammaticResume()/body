@@ -1,0 +1,63 @@
+{
+  System.out.println("Running testProgrammaticResume");
+  final CountDownLatch latch=new CountDownLatch(2);
+  final CountDownLatch suspended=new CountDownLatch(1);
+  atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
+    AtomicBoolean b=new AtomicBoolean(false);
+    AtmosphereResource<HttpServletRequest,HttpServletResponse> suspendedEvent;
+    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      if (!b.getAndSet(true)) {
+        try {
+          suspendedEvent=event;
+          event.suspend();
+        }
+  finally {
+          suspended.countDown();
+        }
+      }
+ else {
+        suspendedEvent.getResponse().flushBuffer();
+        suspendedEvent.resume();
+      }
+    }
+    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      try {
+        assertTrue(event.isResuming());
+      }
+  finally {
+        latch.countDown();
+      }
+    }
+  }
+,new RecyclableBroadcaster("suspend"));
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<String>(){
+      @Override public String onCompleted(      Response response) throws Exception {
+        try {
+          assertEquals(response.getResponseBody(),AtmosphereResourceImpl.createCompatibleStringJunk());
+        }
+  finally {
+          latch.countDown();
+        }
+        return null;
+      }
+    }
+);
+    suspended.await(20,TimeUnit.SECONDS);
+    Response r=c.prepareGet(urlTarget).execute().get();
+    try {
+      latch.await(20,TimeUnit.SECONDS);
+    }
+ catch (    InterruptedException e) {
+      fail(e.getMessage());
+    }
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}

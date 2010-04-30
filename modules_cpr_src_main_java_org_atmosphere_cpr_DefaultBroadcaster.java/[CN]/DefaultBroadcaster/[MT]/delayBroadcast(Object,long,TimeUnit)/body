@@ -1,0 +1,19 @@
+{
+  final Object msg=filter(o);
+  if (msg == null)   return null;
+  Future<Object> f=new BroadcasterFuture<Object>(msg);
+  final Entry e=new Entry(msg,null,f);
+  if (delay > 0) {
+    f=bc.getScheduledExecutorService().schedule(new Callable<Object>(){
+      public Object call() throws Exception {
+        delayedBroadcast.remove(e);
+        push(e);
+        return msg;
+      }
+    }
+,delay,t);
+    e.f=f;
+  }
+  delayedBroadcast.offer(e);
+  return f;
+}

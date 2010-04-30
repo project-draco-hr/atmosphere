@@ -1,0 +1,5 @@
+{
+  if (r instanceof AtmosphereEventLifecycle) {
+    ((AtmosphereEventLifecycle)r).addEventListener(e);
+  }
+}

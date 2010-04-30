@@ -1,0 +1,14 @@
+{
+  String args0[]=null;
+  if (null != findMethod(proxy.getClass(),"getOptions1",new Class[]{})) {
+    args0=(String[])callMethod0(proxy,"getOptions1");
+  }
+  if (args0 == null) {
+    args0=findBooleanSetters(proxy.getClass());
+  }
+  Hashtable<String,String> h=null;
+  if (null != findMethod(proxy.getClass(),"getOptionAliases",new Class[]{})) {
+    h=(Hashtable<String,String>)callMethod0(proxy,"getOptionAliases");
+  }
+  return processArgs(proxy,args,args0,null,h);
+}

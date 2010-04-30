@@ -1,0 +1,4 @@
+{
+  out.write(contents.getBytes());
+  out.flush();
+}

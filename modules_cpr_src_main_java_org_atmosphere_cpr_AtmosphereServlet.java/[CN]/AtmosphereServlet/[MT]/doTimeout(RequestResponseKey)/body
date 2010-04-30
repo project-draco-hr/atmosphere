@@ -1,0 +1,3 @@
+{
+  ((AsynchronousProcessor)cometSupport).timedout(rrk.getRequest(),rrk.getResponse());
+}

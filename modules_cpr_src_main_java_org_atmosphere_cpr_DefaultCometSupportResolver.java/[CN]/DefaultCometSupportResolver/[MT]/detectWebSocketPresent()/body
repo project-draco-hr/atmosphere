@@ -1,0 +1,8 @@
+{
+  return new LinkedList<Class<? extends CometSupport>>(){
+{
+      if (testClassExists(JETTY_8))       add(Jetty8WebSocketSupport.class);
+    }
+  }
+;
+}

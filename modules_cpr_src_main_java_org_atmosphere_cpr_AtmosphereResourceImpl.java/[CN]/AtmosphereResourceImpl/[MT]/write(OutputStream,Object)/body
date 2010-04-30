@@ -1,0 +1,9 @@
+{
+  if (o == null)   throw new IllegalStateException("Object cannot be null");
+  if (serializer != null) {
+    serializer.write(os,o);
+  }
+ else {
+    res.getOutputStream().write(o.toString().getBytes());
+  }
+}

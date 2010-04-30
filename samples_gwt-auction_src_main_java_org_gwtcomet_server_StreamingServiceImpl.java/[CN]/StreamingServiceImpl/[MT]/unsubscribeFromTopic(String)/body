@@ -1,0 +1,4 @@
+{
+  String clientId=getThreadLocalRequest().getSession().getId();
+  getServletContext().log("client " + clientId + " unsubscribed from topic "+ queueName);
+}

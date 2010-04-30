@@ -1,0 +1,10 @@
+{
+  for (  FilterConfigImpl f : filters) {
+    if (f != null) {
+      f.getFilter().init(f);
+    }
+  }
+  if (servlet != null) {
+    servlet.init(configImpl);
+  }
+}

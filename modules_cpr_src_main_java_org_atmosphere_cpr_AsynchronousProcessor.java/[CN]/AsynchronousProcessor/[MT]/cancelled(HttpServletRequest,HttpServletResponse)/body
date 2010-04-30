@@ -1,0 +1,32 @@
+{
+  AtmosphereResourceImpl re=null;
+  try {
+    AtmosphereHandlerWrapper aw=map(req);
+    re=(AtmosphereResourceImpl)aliveRequests.remove(req);
+    if (re != null) {
+      re.getAtmosphereResourceEvent().setCancelled(true);
+      if (!re.getResponse().equals(res)) {
+        logger.warning("Invalid response: " + res);
+      }
+ else       if (!re.getAtmosphereConfig().getInitParameter(AtmosphereServlet.DISABLE_ONSTATE_EVENT).equals(String.valueOf(true))) {
+        aw.atmosphereHandler.onStateChange(re.getAtmosphereResourceEvent());
+      }
+ else {
+        re.getResponse().flushBuffer();
+      }
+      re.notifyListeners();
+      re.getBroadcaster().removeAtmosphereResource(re);
+    }
+  }
+ catch (  Throwable ex) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.log(Level.FINE,"",ex);
+    }
+  }
+ finally {
+    if (re != null) {
+      re.isInScope(false);
+    }
+  }
+  return cancelledAction;
+}

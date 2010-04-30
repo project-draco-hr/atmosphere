@@ -1,0 +1,10 @@
+{
+  AuctionItem item1=new AuctionItem(0,"???? Nokia N80",100.0f);
+  AuctionItem item2=new AuctionItem(1,"Laptop Apple PowerBook G4 17''",1050.0f);
+  AuctionItem item3=new AuctionItem(2,"Canon Rebel XT",800.0f);
+  List itens=new ArrayList();
+  itens.add(item1);
+  itens.add(item2);
+  itens.add(item3);
+  return itens;
+}

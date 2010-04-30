@@ -1,0 +1,6 @@
+{
+  this.currentTime=0L;
+  this.message=null;
+  this.next=null;
+  this.isTail=isTail;
+}

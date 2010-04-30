@@ -1,0 +1,5 @@
+{
+  gws=new GrizzlyWebServer(port);
+  gws.getSelectorThread().setDisplayConfiguration(false);
+  gws.addAsyncFilter(new CometAsyncFilter());
+}

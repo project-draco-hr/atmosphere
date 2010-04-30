@@ -1,0 +1,4 @@
+{
+  AtmosphereSpadeLauncher sl=new AtmosphereSpadeLauncher();
+  sl.start(args);
+}

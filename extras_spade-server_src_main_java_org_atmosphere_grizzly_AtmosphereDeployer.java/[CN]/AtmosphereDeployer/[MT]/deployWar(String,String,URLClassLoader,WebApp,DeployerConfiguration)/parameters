@@ -1,0 +1,5 @@
+String location
+String context
+URLClassLoader serverLibLoader
+WebApp defaultWebApp
+DeployerConfiguration conf

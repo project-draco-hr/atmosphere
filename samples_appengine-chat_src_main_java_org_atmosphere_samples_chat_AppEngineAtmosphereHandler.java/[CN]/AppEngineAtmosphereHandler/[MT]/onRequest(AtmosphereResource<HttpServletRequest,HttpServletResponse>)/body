@@ -1,0 +1,35 @@
+{
+  HttpServletRequest req=event.getRequest();
+  HttpServletResponse res=event.getResponse();
+  res.setContentType("text/html;charset=ISO-8859-1");
+  res.addHeader("Cache-Control","private");
+  res.addHeader("Pragma","no-cache");
+  if (req.getMethod().equalsIgnoreCase("GET")) {
+    event.suspend();
+    Broadcaster bc=event.getBroadcaster();
+    bc.getBroadcasterConfig().addFilter(new XSSHtmlFilter());
+    bc.broadcast(event.getAtmosphereConfig().getWebServerName() + "**has suspended a connection from " + req.getRemoteAddr());
+  }
+ else   if (req.getMethod().equalsIgnoreCase("POST")) {
+    res.setCharacterEncoding("UTF-8");
+    String action=req.getParameterValues("action")[0];
+    String name=req.getParameterValues("name")[0];
+    if ("login".equals(action)) {
+      req.getSession().setAttribute("name",name);
+      event.getBroadcaster().broadcast("System Message from " + event.getAtmosphereConfig().getWebServerName() + "**"+ name+ " has joined.");
+      res.getWriter().write("success");
+      res.getWriter().flush();
+    }
+ else     if ("post".equals(action)) {
+      String message=req.getParameterValues("message")[0];
+      event.getBroadcaster().broadcast(name + "**" + message);
+      res.getWriter().write("success");
+      res.getWriter().flush();
+    }
+ else {
+      res.setStatus(422);
+      res.getWriter().write("success");
+      res.getWriter().flush();
+    }
+  }
+}

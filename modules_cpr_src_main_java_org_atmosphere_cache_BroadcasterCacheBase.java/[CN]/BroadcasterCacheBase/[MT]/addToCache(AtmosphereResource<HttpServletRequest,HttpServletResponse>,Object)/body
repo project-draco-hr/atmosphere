@@ -1,0 +1,22 @@
+{
+  if (logger.isLoggable(Level.FINE)) {
+    logger.fine("Adding message for " + r + ": "+ e);
+  }
+  CachedMessage cm=new CachedMessage(e,System.currentTimeMillis(),null);
+  CachedMessage prev=null;
+  if (!queue.isEmpty()) {
+    prev=queue.get(queue.size() - 1);
+  }
+  if (prev != null) {
+    prev.next(cm);
+  }
+  if (!queue.contains(cm)) {
+    queue.add(cm);
+  }
+  if (prev == null) {
+    cm=new CachedMessage(true);
+  }
+  if (r != null) {
+    cache(r,cm);
+  }
+}

@@ -1,0 +1,83 @@
+{
+  System.out.println("Running testDelayNextBroadcast");
+  final CountDownLatch latch=new CountDownLatch(2);
+  final CountDownLatch suspended=new CountDownLatch(1);
+  atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
+    AtomicBoolean b=new AtomicBoolean(false);
+    AtomicBoolean delayOrPush=new AtomicBoolean(true);
+    private long currentTime;
+    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      if (!b.getAndSet(true)) {
+        try {
+          event.suspend();
+        }
+  finally {
+          suspended.countDown();
+        }
+      }
+ else {
+        currentTime=System.currentTimeMillis();
+        if (delayOrPush.getAndSet(false)) {
+          event.getBroadcaster().delayBroadcast("foo");
+        }
+ else {
+          event.getBroadcaster().broadcast("foo");
+        }
+      }
+    }
+    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      if (event.isResuming()) {
+        return;
+      }
+      try {
+        long time=System.currentTimeMillis() - currentTime;
+        if (time > 5000 && time < 6000) {
+          assertTrue(true);
+        }
+ else {
+          assertFalse(false);
+        }
+        assertFalse(event.isCancelled());
+        assertNotNull(event.getMessage());
+        assertEquals(event.getMessage(),"foofoo");
+        event.getResource().getResponse().flushBuffer();
+        event.getResource().resume();
+      }
+  finally {
+        latch.countDown();
+      }
+    }
+  }
+,new RecyclableBroadcaster("suspend"));
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<String>(){
+      @Override public String onCompleted(      Response response) throws Exception {
+        try {
+          assertEquals(response.getResponseBody(),AtmosphereResourceImpl.createCompatibleStringJunk());
+        }
+  finally {
+          latch.countDown();
+        }
+        return null;
+      }
+    }
+);
+    suspended.await(20,TimeUnit.SECONDS);
+    c.prepareGet(urlTarget).execute().get();
+    Response r=c.prepareGet(urlTarget).execute().get();
+    try {
+      latch.await(20,TimeUnit.SECONDS);
+    }
+ catch (    InterruptedException e) {
+      fail(e.getMessage());
+    }
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}

@@ -1,0 +1,23 @@
+{
+  Meteor m=(Meteor)req.getSession().getAttribute("meteor");
+  res.setCharacterEncoding("UTF-8");
+  String action=req.getParameterValues("action")[0];
+  String name=req.getParameterValues("name")[0];
+  if ("login".equals(action)) {
+    req.getSession().setAttribute("name",name);
+    m.broadcast("System Message from " + req.getServerName() + "__"+ name+ " has joined.");
+    res.getWriter().write("success");
+    res.getWriter().flush();
+  }
+ else   if ("post".equals(action)) {
+    String message=req.getParameterValues("message")[0];
+    m.broadcast(name + "__" + message);
+    res.getWriter().write("success");
+    res.getWriter().flush();
+  }
+ else {
+    res.setStatus(422);
+    res.getWriter().write("success");
+    res.getWriter().flush();
+  }
+}

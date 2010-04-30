@@ -1,0 +1,23 @@
+{
+  if (bc == null)   throw new WebApplicationException(new IllegalStateException("Broadcaster cannot be null"));
+  BroadcasterConfig c=bc.getBroadcasterConfig();
+  if (c.hasFilters()) {
+    return;
+  }
+  for (  ClusterBroadcastFilter cbf : clusters) {
+    cbf.setBroadcaster(bc);
+    c.addFilter(cbf);
+  }
+  org.atmosphere.cpr.BroadcastFilter f=null;
+  if (filters != null) {
+    for (    Class<org.atmosphere.cpr.BroadcastFilter> filter : filters) {
+      try {
+        f=filter.newInstance();
+      }
+ catch (      Throwable t) {
+        logger.warning("Invalid @BroadcastFilter: " + filter);
+      }
+      c.addFilter(f);
+    }
+  }
+}

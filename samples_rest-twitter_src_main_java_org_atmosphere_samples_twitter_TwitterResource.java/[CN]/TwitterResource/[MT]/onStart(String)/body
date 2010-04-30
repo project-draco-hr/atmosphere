@@ -1,0 +1,10 @@
+{
+  String message="{ message : 'Welcome'}";
+  if (callback == null) {
+    callback="alert";
+  }
+  StringBuilder sb=new StringBuilder();
+  sb.append(startingMessage);
+  sb.append("<script id='comet_" + counter++ + "'>"+ "window.parent."+ callback+ "("+ message+ ");</script>\n");
+  return sb.toString();
+}

@@ -1,0 +1,141 @@
+{
+  Object clientObj=request.getAttribute(CLIENT_ATTR);
+  Transport transport=null;
+  int received=-1;
+  boolean metaConnectDeliveryOnly=false;
+  boolean pendingResponse=false;
+  boolean metaConnect=false;
+  final boolean initial;
+  AtmosphereBayeuxClient client=(clientObj instanceof ClientImpl) ? (AtmosphereBayeuxClient)clientObj : null;
+  if (client != null) {
+    initial=false;
+    transport=(Transport)request.getAttribute(TRANSPORT_ATTR);
+    transport.setResponse(response);
+    metaConnectDeliveryOnly=client.isMetaConnectDeliveryOnly() || transport.isMetaConnectDeliveryOnly();
+    metaConnect=true;
+  }
+ else {
+    initial=true;
+    Message[] messages=getMessages(request);
+    received=messages.length;
+    String jsonpParam=request.getParameter("jsonp");
+    try {
+      for (      Message message : messages) {
+        if (jsonpParam != null)         message.put("jsonp",jsonpParam);
+        if (client == null) {
+          String clientId=(String)message.get(AbstractBayeux.CLIENT_FIELD);
+          client=(AtmosphereBayeuxClient)_bayeux.getClient(clientId);
+          if (client == null) {
+            String browser_id=findBrowserId(request);
+            if (browser_id == null)             browser_id=setBrowserId(request,response);
+            if (transport == null) {
+              transport=_bayeux.newTransport(client,message);
+              transport.setResponse(response);
+              metaConnectDeliveryOnly=transport.isMetaConnectDeliveryOnly();
+            }
+            _bayeux.handle(null,transport,message);
+            message=null;
+            continue;
+          }
+        }
+        String browser_id=findBrowserId(request);
+        if (browser_id != null && (client.getBrowserId() == null || !client.getBrowserId().equals(browser_id)))         client.setBrowserId(browser_id);
+        if (transport == null) {
+          transport=_bayeux.newTransport(client,message);
+          transport.setResponse(response);
+          metaConnectDeliveryOnly=client.isMetaConnectDeliveryOnly() || transport.isMetaConnectDeliveryOnly();
+        }
+        if (!metaConnectDeliveryOnly && !pendingResponse) {
+          pendingResponse=true;
+          client.responsePending();
+        }
+        if (Bayeux.META_CONNECT.equals(message.getChannel()))         metaConnect=true;
+        _bayeux.handle(client,transport,message);
+      }
+    }
+  finally {
+      for (      Message message : messages)       ((MessageImpl)message).decRef();
+      if (pendingResponse) {
+        client.responded();
+      }
+    }
+  }
+  Message metaConnectReply=null;
+  if (transport != null) {
+    metaConnectReply=transport.getMetaConnectReply();
+    if (metaConnectReply != null) {
+      long timeout=client.getTimeout();
+      if (timeout == 0)       timeout=_bayeux.getTimeout();
+      AtmosphereResource<HttpServletRequest,HttpServletResponse> continuation=(AtmosphereResource)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+synchronized (client) {
+        if (!client.hasNonLazyMessages() && initial && received <= 1) {
+          request.setAttribute(CLIENT_ATTR,client);
+          request.setAttribute(TRANSPORT_ATTR,transport);
+          continuation.suspend(timeout,false);
+          client.setContinuation(continuation);
+          return;
+        }
+      }
+      client.setContinuation(null);
+      transport.setMetaConnectReply(null);
+    }
+ else     if (client != null) {
+      client.access();
+    }
+  }
+  if (client != null) {
+    if (metaConnectDeliveryOnly && !metaConnect) {
+      client.resume();
+    }
+ else {
+      List<Message> messages;
+synchronized (client) {
+        client.doDeliverListeners();
+        ArrayQueue<Message> clientMessages=(ArrayQueue<Message>)client.getQueue();
+        messages=new ArrayList<Message>(clientMessages);
+        clientMessages.clear();
+      }
+      final int size=messages.size();
+      for (int i=0; i < size; i++) {
+        final Message message=messages.get(i);
+        final MessageImpl mesgImpl=(message instanceof MessageImpl) ? (MessageImpl)message : null;
+        if (i == 0 && size == 1 && mesgImpl != null && _refsThreshold > 0 && metaConnectReply != null && transport instanceof JSONTransport) {
+          ByteBuffer buffer=mesgImpl.getBuffer();
+          if (buffer != null) {
+            request.setAttribute("org.mortbay.jetty.ResponseBuffer",buffer);
+            if (metaConnectReply instanceof MessageImpl)             ((MessageImpl)metaConnectReply).decRef();
+            metaConnectReply=null;
+            transport=null;
+            mesgImpl.decRef();
+            continue;
+          }
+ else           if (mesgImpl.getRefs() >= _refsThreshold) {
+            byte[] contentBytes=("[" + mesgImpl.getJSON() + ",{\""+ Bayeux.SUCCESSFUL_FIELD+ "\":true,\""+ Bayeux.CHANNEL_FIELD+ "\":\""+ Bayeux.META_CONNECT+ "\"}]").getBytes(StringUtil.__UTF8);
+            int contentLength=contentBytes.length;
+            String headerString="HTTP/1.1 200 OK\r\n" + "Content-Type: text/json; charset=utf-8\r\n" + "Content-Length: " + contentLength + "\r\n"+ "\r\n";
+            byte[] headerBytes=headerString.getBytes(StringUtil.__UTF8);
+            buffer=ByteBuffer.allocateDirect(headerBytes.length + contentLength);
+            buffer.put(headerBytes);
+            buffer.put(contentBytes);
+            buffer.flip();
+            mesgImpl.setBuffer(buffer);
+            request.setAttribute("org.mortbay.jetty.ResponseBuffer",buffer);
+            metaConnectReply=null;
+            if (metaConnectReply instanceof MessageImpl)             ((MessageImpl)metaConnectReply).decRef();
+            transport=null;
+            mesgImpl.decRef();
+            continue;
+          }
+        }
+        if (message != null)         transport.send(message);
+        if (mesgImpl != null)         mesgImpl.decRef();
+      }
+      if (metaConnectReply != null) {
+        metaConnectReply=_bayeux.extendSendMeta(client,metaConnectReply);
+        transport.send(metaConnectReply);
+        if (metaConnectReply instanceof MessageImpl)         ((MessageImpl)metaConnectReply).decRef();
+      }
+    }
+  }
+  if (transport != null)   transport.complete();
+}

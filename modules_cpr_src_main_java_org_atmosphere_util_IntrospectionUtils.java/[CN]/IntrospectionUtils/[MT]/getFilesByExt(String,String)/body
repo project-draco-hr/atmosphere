@@ -1,0 +1,17 @@
+{
+  File dir=new File(ld);
+  String[] names=null;
+  final String lext=ext;
+  if (dir.isDirectory()) {
+    names=dir.list(new FilenameFilter(){
+      public boolean accept(      File d,      String name){
+        if (name.endsWith(lext)) {
+          return true;
+        }
+        return false;
+      }
+    }
+);
+  }
+  return names;
+}

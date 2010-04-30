@@ -1,0 +1,11 @@
+{
+  CometHandler handler=ctx.getCometHandler((Integer)req.getAttribute(ATMOSPHERE));
+  req.removeAttribute(ATMOSPHERE);
+  if (handler == null && supportSession()) {
+    handler=ctx.getCometHandler((Integer)req.getSession().getAttribute(ATMOSPHERE));
+    req.getSession().removeAttribute(ATMOSPHERE);
+  }
+  if (handler != null && (config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
+    ctx.resumeCometHandler(handler);
+  }
+}

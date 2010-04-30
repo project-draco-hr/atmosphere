@@ -1,0 +1,11 @@
+{
+  if (filterConfig.getFilter() == null) {
+    throw new NullPointerException("Filter is null");
+  }
+  if (n == filters.length) {
+    FilterConfigImpl[] newFilters=new FilterConfigImpl[n + INCREMENT];
+    System.arraycopy(filters,0,newFilters,0,n);
+    filters=newFilters;
+  }
+  filters[n++]=filterConfig;
+}

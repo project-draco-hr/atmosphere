@@ -1,0 +1,56 @@
+{
+  if (classLoader == null) {
+    return null;
+  }
+  List<AtmosphereHandler> atmosphereHandlerList=new LinkedList<AtmosphereHandler>();
+  URL urls[]=classLoader.getURLs();
+  List<String> list=new ArrayList<String>();
+  for (  URL url : urls) {
+    if ("file".equals(url.getProtocol())) {
+      if (url.getPath().endsWith("WEB-INF/lib/") || url.getPath().endsWith("WEB-INF/classes/")) {
+        File file=null;
+        try {
+          file=new File(url.toURI());
+        }
+ catch (        Exception e) {
+          URI uri=new URI(url.toString());
+          if (uri.getAuthority() == null)           file=new File(uri);
+ else           file=new File("//" + uri.getAuthority() + url.getFile());
+        }
+        if (file != null && file.isDirectory()) {
+          list.addAll(listFilesAndFolders(file.getCanonicalPath(),0));
+        }
+      }
+    }
+ else     if ("jar".equals(url.getProtocol())) {
+      JarURLConnection conn=(JarURLConnection)url.openConnection();
+      JarFile jar=conn.getJarFile();
+      Enumeration<JarEntry> en=jar.entries();
+      while (en.hasMoreElements()) {
+        JarEntry jarEntry=en.nextElement();
+        String classname=jarEntry.getName();
+        if (classname.endsWith(".class")) {
+          classname=classname.replace("WEB-INF/classes/","").replace('\\','/').replace('/','.').replace('$','.');
+          list.add(classname);
+        }
+      }
+    }
+  }
+  logger.finest("Number of classes to check for AtmosphereHandler : " + list.size());
+  for (  String classname : list) {
+    try {
+      Class<?> clazz=classLoader.loadClass(classname.substring(0,classname.indexOf(".class")));
+      if (AtmosphereHandler.class.isAssignableFrom(clazz)) {
+        Object obj=clazz.newInstance();
+        if (obj instanceof AtmosphereHandler) {
+          if (!classname.startsWith("org.atmosphere.websocket") && !classname.startsWith("org.atmosphere.cpr") && !classname.startsWith("org.atmosphere.handler")) {
+            atmosphereHandlerList.add((AtmosphereHandler)obj);
+          }
+        }
+      }
+    }
+ catch (    Throwable t) {
+    }
+  }
+  return atmosphereHandlerList;
+}

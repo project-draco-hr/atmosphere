@@ -1,0 +1,3 @@
+{
+  as.addAtmosphereHandler(path,ah);
+}

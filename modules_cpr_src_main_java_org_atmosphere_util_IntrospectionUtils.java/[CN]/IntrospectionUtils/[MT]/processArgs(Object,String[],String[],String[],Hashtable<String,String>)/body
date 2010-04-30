@@ -1,0 +1,34 @@
+{
+  for (int i=0; i < args.length; i++) {
+    String arg=args[i];
+    if (arg.startsWith("-"))     arg=arg.substring(1);
+    if (aliases != null && aliases.get(arg) != null)     arg=aliases.get(arg);
+    if (args0 != null) {
+      boolean set=false;
+      for (int j=0; j < args0.length; j++) {
+        if (args0[j].equalsIgnoreCase(arg)) {
+          setProperty(proxy,args0[j],"true");
+          set=true;
+          break;
+        }
+      }
+      if (set)       continue;
+    }
+    if (args1 != null) {
+      for (int j=0; j < args1.length; j++) {
+        if (args1[j].equalsIgnoreCase(arg)) {
+          i++;
+          if (i >= args.length)           return false;
+          setProperty(proxy,arg,args[i]);
+          break;
+        }
+      }
+    }
+ else {
+      i++;
+      if (i >= args.length)       return false;
+      setProperty(proxy,arg,args[i]);
+    }
+  }
+  return true;
+}

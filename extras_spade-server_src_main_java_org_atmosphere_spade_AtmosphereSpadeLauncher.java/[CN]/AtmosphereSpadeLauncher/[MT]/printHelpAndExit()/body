@@ -1,0 +1,14 @@
+{
+  System.err.println("Usage: " + AtmosphereSpadeLauncher.class.getCanonicalName() + " [options]");
+  System.err.println();
+  System.err.println("    -p, --port=port                   Runs AtmosphereSpadeServer on the specified port.");
+  System.err.println("                                      Default: 8080");
+  System.err.println("    -a, --apps=application path       The AtmosphereServlet folder or jar or war location.");
+  System.err.println("                                      Default: .");
+  System.err.println("    -rp, --respourcespackage=package  The resources package name");
+  System.err.println("                                      Default: ");
+  System.err.println("    -sp, --servletPath=path           The path AtmosphereServlet will serve resources");
+  System.err.println("                                      Default: .");
+  System.err.println("    -h, --help                        Show this help message.");
+  System.exit(1);
+}

@@ -1,0 +1,7 @@
+{
+  gms.addActionFactory(new JoinNotificationActionFactoryImpl(this));
+  gms.addActionFactory(new FailureSuspectedActionFactoryImpl(this));
+  gms.addActionFactory(new FailureNotificationActionFactoryImpl(this));
+  gms.addActionFactory(new PlannedShutdownActionFactoryImpl(this));
+  gms.addActionFactory(new MessageActionFactoryImpl(this),topicName);
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    atmosphereHandlerList=findAtmosphereHandlers((URLClassLoader)webAppCL);
+  }
+ catch (  Throwable t) {
+    logger.log(Level.WARNING,"Error in finding AtmosphereHandler",t);
+  }
+  return new AtmosphereWebAppAdapter();
+}

@@ -1,0 +1,6 @@
+{
+  if (price > this.price) {
+    this.price=price;
+    numberOfBids++;
+  }
+}

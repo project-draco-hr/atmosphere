@@ -1,0 +1,8 @@
+{
+  try {
+    webSocketProcessor.connect(httpServletRequest);
+  }
+ catch (  IOException e) {
+    LoggerUtils.getLogger().log(Level.WARNING,"",e);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  r.getRequest().setAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE,r);
+  r.getRequest().setAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER,this);
+  try {
+    wrapper.service(r.getRequest(),r.getResponse());
+  }
+ catch (  ServletException ex) {
+    throw new RuntimeException(ex);
+  }
+}

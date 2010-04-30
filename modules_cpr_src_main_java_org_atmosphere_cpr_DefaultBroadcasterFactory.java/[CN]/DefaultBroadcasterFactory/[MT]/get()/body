@@ -1,0 +1,7 @@
+{
+  Broadcaster b=clazz.newInstance();
+  b.setBroadcasterConfig(config);
+  b.setID(clazz.getSimpleName() + "-" + new Random().nextInt());
+  store.put(b.getID(),b);
+  return b;
+}

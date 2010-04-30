@@ -1,0 +1,16 @@
+{
+  AtmosphereResourceEvent e=null;
+synchronized (r) {
+    if (!r.getAtmosphereResourceEvent().isSuspended())     return;
+    trackBroadcastMessage(r,msg);
+    e=r.getAtmosphereResourceEvent();
+    e.setMessage(msg);
+    if (r instanceof AtmosphereEventLifecycle) {
+      ((AtmosphereEventLifecycle)r).notifyListeners();
+    }
+    if (r.getRequest() instanceof HttpServletRequest) {
+      ((HttpServletRequest)r.getRequest()).setAttribute(CometSupport.MAX_INACTIVE,(Long)System.currentTimeMillis());
+    }
+    broadcast(r,e);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (target == null) {
+    d("Assert: Illegal params " + target);
+    return null;
+  }
+  if (dbg > 0)   d("callMethod0 " + target.getClass().getName() + "."+ methodN);
+  Class params[]=new Class[0];
+  Method m=findMethod(target.getClass(),methodN,params);
+  if (m == null)   throw new NoSuchMethodException(target.getClass().getName() + " " + methodN);
+  return m.invoke(target,emptyArray);
+}

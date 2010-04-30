@@ -1,0 +1,17 @@
+{
+  super.action(actionEvent);
+  if (actionEvent.action().type == Action.TYPE.RESUME) {
+    try {
+      HttpEvent event=(HttpEvent)actionEvent.getRequest().getAttribute(HTTP_EVENT);
+      resumed.offer(event);
+      if (config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
+        event.close();
+      }
+    }
+ catch (    IOException ex) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.log(Level.FINE,"",ex);
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (logger.isLoggable(Level.FINE)) {
+    logger.fine("(resumed) invoked:\n HttpServletRequest: " + req + "\n HttpServletResponse: "+ res);
+  }
+  return action(req,res);
+}

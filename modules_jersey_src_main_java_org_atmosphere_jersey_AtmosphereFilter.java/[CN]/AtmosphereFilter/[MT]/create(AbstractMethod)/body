@@ -1,0 +1,62 @@
+{
+  LinkedList<ResourceFilter> list=new LinkedList<ResourceFilter>();
+  if (logger.isLoggable(Level.FINE)) {
+    for (    Annotation a : am.getAnnotations()) {
+      logger.log(Level.FINE,"AtmosphereFilter processing annotation: " + a);
+    }
+  }
+  if (am.isAnnotationPresent(Broadcast.class)) {
+    Filter f;
+    int delay=am.getAnnotation(Broadcast.class).delay();
+    Class[] value=am.getAnnotation(Broadcast.class).value();
+    if (am.getAnnotation(Broadcast.class).resumeOnBroadcast()) {
+      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,value);
+    }
+ else {
+      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,value);
+    }
+    list.addLast((ResourceFilter)f);
+    if (am.isAnnotationPresent(Cluster.class)) {
+      value=am.getAnnotation(Cluster.class).value();
+      for (      Class<ClusterBroadcastFilter> c : value) {
+        try {
+          ClusterBroadcastFilter cbf=c.newInstance();
+          cbf.setClusterName(am.getAnnotation(Cluster.class).name());
+          f.addCluster(cbf);
+        }
+ catch (        Throwable t) {
+          logger.log(Level.WARNING,"Invalid ClusterBroadcastFilter",t);
+        }
+      }
+    }
+  }
+  if (am.isAnnotationPresent(Suspend.class)) {
+    int value=am.getAnnotation(Suspend.class).period();
+    Suspend.SCOPE scope=am.getAnnotation(Suspend.class).scope();
+    boolean outputComments=am.getAnnotation(Suspend.class).outputComments();
+    Filter f;
+    if (am.getAnnotation(Suspend.class).resumeOnBroadcast()) {
+      f=new Filter(Action.SUSPEND_RESUME,value,0,scope,outputComments);
+    }
+ else {
+      f=new Filter(Action.SUSPEND,value,0,scope,outputComments);
+    }
+    f.setListeners(am.getAnnotation(Suspend.class).listeners());
+    list.addFirst((ResourceFilter)f);
+  }
+  if (am.isAnnotationPresent(Resume.class)) {
+    int value=am.getAnnotation(Resume.class).value();
+    list.addFirst((ResourceFilter)new Filter(Action.RESUME,value));
+  }
+  if (am.isAnnotationPresent(Schedule.class)) {
+    int period=am.getAnnotation(Schedule.class).period();
+    int waitFor=am.getAnnotation(Schedule.class).waitFor();
+    if (am.getAnnotation(Schedule.class).resumeOnBroadcast()) {
+      list.addFirst((ResourceFilter)new Filter(Action.SCHEDULE_RESUME,period,waitFor));
+    }
+ else {
+      list.addFirst((ResourceFilter)new Filter(Action.SCHEDULE,period,waitFor));
+    }
+  }
+  return list.size() > 0 ? list : null;
+}

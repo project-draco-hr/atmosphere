@@ -1,0 +1,11 @@
+{
+  if (sc.getServletContext().getServerInfo().startsWith("Google")) {
+    broadcasterClassName=GAE_BROADCASTER;
+    cometSupport=new GoogleAppEngineCometSupport(config);
+    broadcasterConfig=new GAEBroadcasterConfig();
+    return true;
+  }
+ else {
+    return false;
+  }
+}

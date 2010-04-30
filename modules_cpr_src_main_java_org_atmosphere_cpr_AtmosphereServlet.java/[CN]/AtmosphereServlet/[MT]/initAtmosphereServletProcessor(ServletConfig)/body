@@ -1,0 +1,9 @@
+{
+  AtmosphereHandler a;
+  for (  Entry<String,AtmosphereHandlerWrapper> h : atmosphereHandlers.entrySet()) {
+    a=h.getValue().atmosphereHandler;
+    if (a instanceof AtmosphereServletProcessor) {
+      ((AtmosphereServletProcessor)a).init(sc);
+    }
+  }
+}

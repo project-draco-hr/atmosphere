@@ -1,0 +1,10 @@
+{
+  JSONObject resultObject=(JSONObject)result;
+  JSONArray resultArray=(JSONArray)resultObject.get("value");
+  JSONNumber itemId=(JSONNumber)resultArray.get(0);
+  JSONNumber itemPrice=(JSONNumber)resultArray.get(1);
+  JSONNumber numberOfBids=(JSONNumber)resultArray.get(2);
+  Integer itemKey=new Integer((int)itemId.getValue());
+  ((Label)mapOfItemPrices.get(itemKey)).setText("$ " + itemPrice.toString());
+  ((Label)mapOfNumberOfBids.get(itemKey)).setText("" + Double.valueOf(numberOfBids.toString()).intValue());
+}

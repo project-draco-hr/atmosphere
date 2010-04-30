@@ -1,0 +1,3 @@
+{
+  setID(SimpleBroadcaster.class.getSimpleName());
+}

@@ -1,0 +1,7 @@
+{
+  HttpSession session=r.getRequest().getSession(false);
+  if (session == null) {
+    session=r.getRequest().getSession(true);
+  }
+  return (CachedMessage)session.getAttribute(BROADCASTER_CACHE_TRACKER);
+}

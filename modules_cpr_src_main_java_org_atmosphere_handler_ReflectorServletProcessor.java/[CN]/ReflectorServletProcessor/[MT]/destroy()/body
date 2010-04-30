@@ -1,0 +1,5 @@
+{
+  if (filterChain != null) {
+    filterChain.destroy();
+  }
+}

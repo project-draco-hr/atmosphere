@@ -1,0 +1,6 @@
+{
+  Class<?> p[]=new Class[1];
+  p[0]=args.getClass();
+  @SuppressWarnings("unchecked") Method m=c.getMethod("main",p);
+  m.invoke(c,new Object[]{args});
+}

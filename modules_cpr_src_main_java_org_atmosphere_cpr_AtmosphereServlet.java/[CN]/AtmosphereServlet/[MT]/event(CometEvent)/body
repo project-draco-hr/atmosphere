@@ -1,0 +1,14 @@
+{
+  HttpServletRequest req=cometEvent.getHttpServletRequest();
+  HttpServletResponse res=cometEvent.getHttpServletResponse();
+  req.setAttribute(TomcatCometSupport.COMET_EVENT,cometEvent);
+  if (!isCometSupportSpecified && !isCometSupportConfigured.getAndSet(true)) {
+synchronized (cometSupport) {
+      if (!cometSupport.getClass().equals(TomcatCometSupport.class)) {
+        logger.warning("TomcatCometSupport is enabled, switching to it");
+        cometSupport=new TomcatCometSupport(config);
+      }
+    }
+  }
+  doCometSupport(req,res);
+}

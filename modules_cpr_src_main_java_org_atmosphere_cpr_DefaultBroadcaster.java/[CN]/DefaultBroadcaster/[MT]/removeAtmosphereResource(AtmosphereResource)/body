@@ -1,0 +1,10 @@
+{
+  if (!events.contains(r)) {
+    return null;
+  }
+  events.remove(r);
+  if (events.isEmpty()) {
+    BroadcasterFactory.getDefault().remove(this,name);
+  }
+  return r;
+}

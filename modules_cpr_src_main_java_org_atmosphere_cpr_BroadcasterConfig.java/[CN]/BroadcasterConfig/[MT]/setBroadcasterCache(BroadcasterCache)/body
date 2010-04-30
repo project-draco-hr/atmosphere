@@ -1,0 +1,4 @@
+{
+  this.broadcasterCache=broadcasterCache;
+  return this;
+}

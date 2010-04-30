@@ -1,0 +1,28 @@
+{
+  String s=sc.getRealPath(WEB_INF);
+  if (s == null) {
+    URL u=sc.getResource(WEB_INF);
+    if (u == null)     return;
+    s=u.getPath();
+  }
+  File f=new File(s);
+  if (f.isDirectory()) {
+    getFiles(f);
+    for (    String className : possibleAtmosphereHandlersCandidate) {
+      try {
+        className=className.replace('\\','/');
+        className=className.substring(className.indexOf(WEB_INF) + WEB_INF.length(),className.lastIndexOf(".")).replace('/','.');
+        Class<?> clazz=c.loadClass(className);
+        if (AtmosphereHandler.class.isAssignableFrom(clazz)) {
+          AtmosphereHandler g=(AtmosphereHandler)clazz.newInstance();
+          logger.info("Successfully loaded " + g + " mapped to context-path "+ g.getClass().getSimpleName());
+          atmosphereHandlers.put("/" + g.getClass().getSimpleName(),new AtmosphereHandlerWrapper(g,null));
+        }
+      }
+ catch (      Throwable t) {
+        logger.finest(className + " is not a AtmosphereHandler");
+      }
+    }
+  }
+  logger.info("Atmosphere using Broadcaster " + broadcasterClassName);
+}

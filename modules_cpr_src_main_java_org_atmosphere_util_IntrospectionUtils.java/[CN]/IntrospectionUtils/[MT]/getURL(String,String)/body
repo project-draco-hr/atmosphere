@@ -1,0 +1,16 @@
+{
+  try {
+    File baseF=new File(base);
+    File f=new File(baseF,file);
+    String path=f.getCanonicalPath();
+    if (f.isDirectory()) {
+      path+="/";
+    }
+    if (!f.exists())     return null;
+    return new URL("file","",path);
+  }
+ catch (  Exception ex) {
+    ex.printStackTrace();
+    return null;
+  }
+}

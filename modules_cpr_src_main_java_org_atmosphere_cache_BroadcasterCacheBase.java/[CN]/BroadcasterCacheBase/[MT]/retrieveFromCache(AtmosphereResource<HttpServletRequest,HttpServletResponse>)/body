@@ -1,0 +1,32 @@
+{
+  CachedMessage cm=retrieveLastMessage(r);
+  boolean isNew=false;
+  if (cm == null && r.getRequest().getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) != null) {
+    isNew=true;
+  }
+  boolean isHead=false;
+  if (cm != null && cm.isTail)   cm=null;
+  if (cm != null) {
+    if (!queue.contains(cm) && !queue.isEmpty()) {
+      cm=queue.get(0);
+      isHead=true;
+    }
+  }
+ else   if (isNew && !queue.isEmpty()) {
+    cm=queue.get(0);
+    isHead=true;
+  }
+  final ArrayList<Object> l=new ArrayList<Object>();
+  if (cm == null) {
+    return l;
+  }
+  if (!isHead)   cm=cm.next();
+  CachedMessage prev=cm;
+  while (cm != null) {
+    l.add(cm.message());
+    prev=cm;
+    cm=cm.next();
+  }
+  if (prev != null)   cache(r,prev);
+  return l;
+}

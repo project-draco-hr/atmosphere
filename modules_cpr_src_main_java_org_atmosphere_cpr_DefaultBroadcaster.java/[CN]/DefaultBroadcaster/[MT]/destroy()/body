@@ -1,0 +1,8 @@
+{
+  if (bc != null) {
+    bc.destroy();
+  }
+  if (broadcasterCache != null) {
+    broadcasterCache.stop();
+  }
+}

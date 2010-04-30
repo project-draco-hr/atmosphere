@@ -1,0 +1,44 @@
+{
+  for (int i=0; i < args.length - 1; i++) {
+    String arg=args[i];
+    if ("-h".equals(arg) || "--help".equals(arg)) {
+      printHelpAndExit();
+    }
+ else     if ("-a".equals(arg)) {
+      i++;
+      applicationLoc=args[i];
+    }
+ else     if (arg.startsWith("--application=")) {
+      applicationLoc=arg.substring("--application=".length(),arg.length());
+    }
+ else     if ("-p".equals(arg)) {
+      i++;
+      setPort(args[i]);
+    }
+ else     if (arg.startsWith("--port=")) {
+      String num=arg.substring("--port=".length(),arg.length());
+      setPort(num);
+    }
+ else     if ("-rp".equals(arg)) {
+      i++;
+      resourcesPackage=args[i];
+    }
+ else     if (arg.startsWith("--resourcespackage=")) {
+      String val=arg.substring("--resourcespackage=".length(),arg.length());
+      resourcesPackage=val;
+    }
+ else     if ("-sp".equals(arg)) {
+      i++;
+      servletPath=args[i];
+    }
+ else     if (arg.startsWith("--servletpath=")) {
+      String val=arg.substring("--servletpath=".length(),arg.length());
+      servletPath=val;
+    }
+  }
+  if (applicationLoc == null) {
+    System.err.println("Illegal War|Jar file or folder location.");
+    printHelpAndExit();
+  }
+  return true;
+}

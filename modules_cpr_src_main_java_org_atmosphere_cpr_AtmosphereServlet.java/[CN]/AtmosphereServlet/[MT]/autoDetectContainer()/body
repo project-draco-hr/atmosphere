@@ -1,0 +1,6 @@
+{
+  if (getCometSupport() == null) {
+    setCometSupport(createCometSupportResolver().resolve(useNativeImplementation,useBlockingImplementation,webSocketEnbled));
+  }
+  logger.info("Atmosphere is using for CometSupport: " + getCometSupport().getClass().getName() + " running under container "+ cometSupport.getContainerName());
+}

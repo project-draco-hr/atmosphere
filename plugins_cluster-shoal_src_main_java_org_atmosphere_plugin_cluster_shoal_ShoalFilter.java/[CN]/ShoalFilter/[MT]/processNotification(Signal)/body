@@ -1,0 +1,20 @@
+{
+  try {
+    signal.acquire();
+    String msg=null;
+    if (signal instanceof MessageSignal) {
+      msg=new String(((MessageSignal)signal).getMessage());
+      receivedMessages.offer(msg);
+    }
+    signal.release();
+    if (msg != null && bc != null) {
+      bc.broadcast(msg);
+    }
+  }
+ catch (  SignalAcquireException e) {
+    logger.log(Level.WARNING,"Exception occured while acquiring signal" + e);
+  }
+catch (  SignalReleaseException e) {
+    logger.log(Level.WARNING,"Exception occured while releasing signal" + e);
+  }
+}

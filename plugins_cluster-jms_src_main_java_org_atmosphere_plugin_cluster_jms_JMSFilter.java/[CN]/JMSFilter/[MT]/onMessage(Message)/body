@@ -1,0 +1,15 @@
+{
+  try {
+    TextMessage textMessage=(TextMessage)msg;
+    String message=textMessage.getText();
+    receivedMessages.offer(message);
+    if (message != null && bc != null) {
+      bc.broadcast(message);
+    }
+  }
+ catch (  JMSException ex) {
+    if (logger.isLoggable(Level.WARNING)) {
+      logger.log(Level.WARNING,"",ex);
+    }
+  }
+}

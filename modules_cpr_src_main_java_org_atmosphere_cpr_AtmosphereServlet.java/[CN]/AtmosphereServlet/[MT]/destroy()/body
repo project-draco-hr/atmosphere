@@ -1,0 +1,15 @@
+{
+  if (cometSupport instanceof AsynchronousProcessor) {
+    ((AsynchronousProcessor)cometSupport).shutdown();
+  }
+  AtmosphereHandler a;
+  for (  Entry<String,AtmosphereHandlerWrapper> h : atmosphereHandlers.entrySet()) {
+    a=h.getValue().atmosphereHandler;
+    if (a instanceof AtmosphereServletProcessor) {
+      ((AtmosphereServletProcessor)a).destroy();
+    }
+    h.getValue().broadcaster.destroy();
+  }
+  BroadcasterFactory.getDefault().destroy();
+  broadcasterConfig=new BroadcasterConfig();
+}

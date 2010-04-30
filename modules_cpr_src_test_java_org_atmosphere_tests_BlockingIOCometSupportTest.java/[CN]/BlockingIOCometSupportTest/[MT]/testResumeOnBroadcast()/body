@@ -1,0 +1,67 @@
+{
+  System.out.println("Running testResumeOnBroadcast");
+  final CountDownLatch latch=new CountDownLatch(2);
+  final CountDownLatch suspended=new CountDownLatch(1);
+  atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
+    AtomicBoolean b=new AtomicBoolean(false);
+    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      if (!b.getAndSet(true)) {
+        try {
+          event.suspend();
+        }
+  finally {
+          suspended.countDown();
+        }
+      }
+ else {
+        event.getBroadcaster().broadcast("foo");
+      }
+    }
+    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+      if (event.isResuming()) {
+        return;
+      }
+      try {
+        assertFalse(event.isCancelled());
+        assertNotNull(event.getMessage());
+        assertEquals(event.getMessage(),"foo");
+        event.getResource().getResponse().flushBuffer();
+        event.getResource().resume();
+      }
+  finally {
+        latch.countDown();
+      }
+    }
+  }
+,new RecyclableBroadcaster("suspend"));
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<String>(){
+      @Override public String onCompleted(      Response response) throws Exception {
+        try {
+          assertEquals(response.getResponseBody(),AtmosphereResourceImpl.createCompatibleStringJunk());
+        }
+  finally {
+          latch.countDown();
+        }
+        return null;
+      }
+    }
+);
+    suspended.await(20,TimeUnit.SECONDS);
+    Response r=c.prepareGet(urlTarget).execute().get();
+    try {
+      latch.await(20,TimeUnit.SECONDS);
+    }
+ catch (    InterruptedException e) {
+      fail(e.getMessage());
+    }
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}

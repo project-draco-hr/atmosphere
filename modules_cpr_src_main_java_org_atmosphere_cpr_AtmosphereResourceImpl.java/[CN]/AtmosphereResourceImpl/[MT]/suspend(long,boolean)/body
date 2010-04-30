@@ -1,0 +1,15 @@
+{
+  if (!event.isResumedOnTimeout()) {
+    res.setHeader("Expires","-1");
+    res.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
+    res.setHeader("Pragma","no-cache");
+    if (flushComment && !Boolean.valueOf(config.getInitParameter(AtmosphereServlet.SUSPEND_WITHOUT_COMMENT))) {
+      write();
+    }
+    req.setAttribute(PRE_SUSPEND,"true");
+    action.type=AtmosphereServlet.Action.TYPE.SUSPEND;
+    action.timeout=timeout;
+    broadcaster.addAtmosphereResource(this);
+    req.removeAttribute(PRE_SUSPEND);
+  }
+}

@@ -1,0 +1,42 @@
+{
+  if (!delayedBroadcast.isEmpty()) {
+    Iterator<Entry> i=delayedBroadcast.iterator();
+    while (i.hasNext()) {
+      Entry e=i.next();
+      if (!(e.f instanceof BroadcasterFuture)) {
+        e.f.cancel(true);
+      }
+      try {
+        if (e.message instanceof String && msg.message instanceof String) {
+          msg.message=e.message.toString() + msg.message.toString();
+        }
+ else {
+          push(e);
+        }
+      }
+  finally {
+        i.remove();
+        if (e.f instanceof BroadcasterFuture) {
+          ((BroadcasterFuture)e.f).done();
+        }
+      }
+    }
+  }
+  if (events.isEmpty()) {
+    trackBroadcastMessage(null,msg.message);
+  }
+  if (msg.eventsToPush == null) {
+    for (    AtmosphereResource r : events) {
+      push(r,msg.message);
+    }
+  }
+ else   if (msg.eventsToPush instanceof AtmosphereResource) {
+    push((AtmosphereResource)msg.eventsToPush,msg.message);
+  }
+ else   if (msg.eventsToPush instanceof Set) {
+    Set<AtmosphereResource> sub=(Set<AtmosphereResource>)msg.eventsToPush;
+    for (    AtmosphereResource r : sub) {
+      push(r,msg.message);
+    }
+  }
+}

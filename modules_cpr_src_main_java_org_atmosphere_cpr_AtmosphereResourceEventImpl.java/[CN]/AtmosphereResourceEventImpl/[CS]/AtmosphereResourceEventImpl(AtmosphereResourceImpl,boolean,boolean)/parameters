@@ -1,0 +1,3 @@
+AtmosphereResourceImpl r
+boolean isCancelled
+boolean isResumedOnTimeout

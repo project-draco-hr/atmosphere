@@ -1,0 +1,12 @@
+{
+  Method executeM=null;
+  Class<?> c=proxy.getClass();
+  Class<?> params[]=new Class[1];
+  params[0]=String.class;
+  executeM=findMethod(c,"getAttribute",params);
+  if (executeM == null) {
+    if (logger.isLoggable(Level.FINE))     logger.fine("No getAttribute in " + proxy.getClass());
+    return null;
+  }
+  return executeM.invoke(proxy,new Object[]{n});
+}

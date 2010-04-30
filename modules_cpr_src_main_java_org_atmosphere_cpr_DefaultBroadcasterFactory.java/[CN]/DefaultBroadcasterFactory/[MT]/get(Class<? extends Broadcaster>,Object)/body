@@ -1,0 +1,9 @@
+{
+  if (id == null)   throw new NullPointerException("id is null");
+  if (c == null)   throw new NullPointerException("Class is null");
+  Broadcaster b=c.newInstance();
+  b.setBroadcasterConfig(config);
+  b.setID(id.toString());
+  store.put(id,b);
+  return b;
+}

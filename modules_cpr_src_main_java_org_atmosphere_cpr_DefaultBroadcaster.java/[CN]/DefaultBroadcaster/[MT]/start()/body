@@ -1,0 +1,34 @@
+{
+  if (!started.getAndSet(true)) {
+    if (bc == null) {
+      LoggerUtils.getLogger().log(Level.WARNING,"BroadcasterConfig was null. It is recommended to use a BroadcasterFactory " + "for creating Broadcaster instead of using new");
+      bc=new BroadcasterConfig();
+    }
+    broadcasterCache=bc.getBroadcasterCache();
+    broadcasterCache.start();
+    bc.getExecutorService().submit(new Runnable(){
+      public void run(){
+        Entry msg=null;
+        try {
+          msg=messages.take();
+          bc.getExecutorService().submit(this);
+          push(msg);
+        }
+ catch (        Throwable ex) {
+          LoggerUtils.getLogger().log(Level.SEVERE,null,ex);
+        }
+ finally {
+          if (msg != null) {
+            if (msg.f instanceof BroadcasterFuture) {
+              ((BroadcasterFuture)msg.f).done();
+            }
+ else {
+              msg.f.cancel(true);
+            }
+          }
+        }
+      }
+    }
+);
+  }
+}

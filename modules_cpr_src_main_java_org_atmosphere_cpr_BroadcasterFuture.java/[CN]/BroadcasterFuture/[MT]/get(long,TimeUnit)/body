@@ -1,0 +1,4 @@
+{
+  latch.await(l,tu);
+  return msg;
+}

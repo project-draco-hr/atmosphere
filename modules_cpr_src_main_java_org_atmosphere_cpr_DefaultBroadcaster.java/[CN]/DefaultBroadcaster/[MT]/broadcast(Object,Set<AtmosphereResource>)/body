@@ -1,0 +1,8 @@
+{
+  start();
+  msg=filter(msg);
+  if (msg == null)   return null;
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(msg);
+  messages.offer(new Entry(msg,subset,f));
+  return f;
+}

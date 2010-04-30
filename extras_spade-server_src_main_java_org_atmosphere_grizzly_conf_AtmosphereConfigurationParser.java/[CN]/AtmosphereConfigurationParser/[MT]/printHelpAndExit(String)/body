@@ -1,0 +1,6 @@
+{
+  StringBuilder sb=new StringBuilder(1024);
+  sb.append("\nUsage: ").append(canonicalName).append("\n  --application=[path]*       Application(s) path(s).\n").append("  --port=[port]               Runs Servlet on the specified port.\n").append("  --context=[context]         Force the context for a servlet.\n").append("  --dontstart=[true/false]    Won't start the server.\n").append("  --libraryPath=[path]        Add a libraries folder to the classpath.\n").append("  --autodeploy=[path]         AutoDeploy to each applications\n").append("  --webdefault=[path]         webdefault to be used by all applications, can be file or dir with multipe web.xmls\n").append("  --cometEnabled              Starts the AsyncFilter for Comet\n").append("  --forceWar                  Force war's deployment over a expanded folder.\n").append("  --ajpEnabled                Enable mod_jk.\n").append("  --help                      Show this help message.\n").append("  --longhelp                  Show detailled help message.\n\n").append("  * are mandatory");
+  logger.log(Level.SEVERE,sb.toString());
+  System.exit(1);
+}

@@ -1,0 +1,19 @@
+{
+  try {
+    Class<?> urlCL=Class.forName("java.net.URLClassLoader");
+    Class<?> paramT[]=new Class[2];
+    paramT[0]=urls.getClass();
+    paramT[1]=ClassLoader.class;
+    Method m=findMethod(urlCL,"newInstance",paramT);
+    if (m == null)     return null;
+    ClassLoader cl=(ClassLoader)m.invoke(urlCL,new Object[]{urls,parent});
+    return cl;
+  }
+ catch (  ClassNotFoundException ex) {
+    return null;
+  }
+catch (  Exception ex) {
+    ex.printStackTrace();
+    return null;
+  }
+}

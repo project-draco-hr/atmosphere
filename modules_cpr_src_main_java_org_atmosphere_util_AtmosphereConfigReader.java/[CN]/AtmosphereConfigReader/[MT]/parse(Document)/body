@@ -1,0 +1,39 @@
+{
+  Element element=document.getDocumentElement();
+  NodeList atmosphereHandlers=element.getElementsByTagName("atmosphere-handler");
+  for (int i=0; i < atmosphereHandlers.getLength(); i++) {
+    Node atmosphereHandler=atmosphereHandlers.item(i);
+    NamedNodeMap attrs=atmosphereHandler.getAttributes();
+    NodeList properties=atmosphereHandler.getChildNodes();
+    ArrayList<Property> list=new ArrayList<Property>();
+    for (int j=0; j < properties.getLength(); j++) {
+      Node property=properties.item(j);
+      NamedNodeMap values=property.getAttributes();
+      if (values != null) {
+        list.add(new Property(values.getNamedItem("name").getNodeValue(),values.getNamedItem("value").getNodeValue()));
+      }
+    }
+    if (attrs != null) {
+      atmosphereHandlerProperties.put(attrs.getNamedItem("context-root").getNodeValue(),list);
+      addAtmosphereHandler(attrs.getNamedItem("context-root").getNodeValue(),attrs.getNamedItem("class-name").getNodeValue());
+      if (attrs.getNamedItem("broadcaster") != null) {
+        String broadcasterClass=attrs.getNamedItem("broadcaster").getNodeValue();
+        if (broadcasterClass != null) {
+          broadcasters.put(attrs.getNamedItem("context-root").getNodeValue(),broadcasterClass);
+        }
+      }
+      if (attrs.getNamedItem("tracker") != null) {
+        String trackerClass=attrs.getNamedItem("tracker").getNodeValue();
+        if (trackerClass != null) {
+          trackers.put(attrs.getNamedItem("context-root").getNodeValue(),trackerClass);
+        }
+      }
+      if (attrs.getNamedItem("comet-support") != null) {
+        cometSupportClass=attrs.getNamedItem("comet-support").getNodeValue();
+      }
+      if (attrs.getNamedItem("support-session") != null) {
+        supportSession=attrs.getNamedItem("support-session").getNodeValue();
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  String servletClass=sc.getInitParameter("org.atmosphere.servlet");
+  String mapping=sc.getInitParameter("org.atmosphere.mapping");
+  String filterClass=sc.getInitParameter("org.atmosphere.filter");
+  ReflectorServletProcessor r=new ReflectorServletProcessor();
+  r.setServletClassName(servletClass);
+  r.setFilterClassName(filterClass);
+  if (mapping == null) {
+    mapping="/*";
+  }
+  addAtmosphereHandler(mapping,r);
+}

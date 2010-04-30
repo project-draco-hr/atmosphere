@@ -1,0 +1,16 @@
+{
+  try {
+    URL url=sc.getServletContext().getResource("/WEB-INF/classes/");
+    URLClassLoader urlC=new URLClassLoader(new URL[]{url},Thread.currentThread().getContextClassLoader());
+    loadAtmosphereDotXml(sc.getServletContext().getResourceAsStream("/META-INF/atmosphere.xml"),urlC);
+    if (atmosphereHandlers.size() == 0) {
+      autoDetectAtmosphereHandlers(sc.getServletContext(),urlC);
+      if (atmosphereHandlers.size() == 0) {
+        detectSupportedFramework(sc);
+      }
+    }
+  }
+ catch (  Throwable t) {
+    throw new ServletException(t);
+  }
+}

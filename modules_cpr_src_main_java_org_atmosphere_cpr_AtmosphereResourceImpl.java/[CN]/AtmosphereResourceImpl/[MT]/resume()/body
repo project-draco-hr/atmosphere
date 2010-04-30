@@ -1,0 +1,10 @@
+{
+  if (event.isSuspended()) {
+    action.type=AtmosphereServlet.Action.TYPE.RESUME;
+    notifyListeners();
+    listeners.clear();
+    broadcaster.removeAtmosphereResource(this);
+    req.setAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT,Boolean.FALSE);
+    cometSupport.action(this);
+  }
+}

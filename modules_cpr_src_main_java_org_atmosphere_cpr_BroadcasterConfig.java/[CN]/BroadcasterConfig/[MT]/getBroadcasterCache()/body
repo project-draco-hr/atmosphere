@@ -1,0 +1,6 @@
+{
+  if (broadcasterCache == null) {
+    broadcasterCache=new DefaultBroadcasterCache();
+  }
+  return broadcasterCache;
+}

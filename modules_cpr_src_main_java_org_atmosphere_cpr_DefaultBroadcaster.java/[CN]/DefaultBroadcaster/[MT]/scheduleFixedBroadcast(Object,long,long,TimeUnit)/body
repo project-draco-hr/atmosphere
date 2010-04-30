@@ -1,0 +1,14 @@
+{
+  if (period == 0 || t == null) {
+    return null;
+  }
+  final Object msg=filter(o);
+  if (msg == null)   return null;
+  final Entry e=new Entry(o,null,null);
+  return bc.getScheduledExecutorService().scheduleWithFixedDelay(new Runnable(){
+    public void run(){
+      push(e);
+    }
+  }
+,waitFor,period,t);
+}

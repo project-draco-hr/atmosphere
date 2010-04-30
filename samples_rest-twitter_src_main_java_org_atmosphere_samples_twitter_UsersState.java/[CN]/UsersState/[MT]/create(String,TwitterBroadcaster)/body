@@ -1,0 +1,7 @@
+{
+  UserStateData usd=get(user);
+  if (usd != null)   return null;
+  usd=new UserStateData(bc);
+  map.put(user,usd);
+  return usd;
+}

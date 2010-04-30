@@ -1,0 +1,12 @@
+{
+  if (event.getRequest().getMethod().equals("GET")) {
+    event.suspend();
+  }
+ else {
+    counter.incrementAndGet();
+    event.getBroadcaster().broadcast("");
+    PrintWriter writer=event.getResponse().getWriter();
+    writer.write("success");
+    writer.flush();
+  }
+}

@@ -1,0 +1,5 @@
+{
+  if (logger.isLoggable(Level.FINE)) {
+    logger.log(Level.FINE,"onStartAsync" + event.getAsyncContext().getResponse());
+  }
+}

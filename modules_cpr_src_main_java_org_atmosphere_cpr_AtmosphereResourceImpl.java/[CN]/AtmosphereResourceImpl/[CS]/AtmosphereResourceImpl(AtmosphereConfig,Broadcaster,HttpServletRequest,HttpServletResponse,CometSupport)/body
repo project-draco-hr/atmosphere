@@ -1,0 +1,8 @@
+{
+  this.req=req;
+  this.res=res;
+  this.broadcaster=broadcaster;
+  this.config=config;
+  this.cometSupport=cometSupport;
+  this.event=new AtmosphereResourceEventImpl(this);
+}

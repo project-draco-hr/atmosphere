@@ -1,0 +1,14 @@
+{
+  try {
+    StreamingServiceBusiness.Event event=(StreamingServiceBusiness.Event)message;
+    StringBuffer stream=new StringBuffer();
+    stream.append("<script type='text/javascript'>\n");
+    stream.append("\twindow.parent.callback('" + event.queueName + "',unescape('"+ URLEncoder.encode(event.message,"iso-8859-1").replaceAll("\\x2B","%20")+ "'));\n");
+    stream.append("</script>\n");
+    return new BroadcastAction(stream);
+  }
+ catch (  UnsupportedEncodingException ex) {
+    Logger.getLogger(StreamingServlet.class.getName()).log(Level.SEVERE,null,ex);
+  }
+  return new BroadcastAction(message);
+}

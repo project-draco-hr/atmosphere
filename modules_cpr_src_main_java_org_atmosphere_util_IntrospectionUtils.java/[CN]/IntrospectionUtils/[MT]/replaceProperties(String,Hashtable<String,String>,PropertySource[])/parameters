@@ -1,0 +1,3 @@
+String value
+Hashtable<String,String> staticProp
+PropertySource dynamicProp[]

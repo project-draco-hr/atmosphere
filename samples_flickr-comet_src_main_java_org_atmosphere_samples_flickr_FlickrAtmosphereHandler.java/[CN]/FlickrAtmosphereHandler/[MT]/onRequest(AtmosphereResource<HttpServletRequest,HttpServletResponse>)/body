@@ -1,0 +1,33 @@
+{
+  HttpServletRequest req=event.getRequest();
+  HttpServletResponse res=event.getResponse();
+  System.out.println("onEvent: " + req.getRequestURI());
+  String[] actionValues=req.getParameterValues("action");
+  if (actionValues != null && actionValues[0] != null) {
+    String action=req.getParameterValues("action")[0];
+    if ("post".equals(action)) {
+      String message=req.getParameterValues("message")[0];
+      String callback=req.getParameterValues("callback")[0];
+      if (callback == null) {
+        callback="alert";
+      }
+      event.getBroadcaster().broadcast("<script id='comet_" + counter++ + "'>"+ "window.parent."+ callback+ "("+ message+ ");</script>");
+      res.getWriter().write("ok");
+      res.getWriter().flush();
+    }
+ else     if ("start".equals(action)) {
+      res.setContentType("text/html;charset=ISO-8859-1");
+      res.addHeader("Cache-Control","private");
+      res.addHeader("Pragma","no-cache");
+      String callback=req.getParameterValues("callback")[0];
+      if (callback == null) {
+        callback="alert";
+      }
+      event.suspend();
+      String message="{ message : 'Welcome'}";
+      res.getWriter().write("<script id='comet_" + counter++ + "'>"+ "window.parent."+ callback+ "("+ message+ ");</script>");
+      res.getWriter().write("<html><head><title>Atmosphere Flickr " + "Demo</title></head><body bgcolor=\"#FFFFFF\">");
+      res.getWriter().flush();
+    }
+  }
+}

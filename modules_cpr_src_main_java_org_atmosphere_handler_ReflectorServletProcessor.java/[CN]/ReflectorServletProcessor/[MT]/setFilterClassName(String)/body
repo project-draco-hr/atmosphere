@@ -1,0 +1,4 @@
+{
+  if (filterClass == null)   return;
+  filtersClass.add(filterClass);
+}

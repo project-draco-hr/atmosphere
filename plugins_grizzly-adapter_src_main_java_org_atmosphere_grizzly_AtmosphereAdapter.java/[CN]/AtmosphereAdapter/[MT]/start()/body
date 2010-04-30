@@ -1,0 +1,7 @@
+{
+  if (resourcePackage != null) {
+    addInitParameter("com.sun.jersey.config.property.packages",resourcePackage);
+  }
+  setServletInstance(as);
+  super.start();
+}

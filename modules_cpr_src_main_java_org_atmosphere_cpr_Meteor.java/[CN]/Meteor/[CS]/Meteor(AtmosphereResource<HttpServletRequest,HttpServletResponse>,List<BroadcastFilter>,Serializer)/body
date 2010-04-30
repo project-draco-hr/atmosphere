@@ -1,0 +1,10 @@
+{
+  this.r=r;
+  r.setSerializer(s);
+  if (l != null) {
+    for (    BroadcastFilter f : l) {
+      r.getBroadcaster().getBroadcasterConfig().addFilter(f);
+    }
+  }
+  cache.put(r.getRequest(),this);
+}

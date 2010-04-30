@@ -1,0 +1,11 @@
+{
+  try {
+    r.getAtmosphereConfig().getAtmosphereHandler(this).onStateChange(e);
+  }
+ catch (  IOException ex) {
+    onException(ex,r);
+  }
+catch (  IllegalStateException ex) {
+    onException(ex,r);
+  }
+}

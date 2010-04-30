@@ -1,0 +1,4 @@
+{
+  this.webSocketProcessor=webSocketProcessor;
+  this.httpServletRequest=httpServletRequest;
+}

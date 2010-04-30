@@ -1,0 +1,9 @@
+{
+  final StringBuilder b=new StringBuilder("Found multiple containers, please specify which one to use: ");
+  for (  Class<? extends CometSupport> cs : available) {
+    b.append((cs != null) ? cs.getCanonicalName() : "null").append(", ");
+  }
+  b.append(" until you do, Atmosphere will use:" + available.get(0));
+  logger.warning(b.toString());
+  return newCometSupport(available.get(0));
+}

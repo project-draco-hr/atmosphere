@@ -1,0 +1,3 @@
+{
+  return minor == Version.minor && major == Version.major;
+}

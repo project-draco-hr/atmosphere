@@ -1,0 +1,6 @@
+{
+  if (e instanceof BroadcastFilterLifecycle) {
+    ((BroadcastFilterLifecycle)e).destroy();
+  }
+  return filters.remove(e);
+}

@@ -1,0 +1,68 @@
+{
+  CometEvent event=(CometEvent)req.getAttribute(COMET_EVENT);
+  if (event == null) {
+    throw unableToDetectComet;
+  }
+  Action action=null;
+  if (event.getEventType() == EventType.BEGIN) {
+    action=suspended(req,res);
+    if (action.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending " + res);
+      }
+      try {
+        if (action.timeout != -1) {
+          event.setTimeout((int)action.timeout);
+        }
+ else {
+          event.setTimeout(Integer.MAX_VALUE);
+        }
+      }
+ catch (      UnsupportedOperationException ex) {
+      }
+    }
+ else     if (action.type == Action.TYPE.RESUME) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Resuming " + res);
+      }
+      event.close();
+    }
+ else {
+      event.close();
+    }
+  }
+ else   if (event.getEventType() == EventType.READ) {
+  }
+ else   if (event.getEventSubType() == CometEvent.EventSubType.CLIENT_DISCONNECT) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.fine("Client closed connection " + res);
+    }
+    action=cancelled(req,res);
+    event.close();
+  }
+ else   if (event.getEventSubType() == CometEvent.EventSubType.TIMEOUT) {
+    if (logger.isLoggable(Level.FINE)) {
+      logger.fine("Timing out " + res);
+    }
+    action=timedout(req,res);
+    event.close();
+  }
+ else   if (event.getEventType() == EventType.ERROR) {
+    event.close();
+  }
+ else   if (event.getEventType() == EventType.END) {
+    if (!resumed.remove(event)) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Client closed connection " + res);
+      }
+      action=cancelled(req,res);
+    }
+ else {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Cancelling " + res);
+      }
+    }
+    event.close();
+  }
+  return action;
+}

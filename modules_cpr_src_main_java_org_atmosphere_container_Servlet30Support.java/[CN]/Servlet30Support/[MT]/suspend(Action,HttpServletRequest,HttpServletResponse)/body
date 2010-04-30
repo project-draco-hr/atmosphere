@@ -1,0 +1,16 @@
+{
+  if (!req.isAsyncStarted()) {
+    AsyncContext asyncContext=req.startAsync();
+    asyncContext.addListener(new CometListener());
+    if (action.timeout != -1) {
+      asyncContext.setTimeout(action.timeout);
+    }
+ else {
+      asyncContext.setTimeout(Integer.MAX_VALUE);
+    }
+    req.setAttribute("org.atmosphere.container.asyncContext",asyncContext);
+    if (supportSession()) {
+      req.getSession().setAttribute("org.atmosphere.container.asyncContext",asyncContext);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (events.contains(r)) {
+    return r;
+  }
+  if (events.isEmpty()) {
+    BroadcasterFactory.getDefault().add(this,name);
+  }
+  events.offer(r);
+  checkCachedAndPush(r,r.getAtmosphereResourceEvent());
+  return r;
+}

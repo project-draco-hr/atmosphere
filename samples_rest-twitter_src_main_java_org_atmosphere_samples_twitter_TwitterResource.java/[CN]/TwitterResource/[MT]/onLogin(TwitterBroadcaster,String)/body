@@ -1,0 +1,12 @@
+{
+  UserStateData usd=us.create(name,(TwitterBroadcaster)bc);
+  if (usd == null)   throw new WebApplicationException(400);
+  if (name == null) {
+    logger.severe("Name cannot be null");
+    throw new WebApplicationException(400);
+  }
+  bc.setID(name);
+  String m=BEGIN_SCRIPT_TAG + toJsonp("Welcome back",name) + END_SCRIPT_TAG;
+  Broadcastable b=new Broadcastable(m,bc);
+  return b;
+}

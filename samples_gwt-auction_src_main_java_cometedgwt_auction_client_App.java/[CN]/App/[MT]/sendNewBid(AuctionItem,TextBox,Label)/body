@@ -1,0 +1,29 @@
+{
+  int itemId=item.getId();
+  double lastBid=item.getPrice();
+  String newBid=myBid.getText();
+  double newBidValue=0.0;
+  try {
+    newBidValue=Double.parseDouble(newBid);
+  }
+ catch (  NumberFormatException e) {
+    message.setText("Not a valid bid");
+    return;
+  }
+  if (newBidValue < lastBid) {
+    message.setText("Not a valid bid");
+    return;
+  }
+  message.setText("");
+  item.setPrice(newBidValue);
+  int numberOfBids=item.getNumberOfBids();
+  JSONArray array=new JSONArray();
+  array.set(0,new JSONNumber(itemId));
+  array.set(1,new JSONNumber(newBidValue));
+  array.set(2,new JSONNumber(numberOfBids));
+  JSONObject container=new JSONObject();
+  container.put("value",array);
+  streamingService.sendMessage(TOPIC,container);
+  myBid.setText("");
+  myBid.setFocus(true);
+}

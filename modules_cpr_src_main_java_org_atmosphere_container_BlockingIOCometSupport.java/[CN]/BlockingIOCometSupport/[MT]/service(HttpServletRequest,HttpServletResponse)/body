@@ -1,0 +1,41 @@
+{
+  Action action=null;
+  try {
+    action=suspended(req,res);
+    if (action.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending" + res);
+      }
+      suspend(action,req,res);
+    }
+ else     if (action.type == Action.TYPE.RESUME) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Resuming" + res);
+      }
+      int latchId=(req.getAttribute(LATCH) == null ? 0 : (Integer)req.getAttribute(LATCH));
+      if (req.getSession(true).getAttribute(LATCH) != null) {
+        latchId=(Integer)req.getSession(true).getAttribute(LATCH);
+      }
+      CountDownLatch latch=latchs.get(latchId);
+      if (latch == null && req.getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) == null) {
+        logger.fine("That response " + res + " wasn't suspended.");
+        return action;
+      }
+      latch.countDown();
+      Action nextAction=resumed(req,res);
+      if (nextAction.type == Action.TYPE.SUSPEND) {
+        if (logger.isLoggable(Level.FINE)) {
+          logger.fine("Suspending after Resuming" + res);
+          suspend(action,req,res);
+        }
+      }
+    }
+  }
+  finally {
+    CometEvent event=(CometEvent)req.getAttribute(TomcatCometSupport.COMET_EVENT);
+    if (event != null)     event.close();
+    HttpEvent he=(HttpEvent)req.getAttribute(JBossWebCometSupport.HTTP_EVENT);
+    if (he != null)     he.close();
+  }
+  return action;
+}

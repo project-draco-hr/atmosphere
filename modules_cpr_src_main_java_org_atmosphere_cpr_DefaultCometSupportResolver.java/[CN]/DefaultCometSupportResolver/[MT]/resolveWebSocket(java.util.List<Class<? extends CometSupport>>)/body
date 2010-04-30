@@ -1,0 +1,4 @@
+{
+  if (available == null || available.isEmpty())   return null;
+ else   return newCometSupport(available.get(0));
+}

@@ -1,0 +1,4 @@
+{
+  r.getBroadcaster().scheduleFixedBroadcast(o,period,TimeUnit.SECONDS);
+  return this;
+}

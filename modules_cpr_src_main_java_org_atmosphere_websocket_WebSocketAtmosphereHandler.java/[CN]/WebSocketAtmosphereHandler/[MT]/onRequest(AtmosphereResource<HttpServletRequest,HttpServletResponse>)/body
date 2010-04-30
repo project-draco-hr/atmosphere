@@ -1,0 +1,15 @@
+{
+  if (!r.getResponse().getClass().isAssignableFrom(WebSocketHttpServletResponse.class)) {
+    try {
+      r.getAtmosphereConfig().getServletContext().getNamedDispatcher("default").forward(r.getRequest(),r.getResponse());
+    }
+ catch (    ServletException e) {
+      IOException ie=new IOException();
+      ie.initCause(e);
+      throw ie;
+    }
+  }
+ else {
+    upgrade(r);
+  }
+}

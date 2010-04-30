@@ -1,0 +1,52 @@
+{
+  System.out.println("Running testBroasdcasterScope");
+  final CountDownLatch latch=new CountDownLatch(2);
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    final AtomicReference<Response> response=new AtomicReference<Response>();
+    c.prepareGet(urlTarget + "/scope").execute(new AsyncCompletionHandler<Response>(){
+      @Override public Response onCompleted(      Response r) throws Exception {
+        try {
+          response.set(r);
+          return r;
+        }
+  finally {
+          latch.countDown();
+        }
+      }
+    }
+);
+    final AtomicReference<Response> response2=new AtomicReference<Response>();
+    c.prepareGet("http://localhost:9999/suspend2/scope").execute(new AsyncCompletionHandler<Response>(){
+      @Override public Response onCompleted(      Response r) throws Exception {
+        try {
+          response2.set(r);
+          return r;
+        }
+  finally {
+          latch.countDown();
+        }
+      }
+    }
+);
+    try {
+      latch.await(20,TimeUnit.SECONDS);
+    }
+ catch (    InterruptedException e) {
+      fail(e.getMessage());
+    }
+    Response r=response.get();
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+    assertEquals(r.getResponseBody(),"1");
+    Response r2=response.get();
+    assertNotNull(r2);
+    assertEquals(r2.getStatusCode(),200);
+    assertEquals(r2.getResponseBody(),"1");
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}

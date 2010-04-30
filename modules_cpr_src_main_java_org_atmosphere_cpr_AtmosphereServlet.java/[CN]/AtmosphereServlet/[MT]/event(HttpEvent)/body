@@ -1,0 +1,14 @@
+{
+  HttpServletRequest req=httpEvent.getHttpServletRequest();
+  HttpServletResponse res=httpEvent.getHttpServletResponse();
+  req.setAttribute(JBossWebCometSupport.HTTP_EVENT,httpEvent);
+  if (!isCometSupportSpecified && !isCometSupportConfigured.getAndSet(true)) {
+synchronized (cometSupport) {
+      if (!cometSupport.getClass().equals(JBossWebCometSupport.class)) {
+        logger.warning("JBossWebCometSupport is enabled, switching to it");
+        cometSupport=new JBossWebCometSupport(config);
+      }
+    }
+  }
+  doCometSupport(req,res);
+}

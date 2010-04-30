@@ -1,0 +1,4 @@
+{
+  this.msg=msg;
+  latch=new CountDownLatch(1);
+}

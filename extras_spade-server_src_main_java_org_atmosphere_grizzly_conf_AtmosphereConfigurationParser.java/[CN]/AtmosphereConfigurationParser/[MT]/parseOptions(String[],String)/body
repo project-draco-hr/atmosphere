@@ -1,0 +1,69 @@
+{
+  AtmosphereDeployerConfiguration conf=new AtmosphereDeployerConfiguration();
+  if (args.length == 0) {
+    printHelpAndExit(canonicalName);
+  }
+  for (int i=0; i < args.length; i++) {
+    String arg=args[i];
+    if ("-h".equals(arg) || "--help".equals(arg)) {
+      printHelpAndExit(canonicalName);
+    }
+ else     if ("--longhelp".equals(arg)) {
+      printLongHelpAndExit(canonicalName);
+    }
+ else     if ("-a".equals(arg)) {
+      i++;
+      if (i < args.length) {
+        conf.locations=args[i];
+      }
+    }
+ else     if (arg.startsWith("--application=")) {
+      conf.locations=arg.substring("--application=".length(),arg.length());
+    }
+ else     if ("-p".equals(arg)) {
+      i++;
+      if (i < args.length) {
+        conf.port=Integer.parseInt(args[i]);
+      }
+    }
+ else     if (arg.startsWith("--port=")) {
+      String num=arg.substring("--port=".length(),arg.length());
+      conf.port=Integer.parseInt(num);
+    }
+ else     if ("-c".equals(arg)) {
+      i++;
+      if (i < args.length) {
+        conf.forcedContext=args[i];
+      }
+    }
+ else     if (arg.startsWith("--context=")) {
+      conf.forcedContext=arg.substring("--context=".length(),arg.length());
+    }
+ else     if (arg.startsWith("--dontstart=")) {
+      conf.waitToStart=Boolean.parseBoolean(arg.substring("--dontstart=".length(),arg.length()));
+    }
+ else     if (arg.startsWith("--libraryPath=")) {
+      conf.libraryPath=arg.substring("--libraryPath=".length(),arg.length());
+    }
+ else     if (arg.startsWith("--webdefault=")) {
+      conf.webdefault=arg.substring("--webdefault=".length(),arg.length());
+    }
+ else     if (arg.startsWith("--autodeploy=")) {
+      conf.webdefault=arg.substring("--autodeploy=".length(),arg.length());
+    }
+ else     if (arg.startsWith("--cometEnabled=")) {
+      conf.cometEnabled=Boolean.parseBoolean(arg.substring("--cometEnabled=".length(),arg.length()));
+    }
+ else     if (arg.startsWith("--forceWar")) {
+      conf.forceWarDeployment=Boolean.parseBoolean(arg.substring("--forceWar=".length(),arg.length()));
+    }
+ else     if (arg.startsWith("--ajpEnabled")) {
+      conf.ajpEnabled=Boolean.parseBoolean(arg.substring("--ajpEnabled=".length(),arg.length()));
+    }
+  }
+  if (conf.locations == null) {
+    logger.log(Level.SEVERE,"Illegal War|Jar file or folder location.");
+    printHelpAndExit(canonicalName);
+  }
+  return conf;
+}

@@ -1,0 +1,8 @@
+{
+  if (!useWebsocketIfPossible) {
+    return resolve(useNativeIfPossible,defaultToBlocking);
+  }
+ else {
+    return resolveWebSocket(detectWebSocketPresent());
+  }
+}

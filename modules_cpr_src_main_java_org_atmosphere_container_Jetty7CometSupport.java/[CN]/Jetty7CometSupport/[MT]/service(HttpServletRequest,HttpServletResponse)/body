@@ -1,0 +1,29 @@
+{
+  Action action=null;
+  Continuation c=ContinuationSupport.getContinuation(req);
+  if (c.isInitial()) {
+    action=suspended(req,res);
+    if (action.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending " + res);
+      }
+      if (action.timeout != -1) {
+        c.setTimeout(action.timeout);
+      }
+ else {
+        c.setTimeout(Integer.MAX_VALUE);
+      }
+      c.suspend();
+    }
+ else     if (action.type == Action.TYPE.RESUME) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Resume " + res);
+      }
+      c.complete();
+    }
+  }
+ else   if (!c.isInitial() && c.isExpired()) {
+    timedout(req,res);
+  }
+  return action;
+}

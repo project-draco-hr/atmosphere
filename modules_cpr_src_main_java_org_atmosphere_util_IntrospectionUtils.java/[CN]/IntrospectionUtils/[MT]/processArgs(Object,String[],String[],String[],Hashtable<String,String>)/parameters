@@ -1,0 +1,5 @@
+Object proxy
+String args[]
+String args0[]
+String args1[]
+Hashtable<String,String> aliases

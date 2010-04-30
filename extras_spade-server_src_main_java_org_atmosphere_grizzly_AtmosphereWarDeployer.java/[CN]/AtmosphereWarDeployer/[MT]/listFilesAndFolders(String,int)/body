@@ -1,0 +1,31 @@
+{
+  List<String> list=new ArrayList<String>();
+  File file=new File(folder);
+  if (!file.exists() || !file.isDirectory()) {
+    logger.info("Parameter is not a directory : " + folder);
+    return list;
+  }
+  File[] fileArray=file.listFiles(new FileFilter(){
+    public boolean accept(    File pathname){
+      if (pathname.isDirectory() || pathname.getName().endsWith(".class")) {
+        return true;
+      }
+      return false;
+    }
+  }
+);
+  for (int i=0; i < fileArray.length; i++) {
+    if (fileArray[i].isDirectory()) {
+      list.addAll(listFilesAndFolders(fileArray[i].getAbsolutePath(),tabCounter + 1));
+    }
+ else {
+      String toSkip="WEB-INF" + File.separator + "classes"+ File.separator;
+      String path=fileArray[i].getPath();
+      path=path.substring(path.indexOf(toSkip) + toSkip.length());
+      String classname=path.replace('\\','/').replace('/','.');
+      list.add(classname);
+    }
+  }
+  tabCounter--;
+  return list;
+}

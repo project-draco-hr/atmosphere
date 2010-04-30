@@ -1,0 +1,12 @@
+{
+  if (keepAlive) {
+    alert("Streaming is alive, subscribing to '" + topicName + "' with callback "+ callback);
+    service.subscribeToTopic(topicName,voidCallback);
+    callbacks.put(topicName,callback);
+    alert(callbacks.toString());
+  }
+ else {
+    alert("Streaming is not alive, subscriber '" + topicName + "' is cached with callback "+ callback+ " until online");
+    waitingSubscriber.put(topicName,callback);
+  }
+}

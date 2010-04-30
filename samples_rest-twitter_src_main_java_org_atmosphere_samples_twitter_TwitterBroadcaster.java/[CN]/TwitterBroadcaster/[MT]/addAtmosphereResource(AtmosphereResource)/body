@@ -1,0 +1,6 @@
+{
+  if (events.size() == 0) {
+    event=r.getAtmosphereResourceEvent();
+  }
+  return super.addAtmosphereResource(r);
+}
