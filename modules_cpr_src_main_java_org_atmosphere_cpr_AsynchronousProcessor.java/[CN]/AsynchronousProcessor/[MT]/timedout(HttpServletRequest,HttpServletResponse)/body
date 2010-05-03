@@ -12,17 +12,21 @@
       re.getAtmosphereResourceEvent().isResumedOnTimeout=(Boolean)re.getRequest().getAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT);
     }
     String disableOnEvent=re.getAtmosphereConfig().getInitParameter(AtmosphereServlet.DISABLE_ONSTATE_EVENT);
-    if (!re.getResponse().equals(res)) {
-      logger.warning("Invalid response: " + res);
-    }
- else     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
-      aw.atmosphereHandler.onStateChange(re.getAtmosphereResourceEvent());
-    }
+    try {
+      if (!re.getResponse().equals(res)) {
+        logger.warning("Invalid response: " + res);
+      }
+ else       if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
+        aw.atmosphereHandler.onStateChange(re.getAtmosphereResourceEvent());
+      }
  else {
-      re.getResponse().flushBuffer();
+        re.getResponse().flushBuffer();
+      }
     }
-    re.notifyListeners();
-    re.getBroadcaster().removeAtmosphereResource(re);
+  finally {
+      re.notifyListeners();
+      re.getBroadcaster().removeAtmosphereResource(re);
+    }
   }
   return timedoutAction;
 }

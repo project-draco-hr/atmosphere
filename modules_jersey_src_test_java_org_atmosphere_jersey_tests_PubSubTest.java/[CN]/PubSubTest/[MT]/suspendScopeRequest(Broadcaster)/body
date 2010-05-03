@@ -1,0 +1,4 @@
+{
+  b.broadcast("foo").get();
+  return new Broadcastable("bar",b);
+}

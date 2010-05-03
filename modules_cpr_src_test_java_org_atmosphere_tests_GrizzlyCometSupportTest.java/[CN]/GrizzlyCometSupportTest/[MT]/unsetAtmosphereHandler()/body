@@ -1,0 +1,4 @@
+{
+  atmoServlet.destroy();
+  ws.stop();
+}

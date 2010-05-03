@@ -1,0 +1,3 @@
+{
+  atmoServlet.setCometSupport(new BlockingIOCometSupport(atmoServlet.getAtmosphereConfig()));
+}

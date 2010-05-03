@@ -8,8 +8,8 @@ synchronized (r) {
     if (r instanceof AtmosphereEventLifecycle) {
       ((AtmosphereEventLifecycle)r).notifyListeners();
     }
-    if (r.getRequest() instanceof HttpServletRequest) {
-      ((HttpServletRequest)r.getRequest()).setAttribute(CometSupport.MAX_INACTIVE,(Long)System.currentTimeMillis());
+    if (r.getAtmosphereResourceEvent() != null && !r.getAtmosphereResourceEvent().isCancelled() && HttpServletRequest.class.isAssignableFrom(r.getRequest().getClass())) {
+      HttpServletRequest.class.cast(r.getRequest()).setAttribute(CometSupport.MAX_INACTIVE,(Long)System.currentTimeMillis());
     }
     broadcast(r,e);
   }

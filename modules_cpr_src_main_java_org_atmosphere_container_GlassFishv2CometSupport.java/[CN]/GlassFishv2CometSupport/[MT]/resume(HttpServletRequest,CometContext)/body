@@ -1,4 +1,7 @@
 {
+  if (req.getAttribute(ATMOSPHERE) == null) {
+    return;
+  }
   CometHandler handler=ctx.getCometHandler((Integer)req.getAttribute(ATMOSPHERE));
   req.removeAttribute(ATMOSPHERE);
   if (handler == null && supportSession()) {

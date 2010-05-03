@@ -1,0 +1,4 @@
+{
+  cometSupport=new TomcatCometSupport(getAtmosphereConfig());
+  super.init(sc);
+}

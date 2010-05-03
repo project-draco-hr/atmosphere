@@ -1,0 +1,10 @@
+{
+  server=new Server(port);
+  root=new Context(server,"/",Context.SESSIONS);
+  root.addServlet(new ServletHolder(atmoServlet),ROOT);
+  Connector listener=new SelectChannelConnector();
+  listener.setHost("127.0.0.1");
+  listener.setPort(TestHelper.getEnvVariable("ATMOSPHERE_HTTP_PORT",9999));
+  server.addConnector(listener);
+  server.start();
+}

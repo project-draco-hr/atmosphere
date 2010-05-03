@@ -1,4 +1,0 @@
-{
-  topic.delayBroadcast(message);
-  return message;
-}

@@ -10,6 +10,7 @@
     }
     h.getValue().broadcaster.destroy();
   }
+  BroadcasterFactory.factory=null;
   BroadcasterFactory.getDefault().destroy();
   broadcasterConfig=new BroadcasterConfig();
 }

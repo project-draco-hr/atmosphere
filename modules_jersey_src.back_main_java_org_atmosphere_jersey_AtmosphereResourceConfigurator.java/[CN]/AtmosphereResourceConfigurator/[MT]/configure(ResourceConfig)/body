@@ -1,0 +1,3 @@
+{
+  ((List<String>)config.getResourceFilterFactories()).add(AtmosphereFilter.class.getName());
+}

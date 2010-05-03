@@ -1,4 +1,0 @@
-{
-  topic.broadcast("resume").get();
-  return "resumed";
-}

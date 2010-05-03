@@ -10,6 +10,7 @@
           long l=(Long)req.getAttribute(MAX_INACTIVE);
           if (l != 0 && System.currentTimeMillis() - l > maxInactiveTime) {
             try {
+              req.setAttribute(MAX_INACTIVE,(long)-1);
               cancelled(req,aliveRequests.get(req).getResponse());
             }
  catch (            IOException e) {

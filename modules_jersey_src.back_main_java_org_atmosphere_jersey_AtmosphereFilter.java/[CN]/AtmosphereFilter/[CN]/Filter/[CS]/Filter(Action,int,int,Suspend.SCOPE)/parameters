@@ -1,0 +1,4 @@
+Action action
+int value
+int waitFor
+Suspend.SCOPE scope
