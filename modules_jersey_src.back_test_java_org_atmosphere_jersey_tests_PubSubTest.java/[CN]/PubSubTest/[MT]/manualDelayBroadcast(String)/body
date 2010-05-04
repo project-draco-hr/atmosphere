@@ -1,4 +1,0 @@
-{
-  broadcaster.delayBroadcast(message);
-  return message;
-}

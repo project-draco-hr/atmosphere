@@ -1,5 +1,0 @@
-{
-  this.b=b;
-  this.message=message;
-  this.callerMessage=callerMessage;
-}

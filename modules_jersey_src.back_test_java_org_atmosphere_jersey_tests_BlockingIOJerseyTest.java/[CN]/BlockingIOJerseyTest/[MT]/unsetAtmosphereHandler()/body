@@ -1,6 +1,0 @@
-{
-  atmoServlet.destroy();
-  BasicConfigurator.resetConfiguration();
-  server.stop();
-  server=null;
-}

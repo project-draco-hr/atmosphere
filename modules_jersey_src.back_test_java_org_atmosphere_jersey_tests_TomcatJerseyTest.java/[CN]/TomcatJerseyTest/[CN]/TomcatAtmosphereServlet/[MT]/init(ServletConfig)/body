@@ -1,7 +1,0 @@
-{
-  addInitParameter(CometSupport.MAX_INACTIVE,"20000");
-  addInitParameter("com.sun.jersey.config.property.packages",this.getClass().getPackage().getName());
-  addInitParameter("org.atmosphere.cpr.broadcasterClass",RecyclableBroadcaster.class.getName());
-  cometSupport=new TomcatCometSupport(getAtmosphereConfig());
-  super.init(sc);
-}

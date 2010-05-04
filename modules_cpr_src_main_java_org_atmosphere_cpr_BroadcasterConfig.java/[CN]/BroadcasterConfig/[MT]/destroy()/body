@@ -16,4 +16,5 @@
       ((BroadcastFilterLifecycle)f).destroy();
     }
   }
+  removeAllFilters();
 }

@@ -1,3 +1,0 @@
-{
-  this(action,value,waitFor,Suspend.SCOPE.APPLICATION,true);
-}

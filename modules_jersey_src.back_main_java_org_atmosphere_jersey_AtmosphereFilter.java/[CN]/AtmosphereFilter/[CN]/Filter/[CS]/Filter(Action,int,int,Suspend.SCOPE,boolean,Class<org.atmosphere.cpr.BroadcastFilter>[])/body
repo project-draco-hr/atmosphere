@@ -1,8 +1,0 @@
-{
-  this.action=action;
-  this.value=value;
-  this.scope=scope;
-  this.outputComments=outputComments;
-  this.waitFor=waitFor;
-  this.filters=filters;
-}

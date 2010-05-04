@@ -1,6 +1,0 @@
-Action action
-int value
-int waitFor
-Suspend.SCOPE scope
-boolean outputComments
-Class<org.atmosphere.cpr.BroadcastFilter>[] filters
