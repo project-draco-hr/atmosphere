@@ -1,13 +1,20 @@
 {
-  int count=counter.get();
   if (event.isCancelled()) {
     return;
   }
-  event.getResource().getResponse().addHeader("X-JSON","{\"counter\":" + count + " }");
-  PrintWriter writer=event.getResource().getResponse().getWriter();
-  writer.write("success");
-  writer.flush();
-  if (!event.isResumedOnTimeout()) {
-    event.getResource().resume();
+  int count=0;
+  if (event.getMessage() instanceof Integer) {
+    count=((Integer)event.getMessage()).intValue();
+  }
+  try {
+    event.getResource().getResponse().addHeader("X-JSON","{\"counter\":" + count + " }");
+    PrintWriter writer=event.getResource().getResponse().getWriter();
+    writer.write("success");
+    writer.flush();
+  }
+  finally {
+    if (!event.isResumedOnTimeout()) {
+      event.getResource().resume();
+    }
   }
 }

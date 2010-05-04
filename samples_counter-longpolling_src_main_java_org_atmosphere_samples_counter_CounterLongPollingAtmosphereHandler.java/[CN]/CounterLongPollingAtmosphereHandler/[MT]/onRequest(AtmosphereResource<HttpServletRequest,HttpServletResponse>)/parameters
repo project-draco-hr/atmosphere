@@ -1,1 +1,1 @@
-AtmosphereResource<HttpServletRequest,HttpServletResponse> event
+AtmosphereResource<HttpServletRequest,HttpServletResponse> resource
