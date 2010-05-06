@@ -1,6 +1,6 @@
 {
   if (c == AtmosphereResource.class) {
-    return new Injectable<AtmosphereResource>(){
+    return new Injectable<AtmosphereResource<HttpServletRequest,HttpServletResponse>>(){
       /** 
  * Return the current {@link AtmosphereResourceEvent}
  */
