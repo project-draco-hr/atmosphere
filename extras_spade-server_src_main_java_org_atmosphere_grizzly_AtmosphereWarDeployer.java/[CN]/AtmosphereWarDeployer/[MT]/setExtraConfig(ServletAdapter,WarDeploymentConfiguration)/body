@@ -1,6 +1,5 @@
 {
   AtmosphereAdapter adapter=(AtmosphereAdapter)sa;
-  AtmosphereDeployerConfiguration config=(AtmosphereDeployerConfiguration)configuration.conf;
   if (atmosphereHandlerList != null && !atmosphereHandlerList.isEmpty()) {
     for (    AtmosphereHandler handler : atmosphereHandlerList) {
       adapter.addAtmosphereHandler(adapter.getServletPath(),handler);
