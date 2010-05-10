@@ -1,7 +1,7 @@
 {
   long timeStamp=(Long)ce.getCometContext().getAttribute("Time");
   try {
-    if ((System.currentTimeMillis() - timeStamp) >= ce.getCometContext().getExpirationDelay()) {
+    if (ce.getCometContext().getExpirationDelay() > 0 && (System.currentTimeMillis() - timeStamp) >= ce.getCometContext().getExpirationDelay()) {
       timedout(req,res);
     }
  else {

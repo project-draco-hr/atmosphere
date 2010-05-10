@@ -1,6 +1,6 @@
 {
   super.action(actionEvent);
-  if (actionEvent.action().type == Action.TYPE.RESUME) {
+  if (actionEvent.action().type == Action.TYPE.RESUME && actionEvent.isInScope()) {
     CometContext ctx=CometEngine.getEngine().getCometContext(atmosphereCtx);
     resume(actionEvent.getRequest(),ctx);
   }
