@@ -37,7 +37,17 @@
     if (logger.isLoggable(Level.FINE)) {
       logger.fine("Client closed connection " + res);
     }
-    action=cancelled(req,res);
+    if (!resumed.remove(event)) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Client closed connection " + res);
+      }
+      action=cancelled(req,res);
+    }
+ else {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Cancelling " + res);
+      }
+    }
     event.close();
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.TIMEOUT) {
