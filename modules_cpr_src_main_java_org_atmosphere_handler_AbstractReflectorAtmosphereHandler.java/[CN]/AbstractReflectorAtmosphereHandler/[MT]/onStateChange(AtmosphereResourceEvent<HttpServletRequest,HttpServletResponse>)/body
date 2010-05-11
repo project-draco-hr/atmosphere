@@ -2,7 +2,12 @@
   Object o=event.getMessage();
   if (o == null || event.isCancelled())   return;
   if (event.getResource().getSerializer() != null) {
-    event.getResource().getSerializer().write(event.getResource().getResponse().getOutputStream(),o);
+    try {
+      event.getResource().getSerializer().write(event.getResource().getResponse().getOutputStream(),o);
+    }
+ catch (    Throwable ex) {
+      LoggerUtils.getLogger().log(Level.WARNING,"Serializer exception",ex);
+    }
   }
  else {
     boolean isUsingStream=false;

@@ -1,5 +1,5 @@
 {
-  if (cometSupport instanceof AsynchronousProcessor) {
+  if (AsynchronousProcessor.class.isAssignableFrom(cometSupport.getClass())) {
     ((AsynchronousProcessor)cometSupport).shutdown();
   }
   AtmosphereHandler a;

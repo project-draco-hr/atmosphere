@@ -1,3 +1,4 @@
 {
+  if (atmoServlet != null)   atmoServlet.destroy();
   embedded.stop();
 }

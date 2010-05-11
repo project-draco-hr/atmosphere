@@ -2,7 +2,6 @@
   port=TestHelper.getEnvVariable("ATMOSPHERE_HTTP_PORT",9999);
   urlTarget="http://127.0.0.1:" + port + "/invoke";
   atmoServlet=new AtmosphereServlet();
-  atmoServlet.addInitParameter(CometSupport.MAX_INACTIVE,"20000");
   atmoServlet.addInitParameter("com.sun.jersey.config.property.packages",this.getClass().getPackage().getName());
   atmoServlet.addInitParameter("org.atmosphere.cpr.broadcasterClass",RecyclableBroadcaster.class.getName());
   configureCometSupport();

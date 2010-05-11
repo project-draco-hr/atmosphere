@@ -5,7 +5,6 @@
   ServletAdapter sa=new ServletAdapter();
   ws.addAsyncFilter(new CometAsyncFilter());
   atmoServlet=new AtmosphereServlet();
-  atmoServlet.addInitParameter(CometSupport.MAX_INACTIVE,"20000");
   sa.setServletInstance(atmoServlet);
   setCometSupport();
   ws.addGrizzlyAdapter(sa,new String[]{ROOT});
