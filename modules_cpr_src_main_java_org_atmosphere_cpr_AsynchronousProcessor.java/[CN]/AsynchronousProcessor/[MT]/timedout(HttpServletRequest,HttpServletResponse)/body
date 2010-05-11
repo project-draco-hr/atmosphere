@@ -4,29 +4,13 @@
     logger.warning("Invalid Request/Response: " + req + "/"+ res);
     return timedoutAction;
   }
-  AtmosphereHandlerWrapper aw=map(req);
-  re=(AtmosphereResourceImpl)aliveRequests.remove(req);
+  re=(AtmosphereResourceImpl)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
   if (re != null) {
     re.getAtmosphereResourceEvent().isResumedOnTimeout=true;
     if (re.getRequest().getAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT) != null) {
       re.getAtmosphereResourceEvent().isResumedOnTimeout=(Boolean)re.getRequest().getAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT);
     }
-    String disableOnEvent=re.getAtmosphereConfig().getInitParameter(AtmosphereServlet.DISABLE_ONSTATE_EVENT);
-    try {
-      if (!re.getResponse().equals(res)) {
-        logger.warning("Invalid response: " + res);
-      }
- else       if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
-        aw.atmosphereHandler.onStateChange(re.getAtmosphereResourceEvent());
-      }
- else {
-        re.getResponse().flushBuffer();
-      }
-    }
-  finally {
-      re.notifyListeners();
-      re.getBroadcaster().removeAtmosphereResource(re);
-    }
+    invokeAtmosphereHandler(re);
   }
   return timedoutAction;
 }

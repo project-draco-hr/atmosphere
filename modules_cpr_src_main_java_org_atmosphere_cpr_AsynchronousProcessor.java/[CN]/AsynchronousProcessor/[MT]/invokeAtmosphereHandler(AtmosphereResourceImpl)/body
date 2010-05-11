@@ -1,0 +1,23 @@
+{
+  HttpServletRequest req=r.getRequest();
+  HttpServletResponse res=r.getResponse();
+  String disableOnEvent=r.getAtmosphereConfig().getInitParameter(AtmosphereServlet.DISABLE_ONSTATE_EVENT);
+  try {
+    if (!r.getResponse().equals(res)) {
+      logger.warning("Invalid response: " + res);
+    }
+ else     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
+      AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER);
+      atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
+    }
+ else {
+      r.getResponse().flushBuffer();
+    }
+  }
+  finally {
+    aliveRequests.remove(req);
+    r.notifyListeners();
+    r.removeEventListeners();
+    r.getBroadcaster().removeAtmosphereResource(r);
+  }
+}

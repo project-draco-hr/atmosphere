@@ -1,35 +1,16 @@
 {
   AtmosphereResourceImpl re=null;
   try {
-    AtmosphereHandlerWrapper aw=map(req);
-    re=(AtmosphereResourceImpl)aliveRequests.remove(req);
+    re=(AtmosphereResourceImpl)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
     if (re != null) {
       re.getAtmosphereResourceEvent().setCancelled(true);
-      try {
-        if (!re.getResponse().equals(res)) {
-          logger.warning("Invalid response: " + res);
-        }
- else         if (!re.getAtmosphereConfig().getInitParameter(AtmosphereServlet.DISABLE_ONSTATE_EVENT).equals(String.valueOf(true))) {
-          aw.atmosphereHandler.onStateChange(re.getAtmosphereResourceEvent());
-        }
- else {
-          re.getResponse().flushBuffer();
-        }
-      }
-  finally {
-        re.notifyListeners();
-        re.getBroadcaster().removeAtmosphereResource(re);
-      }
+      invokeAtmosphereHandler(re);
+      re.setIsInScope(false);
     }
   }
  catch (  Throwable ex) {
     if (logger.isLoggable(Level.FINE)) {
       logger.log(Level.FINE,"",ex);
-    }
-  }
- finally {
-    if (re != null) {
-      re.isInScope(false);
     }
   }
   return cancelledAction;
