@@ -1,0 +1,4 @@
+{
+  SuspendResponse<String> r=new SuspendResponse.SuspendResponseBuilder<String>().outputComments(false).entity("suspend").build();
+  return r;
+}

@@ -1,0 +1,4 @@
+{
+  this.suspendTimeout=new TimeSpan(suspendTimeout,timeUnit);
+  return this;
+}

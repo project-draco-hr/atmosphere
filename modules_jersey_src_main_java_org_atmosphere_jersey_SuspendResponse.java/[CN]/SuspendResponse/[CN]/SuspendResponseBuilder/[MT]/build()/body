@@ -1,0 +1,5 @@
+{
+  SuspendResponse<E> r=new SuspendResponse<E>(this);
+  reset();
+  return r;
+}

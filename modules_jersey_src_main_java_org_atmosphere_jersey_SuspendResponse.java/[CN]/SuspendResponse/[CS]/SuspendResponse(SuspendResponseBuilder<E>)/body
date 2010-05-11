@@ -1,0 +1,9 @@
+{
+  super(b);
+  this.suspendTimeout=b.suspendTimeout;
+  this.scope=b.scope;
+  this.outputComments=b.outputComments;
+  this.resumeOnBroadcast=b.resumeOnBroadcast;
+  this.listeners=b.listeners;
+  this.broadcaster=b.broadcaster;
+}
