@@ -1,0 +1,7 @@
+boolean sessionSupported
+boolean resumeOnBroadcast
+boolean comments
+long timeout
+ContainerRequest request
+ContainerResponse response
+AtmosphereResource<HttpServletRequest,HttpServletResponse> r

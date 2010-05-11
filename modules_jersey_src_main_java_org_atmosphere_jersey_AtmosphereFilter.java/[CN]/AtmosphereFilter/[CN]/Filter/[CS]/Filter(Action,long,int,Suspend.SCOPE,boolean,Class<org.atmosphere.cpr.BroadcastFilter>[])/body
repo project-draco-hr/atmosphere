@@ -1,6 +1,6 @@
 {
   this.action=action;
-  this.value=value;
+  this.suspendTimeout=suspendTimeout;
   this.scope=scope;
   this.outputComments=outputComments;
   this.waitFor=waitFor;

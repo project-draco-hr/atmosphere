@@ -1,4 +1,5 @@
 Action action
-int value
+long suspendTimeout
 int waitFor
 Suspend.SCOPE scope
+boolean outputComments

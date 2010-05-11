@@ -1,0 +1,3 @@
+{
+  this(action,suspendTimeout,waitFor,Suspend.SCOPE.APPLICATION,true);
+}
