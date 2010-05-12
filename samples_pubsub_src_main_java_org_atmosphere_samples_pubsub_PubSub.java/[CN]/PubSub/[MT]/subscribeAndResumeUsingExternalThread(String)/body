@@ -6,7 +6,7 @@
       }
  catch (      InterruptedException e) {
       }
-      BroadcasterFactory.getDefault().lookup(JerseyBroadcaster.class,topic).broadcast("Echo: " + topic);
+      BroadcasterFactory.getDefault().lookup(JerseyBroadcaster.class,topic).broadcast("\nEcho: " + topic);
     }
   }
 );
