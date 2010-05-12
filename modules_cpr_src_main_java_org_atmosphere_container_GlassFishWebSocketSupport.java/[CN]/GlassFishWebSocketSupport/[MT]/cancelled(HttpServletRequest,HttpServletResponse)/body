@@ -1,4 +1,0 @@
-{
-  Action action=super.cancelled(req,res);
-  return action;
-}

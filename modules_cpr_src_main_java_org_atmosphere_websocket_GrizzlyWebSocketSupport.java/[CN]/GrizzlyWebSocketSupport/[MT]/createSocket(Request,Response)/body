@@ -1,4 +1,0 @@
-{
-  webSocket=new BaseServerWebSocket(this,request,response);
-  return webSocket;
-}

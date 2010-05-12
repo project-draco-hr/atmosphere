@@ -1,0 +1,13 @@
+{
+  if (!AtmoWebSocket.class.isAssignableFrom(w.getClass())) {
+    throw new IllegalStateException();
+  }
+  AtmoWebSocket webSocket=AtmoWebSocket.class.cast(w);
+  webSocketProcessor=new WebSocketProcessor(config.getServlet(),new GrizzlyWebSocketSupport(webSocket));
+  try {
+    webSocketProcessor.connect(webSocket.getRequest());
+  }
+ catch (  IOException e) {
+    LoggerUtils.getLogger().log(Level.WARNING,"",e);
+  }
+}

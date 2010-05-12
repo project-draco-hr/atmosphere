@@ -36,6 +36,7 @@
   if (s != null) {
     addAtmosphereHandler("/*",new WebSocketAtmosphereHandler());
     webSocketEnbled=true;
+    sessionSupport(false);
   }
   s=sc.getInitParameter(DISABLE_ONSTATE_EVENT);
   if (s != null) {

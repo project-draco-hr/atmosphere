@@ -1,0 +1,3 @@
+{
+  return new AtmoWebSocket(this,request,response);
+}
