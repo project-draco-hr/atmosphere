@@ -1,6 +1,7 @@
 {
   try {
-    return (CometSupport)Class.forName(targetClassFQN).getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(new Object[]{config});
+    ClassLoader cl=Thread.currentThread().getContextClassLoader();
+    return (CometSupport)cl.loadClass(targetClassFQN).getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(new Object[]{config});
   }
  catch (  final Exception e) {
     logger.warning(e.getMessage());

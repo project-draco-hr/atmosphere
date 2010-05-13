@@ -1,12 +1,13 @@
 {
+  ClassLoader cl=Thread.currentThread().getContextClassLoader();
   try {
-    Class.forName(PRIMEFACES_SERVLET);
+    cl.loadClass(PRIMEFACES_SERVLET);
     return false;
   }
  catch (  Throwable ignored) {
   }
   try {
-    Class.forName(JERSEY_CONTAINER);
+    cl.loadClass(JERSEY_CONTAINER);
     useStreamForFlushingComments=true;
   }
  catch (  Throwable t) {
