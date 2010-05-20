@@ -6,7 +6,7 @@
   ws.addAsyncFilter(new CometAsyncFilter());
   atmoServlet=new AtmosphereServlet();
   sa.setServletInstance(atmoServlet);
-  setCometSupport();
+  configureCometSupport();
   ws.addGrizzlyAdapter(sa,new String[]{ROOT});
   ws.start();
 }
