@@ -1,0 +1,9 @@
+{
+  ws=new GrizzlyWebServer(port);
+  sa=new ServletAdapter();
+  ws.addAsyncFilter(new CometAsyncFilter());
+  sa.setServletInstance(atmoServlet);
+  ws.addGrizzlyAdapter(sa,new String[]{ROOT});
+  sa.addServletListener(GuiceConfig.class.getName());
+  ws.start();
+}

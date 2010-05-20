@@ -2,6 +2,9 @@
   return Guice.createInjector(new ServletModule(){
     @Override protected void configureServlets(){
       bind(PubSubTest.class);
+      bind(new TypeLiteral<Map<String,String>>(){
+      }
+).annotatedWith(Names.named(AtmosphereGuiceServlet.JERSEY_PROPERTIES)).toInstance(of("",""));
     }
   }
 );

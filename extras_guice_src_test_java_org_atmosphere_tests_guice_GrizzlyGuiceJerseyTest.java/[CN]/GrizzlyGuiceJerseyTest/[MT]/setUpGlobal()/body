@@ -1,7 +1,7 @@
 {
   port=TestHelper.getEnvVariable("ATMOSPHERE_HTTP_PORT",9999);
   urlTarget="http://127.0.0.1:" + port + "/invoke";
-  atmoServlet=new AtmosphereServlet();
+  atmoServlet=new AtmosphereGuiceServlet();
   atmoServlet.addInitParameter("com.sun.jersey.config.property.packages",this.getClass().getPackage().getName());
   configureCometSupport();
   startServer();
