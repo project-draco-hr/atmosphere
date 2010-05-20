@@ -1,0 +1,4 @@
+{
+  if (atmoServlet != null)   atmoServlet.destroy();
+  stopServer();
+}

@@ -1,0 +1,17 @@
+{
+  System.out.println("Running testResumeOnBroadcast");
+  AsyncHttpClient c=new AsyncHttpClient();
+  long t1=System.currentTimeMillis();
+  try {
+    Response r=c.prepareGet(urlTarget + "/subscribeAndUsingExternalThread").execute().get();
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+    long current=System.currentTimeMillis() - t1;
+    assertTrue(current > 5000 && current < 10000);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}
