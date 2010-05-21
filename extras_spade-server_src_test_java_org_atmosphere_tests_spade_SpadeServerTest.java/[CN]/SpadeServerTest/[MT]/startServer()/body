@@ -1,0 +1,4 @@
+{
+  spade=AtmosphereSpadeServer.build("http://127.0.0.1:" + port + "/",PubSubTest.class.getPackage().getName());
+  spade.start();
+}

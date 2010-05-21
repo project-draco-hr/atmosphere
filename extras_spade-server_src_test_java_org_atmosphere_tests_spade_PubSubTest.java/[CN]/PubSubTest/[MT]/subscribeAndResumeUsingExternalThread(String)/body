@@ -1,0 +1,14 @@
+{
+  Executors.newSingleThreadExecutor().submit(new Runnable(){
+    public void run(){
+      try {
+        Thread.sleep(5000);
+      }
+ catch (      InterruptedException e) {
+      }
+      BroadcasterFactory.getDefault().lookup(JerseyBroadcaster.class,topic).broadcast("Echo: " + topic);
+    }
+  }
+);
+  return "foo";
+}
