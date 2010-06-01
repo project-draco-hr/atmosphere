@@ -1,10 +1,11 @@
 {
   if (!topic.getBroadcasterConfig().hasFilters()) {
+    topic.getBroadcasterConfig().addFilter(formParamFilter);
     topic.getBroadcasterConfig().addFilter(filter);
   }
   boolean resumeOnBroadcast=false;
   if (transport != null && transport.equals("long-polling")) {
     resumeOnBroadcast=true;
   }
-  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(topic).outputComments(resumeOnBroadcast ? false : true).resumeOnBroadcast(resumeOnBroadcast).addListener(new EventsLogger()).build();
+  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(topic).resumeOnBroadcast(resumeOnBroadcast).addListener(new EventsLogger()).build();
 }
