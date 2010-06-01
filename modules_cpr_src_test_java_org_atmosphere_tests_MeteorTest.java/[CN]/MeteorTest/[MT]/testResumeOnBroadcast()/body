@@ -1,0 +1,45 @@
+{
+  System.out.println("Running testResumeOnBroadcast");
+  final CountDownLatch latch=new CountDownLatch(1);
+  servletLatch=new CountDownLatch(1);
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    long currentTime=System.currentTimeMillis();
+    final AtomicReference<Response> r=new AtomicReference();
+    c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<Response>(){
+      @Override public Response onCompleted(      Response response) throws Exception {
+        r.set(response);
+        latch.countDown();
+        return response;
+      }
+    }
+);
+    servletLatch.await();
+    Broadcaster b=BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,"/*");
+    assertNotNull(b);
+    b.broadcast("resume").get();
+    try {
+      latch.await();
+    }
+ catch (    InterruptedException e) {
+      fail(e.getMessage());
+      return;
+    }
+    long time=System.currentTimeMillis() - currentTime;
+    if (time < 5000) {
+      assertTrue(true);
+    }
+ else {
+      assertFalse(false);
+    }
+    assertNotNull(r.get());
+    assertEquals(r.get().getStatusCode(),200);
+    String resume=r.get().getResponseBody();
+    assertEquals(resume,"resumeresume");
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}

@@ -2,14 +2,16 @@
   AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)req.getAttribute(ATMOSPHERE_RESOURCE);
   if (r == null)   throw new IllegalStateException("MeteorServlet not defined in web.xml");
   Broadcaster b=null;
-  try {
-    b=BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,DefaultBroadcaster.class.getSimpleName());
+  if (scope == Broadcaster.SCOPE.REQUEST) {
+    try {
+      b=BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,DefaultBroadcaster.class.getSimpleName());
+    }
+ catch (    Throwable t) {
+      throw new RuntimeException(t);
+    }
+    b.setScope(scope);
+    r.setBroadcaster(b);
   }
- catch (  Throwable t) {
-    throw new RuntimeException(t);
-  }
-  b.setScope(scope);
-  r.setBroadcaster(b);
   Meteor m=new Meteor(r,l,s);
   return m;
 }

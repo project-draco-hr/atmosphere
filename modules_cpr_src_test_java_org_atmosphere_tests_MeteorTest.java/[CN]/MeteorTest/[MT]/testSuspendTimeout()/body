@@ -1,0 +1,24 @@
+{
+  System.out.println("Running testSuspendTimeout");
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    long currentTime=System.currentTimeMillis();
+    Response r=c.prepareGet(urlTarget).execute().get();
+    long time=System.currentTimeMillis() - currentTime;
+    if (time > 5000 && time < 15000) {
+      assertTrue(true);
+    }
+ else {
+      assertFalse(false);
+    }
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+    String resume=r.getResponseBody();
+    assertEquals(resume,"resume");
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.getMessage());
+  }
+  c.close();
+}
