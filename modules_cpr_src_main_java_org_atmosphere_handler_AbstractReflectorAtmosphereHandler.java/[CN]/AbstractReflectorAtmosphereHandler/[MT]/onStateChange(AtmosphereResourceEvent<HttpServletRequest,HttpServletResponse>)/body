@@ -39,5 +39,9 @@
         event.getResource().getResponse().getWriter().flush();
       }
     }
+    Boolean resumeOnBroadcast=(Boolean)event.getResource().getRequest().getAttribute(AtmosphereServlet.RESUME_ON_BROADCAST);
+    if (resumeOnBroadcast != null && resumeOnBroadcast) {
+      event.getResource().resume();
+    }
   }
 }
