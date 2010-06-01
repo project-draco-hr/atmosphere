@@ -1,4 +1,5 @@
 {
   r.resume();
+  cache.remove(r.getRequest());
   return this;
 }
