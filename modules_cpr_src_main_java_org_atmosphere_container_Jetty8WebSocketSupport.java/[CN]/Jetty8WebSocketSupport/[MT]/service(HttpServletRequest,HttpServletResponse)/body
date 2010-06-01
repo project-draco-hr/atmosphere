@@ -1,16 +1,21 @@
 {
-  Action action=null;
-  action=suspended(req,res);
-  if (action.type == Action.TYPE.SUSPEND) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.fine("Suspending " + res);
-    }
+  String connection=req.getHeader("Connection");
+  if (connection == null || !connection.equalsIgnoreCase("Upgrade")) {
+    return super.service(req,res);
   }
- else   if (action.type == Action.TYPE.RESUME) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.fine("Resume " + res);
+ else {
+    Action action=suspended(req,res);
+    if (action.type == Action.TYPE.SUSPEND) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Suspending " + res);
+      }
     }
-    req.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
+ else     if (action.type == Action.TYPE.RESUME) {
+      if (logger.isLoggable(Level.FINE)) {
+        logger.fine("Resume " + res);
+      }
+      req.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
+    }
+    return action;
   }
-  return action;
 }

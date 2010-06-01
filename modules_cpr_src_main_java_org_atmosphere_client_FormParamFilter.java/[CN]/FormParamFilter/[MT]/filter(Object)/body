@@ -1,0 +1,6 @@
+{
+  if ((message instanceof String) && ((String)message).indexOf("=") != -1) {
+    message=message.toString().split("=")[1];
+  }
+  return new BroadcastAction(BroadcastAction.ACTION.CONTINUE,message);
+}
