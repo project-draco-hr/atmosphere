@@ -35,12 +35,12 @@
   s=sc.getInitParameter(WEBSOCKET_ATMOSPHEREHANDLER);
   if (s != null) {
     addAtmosphereHandler("/*",new WebSocketAtmosphereHandler());
-    webSocketEnbled=true;
+    webSocketEnabled=true;
     sessionSupport(false);
   }
   s=sc.getInitParameter(WEBSOCKET_SUPPORT);
   if (s != null) {
-    webSocketEnbled=true;
+    webSocketEnabled=true;
     sessionSupport(false);
   }
   s=sc.getInitParameter(DISABLE_ONSTATE_EVENT);
