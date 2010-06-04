@@ -19,11 +19,11 @@
         }
  finally {
           if (msg != null) {
-            if (msg.f instanceof BroadcasterFuture) {
-              ((BroadcasterFuture)msg.f).done();
+            if (msg.future instanceof BroadcasterFuture) {
+              ((BroadcasterFuture)msg.future).done();
             }
  else {
-              msg.f.cancel(true);
+              msg.future.cancel(true);
             }
           }
         }

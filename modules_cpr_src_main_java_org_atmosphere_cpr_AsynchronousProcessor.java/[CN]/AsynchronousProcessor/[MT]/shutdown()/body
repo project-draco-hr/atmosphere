@@ -1,6 +1,6 @@
 {
   closedDetector.shutdownNow();
-  for (  AtmosphereResource r : aliveRequests.values()) {
+  for (  AtmosphereResource<HttpServletRequest,HttpServletResponse> r : aliveRequests.values()) {
     try {
       r.resume();
     }

@@ -3,8 +3,8 @@
     Iterator<Entry> i=delayedBroadcast.iterator();
     while (i.hasNext()) {
       Entry e=i.next();
-      if (!(e.f instanceof BroadcasterFuture)) {
-        e.f.cancel(true);
+      if (!(e.future instanceof BroadcasterFuture)) {
+        e.future.cancel(true);
       }
       try {
         if (e.message instanceof String && msg.message instanceof String) {
@@ -16,8 +16,8 @@
       }
   finally {
         i.remove();
-        if (e.f instanceof BroadcasterFuture) {
-          ((BroadcasterFuture)e.f).done();
+        if (e.future instanceof BroadcasterFuture) {
+          ((BroadcasterFuture)e.future).done();
         }
       }
     }
@@ -26,16 +26,16 @@
     trackBroadcastMessage(null,msg.message);
   }
   if (msg.eventsToPush == null) {
-    for (    AtmosphereResource r : events) {
+    for (    AtmosphereResource<?,?> r : events) {
       push(r,msg.message);
     }
   }
- else   if (msg.eventsToPush instanceof AtmosphereResource) {
-    push((AtmosphereResource)msg.eventsToPush,msg.message);
+ else   if (msg.eventsToPush instanceof AtmosphereResource<?,?>) {
+    push((AtmosphereResource<?,?>)msg.eventsToPush,msg.message);
   }
  else   if (msg.eventsToPush instanceof Set) {
-    Set<AtmosphereResource> sub=(Set<AtmosphereResource>)msg.eventsToPush;
-    for (    AtmosphereResource r : sub) {
+    Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)msg.eventsToPush;
+    for (    AtmosphereResource<?,?> r : sub) {
       push(r,msg.message);
     }
   }

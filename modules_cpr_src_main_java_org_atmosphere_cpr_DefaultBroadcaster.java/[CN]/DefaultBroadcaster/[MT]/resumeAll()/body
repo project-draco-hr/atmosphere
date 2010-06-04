@@ -1,5 +1,5 @@
 {
-  for (  AtmosphereResource r : events) {
+  for (  AtmosphereResource<?,?> r : events) {
     r.resume();
   }
 }
