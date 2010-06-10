@@ -11,5 +11,6 @@
     action.timeout=timeout;
     broadcaster.addAtmosphereResource(this);
     req.removeAttribute(PRE_SUSPEND);
+    notifyListeners();
   }
 }

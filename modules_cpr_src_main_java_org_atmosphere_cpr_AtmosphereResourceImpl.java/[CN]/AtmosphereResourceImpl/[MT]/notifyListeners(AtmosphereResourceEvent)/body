@@ -5,6 +5,9 @@
  else   if (event.isCancelled()) {
     onDisconnect(event);
   }
+ else   if (event.isSuspended()) {
+    onSuspend(event);
+  }
  else {
     onBroadcast(event);
   }

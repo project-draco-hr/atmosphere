@@ -4,6 +4,8 @@
   m.suspend(5000,false);
   res.getOutputStream().write("resume".getBytes());
   m.addListener(new AtmosphereResourceEventListener(){
+    @Override public void onSuspend(    final AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+    }
     @Override public void onResume(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
     }
     @Override public void onDisconnect(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
