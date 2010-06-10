@@ -1,4 +1,4 @@
 {
-  pos=0;
+  request.setAttribute("pos",new AtomicInteger(0));
   doFilter(request,response);
 }

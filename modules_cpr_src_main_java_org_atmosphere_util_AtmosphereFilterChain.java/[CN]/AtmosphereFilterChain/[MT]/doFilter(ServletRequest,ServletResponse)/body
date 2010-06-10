@@ -1,6 +1,7 @@
 {
-  if (pos < n) {
-    FilterConfigImpl filterConfig=filters[pos++];
+  AtomicInteger pos=((AtomicInteger)request.getAttribute("pos"));
+  if (pos.get() < n) {
+    FilterConfigImpl filterConfig=filters[pos.getAndIncrement()];
     Filter filter=null;
     try {
       filter=filterConfig.getFilter();
