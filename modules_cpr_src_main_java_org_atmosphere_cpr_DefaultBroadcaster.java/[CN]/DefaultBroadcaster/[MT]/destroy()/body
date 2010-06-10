@@ -1,4 +1,7 @@
 {
+  if (notifierFuture != null) {
+    notifierFuture.cancel(true);
+  }
   if (bc != null) {
     bc.destroy();
   }
