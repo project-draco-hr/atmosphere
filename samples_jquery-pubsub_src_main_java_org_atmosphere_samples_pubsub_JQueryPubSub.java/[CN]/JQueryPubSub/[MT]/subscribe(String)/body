@@ -1,8 +1,4 @@
 {
-  if (!topic.getBroadcasterConfig().hasFilters()) {
-    topic.getBroadcasterConfig().addFilter(formParamFilter);
-    topic.getBroadcasterConfig().addFilter(filter);
-  }
   boolean resumeOnBroadcast=false;
   if (transport != null && transport.equals("long-polling")) {
     resumeOnBroadcast=true;

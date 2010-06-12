@@ -22,10 +22,13 @@
           broadcasters.put(attrs.getNamedItem("context-root").getNodeValue(),broadcasterClass);
         }
       }
-      if (attrs.getNamedItem("tracker") != null) {
-        String trackerClass=attrs.getNamedItem("tracker").getNodeValue();
-        if (trackerClass != null) {
-          trackers.put(attrs.getNamedItem("context-root").getNodeValue(),trackerClass);
+      if (attrs.getNamedItem("broadcastFilterClasses") != null) {
+        broadcastFilterClasses=attrs.getNamedItem("broadcastFilter").getNodeValue().split(",");
+      }
+      if (attrs.getNamedItem("broadcasterCache") != null) {
+        String bc=attrs.getNamedItem("broadcasterCache").getNodeValue();
+        if (bc != null) {
+          broadcasterCache.put(attrs.getNamedItem("context-root").getNodeValue(),bc);
         }
       }
       if (attrs.getNamedItem("comet-support") != null) {

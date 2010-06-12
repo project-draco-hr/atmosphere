@@ -40,12 +40,15 @@
         Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
         wrapper.broadcaster=BroadcasterFactory.getDefault().get(bc,entry.getKey());
       }
-      String trackerName=reader.getTrackerName(entry.getKey());
-      if (trackerName != null) {
-        broadcasterCacheClassName=trackerName;
+      String bc=reader.getBroadcasterCache(entry.getKey());
+      if (bc != null) {
+        broadcasterCacheClassName=bc;
       }
       if (reader.getCometSupportClass() != null) {
         cometSupport=(CometSupport)c.loadClass(reader.getCometSupportClass()).newInstance();
+      }
+      if (reader.getBroadcastFilterClasses() != null) {
+        configureBroadcasterFilter(reader.getBroadcastFilterClasses());
       }
     }
  catch (    Throwable t) {

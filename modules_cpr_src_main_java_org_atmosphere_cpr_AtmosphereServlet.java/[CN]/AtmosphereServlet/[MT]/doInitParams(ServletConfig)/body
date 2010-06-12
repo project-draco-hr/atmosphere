@@ -54,4 +54,8 @@
   if (s != null) {
     initParams.put(RESUME_AND_KEEPALIVE,s);
   }
+  s=sc.getInitParameter(BROADCAST_FILTER_CLASSES);
+  if (s != null) {
+    configureBroadcasterFilter(s.split(","));
+  }
 }
