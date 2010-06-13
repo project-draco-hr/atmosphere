@@ -7,22 +7,19 @@
 switch (action) {
 case SUSPEND_RESPONSE:
     SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(response.getResponse()).getJResponse());
-  boolean outputJunk=s.outputComments();
-String transport=servletReq.getHeader("Connection");
-if (transport != null && transport.equalsIgnoreCase("Upgrade")) {
-outputJunk=false;
-}
-suspend(sessionSupported,s.resumeOnBroadcast(),outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,r);
+  boolean outputJunk=outputJunk(request,s.outputComments());
+boolean resumeOnBroadcast=resumeOnBroadcast(request,s.resumeOnBroadcast());
 for (AtmosphereResourceEventListener el : s.listeners()) {
 if (r instanceof AtmosphereEventLifecycle) {
-((AtmosphereEventLifecycle)r).addEventListener(el);
+  ((AtmosphereEventLifecycle)r).addEventListener(el);
 }
 }
+suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,r);
 break;
 case SUSPEND:
 case SUSPEND_RESUME:
-boolean resumeOnBroadcast=(action == Action.SUSPEND_RESUME);
-suspend(sessionSupported,resumeOnBroadcast,outputComments,suspendTimeout,request,response,r);
+outputJunk=outputJunk(request,outputComments);
+resumeOnBroadcast=resumeOnBroadcast(request,(action == Action.SUSPEND_RESUME));
 for (Class<? extends AtmosphereResourceEventListener> e : listeners) {
 try {
 AtmosphereResourceEventListener el=e.newInstance();
@@ -34,6 +31,7 @@ if (r instanceof AtmosphereEventLifecycle) {
 throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + e));
 }
 }
+suspend(sessionSupported,resumeOnBroadcast,outputJunk,suspendTimeout,request,response,r);
 break;
 case RESUME:
 if (response.getEntity() != null) {

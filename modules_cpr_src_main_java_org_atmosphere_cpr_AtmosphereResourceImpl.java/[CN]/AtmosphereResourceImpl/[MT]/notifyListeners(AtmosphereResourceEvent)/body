@@ -5,7 +5,7 @@
  else   if (event.isCancelled()) {
     onDisconnect(event);
   }
- else   if (event.isSuspended()) {
+ else   if (!isSuspendEvent.getAndSet(true) && event.isSuspended()) {
     onSuspend(event);
   }
  else {

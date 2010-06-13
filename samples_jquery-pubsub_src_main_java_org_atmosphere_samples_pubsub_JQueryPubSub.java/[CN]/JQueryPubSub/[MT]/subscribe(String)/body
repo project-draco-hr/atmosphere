@@ -1,7 +1,0 @@
-{
-  boolean resumeOnBroadcast=false;
-  if (transport != null && transport.equals("long-polling")) {
-    resumeOnBroadcast=true;
-  }
-  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(topic).resumeOnBroadcast(resumeOnBroadcast).addListener(new EventsLogger()).build();
-}

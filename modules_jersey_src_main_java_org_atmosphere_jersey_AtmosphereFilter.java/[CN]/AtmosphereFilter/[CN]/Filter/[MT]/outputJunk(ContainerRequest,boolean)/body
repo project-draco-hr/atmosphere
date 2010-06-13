@@ -1,0 +1,11 @@
+{
+  String upgrade=servletReq.getHeader("Connection");
+  String transport=request.getHeaderValue("X-Atmosphere-Transport");
+  if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
+    return false;
+  }
+ else   if (transport != null && transport.equals("long-polling")) {
+    return false;
+  }
+  return outputJunk;
+}

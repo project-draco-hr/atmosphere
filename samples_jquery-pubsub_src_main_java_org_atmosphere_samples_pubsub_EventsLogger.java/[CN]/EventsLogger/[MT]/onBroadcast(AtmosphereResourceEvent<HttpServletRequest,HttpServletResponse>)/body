@@ -1,3 +1,3 @@
 {
-  System.out.println("onBroadcast: " + event);
+  System.out.println("onBroadcast: " + event.getMessage());
 }

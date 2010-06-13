@@ -1,0 +1,3 @@
+{
+  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(topic).addListener(new EventsLogger()).build();
+}
