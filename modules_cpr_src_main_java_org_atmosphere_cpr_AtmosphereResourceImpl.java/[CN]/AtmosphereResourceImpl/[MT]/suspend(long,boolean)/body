@@ -1,8 +1,13 @@
 {
   if (!event.isResumedOnTimeout()) {
     String upgrade=req.getHeader("Connection");
-    if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade") && !cometSupport.supportWebSocket()) {
-      res.addHeader("X-Atmosphere-error","Websocket protocol not supported");
+    if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
+      if (!cometSupport.supportWebSocket()) {
+        res.addHeader("X-Atmosphere-error","Websocket protocol not supported");
+      }
+ else {
+        flushComment=false;
+      }
     }
     res.setHeader("Expires","-1");
     res.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
