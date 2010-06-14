@@ -7,7 +7,7 @@
     res.setHeader("Expires","-1");
     res.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
     res.setHeader("Pragma","no-cache");
-    if (flushComment && !Boolean.valueOf(config.getInitParameter(AtmosphereServlet.SUSPEND_WITHOUT_COMMENT))) {
+    if (flushComment) {
       write();
     }
     req.setAttribute(PRE_SUSPEND,"true");
