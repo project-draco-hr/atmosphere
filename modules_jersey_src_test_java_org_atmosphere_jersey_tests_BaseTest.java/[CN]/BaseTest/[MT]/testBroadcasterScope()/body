@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testBroasdcasterScope");
+  System.out.println("Running testBroadcasterScope");
   final CountDownLatch latch=new CountDownLatch(2);
   AsyncHttpClient c=new AsyncHttpClient();
   try {

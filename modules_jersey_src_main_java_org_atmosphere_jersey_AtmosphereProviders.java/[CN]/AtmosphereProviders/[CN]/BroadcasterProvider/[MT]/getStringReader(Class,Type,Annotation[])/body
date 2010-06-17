@@ -1,5 +1,5 @@
 {
-  if (!type.getClass().isAssignableFrom(Broadcaster.class)) {
+  if (!Broadcaster.class.isAssignableFrom(type)) {
     return null;
   }
   return new StringReader(){
