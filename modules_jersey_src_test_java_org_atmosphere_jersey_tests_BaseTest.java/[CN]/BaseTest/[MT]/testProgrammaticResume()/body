@@ -10,16 +10,16 @@
       public void onThrowable(      Throwable throwable){
         fail("onThrowable",throwable);
       }
-      public STATE onBodyPartReceived(      HttpResponseBodyPart<String> bp) throws Exception {
+      public STATE onBodyPartReceived(      HttpResponseBodyPart bp) throws Exception {
         System.out.println("bp: " + new String(bp.getBodyPartBytes()));
         response.set(response.get() + new String(bp.getBodyPartBytes()));
         locationLatch.countDown();
         return STATE.CONTINUE;
       }
-      public STATE onStatusReceived(      HttpResponseStatus<String> hs) throws Exception {
+      public STATE onStatusReceived(      HttpResponseStatus hs) throws Exception {
         return STATE.CONTINUE;
       }
-      public STATE onHeadersReceived(      HttpResponseHeaders<String> rh) throws Exception {
+      public STATE onHeadersReceived(      HttpResponseHeaders rh) throws Exception {
         location.set(rh.getHeaders().getHeaderValue("Location"));
         return STATE.CONTINUE;
       }
