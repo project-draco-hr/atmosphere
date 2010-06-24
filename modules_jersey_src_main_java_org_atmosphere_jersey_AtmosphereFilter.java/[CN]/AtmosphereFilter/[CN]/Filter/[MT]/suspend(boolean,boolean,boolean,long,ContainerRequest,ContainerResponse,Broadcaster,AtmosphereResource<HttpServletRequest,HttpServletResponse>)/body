@@ -7,7 +7,6 @@
     servletReq.setAttribute(RESUME_UUID,uuid);
     servletReq.setAttribute(RESUME_CANDIDATES,resumeCandidates);
   }
-  Broadcaster bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
   if (bc == null) {
     bc=r.getBroadcaster();
   }

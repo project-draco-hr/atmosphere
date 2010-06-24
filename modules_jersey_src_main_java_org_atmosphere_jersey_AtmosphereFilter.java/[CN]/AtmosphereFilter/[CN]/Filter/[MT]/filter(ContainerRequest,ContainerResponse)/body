@@ -14,7 +14,11 @@ if (r instanceof AtmosphereEventLifecycle) {
   ((AtmosphereEventLifecycle)r).addEventListener(el);
 }
 }
-suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,r);
+Broadcaster bc=s.broadcaster();
+if (bc == null) {
+bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
+}
+suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r);
 break;
 case SUSPEND:
 case SUSPEND_RESUME:
@@ -31,7 +35,7 @@ if (r instanceof AtmosphereEventLifecycle) {
 throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + e));
 }
 }
-suspend(sessionSupported,resumeOnBroadcast,outputJunk,suspendTimeout,request,response,r);
+suspend(sessionSupported,resumeOnBroadcast,outputJunk,suspendTimeout,request,response,(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER),r);
 break;
 case RESUME:
 if (response.getEntity() != null) {
