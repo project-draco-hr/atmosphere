@@ -1,5 +1,5 @@
 {
-  if (response.getEntity() == null) {
+  if (response.getStatus() == 204) {
     response.setStatus(200);
   }
   BroadcasterFactory bf=(BroadcasterFactory)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_FACTORY);
