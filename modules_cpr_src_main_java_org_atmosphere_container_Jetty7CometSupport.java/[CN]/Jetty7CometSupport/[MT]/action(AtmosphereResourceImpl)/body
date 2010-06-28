@@ -10,9 +10,6 @@
         logger.fine("Continuation.complete() " + ex);
       }
     }
- finally {
-      resumed.offer(c);
-    }
   }
  else {
     try {

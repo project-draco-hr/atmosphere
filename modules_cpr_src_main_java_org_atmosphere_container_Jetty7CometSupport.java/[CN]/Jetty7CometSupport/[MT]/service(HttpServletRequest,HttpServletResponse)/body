@@ -19,19 +19,7 @@
       if (logger.isLoggable(Level.FINE)) {
         logger.fine("Resume " + res);
       }
-      if (!resumed.remove(c)) {
-        try {
-          c.complete();
-        }
- catch (        java.lang.IllegalStateException ex) {
-          if (logger.isLoggable(Level.FINE)) {
-            logger.fine("Continuation.complete() " + ex);
-          }
-        }
- finally {
-          resumed(req,res);
-        }
-      }
+      c.complete();
     }
   }
  else   if (!c.isInitial() && c.isExpired()) {
