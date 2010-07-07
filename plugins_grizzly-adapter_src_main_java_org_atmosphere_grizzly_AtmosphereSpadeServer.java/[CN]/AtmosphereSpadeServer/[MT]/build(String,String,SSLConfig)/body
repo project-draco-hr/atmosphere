@@ -1,0 +1,37 @@
+{
+  if (u == null) {
+    throw new IllegalArgumentException("The URI must not be null");
+  }
+  URI uri=URI.create(u);
+  final String scheme=uri.getScheme();
+  if (!scheme.startsWith("http"))   throw new IllegalArgumentException("The URI scheme, of the URI " + u + ", must be equal (ignoring case) to 'http'");
+  final int port=(uri.getPort() == -1) ? 80 : uri.getPort();
+  String path=uri.getPath();
+  if (path == null) {
+    throw new IllegalArgumentException("The URI path, of the URI " + uri + ", must be non-null");
+  }
+ else   if (path.length() == 0) {
+    throw new IllegalArgumentException("The URI path, of the URI " + uri + ", must be present");
+  }
+ else   if (path.charAt(0) != '/') {
+    throw new IllegalArgumentException("The URI path, of the URI " + uri + ". must start with a '/'");
+  }
+  boolean secure=false;
+  if (scheme.equalsIgnoreCase("https")) {
+    secure=true;
+  }
+  AtmosphereSpadeServer a=new AtmosphereSpadeServer(port,secure);
+  if (path.length() > 1) {
+    if (path.endsWith("/")) {
+      path=path.substring(0,path.length() - 1);
+    }
+    a.aa.setContextPath(path);
+  }
+  if (resourcesPackage != null) {
+    a.aa.setResourcePackage(resourcesPackage);
+  }
+  if (sslConfig != null) {
+    a.setSSLConfig(sslConfig);
+  }
+  return a;
+}
