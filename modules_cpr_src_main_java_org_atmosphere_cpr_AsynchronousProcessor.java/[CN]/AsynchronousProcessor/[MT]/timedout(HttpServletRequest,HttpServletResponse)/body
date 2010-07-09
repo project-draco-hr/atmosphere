@@ -1,5 +1,10 @@
 {
   AtmosphereResourceImpl re;
+  long l=(Long)req.getAttribute(MAX_INACTIVE);
+  if (l == -1) {
+    return timedoutAction;
+  }
+  req.setAttribute(MAX_INACTIVE,(long)-1);
   if (req == null || res == null) {
     logger.warning("Invalid Request/Response: " + req + "/"+ res);
     return timedoutAction;

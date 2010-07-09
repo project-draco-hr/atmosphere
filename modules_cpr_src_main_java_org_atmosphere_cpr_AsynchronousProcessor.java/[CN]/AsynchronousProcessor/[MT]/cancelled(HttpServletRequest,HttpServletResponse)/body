@@ -1,5 +1,10 @@
 {
   AtmosphereResourceImpl re=null;
+  long l=(Long)req.getAttribute(MAX_INACTIVE);
+  if (l == -1) {
+    return timedoutAction;
+  }
+  req.setAttribute(MAX_INACTIVE,(long)-1);
   try {
     re=(AtmosphereResourceImpl)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
     if (re != null) {
