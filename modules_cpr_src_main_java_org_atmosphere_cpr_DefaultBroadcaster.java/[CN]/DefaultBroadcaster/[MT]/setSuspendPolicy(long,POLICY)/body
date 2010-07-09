@@ -1,0 +1,4 @@
+{
+  this.maxSuspendResource=maxSuspendResource;
+  this.policy=policy;
+}

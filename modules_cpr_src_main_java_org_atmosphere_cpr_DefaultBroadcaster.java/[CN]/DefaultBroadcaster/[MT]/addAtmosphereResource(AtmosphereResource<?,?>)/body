@@ -1,4 +1,17 @@
 {
+  if (maxSuspendResource > 0 && events.size() == maxSuspendResource) {
+    if (policy == POLICY.FIFO) {
+      try {
+        events.poll().resume();
+      }
+ catch (      Throwable t) {
+        LoggerUtils.getLogger().log(Level.WARNING,"addAtmosphereResource",t);
+      }
+    }
+ else     if (policy == POLICY.REJECT) {
+      throw new RejectedExecutionException(String.format("Maximum suspended AtmosphereResources %s",maxSuspendResource));
+    }
+  }
   if (events.contains(r)) {
     return r;
   }
