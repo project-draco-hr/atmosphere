@@ -1,3 +1,0 @@
-{
-  setContextImpl(new ServletContextImpl());
-}

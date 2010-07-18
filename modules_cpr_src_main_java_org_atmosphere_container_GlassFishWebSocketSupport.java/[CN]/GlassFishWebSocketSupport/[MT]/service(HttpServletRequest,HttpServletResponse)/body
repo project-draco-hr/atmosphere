@@ -1,6 +1,6 @@
 {
   String connection=req.getHeader("Connection");
-  if (connection == null || !connection.equalsIgnoreCase("Upgrade")) {
+  if (!"Upgrade".equalsIgnoreCase(connection)) {
     return super.service(req,res);
   }
  else {

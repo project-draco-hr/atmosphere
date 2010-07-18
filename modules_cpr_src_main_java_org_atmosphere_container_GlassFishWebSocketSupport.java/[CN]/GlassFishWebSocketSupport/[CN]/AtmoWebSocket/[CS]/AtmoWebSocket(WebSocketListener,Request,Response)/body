@@ -1,4 +1,0 @@
-{
-  super(listener,request,response);
-  coyoteRequest=request;
-}

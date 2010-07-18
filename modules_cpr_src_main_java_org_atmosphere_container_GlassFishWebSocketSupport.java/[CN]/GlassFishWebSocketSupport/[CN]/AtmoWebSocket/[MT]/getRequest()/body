@@ -1,7 +1,0 @@
-{
-  GrizzlyRequest r=new GrizzlyRequest();
-  r.setRequest(coyoteRequest);
-  AtmoRequest h=new AtmoRequest(r);
-  h.contextImpl();
-  return h;
-}
