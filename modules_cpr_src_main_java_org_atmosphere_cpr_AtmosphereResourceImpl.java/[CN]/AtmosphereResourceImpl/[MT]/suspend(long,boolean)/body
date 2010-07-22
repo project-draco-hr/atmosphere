@@ -18,6 +18,14 @@
     req.setAttribute(PRE_SUSPEND,"true");
     action.type=AtmosphereServlet.Action.TYPE.SUSPEND;
     action.timeout=timeout;
+    if (broadcaster.getScope() == Broadcaster.SCOPE.REQUEST) {
+      String id=broadcaster.getID();
+      Class<? extends Broadcaster> clazz=broadcaster.getClass();
+      broadcaster=BroadcasterFactory.getDefault().lookup(clazz,id,false);
+      if (broadcaster == null) {
+        broadcaster=BroadcasterFactory.getDefault().lookup(clazz,id + "/" + UUID.randomUUID(),true);
+      }
+    }
     broadcaster.addAtmosphereResource(this);
     req.removeAttribute(PRE_SUSPEND);
     notifyListeners();

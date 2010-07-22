@@ -1,4 +1,5 @@
 {
+  if (destroyed.get())   throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
   if (scope == SCOPE.REQUEST && requestScoped.getAndSet(true)) {
     throw new IllegalStateException("Broadcaster " + this + " cannot be used as its scope is set to REQUEST");
   }

@@ -1,4 +1,5 @@
 {
+  if (destroyed.get())   throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
   if (period == 0 || t == null) {
     return null;
   }

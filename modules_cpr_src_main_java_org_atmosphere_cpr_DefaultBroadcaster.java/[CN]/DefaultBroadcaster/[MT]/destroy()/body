@@ -2,7 +2,7 @@
   if (notifierFuture != null) {
     notifierFuture.cancel(true);
   }
-  if (bc != null) {
+  if (bc != null && scope != SCOPE.REQUEST) {
     bc.destroy();
   }
   if (broadcasterCache != null) {
@@ -13,4 +13,5 @@
   delayedBroadcast.clear();
   broadcasterCache=null;
   started.set(false);
+  destroyed.set(true);
 }
