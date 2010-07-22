@@ -5,6 +5,7 @@
     wrapper.service(r.getRequest(),r.getResponse());
   }
  catch (  Throwable ex) {
+    LoggerUtils.getLogger().log(Level.SEVERE,"onRequest",ex);
     throw new RuntimeException(ex);
   }
 }
