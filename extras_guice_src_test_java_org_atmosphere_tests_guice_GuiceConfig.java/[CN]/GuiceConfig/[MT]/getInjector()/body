@@ -4,7 +4,7 @@
       bind(PubSubTest.class);
       bind(new TypeLiteral<Map<String,String>>(){
       }
-).annotatedWith(Names.named(AtmosphereGuiceServlet.JERSEY_PROPERTIES)).toInstance(of("",""));
+).annotatedWith(Names.named(AtmosphereGuiceServlet.JERSEY_PROPERTIES)).toInstance(Collections.<String,String>emptyMap());
     }
   }
 );
