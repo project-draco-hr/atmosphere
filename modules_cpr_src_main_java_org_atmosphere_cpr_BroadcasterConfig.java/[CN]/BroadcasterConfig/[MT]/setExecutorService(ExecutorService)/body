@@ -1,5 +1,7 @@
 {
-  this.executorService.shutdown();
+  if (this.executorService != null) {
+    this.executorService.shutdown();
+  }
   this.executorService=executorService;
   return this;
 }
