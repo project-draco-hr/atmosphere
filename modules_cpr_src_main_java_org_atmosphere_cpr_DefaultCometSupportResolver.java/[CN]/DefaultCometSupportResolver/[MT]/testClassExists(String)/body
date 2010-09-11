@@ -1,6 +1,6 @@
 {
   try {
-    return testClass != null && testClass.length() > 0 && Class.forName(testClass) != null;
+    return testClass != null && testClass.length() > 0 && Thread.currentThread().getContextClassLoader().loadClass(testClass) != null;
   }
  catch (  ClassNotFoundException ex) {
     return false;
