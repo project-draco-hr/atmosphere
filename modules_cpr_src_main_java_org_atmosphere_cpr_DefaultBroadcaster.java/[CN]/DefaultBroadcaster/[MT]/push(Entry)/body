@@ -1,4 +1,5 @@
 {
+  String prevMessage=msg.message.toString();
   if (!delayedBroadcast.isEmpty()) {
     Iterator<Entry> i=delayedBroadcast.iterator();
     while (i.hasNext()) {
@@ -8,7 +9,7 @@
       }
       try {
         if (e.message instanceof String && msg.message instanceof String) {
-          msg.message=e.message.toString() + msg.message.toString();
+          msg.message=e.message + msg.message.toString();
         }
  else {
           push(e);
@@ -39,4 +40,5 @@
       push(r,msg.message);
     }
   }
+  msg.message=prevMessage;
 }
