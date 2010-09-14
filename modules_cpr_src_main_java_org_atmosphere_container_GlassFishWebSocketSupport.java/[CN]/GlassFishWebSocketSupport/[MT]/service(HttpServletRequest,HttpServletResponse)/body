@@ -5,7 +5,6 @@
   }
  else {
     Action action=suspended(req,res);
-    WebSocketEngine.getEngine().register(req.getRequestURI(),grizzlyApplication);
     if (action.type == Action.TYPE.SUSPEND) {
       if (logger.isLoggable(Level.FINE)) {
         logger.fine("Suspending" + res);
