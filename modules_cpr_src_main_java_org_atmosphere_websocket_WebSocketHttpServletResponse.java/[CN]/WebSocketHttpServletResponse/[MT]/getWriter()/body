@@ -5,7 +5,7 @@
         webSocketSupport.write(frame,new String(chars,offset,lenght));
       }
  catch (      IOException e) {
-        LoggerUtils.getLogger().log(Level.INFO,"",e);
+        throw new RuntimeException(e);
       }
     }
     public void write(    char[] chars){
@@ -13,7 +13,7 @@
         webSocketSupport.write(frame,new String(chars));
       }
  catch (      IOException e) {
-        LoggerUtils.getLogger().log(Level.INFO,"",e);
+        throw new RuntimeException(e);
       }
     }
     public void write(    String s,    int offset,    int lenght){
@@ -21,7 +21,7 @@
         webSocketSupport.write(frame,new String(s.substring(offset,lenght)));
       }
  catch (      IOException e) {
-        LoggerUtils.getLogger().log(Level.INFO,"",e);
+        throw new RuntimeException(e);
       }
     }
     public void write(    java.lang.String s){
@@ -29,7 +29,7 @@
         webSocketSupport.write(frame,new String(s));
       }
  catch (      IOException e) {
-        LoggerUtils.getLogger().log(Level.INFO,"",e);
+        throw new RuntimeException(e);
       }
     }
   }
