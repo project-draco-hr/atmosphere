@@ -1,6 +1,6 @@
 {
   if (feed.getAtmosphereResources().size() == 0) {
-    feed.scheduleFixedBroadcast(new Callable<String>(){
+    Future<?> future=feed.scheduleFixedBroadcast(new Callable<String>(){
       private final AtomicReference<String> refreshUrl=new AtomicReference<String>("");
       public String call() throws Exception {
         String query=null;
@@ -24,6 +24,7 @@
       }
     }
 ,1,TimeUnit.SECONDS);
+    futures.put(tagid,future);
   }
   return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(feed).outputComments(true).addListener(new EventsLogger()).build();
 }

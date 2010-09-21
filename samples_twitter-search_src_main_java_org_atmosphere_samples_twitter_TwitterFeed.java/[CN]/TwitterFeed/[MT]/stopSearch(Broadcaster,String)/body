@@ -1,0 +1,5 @@
+{
+  feed.resumeAll();
+  futures.get(tagid).cancel(true);
+  return "DONE";
+}
