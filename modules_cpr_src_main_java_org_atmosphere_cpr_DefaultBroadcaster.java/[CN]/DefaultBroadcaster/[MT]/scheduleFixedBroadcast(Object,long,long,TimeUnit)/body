@@ -8,6 +8,19 @@
   final Entry e=new Entry(o,null,null);
   return bc.getScheduledExecutorService().scheduleWithFixedDelay(new Runnable(){
     public void run(){
+      if (Callable.class.isAssignableFrom(o.getClass())) {
+        try {
+          Object r=Callable.class.cast(o).call();
+          if (r != null) {
+            Entry entry=new Entry(r,null,null);
+            push(entry);
+          }
+          return;
+        }
+ catch (        Exception e1) {
+          LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+        }
+      }
       push(e);
     }
   }
