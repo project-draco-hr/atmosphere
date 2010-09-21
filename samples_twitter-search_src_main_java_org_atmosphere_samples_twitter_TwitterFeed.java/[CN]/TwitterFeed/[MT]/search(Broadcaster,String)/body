@@ -1,0 +1,29 @@
+{
+  if (feed.getAtmosphereResources().size() == 0) {
+    feed.scheduleFixedBroadcast(new Callable<String>(){
+      private final AtomicReference<String> refreshUrl=new AtomicReference<String>("");
+      public String call() throws Exception {
+        String query=null;
+        if (!refreshUrl.get().isEmpty()) {
+          query=refreshUrl.get();
+        }
+ else {
+          query="?q=" + tagid;
+        }
+        asyncClient.prepareGet("http://search.twitter.com/search.json" + query).execute(new AsyncCompletionHandler<Object>(){
+          @Override public Object onCompleted(          Response response) throws Exception {
+            String s=response.getResponseBody();
+            JSONObject json=new JSONObject(s);
+            refreshUrl.set(json.getString("refresh_url"));
+            feed.broadcast(s).get();
+            return null;
+          }
+        }
+);
+        return null;
+      }
+    }
+,1,TimeUnit.SECONDS);
+  }
+  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(feed).outputComments(true).addListener(new EventsLogger()).build();
+}
