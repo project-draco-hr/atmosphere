@@ -18,5 +18,15 @@
       logger.log(Level.FINE,"",ex);
     }
   }
+ finally {
+    try {
+      aliveRequests.remove(req);
+      re.notifyListeners();
+    }
+  finally {
+      re.removeEventListeners();
+      re.getBroadcaster().removeAtmosphereResource(re);
+    }
+  }
   return cancelledAction;
 }
