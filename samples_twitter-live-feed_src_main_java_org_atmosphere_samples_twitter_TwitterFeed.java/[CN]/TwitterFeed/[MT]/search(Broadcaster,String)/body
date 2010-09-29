@@ -1,4 +1,7 @@
 {
+  if (tagid.isEmpty()) {
+    throw new WebApplicationException();
+  }
   if (feed.getAtmosphereResources().size() == 0) {
     Future<?> future=feed.scheduleFixedBroadcast(new Callable<String>(){
       private final AtomicReference<String> refreshUrl=new AtomicReference<String>("");
