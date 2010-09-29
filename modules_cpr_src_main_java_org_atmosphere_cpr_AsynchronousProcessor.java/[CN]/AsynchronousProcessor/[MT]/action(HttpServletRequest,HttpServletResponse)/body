@@ -1,4 +1,11 @@
 {
+  String upgrade=req.getHeader("Connection");
+  if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade") && !supportWebSocket()) {
+    res.setStatus(501);
+    res.addHeader("X-Atmosphere-error","Websocket protocol not supported");
+    res.flushBuffer();
+    return new Action();
+  }
   if (supportSession()) {
     HttpSession session=req.getSession(true);
     if (session.getMaxInactiveInterval() == DEFAULT_SESSION_TIMEOUT) {
