@@ -3,7 +3,7 @@
     throw new WebApplicationException();
   }
   if (feed.getAtmosphereResources().size() == 0) {
-    Future<?> future=feed.scheduleFixedBroadcast(new Callable<String>(){
+    final Future<?> future=feed.scheduleFixedBroadcast(new Callable<String>(){
       private final AtomicReference<String> refreshUrl=new AtomicReference<String>("");
       public String call() throws Exception {
         String query=null;
@@ -13,12 +13,21 @@
  else {
           query="?q=" + tagid;
         }
+        suspendLatch.await();
         asyncClient.prepareGet("http://search.twitter.com/search.json" + query).execute(new AsyncCompletionHandler<Object>(){
           @Override public Object onCompleted(          Response response) throws Exception {
             String s=response.getResponseBody();
+            if (response.getStatusCode() != 200) {
+              feed.resumeAll();
+              feed.destroy();
+              System.out.println("Twitter Search API unavaileble\n" + s);
+              return null;
+            }
             JSONObject json=new JSONObject(s);
             refreshUrl.set(json.getString("refresh_url"));
-            feed.broadcast(s).get();
+            if (json.getJSONArray("results").length() > 1) {
+              feed.broadcast(s).get();
+            }
             return null;
           }
         }
@@ -29,5 +38,11 @@
 ,1,TimeUnit.SECONDS);
     futures.put(tagid,future);
   }
-  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(feed).outputComments(true).addListener(new EventsLogger()).build();
+  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(feed).outputComments(true).addListener(new EventsLogger(){
+    @Override public void onSuspend(    final AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+      System.out.println("onSuspend: " + event.getResource().getRequest().getRemoteAddr() + event.getResource().getRequest().getRemotePort());
+      suspendLatch.countDown();
+    }
+  }
+).build();
 }
