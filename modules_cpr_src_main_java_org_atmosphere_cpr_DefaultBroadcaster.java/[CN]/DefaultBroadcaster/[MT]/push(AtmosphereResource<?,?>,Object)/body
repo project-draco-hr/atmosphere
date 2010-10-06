@@ -5,9 +5,6 @@ synchronized (r) {
     trackBroadcastMessage(r,msg);
     e=r.getAtmosphereResourceEvent();
     e.setMessage(msg);
-    if (r instanceof AtmosphereEventLifecycle) {
-      ((AtmosphereEventLifecycle)r).notifyListeners();
-    }
     if (r.getAtmosphereResourceEvent() != null && !r.getAtmosphereResourceEvent().isCancelled() && HttpServletRequest.class.isAssignableFrom(r.getRequest().getClass())) {
       try {
         HttpServletRequest.class.cast(r.getRequest()).setAttribute(CometSupport.MAX_INACTIVE,(Long)System.currentTimeMillis());
@@ -21,5 +18,8 @@ synchronized (r) {
       }
     }
     broadcast(r,e);
+    if (r instanceof AtmosphereEventLifecycle) {
+      ((AtmosphereEventLifecycle)r).notifyListeners();
+    }
   }
 }
