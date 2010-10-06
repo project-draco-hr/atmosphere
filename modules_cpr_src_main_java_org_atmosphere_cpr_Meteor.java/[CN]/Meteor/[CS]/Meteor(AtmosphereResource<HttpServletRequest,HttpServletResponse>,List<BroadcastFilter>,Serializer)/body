@@ -1,10 +1,10 @@
 {
   this.r=r;
-  r.setSerializer(s);
+  this.r.setSerializer(s);
   if (l != null) {
     for (    BroadcastFilter f : l) {
-      r.getBroadcaster().getBroadcasterConfig().addFilter(f);
+      this.r.getBroadcaster().getBroadcasterConfig().addFilter(f);
     }
   }
-  cache.put(r.getRequest(),this);
+  cache.put(this.r,this);
 }
