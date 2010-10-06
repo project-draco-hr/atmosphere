@@ -1,0 +1,9 @@
+{
+  HttpServletRequest req=getWebRequestCycle().getWebRequest().getHttpServletRequest();
+  meteor=Meteor.build(req);
+  meteor.setBroadcaster(((WicketPushApplication)getApplication()).getBroadcaster());
+  meteor.addListener(this);
+  LoggerUtils.getLogger().log(Level.INFO,"Suspending connection");
+  String transport=req.getHeader("X-Atmosphere-Transport");
+  meteor.suspend(-1,!(transport != null && transport.equalsIgnoreCase("long-polling")));
+}

@@ -1,0 +1,10 @@
+{
+  broadcaster=BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"Wicket");
+  broadcaster.scheduleFixedBroadcast(new Callable<String>(){
+    public String call(){
+      String s=new Date().toString();
+      return s;
+    }
+  }
+,1,TimeUnit.SECONDS);
+}

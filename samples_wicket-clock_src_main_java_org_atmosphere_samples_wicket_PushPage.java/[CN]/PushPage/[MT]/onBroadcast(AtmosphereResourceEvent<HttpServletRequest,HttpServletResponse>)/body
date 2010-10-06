@@ -1,0 +1,8 @@
+{
+  LoggerUtils.getLogger().log(Level.INFO,"onBroadcast: " + event.getMessage());
+  String transport=event.getResource().getRequest().getHeader("X-Atmosphere-Transport");
+  if (transport != null && transport.equalsIgnoreCase("long-polling")) {
+    meteor.removeListener(this);
+    event.getResource().resume();
+  }
+}
