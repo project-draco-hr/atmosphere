@@ -2,7 +2,8 @@
   LoggerUtils.getLogger().log(Level.INFO,"onBroadcast: " + event.getMessage());
   String transport=event.getResource().getRequest().getHeader("X-Atmosphere-Transport");
   if (transport != null && transport.equalsIgnoreCase("long-polling")) {
+    Meteor meteor=Meteor.lookup(event.getResource().getRequest());
     meteor.removeListener(this);
-    event.getResource().resume();
+    meteor.resume();
   }
 }

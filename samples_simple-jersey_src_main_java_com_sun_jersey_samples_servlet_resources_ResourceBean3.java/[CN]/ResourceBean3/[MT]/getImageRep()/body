@@ -1,4 +1,0 @@
-{
-  URL jpgURL=this.getClass().getResource("java.jpg");
-  return new FileDataSource(jpgURL.getFile());
-}

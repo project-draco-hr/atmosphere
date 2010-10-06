@@ -1,6 +1,6 @@
 {
   HttpServletRequest req=getWebRequestCycle().getWebRequest().getHttpServletRequest();
-  meteor=Meteor.build(req);
+  Meteor meteor=Meteor.build(req);
   meteor.setBroadcaster(((WicketPushApplication)getApplication()).getBroadcaster());
   meteor.addListener(this);
   LoggerUtils.getLogger().log(Level.INFO,"Suspending connection");
