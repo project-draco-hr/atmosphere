@@ -1,7 +1,15 @@
 {
   HttpServletRequest req=getWebRequestCycle().getWebRequest().getHttpServletRequest();
   Meteor meteor=Meteor.build(req);
-  meteor.setBroadcaster(((WicketPushApplication)getApplication()).getBroadcaster());
+  if (!scheduleStarted.getAndSet(true)) {
+    meteor.schedule(new Callable<String>(){
+      public String call(){
+        String s=new Date().toString();
+        return s;
+      }
+    }
+,1);
+  }
   meteor.addListener(this);
   LoggerUtils.getLogger().log(Level.INFO,"Suspending connection");
   String transport=req.getHeader("X-Atmosphere-Transport");
