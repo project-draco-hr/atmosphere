@@ -1,3 +1,4 @@
 {
-  ((List<String>)config.getResourceFilterFactories()).add(AtmosphereFilter.class.getName());
+  Collections.addAll(config.getClasses(),AtmosphereProviders.BroadcasterProvider.class,BroadcasterFactoryInjector.PerRequest.class,BroadcasterFactoryInjector.Singleton.class,BroadcasterInjector.PerRequest.class,BroadcasterInjector.Singleton.class,AtmosphereResourceInjector.PerRequest.class,AtmosphereResourceInjector.Singleton.class);
+  config.getResourceFilterFactories().add(AtmosphereFilter.class);
 }

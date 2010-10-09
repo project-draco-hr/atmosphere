@@ -1,0 +1,2 @@
+Class<? extends Broadcaster> c
+Object id
