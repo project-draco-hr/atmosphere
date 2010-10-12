@@ -1,0 +1,17 @@
+{
+  AtmosphereResource r=null;
+  try {
+    if (session) {
+      if ((Boolean)req.getAttribute(AtmosphereServlet.SUPPORT_SESSION)) {
+        r=(AtmosphereResource)req.getSession().getAttribute(AtmosphereFilter.SUSPENDED_RESOURCE);
+      }
+    }
+    if (r == null) {
+      r=(AtmosphereResource)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+    }
+    return r;
+  }
+ catch (  IllegalStateException ex) {
+    throw new IllegalStateException("An instance of the class " + injectType.getName() + " could not be injected because there is no HTTP request in scope",ex);
+  }
+}

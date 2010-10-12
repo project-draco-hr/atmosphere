@@ -1,0 +1,9 @@
+{
+  if (!isValidType(c))   return null;
+  return new Injectable<BroadcasterFactory>(){
+    @Override public BroadcasterFactory getValue(){
+      return getAtmosphereResource(AtmosphereResource.class,true).getAtmosphereConfig().getBroadcasterFactory();
+    }
+  }
+;
+}

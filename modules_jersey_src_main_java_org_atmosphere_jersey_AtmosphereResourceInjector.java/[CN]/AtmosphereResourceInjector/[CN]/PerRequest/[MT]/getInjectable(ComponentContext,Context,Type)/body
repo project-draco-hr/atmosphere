@@ -1,0 +1,9 @@
+{
+  if (!isValidType(c))   return null;
+  return new Injectable<AtmosphereResource>(){
+    @Override public AtmosphereResource getValue(){
+      return getAtmosphereResource(AtmosphereResource.class,false);
+    }
+  }
+;
+}

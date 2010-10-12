@@ -1,0 +1,9 @@
+{
+  if (!isValidType(t))   return null;
+  return new Injectable<Broadcaster>(){
+    @Override public Broadcaster getValue(){
+      return getAtmosphereResource(Broadcaster.class,true).getBroadcaster();
+    }
+  }
+;
+}

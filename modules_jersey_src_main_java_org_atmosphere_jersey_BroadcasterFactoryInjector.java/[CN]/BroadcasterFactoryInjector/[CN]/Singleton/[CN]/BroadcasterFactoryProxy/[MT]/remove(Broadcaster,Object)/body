@@ -1,0 +1,3 @@
+{
+  return _get().remove(b,id);
+}

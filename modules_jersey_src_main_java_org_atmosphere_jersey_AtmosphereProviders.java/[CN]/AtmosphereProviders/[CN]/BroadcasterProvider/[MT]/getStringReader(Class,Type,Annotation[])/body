@@ -3,7 +3,7 @@
     return null;
   }
   return new StringReader(){
-    public Object fromString(    String topic){
+    @Override public Object fromString(    String topic){
       Broadcaster broadcaster=null;
       try {
         AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);

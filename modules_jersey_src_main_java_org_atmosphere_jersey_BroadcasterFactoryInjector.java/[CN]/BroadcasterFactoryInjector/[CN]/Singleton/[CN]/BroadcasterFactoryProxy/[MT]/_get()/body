@@ -1,0 +1,3 @@
+{
+  return getAtmosphereResource(AtmosphereResource.class,true).getAtmosphereConfig().getBroadcasterFactory();
+}

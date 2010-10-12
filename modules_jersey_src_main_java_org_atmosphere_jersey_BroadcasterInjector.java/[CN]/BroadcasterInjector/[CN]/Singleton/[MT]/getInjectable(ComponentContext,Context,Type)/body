@@ -1,0 +1,14 @@
+{
+  if (!isValidType(t))   return null;
+  return new Injectable<Broadcaster>(){
+    @Override public Broadcaster getValue(){
+      return (Broadcaster)Proxy.newProxyInstance(this.getClass().getClassLoader(),new Class[]{Broadcaster.class},new InvocationHandler(){
+        @Override public Object invoke(        Object proxy,        Method method,        Object[] args) throws Throwable {
+          return method.invoke(getAtmosphereResource(Broadcaster.class,true).getBroadcaster(),args);
+        }
+      }
+);
+    }
+  }
+;
+}

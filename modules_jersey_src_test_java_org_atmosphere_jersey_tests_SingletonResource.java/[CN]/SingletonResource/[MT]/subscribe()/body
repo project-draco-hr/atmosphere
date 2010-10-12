@@ -1,0 +1,6 @@
+{
+  assertNotNull(b.toString());
+  assertNotNull(bf.toString());
+  assertNotNull(ar.toString());
+  return "singleton";
+}
