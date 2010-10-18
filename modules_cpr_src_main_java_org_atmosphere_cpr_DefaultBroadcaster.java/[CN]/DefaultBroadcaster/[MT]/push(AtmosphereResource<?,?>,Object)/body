@@ -22,7 +22,7 @@ synchronized (r) {
  catch (      Throwable t) {
         if (LoggerUtils.getLogger().isLoggable(Level.FINE)) {
           LoggerUtils.getLogger().log(Level.FINE,"Preventing corruption of a recycled request",e);
-          events.remove(r);
+          resources.remove(r);
           return;
         }
       }

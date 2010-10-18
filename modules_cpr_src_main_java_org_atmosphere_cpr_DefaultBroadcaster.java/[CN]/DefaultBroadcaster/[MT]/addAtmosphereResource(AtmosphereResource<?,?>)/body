@@ -3,10 +3,10 @@
   if (scope == SCOPE.REQUEST && requestScoped.getAndSet(true)) {
     throw new IllegalStateException("Broadcaster " + this + " cannot be used as its scope is set to REQUEST");
   }
-  if (maxSuspendResource > 0 && events.size() == maxSuspendResource) {
+  if (maxSuspendResource > 0 && resources.size() == maxSuspendResource) {
     if (policy == POLICY.FIFO) {
       try {
-        events.poll().resume();
+        resources.poll().resume();
       }
  catch (      Throwable t) {
         LoggerUtils.getLogger().log(Level.WARNING,"addAtmosphereResource",t);
@@ -16,13 +16,13 @@
       throw new RejectedExecutionException(String.format("Maximum suspended AtmosphereResources %s",maxSuspendResource));
     }
   }
-  if (events.contains(r)) {
+  if (resources.contains(r)) {
     return r;
   }
-  if (events.isEmpty()) {
+  if (resources.isEmpty()) {
     BroadcasterFactory.getDefault().add(this,name);
   }
-  events.add(r);
+  resources.add(r);
   checkCachedAndPush(r,r.getAtmosphereResourceEvent());
   return r;
 }

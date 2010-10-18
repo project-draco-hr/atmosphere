@@ -8,7 +8,8 @@
   if (broadcasterCache != null) {
     broadcasterCache.stop();
   }
-  events.clear();
+  resources.clear();
+  broadcastOnResume.clear();
   messages.clear();
   delayedBroadcast.clear();
   broadcasterCache=null;

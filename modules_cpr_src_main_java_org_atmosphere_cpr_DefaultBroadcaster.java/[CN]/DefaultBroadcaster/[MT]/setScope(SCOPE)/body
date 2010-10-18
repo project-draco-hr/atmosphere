@@ -2,7 +2,7 @@
   this.scope=scope;
   try {
     if (scope == SCOPE.REQUEST) {
-      for (      AtmosphereResource<?,?> r : events) {
+      for (      AtmosphereResource<?,?> r : resources) {
         Broadcaster b=BroadcasterFactory.getDefault().get(this.getClass(),this.getClass().getSimpleName() + "/" + UUID.randomUUID());
         if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
           DefaultBroadcaster.class.cast(b).broadcasterCache=bc.getBroadcasterCache().getClass().newInstance();
@@ -12,7 +12,7 @@
           b.addAtmosphereResource(r);
         }
       }
-      if (!events.isEmpty()) {
+      if (!resources.isEmpty()) {
         this.destroy();
       }
     }

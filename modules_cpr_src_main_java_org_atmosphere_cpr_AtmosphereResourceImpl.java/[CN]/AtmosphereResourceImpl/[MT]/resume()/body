@@ -3,7 +3,7 @@
     action.type=AtmosphereServlet.Action.TYPE.RESUME;
     Broadcaster b=getBroadcaster();
     if (b instanceof DefaultBroadcaster) {
-      ((DefaultBroadcaster)b).broadcastOnResume();
+      ((DefaultBroadcaster)b).broadcastOnResume(this);
     }
     notifyListeners();
     listeners.clear();

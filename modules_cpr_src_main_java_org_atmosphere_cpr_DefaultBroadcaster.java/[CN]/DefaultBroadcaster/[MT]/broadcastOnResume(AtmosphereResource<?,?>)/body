@@ -1,0 +1,11 @@
+{
+  Iterator<Entry> i=broadcastOnResume.iterator();
+  while (i.hasNext()) {
+    Entry e=i.next();
+    e.multipleAtmoResources=r;
+    push(e);
+  }
+  if (resources.isEmpty()) {
+    broadcastOnResume.clear();
+  }
+}

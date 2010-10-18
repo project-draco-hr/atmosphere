@@ -27,19 +27,19 @@
       msg.message=b.append(msg.message).toString();
     }
   }
-  if (events.isEmpty()) {
+  if (resources.isEmpty()) {
     trackBroadcastMessage(null,msg.message);
   }
-  if (msg.eventsToPush == null) {
-    for (    AtmosphereResource<?,?> r : events) {
+  if (msg.multipleAtmoResources == null) {
+    for (    AtmosphereResource<?,?> r : resources) {
       push(r,msg.message);
     }
   }
- else   if (msg.eventsToPush instanceof AtmosphereResource<?,?>) {
-    push((AtmosphereResource<?,?>)msg.eventsToPush,msg.message);
+ else   if (msg.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
+    push((AtmosphereResource<?,?>)msg.multipleAtmoResources,msg.message);
   }
- else   if (msg.eventsToPush instanceof Set) {
-    Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)msg.eventsToPush;
+ else   if (msg.multipleAtmoResources instanceof Set) {
+    Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)msg.multipleAtmoResources;
     for (    AtmosphereResource<?,?> r : sub) {
       push(r,msg.message);
     }
