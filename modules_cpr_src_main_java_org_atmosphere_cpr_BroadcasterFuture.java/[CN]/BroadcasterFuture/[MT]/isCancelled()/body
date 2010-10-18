@@ -1,3 +1,6 @@
 {
+  if (innerFuture != null) {
+    return innerFuture.isCancelled();
+  }
   return isCancelled;
 }

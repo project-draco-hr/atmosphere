@@ -1,8 +1,0 @@
-{
-  msg=filter(msg);
-  if (msg == null)   return null;
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(msg);
-  f.done();
-  push(new Entry(msg,subset,f));
-  return f;
-}

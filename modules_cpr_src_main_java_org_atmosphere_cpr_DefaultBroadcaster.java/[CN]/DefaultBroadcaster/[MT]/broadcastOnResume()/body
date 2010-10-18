@@ -1,0 +1,7 @@
+{
+  Iterator<Entry> i=broadcastOnResume.iterator();
+  while (i.hasNext()) {
+    push(i.next());
+    i.remove();
+  }
+}

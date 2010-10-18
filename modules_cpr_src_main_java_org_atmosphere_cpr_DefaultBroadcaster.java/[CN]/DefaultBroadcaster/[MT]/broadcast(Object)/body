@@ -1,9 +1,0 @@
-{
-  if (destroyed.get())   throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
-  start();
-  msg=filter(msg);
-  if (msg == null)   return null;
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(msg);
-  messages.offer(new Entry(msg,null,f));
-  return f;
-}

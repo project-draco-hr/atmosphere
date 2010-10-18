@@ -1,0 +1,34 @@
+{
+  if (destroyed.get())   throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
+  final Object msg=filter(o);
+  if (msg == null)   return null;
+  final BroadcasterFuture<Object> future=new BroadcasterFuture<Object>(msg);
+  final Entry e=new Entry(msg,null,future);
+  Future<T> f;
+  if (delay > 0) {
+    f=bc.getScheduledExecutorService().schedule(new Callable<T>(){
+      public T call() throws Exception {
+        delayedBroadcast.remove(e);
+        if (Callable.class.isAssignableFrom(o.getClass())) {
+          try {
+            Object r=Callable.class.cast(o).call();
+            if (r != null) {
+              Entry entry=new Entry(r,null,null);
+              push(entry);
+            }
+            return (T)msg;
+          }
+ catch (          Exception e1) {
+            LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+          }
+        }
+        push(e);
+        return (T)msg;
+      }
+    }
+,delay,t);
+    e.future=new BroadcasterFuture<Object>(f,msg);
+  }
+  delayedBroadcast.offer(e);
+  return future;
+}

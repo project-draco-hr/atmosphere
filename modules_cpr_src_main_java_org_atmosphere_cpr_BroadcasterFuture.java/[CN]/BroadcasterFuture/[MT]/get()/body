@@ -1,4 +1,7 @@
 {
+  if (innerFuture != null) {
+    return (E)innerFuture.get();
+  }
   latch.await();
   return msg;
 }

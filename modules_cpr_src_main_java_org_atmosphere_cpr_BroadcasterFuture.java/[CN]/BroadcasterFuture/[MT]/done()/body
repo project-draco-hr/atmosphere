@@ -1,4 +1,6 @@
 {
   isDone=true;
-  latch.countDown();
+  if (latch != null) {
+    latch.countDown();
+  }
 }

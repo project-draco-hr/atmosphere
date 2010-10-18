@@ -1,9 +1,19 @@
 {
   AtmosphereResourceEvent e=null;
 synchronized (r) {
-    if (!r.getAtmosphereResourceEvent().isSuspended())     return;
+    if (r.getAtmosphereResourceEvent().isCancelled()) {
+      return;
+    }
     trackBroadcastMessage(r,msg);
     e=r.getAtmosphereResourceEvent();
+    if (Callable.class.isAssignableFrom(msg.getClass())) {
+      try {
+        msg=Callable.class.cast(msg).call();
+      }
+ catch (      Exception e1) {
+        LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+      }
+    }
     e.setMessage(msg);
     if (r.getAtmosphereResourceEvent() != null && !r.getAtmosphereResourceEvent().isCancelled() && HttpServletRequest.class.isAssignableFrom(r.getRequest().getClass())) {
       try {

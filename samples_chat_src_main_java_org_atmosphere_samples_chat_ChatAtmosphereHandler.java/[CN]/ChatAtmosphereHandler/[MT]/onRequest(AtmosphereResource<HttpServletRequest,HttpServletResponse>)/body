@@ -13,7 +13,7 @@
       }
     }
     bc.getBroadcasterConfig().addFilter(new XSSHtmlFilter());
-    Future<Object> f=bc.broadcast(event.getAtmosphereConfig().getWebServerName() + "**has suspended a connection from " + req.getRemoteAddr());
+    Future<String> f=bc.broadcast(event.getAtmosphereConfig().getWebServerName() + "**has suspended a connection from " + req.getRemoteAddr());
     try {
       f.get();
     }

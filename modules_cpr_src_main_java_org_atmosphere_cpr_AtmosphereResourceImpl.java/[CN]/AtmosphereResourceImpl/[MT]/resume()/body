@@ -1,6 +1,10 @@
 {
   if (!event.isResuming() && !event.isResumedOnTimeout() && event.isSuspended()&& isInScope) {
     action.type=AtmosphereServlet.Action.TYPE.RESUME;
+    Broadcaster b=getBroadcaster();
+    if (b instanceof DefaultBroadcaster) {
+      ((DefaultBroadcaster)b).broadcastOnResume();
+    }
     notifyListeners();
     listeners.clear();
     broadcaster.removeAtmosphereResource(this);

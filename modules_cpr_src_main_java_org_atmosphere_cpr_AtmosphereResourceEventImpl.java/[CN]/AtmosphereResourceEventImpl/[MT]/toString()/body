@@ -1,0 +1,3 @@
+{
+  return "AtmosphereResourceEventImpl{" + "isCancelled=" + isCancelled + ", isResumedOnTimeout="+ isResumedOnTimeout+ ", message="+ message+ ", r="+ r+ '}';
+}
