@@ -9,7 +9,7 @@
       }
       if (latchId == -1 && supportSession()) {
         if (req.getSession().getAttribute(LATCH) != null) {
-          latchId=(Integer)req.getSession().getAttribute(String.valueOf(req.hashCode()));
+          latchId=(Integer)req.getSession().getAttribute(LATCH);
         }
       }
       String s=config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE);
