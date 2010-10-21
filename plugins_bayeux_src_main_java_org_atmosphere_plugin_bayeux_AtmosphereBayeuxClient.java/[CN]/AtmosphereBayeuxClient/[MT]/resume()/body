@@ -1,7 +1,16 @@
 {
 synchronized (this) {
     if (_continuation != null) {
-      _continuation.resume();
+      try {
+        AtmosphereServlet.getBroadcasterConfig().getExecutorService().submit(new Runnable(){
+          @Override public void run(){
+            _continuation.resume();
+          }
+        }
+).get();
+      }
+ catch (      Throwable t) {
+      }
     }
     _continuation=null;
   }
