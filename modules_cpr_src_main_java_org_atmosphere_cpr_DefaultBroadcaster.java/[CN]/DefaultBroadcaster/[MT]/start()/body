@@ -7,14 +7,5 @@
     broadcasterCache=bc.getBroadcasterCache();
     broadcasterCache.start();
     notifierFuture=bc.getExecutorService().submit(getBroadcastHandler());
-    if (startedLatch.getCount() != 0) {
-      try {
-        startedLatch.await();
-      }
- catch (      InterruptedException e) {
-        ;
-        ;
-      }
-    }
   }
 }

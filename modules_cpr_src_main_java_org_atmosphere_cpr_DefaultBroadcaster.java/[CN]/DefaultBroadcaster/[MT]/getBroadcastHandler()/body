@@ -4,9 +4,6 @@
       Entry msg=null;
       try {
         msg=messages.take();
-        if (startedLatch.getCount() != 0) {
-          startedLatch.countDown();
-        }
         bc.getExecutorService().submit(this);
         push(msg);
       }
