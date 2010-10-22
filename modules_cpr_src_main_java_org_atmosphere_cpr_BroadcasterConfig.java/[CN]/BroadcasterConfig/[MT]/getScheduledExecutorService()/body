@@ -1,7 +1,7 @@
 {
 synchronized (lock) {
     if (scheduler == null) {
-      scheduler=Executors.newScheduledThreadPool(numOfProcessor);
+      scheduler=Executors.newSingleThreadScheduledExecutor();
     }
   }
   return scheduler;
