@@ -1,0 +1,6 @@
+{
+  if (!(this.receivedMessages.remove(o.toString()))) {
+    this.jedisPublisher.publish(this.bc.getID(),o.toString());
+  }
+  return new BroadcastFilter.BroadcastAction(o);
+}

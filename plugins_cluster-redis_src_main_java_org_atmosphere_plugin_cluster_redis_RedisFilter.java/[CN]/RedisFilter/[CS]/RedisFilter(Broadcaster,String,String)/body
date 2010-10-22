@@ -1,0 +1,23 @@
+{
+  this.listener=Executors.newSingleThreadExecutor();
+  this.receivedMessages=new ConcurrentLinkedQueue();
+  this.bc=bc;
+  this.jedisSubscriber=new Jedis(containerName,6379,500);
+  try {
+    this.jedisSubscriber.connect();
+  }
+ catch (  IOException e) {
+    logger.log(Level.SEVERE,"",e);
+  }
+  this.jedisSubscriber.auth("atmosphere");
+  this.jedisSubscriber.flushAll();
+  this.jedisPublisher=new Jedis(containerName,6379,500);
+  try {
+    this.jedisPublisher.connect();
+  }
+ catch (  IOException e) {
+    logger.log(Level.SEVERE,"",e);
+  }
+  this.jedisPublisher.auth("atmosphere");
+  this.jedisPublisher.flushAll();
+}

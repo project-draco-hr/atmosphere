@@ -25,7 +25,7 @@
       for (      Class<ClusterBroadcastFilter> c : suspendTimeout) {
         try {
           ClusterBroadcastFilter cbf=c.newInstance();
-          cbf.setClusterName(am.getAnnotation(Cluster.class).name());
+          cbf.setAddress(am.getAnnotation(Cluster.class).name());
           f.addCluster(cbf);
         }
  catch (        Throwable t) {

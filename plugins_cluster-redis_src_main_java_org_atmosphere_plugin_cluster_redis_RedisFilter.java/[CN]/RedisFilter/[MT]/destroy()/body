@@ -1,0 +1,10 @@
+{
+  this.listener.shutdownNow();
+  try {
+    this.jedisPublisher.disconnect();
+    this.jedisSubscriber.disconnect();
+  }
+ catch (  IOException e) {
+    logger.log(Level.SEVERE,"",e);
+  }
+}
