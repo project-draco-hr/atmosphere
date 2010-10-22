@@ -48,7 +48,7 @@
         cometSupport=(CometSupport)c.loadClass(reader.getCometSupportClass()).newInstance();
       }
       if (reader.getBroadcastFilterClasses() != null) {
-        configureBroadcasterFilter(reader.getBroadcastFilterClasses());
+        broadcasterFilters=reader.getBroadcastFilterClasses();
       }
     }
  catch (    Throwable t) {

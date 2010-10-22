@@ -12,5 +12,4 @@
   }
   BroadcasterFactory.factory=null;
   BroadcasterFactory.getDefault().destroy();
-  broadcasterConfig=new BroadcasterConfig();
 }

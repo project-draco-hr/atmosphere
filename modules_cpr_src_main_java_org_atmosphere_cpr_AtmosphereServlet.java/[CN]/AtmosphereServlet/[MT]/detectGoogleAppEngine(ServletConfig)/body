@@ -3,7 +3,6 @@
     broadcasterClassName=GAE_BROADCASTER;
     isBroadcasterSpecified=true;
     cometSupport=new GoogleAppEngineCometSupport(config);
-    broadcasterConfig=new GAEBroadcasterConfig();
     return true;
   }
  else {

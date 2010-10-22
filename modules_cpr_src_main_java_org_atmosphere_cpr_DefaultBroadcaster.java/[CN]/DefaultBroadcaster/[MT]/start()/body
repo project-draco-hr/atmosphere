@@ -1,9 +1,5 @@
 {
   if (!started.getAndSet(true)) {
-    if (bc == null) {
-      LoggerUtils.getLogger().log(Level.WARNING,"BroadcasterConfig was null. It is recommended to use a BroadcasterFactory " + "for creating Broadcaster instead of using new");
-      bc=new BroadcasterConfig();
-    }
     broadcasterCache=bc.getBroadcasterCache();
     broadcasterCache.start();
     notifierFuture=bc.getExecutorService().submit(getBroadcastHandler());

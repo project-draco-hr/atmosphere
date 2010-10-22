@@ -1,7 +1,7 @@
 {
   for (  String broadcastFilter : list) {
     try {
-      broadcasterConfig.addFilter(BroadcastFilter.class.cast(Thread.currentThread().getContextClassLoader().loadClass(broadcastFilter).newInstance()));
+      addFilter(BroadcastFilter.class.cast(Thread.currentThread().getContextClassLoader().loadClass(broadcastFilter).newInstance()));
     }
  catch (    InstantiationException e) {
       logger.log(Level.WARNING,String.format("Error trying to instanciate BroadcastFilter %s",broadcastFilter),e);

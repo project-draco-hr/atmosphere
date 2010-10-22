@@ -1,6 +1,6 @@
 {
   Broadcaster b=clazz.newInstance();
-  b.setBroadcasterConfig(config);
+  b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters));
   b.setID(clazz.getSimpleName() + "-" + new Random().nextInt());
   store.put(b.getID(),b);
   return b;

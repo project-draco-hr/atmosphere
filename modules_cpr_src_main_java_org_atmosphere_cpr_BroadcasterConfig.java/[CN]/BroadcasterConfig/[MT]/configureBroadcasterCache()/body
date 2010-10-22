@@ -1,0 +1,16 @@
+{
+  try {
+    if (AtmosphereServlet.broadcasterCacheClassName != null) {
+      setBroadcasterCache((BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(AtmosphereServlet.broadcasterCacheClassName).newInstance());
+    }
+  }
+ catch (  InstantiationException e) {
+    throw new RuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ClassNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+}

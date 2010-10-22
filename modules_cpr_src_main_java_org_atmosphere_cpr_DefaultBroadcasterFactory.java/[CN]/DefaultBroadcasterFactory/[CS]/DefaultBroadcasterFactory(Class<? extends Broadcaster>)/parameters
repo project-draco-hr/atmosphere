@@ -1,2 +1,1 @@
 Class<? extends Broadcaster> clazz
-BroadcasterConfig config
