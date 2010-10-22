@@ -1,7 +1,3 @@
 {
-  if (topic.getAtmosphereResources().size() == 0) {
-    RedisFilter redisFilter=new RedisFilter(topic,"localhost");
-    topic.getBroadcasterConfig().addFilter(redisFilter);
-  }
   return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(topic).outputComments(true).addListener(new EventsLogger()).build();
 }

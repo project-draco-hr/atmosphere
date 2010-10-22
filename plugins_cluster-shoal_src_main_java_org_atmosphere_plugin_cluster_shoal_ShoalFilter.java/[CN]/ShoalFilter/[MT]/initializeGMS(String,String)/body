@@ -1,3 +1,0 @@
-{
-  return (GroupManagementService)GMSFactory.startGMSModule(serverName,clusterName,GroupManagementService.MemberType.CORE,null);
-}

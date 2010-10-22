@@ -2,5 +2,5 @@
   this.message=message;
   this.multipleAtmoResources=multipleAtmoResources;
   this.future=future;
-  this.writeLocally=true;
+  this.writeLocally=writeLocally;
 }

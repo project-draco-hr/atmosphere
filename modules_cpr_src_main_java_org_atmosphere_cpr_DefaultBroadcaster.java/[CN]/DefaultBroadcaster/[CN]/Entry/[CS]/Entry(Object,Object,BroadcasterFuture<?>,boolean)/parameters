@@ -1,0 +1,4 @@
+Object message
+Object multipleAtmoResources
+BroadcasterFuture<?> future
+boolean writeLocally

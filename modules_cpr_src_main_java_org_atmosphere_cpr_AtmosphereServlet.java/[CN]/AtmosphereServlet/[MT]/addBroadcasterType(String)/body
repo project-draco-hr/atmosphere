@@ -1,0 +1,3 @@
+{
+  broadcasterTypes.add(broadcasterTypeString);
+}

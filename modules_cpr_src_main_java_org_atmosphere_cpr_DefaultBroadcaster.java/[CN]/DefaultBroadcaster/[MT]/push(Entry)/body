@@ -30,18 +30,28 @@
   if (resources.isEmpty()) {
     trackBroadcastMessage(null,msg.message);
   }
+  Object finalMsg=translate(msg.message);
   if (msg.multipleAtmoResources == null) {
     for (    AtmosphereResource<?,?> r : resources) {
-      push(r,msg.message);
+      trackBroadcastMessage(r,finalMsg);
+      if (msg.writeLocally) {
+        push(r,finalMsg);
+      }
     }
   }
  else   if (msg.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
-    push((AtmosphereResource<?,?>)msg.multipleAtmoResources,msg.message);
+    trackBroadcastMessage((AtmosphereResource<?,?>)msg.multipleAtmoResources,finalMsg);
+    if (msg.writeLocally) {
+      push((AtmosphereResource<?,?>)msg.multipleAtmoResources,finalMsg);
+    }
   }
  else   if (msg.multipleAtmoResources instanceof Set) {
     Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)msg.multipleAtmoResources;
     for (    AtmosphereResource<?,?> r : sub) {
-      push(r,msg.message);
+      trackBroadcastMessage(r,finalMsg);
+      if (msg.writeLocally) {
+        push(r,finalMsg);
+      }
     }
   }
   msg.message=prevMessage;

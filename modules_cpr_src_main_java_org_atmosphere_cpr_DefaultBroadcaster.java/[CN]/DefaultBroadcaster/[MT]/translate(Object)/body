@@ -1,0 +1,11 @@
+{
+  if (Callable.class.isAssignableFrom(msg.getClass())) {
+    try {
+      return Callable.class.cast(msg).call();
+    }
+ catch (    Exception e) {
+      LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+    }
+  }
+  return msg;
+}

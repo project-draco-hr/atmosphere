@@ -6,29 +6,15 @@
     }
     broadcasterCache=bc.getBroadcasterCache();
     broadcasterCache.start();
-    notifierFuture=bc.getExecutorService().submit(new Runnable(){
-      public void run(){
-        Entry msg=null;
-        try {
-          msg=messages.take();
-          bc.getExecutorService().submit(this);
-          push(msg);
-        }
- catch (        Throwable ex) {
-          LoggerUtils.getLogger().log(Level.SEVERE,null,ex);
-        }
- finally {
-          if (msg != null) {
-            if (msg.future instanceof BroadcasterFuture) {
-              ((BroadcasterFuture)msg.future).done();
-            }
- else {
-              msg.future.cancel(true);
-            }
-          }
-        }
+    notifierFuture=bc.getExecutorService().submit(getBroadcastHandler());
+    if (startedLatch.getCount() != 0) {
+      try {
+        startedLatch.await();
+      }
+ catch (      InterruptedException e) {
+        ;
+        ;
       }
     }
-);
   }
 }

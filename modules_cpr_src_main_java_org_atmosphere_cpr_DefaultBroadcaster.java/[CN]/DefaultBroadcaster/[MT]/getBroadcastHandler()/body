@@ -1,0 +1,29 @@
+{
+  return new Runnable(){
+    public void run(){
+      Entry msg=null;
+      try {
+        msg=messages.take();
+        if (startedLatch.getCount() != 0) {
+          startedLatch.countDown();
+        }
+        bc.getExecutorService().submit(this);
+        push(msg);
+      }
+ catch (      Throwable ex) {
+        LoggerUtils.getLogger().log(Level.SEVERE,null,ex);
+      }
+ finally {
+        if (msg != null) {
+          if (msg.future instanceof BroadcasterFuture) {
+            ((BroadcasterFuture)msg.future).done();
+          }
+ else {
+            msg.future.cancel(true);
+          }
+        }
+      }
+    }
+  }
+;
+}
