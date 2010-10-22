@@ -1,0 +1,8 @@
+{
+  try {
+    publisher.send(session.createTextMessage(message.toString()));
+  }
+ catch (  JMSException ex) {
+    logger.log(Level.WARNING,"",ex);
+  }
+}

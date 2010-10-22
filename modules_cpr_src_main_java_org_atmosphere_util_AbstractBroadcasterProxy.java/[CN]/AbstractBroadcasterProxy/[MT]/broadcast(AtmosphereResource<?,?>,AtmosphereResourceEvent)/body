@@ -1,0 +1,19 @@
+{
+  if (r.getRequest() instanceof HttpServletRequest) {
+    if (((HttpServletRequest)r.getRequest()).getAttribute("cr") != null) {
+      try {
+        if (jerseyBroadcast == null) {
+          Class jerseyBroadcasterUtil=Class.forName("org.atmosphere.jersey.util.JerseyBroadcasterUtil");
+          jerseyBroadcast=jerseyBroadcasterUtil.getMethod("broadcast",new Class[]{AtmosphereResource.class,AtmosphereResourceEvent.class});
+        }
+        jerseyBroadcast.invoke(null,new Object[]{r,e});
+      }
+ catch (      Throwable t) {
+        super.broadcast(r,e);
+      }
+    }
+ else {
+      super.broadcast(r,e);
+    }
+  }
+}

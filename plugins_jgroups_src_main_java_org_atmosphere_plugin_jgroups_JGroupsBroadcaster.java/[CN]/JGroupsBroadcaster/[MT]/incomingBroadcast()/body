@@ -1,0 +1,25 @@
+{
+  try {
+    logger.log(Level.INFO,"Starting Atmosphere JGroups Clustering support");
+    jchannel=new JChannel();
+    jchannel.setReceiver(new ReceiverAdapter(){
+      /** 
+ * {@inheritDoc} 
+ */
+      @Override public void receive(      final Message message){
+        final String msg=(String)message.getObject();
+        if (msg != null) {
+          broadcastReceivedMessage(msg);
+        }
+      }
+    }
+);
+    jchannel.connect(clusterName);
+  }
+ catch (  Throwable t) {
+    logger.log(Level.WARNING,"",t);
+  }
+ finally {
+    ready.countDown();
+  }
+}

@@ -1,0 +1,3 @@
+{
+  jedisPublisher.publish(getID(),message.toString());
+}

@@ -1,0 +1,4 @@
+{
+  Object newMsg=filter(message);
+  push(new Entry(newMsg,null,new BroadcasterFuture<Object>(newMsg)));
+}

@@ -1,0 +1,14 @@
+{
+  start();
+  Object newMsg=filter(msg);
+  if (newMsg == null)   return null;
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg);
+  try {
+    outgoingBroadcast(msg);
+    push(new Entry(newMsg,subset,f,false));
+  }
+  finally {
+    f.done();
+  }
+  return f;
+}

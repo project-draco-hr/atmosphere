@@ -1,0 +1,17 @@
+{
+  if (o instanceof String) {
+    String message=(String)o;
+    if (!receivedMessages.remove(message)) {
+      try {
+        jchannel.send(new Message(null,null,message));
+      }
+ catch (      ChannelException e) {
+        logger.log(Level.WARNING,"",e);
+      }
+    }
+    return new BroadcastAction(message);
+  }
+ else {
+    return new BroadcastAction(o);
+  }
+}

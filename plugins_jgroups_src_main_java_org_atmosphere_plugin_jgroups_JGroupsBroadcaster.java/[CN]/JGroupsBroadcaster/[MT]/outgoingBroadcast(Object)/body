@@ -1,0 +1,9 @@
+{
+  try {
+    ready.await();
+    jchannel.send(new Message(null,null,message.toString()));
+  }
+ catch (  Throwable e) {
+    logger.severe(e.getMessage());
+  }
+}
