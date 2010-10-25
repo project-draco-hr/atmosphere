@@ -1,0 +1,3 @@
+{
+  this(RedisFilter.class.getSimpleName(),uri);
+}
