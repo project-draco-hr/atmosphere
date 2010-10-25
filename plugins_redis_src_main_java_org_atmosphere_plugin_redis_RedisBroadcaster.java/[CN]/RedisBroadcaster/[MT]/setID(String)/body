@@ -1,0 +1,13 @@
+{
+  super.setID(id);
+  if (jedisPublisher != null) {
+    try {
+      jedisPublisher.disconnect();
+      jedisSubscriber.disconnect();
+    }
+ catch (    IOException e) {
+      logger.log(Level.SEVERE,"",e);
+    }
+  }
+  setUp();
+}

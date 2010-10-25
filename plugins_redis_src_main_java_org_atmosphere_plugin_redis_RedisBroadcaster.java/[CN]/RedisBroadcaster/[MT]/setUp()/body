@@ -1,0 +1,21 @@
+{
+  if (uri == null)   return;
+  jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
+  try {
+    jedisSubscriber.connect();
+  }
+ catch (  IOException e) {
+    logger.log(Level.SEVERE,"",e);
+  }
+  jedisSubscriber.auth(auth);
+  jedisSubscriber.flushAll();
+  jedisPublisher=new Jedis(uri.getHost(),uri.getPort());
+  try {
+    jedisPublisher.connect();
+  }
+ catch (  IOException e) {
+    logger.log(Level.SEVERE,"",e);
+  }
+  jedisPublisher.auth(auth);
+  jedisPublisher.flushAll();
+}

@@ -1,22 +1,4 @@
 {
   super(id);
   this.uri=uri;
-  jedisSubscriber=new Jedis(uri.getHost(),uri.getPort(),500);
-  try {
-    jedisSubscriber.connect();
-  }
- catch (  IOException e) {
-    logger.log(Level.SEVERE,"",e);
-  }
-  jedisSubscriber.auth("atmosphere");
-  jedisSubscriber.flushAll();
-  jedisPublisher=new Jedis(uri.getHost(),uri.getPort(),500);
-  try {
-    jedisPublisher.connect();
-  }
- catch (  IOException e) {
-    logger.log(Level.SEVERE,"",e);
-  }
-  jedisPublisher.auth("atmosphere");
-  jedisPublisher.flushAll();
 }
