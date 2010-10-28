@@ -20,6 +20,7 @@
       }
     }
 ;
+    pingForStats();
     doInitParams(scFacade);
     detectGoogleAppEngine(scFacade);
     loadConfiguration(scFacade);
