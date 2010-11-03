@@ -1,6 +1,0 @@
-{
-synchronized (this) {
-    if (!wasTimeout && _intervalTimeoutTask != null)     _bayeux.cancelTimeout(_intervalTimeoutTask);
-  }
-  super.remove(wasTimeout);
-}

@@ -1,7 +1,0 @@
-{
-  int max=_bayeux.getMaxLazyLatency();
-  if (max > 0 && _lazyTimeoutTask != null && !_lazyResuming) {
-    _lazyResuming=true;
-    _bayeux.startTimeout(_lazyTimeoutTask,_accessed % max);
-  }
-}
