@@ -6,6 +6,10 @@
     res.flushBuffer();
     return new Action();
   }
+  if (config.handlers().size() == 0) {
+    logger.log(Level.SEVERE,"No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
+    throw new ServletException("No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
+  }
   if (supportSession()) {
     HttpSession session=req.getSession(true);
     if (session.getMaxInactiveInterval() == DEFAULT_SESSION_TIMEOUT) {
