@@ -3,9 +3,15 @@
     r.getAtmosphereConfig().getAtmosphereHandler(this).onStateChange(e);
   }
  catch (  IOException ex) {
+    if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
+      AtmosphereResourceImpl.class.cast(r).notifyListeners(e);
+    }
     onException(ex,r);
   }
 catch (  RuntimeException ex) {
+    if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
+      AtmosphereResourceImpl.class.cast(r).notifyListeners(e);
+    }
     onException(ex,r);
   }
 }

@@ -21,7 +21,13 @@
   AtmosphereResourceImpl re=new AtmosphereResourceImpl(config,g.broadcaster,req,res,this);
   req.setAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE,re);
   req.setAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER,g.atmosphereHandler);
-  g.atmosphereHandler.onRequest(re);
+  try {
+    g.atmosphereHandler.onRequest(re);
+  }
+ catch (  IOException t) {
+    re.notifyListeners(t);
+    throw t;
+  }
   config.mapBroadcasterToAtmosphereHandler(re.getBroadcaster(),g);
   if (re.getAtmosphereResourceEvent().isSuspended()) {
     req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());

@@ -14,7 +14,15 @@
       r.getResponse().flushBuffer();
     }
   }
-  finally {
+ catch (  IOException ex) {
+    try {
+      r.notifyListeners(ex);
+    }
+ catch (    Throwable t) {
+      logger.log(Level.WARNING,"",ex);
+    }
+  }
+ finally {
     try {
       aliveRequests.remove(req);
       r.notifyListeners();
