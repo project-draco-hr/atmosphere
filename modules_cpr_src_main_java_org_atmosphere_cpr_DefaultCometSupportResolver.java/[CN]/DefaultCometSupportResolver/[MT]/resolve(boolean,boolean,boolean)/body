@@ -1,8 +1,10 @@
 {
+  CometSupport cs=null;
   if (!useWebsocketIfPossible) {
-    return resolve(useNativeIfPossible,defaultToBlocking);
+    cs=resolve(useNativeIfPossible,defaultToBlocking);
   }
  else {
-    return resolveWebSocket(detectWebSocketPresent());
+    cs=resolveWebSocket(detectWebSocketPresent());
   }
+  if (cs == null)   return new BlockingIOCometSupport(config);
 }
