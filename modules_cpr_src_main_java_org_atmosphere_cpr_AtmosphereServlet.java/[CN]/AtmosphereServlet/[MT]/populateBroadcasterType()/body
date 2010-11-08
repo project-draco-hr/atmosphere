@@ -1,4 +1,5 @@
 {
+  broadcasterTypes.add(XMPP_BROADCASTER);
   broadcasterTypes.add(REDIS_BROADCASTER);
   broadcasterTypes.add(JGROUPS_BROADCASTER);
   broadcasterTypes.add(JMS_BROADCASTER);

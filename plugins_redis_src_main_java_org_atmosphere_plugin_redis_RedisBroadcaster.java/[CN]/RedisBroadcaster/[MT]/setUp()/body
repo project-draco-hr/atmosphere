@@ -1,5 +1,13 @@
 {
   if (uri == null)   return;
+  if (config != null) {
+    if (config.getServletConfig().getInitParameter(REDIS_AUTH) != null) {
+      authToken=config.getServletConfig().getInitParameter(REDIS_AUTH);
+    }
+    if (config.getServletConfig().getInitParameter(REDIS_SERVER) != null) {
+      uri=URI.create(config.getServletConfig().getInitParameter(REDIS_SERVER));
+    }
+  }
   jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisSubscriber.connect();
@@ -7,7 +15,7 @@
  catch (  IOException e) {
     logger.log(Level.SEVERE,"",e);
   }
-  jedisSubscriber.auth(auth);
+  jedisSubscriber.auth(authToken);
   jedisSubscriber.flushAll();
   jedisPublisher=new Jedis(uri.getHost(),uri.getPort());
   try {
@@ -16,6 +24,6 @@
  catch (  IOException e) {
     logger.log(Level.SEVERE,"",e);
   }
-  jedisPublisher.auth(auth);
+  jedisPublisher.auth(authToken);
   jedisPublisher.flushAll();
 }

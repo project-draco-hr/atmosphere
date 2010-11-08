@@ -1,0 +1,11 @@
+{
+  Class<? extends Broadcaster> b=null;
+  try {
+    ClassLoader cl=Thread.currentThread().getContextClassLoader();
+    b=(Class<? extends Broadcaster>)cl.loadClass(AtmosphereServlet.getDefaultBroadcasterClassName());
+  }
+ catch (  ClassNotFoundException e) {
+    LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+  }
+  BroadcasterFactory.setBroadcasterFactory(new DefaultBroadcasterFactory(b == null ? DefaultBroadcaster.class : b),config);
+}

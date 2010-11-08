@@ -1,0 +1,6 @@
+{
+  super.destroy();
+  if (xmppConnection != null) {
+    xmppConnection.disconnect();
+  }
+}

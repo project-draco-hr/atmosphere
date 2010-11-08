@@ -2,6 +2,9 @@
   if (id == null)   throw new NullPointerException("id is null");
   if (c == null)   throw new NullPointerException("Class is null");
   Broadcaster b=c.newInstance();
+  if (AbstractBroadcasterProxy.class.isAssignableFrom(b.getClass())) {
+    AbstractBroadcasterProxy.class.cast(b).configure(config);
+  }
   b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters));
   b.setID(id.toString());
   store.put(id,b);

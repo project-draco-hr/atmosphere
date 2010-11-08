@@ -24,7 +24,7 @@
     mapping="/*";
   }
   Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
-  Broadcaster b=bc.getDeclaredConstructor(new Class[]{String.class}).newInstance(mapping);
+  Broadcaster b=BroadcasterFactory.getDefault().get(bc,mapping);
   addAtmosphereHandler(mapping,rsp,b);
   return true;
 }

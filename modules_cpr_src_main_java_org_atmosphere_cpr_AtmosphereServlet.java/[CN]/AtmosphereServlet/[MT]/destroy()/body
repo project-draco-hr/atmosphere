@@ -10,6 +10,8 @@
     }
     h.getValue().broadcaster.destroy();
   }
-  BroadcasterFactory.factory=null;
-  BroadcasterFactory.getDefault().destroy();
+  if (BroadcasterFactory.getDefault() != null) {
+    BroadcasterFactory.getDefault().destroy();
+    BroadcasterFactory.factory=null;
+  }
 }

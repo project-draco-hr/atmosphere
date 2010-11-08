@@ -1,0 +1,10 @@
+{
+  if (message instanceof String) {
+    try {
+      channel.sendMessage(message.toString());
+    }
+ catch (    XMPPException e) {
+      e.printStackTrace();
+    }
+  }
+}
