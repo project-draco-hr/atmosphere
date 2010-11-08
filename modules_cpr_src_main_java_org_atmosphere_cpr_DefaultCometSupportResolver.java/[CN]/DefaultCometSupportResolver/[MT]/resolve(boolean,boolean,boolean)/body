@@ -6,5 +6,10 @@
  else {
     cs=resolveWebSocket(detectWebSocketPresent());
   }
-  if (cs == null)   return new BlockingIOCometSupport(config);
+  if (cs == null) {
+    return new BlockingIOCometSupport(config);
+  }
+ else {
+    return cs;
+  }
 }
