@@ -12,9 +12,11 @@
         flushComment=false;
       }
     }
-    res.setHeader("Expires","-1");
-    res.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
-    res.setHeader("Pragma","no-cache");
+    if (injectCacheHeaders) {
+      res.setHeader("Expires","-1");
+      res.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
+      res.setHeader("Pragma","no-cache");
+    }
     if (flushComment) {
       write();
     }
