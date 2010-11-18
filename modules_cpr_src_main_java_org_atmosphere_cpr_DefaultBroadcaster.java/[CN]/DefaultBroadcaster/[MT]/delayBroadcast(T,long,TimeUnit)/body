@@ -12,8 +12,9 @@
         if (Callable.class.isAssignableFrom(o.getClass())) {
           try {
             Object r=Callable.class.cast(o).call();
-            if (r != null) {
-              Entry entry=new Entry(r,null,null);
+            final Object msg=filter(r);
+            if (msg != null) {
+              Entry entry=new Entry(msg,null,null);
               push(entry);
             }
             return (T)msg;
@@ -22,6 +23,8 @@
             LoggerUtils.getLogger().log(Level.SEVERE,"",e);
           }
         }
+        final Object msg=filter(o);
+        final Entry e=new Entry(msg,null,null);
         push(e);
         return (T)msg;
       }
