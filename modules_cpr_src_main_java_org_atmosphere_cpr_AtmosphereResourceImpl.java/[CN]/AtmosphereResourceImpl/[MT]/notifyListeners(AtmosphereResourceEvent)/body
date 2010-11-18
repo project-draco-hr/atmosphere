@@ -8,6 +8,9 @@
  else   if (!isSuspendEvent.getAndSet(true) && event.isSuspended()) {
     onSuspend(event);
   }
+ else   if (event.throwable() != null) {
+    onThrowable(event);
+  }
  else {
     onBroadcast(event);
   }

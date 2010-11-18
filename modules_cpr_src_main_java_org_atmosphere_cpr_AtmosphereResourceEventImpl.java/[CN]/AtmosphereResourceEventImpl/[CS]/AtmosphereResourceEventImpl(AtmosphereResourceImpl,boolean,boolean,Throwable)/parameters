@@ -1,0 +1,4 @@
+AtmosphereResourceImpl r
+boolean isCancelled
+boolean isResumedOnTimeout
+Throwable throwable

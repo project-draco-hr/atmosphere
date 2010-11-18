@@ -1,0 +1,3 @@
+{
+  this.isResumedOnTimeout.set(isResumedOnTimeout);
+}

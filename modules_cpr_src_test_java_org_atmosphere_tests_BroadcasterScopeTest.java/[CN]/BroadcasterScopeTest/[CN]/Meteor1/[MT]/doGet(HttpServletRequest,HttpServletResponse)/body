@@ -15,7 +15,7 @@
     }
     @Override public void onBroadcast(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
     }
-    @Override public void onThrowable(    Throwable t){
+    @Override public void onThrowable(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
     }
   }
 );

@@ -1,3 +1,4 @@
 {
   this.r=r;
+  this.throwable=null;
 }

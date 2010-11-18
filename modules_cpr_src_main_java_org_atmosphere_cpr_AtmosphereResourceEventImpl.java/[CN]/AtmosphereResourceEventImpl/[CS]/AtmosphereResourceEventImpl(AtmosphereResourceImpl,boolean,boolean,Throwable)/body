@@ -2,5 +2,5 @@
   this.isCancelled.set(isCancelled);
   this.isResumedOnTimeout.set(isResumedOnTimeout);
   this.r=r;
-  this.throwable=null;
+  this.throwable=throwable;
 }

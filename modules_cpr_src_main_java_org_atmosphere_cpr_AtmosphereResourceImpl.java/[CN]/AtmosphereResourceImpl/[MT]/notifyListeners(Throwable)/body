@@ -1,5 +1,0 @@
-{
-  for (  AtmosphereResourceEventListener r : listeners) {
-    r.onThrowable(t);
-  }
-}

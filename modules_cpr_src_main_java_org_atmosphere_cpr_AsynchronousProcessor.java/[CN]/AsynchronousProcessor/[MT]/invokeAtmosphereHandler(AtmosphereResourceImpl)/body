@@ -16,7 +16,7 @@
   }
  catch (  IOException ex) {
     try {
-      r.notifyListeners(ex);
+      r.onThrowable(ex);
     }
  catch (    Throwable t) {
       logger.log(Level.WARNING,"",ex);
