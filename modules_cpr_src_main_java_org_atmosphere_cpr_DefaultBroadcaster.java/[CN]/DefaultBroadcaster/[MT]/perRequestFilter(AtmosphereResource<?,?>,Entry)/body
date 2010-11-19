@@ -1,10 +1,10 @@
 {
-  Object finalMsg=msg.originalMessage;
-  if (r.getRequest() instanceof HttpServletRequest) {
+  Object finalMsg=msg.message;
+  if (r.getRequest() instanceof HttpServletRequest && bc.hasFilters()) {
     Object message=msg.originalMessage;
     BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),message);
     if (a.action() == BroadcastAction.ACTION.ABORT || msg == null)     finalMsg=message;
- else     finalMsg=a.message();
+ else     finalMsg=!a.message().equals(msg.originalMessage) ? a.message() : message;
   }
   trackBroadcastMessage(r,finalMsg);
   return finalMsg;
