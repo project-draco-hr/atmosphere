@@ -4,6 +4,6 @@
   Object newMsg=filter(msg);
   if (newMsg == null)   return null;
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg);
-  broadcastOnResume.offer(new Entry(newMsg,null,f));
+  broadcastOnResume.offer(new Entry(newMsg,null,f,msg));
   return f;
 }

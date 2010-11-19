@@ -1,3 +1,4 @@
 Object message
 Object multipleAtmoResources
 BroadcasterFuture<?> future
+Object originalMessage

@@ -3,4 +3,5 @@
   this.multipleAtmoResources=multipleAtmoResources;
   this.future=future;
   this.writeLocally=true;
+  this.originalMessage=originalMessage;
 }

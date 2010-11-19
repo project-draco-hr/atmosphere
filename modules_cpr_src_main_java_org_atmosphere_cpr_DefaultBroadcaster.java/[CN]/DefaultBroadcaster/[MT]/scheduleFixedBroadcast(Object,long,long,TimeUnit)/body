@@ -12,7 +12,7 @@
           Object r=Callable.class.cast(o).call();
           final Object msg=filter(r);
           if (msg != null) {
-            Entry entry=new Entry(msg,null,null);
+            Entry entry=new Entry(msg,null,null,o);
             push(entry);
           }
           return;
@@ -22,7 +22,7 @@
         }
       }
       final Object msg=filter(o);
-      final Entry e=new Entry(msg,null,null);
+      final Entry e=new Entry(msg,null,null,o);
       push(e);
     }
   }

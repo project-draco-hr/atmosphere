@@ -33,14 +33,14 @@
   Object finalMsg=translate(msg.message);
   if (msg.multipleAtmoResources == null) {
     for (    AtmosphereResource<?,?> r : resources) {
-      trackBroadcastMessage(r,finalMsg);
+      finalMsg=perRequestFilter(r,msg);
       if (msg.writeLocally) {
         push(r,finalMsg);
       }
     }
   }
  else   if (msg.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
-    trackBroadcastMessage((AtmosphereResource<?,?>)msg.multipleAtmoResources,finalMsg);
+    finalMsg=perRequestFilter((AtmosphereResource<?,?>)msg.multipleAtmoResources,msg);
     if (msg.writeLocally) {
       push((AtmosphereResource<?,?>)msg.multipleAtmoResources,finalMsg);
     }
@@ -48,7 +48,7 @@
  else   if (msg.multipleAtmoResources instanceof Set) {
     Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)msg.multipleAtmoResources;
     for (    AtmosphereResource<?,?> r : sub) {
-      trackBroadcastMessage(r,finalMsg);
+      finalMsg=perRequestFilter(r,msg);
       if (msg.writeLocally) {
         push(r,finalMsg);
       }
