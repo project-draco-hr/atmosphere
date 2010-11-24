@@ -14,7 +14,7 @@
             Object r=Callable.class.cast(o).call();
             final Object msg=filter(r);
             if (msg != null) {
-              Entry entry=new Entry(msg,null,null,o);
+              Entry entry=new Entry(msg,null,null,r);
               push(entry);
             }
             return (T)msg;

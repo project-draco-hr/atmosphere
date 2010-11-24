@@ -3,8 +3,9 @@
   if (r.getRequest() instanceof HttpServletRequest && bc.hasFilters()) {
     Object message=msg.originalMessage;
     BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),message);
-    if (a.action() == BroadcastAction.ACTION.ABORT || msg == null)     finalMsg=message;
- else     finalMsg=!a.message().equals(msg.originalMessage) ? a.message() : message;
+    if (a.action() == BroadcastAction.ACTION.ABORT || a.message() != null) {
+      finalMsg=a.message();
+    }
   }
   trackBroadcastMessage(r,finalMsg);
   return finalMsg;
