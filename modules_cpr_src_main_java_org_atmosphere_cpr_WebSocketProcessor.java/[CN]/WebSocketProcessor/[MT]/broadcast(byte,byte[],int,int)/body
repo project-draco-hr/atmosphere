@@ -1,3 +1,5 @@
 {
-  r.getBroadcaster().broadcast(data);
+  byte[] b=new byte[length];
+  System.arraycopy(data,offset,b,0,length);
+  r.getBroadcaster().broadcast(b);
 }
