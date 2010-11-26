@@ -1,0 +1,8 @@
+{
+  if (stopped.tryAcquire()) {
+    t.cancel();
+    tb=null;
+    t=null;
+    started.release();
+  }
+}
