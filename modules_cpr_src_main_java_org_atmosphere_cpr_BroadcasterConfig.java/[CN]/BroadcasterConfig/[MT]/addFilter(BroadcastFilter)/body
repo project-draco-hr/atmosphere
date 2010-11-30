@@ -3,5 +3,8 @@
   if (e instanceof BroadcastFilterLifecycle) {
     ((BroadcastFilterLifecycle)e).init();
   }
+  if (e instanceof PerRequestBroadcastFilter) {
+    perRequestFilters.add((PerRequestBroadcastFilter)e);
+  }
   return filters.offer(e);
 }

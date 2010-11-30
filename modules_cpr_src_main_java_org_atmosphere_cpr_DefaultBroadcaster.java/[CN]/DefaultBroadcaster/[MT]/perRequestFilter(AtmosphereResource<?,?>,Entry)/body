@@ -1,0 +1,12 @@
+{
+  Object finalMsg=msg.message;
+  if (r.getRequest() instanceof HttpServletRequest && bc.hasPerRequestFilters()) {
+    Object message=msg.originalMessage;
+    BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),message);
+    if (a.action() == BroadcastAction.ACTION.ABORT || a.message() != null) {
+      finalMsg=a.message();
+    }
+  }
+  trackBroadcastMessage(r,finalMsg);
+  return finalMsg;
+}

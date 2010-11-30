@@ -1,7 +1,7 @@
 {
   try {
     Object newMsg=filter(message);
-    push(new Entry(newMsg,null,new BroadcasterFuture<Object>(newMsg)));
+    push(new Entry(newMsg,null,new BroadcasterFuture<Object>(newMsg),message));
   }
  catch (  Throwable t) {
     logger.log(Level.SEVERE,"",t);

@@ -2,5 +2,8 @@
   if (e instanceof BroadcastFilterLifecycle) {
     ((BroadcastFilterLifecycle)e).destroy();
   }
+  if (e instanceof PerRequestBroadcastFilter) {
+    perRequestFilters.remove(e);
+  }
   return filters.remove(e);
 }

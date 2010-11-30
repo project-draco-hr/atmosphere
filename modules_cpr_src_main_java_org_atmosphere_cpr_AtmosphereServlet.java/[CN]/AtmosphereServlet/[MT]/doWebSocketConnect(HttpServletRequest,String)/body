@@ -7,7 +7,7 @@
     public void onConnect(    WebSocket.Outbound outbound){
       webSocketProcessor=new WebSocketProcessor(AtmosphereServlet.this,new JettyWebSocketSupport(outbound));
       try {
-        webSocketProcessor.connect(request);
+        webSocketProcessor.connect(new JettyRequestFix(request));
       }
  catch (      IOException e) {
         logger.log(Level.WARNING,"",e);

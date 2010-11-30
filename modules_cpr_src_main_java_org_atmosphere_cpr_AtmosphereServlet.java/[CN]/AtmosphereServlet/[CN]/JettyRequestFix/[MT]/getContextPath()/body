@@ -1,0 +1,7 @@
+{
+  String path=super.getContextPath();
+  if (path == null || path.equals("")) {
+    return "/";
+  }
+  return path;
+}

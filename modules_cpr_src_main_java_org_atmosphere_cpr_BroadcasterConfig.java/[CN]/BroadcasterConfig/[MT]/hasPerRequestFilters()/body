@@ -1,0 +1,13 @@
+{
+  if (filters.isEmpty()) {
+    return false;
+  }
+ else {
+    for (    BroadcastFilter b : filters) {
+      if (PerRequestBroadcastFilter.class.isAssignableFrom(b.getClass())) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
