@@ -31,6 +31,7 @@
     trackBroadcastMessage(null,msg.message);
   }
   Object finalMsg=translate(msg.message);
+  msg.message=finalMsg;
   if (msg.multipleAtmoResources == null) {
     for (    AtmosphereResource<?,?> r : resources) {
       finalMsg=perRequestFilter(r,msg);
