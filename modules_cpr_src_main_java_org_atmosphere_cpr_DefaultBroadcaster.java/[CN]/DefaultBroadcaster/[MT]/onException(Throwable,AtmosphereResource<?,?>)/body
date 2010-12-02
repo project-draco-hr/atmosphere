@@ -6,7 +6,7 @@
     ((AtmosphereEventLifecycle)r).notifyListeners(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,true,false,t));
     ((AtmosphereEventLifecycle)r).removeEventListeners();
   }
-  bc.getExecutorService().execute(new Runnable(){
+  finalizer.execute(new Runnable(){
     @Override public void run(){
       r.resume();
     }
