@@ -1,7 +1,9 @@
 {
   try {
     if (AtmosphereServlet.broadcasterCacheClassName != null) {
-      setBroadcasterCache((BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(AtmosphereServlet.broadcasterCacheClassName).newInstance());
+      BroadcasterCache cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(AtmosphereServlet.broadcasterCacheClassName).newInstance();
+      InjectorProvider.getInjector().inject(cache);
+      setBroadcasterCache(cache);
     }
   }
  catch (  InstantiationException e) {

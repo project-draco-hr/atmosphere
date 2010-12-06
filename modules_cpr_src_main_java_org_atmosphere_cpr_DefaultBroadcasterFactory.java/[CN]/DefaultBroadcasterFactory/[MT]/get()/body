@@ -1,5 +1,6 @@
 {
   Broadcaster b=clazz.newInstance();
+  InjectorProvider.getInjector().inject(b);
   if (AbstractBroadcasterProxy.class.isAssignableFrom(b.getClass())) {
     AbstractBroadcasterProxy.class.cast(b).configure(config);
   }

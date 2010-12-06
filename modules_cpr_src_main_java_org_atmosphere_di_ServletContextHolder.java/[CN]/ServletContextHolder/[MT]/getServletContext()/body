@@ -1,0 +1,10 @@
+{
+  WeakReference<ServletContextProvider> ref=PROVIDER.get();
+  if (ref != null) {
+    ServletContextProvider provider=ref.get();
+    if (provider != null) {
+      return provider.getServletContext();
+    }
+  }
+  throw new IllegalStateException("No " + ServletContextProvider.class.getSimpleName() + " found.");
+}

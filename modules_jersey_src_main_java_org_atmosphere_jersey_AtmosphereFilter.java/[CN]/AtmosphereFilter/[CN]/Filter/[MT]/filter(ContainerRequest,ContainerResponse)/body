@@ -27,6 +27,7 @@ resumeOnBroadcast=resumeOnBroadcast(request,(action == Action.SUSPEND_RESUME));
 for (Class<? extends AtmosphereResourceEventListener> e : listeners) {
 try {
 AtmosphereResourceEventListener el=e.newInstance();
+InjectorProvider.getInjector().inject(el);
 if (r instanceof AtmosphereEventLifecycle) {
 ((AtmosphereEventLifecycle)r).addEventListener(el);
 }

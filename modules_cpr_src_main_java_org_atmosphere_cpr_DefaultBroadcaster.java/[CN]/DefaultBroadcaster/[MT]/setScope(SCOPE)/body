@@ -5,7 +5,9 @@
       for (      AtmosphereResource<?,?> r : resources) {
         Broadcaster b=BroadcasterFactory.getDefault().get(this.getClass(),this.getClass().getSimpleName() + "/" + UUID.randomUUID());
         if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
-          DefaultBroadcaster.class.cast(b).broadcasterCache=bc.getBroadcasterCache().getClass().newInstance();
+          BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
+          InjectorProvider.getInjector().inject(cache);
+          DefaultBroadcaster.class.cast(b).broadcasterCache=cache;
         }
         r.setBroadcaster(b);
         if (r.getAtmosphereResourceEvent().isSuspended()) {

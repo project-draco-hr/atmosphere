@@ -16,7 +16,9 @@
  else {
       w.broadcaster.setBroadcasterConfig(broadcasterConfig);
       if (broadcasterCacheClassName != null) {
-        broadcasterConfig.setBroadcasterCache((BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(broadcasterCacheClassName).newInstance());
+        BroadcasterCache cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(broadcasterCacheClassName).newInstance();
+        InjectorProvider.getInjector().inject(cache);
+        broadcasterConfig.setBroadcasterCache(cache);
       }
     }
     w.broadcaster.setID(e.getKey());

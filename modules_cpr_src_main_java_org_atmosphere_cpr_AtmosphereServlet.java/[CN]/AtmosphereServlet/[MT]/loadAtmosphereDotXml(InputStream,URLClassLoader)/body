@@ -10,6 +10,7 @@
     try {
       if (!entry.getValue().equals(ReflectorServletProcessor.class.getName())) {
         g=(AtmosphereHandler)c.loadClass(entry.getValue()).newInstance();
+        InjectorProvider.getInjector().inject(g);
       }
  else {
         g=new ReflectorServletProcessor();

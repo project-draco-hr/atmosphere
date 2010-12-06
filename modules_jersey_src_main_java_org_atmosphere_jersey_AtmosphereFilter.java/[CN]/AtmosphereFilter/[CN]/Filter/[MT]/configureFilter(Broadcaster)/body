@@ -13,6 +13,7 @@
     for (    Class<org.atmosphere.cpr.BroadcastFilter> filter : filters) {
       try {
         f=filter.newInstance();
+        InjectorProvider.getInjector().inject(f);
       }
  catch (      Throwable t) {
         logger.warning("Invalid @BroadcastFilter: " + filter);

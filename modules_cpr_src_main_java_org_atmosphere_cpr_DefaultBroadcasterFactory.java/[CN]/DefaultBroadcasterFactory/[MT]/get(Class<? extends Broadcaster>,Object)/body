@@ -2,6 +2,7 @@
   if (id == null)   throw new NullPointerException("id is null");
   if (c == null)   throw new NullPointerException("Class is null");
   Broadcaster b=c.newInstance();
+  InjectorProvider.getInjector().inject(b);
   if (AbstractBroadcasterProxy.class.isAssignableFrom(b.getClass())) {
     AbstractBroadcasterProxy.class.cast(b).configure(config);
   }

@@ -1,6 +1,7 @@
 {
   try {
     super.init(sc);
+    ServletContextHolder.register(this);
     ServletConfig scFacade=new ServletConfig(){
       public String getServletName(){
         return sc.getServletName();

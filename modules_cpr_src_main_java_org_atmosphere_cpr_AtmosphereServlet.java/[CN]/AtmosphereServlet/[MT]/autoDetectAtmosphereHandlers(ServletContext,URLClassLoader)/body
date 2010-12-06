@@ -15,6 +15,7 @@
         Class<?> clazz=c.loadClass(className);
         if (AtmosphereHandler.class.isAssignableFrom(clazz)) {
           AtmosphereHandler g=(AtmosphereHandler)clazz.newInstance();
+          InjectorProvider.getInjector().inject(g);
           logger.info("Successfully loaded " + g + " mapped to context-path "+ g.getClass().getSimpleName());
           atmosphereHandlers.put("/" + g.getClass().getSimpleName(),new AtmosphereHandlerWrapper(g,null));
         }

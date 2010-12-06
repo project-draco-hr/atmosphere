@@ -25,6 +25,7 @@
       for (      Class<ClusterBroadcastFilter> c : suspendTimeout) {
         try {
           ClusterBroadcastFilter cbf=c.newInstance();
+          InjectorProvider.getInjector().inject(cbf);
           cbf.setUri(am.getAnnotation(Cluster.class).name());
           f.addCluster(cbf);
         }
