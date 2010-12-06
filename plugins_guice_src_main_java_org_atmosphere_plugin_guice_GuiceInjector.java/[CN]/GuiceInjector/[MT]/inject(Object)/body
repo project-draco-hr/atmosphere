@@ -1,0 +1,5 @@
+{
+  com.google.inject.Injector injector=(com.google.inject.Injector)ServletContextHolder.getServletContext().getAttribute(com.google.inject.Injector.class.getName());
+  if (injector == null)   throw new IllegalStateException("No Guice Injector found in current ServletContext !");
+  injector.injectMembers(o);
+}
