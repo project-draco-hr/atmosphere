@@ -6,5 +6,10 @@
     ((AtmosphereEventLifecycle)r).notifyListeners(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,true,false,t));
     ((AtmosphereEventLifecycle)r).removeEventListeners();
   }
-  removeAtmosphereResource(r);
+  finalizer.execute(new Runnable(){
+    @Override public void run(){
+      r.resume();
+    }
+  }
+);
 }
