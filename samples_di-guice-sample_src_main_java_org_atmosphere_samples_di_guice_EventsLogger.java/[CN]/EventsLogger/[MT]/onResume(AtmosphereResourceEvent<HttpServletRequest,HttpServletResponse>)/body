@@ -1,0 +1,4 @@
+{
+  if (service == null)   throw new AssertionError();
+  System.out.println("[" + Thread.currentThread().getName() + "] onResume: "+ event.getResource().getRequest().getRemoteAddr());
+}

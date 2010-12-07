@@ -1,0 +1,8 @@
+{
+  if (message instanceof String) {
+    return new BroadcastAction(message + "\n");
+  }
+ else {
+    return new BroadcastAction(message);
+  }
+}

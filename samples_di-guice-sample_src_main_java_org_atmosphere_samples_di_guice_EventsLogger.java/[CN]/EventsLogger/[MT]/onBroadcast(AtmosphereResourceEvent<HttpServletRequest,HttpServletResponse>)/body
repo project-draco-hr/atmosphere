@@ -1,0 +1,4 @@
+{
+  if (service == null)   throw new AssertionError();
+  System.out.println("[" + Thread.currentThread().getName() + "] onBroadcast: "+ event.getMessage().toString().replace("\n","\\n"));
+}
