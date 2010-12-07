@@ -1,0 +1,7 @@
+{
+  if (this.asyncWriteService != null) {
+    this.asyncWriteService.shutdown();
+  }
+  this.asyncWriteService=asyncWriteService;
+  return this;
+}
