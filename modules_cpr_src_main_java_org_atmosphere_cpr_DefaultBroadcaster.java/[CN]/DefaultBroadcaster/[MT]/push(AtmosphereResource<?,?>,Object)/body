@@ -1,10 +1,9 @@
 {
-  AtmosphereResourceEvent e=null;
 synchronized (r) {
     if (r.getAtmosphereResourceEvent().isCancelled()) {
       return;
     }
-    e=r.getAtmosphereResourceEvent();
+    final AtmosphereResourceEvent e=r.getAtmosphereResourceEvent();
     e.setMessage(msg);
     if (r.getAtmosphereResourceEvent() != null && !r.getAtmosphereResourceEvent().isCancelled() && HttpServletRequest.class.isAssignableFrom(r.getRequest().getClass())) {
       try {
@@ -18,9 +17,14 @@ synchronized (r) {
         }
       }
     }
-    broadcast(r,e);
-    if (r instanceof AtmosphereEventLifecycle) {
-      ((AtmosphereEventLifecycle)r).notifyListeners();
+    bc.getAsyncWriteService().execute(new Runnable(){
+      @Override public void run(){
+        broadcast(r,e);
+        if (r instanceof AtmosphereEventLifecycle) {
+          ((AtmosphereEventLifecycle)r).notifyListeners();
+        }
+      }
     }
+);
   }
 }

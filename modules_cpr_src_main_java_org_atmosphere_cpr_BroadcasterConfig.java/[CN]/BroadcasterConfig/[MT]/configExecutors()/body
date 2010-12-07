@@ -7,4 +7,12 @@
   }
 );
   defaultExecutorService=executorService;
+  asyncWriteService=Executors.newCachedThreadPool(new ThreadFactory(){
+    private AtomicInteger count=new AtomicInteger();
+    @Override public Thread newThread(    final Runnable runnable){
+      return new Thread(runnable,"Atmosphere-AsyncWrite-" + count.getAndIncrement());
+    }
+  }
+);
+  defaultAsyncWriteService=asyncWriteService;
 }

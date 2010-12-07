@@ -5,8 +5,14 @@
   if (executorService != null) {
     executorService.shutdown();
   }
+  if (asyncWriteService != null) {
+    asyncWriteService.shutdown();
+  }
   if (defaultExecutorService != null) {
     defaultExecutorService.shutdown();
+  }
+  if (defaultAsyncWriteService != null) {
+    defaultAsyncWriteService.shutdown();
   }
   if (scheduler != null) {
     scheduler.shutdown();
