@@ -2,7 +2,7 @@
   Object finalMsg=msg.message;
   if (r.getRequest() instanceof HttpServletRequest && bc.hasPerRequestFilters()) {
     Object message=msg.originalMessage;
-    BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),message);
+    BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),(HttpServletResponse)r.getResponse(),message);
     if (a.action() == BroadcastAction.ACTION.ABORT || a.message() != null) {
       finalMsg=a.message();
     }
