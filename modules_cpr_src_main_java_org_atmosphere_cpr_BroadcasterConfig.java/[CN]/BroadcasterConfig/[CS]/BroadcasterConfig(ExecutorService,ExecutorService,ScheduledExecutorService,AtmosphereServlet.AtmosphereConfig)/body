@@ -2,4 +2,5 @@
   this.executorService=executorService;
   this.scheduler=scheduler;
   this.asyncWriteService=asyncWriteService;
+  this.config=config;
 }

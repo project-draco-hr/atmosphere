@@ -1,3 +1,4 @@
 ExecutorService executorService
 ExecutorService asyncWriteService
 ScheduledExecutorService scheduler
+AtmosphereServlet.AtmosphereConfig config

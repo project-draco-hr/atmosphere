@@ -1,4 +1,5 @@
 {
+  this.config=config;
   configExecutors();
   configureBroadcasterFilter(list);
   configureBroadcasterCache();
