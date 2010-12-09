@@ -1,0 +1,6 @@
+{
+  if (notifierFuture != null) {
+    notifierFuture.cancel(true);
+  }
+  notifierFuture=bc.getExecutorService().submit(getBroadcastHandler());
+}

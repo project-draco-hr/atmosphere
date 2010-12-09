@@ -18,5 +18,4 @@
   if (BroadcasterFactory.getDefault() != null) {
     BroadcasterFactory.getDefault().remove(this,name);
   }
-  finalizer.shutdown();
 }

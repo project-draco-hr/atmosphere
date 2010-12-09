@@ -1,0 +1,8 @@
+{
+  for (  BroadcastFilter f : filters) {
+    if (f.getClass().isAssignableFrom(e.getClass())) {
+      return true;
+    }
+  }
+  return false;
+}

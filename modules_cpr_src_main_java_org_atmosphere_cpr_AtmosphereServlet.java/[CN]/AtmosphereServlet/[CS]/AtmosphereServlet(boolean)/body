@@ -1,6 +1,5 @@
 {
   this.isFilter=isFilter;
   readSystemProperties();
-  configureDefaultBroadcasterFactory();
   populateBroadcasterType();
 }

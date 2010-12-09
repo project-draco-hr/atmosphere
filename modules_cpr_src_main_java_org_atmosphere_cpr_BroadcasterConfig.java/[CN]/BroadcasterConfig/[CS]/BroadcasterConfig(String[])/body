@@ -1,5 +1,0 @@
-{
-  configExecutors();
-  configureBroadcasterFilter(list);
-  configureBroadcasterCache();
-}

@@ -1,11 +1,24 @@
 {
   try {
+    if (bc.getAtmosphereConfig() != null) {
+      if (bc.getAtmosphereConfig().getInitParameter(JMS_TOPIC) != null) {
+        topicId=bc.getAtmosphereConfig().getInitParameter(JMS_TOPIC);
+      }
+    }
+    String id=getID();
+    if (id.startsWith("/*")) {
+      id="atmosphere";
+    }
+    logger.info("Looking up: jms/atmosphereFactory");
     Context ctx=new InitialContext();
     ConnectionFactory connectionFactory=(ConnectionFactory)ctx.lookup("jms/atmosphereFactory");
-    Topic topic=(Topic)ctx.lookup("jms/" + clusterName);
+    logger.info(String.format("Looking up topic: %s",topicId));
+    Topic topic=(Topic)ctx.lookup("jms/" + topicId);
     connection=connectionFactory.createConnection();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-    consumer=session.createConsumer(topic,clusterName);
+    logger.info(String.format("Create customer: %s",id));
+    String selector=String.format("BroadcasterId = '%s'",id);
+    consumer=session.createConsumer(topic,selector);
     consumer.setMessageListener(new MessageListener(){
       @Override public void onMessage(      Message msg){
         try {
@@ -25,8 +38,9 @@
 );
     publisher=session.createProducer(topic);
     connection.start();
+    logger.info(String.format("JMS created for topic %s, with filter % s",topicId,selector));
   }
  catch (  Throwable ex) {
-    throw new IllegalStateException("Unable to initialize JMSFilter",ex);
+    throw new IllegalStateException("Unable to initialize JMSBroadcaster",ex);
   }
 }
