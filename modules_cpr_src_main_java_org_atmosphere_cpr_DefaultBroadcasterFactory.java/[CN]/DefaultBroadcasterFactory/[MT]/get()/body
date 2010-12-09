@@ -5,7 +5,7 @@
     AbstractBroadcasterProxy.class.cast(b).configure(config);
   }
   b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
-  b.setID(clazz.getSimpleName() + "-" + new Random().nextInt());
+  b.setID(clazz.getSimpleName() + "-" + UUID.randomUUID());
   store.put(b.getID(),b);
   return b;
 }

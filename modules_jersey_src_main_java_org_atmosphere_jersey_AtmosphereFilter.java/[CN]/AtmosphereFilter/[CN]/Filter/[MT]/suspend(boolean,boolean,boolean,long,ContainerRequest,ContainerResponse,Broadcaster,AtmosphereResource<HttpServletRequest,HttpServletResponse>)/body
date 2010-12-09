@@ -29,7 +29,7 @@
  else   if ((scope == Suspend.SCOPE.REQUEST) && (bc.getScope() != Broadcaster.SCOPE.REQUEST)) {
     try {
       String id=bc.getID();
-      bc.setID(bc.getClass().getSimpleName() + "-" + new Random().nextInt());
+      bc.setID(bc.getClass().getSimpleName() + "-" + UUID.randomUUID());
       bc=bf.get();
       bc.setScope(Broadcaster.SCOPE.REQUEST);
       bc.setID(id);
