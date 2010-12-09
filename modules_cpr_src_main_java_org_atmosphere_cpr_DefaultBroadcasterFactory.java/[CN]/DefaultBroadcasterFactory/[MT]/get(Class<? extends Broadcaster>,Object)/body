@@ -6,7 +6,7 @@
   if (AbstractBroadcasterProxy.class.isAssignableFrom(b.getClass())) {
     AbstractBroadcasterProxy.class.cast(b).configure(config);
   }
-  b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters));
+  b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
   b.setID(id.toString());
   store.put(id,b);
   return b;
