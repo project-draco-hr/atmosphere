@@ -1,5 +1,0 @@
-{
-  System.out.println("[" + Thread.currentThread().getName() + "] LISTENING to '"+ bc.getID()+ "'");
-  if (service == null)   throw new AssertionError();
-  return "Connected !\n";
-}

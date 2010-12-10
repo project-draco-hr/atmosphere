@@ -1,5 +1,0 @@
-{
-  System.out.println("[" + Thread.currentThread().getName() + "] PUBLISH to '"+ bc.getID()+ "' : '"+ message.replace("\n","\\n")+ "'");
-  if (service == null)   throw new AssertionError();
-  return new Broadcastable(message,bc);
-}
