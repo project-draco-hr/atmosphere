@@ -24,6 +24,7 @@
     pingForStats();
     doInitParams(scFacade);
     configureDefaultBroadcasterFactory();
+    doInitParamsForWebSocket(scFacade);
     detectGoogleAppEngine(scFacade);
     loadConfiguration(scFacade);
     autoDetectContainer();

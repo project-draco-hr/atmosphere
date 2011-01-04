@@ -1,0 +1,13 @@
+{
+  String s=sc.getInitParameter(WEBSOCKET_ATMOSPHEREHANDLER);
+  if (s != null) {
+    addAtmosphereHandler("/*",new WebSocketAtmosphereHandler());
+    webSocketEnabled=true;
+    sessionSupport(false);
+  }
+  s=sc.getInitParameter(WEBSOCKET_SUPPORT);
+  if (s != null) {
+    webSocketEnabled=true;
+    sessionSupport(false);
+  }
+}
