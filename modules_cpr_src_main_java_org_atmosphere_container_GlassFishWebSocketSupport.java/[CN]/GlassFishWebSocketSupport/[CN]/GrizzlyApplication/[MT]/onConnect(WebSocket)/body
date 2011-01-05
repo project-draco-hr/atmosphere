@@ -5,12 +5,7 @@
   BaseServerWebSocket webSocket=BaseServerWebSocket.class.cast(w);
   webSocketProcessor=new WebSocketProcessor(config.getServlet(),new GrizzlyWebSocketSupport(webSocket));
   try {
-    webSocketProcessor.connect(new HttpServletRequestWrapper(webSocket.getRequest()){
-      public String getServletPath(){
-        return servletPath;
-      }
-    }
-);
+    webSocketProcessor.connect(new HttpServletRequestWrapper(webSocket.getRequest()));
   }
  catch (  IOException e) {
     LoggerUtils.getLogger().log(Level.WARNING,"",e);

@@ -1,5 +1,4 @@
 {
   super.init(sc);
-  servletPath=sc.getInitParameter("grizzly.application.path") == null ? "" : sc.getInitParameter("grizzly.application.path");
-  WebSocketEngine.getEngine().register(sc.getServletContext().getContextPath() + servletPath,grizzlyApplication);
+  WebSocketEngine.getEngine().register(sc.getServletContext().getContextPath(),new GrizzlyApplication());
 }
