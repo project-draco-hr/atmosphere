@@ -4,16 +4,25 @@
       if (bc.getAtmosphereConfig().getInitParameter(JMS_TOPIC) != null) {
         topicId=bc.getAtmosphereConfig().getInitParameter(JMS_TOPIC);
       }
+      if (bc.getAtmosphereConfig().getInitParameter(JNDI_NAMESPACE) != null) {
+        namespace=bc.getAtmosphereConfig().getInitParameter(JNDI_NAMESPACE);
+      }
+      if (bc.getAtmosphereConfig().getInitParameter(JNDI_FACTORY_NAME) != null) {
+        factoryName=bc.getAtmosphereConfig().getInitParameter(JNDI_FACTORY_NAME);
+      }
+      if (bc.getAtmosphereConfig().getInitParameter(JNDI_TOPIC) != null) {
+        topicId=bc.getAtmosphereConfig().getInitParameter(JNDI_TOPIC);
+      }
     }
     String id=getID();
     if (id.startsWith("/*")) {
       id="atmosphere";
     }
-    logger.info("Looking up: jms/atmosphereFactory");
+    logger.info(String.format("Looking up Connection Factory %s",namespace + factoryName));
     Context ctx=new InitialContext();
-    ConnectionFactory connectionFactory=(ConnectionFactory)ctx.lookup("jms/atmosphereFactory");
+    ConnectionFactory connectionFactory=(ConnectionFactory)ctx.lookup(namespace + factoryName);
     logger.info(String.format("Looking up topic: %s",topicId));
-    Topic topic=(Topic)ctx.lookup("jms/" + topicId);
+    Topic topic=(Topic)ctx.lookup(namespace + topicId);
     connection=connectionFactory.createConnection();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     logger.info(String.format("Create customer: %s",id));
