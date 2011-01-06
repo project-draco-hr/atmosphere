@@ -11,16 +11,24 @@
   }
   filterChain.setServlet(sc,servlet);
   Filter f;
-  for (  String filterName : filtersClass) {
+  for (  String fClass : filtersClass) {
     try {
-      f=(Filter)urlC.loadClass(filterName).newInstance();
+      f=(Filter)urlC.loadClass(fClass).newInstance();
     }
  catch (    NullPointerException ex) {
-      f=(Filter)Thread.currentThread().getContextClassLoader().loadClass(filterName).newInstance();
+      f=(Filter)Thread.currentThread().getContextClassLoader().loadClass(fClass).newInstance();
     }
     FilterConfigImpl fc=new FilterConfigImpl(sc);
     fc.setFilter(f);
-    fc.setFilterName("/*");
+    if (filterName == null) {
+      if (sc.getInitParameter(APPLICATION_NAME) != null) {
+        filterName=sc.getInitParameter(APPLICATION_NAME);
+      }
+ else {
+        filterName=f.getClass().getSimpleName();
+      }
+    }
+    fc.setFilterName(filterName);
     filterChain.addFilter(fc);
   }
 }
