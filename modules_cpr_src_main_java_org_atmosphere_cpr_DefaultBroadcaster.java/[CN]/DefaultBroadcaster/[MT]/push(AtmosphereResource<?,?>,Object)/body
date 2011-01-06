@@ -12,9 +12,9 @@ synchronized (r) {
  catch (      Throwable t) {
         if (LoggerUtils.getLogger().isLoggable(Level.FINE)) {
           LoggerUtils.getLogger().log(Level.FINE,"Preventing corruption of a recycled request",e);
-          resources.remove(r);
-          return;
         }
+        resources.remove(r);
+        return;
       }
     }
     bc.getAsyncWriteService().execute(new Runnable(){
