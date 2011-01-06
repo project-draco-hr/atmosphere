@@ -1,13 +1,19 @@
 {
   if (o instanceof String) {
     String message=(String)o;
-    try {
-      if (!receivedMessages.remove(message)) {
-        publisher.send(session.createTextMessage(message));
+    if (!receivedMessages.remove(message)) {
+      try {
+        String id=bc.getID();
+        if (id.startsWith("/*")) {
+          id="atmosphere";
+        }
+        TextMessage textMessage=session.createTextMessage(message.toString());
+        textMessage.setStringProperty("BroadcasterId",id);
+        publisher.send(textMessage);
       }
-    }
- catch (    JMSException ex) {
-      logger.log(Level.WARNING,"",ex);
+ catch (      JMSException ex) {
+        logger.log(Level.WARNING,"",ex);
+      }
     }
     return new BroadcastAction(message);
   }

@@ -1,3 +1,4 @@
 {
-  this(bc,containerName,"cluster-atmosphere");
+  this.bc=bc;
+  this.topicId=topicId;
 }
