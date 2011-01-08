@@ -1,6 +1,6 @@
 {
   if (proxy instanceof AttributeHolder) {
-    ((AttributeHolder)proxy).setAttribute(n,v);
+    ((AttributeHolder)proxy).setAttribute(name,value);
     return;
   }
   Method executeM=null;
@@ -10,10 +10,10 @@
   params[1]=Object.class;
   executeM=findMethod(c,"setAttribute",params);
   if (executeM == null) {
-    if (logger.isLoggable(Level.FINE))     logger.fine("No setAttribute in " + proxy.getClass());
+    logger.debug("No setAttribute in {}",proxy.getClass());
     return;
   }
-  if (false)   if (logger.isLoggable(Level.FINE))   logger.fine("Setting " + n + "="+ v+ "  in "+ proxy);
-  executeM.invoke(proxy,new Object[]{n,v});
+  logger.debug("Setting {}={} in proxy: {}",new Object[]{name,value,proxy});
+  executeM.invoke(proxy,new Object[]{name,value});
   return;
 }

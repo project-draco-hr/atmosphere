@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testResumeOnBroadcast");
+  logger.info("{}: running test: testResumeOnBroadcast",getClass().getSimpleName());
   AsyncHttpClient c=new AsyncHttpClient();
   long t1=System.currentTimeMillis();
   try {
@@ -10,7 +10,7 @@
     assertTrue(current > 5000 && current < 10000);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

@@ -5,7 +5,7 @@
   if (!isCometSupportSpecified && !isCometSupportConfigured.getAndSet(true)) {
 synchronized (cometSupport) {
       if (!cometSupport.getClass().equals(JBossWebCometSupport.class)) {
-        logger.warning("JBossWebCometSupport is enabled, switching to it");
+        logger.warn("JBossWebCometSupport is enabled, switching to it");
         cometSupport=new JBossWebCometSupport(config);
       }
     }

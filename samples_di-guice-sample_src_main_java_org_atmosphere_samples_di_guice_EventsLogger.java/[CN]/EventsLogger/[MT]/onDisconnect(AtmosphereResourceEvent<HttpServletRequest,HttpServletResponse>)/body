@@ -1,4 +1,6 @@
 {
-  if (service == null)   throw new AssertionError();
-  System.out.println("[" + Thread.currentThread().getName() + "] onDisconnect: "+ from(event));
+  if (service == null) {
+    throw new AssertionError();
+  }
+  logger.info("[{}] onDisconnect: {}:{}",new Object[]{Thread.currentThread().getName(),event.getResource().getRequest().getRemoteAddr(),event.getResource().getRequest().getRemotePort()});
 }

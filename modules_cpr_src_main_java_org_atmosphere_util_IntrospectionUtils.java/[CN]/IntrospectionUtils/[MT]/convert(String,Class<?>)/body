@@ -18,11 +18,11 @@
       result=InetAddress.getByName(object);
     }
  catch (    UnknownHostException exc) {
-      d("Unable to resolve host name:" + object);
+      debug("Unable to resolve host name:" + object);
     }
   }
  else {
-    d("Unknown type " + paramType.getName());
+    debug("Unknown type " + paramType.getName());
   }
   if (result == null) {
     throw new IllegalArgumentException("Can't convert argument: " + object);

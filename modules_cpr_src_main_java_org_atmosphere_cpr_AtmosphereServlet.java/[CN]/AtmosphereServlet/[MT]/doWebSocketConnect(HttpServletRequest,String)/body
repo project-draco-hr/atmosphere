@@ -1,7 +1,5 @@
 {
-  if (logger.isLoggable(Level.INFO)) {
-    logger.info("WebSocket upgrade requested");
-  }
+  logger.info("WebSocket upgrade requested");
   return new WebSocket(){
     private WebSocketProcessor webSocketProcessor;
     public void onConnect(    WebSocket.Outbound outbound){
@@ -10,7 +8,7 @@
         webSocketProcessor.connect(new JettyRequestFix(request));
       }
  catch (      IOException e) {
-        logger.log(Level.WARNING,"",e);
+        logger.warn("failed to connect to web socket",e);
       }
     }
     public void onMessage(    byte frame,    String data){

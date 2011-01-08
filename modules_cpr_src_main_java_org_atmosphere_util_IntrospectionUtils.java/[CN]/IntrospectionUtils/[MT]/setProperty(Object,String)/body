@@ -1,18 +1,22 @@
 {
   String setter="set" + capitalize(name);
   try {
-    Method methods[]=findMethods(o.getClass());
+    Method methods[]=findMethods(object.getClass());
     Method setPropertyMethod=null;
     for (int i=0; i < methods.length; i++) {
       Class<?> paramT[]=methods[i].getParameterTypes();
       if (setter.equals(methods[i].getName()) && paramT.length == 0) {
-        methods[i].invoke(o,new Object[]{});
+        methods[i].invoke(object,new Object[]{});
         return;
       }
     }
   }
- catch (  Exception ex1) {
-    if (dbg > 0)     d("Exception for " + o.getClass() + " "+ name);
-    if (dbg > 1)     ex1.printStackTrace();
+ catch (  Exception e) {
+    if (dbg > 0) {
+      debug("Exception for " + object.getClass() + " "+ name);
+    }
+    if (dbg > 1) {
+      logger.debug("",e);
+    }
   }
 }

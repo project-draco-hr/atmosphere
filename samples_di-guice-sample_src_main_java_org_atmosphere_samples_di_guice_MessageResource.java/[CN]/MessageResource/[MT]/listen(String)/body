@@ -1,6 +1,8 @@
 {
   Broadcaster broadcaster=BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,topic,true);
-  System.out.println("[" + Thread.currentThread().getName() + "] LISTENING to '"+ broadcaster.getID()+ "'");
-  if (service == null)   throw new AssertionError();
+  logger.info("thread: {} LISTENING to '{}'",Thread.currentThread().getName(),broadcaster.getID());
+  if (service == null) {
+    throw new AssertionError();
+  }
   return new Broadcastable(new JSONObject().put("from","system").put("msg","Connected !"),broadcaster);
 }

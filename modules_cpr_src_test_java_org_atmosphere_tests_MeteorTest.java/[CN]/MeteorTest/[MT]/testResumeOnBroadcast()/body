@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testResumeOnBroadcast");
+  logger.info("running test: testResumeOnBroadcast");
   final CountDownLatch latch=new CountDownLatch(1);
   servletLatch=new CountDownLatch(1);
   AsyncHttpClient c=new AsyncHttpClient();
@@ -38,7 +38,7 @@
     assertEquals(resume,"resumeresume");
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

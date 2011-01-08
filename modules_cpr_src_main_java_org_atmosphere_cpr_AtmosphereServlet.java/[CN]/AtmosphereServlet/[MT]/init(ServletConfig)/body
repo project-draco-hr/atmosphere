@@ -1,4 +1,5 @@
 {
+  logger.info("initializing atmosphere framework: {}",Version.getRawVersion());
   try {
     super.init(sc);
     ServletContextHolder.register(this);
@@ -31,11 +32,13 @@
     configureBroadcaster();
     cometSupport.init(scFacade);
     initAtmosphereServletProcessor(scFacade);
-    logger.log(Level.INFO,"Atmosphere Framework " + Version.getRawVersion() + " started.");
+    logger.info("started atmosphere framework: {}",Version.getRawVersion());
   }
  catch (  Throwable t) {
-    logger.log(Level.SEVERE,"",t);
-    if (t instanceof ServletException)     throw (ServletException)t;
+    logger.error("failed to initialize atmosphere framework",t);
+    if (t instanceof ServletException) {
+      throw (ServletException)t;
+    }
     throw new ServletException(t.getCause());
   }
 }

@@ -1,27 +1,25 @@
 {
-synchronized (r) {
-    if (r.getAtmosphereResourceEvent().isCancelled()) {
+synchronized (resource) {
+    if (resource.getAtmosphereResourceEvent().isCancelled()) {
       return;
     }
-    final AtmosphereResourceEvent e=r.getAtmosphereResourceEvent();
-    e.setMessage(msg);
-    if (r.getAtmosphereResourceEvent() != null && !r.getAtmosphereResourceEvent().isCancelled() && HttpServletRequest.class.isAssignableFrom(r.getRequest().getClass())) {
+    final AtmosphereResourceEvent event=resource.getAtmosphereResourceEvent();
+    event.setMessage(msg);
+    if (resource.getAtmosphereResourceEvent() != null && !resource.getAtmosphereResourceEvent().isCancelled() && HttpServletRequest.class.isAssignableFrom(resource.getRequest().getClass())) {
       try {
-        HttpServletRequest.class.cast(r.getRequest()).setAttribute(CometSupport.MAX_INACTIVE,(Long)System.currentTimeMillis());
+        HttpServletRequest.class.cast(resource.getRequest()).setAttribute(CometSupport.MAX_INACTIVE,System.currentTimeMillis());
       }
- catch (      Throwable t) {
-        if (LoggerUtils.getLogger().isLoggable(Level.FINE)) {
-          LoggerUtils.getLogger().log(Level.FINE,"Preventing corruption of a recycled request",e);
-          resources.remove(r);
-          return;
-        }
+ catch (      Exception t) {
+        logger.warn("Preventing corruption of a recycled request: resource" + resource,event);
+        resources.remove(resource);
+        return;
       }
     }
     bc.getAsyncWriteService().execute(new Runnable(){
       @Override public void run(){
-        broadcast(r,e);
-        if (r instanceof AtmosphereEventLifecycle) {
-          ((AtmosphereEventLifecycle)r).notifyListeners();
+        broadcast(resource,event);
+        if (resource instanceof AtmosphereEventLifecycle) {
+          ((AtmosphereEventLifecycle)resource).notifyListeners();
         }
       }
     }

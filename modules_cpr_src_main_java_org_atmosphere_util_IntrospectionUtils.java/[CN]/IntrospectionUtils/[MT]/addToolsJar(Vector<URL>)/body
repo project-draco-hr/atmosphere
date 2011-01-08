@@ -4,13 +4,13 @@
     if (!f.exists()) {
       f=new File(System.getProperty("java.home") + "/lib/tools.jar");
       if (f.exists()) {
-        if (logger.isLoggable(Level.FINE))         logger.fine("Detected strange java.home value " + System.getProperty("java.home") + ", it should point to jre");
+        logger.debug("Detected strange java.home value {}, it should point to jre",System.getProperty("java.home"));
       }
     }
     URL url=new URL("file","",f.getAbsolutePath());
     v.addElement(url);
   }
  catch (  MalformedURLException ex) {
-    ex.printStackTrace();
+    logger.debug("failed to add tools jar url to vector",ex);
   }
 }

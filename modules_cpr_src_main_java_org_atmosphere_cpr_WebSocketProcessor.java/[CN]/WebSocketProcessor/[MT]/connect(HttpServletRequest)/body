@@ -1,20 +1,20 @@
 {
   if (!loggedMsg.getAndSet(true)) {
-    AtmosphereServlet.logger.info("Atmosphere detected WebSocketSupport: " + webSocketSupport.getClass().getName());
+    logger.info("Atmosphere detected WebSocketSupport: {}",webSocketSupport.getClass().getName());
   }
   request.setAttribute(WebSocketSupport.WEBSOCKET_SUSPEND,"true");
   try {
     atmosphereServlet.doCometSupport(request,new WebSocketHttpServletResponse<WebSocketSupport>(webSocketSupport));
   }
  catch (  IOException e) {
-    AtmosphereServlet.logger.log(Level.INFO,"",e);
+    logger.info("failed invoking atmosphere servlet doCometSupport()",e);
   }
 catch (  ServletException e) {
-    AtmosphereServlet.logger.log(Level.INFO,"",e);
+    logger.info("failed invoking atmosphere servlet doCometSupport()",e);
   }
-  r=(AtmosphereResource)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
-  ah=(AtmosphereHandler)request.getAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER);
-  if (r == null || !r.getAtmosphereResourceEvent().isSuspended()) {
+  resource=(AtmosphereResource)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+  handler=(AtmosphereHandler)request.getAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER);
+  if (resource == null || !resource.getAtmosphereResourceEvent().isSuspended()) {
     webSocketSupport.close();
   }
 }

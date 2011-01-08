@@ -1,10 +1,10 @@
 {
-  if ((message instanceof String) && ((String)message).indexOf("=") != -1) {
+  if ((message instanceof String) && ((String)message).contains("=")) {
     try {
       message=message.toString().split("=")[1];
     }
  catch (    ArrayIndexOutOfBoundsException ex) {
-      logger.log(Level.WARNING,"",ex);
+      logger.warn("failed to split form param: " + message,ex);
     }
   }
   return new BroadcastAction(BroadcastAction.ACTION.CONTINUE,message);

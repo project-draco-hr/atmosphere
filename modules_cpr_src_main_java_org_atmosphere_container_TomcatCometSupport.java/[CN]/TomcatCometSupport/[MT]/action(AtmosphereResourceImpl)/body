@@ -10,9 +10,7 @@
       }
     }
  catch (    IOException ex) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.log(Level.FINE,"",ex);
-      }
+      logger.debug("action failed",ex);
     }
   }
 }

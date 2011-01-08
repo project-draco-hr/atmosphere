@@ -16,20 +16,18 @@
       if (latchId != -1 && (s == null || s.equalsIgnoreCase("false"))) {
         CountDownLatch latch=latchs.remove(latchId);
         if (latch == null) {
-          logger.log(Level.SEVERE,String.format("Unable to resume the suspended connection with latchId",latchId));
+          logger.error("Unable to resume the suspended connection with latchId: {}",latchId);
         }
  else {
           latch.countDown();
         }
       }
  else       if (req.getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) == null) {
-        logger.log(Level.SEVERE,"Unable to resume the suspended connection");
+        logger.error("Unable to resume the suspended connection");
       }
     }
   }
  catch (  Exception ex) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.log(Level.FINE,"",ex);
-    }
+    logger.error("",ex);
   }
 }

@@ -9,8 +9,8 @@
     }
   }
  else {
-    if (!actionEvent.isInScope() && logger.isLoggable(Level.FINE)) {
-      logger.fine("Already resumed or cancelled " + actionEvent);
+    if (!actionEvent.isInScope()) {
+      logger.debug("Already resumed or cancelled: event: {}",actionEvent);
     }
   }
 }

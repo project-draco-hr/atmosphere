@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testAggregateFilter");
+  logger.info("{}: running test: testAggregateFilter",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(1);
   long t1=System.currentTimeMillis();
   AsyncHttpClient c=new AsyncHttpClient();
@@ -33,7 +33,7 @@
     assertEquals(r.getResponseBody(),"==================================================\n" + "==================================================\n" + "==================================================\n"+ "==================================================\n"+ "==================================================\n"+ "==================================================\n");
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

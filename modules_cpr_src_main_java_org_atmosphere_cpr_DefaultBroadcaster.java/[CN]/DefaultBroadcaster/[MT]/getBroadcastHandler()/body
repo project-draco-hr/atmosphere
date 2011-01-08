@@ -8,12 +8,12 @@
         push(msg);
       }
  catch (      Throwable ex) {
-        LoggerUtils.getLogger().log(Level.SEVERE,null,ex);
+        logger.error("failed to submit broadcast handler runnable to broadcast executor service",ex);
       }
  finally {
         if (msg != null) {
           if (msg.future instanceof BroadcasterFuture) {
-            ((BroadcasterFuture)msg.future).done();
+            msg.future.done();
           }
  else {
             msg.future.cancel(true);

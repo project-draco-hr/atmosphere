@@ -1,0 +1,10 @@
+{
+  if (jedisSubscriber != null) {
+    try {
+      jedisSubscriber.disconnect();
+    }
+ catch (    IOException e) {
+      logger.error("failed to disconnect subscriber",e);
+    }
+  }
+}

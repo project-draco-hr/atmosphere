@@ -1,3 +1,3 @@
 {
-  return r.action().type == AtmosphereServlet.Action.TYPE.SUSPEND;
+  return resource.action().type == AtmosphereServlet.Action.TYPE.SUSPEND;
 }

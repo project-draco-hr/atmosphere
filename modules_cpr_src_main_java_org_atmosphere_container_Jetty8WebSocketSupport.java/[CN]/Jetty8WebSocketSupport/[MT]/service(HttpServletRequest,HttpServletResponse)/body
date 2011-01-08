@@ -6,14 +6,10 @@
  else {
     Action action=suspended(req,res);
     if (action.type == Action.TYPE.SUSPEND) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Suspending " + res);
-      }
+      logger.debug("Suspending response: {}",res);
     }
  else     if (action.type == Action.TYPE.RESUME) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Resume " + res);
-      }
+      logger.debug("Resume response: {}",res);
       req.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
     }
     return action;

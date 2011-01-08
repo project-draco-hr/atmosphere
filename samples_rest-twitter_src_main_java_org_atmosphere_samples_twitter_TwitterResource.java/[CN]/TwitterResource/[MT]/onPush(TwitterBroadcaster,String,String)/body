@@ -1,6 +1,6 @@
 {
   if (message == null) {
-    logger.severe("Message cannot be null");
+    logger.error("Message cannot be null");
     throw new WebApplicationException(400);
   }
   if (callback == null) {

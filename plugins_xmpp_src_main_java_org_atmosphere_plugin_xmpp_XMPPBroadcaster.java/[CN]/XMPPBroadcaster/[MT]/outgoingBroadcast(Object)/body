@@ -4,7 +4,7 @@
       channel.sendMessage(message.toString());
     }
  catch (    XMPPException e) {
-      e.printStackTrace();
+      logger.debug("failed to send message on channel",e);
     }
   }
 }

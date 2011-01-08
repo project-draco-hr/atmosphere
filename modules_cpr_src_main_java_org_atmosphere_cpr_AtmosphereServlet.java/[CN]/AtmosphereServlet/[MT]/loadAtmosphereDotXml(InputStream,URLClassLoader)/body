@@ -6,42 +6,44 @@
   Map<String,String> atmosphereHandlerNames=reader.getAtmosphereHandlers();
   Set<Entry<String,String>> entries=atmosphereHandlerNames.entrySet();
   for (  Entry<String,String> entry : entries) {
-    AtmosphereHandler g;
+    AtmosphereHandler handler;
+    String handlerClassName=entry.getValue();
+    String handlerPath=entry.getKey();
     try {
-      if (!entry.getValue().equals(ReflectorServletProcessor.class.getName())) {
-        g=(AtmosphereHandler)c.loadClass(entry.getValue()).newInstance();
-        InjectorProvider.getInjector().inject(g);
+      if (!handlerClassName.equals(ReflectorServletProcessor.class.getName())) {
+        handler=(AtmosphereHandler)c.loadClass(handlerClassName).newInstance();
+        InjectorProvider.getInjector().inject(handler);
       }
  else {
-        g=new ReflectorServletProcessor();
+        handler=new ReflectorServletProcessor();
       }
-      logger.info("Sucessfully loaded " + g + " mapped to context-path "+ entry.getKey());
-      AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(g);
-      atmosphereHandlers.put(entry.getKey(),wrapper);
+      logger.info("successfully loaded handler: {} mapped to context-path: {}",handler,handlerPath);
+      AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler);
+      atmosphereHandlers.put(handlerPath,wrapper);
       boolean isJersey=false;
-      for (      Property p : reader.getProperty(entry.getKey())) {
+      for (      Property p : reader.getProperty(handlerPath)) {
         if (p.value != null && p.value.indexOf("jersey") != -1) {
           isJersey=true;
           initParams.put(DISABLE_ONSTATE_EVENT,"true");
           useStreamForFlushingComments=true;
         }
-        IntrospectionUtils.setProperty(g,p.name,p.value);
+        IntrospectionUtils.setProperty(handler,p.name,p.value);
       }
       config.supportSession=!isJersey;
       if (!reader.supportSession().equals("")) {
         sessionSupport(Boolean.valueOf(reader.supportSession()));
       }
-      for (      Property p : reader.getProperty(entry.getKey())) {
-        IntrospectionUtils.addProperty(g,p.name,p.value);
+      for (      Property p : reader.getProperty(handlerPath)) {
+        IntrospectionUtils.addProperty(handler,p.name,p.value);
       }
-      String broadcasterClass=reader.getBroadcasterClass(entry.getKey());
+      String broadcasterClass=reader.getBroadcasterClass(handlerPath);
       if (broadcasterClass != null) {
         broadcasterClassName=broadcasterClass;
         ClassLoader cl=Thread.currentThread().getContextClassLoader();
         Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
-        wrapper.broadcaster=BroadcasterFactory.getDefault().get(bc,entry.getKey());
+        wrapper.broadcaster=BroadcasterFactory.getDefault().get(bc,handlerPath);
       }
-      String bc=reader.getBroadcasterCache(entry.getKey());
+      String bc=reader.getBroadcasterCache(handlerPath);
       if (bc != null) {
         broadcasterCacheClassName=bc;
       }
@@ -53,7 +55,7 @@
       }
     }
  catch (    Throwable t) {
-      logger.log(Level.WARNING,"Unable to load AtmosphereHandler class: " + entry.getValue(),t);
+      logger.warn("unable to load AtmosphereHandler class: " + handlerClassName,t);
       throw new ServletException(t);
     }
   }

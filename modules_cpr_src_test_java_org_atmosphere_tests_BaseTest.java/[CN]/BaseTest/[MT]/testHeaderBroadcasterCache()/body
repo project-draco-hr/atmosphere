@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testHeaderBroadcasterCache");
+  logger.info("{}: running test: testHeaderBroadcasterCache",getClass().getSimpleName());
   atmoServlet.setBroadcasterCacheClassName(HeaderBroadcasterCache.class.getName());
   final CountDownLatch latch=new CountDownLatch(1);
   long t1=System.currentTimeMillis();
@@ -13,10 +13,10 @@
         event.getBroadcaster().broadcast("12345678910").get();
       }
  catch (      InterruptedException e) {
-        e.printStackTrace();
+        logger.error("",e);
       }
 catch (      ExecutionException e) {
-        e.printStackTrace();
+        logger.error("",e);
       }
       event.getResponse().flushBuffer();
     }
@@ -67,7 +67,7 @@ catch (      ExecutionException e) {
     assertEquals(r.getResponseBody(),"1234567891012345678910");
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

@@ -1,6 +1,6 @@
 {
-  System.out.println(b);
-  System.out.println(bf);
-  System.out.println(ar);
+  logger.info("broadcaster: {}",broadcaster);
+  logger.info("factory: {}",broadcasterFactory);
+  logger.info("resource: {}",resource);
   return "perrequest";
 }

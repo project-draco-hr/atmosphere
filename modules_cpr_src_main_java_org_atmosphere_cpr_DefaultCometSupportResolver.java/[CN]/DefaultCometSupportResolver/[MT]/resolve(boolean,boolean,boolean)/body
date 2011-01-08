@@ -1,5 +1,5 @@
 {
-  CometSupport cs=null;
+  CometSupport cs;
   if (!useWebsocketIfPossible) {
     cs=resolve(useNativeIfPossible,defaultToBlocking);
   }

@@ -2,7 +2,7 @@
   Method m=null;
   m=findMethod(target.getClass(),methodN,typeParams);
   if (m == null) {
-    d("Can't find method " + methodN + " in "+ target+ " CLASS "+ target.getClass());
+    debug("Can't find method " + methodN + " in "+ target+ " CLASS "+ target.getClass());
     return null;
   }
   Object o=m.invoke(target,params);
@@ -14,7 +14,7 @@
       sb.append(params[i]);
     }
     sb.append(")");
-    d(sb.toString());
+    debug(sb.toString());
   }
   return o;
 }

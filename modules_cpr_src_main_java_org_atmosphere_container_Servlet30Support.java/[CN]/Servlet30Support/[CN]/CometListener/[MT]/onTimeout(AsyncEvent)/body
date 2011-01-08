@@ -1,13 +1,9 @@
 {
-  if (logger.isLoggable(Level.FINE)) {
-    logger.fine("onTimeout" + event.getAsyncContext().getRequest());
-  }
+  logger.debug("onTimeout(): event: {}",event.getAsyncContext().getRequest());
   try {
     timedout((HttpServletRequest)event.getAsyncContext().getRequest(),(HttpServletResponse)event.getAsyncContext().getResponse());
   }
  catch (  ServletException ex) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.log(Level.FINE,"onTimeout" + event.getAsyncContext().getResponse(),ex);
-    }
+    logger.debug("onTimeout(): failed timing out comet response: " + event.getAsyncContext().getResponse(),ex);
   }
 }

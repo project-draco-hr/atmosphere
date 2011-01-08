@@ -5,7 +5,7 @@
   if (!isCometSupportSpecified && !isCometSupportConfigured.getAndSet(true)) {
 synchronized (cometSupport) {
       if (!cometSupport.getClass().equals(TomcatCometSupport.class)) {
-        logger.warning("TomcatCometSupport is enabled, switching to it");
+        logger.warn("TomcatCometSupport is enabled, switching to it");
         cometSupport=new TomcatCometSupport(config);
       }
     }

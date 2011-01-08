@@ -1,4 +1,4 @@
 {
-  AtmosphereHandler a=r.getAtmosphereConfig().getAtmosphereHandler(r.getBroadcaster());
-  r.resume();
+  resource.getAtmosphereConfig().getAtmosphereHandler(resource.getBroadcaster());
+  resource.resume();
 }

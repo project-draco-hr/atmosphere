@@ -1,6 +1,6 @@
 {
   this.isCancelled.set(isCancelled);
   this.isResumedOnTimeout.set(isResumedOnTimeout);
-  this.r=r;
+  this.resource=resource;
   this.throwable=throwable;
 }

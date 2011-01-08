@@ -1,2 +1,2 @@
-ServletContext sc
-URLClassLoader c
+ServletContext servletContext
+URLClassLoader classloader

@@ -10,6 +10,6 @@
     }
   }
  catch (  Exception ex) {
-    ex.printStackTrace();
+    logger.debug("failed to add urls to classpath",ex);
   }
 }

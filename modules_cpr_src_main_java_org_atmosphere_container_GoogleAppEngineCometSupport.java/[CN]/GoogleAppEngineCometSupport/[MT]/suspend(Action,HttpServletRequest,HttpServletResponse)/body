@@ -14,14 +14,14 @@
     }
   }
  catch (  Throwable ex) {
-    LoggerUtils.getLogger().log(Level.WARNING,"Unable to resume the suspended connection",ex);
+    logger.warn("Unable to resume the suspended connection",ex);
   }
  finally {
     try {
       timedout(req,res);
     }
  catch (    Throwable e) {
-      LoggerUtils.getLogger().log(Level.WARNING,"Unable to timeout connection",e);
+      logger.warn("Unable to timeout connection",e);
     }
   }
 }

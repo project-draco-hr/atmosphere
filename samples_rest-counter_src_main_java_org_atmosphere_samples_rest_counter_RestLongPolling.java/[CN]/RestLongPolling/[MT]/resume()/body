@@ -1,4 +1,4 @@
 {
-  System.out.println("Resuming");
+  logger.info("Resuming");
   return "Resumed";
 }

@@ -1,9 +1,9 @@
 {
   LinkedList<ResourceFilter> list=new LinkedList<ResourceFilter>();
   Filter f;
-  if (logger.isLoggable(Level.FINE)) {
-    for (    Annotation a : am.getAnnotations()) {
-      logger.log(Level.FINE,"AtmosphereFilter processing annotation: " + a);
+  if (logger.isDebugEnabled()) {
+    for (    Annotation annotation : am.getAnnotations()) {
+      logger.debug("AtmosphereFilter processing annotation: {}",annotation);
     }
   }
   if (SuspendResponse.class.isAssignableFrom(am.getMethod().getReturnType())) {
@@ -30,7 +30,7 @@
           f.addCluster(cbf);
         }
  catch (        Throwable t) {
-          logger.log(Level.WARNING,"Invalid ClusterBroadcastFilter",t);
+          logger.warn("Invalid ClusterBroadcastFilter",t);
         }
       }
     }
@@ -52,16 +52,16 @@
   }
   if (am.isAnnotationPresent(Resume.class)) {
     int suspendTimeout=am.getAnnotation(Resume.class).value();
-    list.addFirst((ResourceFilter)new Filter(Action.RESUME,suspendTimeout));
+    list.addFirst(new Filter(Action.RESUME,suspendTimeout));
   }
   if (am.isAnnotationPresent(Schedule.class)) {
     int period=am.getAnnotation(Schedule.class).period();
     int waitFor=am.getAnnotation(Schedule.class).waitFor();
     if (am.getAnnotation(Schedule.class).resumeOnBroadcast()) {
-      list.addFirst((ResourceFilter)new Filter(Action.SCHEDULE_RESUME,period,waitFor));
+      list.addFirst(new Filter(Action.SCHEDULE_RESUME,period,waitFor));
     }
  else {
-      list.addFirst((ResourceFilter)new Filter(Action.SCHEDULE,period,waitFor));
+      list.addFirst(new Filter(Action.SCHEDULE,period,waitFor));
     }
   }
   return list.size() > 0 ? list : null;

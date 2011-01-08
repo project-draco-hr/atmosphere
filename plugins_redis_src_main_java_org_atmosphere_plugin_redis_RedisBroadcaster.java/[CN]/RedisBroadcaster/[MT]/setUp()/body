@@ -13,7 +13,7 @@
     jedisSubscriber.connect();
   }
  catch (  IOException e) {
-    logger.log(Level.SEVERE,"",e);
+    logger.error("failed to connect subscriber",e);
   }
   jedisSubscriber.auth(authToken);
   jedisSubscriber.flushAll();
@@ -22,7 +22,7 @@
     jedisPublisher.connect();
   }
  catch (  IOException e) {
-    logger.log(Level.SEVERE,"",e);
+    logger.error("failed to connect publisher",e);
   }
   jedisPublisher.auth(authToken);
   jedisPublisher.flushAll();

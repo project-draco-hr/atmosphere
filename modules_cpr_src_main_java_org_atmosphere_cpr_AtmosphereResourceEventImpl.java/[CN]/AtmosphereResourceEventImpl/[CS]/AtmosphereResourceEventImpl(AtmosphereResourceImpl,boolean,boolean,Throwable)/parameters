@@ -1,4 +1,4 @@
-AtmosphereResourceImpl r
+AtmosphereResourceImpl resource
 boolean isCancelled
 boolean isResumedOnTimeout
 Throwable throwable

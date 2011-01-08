@@ -8,15 +8,15 @@
     cbf.setBroadcaster(bc);
     c.addFilter(cbf);
   }
-  org.atmosphere.cpr.BroadcastFilter f=null;
+  BroadcastFilter f=null;
   if (filters != null) {
-    for (    Class<org.atmosphere.cpr.BroadcastFilter> filter : filters) {
+    for (    Class<BroadcastFilter> filter : filters) {
       try {
         f=filter.newInstance();
         InjectorProvider.getInjector().inject(f);
       }
  catch (      Throwable t) {
-        logger.warning("Invalid @BroadcastFilter: " + filter);
+        logger.warn("Invalid @BroadcastFilter: " + filter,t);
       }
       c.addFilter(f);
     }

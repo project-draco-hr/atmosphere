@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testProgrammaticDisconnection");
+  logger.info("{}: running test: testProgrammaticDisconnection",getClass().getSimpleName());
   AsyncHttpClient c=new AsyncHttpClient();
   long t1=System.currentTimeMillis();
   try {

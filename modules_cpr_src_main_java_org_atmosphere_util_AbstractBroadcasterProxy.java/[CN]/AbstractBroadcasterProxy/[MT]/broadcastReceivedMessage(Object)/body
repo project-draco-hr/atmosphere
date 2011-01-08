@@ -4,6 +4,6 @@
     push(new Entry(newMsg,null,new BroadcasterFuture<Object>(newMsg),message));
   }
  catch (  Throwable t) {
-    logger.log(Level.SEVERE,"",t);
+    logger.error("failed to push message: " + message,t);
   }
 }

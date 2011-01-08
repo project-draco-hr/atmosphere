@@ -1,9 +1,9 @@
 {
   try {
-    return (CometSupport)targetClass.getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(new Object[]{config});
+    return targetClass.getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(config);
   }
  catch (  final Exception e) {
-    logger.warning(e.getMessage());
+    logger.error("failed to create comet support class: {}, error: {}",targetClass,e.getMessage());
     throw new IllegalArgumentException("Comet support class " + targetClass.getCanonicalName() + " has bad signature.",e);
   }
 }

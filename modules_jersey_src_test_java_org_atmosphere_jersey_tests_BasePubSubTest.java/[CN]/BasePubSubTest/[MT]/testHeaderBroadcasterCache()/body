@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testHeaderBroadcasterCache");
+  logger.info("{}: running test: testHeaderBroadcasterCache",getClass().getSimpleName());
   atmoServlet.setBroadcasterCacheClassName(HeaderBroadcasterCache.class.getName());
   final CountDownLatch latch=new CountDownLatch(1);
   long t1=System.currentTimeMillis();
@@ -29,7 +29,7 @@
     assertEquals(r.getResponseBody(),"cacheme\ncachememe\n");
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

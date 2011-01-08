@@ -1,5 +1,6 @@
 {
-  if (service == null)   throw new AssertionError();
-  System.out.println("[" + Thread.currentThread().getName() + "] onThrowable: "+ from(event));
-  event.throwable().printStackTrace(System.err);
+  if (service == null) {
+    throw new AssertionError();
+  }
+  logger.info("[{}] onThrowable: " + event.getResource().getRequest().getRemoteAddr() + ":"+ event.getResource().getRequest().getRemotePort(),event.throwable());
 }

@@ -1,7 +1,5 @@
 {
-  if (LoggerUtils.getLogger().isLoggable(Level.FINE)) {
-    LoggerUtils.getLogger().log(Level.FINE,"",t);
-  }
+  logger.debug("onException()",t);
   if (r instanceof AtmosphereEventLifecycle) {
     ((AtmosphereEventLifecycle)r).notifyListeners(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,true,false,t));
     ((AtmosphereEventLifecycle)r).removeEventListeners();

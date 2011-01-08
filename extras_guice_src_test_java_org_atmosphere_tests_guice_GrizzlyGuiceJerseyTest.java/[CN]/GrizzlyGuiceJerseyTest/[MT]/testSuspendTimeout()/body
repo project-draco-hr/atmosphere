@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testSuspendTimeout");
+  logger.info("running test: testSuspendTimeout");
   AsyncHttpClient c=new AsyncHttpClient();
   try {
     long t1=System.currentTimeMillis();
@@ -12,7 +12,7 @@
     assertTrue(current > 5000 && current < 10000);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

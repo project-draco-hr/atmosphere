@@ -1,7 +1,9 @@
 {
   UserStateData followerState=us.get(follower);
-  if (followerState == null)   throw new WebApplicationException(404);
+  if (followerState == null) {
+    throw new WebApplicationException(404);
+  }
   followerState.bc.addAtmosphereResource(us.get(user).bc.getUserAtmosphereEvent().getResource());
-  followerState.bc.broadcast(user + "is now follow you",followerState.bc.getUserAtmosphereEvent().getResource());
-  System.out.println(user + " is following " + follower);
+  followerState.bc.broadcast(user + " is now follow you ",followerState.bc.getUserAtmosphereEvent().getResource());
+  logger.info("{} is following {}",user,follower);
 }

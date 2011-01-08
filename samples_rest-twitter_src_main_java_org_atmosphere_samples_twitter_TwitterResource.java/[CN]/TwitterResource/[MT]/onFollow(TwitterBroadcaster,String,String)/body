@@ -1,10 +1,10 @@
 {
   if (followee == null) {
-    logger.severe("Message cannot be null");
+    logger.error("Message cannot be null");
     throw new WebApplicationException(400);
   }
   if (name == null) {
-    logger.severe("Name cannot be null");
+    logger.error("Name cannot be null");
     throw new WebApplicationException(400);
   }
   UserStateData followeeData=us.get(followee);

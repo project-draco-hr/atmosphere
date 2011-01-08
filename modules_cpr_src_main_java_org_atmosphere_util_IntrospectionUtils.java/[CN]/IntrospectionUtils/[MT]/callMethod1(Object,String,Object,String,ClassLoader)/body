@@ -1,12 +1,18 @@
 {
   if (target == null || param1 == null) {
-    d("Assert: Illegal params " + target + " "+ param1);
+    debug("Assert: Illegal params " + target + " "+ param1);
   }
-  if (dbg > 0)   d("callMethod1 " + target.getClass().getName() + " "+ param1.getClass().getName()+ " "+ typeParam1);
+  if (dbg > 0)   debug("callMethod1 " + target.getClass().getName() + " "+ param1.getClass().getName()+ " "+ typeParam1);
   Class<?> params[]=new Class[1];
-  if (typeParam1 == null)   params[0]=param1.getClass();
- else   params[0]=cl.loadClass(typeParam1);
+  if (typeParam1 == null) {
+    params[0]=param1.getClass();
+  }
+ else {
+    params[0]=cl.loadClass(typeParam1);
+  }
   Method m=findMethod(target.getClass(),methodN,params);
-  if (m == null)   throw new NoSuchMethodException(target.getClass().getName() + " " + methodN);
+  if (m == null) {
+    throw new NoSuchMethodException(target.getClass().getName() + " " + methodN);
+  }
   return m.invoke(target,new Object[]{param1});
 }

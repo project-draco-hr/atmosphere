@@ -20,7 +20,7 @@
             if (response.getStatusCode() != 200) {
               feed.resumeAll();
               feed.destroy();
-              System.out.println("Twitter Search API unavaileble\n" + s);
+              logger.info("Twitter Search API unavaileble\n{}",s);
               return null;
             }
             JSONObject json=new JSONObject(s);
@@ -40,7 +40,7 @@
   }
   return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(feed).outputComments(true).addListener(new EventsLogger(){
     @Override public void onSuspend(    final AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
-      System.out.println("onSuspend: " + event.getResource().getRequest().getRemoteAddr() + event.getResource().getRequest().getRemotePort());
+      super.onSuspend(event);
       suspendLatch.countDown();
     }
   }

@@ -1,8 +1,6 @@
 {
-  if (logger.isLoggable(Level.FINE)) {
-    logger.fine("Adding message for " + r + ": "+ e);
-  }
-  CachedMessage cm=new CachedMessage(e,System.currentTimeMillis(),null);
+  logger.debug("Adding message for resource: {}, object: {}",resource,object);
+  CachedMessage cm=new CachedMessage(object,System.currentTimeMillis(),null);
   CachedMessage prev=null;
   if (!queue.isEmpty()) {
     prev=queue.get(queue.size() - 1);
@@ -16,7 +14,7 @@
   if (prev == null) {
     cm=new CachedMessage(true);
   }
-  if (r != null) {
-    cache(r,cm);
+  if (resource != null) {
+    cache(resource,cm);
   }
 }

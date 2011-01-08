@@ -1,0 +1,4 @@
+{
+  setUseStreamForFlushingComments(true);
+  cometSupport=new GrizzlyCometSupport(getAtmosphereConfig());
+}

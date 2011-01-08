@@ -2,7 +2,7 @@
   if (response.getStatus() == 204) {
     response.setStatus(200);
   }
-  BroadcasterFactory bf=(BroadcasterFactory)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_FACTORY);
+  BroadcasterFactory broadcasterFactory=(BroadcasterFactory)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_FACTORY);
   if (!sessionSupported && !resumeOnBroadcast && response.getHttpHeaders().getFirst("Location") == null) {
     String uuid=UUID.randomUUID().toString();
     response.getHttpHeaders().putSingle(HttpHeaders.LOCATION,uriInfo.getAbsolutePathBuilder().path(uuid).build(""));
@@ -30,15 +30,12 @@
     try {
       String id=bc.getID();
       bc.setID(bc.getClass().getSimpleName() + "-" + UUID.randomUUID());
-      bc=bf.get();
+      bc=broadcasterFactory.get();
       bc.setScope(Broadcaster.SCOPE.REQUEST);
       bc.setID(id);
     }
- catch (    InstantiationException ex) {
-      logger.log(Level.SEVERE,null,ex);
-    }
-catch (    IllegalAccessException ex) {
-      logger.log(Level.SEVERE,null,ex);
+ catch (    Exception ex) {
+      logger.error("failed to instantiate broadcaster with factory: " + broadcasterFactory,ex);
     }
   }
   configureFilter(bc);

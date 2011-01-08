@@ -1,13 +1,13 @@
 {
   this.bc=bc;
-  this.uri=URI.create(address);
+  uri=URI.create(address);
   if (uri == null)   return;
   jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisSubscriber.connect();
   }
  catch (  IOException e) {
-    logger.log(Level.SEVERE,"",e);
+    logger.error("failed to connect to subscriber: " + jedisSubscriber,e);
   }
   jedisSubscriber.auth(auth);
   jedisSubscriber.flushAll();
@@ -16,7 +16,7 @@
     jedisPublisher.connect();
   }
  catch (  IOException e) {
-    logger.log(Level.SEVERE,"",e);
+    logger.error("failed to connect to publisher: " + jedisPublisher,e);
   }
   jedisPublisher.auth(auth);
   jedisPublisher.flushAll();

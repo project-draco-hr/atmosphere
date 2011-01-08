@@ -1,12 +1,12 @@
 {
   try {
-    Method methods[]=findMethods(o.getClass());
+    Method methods[]=findMethods(object.getClass());
     Method setPropertyMethodVoid=null;
     Method setPropertyMethodBool=null;
     for (int i=0; i < methods.length; i++) {
       Class<?> paramT[]=methods[i].getParameterTypes();
       if (setter.equals(methods[i].getName()) && paramT.length == 1 && "java.lang.String".equals(paramT[0].getName())) {
-        methods[i].invoke(o,new Object[]{value});
+        methods[i].invoke(object,new Object[]{value});
         return true;
       }
     }
@@ -39,15 +39,15 @@
             params[0]=InetAddress.getByName(value);
           }
  catch (          UnknownHostException exc) {
-            d("Unable to resolve host name:" + value);
+            debug("Unable to resolve host name:" + value);
             ok=false;
           }
         }
  else {
-          d("Unknown type " + paramType.getName());
+          debug("Unknown type " + paramType.getName());
         }
         if (ok) {
-          methods[i].invoke(o,params);
+          methods[i].invoke(object,params);
           return true;
         }
       }
@@ -66,11 +66,11 @@
       params[1]=value;
       if (setPropertyMethodBool != null) {
         try {
-          return (Boolean)setPropertyMethodBool.invoke(o,params);
+          return (Boolean)setPropertyMethodBool.invoke(object,params);
         }
  catch (        IllegalArgumentException biae) {
           if (setPropertyMethodVoid != null) {
-            setPropertyMethodVoid.invoke(o,params);
+            setPropertyMethodVoid.invoke(object,params);
             return true;
           }
  else {
@@ -79,25 +79,21 @@
         }
       }
  else {
-        setPropertyMethodVoid.invoke(o,params);
+        setPropertyMethodVoid.invoke(object,params);
         return true;
       }
     }
   }
- catch (  IllegalArgumentException ex2) {
-    logger.log(Level.INFO,"IAE " + o + " "+ setter+ " "+ value,ex2);
+ catch (  IllegalArgumentException e) {
+    logger.info("failed, object: " + object + ", setter: "+ setter+ ", value: "+ value,e);
   }
-catch (  SecurityException ex1) {
-    if (dbg > 0)     d("SecurityException for " + o.getClass() + " "+ setter+ "="+ value+ ")");
-    if (dbg > 1)     ex1.printStackTrace();
-  }
-catch (  IllegalAccessException iae) {
-    if (dbg > 0)     d("IllegalAccessException for " + o.getClass() + " "+ setter+ "="+ value+ ")");
-    if (dbg > 1)     iae.printStackTrace();
-  }
-catch (  InvocationTargetException ie) {
-    if (dbg > 0)     d("InvocationTargetException for " + o.getClass() + " "+ setter+ "="+ value+ ")");
-    if (dbg > 1)     ie.printStackTrace();
+catch (  Exception e) {
+    if (dbg > 0) {
+      debug(e.getClass().getSimpleName() + " for " + object.getClass()+ " "+ setter+ "="+ value+ ")");
+    }
+    if (dbg > 1) {
+      logger.debug("",e);
+    }
   }
   return false;
 }

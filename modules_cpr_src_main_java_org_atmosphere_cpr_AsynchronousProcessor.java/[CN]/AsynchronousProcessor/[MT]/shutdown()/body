@@ -1,13 +1,11 @@
 {
   closedDetector.shutdownNow();
-  for (  AtmosphereResource<HttpServletRequest,HttpServletResponse> r : aliveRequests.values()) {
+  for (  AtmosphereResource<HttpServletRequest,HttpServletResponse> resource : aliveRequests.values()) {
     try {
-      r.resume();
+      resource.resume();
     }
  catch (    Throwable t) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.log(Level.FINE,"",t);
-      }
+      logger.debug("failed on resume: " + resource,t);
     }
   }
 }

@@ -1,29 +1,11 @@
 {
-  String s=sc.getRealPath(WEB_INF);
-  if (s == null) {
-    URL u=sc.getResource(WEB_INF);
+  logger.info("auto detecting atmosphere handlers in WEB-INF/classes");
+  String realPath=servletContext.getRealPath(WEB_INF_CLASSES);
+  if (realPath == null) {
+    URL u=servletContext.getResource(WEB_INF_CLASSES);
     if (u == null)     return;
-    s=u.getPath();
+    realPath=u.getPath();
   }
-  File f=new File(s);
-  if (f.isDirectory()) {
-    getFiles(f);
-    for (    String className : possibleAtmosphereHandlersCandidate) {
-      try {
-        className=className.replace('\\','/');
-        className=className.substring(className.indexOf(WEB_INF) + WEB_INF.length(),className.lastIndexOf(".")).replace('/','.');
-        Class<?> clazz=c.loadClass(className);
-        if (AtmosphereHandler.class.isAssignableFrom(clazz)) {
-          AtmosphereHandler g=(AtmosphereHandler)clazz.newInstance();
-          InjectorProvider.getInjector().inject(g);
-          logger.info("Successfully loaded " + g + " mapped to context-path "+ g.getClass().getSimpleName());
-          atmosphereHandlers.put("/" + g.getClass().getSimpleName(),new AtmosphereHandlerWrapper(g,null));
-        }
-      }
- catch (      Throwable t) {
-        logger.finest(className + " is not a AtmosphereHandler");
-      }
-    }
-  }
-  logger.info("Atmosphere using Broadcaster " + broadcasterClassName);
+  loadAtmosphereHandlersFromPath(classloader,realPath);
+  logger.info("Atmosphere using Broadcaster: {} ",broadcasterClassName);
 }

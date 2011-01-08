@@ -2,7 +2,7 @@
   List<String> list=new ArrayList<String>();
   File file=new File(folder);
   if (!file.exists() || !file.isDirectory()) {
-    logger.info("Parameter is not a directory : " + folder);
+    logger.info("Parameter is not a directory: {}",folder);
     return list;
   }
   File[] fileArray=file.listFiles(new FileFilter(){
