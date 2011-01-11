@@ -5,7 +5,7 @@
   resources.remove(r);
   if (resources.isEmpty()) {
     BroadcasterFactory.getDefault().remove(this,name);
-    this.destroy();
+    this.releaseExternalResources();
   }
   return r;
 }
