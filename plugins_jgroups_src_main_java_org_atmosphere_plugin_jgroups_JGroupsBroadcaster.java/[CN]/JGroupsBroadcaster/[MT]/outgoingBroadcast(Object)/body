@@ -4,6 +4,6 @@
     jchannel.send(new Message(null,null,message.toString()));
   }
  catch (  Throwable e) {
-    logger.severe(e.getMessage());
+    logger.error("failed to send messge over Jgroups channel",e.getMessage());
   }
 }

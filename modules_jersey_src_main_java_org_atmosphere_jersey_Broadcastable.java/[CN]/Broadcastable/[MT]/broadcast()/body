@@ -1,12 +1,9 @@
 {
   try {
-    return (Object)b.broadcast(message).get();
+    return b.broadcast(message).get();
   }
- catch (  InterruptedException ex) {
-    LoggerUtils.getLogger().log(Level.SEVERE,null,ex);
-  }
-catch (  ExecutionException ex) {
-    LoggerUtils.getLogger().log(Level.SEVERE,null,ex);
+ catch (  Exception ex) {
+    logger.error("failed to broadcast message: " + message,ex);
   }
   return null;
 }

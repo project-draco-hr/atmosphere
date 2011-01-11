@@ -1,25 +1,26 @@
 {
   this.scope=scope;
+  if (scope != SCOPE.REQUEST) {
+    return;
+  }
   try {
-    if (scope == SCOPE.REQUEST) {
-      for (      AtmosphereResource<?,?> r : resources) {
-        Broadcaster b=BroadcasterFactory.getDefault().get(this.getClass(),this.getClass().getSimpleName() + "/" + UUID.randomUUID());
-        if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
-          BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
-          InjectorProvider.getInjector().inject(cache);
-          DefaultBroadcaster.class.cast(b).broadcasterCache=cache;
-        }
-        r.setBroadcaster(b);
-        if (r.getAtmosphereResourceEvent().isSuspended()) {
-          b.addAtmosphereResource(r);
-        }
+    for (    AtmosphereResource<?,?> resource : resources) {
+      Broadcaster b=BroadcasterFactory.getDefault().get(getClass(),getClass().getSimpleName() + "/" + UUID.randomUUID());
+      if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
+        BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
+        InjectorProvider.getInjector().inject(cache);
+        DefaultBroadcaster.class.cast(b).broadcasterCache=cache;
       }
-      if (!resources.isEmpty()) {
-        this.destroy();
+      resource.setBroadcaster(b);
+      if (resource.getAtmosphereResourceEvent().isSuspended()) {
+        b.addAtmosphereResource(resource);
       }
+    }
+    if (!resources.isEmpty()) {
+      destroy();
     }
   }
  catch (  Exception e) {
-    LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+    logger.error("failed to set request scope for current resources",e);
   }
 }

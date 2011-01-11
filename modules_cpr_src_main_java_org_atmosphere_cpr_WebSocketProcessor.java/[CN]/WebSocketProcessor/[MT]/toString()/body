@@ -1,0 +1,3 @@
+{
+  return "WebSocketProcessor{ handler=" + handler + ", resource="+ resource+ ", webSocketSupport="+ webSocketSupport+ " }";
+}

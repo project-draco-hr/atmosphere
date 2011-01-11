@@ -1,4 +1,4 @@
 {
-  this.r=r;
+  this.resource=resource;
   this.throwable=null;
 }

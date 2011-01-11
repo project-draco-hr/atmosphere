@@ -7,6 +7,6 @@
     publisher.close();
   }
  catch (  Throwable ex) {
-    logger.log(Level.WARNING,"",ex);
+    logger.warn("releaseExternalResources",ex);
   }
 }

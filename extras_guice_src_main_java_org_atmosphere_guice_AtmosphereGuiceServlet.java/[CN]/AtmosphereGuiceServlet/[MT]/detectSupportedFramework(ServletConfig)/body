@@ -23,9 +23,7 @@
     }
   }
  catch (  Exception ex) {
-    if (LoggerUtils.getLogger().isLoggable(Level.FINEST)) {
-      LoggerUtils.getLogger().log(Level.FINEST,"",ex);
-    }
+    logger.debug("failed to add Jersey init parameters to Atmosphere servlet",ex);
   }
   addAtmosphereHandler(mapping,rsp);
   return true;

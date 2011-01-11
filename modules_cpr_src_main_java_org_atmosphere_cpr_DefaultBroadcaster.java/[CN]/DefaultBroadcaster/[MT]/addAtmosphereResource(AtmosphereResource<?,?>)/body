@@ -5,11 +5,12 @@
   }
   if (maxSuspendResource > 0 && resources.size() == maxSuspendResource) {
     if (policy == POLICY.FIFO) {
+      AtmosphereResource<?,?> resource=resources.poll();
       try {
-        resources.poll().resume();
+        resource.resume();
       }
  catch (      Throwable t) {
-        LoggerUtils.getLogger().log(Level.WARNING,"addAtmosphereResource",t);
+        logger.warn("failed to resume resource: " + resource,t);
       }
     }
  else     if (policy == POLICY.REJECT) {

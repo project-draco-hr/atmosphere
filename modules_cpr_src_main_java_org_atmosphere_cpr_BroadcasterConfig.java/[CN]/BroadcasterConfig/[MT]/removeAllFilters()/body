@@ -1,5 +1,5 @@
 {
-  for (  BroadcastFilter e : filters) {
-    removeFilter(e);
+  for (  BroadcastFilter filter : filters) {
+    removeFilter(filter);
   }
 }

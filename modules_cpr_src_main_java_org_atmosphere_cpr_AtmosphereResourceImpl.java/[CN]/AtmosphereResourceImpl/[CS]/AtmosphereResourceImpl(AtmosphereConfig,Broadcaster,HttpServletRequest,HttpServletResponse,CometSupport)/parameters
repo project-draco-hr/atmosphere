@@ -1,5 +1,5 @@
 AtmosphereConfig config
 Broadcaster broadcaster
 HttpServletRequest req
-HttpServletResponse res
+HttpServletResponse response
 CometSupport cometSupport

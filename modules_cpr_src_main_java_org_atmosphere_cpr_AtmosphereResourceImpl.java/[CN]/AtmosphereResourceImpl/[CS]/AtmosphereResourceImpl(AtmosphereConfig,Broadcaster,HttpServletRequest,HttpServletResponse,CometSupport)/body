@@ -1,6 +1,6 @@
 {
   this.req=req;
-  this.res=res;
+  this.response=response;
   this.broadcaster=broadcaster;
   this.config=config;
   this.cometSupport=cometSupport;

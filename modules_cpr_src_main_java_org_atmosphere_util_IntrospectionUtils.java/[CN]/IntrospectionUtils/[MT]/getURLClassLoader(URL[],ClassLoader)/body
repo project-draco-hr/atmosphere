@@ -5,7 +5,9 @@
     paramT[0]=urls.getClass();
     paramT[1]=ClassLoader.class;
     Method m=findMethod(urlCL,"newInstance",paramT);
-    if (m == null)     return null;
+    if (m == null) {
+      return null;
+    }
     ClassLoader cl=(ClassLoader)m.invoke(urlCL,new Object[]{urls,parent});
     return cl;
   }
@@ -13,7 +15,7 @@
     return null;
   }
 catch (  Exception ex) {
-    ex.printStackTrace();
+    logger.error("failed getting URLClassLoader",ex);
     return null;
   }
 }

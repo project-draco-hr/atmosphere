@@ -1,15 +1,15 @@
 {
   AtmosphereResourceImpl re;
-  long l=(Long)req.getAttribute(MAX_INACTIVE);
+  long l=(Long)request.getAttribute(MAX_INACTIVE);
   if (l == -1) {
     return timedoutAction;
   }
-  req.setAttribute(MAX_INACTIVE,(long)-1);
-  if (req == null || res == null) {
-    logger.warning("Invalid Request/Response: " + req + "/"+ res);
+  request.setAttribute(MAX_INACTIVE,(long)-1);
+  if (request == null || response == null) {
+    logger.warn("Invalid Request/Response: {}/{}",request,response);
     return timedoutAction;
   }
-  re=(AtmosphereResourceImpl)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+  re=(AtmosphereResourceImpl)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
   if (re != null) {
     re.getAtmosphereResourceEvent().setIsResumedOnTimeout(true);
     Broadcaster b=re.getBroadcaster();

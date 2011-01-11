@@ -13,7 +13,7 @@
     return action.type == Action.TYPE.SUSPEND;
   }
  catch (  IllegalStateException ex) {
-    logger.log(Level.SEVERE,"AtmosphereServlet.doRequest exception",ex);
+    logger.error("AtmosphereServlet.doRequest exception",ex);
     throw ex;
   }
 }

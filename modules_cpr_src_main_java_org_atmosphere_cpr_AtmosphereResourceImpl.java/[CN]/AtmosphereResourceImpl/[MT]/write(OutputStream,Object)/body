@@ -4,6 +4,6 @@
     serializer.write(os,o);
   }
  else {
-    res.getOutputStream().write(o.toString().getBytes());
+    response.getOutputStream().write(o.toString().getBytes());
   }
 }

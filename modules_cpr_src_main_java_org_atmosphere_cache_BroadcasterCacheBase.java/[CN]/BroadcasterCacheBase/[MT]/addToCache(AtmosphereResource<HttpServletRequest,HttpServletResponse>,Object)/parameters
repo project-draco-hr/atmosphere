@@ -1,2 +1,2 @@
-AtmosphereResource<HttpServletRequest,HttpServletResponse> r
-Object e
+AtmosphereResource<HttpServletRequest,HttpServletResponse> resource
+Object object

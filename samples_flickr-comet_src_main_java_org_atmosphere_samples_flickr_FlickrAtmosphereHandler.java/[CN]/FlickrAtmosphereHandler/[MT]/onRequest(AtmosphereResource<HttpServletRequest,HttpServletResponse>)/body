@@ -1,7 +1,7 @@
 {
   HttpServletRequest req=event.getRequest();
   HttpServletResponse res=event.getResponse();
-  System.out.println("onEvent: " + req.getRequestURI());
+  logger.info("onEvent: {}",req.getRequestURI());
   String[] actionValues=req.getParameterValues("action");
   if (actionValues != null && actionValues[0] != null) {
     String action=req.getParameterValues("action")[0];

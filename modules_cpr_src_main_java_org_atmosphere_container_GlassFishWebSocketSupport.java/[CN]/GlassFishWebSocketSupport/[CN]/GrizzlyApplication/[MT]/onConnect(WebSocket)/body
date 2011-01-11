@@ -8,6 +8,6 @@
     webSocketProcessor.connect(new HttpServletRequestWrapper(webSocket.getRequest()));
   }
  catch (  IOException e) {
-    LoggerUtils.getLogger().log(Level.WARNING,"",e);
+    logger.warn("failed to connect to web socket",e);
   }
 }

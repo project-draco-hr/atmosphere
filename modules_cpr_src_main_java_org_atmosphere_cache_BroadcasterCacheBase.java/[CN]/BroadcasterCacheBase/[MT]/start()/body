@@ -2,17 +2,13 @@
   reaper.scheduleAtFixedRate(new Runnable(){
     public void run(){
       Iterator<CachedMessage> i=queue.iterator();
-      CachedMessage e;
+      CachedMessage message;
       while (i.hasNext()) {
-        e=i.next();
-        if (logger.isLoggable(Level.FINE)) {
-          logger.fine("Message: " + e.message());
-        }
-        if (System.currentTimeMillis() - e.currentTime() > maxCachedinMs) {
-          if (logger.isLoggable(Level.FINE)) {
-            logger.fine("Pruning: " + e.message());
-          }
-          queue.remove(e);
+        message=i.next();
+        logger.debug("Message: {}",message.message());
+        if (System.currentTimeMillis() - message.currentTime() > maxCachedinMs) {
+          logger.debug("Pruning: {}",message.message());
+          queue.remove(message);
         }
  else {
           break;

@@ -7,14 +7,14 @@
  catch (  IllegalStateException ex) {
     if (ex.getMessage() != null && ex.getMessage().startsWith("Tomcat failed")) {
       if (!isFilter) {
-        logger.warning(ex.getMessage());
-        logger.warning("Using the BlockingIOCometSupport.");
+        logger.warn("failed using comet support: {}, error: {}",cometSupport.getClass().getName(),ex.getMessage());
+        logger.warn("Using BlockingIOCometSupport.");
       }
       cometSupport=new BlockingIOCometSupport(config);
       service(req,res);
     }
  else {
-      logger.log(Level.SEVERE,"AtmosphereServlet exception",ex);
+      logger.error("AtmosphereServlet exception",ex);
       throw ex;
     }
   }

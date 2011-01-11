@@ -1,4 +1,6 @@
 {
-  if (!isInScope)   throw new IllegalStateException("Request object no longer" + " valid. This object has been cancelled");
+  if (!isInScope) {
+    throw new IllegalStateException("Request object no longer" + " valid. This object has been cancelled");
+  }
   return req;
 }

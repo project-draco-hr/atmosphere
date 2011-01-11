@@ -3,6 +3,6 @@
     embedded.stop();
   }
  catch (  LifecycleException ignored) {
-    ignored.printStackTrace(System.out);
+    logger.info("server stop failed",ignored);
   }
 }

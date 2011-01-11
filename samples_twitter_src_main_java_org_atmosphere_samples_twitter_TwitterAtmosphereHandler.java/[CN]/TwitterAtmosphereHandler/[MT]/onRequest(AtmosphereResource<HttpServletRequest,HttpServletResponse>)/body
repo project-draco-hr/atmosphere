@@ -11,7 +11,7 @@
       response.setCharacterEncoding("UTF-8");
       String name=request.getParameter("name");
       if (name == null) {
-        logger.severe("Name cannot be null");
+        logger.error("Name cannot be null");
         return;
       }
       session.setAttribute("name",name);
@@ -22,7 +22,7 @@
       String message=request.getParameter("message");
       String callback=request.getParameter("callback");
       if (message == null) {
-        logger.severe("Message cannot be null");
+        logger.error("Message cannot be null");
         return;
       }
       if (callback == null) {
@@ -62,11 +62,11 @@
       String follow=request.getParameter("message");
       String name=(String)session.getAttribute("name");
       if (follow == null) {
-        logger.severe("Message cannot be null");
+        logger.error("Message cannot be null");
         return;
       }
       if (name == null) {
-        logger.severe("Name cannot be null");
+        logger.error("Name cannot be null");
         return;
       }
       Broadcaster outsiderBroadcaster=(Broadcaster)atmoResource.getAtmosphereConfig().getServletContext().getAttribute(follow);

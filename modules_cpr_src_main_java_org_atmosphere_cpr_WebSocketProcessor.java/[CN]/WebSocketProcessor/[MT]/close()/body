@@ -1,13 +1,13 @@
 {
   try {
-    if (ah != null && r != null) {
-      ah.onStateChange(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,false,true));
+    if (handler != null && resource != null) {
+      handler.onStateChange(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)resource,false,true));
     }
   }
  catch (  IOException e) {
-    if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
-      AtmosphereResourceImpl.class.cast(r).onThrowable(e);
+    if (AtmosphereResourceImpl.class.isAssignableFrom(resource.getClass())) {
+      AtmosphereResourceImpl.class.cast(resource).onThrowable(e);
     }
-    AtmosphereServlet.logger.log(Level.INFO,"",e);
+    logger.info("failed invoking atmosphere handler onStateChange()",e);
   }
 }

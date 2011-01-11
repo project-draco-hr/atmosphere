@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testProgrammaticDisconnection");
+  logger.info("{}: running test: testProgrammaticDisconnection",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(1);
   atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
     private long currentTime;
@@ -33,7 +33,7 @@
     assertNotNull(r);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

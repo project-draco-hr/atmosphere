@@ -40,9 +40,7 @@
           }
         }
  catch (        JMSException ex) {
-          if (logger.isLoggable(Level.WARNING)) {
-            logger.log(Level.WARNING,"",ex);
-          }
+          logger.warn("",ex);
         }
       }
     }

@@ -7,9 +7,7 @@
   if (event.getEventType() == EventType.BEGIN) {
     action=suspended(req,res);
     if (action.type == Action.TYPE.SUSPEND) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Suspending " + res);
-      }
+      logger.debug("Suspending response: {}",res);
       try {
         if (action.timeout != -1) {
           event.setTimeout((int)action.timeout);
@@ -22,9 +20,7 @@
       }
     }
  else     if (action.type == Action.TYPE.RESUME) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Resuming " + res);
-      }
+      logger.debug("Resuming response: {}",res);
       event.close();
     }
  else {
@@ -34,26 +30,18 @@
  else   if (event.getEventType() == EventType.READ) {
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.CLIENT_DISCONNECT) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.fine("Client closed connection " + res);
-    }
+    logger.debug("Client closed connection: response: {}",res);
     if (!resumed.remove(event)) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Client closed connection " + res);
-      }
+      logger.debug("Client closed connection: response: {}",res);
       action=cancelled(req,res);
     }
  else {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Cancelling " + res);
-      }
+      logger.debug("Cancelling response: {}",res);
     }
     event.close();
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.TIMEOUT) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.fine("Timing out " + res);
-    }
+    logger.debug("Timing out response: {}",res);
     action=timedout(req,res);
     event.close();
   }
@@ -62,15 +50,11 @@
   }
  else   if (event.getEventType() == EventType.END) {
     if (!resumed.remove(event)) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Client closed connection " + res);
-      }
+      logger.debug("Client closed connection: response: {}",res);
       action=cancelled(req,res);
     }
  else {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Cancelling " + res);
-      }
+      logger.debug("Cancelling response: {}",res);
     }
     event.close();
   }

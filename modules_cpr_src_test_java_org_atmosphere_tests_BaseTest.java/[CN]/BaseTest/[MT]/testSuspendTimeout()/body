@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testSuspendTimeout");
+  logger.info("{}: running test: testSuspendTimeout",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(1);
   atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
     private long currentTime;
@@ -40,7 +40,7 @@
     assertEquals(resume,"resume");
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

@@ -1,0 +1,6 @@
+Action action
+long suspendTimeout
+int waitFor
+Suspend.SCOPE scope
+boolean outputComments
+Class<BroadcastFilter>[] filters

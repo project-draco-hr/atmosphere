@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testSSLStartup");
+  logger.info("Running testSSLStartup");
   SSLConfig cfg=new SSLConfig();
   ClassLoader cl=getClass().getClassLoader();
   URL keystoreUrl=cl.getResource("ssltest-keystore.jks");

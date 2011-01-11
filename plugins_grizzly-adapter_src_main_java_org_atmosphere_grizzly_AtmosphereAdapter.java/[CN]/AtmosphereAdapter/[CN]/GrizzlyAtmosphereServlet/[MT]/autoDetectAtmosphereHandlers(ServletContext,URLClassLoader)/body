@@ -1,0 +1,29 @@
+{
+  try {
+    Class.forName("org.atmosphere.spade.AtmosphereSpadeLauncher");
+  }
+ catch (  Exception ex) {
+    super.autoDetectAtmosphereHandlers(servletContext,classLoader);
+    return;
+  }
+  String realPath=servletContext.getRealPath(WEB_INF_CLASSES);
+  if (realPath == null) {
+    URL u=servletContext.getResource(WEB_INF_CLASSES);
+    if (u == null)     return;
+    realPath=u.getPath();
+  }
+  File f=new File(realPath);
+  if (!f.exists()) {
+    String ctxPath=servletContext.getContextPath();
+    if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+      ctxPath=ctxPath.replace("/","\\");
+    }
+    int index=realPath.indexOf(ctxPath);
+    if (index < 1) {
+      index=realPath.length();
+    }
+    String trailer=realPath.substring(0,index);
+    f=new File(trailer + servletContext.getContextPath() + WEB_INF_CLASSES);
+  }
+  loadAtmosphereHandlersFromPath(classLoader,realPath);
+}

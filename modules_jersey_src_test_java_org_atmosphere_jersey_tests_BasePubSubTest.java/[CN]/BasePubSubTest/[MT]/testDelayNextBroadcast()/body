@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testDelayNextBroadcast");
+  logger.info("{}: running test: testDelayNextBroadcast",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(1);
   long t1=System.currentTimeMillis();
   AsyncHttpClient c=new AsyncHttpClient();
@@ -34,7 +34,7 @@
     assertTrue(current > 5000 && current < 10000);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

@@ -32,10 +32,10 @@
       }
     }
  catch (    InterruptedException ex) {
-      logger.log(Level.SEVERE,null,ex);
+      logger.error("broadcast interrupted",ex);
     }
 catch (    ExecutionException ex) {
-      logger.log(Level.SEVERE,null,ex);
+      logger.error("execution exception during broadcast",ex);
     }
   }
 }

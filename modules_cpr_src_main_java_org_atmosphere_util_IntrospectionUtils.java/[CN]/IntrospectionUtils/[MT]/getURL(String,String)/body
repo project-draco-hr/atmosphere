@@ -6,11 +6,13 @@
     if (f.isDirectory()) {
       path+="/";
     }
-    if (!f.exists())     return null;
+    if (!f.exists()) {
+      return null;
+    }
     return new URL("file","",path);
   }
  catch (  Exception ex) {
-    ex.printStackTrace();
+    logger.debug("failed to get url, base: " + base + ", file: "+ file,ex);
     return null;
   }
 }

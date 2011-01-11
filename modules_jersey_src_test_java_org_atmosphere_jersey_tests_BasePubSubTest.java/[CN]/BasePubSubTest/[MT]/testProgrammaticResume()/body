@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testProgrammaticResume");
+  logger.info("{}: running test: testProgrammaticResume",getClass().getSimpleName());
   AsyncHttpClient c=new AsyncHttpClient();
   final AtomicReference<String> location=new AtomicReference<String>();
   final AtomicReference<String> response=new AtomicReference<String>("");
@@ -11,7 +11,7 @@
         fail("onThrowable",throwable);
       }
       public STATE onBodyPartReceived(      HttpResponseBodyPart bp) throws Exception {
-        System.out.println("bp: " + new String(bp.getBodyPartBytes()));
+        logger.info("body part byte string: {}",new String(bp.getBodyPartBytes()));
         response.set(response.get() + new String(bp.getBodyPartBytes()));
         locationLatch.countDown();
         return STATE.CONTINUE;
@@ -37,7 +37,7 @@
     assertEquals(response.get(),"suspendresume");
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

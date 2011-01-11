@@ -2,26 +2,26 @@
   try {
     if (useWriter && !((Boolean)req.getAttribute(AtmosphereServlet.PROPERTY_USE_STREAM))) {
       try {
-        res.getWriter();
+        response.getWriter();
       }
  catch (      IllegalStateException e) {
         return;
       }
-      res.getWriter().write(beginCompatibleData);
-      res.getWriter().flush();
+      response.getWriter().write(beginCompatibleData);
+      response.getWriter().flush();
     }
  else {
       try {
-        res.getOutputStream();
+        response.getOutputStream();
       }
  catch (      IllegalStateException e) {
         return;
       }
-      res.getOutputStream().write(beginCompatibleData.getBytes());
-      res.getOutputStream().flush();
+      response.getOutputStream().write(beginCompatibleData.getBytes());
+      response.getOutputStream().flush();
     }
   }
  catch (  Throwable ex) {
-    LoggerUtils.getLogger().log(Level.WARNING,"",ex);
+    logger.warn("failed to write to response",ex);
   }
 }

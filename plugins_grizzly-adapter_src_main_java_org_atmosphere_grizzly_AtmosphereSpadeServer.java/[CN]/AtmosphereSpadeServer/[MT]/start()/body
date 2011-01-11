@@ -1,5 +1,5 @@
 {
-  LoggerUtils.getLogger().info("AtmosphereSpade Server Started on port: " + gws.getSelectorThread().getPort());
+  logger.info("AtmosphereSpade Server Started on port: {}",gws.getSelectorThread().getPort());
   if (defaultToJersey) {
     aa.setHandleStaticResources(true);
     gws.addGrizzlyAdapter(aa,new String[]{"*"});

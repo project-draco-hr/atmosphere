@@ -1,6 +1,7 @@
 {
   if (broadcasterFactory == null) {
-    Class bc=(Class<Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
+    Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
+    logger.info("using broadcaster class: {}",bc.getName());
     broadcasterFactory=new DefaultBroadcasterFactory(bc);
     config.broadcasterFactory=broadcasterFactory;
   }
@@ -24,5 +25,4 @@
     }
     w.broadcaster.setID(e.getKey());
   }
-  logger.info("Using " + broadcasterClassName);
 }

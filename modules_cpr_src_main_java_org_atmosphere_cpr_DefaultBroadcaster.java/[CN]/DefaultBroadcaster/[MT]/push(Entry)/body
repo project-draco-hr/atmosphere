@@ -19,7 +19,7 @@
   finally {
         i.remove();
         if (e.future instanceof BroadcasterFuture) {
-          ((BroadcasterFuture)e.future).done();
+          e.future.done();
         }
       }
     }

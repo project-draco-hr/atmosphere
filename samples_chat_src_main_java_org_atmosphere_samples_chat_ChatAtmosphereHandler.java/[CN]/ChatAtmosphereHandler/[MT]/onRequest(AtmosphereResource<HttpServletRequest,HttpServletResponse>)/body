@@ -18,10 +18,10 @@
       f.get();
     }
  catch (    InterruptedException ex) {
-      Logger.getLogger(ChatAtmosphereHandler.class.getName()).log(Level.SEVERE,null,ex);
+      logger.error("",ex);
     }
 catch (    ExecutionException ex) {
-      Logger.getLogger(ChatAtmosphereHandler.class.getName()).log(Level.SEVERE,null,ex);
+      logger.error("",ex);
     }
     bc.scheduleFixedBroadcast(req.getRemoteAddr() + "**is still listening",30,TimeUnit.SECONDS);
     bc.delayBroadcast("Delayed Chat message");

@@ -1,13 +1,14 @@
 {
   Class<? extends Broadcaster> b=null;
+  String defaultBroadcasterClassName=AtmosphereServlet.getDefaultBroadcasterClassName();
   try {
     ClassLoader cl=Thread.currentThread().getContextClassLoader();
-    b=(Class<? extends Broadcaster>)cl.loadClass(AtmosphereServlet.getDefaultBroadcasterClassName());
+    b=(Class<? extends Broadcaster>)cl.loadClass(defaultBroadcasterClassName);
   }
  catch (  ClassNotFoundException e) {
-    LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+    logger.error("failed to load default broadcaster class name: " + defaultBroadcasterClassName,e);
   }
   Class bc=(b == null ? DefaultBroadcaster.class : b);
-  logger.log(Level.INFO,"configureDefaultBroadcasterFactor using class: " + bc);
+  logger.info("using default broadcaster class: {}",bc);
   BroadcasterFactory.setBroadcasterFactory(new DefaultBroadcasterFactory(bc),config);
 }

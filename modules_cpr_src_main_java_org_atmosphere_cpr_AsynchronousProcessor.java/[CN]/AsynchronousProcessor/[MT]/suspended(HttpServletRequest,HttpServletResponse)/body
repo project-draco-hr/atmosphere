@@ -1,6 +1,4 @@
 {
-  if (logger.isLoggable(Level.FINE)) {
-    logger.fine("(suspend) invoked:\n HttpServletRequest: " + req + "\n HttpServletResponse: "+ res);
-  }
-  return action(req,res);
+  logger.debug("(suspend) invoked:\n HttpServletRequest: {}\n HttpServletResponse: {}",request,response);
+  return action(request,response);
 }

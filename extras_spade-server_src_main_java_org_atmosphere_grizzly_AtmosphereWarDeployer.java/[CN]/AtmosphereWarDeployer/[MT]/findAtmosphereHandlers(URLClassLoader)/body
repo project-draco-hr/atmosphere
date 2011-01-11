@@ -36,7 +36,7 @@
       }
     }
   }
-  logger.finest("Number of classes to check for AtmosphereHandler : " + list.size());
+  logger.debug("Number of classes to check for AtmosphereHandler: {}",list.size());
   for (  String classname : list) {
     try {
       Class<?> clazz=classLoader.loadClass(classname.substring(0,classname.indexOf(".class")));

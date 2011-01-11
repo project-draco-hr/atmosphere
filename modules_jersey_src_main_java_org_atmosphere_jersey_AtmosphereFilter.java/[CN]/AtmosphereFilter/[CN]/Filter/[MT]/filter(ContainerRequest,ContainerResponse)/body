@@ -24,16 +24,16 @@ case SUSPEND:
 case SUSPEND_RESUME:
 outputJunk=outputJunk(request,outputComments);
 resumeOnBroadcast=resumeOnBroadcast(request,(action == Action.SUSPEND_RESUME));
-for (Class<? extends AtmosphereResourceEventListener> e : listeners) {
+for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
-AtmosphereResourceEventListener el=e.newInstance();
+AtmosphereResourceEventListener el=listener.newInstance();
 InjectorProvider.getInjector().inject(el);
 if (r instanceof AtmosphereEventLifecycle) {
 ((AtmosphereEventLifecycle)r).addEventListener(el);
 }
 }
  catch (Throwable t) {
-throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + e));
+throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + listener,t));
 }
 }
 suspend(sessionSupported,resumeOnBroadcast,outputJunk,suspendTimeout,request,response,(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER),r);

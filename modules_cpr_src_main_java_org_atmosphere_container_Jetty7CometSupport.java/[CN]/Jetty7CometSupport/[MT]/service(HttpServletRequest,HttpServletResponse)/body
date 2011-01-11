@@ -4,9 +4,7 @@
   if (c.isInitial()) {
     action=suspended(req,res);
     if (action.type == Action.TYPE.SUSPEND) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Suspending " + res);
-      }
+      logger.debug("Suspending {}",res);
       if (action.timeout != -1) {
         c.setTimeout(action.timeout);
       }
@@ -16,17 +14,13 @@
       c.suspend();
     }
  else     if (action.type == Action.TYPE.RESUME) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Resume " + res);
-      }
+      logger.debug("Resume {}",res);
       if (!resumed.remove(c)) {
         try {
           c.complete();
         }
- catch (        java.lang.IllegalStateException ex) {
-          if (logger.isLoggable(Level.FINE)) {
-            logger.fine("Continuation.complete() " + ex);
-          }
+ catch (        IllegalStateException ex) {
+          logger.debug("Continuation.complete()",ex);
         }
  finally {
           resumed(req,res);

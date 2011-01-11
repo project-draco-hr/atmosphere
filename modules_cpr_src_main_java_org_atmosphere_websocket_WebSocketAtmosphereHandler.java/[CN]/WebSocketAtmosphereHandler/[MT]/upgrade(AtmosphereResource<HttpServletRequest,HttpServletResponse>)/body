@@ -1,6 +1,4 @@
 {
-  if (LoggerUtils.getLogger().isLoggable(Level.FINE)) {
-    LoggerUtils.getLogger().fine("Suspending request: " + r.getRequest());
-  }
-  r.suspend(-1,false);
+  logger.debug("Suspending request: {}",resource.getRequest());
+  resource.suspend(-1,false);
 }

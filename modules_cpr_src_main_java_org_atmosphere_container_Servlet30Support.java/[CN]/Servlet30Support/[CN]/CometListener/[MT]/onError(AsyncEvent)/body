@@ -1,13 +1,9 @@
 {
-  if (logger.isLoggable(Level.FINE)) {
-    logger.log(Level.FINE,"onError" + event.getAsyncContext().getResponse());
-  }
+  logger.debug("onError(): event: {}",event.getAsyncContext().getResponse());
   try {
     cancelled((HttpServletRequest)event.getAsyncContext().getRequest(),(HttpServletResponse)event.getAsyncContext().getResponse());
   }
  catch (  Throwable ex) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.log(Level.FINE,"cancelled" + event.getAsyncContext().getResponse(),ex);
-    }
+    logger.debug("failed cancelling comet response: " + event.getAsyncContext().getResponse(),ex);
   }
 }

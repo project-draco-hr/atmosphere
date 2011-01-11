@@ -18,7 +18,7 @@
           return;
         }
  catch (        Exception e) {
-          LoggerUtils.getLogger().log(Level.SEVERE,"",e);
+          logger.error("",e);
         }
       }
       final Object msg=filter(o);

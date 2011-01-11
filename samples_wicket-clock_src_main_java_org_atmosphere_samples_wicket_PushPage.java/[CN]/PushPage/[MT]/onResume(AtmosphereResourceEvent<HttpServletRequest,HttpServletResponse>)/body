@@ -1,5 +1,5 @@
 {
   String transport=event.getResource().getRequest().getHeader("X-Atmosphere-Transport");
   HttpServletRequest req=event.getResource().getRequest();
-  LoggerUtils.getLogger().log(Level.INFO,String.format("Resuming the %s response from ip %s:%s",transport == null ? "websocket" : transport,req.getRemoteAddr(),req.getRemotePort()));
+  logger.info("Resuming the {} response from ip {}:{}",new Object[]{transport == null ? "websocket" : transport,req.getRemoteAddr(),req.getRemotePort()});
 }

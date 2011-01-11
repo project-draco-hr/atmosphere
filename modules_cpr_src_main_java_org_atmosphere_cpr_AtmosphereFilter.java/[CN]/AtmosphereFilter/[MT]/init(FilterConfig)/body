@@ -1,5 +1,5 @@
 {
-  AtmosphereServlet.logger.info("AtmosphereServlet running as a Filter");
+  logger.info("AtmosphereServlet running as a Filter");
   as.init(new ServletConfig(){
     public String getServletName(){
       return filterConfig.getFilterName();

@@ -6,7 +6,7 @@
         jchannel.send(new Message(null,null,message));
       }
  catch (      ChannelException e) {
-        logger.log(Level.WARNING,"",e);
+        logger.warn("failed to send message",e);
       }
     }
     return new BroadcastAction(message);

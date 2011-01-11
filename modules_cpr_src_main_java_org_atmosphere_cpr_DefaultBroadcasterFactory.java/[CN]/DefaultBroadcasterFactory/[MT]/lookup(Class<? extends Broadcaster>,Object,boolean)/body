@@ -1,11 +1,9 @@
 {
   Broadcaster b=getBroadcaster(id);
   if (b != null && !c.isAssignableFrom(b.getClass())) {
-    String em="Invalid lookup class " + c.getName() + ". Cached class is: "+ b.getClass().getName();
-    if (LoggerUtils.getLogger().isLoggable(Level.FINE)) {
-      LoggerUtils.getLogger().log(Level.FINE,em);
-    }
-    throw new IllegalStateException(em);
+    String msg="Invalid lookup class " + c.getName() + ". Cached class is: "+ b.getClass().getName();
+    logger.debug("{}",msg);
+    throw new IllegalStateException(msg);
   }
   if (b == null && createIfNull) {
     try {

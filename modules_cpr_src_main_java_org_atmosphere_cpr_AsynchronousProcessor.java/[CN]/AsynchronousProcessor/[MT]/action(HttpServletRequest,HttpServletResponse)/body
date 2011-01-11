@@ -6,8 +6,8 @@
     res.flushBuffer();
     return new Action();
   }
-  if (config.handlers().size() == 0) {
-    logger.log(Level.SEVERE,"No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
+  if (config.handlers().isEmpty()) {
+    logger.error("No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
     throw new ServletException("No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
   }
   if (supportSession()) {
@@ -17,22 +17,22 @@
     }
   }
   req.setAttribute(AtmosphereServlet.SUPPORT_SESSION,supportSession());
-  AtmosphereHandlerWrapper g=map(req);
-  AtmosphereResourceImpl re=new AtmosphereResourceImpl(config,g.broadcaster,req,res,this);
-  g.broadcaster.getBroadcasterConfig().setAtmosphereConfig(config);
-  req.setAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE,re);
-  req.setAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER,g.atmosphereHandler);
+  AtmosphereHandlerWrapper handlerWrapper=map(req);
+  AtmosphereResourceImpl resource=new AtmosphereResourceImpl(config,handlerWrapper.broadcaster,req,res,this);
+  handlerWrapper.broadcaster.getBroadcasterConfig().setAtmosphereConfig(config);
+  req.setAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE,resource);
+  req.setAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
   try {
-    g.atmosphereHandler.onRequest(re);
+    handlerWrapper.atmosphereHandler.onRequest(resource);
   }
  catch (  IOException t) {
-    re.onThrowable(t);
+    resource.onThrowable(t);
     throw t;
   }
-  config.mapBroadcasterToAtmosphereHandler(re.getBroadcaster(),g);
-  if (re.getAtmosphereResourceEvent().isSuspended()) {
+  config.mapBroadcasterToAtmosphereHandler(resource.getBroadcaster(),handlerWrapper);
+  if (resource.getAtmosphereResourceEvent().isSuspended()) {
     req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
-    aliveRequests.put(req,re);
+    aliveRequests.put(req,resource);
   }
-  return re.action();
+  return resource.action();
 }

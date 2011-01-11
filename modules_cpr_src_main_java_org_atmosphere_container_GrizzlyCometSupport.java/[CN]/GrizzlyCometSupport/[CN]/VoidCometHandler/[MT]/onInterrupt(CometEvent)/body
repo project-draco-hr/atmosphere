@@ -9,6 +9,6 @@
     }
   }
  catch (  ServletException ex) {
-    logger.log(Level.WARNING,"",ex);
+    logger.warn("onInterrupt() encountered exception",ex);
   }
 }

@@ -1,6 +1,6 @@
 {
   executorService=Executors.newSingleThreadExecutor(new ThreadFactory(){
-    private AtomicInteger count=new AtomicInteger();
+    private final AtomicInteger count=new AtomicInteger();
     @Override public Thread newThread(    final Runnable runnable){
       return new Thread(runnable,"Atmosphere-BroadcasterConfig-" + count.getAndIncrement());
     }
@@ -8,7 +8,7 @@
 );
   defaultExecutorService=executorService;
   asyncWriteService=Executors.newCachedThreadPool(new ThreadFactory(){
-    private AtomicInteger count=new AtomicInteger();
+    private final AtomicInteger count=new AtomicInteger();
     @Override public Thread newThread(    final Runnable runnable){
       return new Thread(runnable,"Atmosphere-AsyncWrite-" + count.getAndIncrement());
     }

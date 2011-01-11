@@ -1,42 +1,32 @@
 {
-  Action action=suspended(req,res);
-  if (req.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) == null) {
+  Action action=suspended(request,response);
+  if (request.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) == null) {
     if (action.type == Action.TYPE.SUSPEND) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Suspending" + res);
-      }
-      suspend(action,req,res);
+      logger.debug("Suspending response: {}",response);
+      suspend(action,request,response);
     }
  else     if (action.type == Action.TYPE.RESUME) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Resuming" + res);
-      }
+      logger.debug("Resuming response: {}",response);
       if (supportSession()) {
-        AsyncContext asyncContext=(AsyncContext)req.getSession().getAttribute("org.atmosphere.container.asyncContext");
+        AsyncContext asyncContext=(AsyncContext)request.getSession().getAttribute("org.atmosphere.container.asyncContext");
         if (asyncContext != null) {
           asyncContext.complete();
         }
       }
-      Action nextAction=resumed(req,res);
+      Action nextAction=resumed(request,response);
       if (nextAction.type == Action.TYPE.SUSPEND) {
-        if (logger.isLoggable(Level.FINE)) {
-          logger.fine("Suspending after Resuming" + res);
-        }
-        suspend(action,req,res);
+        logger.debug("Suspending after resuming response: {}",response);
+        suspend(action,request,response);
       }
     }
   }
  else {
     if (action.type == Action.TYPE.SUSPEND) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Suspending " + res);
-      }
+      logger.debug("Suspending response: {}",response);
     }
  else     if (action.type == Action.TYPE.RESUME) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Resume " + res);
-      }
-      req.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
+      logger.debug("Resume response: {}",response);
+      request.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
     }
   }
   return action;

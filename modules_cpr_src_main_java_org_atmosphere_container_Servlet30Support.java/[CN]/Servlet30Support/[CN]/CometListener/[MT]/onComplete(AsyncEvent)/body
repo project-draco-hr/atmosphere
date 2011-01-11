@@ -1,5 +1,3 @@
 {
-  if (logger.isLoggable(Level.FINE)) {
-    logger.fine("Resumed (completed)" + event.getAsyncContext().getRequest());
-  }
+  logger.debug("Resumed (completed): event: {}",event.getAsyncContext().getRequest());
 }

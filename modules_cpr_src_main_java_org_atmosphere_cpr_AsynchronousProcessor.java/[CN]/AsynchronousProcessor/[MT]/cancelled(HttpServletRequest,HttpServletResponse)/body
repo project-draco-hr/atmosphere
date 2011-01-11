@@ -14,18 +14,20 @@
     }
   }
  catch (  Throwable ex) {
-    if (logger.isLoggable(Level.FINE)) {
-      logger.log(Level.FINE,"",ex);
-    }
+    logger.debug("failed to cancel resource: " + re,ex);
   }
  finally {
     try {
       aliveRequests.remove(req);
-      re.notifyListeners();
+      if (re != null) {
+        re.notifyListeners();
+      }
     }
   finally {
-      re.removeEventListeners();
-      re.getBroadcaster().removeAtmosphereResource(re);
+      if (re != null) {
+        re.removeEventListeners();
+        re.getBroadcaster().removeAtmosphereResource(re);
+      }
     }
   }
   return cancelledAction;

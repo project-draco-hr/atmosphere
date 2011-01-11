@@ -1,5 +1,5 @@
 {
-  System.out.println("Running testDelayNextBroadcast");
+  logger.info("{}: running test: testDelayNextBroadcast",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(2);
   atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
     AtomicBoolean b=new AtomicBoolean(false);
@@ -29,7 +29,7 @@
         event.getResource().resume();
       }
  catch (      Exception ex) {
-        ex.printStackTrace();
+        logger.error("failure resuming resource",ex);
       }
  finally {
         latch.countDown();
@@ -52,7 +52,7 @@
     assertEquals(r.getStatusCode(),200);
   }
  catch (  Exception e) {
-    e.printStackTrace();
+    logger.error("test failed",e);
     fail(e.getMessage());
   }
   c.close();

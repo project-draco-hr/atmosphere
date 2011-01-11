@@ -4,6 +4,6 @@
     b.append((cs != null) ? cs.getCanonicalName() : "null").append(", ");
   }
   b.append(" until you do, Atmosphere will use:" + available.get(0));
-  logger.warning(b.toString());
+  logger.warn("{}",b.toString());
   return newCometSupport(available.get(0));
 }

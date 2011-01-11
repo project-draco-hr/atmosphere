@@ -9,6 +9,6 @@
     publisher.send(textMessage);
   }
  catch (  JMSException ex) {
-    logger.log(Level.WARNING,"",ex);
+    logger.warn("failed to send message over JMS",ex);
   }
 }

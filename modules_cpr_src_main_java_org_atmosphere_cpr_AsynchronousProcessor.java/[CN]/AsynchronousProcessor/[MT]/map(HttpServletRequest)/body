@@ -1,6 +1,6 @@
 {
   String path=req.getServletPath();
-  if (path == null || path.equals("")) {
+  if (path == null || path.length() == 0) {
     path="/";
   }
   AtmosphereHandlerWrapper atmosphereHandlerWrapper=config.handlers().get(path);
@@ -26,9 +26,9 @@
           }
           atmosphereHandlerWrapper=config.handlers().get(path);
           if (atmosphereHandlerWrapper == null) {
-            logger.warning("No AtmosphereHandler maps request for " + path);
+            logger.warn("No AtmosphereHandler maps request for {}",path);
             for (            String m : config.handlers().keySet()) {
-              logger.warning("\tAtmosphereHandler registered: " + m);
+              logger.warn("\tAtmosphereHandler registered: {}",m);
             }
             throw new ServletException("No AtmosphereHandler maps request for " + path);
           }

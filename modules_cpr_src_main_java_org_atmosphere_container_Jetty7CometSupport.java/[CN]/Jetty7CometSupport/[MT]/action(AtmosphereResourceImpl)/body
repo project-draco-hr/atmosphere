@@ -5,10 +5,8 @@
     try {
       c.complete();
     }
- catch (    java.lang.IllegalStateException ex) {
-      if (logger.isLoggable(Level.FINE)) {
-        logger.fine("Continuation.complete() " + ex);
-      }
+ catch (    IllegalStateException ex) {
+      logger.debug("Continuation.complete() failed",ex);
     }
  finally {
       resumed.offer(c);
