@@ -18,11 +18,11 @@
     if (id.startsWith("/*")) {
       id="atmosphere";
     }
-    logger.info(String.format("Looking up Connection Factory %s",namespace + factoryName));
+    logger.info("Looking up Connection Factory {}",namespace + factoryName);
     Context ctx=new InitialContext();
     ConnectionFactory connectionFactory=(ConnectionFactory)ctx.lookup(namespace + factoryName);
     logger.info("Looking up topic: {}",topicId);
-    Topic topic=(Topic)ctx.lookup("jms/" + topicId);
+    Topic topic=(Topic)ctx.lookup(namespace + topicId);
     connection=connectionFactory.createConnection();
     session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
     logger.info("Create customer: {}",id);
