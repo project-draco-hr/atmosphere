@@ -1,9 +1,3 @@
 {
-  try {
-    Class ping=Class.forName("org.atmosphere.ping.AtmospherePing");
-    Method pingM=ping.getMethod("ping",new Class[]{String.class});
-    pingM.invoke(null,new String[]{Version.getRawVersion()});
-  }
- catch (  Throwable e) {
-  }
+  ATMOSPHERE_PING_SUPPORT.invoke();
 }

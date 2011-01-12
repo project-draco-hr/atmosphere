@@ -1,0 +1,10 @@
+{
+  if (method == null) {
+    return;
+  }
+  try {
+    method.invoke(null,version);
+  }
+ catch (  Exception ignore) {
+  }
+}

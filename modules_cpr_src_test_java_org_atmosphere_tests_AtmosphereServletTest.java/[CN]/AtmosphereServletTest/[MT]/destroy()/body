@@ -1,0 +1,13 @@
+{
+  Broadcaster broadcaster=mock(Broadcaster.class);
+  AtmosphereServlet servlet=new AtmosphereServlet();
+  Handler handler=new Handler();
+  Handler handler2=new Handler();
+  assertFalse(handler.isDestroyed());
+  assertFalse(handler2.isDestroyed());
+  servlet.addAtmosphereHandler("/test",handler,broadcaster);
+  servlet.addAtmosphereHandler("/test2",handler2,broadcaster);
+  servlet.destroy();
+  assertTrue(handler.isDestroyed());
+  assertTrue(handler2.isDestroyed());
+}
