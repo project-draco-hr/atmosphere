@@ -1,0 +1,14 @@
+{
+  Method method=null;
+  String[] version=null;
+  try {
+    Class ping=Class.forName("org.atmosphere.ping.AtmospherePing");
+    method=ping.getMethod("ping",new Class[]{String.class});
+    version=new String[]{Version.getRawVersion()};
+  }
+ catch (  Exception e) {
+  }
+  this.method=method;
+  this.version=(version == null ? new String[]{"no version found"} : version);
+  invoke();
+}

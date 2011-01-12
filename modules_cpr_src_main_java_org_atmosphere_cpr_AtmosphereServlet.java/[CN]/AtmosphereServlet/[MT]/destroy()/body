@@ -2,16 +2,17 @@
   if (cometSupport != null && AsynchronousProcessor.class.isAssignableFrom(cometSupport.getClass())) {
     ((AsynchronousProcessor)cometSupport).shutdown();
   }
-  AtmosphereHandler a;
-  for (  Entry<String,AtmosphereHandlerWrapper> h : atmosphereHandlers.entrySet()) {
-    a=h.getValue().atmosphereHandler;
-    if (a instanceof AtmosphereServletProcessor) {
-      ((AtmosphereServletProcessor)a).destroy();
+  for (  Entry<String,AtmosphereHandlerWrapper> entry : atmosphereHandlers.entrySet()) {
+    AtmosphereHandlerWrapper handlerWrapper=entry.getValue();
+    handlerWrapper.atmosphereHandler.destroy();
+    Broadcaster broadcaster=handlerWrapper.broadcaster;
+    if (broadcaster != null) {
+      broadcaster.destroy();
     }
-    h.getValue().broadcaster.destroy();
   }
-  if (BroadcasterFactory.getDefault() != null) {
-    BroadcasterFactory.getDefault().destroy();
+  BroadcasterFactory factory=BroadcasterFactory.getDefault();
+  if (factory != null) {
+    factory.destroy();
     BroadcasterFactory.factory=null;
   }
 }

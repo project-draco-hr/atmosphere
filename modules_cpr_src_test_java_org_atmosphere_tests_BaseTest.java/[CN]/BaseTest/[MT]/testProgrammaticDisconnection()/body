@@ -1,7 +1,7 @@
 {
   logger.info("{}: running test: testProgrammaticDisconnection",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(1);
-  atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
+  atmoServlet.addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
     private long currentTime;
     public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
       currentTime=System.currentTimeMillis();
