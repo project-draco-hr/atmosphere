@@ -1,4 +1,5 @@
 {
+  releaseExternalResources();
   if (notifierFuture != null) {
     notifierFuture.cancel(true);
   }
