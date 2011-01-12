@@ -4,6 +4,9 @@
     if (id.startsWith("/*")) {
       id="atmosphere";
     }
+    if (session == null) {
+      throw new IllegalStateException("JMS Session is null");
+    }
     TextMessage textMessage=session.createTextMessage(message.toString());
     textMessage.setStringProperty("BroadcasterId",id);
     publisher.send(textMessage);

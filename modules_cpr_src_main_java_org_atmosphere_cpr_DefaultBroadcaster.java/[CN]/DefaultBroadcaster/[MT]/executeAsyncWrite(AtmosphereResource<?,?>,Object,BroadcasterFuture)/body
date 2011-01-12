@@ -12,6 +12,9 @@ synchronized (resource) {
  catch (      Exception t) {
         logger.warn("Preventing corruption of a recycled request: resource" + resource,event);
         resources.remove(resource);
+        if (future != null) {
+          future.cancel(true);
+        }
         return;
       }
     }
@@ -20,6 +23,9 @@ synchronized (resource) {
         broadcast(resource,event);
         if (resource instanceof AtmosphereEventLifecycle) {
           ((AtmosphereEventLifecycle)resource).notifyListeners();
+        }
+        if (future != null) {
+          future.done();
         }
       }
     }
