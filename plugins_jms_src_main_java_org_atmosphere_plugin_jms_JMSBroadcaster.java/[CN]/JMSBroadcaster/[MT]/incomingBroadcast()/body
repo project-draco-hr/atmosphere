@@ -38,7 +38,7 @@
           }
         }
  catch (        JMSException ex) {
-          logger.warn("failed to broadcast message",ex);
+          logger.warn("Failed to broadcast message",ex);
         }
       }
     }
