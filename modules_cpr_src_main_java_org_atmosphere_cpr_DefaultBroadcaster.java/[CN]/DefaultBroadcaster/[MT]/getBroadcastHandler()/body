@@ -10,16 +10,6 @@
  catch (      Throwable ex) {
         logger.error("failed to submit broadcast handler runnable to broadcast executor service",ex);
       }
- finally {
-        if (msg != null) {
-          if (msg.future instanceof BroadcasterFuture) {
-            msg.future.done();
-          }
- else {
-            msg.future.cancel(true);
-          }
-        }
-      }
     }
   }
 ;
