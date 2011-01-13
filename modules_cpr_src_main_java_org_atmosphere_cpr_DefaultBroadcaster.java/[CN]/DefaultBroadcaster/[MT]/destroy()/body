@@ -19,4 +19,7 @@
   if (BroadcasterFactory.getDefault() != null) {
     BroadcasterFactory.getDefault().remove(this,name);
   }
+  if (currentLifecycleTask != null) {
+    currentLifecycleTask.cancel(true);
+  }
 }

@@ -1,2 +1,37 @@
 {
+  this.lifeCyclePolicy=lifeCyclePolicy;
+  if (currentLifecycleTask != null) {
+    currentLifecycleTask.cancel(false);
+  }
+  if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE || lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE_DESTROY) {
+    int time=lifeCyclePolicy.getTimeout();
+    if (time == -1) {
+      throw new IllegalStateException("BroadcasterLifeCyclePolicy time is not set");
+    }
+    final AtomicReference<Future<?>> ref=new AtomicReference<Future<?>>();
+    currentLifecycleTask=bc.getScheduledExecutorService().scheduleAtFixedRate(new Runnable(){
+      @Override public void run(){
+        try {
+          if (resources.isEmpty()) {
+            if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE) {
+              releaseExternalResources();
+              logger.debug("Applying BroadcasterLifeCyclePolicy IDLE policy");
+            }
+ else {
+              destroy();
+              if (ref.get() != null) {
+                currentLifecycleTask.cancel(true);
+              }
+              logger.debug("Applying BroadcasterLifeCyclePolicy IDLE_DESTROY policy");
+            }
+          }
+        }
+ catch (        Throwable t) {
+          logger.warn("Scheduled BroadcasterLifeCyclePolicy exception",t);
+        }
+      }
+    }
+,time,time,lifeCyclePolicy.getTimeUnit());
+    ref.set(currentLifecycleTask);
+  }
 }
