@@ -3,9 +3,9 @@
     public void run(){
       try {
         HttpURLConnection urlConnection=(HttpURLConnection)URI.create(String.format("http://jfarcand.wordpress.com/ping-atmosphere-%s",version)).toURL().openConnection();
-        logger.log(Level.INFO,String.format("AtmospherePing sent for project statistics: %s. " + "Remove WEB-INF/lib/atmosphere-ping.jar to remove that message or exclude the jar in your pom.xml",urlConnection.getResponseCode()));
+        logger.info("AtmospherePing sent for project statistics: {}. " + "Remove WEB-INF/lib/atmosphere-ping.jar to remove that message or exclude the jar in your pom.xml",urlConnection.getResponseCode());
       }
- catch (      IOException e) {
+ catch (      Exception e) {
       }
     }
   }

@@ -3,7 +3,7 @@
   atmoServlet.setBroadcasterCacheClassName(HeaderBroadcasterCache.class.getName());
   final CountDownLatch latch=new CountDownLatch(1);
   long t1=System.currentTimeMillis();
-  atmoServlet.addAtmosphereHandler(ROOT,new AtmosphereHandler<HttpServletRequest,HttpServletResponse>(){
+  atmoServlet.addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
     public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
       try {
         if (event.getRequest().getHeader(HeaderBroadcasterCache.HEADER_CACHE) != null) {

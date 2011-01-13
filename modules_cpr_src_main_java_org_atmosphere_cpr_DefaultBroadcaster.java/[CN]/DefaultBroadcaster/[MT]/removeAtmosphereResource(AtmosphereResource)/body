@@ -1,2 +1,13 @@
 {
+  if (!resources.contains(r)) {
+    return null;
+  }
+  resources.remove(r);
+  if (resources.isEmpty()) {
+    BroadcasterFactory.getDefault().remove(this,name);
+    if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.POLICY.EMPTY) {
+      releaseExternalResources();
+    }
+  }
+  return r;
 }

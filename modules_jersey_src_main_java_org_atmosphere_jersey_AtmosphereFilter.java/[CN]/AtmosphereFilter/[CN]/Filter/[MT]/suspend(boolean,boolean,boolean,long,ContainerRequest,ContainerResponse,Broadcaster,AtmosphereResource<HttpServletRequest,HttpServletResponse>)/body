@@ -42,10 +42,11 @@
   r.setBroadcaster(bc);
   if (sessionSupported) {
     servletReq.getSession().setAttribute(SUSPENDED_RESOURCE,r);
-    servletReq.getSession().setAttribute(CONTAINER_RESPONSE,response);
+    servletReq.getSession().setAttribute(AtmosphereServlet.CONTAINER_RESPONSE,response);
   }
   servletReq.setAttribute(SUSPENDED_RESOURCE,r);
-  servletReq.setAttribute(CONTAINER_RESPONSE,response);
+  servletReq.setAttribute(AtmosphereServlet.CONTAINER_RESPONSE,response);
+  logger.debug("Linking HttpServletRequest {} with ContainerResponse {}",servletReq,response);
   if (resumeOnBroadcast) {
     servletReq.setAttribute(AtmosphereServlet.RESUME_ON_BROADCAST,new Boolean(true));
   }
