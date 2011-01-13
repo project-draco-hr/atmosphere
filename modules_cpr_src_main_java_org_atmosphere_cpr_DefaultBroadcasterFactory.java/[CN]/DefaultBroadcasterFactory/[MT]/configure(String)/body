@@ -1,0 +1,17 @@
+{
+  if (EMPTY.equals(broadcasterLifeCyclePolicy)) {
+    policy=new BroadcasterLifeCyclePolicy.Builder().policy(EMPTY).build();
+  }
+ else   if (EMPTY_DESTROY.equals(broadcasterLifeCyclePolicy)) {
+    policy=new BroadcasterLifeCyclePolicy.Builder().policy(EMPTY_DESTROY).build();
+  }
+ else   if (IDLE.equals(broadcasterLifeCyclePolicy)) {
+    policy=new BroadcasterLifeCyclePolicy.Builder().policy(IDLE).idleTimeInMS(5 * 60 * 100).build();
+  }
+ else   if (IDLE_DESTROY.equals(broadcasterLifeCyclePolicy)) {
+    policy=new BroadcasterLifeCyclePolicy.Builder().policy(IDLE_DESTROY).idleTimeInMS(5 * 60 * 100).build();
+  }
+ else {
+    logger.warn("Unsupported BroadcasterLifeCyclePolicy policy {}",broadcasterLifeCyclePolicy);
+  }
+}

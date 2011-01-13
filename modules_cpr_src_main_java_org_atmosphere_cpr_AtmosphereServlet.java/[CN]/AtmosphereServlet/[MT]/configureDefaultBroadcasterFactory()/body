@@ -10,5 +10,5 @@
   }
   Class bc=(b == null ? DefaultBroadcaster.class : b);
   logger.info("using default broadcaster class: {}",bc);
-  BroadcasterFactory.setBroadcasterFactory(new DefaultBroadcasterFactory(bc),config);
+  BroadcasterFactory.setBroadcasterFactory(new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy),config);
 }

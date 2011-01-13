@@ -9,6 +9,7 @@
   }
   b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
   b.setID(id.toString());
+  b.setBroadcasterLifeCyclePolicy(policy);
   store.put(id,b);
   return b;
 }

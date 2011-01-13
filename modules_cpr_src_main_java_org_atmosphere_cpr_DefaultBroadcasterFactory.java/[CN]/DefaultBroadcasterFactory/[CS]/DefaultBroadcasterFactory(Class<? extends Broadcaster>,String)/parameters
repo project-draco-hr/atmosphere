@@ -1,2 +1,2 @@
 Class<? extends Broadcaster> clazz
-BroadcasterConfig config
+String broadcasterLifeCyclePolicy

@@ -6,6 +6,7 @@
   }
   b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
   b.setID(clazz.getSimpleName() + "-" + UUID.randomUUID());
+  b.setBroadcasterLifeCyclePolicy(policy);
   store.put(b.getID(),b);
   return b;
 }

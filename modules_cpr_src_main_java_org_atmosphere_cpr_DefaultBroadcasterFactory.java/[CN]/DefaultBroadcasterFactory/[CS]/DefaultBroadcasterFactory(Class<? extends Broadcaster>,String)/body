@@ -3,4 +3,5 @@
   if (factory == null) {
     this.factory=this;
   }
+  configure(broadcasterLifeCyclePolicy.toUpperCase());
 }

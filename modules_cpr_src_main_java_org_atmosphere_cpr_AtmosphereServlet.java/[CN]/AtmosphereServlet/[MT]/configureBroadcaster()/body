@@ -2,7 +2,7 @@
   if (broadcasterFactory == null) {
     Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
     logger.info("using broadcaster class: {}",bc.getName());
-    broadcasterFactory=new DefaultBroadcasterFactory(bc);
+    broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy);
     config.broadcasterFactory=broadcasterFactory;
   }
   Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();

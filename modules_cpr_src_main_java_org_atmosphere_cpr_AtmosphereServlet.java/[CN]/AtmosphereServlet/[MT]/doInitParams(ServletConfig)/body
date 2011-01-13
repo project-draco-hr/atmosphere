@@ -47,4 +47,8 @@
   if (s != null) {
     broadcasterFilters=s.split(",");
   }
+  s=sc.getInitParameter(BROADCASTER_LIFECYCLE_POLICY);
+  if (s != null) {
+    broadcasterLifeCyclePolicy=s;
+  }
 }
