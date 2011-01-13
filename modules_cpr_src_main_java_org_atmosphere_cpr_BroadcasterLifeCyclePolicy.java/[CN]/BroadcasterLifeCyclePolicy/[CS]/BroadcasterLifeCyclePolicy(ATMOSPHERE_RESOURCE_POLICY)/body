@@ -1,0 +1,5 @@
+{
+  this.policy=policy;
+  this.time=-1;
+  this.timeUnit=null;
+}
