@@ -15,7 +15,9 @@
     if (atmosphereHandlerWrapper == null) {
       atmosphereHandlerWrapper=config.handlers().get("/*");
       if (atmosphereHandlerWrapper == null) {
-        path=req.getServletPath() + req.getPathInfo();
+        if (req.getPathInfo() != null) {
+          path=req.getServletPath() + req.getPathInfo();
+        }
         atmosphereHandlerWrapper=config.handlers().get(path);
         if (atmosphereHandlerWrapper == null) {
           if (!path.endsWith("/")) {
