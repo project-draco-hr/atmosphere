@@ -1,4 +1,0 @@
-{
-  super.cometTerminated(cometResponse,serverInitiated);
-  logger.debug("Comet disconnected");
-}
