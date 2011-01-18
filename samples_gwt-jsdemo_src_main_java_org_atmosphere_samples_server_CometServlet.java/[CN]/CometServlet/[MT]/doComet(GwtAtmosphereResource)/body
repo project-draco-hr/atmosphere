@@ -1,4 +1,0 @@
-{
-  resource.getBroadcaster().setID("GWT_JS_COMET");
-  return super.doComet(resource);
-}

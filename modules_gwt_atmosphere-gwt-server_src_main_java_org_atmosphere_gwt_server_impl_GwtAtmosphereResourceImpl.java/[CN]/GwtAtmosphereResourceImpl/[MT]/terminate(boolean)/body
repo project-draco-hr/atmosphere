@@ -1,7 +1,7 @@
 {
-  GwtAtmosphereServlet s=servlet;
+  AtmosphereGwtHandler s=atmosphereHandler;
   if (s != null) {
-    servlet=null;
+    atmosphereHandler=null;
     if (suspended) {
       atmResource.resume();
     }

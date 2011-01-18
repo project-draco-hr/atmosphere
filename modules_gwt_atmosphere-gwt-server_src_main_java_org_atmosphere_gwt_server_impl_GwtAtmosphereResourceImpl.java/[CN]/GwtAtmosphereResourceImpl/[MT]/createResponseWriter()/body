@@ -1,5 +1,5 @@
 {
-  ClientOracle clientOracle=RPCUtil.getClientOracle(atmResource.getRequest(),servlet.getServletContext());
+  ClientOracle clientOracle=RPCUtil.getClientOracle(atmResource.getRequest(),atmosphereHandler.getServletContext());
   SerializationPolicy serializationPolicy=clientOracle == null ? RPCUtil.createSimpleSerializationPolicy() : null;
   String transport=atmResource.getRequest().getParameter("tr");
   if ("WebSocket".equals(transport)) {

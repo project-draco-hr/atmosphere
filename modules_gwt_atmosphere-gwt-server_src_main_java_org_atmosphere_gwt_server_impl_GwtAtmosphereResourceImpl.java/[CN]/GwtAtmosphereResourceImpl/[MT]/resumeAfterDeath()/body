@@ -1,5 +1,5 @@
 {
-  servlet.execute(new Runnable(){
+  atmosphereHandler.execute(new Runnable(){
     @Override public void run(){
       atmResource.resume();
     }

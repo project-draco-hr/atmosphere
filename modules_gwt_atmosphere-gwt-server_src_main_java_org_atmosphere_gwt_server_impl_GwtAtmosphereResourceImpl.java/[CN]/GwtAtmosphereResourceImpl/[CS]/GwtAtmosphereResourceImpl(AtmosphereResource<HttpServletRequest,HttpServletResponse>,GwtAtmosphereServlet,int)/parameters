@@ -1,3 +1,0 @@
-AtmosphereResource<HttpServletRequest,HttpServletResponse> resource
-GwtAtmosphereServlet servlet
-int heartBeatInterval

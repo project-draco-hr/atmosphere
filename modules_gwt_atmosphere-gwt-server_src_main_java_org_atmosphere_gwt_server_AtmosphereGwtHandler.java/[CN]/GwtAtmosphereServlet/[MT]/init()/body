@@ -1,8 +1,0 @@
-{
-  executorService=Executors.newCachedThreadPool();
-  ServletConfig servletConfig=getServletConfig();
-  String heartbeat=servletConfig.getInitParameter("heartbeat");
-  if (heartbeat != null) {
-    this.heartbeat=Integer.parseInt(heartbeat);
-  }
-}

@@ -1,0 +1,16 @@
+{
+  Broadcaster broadcaster=getBroadcaster();
+  if (broadcaster == null) {
+    try {
+      broadcaster=BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,GWT_BROADCASTER_ID);
+    }
+ catch (    IllegalAccessException ex) {
+      logger.error("Failed to get broadcaster",ex);
+    }
+catch (    InstantiationException ex) {
+      logger.error("Failed to get broadcaster",ex);
+    }
+  }
+  resource.getAtmosphereResource().setBroadcaster(broadcaster);
+  return NO_TIMEOUT;
+}
