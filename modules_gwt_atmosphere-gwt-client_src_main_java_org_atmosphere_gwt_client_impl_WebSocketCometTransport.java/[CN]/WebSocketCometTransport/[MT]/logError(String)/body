@@ -1,0 +1,3 @@
+{
+  listener.onError(new AtmosphereClientException(message),connected);
+}

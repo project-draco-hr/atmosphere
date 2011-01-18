@@ -1,0 +1,4 @@
+{
+  options.put("resizable",resizable);
+  return this;
+}

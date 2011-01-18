@@ -1,0 +1,7 @@
+{
+  Sockets sockets=w.getObject("sockets");
+  if (sockets == null) {
+    return null;
+  }
+  return sockets.get(name);
+}

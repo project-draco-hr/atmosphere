@@ -1,0 +1,7 @@
+{
+  int statuscode=-1;
+  if (exception instanceof StatusCodeException) {
+    statuscode=((StatusCodeException)exception).getStatusCode();
+  }
+  GWT.log("comet.error [connected=" + connected + "] ("+ statuscode+ ")",exception);
+}

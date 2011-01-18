@@ -1,0 +1,3 @@
+{
+  doOnBeforeDisconnected(this);
+}

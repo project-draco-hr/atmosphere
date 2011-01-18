@@ -1,0 +1,4 @@
+{
+  deflater.terminate();
+  deflater.getOut().close();
+}

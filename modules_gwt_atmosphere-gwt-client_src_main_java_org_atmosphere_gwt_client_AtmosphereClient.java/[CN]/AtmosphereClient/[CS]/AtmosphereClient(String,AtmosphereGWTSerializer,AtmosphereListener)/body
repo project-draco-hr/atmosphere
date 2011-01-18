@@ -1,0 +1,6 @@
+{
+  this.url=url;
+  this.serializer=serializer;
+  this.listener=listener;
+  primaryTransport=new CometClientTransportWrapper();
+}

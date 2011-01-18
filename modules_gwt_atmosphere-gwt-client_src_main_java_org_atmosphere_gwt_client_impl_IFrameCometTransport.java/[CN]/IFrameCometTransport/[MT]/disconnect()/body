@@ -1,0 +1,12 @@
+{
+  expectingDisconnection=true;
+  super.disconnect();
+  iframe.setSrc("");
+  destroyIFrame();
+  iframe=null;
+  body=null;
+  if (connected) {
+    onDisconnected();
+  }
+  connected=false;
+}

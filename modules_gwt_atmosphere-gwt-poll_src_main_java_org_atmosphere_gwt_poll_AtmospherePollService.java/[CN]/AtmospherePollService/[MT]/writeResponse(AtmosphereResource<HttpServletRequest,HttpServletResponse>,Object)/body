@@ -1,0 +1,19 @@
+{
+  try {
+    RPCRequest rpcRequest=(RPCRequest)resource.getRequest().getAttribute(AtmospherePollService.GWT_REQUEST);
+    String response=encodeResponse(rpcRequest,message);
+    writeResponse(resource.getRequest(),resource.getResponse(),resource.getAtmosphereConfig().getServletContext(),response);
+  }
+ catch (  IncompatibleRemoteServiceException ex) {
+    try {
+      String error=RPC.encodeResponseForFailure(null,ex);
+      writeResponse(resource.getRequest(),resource.getResponse(),resource.getAtmosphereConfig().getServletContext(),error);
+    }
+ catch (    SerializationException ex2) {
+      throw new IOException(ex2);
+    }
+  }
+catch (  SerializationException ex) {
+    throw new IOException(ex);
+  }
+}

@@ -1,0 +1,41 @@
+{
+  init();
+  xmlHttpRequest=XMLHttpRequest.create();
+  try {
+    xmlHttpRequest.open("GET",getUrl(connectionCount));
+    xmlHttpRequest.setRequestHeader("Accept","application/comet");
+    xmlHttpRequest.setOnReadyStateChange(new ReadyStateChangeHandler(){
+      @Override public void onReadyStateChange(      XMLHttpRequest request){
+        if (!aborted) {
+switch (request.getReadyState()) {
+case XMLHttpRequest.LOADING:
+            onReceiving(request.getStatus(),request.getResponseText());
+          if (needPolling()) {
+            pollingTimer.scheduleRepeating(POLLING_INTERVAL);
+          }
+        break;
+case XMLHttpRequest.DONE:
+      onLoaded(request.getStatus(),request.getResponseText());
+    pollingTimer.cancel();
+  break;
+}
+}
+ else {
+request.clearOnReadyStateChange();
+if (request.getReadyState() != XMLHttpRequest.DONE) {
+request.abort();
+}
+}
+}
+}
+);
+xmlHttpRequest.send();
+}
+ catch (JavaScriptException e) {
+if (xmlHttpRequest != null) {
+xmlHttpRequest.abort();
+xmlHttpRequest=null;
+}
+listener.onError(new RequestException(e.getMessage()),false);
+}
+}

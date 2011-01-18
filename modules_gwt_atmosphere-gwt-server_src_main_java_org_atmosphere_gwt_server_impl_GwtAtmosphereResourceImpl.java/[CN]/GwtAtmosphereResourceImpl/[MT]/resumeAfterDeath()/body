@@ -1,0 +1,8 @@
+{
+  servlet.execute(new Runnable(){
+    @Override public void run(){
+      atmResource.resume();
+    }
+  }
+);
+}

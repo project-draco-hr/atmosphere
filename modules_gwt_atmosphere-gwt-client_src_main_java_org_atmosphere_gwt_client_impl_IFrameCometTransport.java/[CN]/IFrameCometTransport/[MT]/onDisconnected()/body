@@ -1,0 +1,10 @@
+{
+  connected=false;
+  body=null;
+  if (expectingDisconnection) {
+    listener.onDisconnected();
+  }
+ else {
+    listener.onError(new AtmosphereClientException("Unexpected disconnection"),false);
+  }
+}

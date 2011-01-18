@@ -1,0 +1,21 @@
+{
+  writer.append("<script>m(");
+  boolean first=true;
+  for (  Serializable message : messages) {
+    CharSequence string;
+    if (message instanceof CharSequence) {
+      string="]" + escapeString((CharSequence)message);
+    }
+ else {
+      string=escapeObject(serialize(message));
+    }
+    if (first) {
+      first=false;
+    }
+ else {
+      writer.append(',');
+    }
+    writer.append('\'').append(string).append('\'');
+  }
+  writer.append(")</script>");
+}

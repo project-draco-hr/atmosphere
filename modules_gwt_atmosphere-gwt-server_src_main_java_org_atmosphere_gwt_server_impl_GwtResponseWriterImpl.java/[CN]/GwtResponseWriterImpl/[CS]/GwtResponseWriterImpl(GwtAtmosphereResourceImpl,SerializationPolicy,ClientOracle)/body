@@ -1,0 +1,6 @@
+{
+  this.resource=resource;
+  this.serializationPolicy=serializationPolicy;
+  this.clientOracle=clientOracle;
+  this.connectionID=connectionIDs.getAndIncrement();
+}

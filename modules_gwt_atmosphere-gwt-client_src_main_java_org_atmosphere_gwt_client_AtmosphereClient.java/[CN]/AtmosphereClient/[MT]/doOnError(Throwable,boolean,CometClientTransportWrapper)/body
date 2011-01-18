@@ -1,0 +1,9 @@
+{
+  if (connected) {
+    doDisconnect();
+  }
+  listener.onError(exception,connected);
+  if (running) {
+    primaryTransport.reconnectionTimer.schedule(reconnectionTimeout);
+  }
+}

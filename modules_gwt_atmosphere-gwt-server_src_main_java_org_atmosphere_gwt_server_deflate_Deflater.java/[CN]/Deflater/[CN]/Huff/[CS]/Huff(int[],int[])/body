@@ -1,0 +1,58 @@
+{
+  csD=17;
+  csF=3;
+  litCodeLen=makeHuffmanCodes(freqLit,15);
+  distCodeLen=makeHuffmanCodes(freqDist,15);
+  for (int i=0; i < litCodeLen.length; i++) {
+    int f=freqLit[i];
+    int elen;
+    elen=(i >= 257) ? LENGTH_ENUM[i - 257] : 0;
+    csD+=(litCodeLen[i] + elen) * f;
+    int fcl;
+    if (i < 256) {
+      fcl=(i < 144) ? 8 : 9;
+    }
+ else {
+      fcl=(i < 280) ? 7 : 8;
+    }
+    csF+=(fcl + elen) * f;
+  }
+  for (int i=0; i < distCodeLen.length; i++) {
+    int f=freqDist[i];
+    int edist=DIST_ENUM[i];
+    csD+=(distCodeLen[i] + edist) * f;
+    csF+=(5 + edist) * f;
+  }
+  litCode=makeCanonicalHuff(litCodeLen,15);
+  distCode=makeCanonicalHuff(distCodeLen,15);
+  if (distCode.length == 0)   distCode=new int[1];
+  int[] freqCT=new int[19];
+  compTrees=compressTrees(litCodeLen,litCode.length,distCodeLen,distCode.length,freqCT);
+  ctCodeLen=makeHuffmanCodes(freqCT,7);
+  ctCode=makeCanonicalHuff(ctCodeLen,7);
+  for (int i=0; i < 19; i++) {
+    int ccl=ctCodeLen[i];
+switch (i) {
+case 16:
+      ccl+=2;
+    break;
+case 17:
+  ccl+=3;
+break;
+case 18:
+ccl+=7;
+break;
+}
+csD+=freqCT[i] * ccl;
+}
+int[] permCTtmp=new int[19];
+int permCTLen=0;
+for (int i=0; i < 19; i++) {
+int len=ctCodeLen[PERM_CT[i]];
+if (len > 0) permCTLen=i + 1;
+permCTtmp[i]=len;
+}
+permCT=new int[permCTLen];
+System.arraycopy(permCTtmp,0,permCT,0,permCTLen);
+csD+=3 * permCTLen;
+}

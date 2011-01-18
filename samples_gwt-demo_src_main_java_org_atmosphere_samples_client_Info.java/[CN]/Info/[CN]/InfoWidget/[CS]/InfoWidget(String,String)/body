@@ -1,0 +1,5 @@
+{
+  initWidget(binder.createAndBindUi(this));
+  this.title.setText(title);
+  this.message.setText(message);
+}

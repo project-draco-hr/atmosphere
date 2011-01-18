@@ -1,0 +1,16 @@
+{
+  if (message.startsWith("s\n")) {
+    listener.onMessage(Collections.singletonList(HTTPRequestCometTransport.unescape(message.substring(2))));
+  }
+ else   if (message.startsWith("o\n")) {
+    try {
+      listener.onMessage(Collections.singletonList(parse(message.substring(2))));
+    }
+ catch (    SerializationException e) {
+      listener.onError(e,true);
+    }
+  }
+ else   if (message.startsWith("c\n")) {
+    onConnection(message.substring(2));
+  }
+}

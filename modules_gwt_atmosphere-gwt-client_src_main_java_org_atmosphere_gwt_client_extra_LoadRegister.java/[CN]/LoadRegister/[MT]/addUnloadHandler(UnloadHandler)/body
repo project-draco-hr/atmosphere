@@ -1,0 +1,4 @@
+{
+  maybeInit();
+  return eventBus.addHandler(UnloadEvent.getType(),handler);
+}

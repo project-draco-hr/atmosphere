@@ -1,0 +1,7 @@
+{
+  AtmosphereResource<HttpServletRequest,HttpServletResponse> atm=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)getThreadLocalRequest().getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+  if (atm == null) {
+    throw new UnexpectedException("Failed to find Atmosphere resource have you setup Atmosphere?",null);
+  }
+  return atm;
+}

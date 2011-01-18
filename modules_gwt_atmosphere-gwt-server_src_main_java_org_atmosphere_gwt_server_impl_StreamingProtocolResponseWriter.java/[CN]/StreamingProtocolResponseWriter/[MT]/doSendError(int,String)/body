@@ -1,0 +1,6 @@
+{
+  getResponse().setStatus(statusCode);
+  if (message != null) {
+    writer.append(message);
+  }
+}

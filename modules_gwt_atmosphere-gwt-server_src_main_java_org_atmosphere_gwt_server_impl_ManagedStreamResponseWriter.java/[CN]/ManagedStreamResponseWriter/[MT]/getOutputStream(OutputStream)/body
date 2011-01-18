@@ -1,0 +1,4 @@
+{
+  countOutputStream=new CountOutputStream(outputStream);
+  return countOutputStream;
+}

@@ -1,0 +1,41 @@
+{
+  int n=orig;
+  int chainLength=maxLen;
+  loop:   while (chainLength-- > 0) {
+    int d=wlink[n];
+    if (d == 0)     return 0;
+    dist+=d;
+    if (dist > maxDist)     return 0;
+    n=(n - d) & winMask;
+    int tm=len;
+    int j=orig, k=n;
+    if (tm >= 3) {
+      while (tm >= 3) {
+        if (win[j] != win[k])         continue loop;
+        tm-=3;
+        j=(j + 3) & winMask;
+        k=(k + 3) & winMask;
+      }
+switch (tm) {
+case 1:
+        j=(j - 2) & winMask;
+      k=(k - 2) & winMask;
+    if (win[j] != win[k])     continue loop;
+  k=(k + 3) & winMask;
+break;
+case 2:
+j=(j - 1) & winMask;
+k=(k - 1) & winMask;
+if (win[j] != win[k]) continue loop;
+k=(k + 3) & winMask;
+break;
+}
+}
+ else {
+if (win[j] != win[k]) continue loop;
+k=(k + tm) & winMask;
+}
+if (win[k] == end) return dist;
+}
+return 0;
+}

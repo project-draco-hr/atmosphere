@@ -1,0 +1,18 @@
+{
+  for (  Serializable message : messages) {
+    CharSequence string;
+    if (message instanceof CharSequence) {
+      string=escape((CharSequence)message);
+      if (string == message) {
+        writer.append('|');
+      }
+ else {
+        writer.append(']');
+      }
+    }
+ else {
+      string=serialize(message);
+    }
+    writer.append(string).append('\n');
+  }
+}

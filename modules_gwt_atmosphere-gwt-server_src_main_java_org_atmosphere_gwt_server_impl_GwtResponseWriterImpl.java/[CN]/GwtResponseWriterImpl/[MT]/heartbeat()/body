@@ -1,0 +1,15 @@
+{
+  if (!terminated) {
+    try {
+      logger.trace("Sending heartbeat [" + connectionID + "]");
+      doHeartbeat();
+      flush();
+      scheduleHeartbeat();
+    }
+ catch (    IOException e) {
+      logger.debug("Failed to send heartbeat",e);
+      setTerminated(false);
+      throw e;
+    }
+  }
+}

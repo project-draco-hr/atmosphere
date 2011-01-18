@@ -1,0 +1,10 @@
+{
+  GwtAtmosphereServlet s=servlet;
+  if (s != null) {
+    servlet=null;
+    if (suspended) {
+      atmResource.resume();
+    }
+    s.cometTerminated(this,serverInitiated);
+  }
+}

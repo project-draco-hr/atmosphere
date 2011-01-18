@@ -1,0 +1,3 @@
+int heartbeat
+int connectionID
+CometClientTransportWrapper transport

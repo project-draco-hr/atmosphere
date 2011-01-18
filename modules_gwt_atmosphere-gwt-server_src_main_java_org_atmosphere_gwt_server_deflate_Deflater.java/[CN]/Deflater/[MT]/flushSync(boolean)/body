@@ -1,0 +1,6 @@
+{
+  prepareFlush();
+  if (bufferPtr != 0)   endBlock(false,bufferPtr);
+  writeEmptyUD(false,withData);
+  sendBuffered();
+}

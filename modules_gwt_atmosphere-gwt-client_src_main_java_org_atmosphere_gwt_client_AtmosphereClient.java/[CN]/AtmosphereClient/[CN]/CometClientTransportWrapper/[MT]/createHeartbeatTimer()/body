@@ -1,0 +1,16 @@
+{
+  return new Timer(){
+    @Override public void run(){
+      double currentTimeMillis=Duration.currentTimeMillis();
+      double difference=currentTimeMillis - lastReceivedTime;
+      if (difference >= heartbeatTimeout) {
+        doDisconnect();
+        doOnError(new AtmosphereClientException("Heartbeat failed"),false,CometClientTransportWrapper.this);
+      }
+ else {
+        schedule(heartbeatTimeout - (int)difference);
+      }
+    }
+  }
+;
+}

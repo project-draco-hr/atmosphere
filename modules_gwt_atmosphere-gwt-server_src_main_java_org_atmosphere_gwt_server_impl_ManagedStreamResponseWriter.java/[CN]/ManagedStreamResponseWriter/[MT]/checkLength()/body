@@ -1,0 +1,10 @@
+{
+  int count=countOutputStream.getCount();
+  if (chrome) {
+    count=2 * count;
+  }
+  if (!refresh && isOverRefreshLength(count)) {
+    refresh=true;
+    doRefresh();
+  }
+}

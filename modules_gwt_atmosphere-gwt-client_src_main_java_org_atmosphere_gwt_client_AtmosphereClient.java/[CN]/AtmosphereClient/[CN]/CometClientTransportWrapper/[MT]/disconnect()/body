@@ -1,0 +1,4 @@
+{
+  cancelTimers();
+  transport.disconnect();
+}

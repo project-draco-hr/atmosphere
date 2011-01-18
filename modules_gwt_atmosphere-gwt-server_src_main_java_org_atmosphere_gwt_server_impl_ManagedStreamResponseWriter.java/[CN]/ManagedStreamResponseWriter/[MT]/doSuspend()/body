@@ -1,0 +1,26 @@
+{
+  int paddingRequired;
+  String paddingParameter=getRequest().getParameter("padding");
+  if (paddingParameter != null) {
+    paddingRequired=Integer.parseInt(paddingParameter);
+  }
+ else {
+    paddingRequired=getPaddingRequired();
+  }
+  String lengthParameter=getRequest().getParameter("length");
+  if (lengthParameter != null) {
+    length=Integer.parseInt(lengthParameter);
+  }
+  if (paddingRequired > 0) {
+    countOutputStream.setIgnoreFlush(true);
+    writer.flush();
+    int written=countOutputStream.getCount();
+    if (paddingRequired > written) {
+      CharSequence padding=getPadding(paddingRequired - written);
+      if (padding != null) {
+        writer.append(padding);
+      }
+    }
+    countOutputStream.setIgnoreFlush(false);
+  }
+}

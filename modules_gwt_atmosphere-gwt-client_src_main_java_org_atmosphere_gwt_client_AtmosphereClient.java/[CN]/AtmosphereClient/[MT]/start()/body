@@ -1,0 +1,19 @@
+{
+  if (!running) {
+    running=true;
+    if (unloadHandlerReg != null) {
+      unloadHandlerReg.removeHandler();
+    }
+    UnloadHandler handler=new UnloadHandler();
+    final HandlerRegistration reg1=LoadRegister.addBeforeUnloadHandler(handler);
+    final HandlerRegistration reg2=LoadRegister.addUnloadHandler(handler);
+    unloadHandlerReg=new HandlerRegistration(){
+      @Override public void removeHandler(){
+        reg1.removeHandler();
+        reg2.removeHandler();
+      }
+    }
+;
+    doConnect();
+  }
+}

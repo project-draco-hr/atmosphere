@@ -1,0 +1,10 @@
+{
+  return new Timer(){
+    @Override public void run(){
+      if (running) {
+        doConnect();
+      }
+    }
+  }
+;
+}

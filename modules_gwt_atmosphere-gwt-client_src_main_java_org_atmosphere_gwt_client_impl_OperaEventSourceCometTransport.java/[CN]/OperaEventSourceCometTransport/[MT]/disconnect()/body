@@ -1,0 +1,8 @@
+{
+  DOM.setElementAttribute(eventSource,"src","");
+  super.disconnect();
+  if (connected) {
+    connected=false;
+    listener.onDisconnected();
+  }
+}

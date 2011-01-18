@@ -1,0 +1,15 @@
+{
+  unbind();
+  Window w=Window.current();
+  socket=getSocket(w,name);
+  if (socket == null) {
+    Sockets sockets=w.getObject("sockets");
+    if (sockets == null) {
+      sockets=Sockets.create();
+      w.set("sockets",sockets);
+    }
+    socket=SocketImpl.create(name);
+    sockets.set(socket,name);
+  }
+  queueTimer.scheduleRepeating(250);
+}

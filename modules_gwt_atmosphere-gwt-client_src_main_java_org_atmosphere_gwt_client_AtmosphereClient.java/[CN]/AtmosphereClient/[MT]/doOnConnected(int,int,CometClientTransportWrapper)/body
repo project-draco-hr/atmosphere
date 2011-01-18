@@ -1,0 +1,22 @@
+{
+  if (refreshState != null) {
+    if (transport == refreshTransport) {
+      if (refreshState == RefreshState.PRIMARY_DISCONNECTED) {
+        doneRefresh();
+      }
+ else       if (refreshState == RefreshState.CONNECTING) {
+        primaryTransport.disconnect();
+        doneRefresh();
+      }
+ else {
+        throw new IllegalStateException("Unexpected refresh state");
+      }
+    }
+ else {
+      throw new IllegalStateException("Unexpected connection from primairyTransport");
+    }
+  }
+ else {
+    listener.onConnected(heartbeat,connectionID);
+  }
+}

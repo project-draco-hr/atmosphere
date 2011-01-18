@@ -1,0 +1,233 @@
+{
+  if (len == 0)   return;
+  int origOff=off;
+  if (huffOnly) {
+    int[] sb=buffer;
+    int sbPtr=bufferPtr;
+    int sbLen=sb.length;
+    while (len-- > 0) {
+      int bv=buf[off++] & 0xFF;
+      sb[sbPtr++]=bv;
+      if (sbPtr == sbLen) {
+        updateUCBuffer(buf,origOff,off);
+        origOff=off;
+        endBlock(false,sbPtr);
+        sbPtr=0;
+      }
+    }
+    bufferPtr=sbPtr;
+    updateUCBuffer(buf,origOff,off);
+    return;
+  }
+  if (windowState < 2) {
+    int bv=buf[off++] & 0xFF;
+    len--;
+    if (windowState == 0) {
+      recentBytes=bv;
+      seqLen=1;
+      if (len == 0) {
+        updateUCBuffer(buf,origOff,off);
+        return;
+      }
+      bv=buf[off++] & 0xFF;
+      len--;
+    }
+    recentBytes=(recentBytes << 8) | bv;
+    windowState=2;
+    seqLen=2;
+    if (len == 0) {
+      updateUCBuffer(buf,origOff,off);
+      return;
+    }
+  }
+  int[] win=window;
+  int winMask=win.length - 1;
+  int winPtr=windowPtr;
+  int recent=recentBytes;
+  char[] wlink=windowLink;
+  char[] ht=hashTable;
+  int htMask=ht.length - 1;
+  int sLen=seqLen;
+  int sPtr=seqPtr;
+  int sDist=seqDist;
+  int[] sb=buffer;
+  int sbPtr=bufferPtr;
+  int sbLen=sb.length;
+  int maxCL0=maxChainLengthTriplet;
+  int maxDistCL0=maxDistanceTriplet;
+  int maxCL1=maxChainLengthSeq1;
+  int maxDistCL1=maxDistanceSeq1;
+  int goodSLen=goodSequenceLength;
+  int maxLLen=maxLazyLength;
+  int maxCL2=maxChainLengthSeq2;
+  int maxDistCL2=maxDistanceSeq2;
+  loop:   while (len-- > 0) {
+    int b0=buf[off++] & 0xFF;
+    int triplet=(recent << 8) | b0;
+    recent=triplet & 0xFFFF;
+    win[winPtr]=triplet;
+    int h=(triplet + (triplet >>> 4) + (triplet >>> 8)+ (triplet >>> 9) - (triplet >>> 16)) & htMask;
+    int link=ht[h] - 1;
+    int dist;
+    if (link < 0) {
+      dist=0;
+    }
+ else {
+      int pv=win[link];
+      int ph=(pv + (pv >>> 4) + (pv >>> 8)+ (pv >>> 9) - (pv >>> 16)) & htMask;
+      if (ph == h) {
+        dist=(winPtr - link) & winMask;
+      }
+ else {
+        dist=0;
+      }
+    }
+    ht[h]=(char)(winPtr + 1);
+    wlink[winPtr]=(char)dist;
+    int thisPtr=winPtr;
+    winPtr=(winPtr + 1) & winMask;
+    if (sLen < 2) {
+      sLen++;
+      continue loop;
+    }
+    if (sLen == 2) {
+      if (dist == 0) {
+        sb[sbPtr++]=triplet >>> 16;
+        if (sbPtr == sbLen) {
+          updateUCBuffer(buf,origOff,off);
+          origOff=off;
+          endBlock(false,sbPtr);
+          sbPtr=0;
+        }
+        continue loop;
+      }
+      sDist=dist;
+      findTriplet:       do {
+        int n=link;
+        int chainLen=maxCL0;
+        while (chainLen-- > 0) {
+          if (win[n] == triplet)           break findTriplet;
+          int d=wlink[n];
+          if (d == 0)           break;
+          sDist+=d;
+          if (sDist > maxDistCL0)           break;
+          n=(n - d) & winMask;
+        }
+        sDist=0;
+      }
+ while (false);
+      if (sDist == 0) {
+        sb[sbPtr++]=triplet >>> 16;
+        if (sbPtr == sbLen) {
+          updateUCBuffer(buf,origOff,off);
+          origOff=off;
+          endBlock(false,sbPtr);
+          sbPtr=0;
+        }
+      }
+ else {
+        sPtr=(thisPtr - sDist) & winMask;
+        sLen=3;
+        if (sPtr == winPtr) {
+          sb[sbPtr++]=makeCopySymbol(sLen,sDist);
+          if (sbPtr == sbLen) {
+            updateUCBuffer(buf,origOff,off);
+            origOff=off;
+            endBlock(false,sbPtr);
+            sbPtr=0;
+          }
+          sLen=0;
+        }
+      }
+      continue loop;
+    }
+    if (win[(thisPtr - sDist) & winMask] == triplet) {
+      sLen++;
+      if (sPtr == winPtr || sLen == 258) {
+        sb[sbPtr++]=makeCopySymbol(sLen,sDist);
+        if (sbPtr == sbLen) {
+          updateUCBuffer(buf,origOff,off);
+          origOff=off;
+          endBlock(false,sbPtr);
+          sbPtr=0;
+        }
+        sLen=0;
+      }
+      continue loop;
+    }
+    int sDistNew=findPreviousSequence(win,winMask,wlink,sPtr,sDist,sLen - 2,triplet,sLen > goodSLen ? (maxCL1 >>> 2) : maxCL1,maxDistCL1);
+    if (sDistNew > 0) {
+      sDist=sDistNew;
+      sPtr=(thisPtr - (sLen - 2) - sDistNew) & winMask;
+      sLen++;
+      if (sPtr == winPtr || sLen == 258) {
+        sb[sbPtr++]=makeCopySymbol(sLen,sDist);
+        if (sbPtr == sbLen) {
+          updateUCBuffer(buf,origOff,off);
+          origOff=off;
+          endBlock(false,sbPtr);
+          sbPtr=0;
+        }
+        sLen=0;
+      }
+      continue loop;
+    }
+    if (sLen <= maxLLen) {
+      int refPtr=(thisPtr - (sLen - 2) + 1) & winMask;
+      int mdc=maxDistCL2;
+      if (mdc > sDist)       mdc=sDist;
+      sDistNew=findPreviousSequence(win,winMask,wlink,refPtr,0,sLen - 3,triplet,maxCL2,mdc);
+      if (sDistNew > 0) {
+        sb[sbPtr++]=win[sPtr] >>> 16;
+        if (sbPtr == sbLen) {
+          updateUCBuffer(buf,origOff,off);
+          origOff=off;
+          endBlock(false,sbPtr);
+          sbPtr=0;
+        }
+        sDist=sDistNew;
+        sPtr=(refPtr - sDistNew) & winMask;
+        if (sPtr == winPtr) {
+          sb[sbPtr++]=makeCopySymbol(sLen,sDist);
+          if (sbPtr == sbLen) {
+            updateUCBuffer(buf,origOff,off);
+            origOff=off;
+            endBlock(false,sbPtr);
+            sbPtr=0;
+          }
+          sLen=0;
+        }
+        continue loop;
+      }
+    }
+    if (sLen == 3 && sDist > 6144) {
+      int ot=win[sPtr];
+      for (int k=16; k >= 0; k-=8) {
+        sb[sbPtr++]=(ot >>> k) & 0xFF;
+        if (sbPtr == sbLen) {
+          updateUCBuffer(buf,origOff,off);
+          origOff=off;
+          endBlock(false,sbPtr);
+          sbPtr=0;
+        }
+      }
+    }
+ else {
+      sb[sbPtr++]=makeCopySymbol(sLen,sDist);
+      if (sbPtr == sbLen) {
+        updateUCBuffer(buf,origOff,off);
+        origOff=off;
+        endBlock(false,sbPtr);
+        sbPtr=0;
+      }
+    }
+    sLen=1;
+  }
+  windowPtr=winPtr;
+  recentBytes=recent;
+  seqLen=sLen;
+  seqPtr=sPtr;
+  seqDist=sDist;
+  bufferPtr=sbPtr;
+  updateUCBuffer(buf,origOff,off);
+}

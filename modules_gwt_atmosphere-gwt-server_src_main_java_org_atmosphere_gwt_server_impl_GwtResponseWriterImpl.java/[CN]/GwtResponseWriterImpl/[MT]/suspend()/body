@@ -1,0 +1,21 @@
+{
+  try {
+synchronized (this) {
+      if (terminated) {
+        return;
+      }
+      if (logger.isTraceEnabled()) {
+        logger.trace("Suspending [" + connectionID + "]");
+      }
+      doSuspend();
+      flush();
+    }
+  }
+ catch (  IOException e) {
+    logger.error("Error suspending response",e);
+synchronized (this) {
+      setTerminated(false);
+    }
+    throw e;
+  }
+}

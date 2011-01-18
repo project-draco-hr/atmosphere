@@ -1,0 +1,12 @@
+{
+  if (message == null || message.isEmpty()) {
+    return null;
+  }
+  AtmosphereGWTSerializer serializer=client.getSerializer();
+  if (serializer == null) {
+    throw new SerializationException("Can not deserialize message with no serializer: " + message);
+  }
+ else {
+    return serializer.parse(message);
+  }
+}

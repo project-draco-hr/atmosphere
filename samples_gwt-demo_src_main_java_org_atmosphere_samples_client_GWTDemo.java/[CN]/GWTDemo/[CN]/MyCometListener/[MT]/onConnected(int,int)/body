@@ -1,0 +1,3 @@
+{
+  GWT.log("comet.connected [" + heartbeat + ", "+ connectionID+ "]");
+}

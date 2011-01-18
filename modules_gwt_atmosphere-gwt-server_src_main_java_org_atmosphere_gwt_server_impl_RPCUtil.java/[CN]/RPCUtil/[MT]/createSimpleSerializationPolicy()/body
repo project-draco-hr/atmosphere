@@ -1,0 +1,19 @@
+{
+  if (policy != null) {
+    return policy;
+  }
+  policy=new SerializationPolicy(){
+    @Override public boolean shouldDeserializeFields(    final Class<?> clazz){
+      return Object.class != clazz;
+    }
+    @Override public boolean shouldSerializeFields(    final Class<?> clazz){
+      return Object.class != clazz;
+    }
+    @Override public void validateDeserialize(    final Class<?> clazz){
+    }
+    @Override public void validateSerialize(    final Class<?> clazz){
+    }
+  }
+;
+  return policy;
+}

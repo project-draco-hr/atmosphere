@@ -1,0 +1,9 @@
+{
+  if (messages == null) {
+    return;
+  }
+  GwtAtmosphereResource r=lookupResource(connectionID);
+  if (r != null) {
+    doPost(messages,r);
+  }
+}

@@ -1,0 +1,34 @@
+{
+  if (statusCode != Response.SC_OK) {
+    if (!connected) {
+      expectingDisconnection=true;
+      listener.onError(new StatusCodeException(statusCode,responseText),connected);
+    }
+  }
+ else {
+    int index=responseText.lastIndexOf(SEPARATOR);
+    if (index > read) {
+      List<Serializable> messages=new ArrayList<Serializable>();
+      JsArrayString data=AtmosphereClient.split(responseText.substring(read,index),SEPARATOR);
+      int length=data.length();
+      for (int i=0; i < length; i++) {
+        if (aborted) {
+          return;
+        }
+        parse(data.get(i),messages);
+      }
+      read=index + 1;
+      if (!messages.isEmpty()) {
+        listener.onMessage(messages);
+      }
+    }
+    if (!connected) {
+      if (expectingDisconnection) {
+        listener.onDisconnected();
+      }
+ else {
+        listener.onError(new AtmosphereClientException("Unexpected disconnection"),false);
+      }
+    }
+  }
+}

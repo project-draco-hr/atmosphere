@@ -1,0 +1,7 @@
+{
+  setMenubar(menubar);
+  setToolbar(toolbar);
+  setLocation(location);
+  setPersonalbar(personalbar);
+  setStatus(status);
+}

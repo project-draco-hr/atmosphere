@@ -1,0 +1,4 @@
+{
+  intValues.put(name,value);
+  return this;
+}

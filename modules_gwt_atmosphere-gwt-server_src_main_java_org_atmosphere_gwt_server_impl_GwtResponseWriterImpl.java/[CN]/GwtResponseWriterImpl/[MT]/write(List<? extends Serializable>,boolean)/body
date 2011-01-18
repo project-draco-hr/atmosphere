@@ -1,0 +1,25 @@
+{
+  if (terminated) {
+    throw new IOException("CometServletResponse terminated");
+  }
+  try {
+    if (messages.size() == 1 && messages.get(0) instanceof Heartbeat) {
+      heartbeat();
+    }
+ else {
+      if (logger.isTraceEnabled()) {
+        logger.trace("Writing #" + messages.size() + " messages to ["+ connectionID+ "]");
+      }
+      doWrite(messages);
+      if (flush) {
+        flush();
+      }
+      scheduleHeartbeat();
+    }
+  }
+ catch (  IOException e) {
+    resource.resumeAfterDeath();
+    setTerminated(false);
+    throw e;
+  }
+}

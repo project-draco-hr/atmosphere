@@ -1,0 +1,6 @@
+{
+  if (messages == null) {
+    return;
+  }
+  getBroadcaster().broadcast(messages);
+}

@@ -1,0 +1,19 @@
+{
+  StringBuilder packet=new StringBuilder();
+  for (  Serializable message : messages) {
+    if (message instanceof String) {
+      packet.append("s\np").append(message).append("\n\n");
+    }
+ else {
+      try {
+        packet.append("o\np").append(serialize(message)).append("\n\n");
+      }
+ catch (      SerializationException ex) {
+        logger.log(Level.SEVERE,null,ex);
+      }
+    }
+  }
+  if (packet.length() > 0) {
+    send(packet.toString(),callback);
+  }
+}

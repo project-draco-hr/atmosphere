@@ -1,0 +1,4 @@
+{
+  deflater.flushSync(true);
+  deflater.getOut().flush();
+}

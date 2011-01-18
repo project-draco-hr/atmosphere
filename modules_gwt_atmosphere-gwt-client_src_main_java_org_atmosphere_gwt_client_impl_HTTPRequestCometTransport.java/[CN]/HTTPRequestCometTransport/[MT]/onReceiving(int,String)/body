@@ -1,0 +1,3 @@
+{
+  onReceiving(statusCode,responseText,true);
+}

@@ -1,0 +1,20 @@
+{
+  if (getPushMode() == SerialMode.RPC) {
+    try {
+      Serializer serializer=getSerializer();
+      ClientSerializationStreamWriter writer=new ClientSerializationStreamWriter(serializer,GWT.getModuleBaseURL(),GWT.getPermutationStrongName());
+      writer.prepareToWrite();
+      writer.writeObject(message);
+      return writer.toString();
+    }
+ catch (    RuntimeException e) {
+      throw new SerializationException(e);
+    }
+  }
+ else   if (getPushMode() == SerialMode.PLAIN) {
+    return message.toString();
+  }
+ else {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+}

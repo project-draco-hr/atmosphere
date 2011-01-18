@@ -1,0 +1,5 @@
+{
+  if (refreshState == null && transport == primaryTransport) {
+    listener.onBeforeDisconnected();
+  }
+}

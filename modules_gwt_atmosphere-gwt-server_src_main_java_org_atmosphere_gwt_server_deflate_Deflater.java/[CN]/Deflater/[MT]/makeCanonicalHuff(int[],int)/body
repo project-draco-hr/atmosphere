@@ -1,0 +1,30 @@
+{
+  int alphLen=codeLen.length;
+  int actualAlphLen=0;
+  int[] blCount=new int[maxCodeLen + 1];
+  for (int n=0; n < alphLen; n++) {
+    int len=codeLen[n];
+    if (len < 0 || len > maxCodeLen)     return null;
+    if (len > 0) {
+      actualAlphLen=n + 1;
+      blCount[len]++;
+    }
+  }
+  int[] nextCode=new int[maxCodeLen + 1];
+  int codeVal=0;
+  for (int bits=1; bits <= maxCodeLen; bits++) {
+    codeVal=(codeVal + blCount[bits - 1]) << 1;
+    nextCode[bits]=codeVal;
+  }
+  int[] code=new int[actualAlphLen];
+  for (int n=0; n < actualAlphLen; n++) {
+    int len=codeLen[n];
+    if (len != 0) {
+      int w=nextCode[len];
+      if (w >= (1 << len))       return null;
+      code[n]=reverse(w,len);
+      nextCode[len]=w + 1;
+    }
+  }
+  return code;
+}

@@ -1,0 +1,3 @@
+{
+  return loadSerializationPolicy(this,request,moduleBaseURL,strongName);
+}

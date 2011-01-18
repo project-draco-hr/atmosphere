@@ -1,0 +1,29 @@
+{
+  int symlen, elen;
+  if (len <= 10) {
+    symlen=254 + len;
+    elen=0;
+  }
+ else   if (len == 258) {
+    symlen=285;
+    elen=0;
+  }
+ else {
+    int i;
+    for (i=9; i < 29; i++)     if (LENGTH[i] > len)     break;
+    symlen=256 + i;
+    elen=len - LENGTH[i - 1];
+  }
+  int symdist, edist;
+  if (dist <= 4) {
+    symdist=dist - 1;
+    edist=0;
+  }
+ else {
+    int i;
+    for (i=5; i < 30; i++)     if (DIST[i] > dist)     break;
+    symdist=i - 1;
+    edist=dist - DIST[i - 1];
+  }
+  return symlen + (elen << 9) + (symdist << 14)+ (edist << 19);
+}

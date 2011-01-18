@@ -1,0 +1,4 @@
+{
+  cancelTimers();
+  doOnError(exception,connected,this);
+}

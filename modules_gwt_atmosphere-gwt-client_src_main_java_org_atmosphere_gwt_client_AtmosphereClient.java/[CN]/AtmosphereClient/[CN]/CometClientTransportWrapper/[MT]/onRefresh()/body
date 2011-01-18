@@ -1,0 +1,4 @@
+{
+  lastReceivedTime=Duration.currentTimeMillis();
+  doOnRefresh(this);
+}

@@ -1,0 +1,30 @@
+{
+  aborted=true;
+  expectingDisconnection=true;
+  super.disconnect();
+  if (xmlHttpRequest != null) {
+    if (xmlHttpRequest.getReadyState() >= XMLHttpRequest.HEADERS_RECEIVED) {
+      xmlHttpRequest.clearOnReadyStateChange();
+      if (xmlHttpRequest.getReadyState() != XMLHttpRequest.DONE) {
+        listener.onDisconnected();
+        xmlHttpRequest.abort();
+      }
+      xmlHttpRequest=null;
+    }
+ else {
+      new Timer(){
+        XMLHttpRequest r=xmlHttpRequest;
+        @Override public void run(){
+          r.clearOnReadyStateChange();
+          if (r.getReadyState() != XMLHttpRequest.DONE && r.getReadyState() != XMLHttpRequest.UNSENT) {
+            listener.onDisconnected();
+            r.abort();
+          }
+          r=null;
+        }
+      }
+.schedule(5000);
+      xmlHttpRequest=null;
+    }
+  }
+}

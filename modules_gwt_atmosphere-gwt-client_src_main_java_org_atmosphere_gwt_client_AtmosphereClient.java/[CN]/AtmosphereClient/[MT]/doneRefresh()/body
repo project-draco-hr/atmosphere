@@ -1,0 +1,23 @@
+{
+  refreshState=null;
+  CometClientTransportWrapper temp=primaryTransport;
+  primaryTransport=refreshTransport;
+  refreshTransport=temp;
+  if (refreshQueue != null) {
+    if (refreshQueue.size() > 0) {
+      GWT.log("CometClient: pushing queued messages");
+    }
+    for (    Object object : refreshQueue) {
+      if (object == REFRESH) {
+        doOnRefresh(primaryTransport);
+      }
+ else       if (object == DISCONNECT) {
+        doOnDisconnected(primaryTransport);
+      }
+ else {
+        doOnMessage((List<? extends Serializable>)object,primaryTransport);
+      }
+    }
+    refreshQueue.clear();
+  }
+}

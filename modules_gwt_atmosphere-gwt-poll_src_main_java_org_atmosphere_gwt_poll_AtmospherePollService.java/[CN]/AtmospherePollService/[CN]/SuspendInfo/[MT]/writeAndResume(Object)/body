@@ -1,0 +1,9 @@
+{
+  try {
+    AtmospherePollService.writeResponse(atm,message);
+  }
+  finally {
+    atm.getRequest().removeAttribute(GWT_SUSPENDED);
+    atm.resume();
+  }
+}

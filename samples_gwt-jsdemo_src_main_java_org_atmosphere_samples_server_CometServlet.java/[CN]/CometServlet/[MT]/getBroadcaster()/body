@@ -1,0 +1,3 @@
+{
+  return BroadcasterFactory.getDefault().lookup(Broadcaster.class,"GWT_JS_COMET");
+}

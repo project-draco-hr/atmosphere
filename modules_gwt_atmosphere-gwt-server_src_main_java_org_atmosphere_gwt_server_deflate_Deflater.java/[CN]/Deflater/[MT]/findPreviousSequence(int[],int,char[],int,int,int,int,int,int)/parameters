@@ -1,0 +1,9 @@
+int[] win
+int winMask
+char[] wlink
+int orig
+int dist
+int len
+int end
+int maxLen
+int maxDist

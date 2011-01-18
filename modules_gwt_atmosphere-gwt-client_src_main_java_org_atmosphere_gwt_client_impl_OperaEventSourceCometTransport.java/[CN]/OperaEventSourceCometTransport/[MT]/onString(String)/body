@@ -1,0 +1,3 @@
+{
+  listener.onMessage(Collections.singletonList(HTTPRequestCometTransport.unescape(message)));
+}

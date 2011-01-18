@@ -1,0 +1,3 @@
+int statusCode
+String responseText
+boolean connected

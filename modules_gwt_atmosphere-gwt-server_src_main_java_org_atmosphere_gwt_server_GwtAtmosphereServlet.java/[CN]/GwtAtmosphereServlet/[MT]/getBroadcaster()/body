@@ -1,0 +1,12 @@
+{
+  try {
+    return BroadcasterFactory.getDefault().get();
+  }
+ catch (  IllegalAccessException ex) {
+    logger.error("Failed to get broadcaster",ex);
+  }
+catch (  InstantiationException ex) {
+    logger.error("Failed to get broadcaster",ex);
+  }
+  return null;
+}

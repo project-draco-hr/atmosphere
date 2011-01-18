@@ -1,0 +1,13 @@
+{
+  if (message instanceof String) {
+    send("s\nb" + message + "\n\n",defaultCallback);
+  }
+ else {
+    try {
+      send("o\nb" + serialize(message) + "\n\n",defaultCallback);
+    }
+ catch (    SerializationException ex) {
+      logger.log(Level.SEVERE,"Failed to serialize message",ex);
+    }
+  }
+}

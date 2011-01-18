@@ -1,0 +1,136 @@
+{
+  if (noOutput) {
+    bufferPtr=0;
+    return;
+  }
+  int[] sb=buffer;
+  int[] freqLit=new int[286];
+  int[] freqDist=new int[30];
+  freqLit[256]=1;
+  int csU=0;
+  for (int i=0; i < sbPtr; i++) {
+    int val=sb[i];
+    int sym=val & 0x1FF;
+    freqLit[sym]++;
+    if (sym < 256) {
+      csU+=8;
+      continue;
+    }
+    csU+=8 * (LENGTH[sym - 257] + ((val >>> 9) & 0x1F));
+    int dist=(val >>> 14) & 0x1F;
+    freqDist[dist]++;
+  }
+  int csUextra=0;
+  for (int t=0; t < csU; t+=65535) {
+    if (t == 0) {
+      if (outPtr > 5) {
+        csUextra=48 - outPtr;
+      }
+ else {
+        csUextra=40 - outPtr;
+      }
+    }
+ else {
+      csUextra+=40;
+    }
+  }
+  int uDataLen=(csU >>> 3);
+  csU+=csUextra;
+  Huff huff=new Huff(freqLit,freqDist);
+  int csD=huff.getDynamicBitLength();
+  int csF=huff.getFixedBitLength();
+  if (csU <= csF && csU <= csD) {
+    writeBits(fin ? 1 : 0,3);
+    if (outPtr > 0)     writeBits(0,8 - outPtr);
+    writeBits(uDataLen | (~uDataLen << 16),32);
+    sendBuffered();
+    out.write(ucBuffer,0,uDataLen);
+  }
+ else   if (csF <= csD) {
+    writeBits(fin ? 3 : 2,3);
+    for (int i=0; i < sbPtr; i++) {
+      int val=buffer[i];
+      int sym=val & 0x1FF;
+      if (sym < 256) {
+        writeBits(FIXED_LIT_CODE[sym],sym < 144 ? 8 : 9);
+        continue;
+      }
+      writeBits(FIXED_LIT_CODE[sym],sym < 280 ? 7 : 8);
+      int eLenNum=LENGTH_ENUM[sym - 257];
+      if (eLenNum > 0)       writeBits((val >>> 9) & 0x1F,eLenNum);
+      int dist=(val >>> 14) & 0x1F;
+      writeBits(FIXED_DIST_CODE[dist],5);
+      int eDistNum=DIST_ENUM[dist];
+      if (eDistNum > 0)       writeBits(val >>> 19,eDistNum);
+    }
+    writeBits(FIXED_LIT_CODE[256],7);
+  }
+ else {
+    int[] litCode=huff.getLitCode();
+    int[] litCodeLen=huff.getLitCodeLen();
+    int[] distCode=huff.getDistCode();
+    int[] distCodeLen=huff.getDistCodeLen();
+    int[] compTrees=huff.getCompTrees();
+    int compTreesLen=compTrees.length;
+    int[] ctCode=huff.getCTCode();
+    int[] ctCodeLen=huff.getCTCodeLen();
+    int[] permCT=huff.getPermCT();
+    int permCTLen=permCT.length;
+    writeBits(fin ? 5 : 4,3);
+    writeBits(litCode.length - 257,5);
+    writeBits(distCode.length - 1,5);
+    writeBits(permCTLen - 4,4);
+    for (int i=0; i < permCTLen; i++)     writeBits(permCT[i],3);
+    for (int i=0; i < compTreesLen; i++) {
+      int v=compTrees[i];
+      int s=v & 0x1F;
+      writeBits(ctCode[s],ctCodeLen[s]);
+      int ebits;
+switch (s) {
+case 16:
+        ebits=2;
+      break;
+case 17:
+    ebits=3;
+  break;
+case 18:
+ebits=7;
+break;
+default :
+continue;
+}
+writeBits((v >>> 5),ebits);
+}
+for (int i=0; i < sbPtr; i++) {
+int val=buffer[i];
+int sym=val & 0x1FF;
+writeBits(litCode[sym],litCodeLen[sym]);
+if (sym < 256) continue;
+int eLenNum=LENGTH_ENUM[sym - 257];
+if (eLenNum > 0) writeBits((val >>> 9) & 0x1F,eLenNum);
+int dist=(val >>> 14) & 0x1F;
+writeBits(distCode[dist],distCodeLen[dist]);
+int eDistNum=DIST_ENUM[dist];
+if (eDistNum > 0) writeBits(val >>> 19,eDistNum);
+}
+writeBits(litCode[256],litCodeLen[256]);
+}
+sendBuffered();
+bufferPtr=0;
+int uLen=ucBuffer.length;
+int uRealLen=ucBufferPtr;
+while (uRealLen < uDataLen) uRealLen+=uLen;
+if (uDataLen < uRealLen) {
+int tm=uRealLen - uDataLen;
+if (tm > 258) throw new Error("too much data: " + tm);
+if (tm <= ucBufferPtr) {
+System.arraycopy(ucBuffer,ucBufferPtr - tm,ucBuffer,0,tm);
+}
+ else {
+int fpl=tm - ucBufferPtr;
+System.arraycopy(ucBuffer,0,ucBuffer,fpl,ucBufferPtr);
+System.arraycopy(ucBuffer,uLen - fpl,ucBuffer,0,fpl);
+}
+}
+ucBufferPtr=uRealLen - uDataLen;
+}

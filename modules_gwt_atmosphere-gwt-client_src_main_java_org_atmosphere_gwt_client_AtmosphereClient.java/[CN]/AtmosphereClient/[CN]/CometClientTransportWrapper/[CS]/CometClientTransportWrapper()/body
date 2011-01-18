@@ -1,0 +1,5 @@
+{
+  transport=GWT.create(CometTransport.class);
+  GWT.log("Created transport: " + transport.getClass().getName());
+  transport.initiate(AtmosphereClient.this,this);
+}
