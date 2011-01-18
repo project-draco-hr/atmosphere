@@ -1,0 +1,16 @@
+{
+  if (refreshState == null && transport == primaryTransport) {
+    refreshState=RefreshState.CONNECTING;
+    if (refreshTransport == null) {
+      refreshTransport=new CometClientTransportWrapper();
+    }
+    refreshTransport.connect();
+    listener.onRefresh();
+  }
+ else   if (transport == refreshTransport) {
+    refreshEnqueue(REFRESH);
+  }
+ else {
+    throw new IllegalStateException("Unexpected refresh from primaryTransport");
+  }
+}

@@ -1,0 +1,16 @@
+{
+  for (  Serializable message : messages) {
+    CharSequence string;
+    char event;
+    if (message instanceof CharSequence) {
+      string=HTTPRequestResponseWriter.escape((CharSequence)message);
+      event='s';
+    }
+ else {
+      string=serialize(message);
+      event='o';
+    }
+    writer.append(event).append('\n');
+    writer.append(string).append("\n\n");
+  }
+}

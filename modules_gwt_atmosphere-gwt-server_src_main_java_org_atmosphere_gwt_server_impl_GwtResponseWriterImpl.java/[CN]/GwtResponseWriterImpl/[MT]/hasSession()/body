@@ -1,0 +1,4 @@
+{
+  HttpSession session=resource.getSession(false);
+  return session != null;
+}

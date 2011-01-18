@@ -1,0 +1,10 @@
+{
+  AtmosphereGwtHandler s=atmosphereHandler;
+  if (s != null) {
+    atmosphereHandler=null;
+    if (suspended) {
+      atmResource.resume();
+    }
+    s.cometTerminated(this,serverInitiated);
+  }
+}

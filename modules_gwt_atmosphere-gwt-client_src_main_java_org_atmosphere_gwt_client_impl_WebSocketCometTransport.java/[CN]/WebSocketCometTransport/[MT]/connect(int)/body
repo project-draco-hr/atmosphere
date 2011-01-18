@@ -1,0 +1,8 @@
+{
+  disconnect();
+  String url=getUrl(connectionCount);
+  url=url.replaceFirst("http://","ws://");
+  url=url.replaceFirst("https://","wss://");
+  socket=WebSocket.create(url);
+  socket.setListener(socketListener);
+}

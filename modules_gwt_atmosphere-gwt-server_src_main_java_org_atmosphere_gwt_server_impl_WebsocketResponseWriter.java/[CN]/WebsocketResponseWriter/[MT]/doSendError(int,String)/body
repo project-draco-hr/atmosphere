@@ -1,0 +1,7 @@
+{
+  writer.append("c\ne").append(String.valueOf(statusCode));
+  if (message != null) {
+    writer.append(' ').append(HTTPRequestResponseWriter.escape(message));
+  }
+  writer.append("\n\n");
+}

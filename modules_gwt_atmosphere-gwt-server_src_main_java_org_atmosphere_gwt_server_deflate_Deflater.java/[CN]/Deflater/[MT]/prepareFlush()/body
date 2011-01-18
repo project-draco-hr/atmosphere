@@ -1,0 +1,21 @@
+{
+switch (seqLen) {
+case 0:
+    break;
+case 1:
+  buffer[bufferPtr++]=recentBytes & 0xFF;
+if (bufferPtr == buffer.length) endBlock(false,bufferPtr);
+break;
+case 2:
+buffer[bufferPtr++]=(recentBytes >>> 8) & 0xFF;
+if (bufferPtr == buffer.length) endBlock(false,bufferPtr);
+buffer[bufferPtr++]=recentBytes & 0xFF;
+if (bufferPtr == buffer.length) endBlock(false,bufferPtr);
+break;
+default :
+buffer[bufferPtr++]=makeCopySymbol(seqLen,seqDist);
+if (bufferPtr == buffer.length) endBlock(false,bufferPtr);
+break;
+}
+seqLen=0;
+}

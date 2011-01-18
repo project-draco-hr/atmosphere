@@ -1,0 +1,3 @@
+{
+  return listeners.addHandler(MessageEvent.getType(),handler);
+}

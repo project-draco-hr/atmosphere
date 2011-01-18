@@ -1,0 +1,4 @@
+{
+  listener.onBeforeDisconnected();
+  getServerTransport().disconnect();
+}

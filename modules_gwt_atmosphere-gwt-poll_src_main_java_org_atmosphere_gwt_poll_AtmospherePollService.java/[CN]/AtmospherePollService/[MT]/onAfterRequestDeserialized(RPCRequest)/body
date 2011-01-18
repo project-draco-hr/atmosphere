@@ -1,0 +1,3 @@
+{
+  getAtmosphereResource().getRequest().setAttribute(GWT_REQUEST,rpcRequest);
+}

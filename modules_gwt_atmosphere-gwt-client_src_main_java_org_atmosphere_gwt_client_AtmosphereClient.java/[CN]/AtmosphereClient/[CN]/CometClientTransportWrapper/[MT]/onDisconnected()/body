@@ -1,0 +1,8 @@
+{
+  cancelTimers();
+  if (transport instanceof WebSocketCometTransport && webSocketSuccessful == false) {
+    transport=GWT.create(CometTransport.class);
+    transport.initiate(AtmosphereClient.this,this);
+  }
+  doOnDisconnected(this);
+}

@@ -1,0 +1,10 @@
+{
+  if (running) {
+    running=false;
+    if (unloadHandlerReg != null) {
+      unloadHandlerReg.removeHandler();
+      unloadHandlerReg=null;
+    }
+    doDisconnect();
+  }
+}

@@ -1,0 +1,5 @@
+int[] tree
+int idx
+int depth
+int[] blCount
+int maxCodeLen

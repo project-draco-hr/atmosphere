@@ -1,0 +1,74 @@
+{
+  Button button=new Button("Broadcast");
+  button.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      sendMessage();
+    }
+  }
+);
+  Button post=new Button("Post");
+  post.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      client.post(new Event(count++,"This was send using the post mechanism"));
+    }
+  }
+);
+  Button pollButton=new Button("Poll");
+  pollButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      polling.pollDelayed(3000,new AsyncCallback<Event>(){
+        @Override public void onFailure(        Throwable caught){
+          GWT.log("Failed to poll",caught);
+        }
+        @Override public void onSuccess(        Event result){
+          Info.display("Polling message received: " + result.getCode(),result.getData());
+        }
+      }
+);
+    }
+  }
+);
+  Button wnd=new Button("Open Window");
+  wnd.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      Scheduler.get().scheduleDeferred(new ScheduledCommand(){
+        @Override public void execute(){
+          screen=Window.current().open(Document.get().getURL(),"child",new WindowFeatures().setStatus(true).setResizable(true));
+        }
+      }
+);
+    }
+  }
+);
+  Button sendWindow=new Button("Send to window");
+  sendWindow.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      if (screen != null) {
+        WindowSocket.post(screen,"wsock","Hello Child!");
+      }
+    }
+  }
+);
+  WindowSocket socket=new WindowSocket();
+  socket.addHandler(new WindowSocket.MessageHandler(){
+    @Override public void onMessage(    String message){
+      Info.display("Received through window socket",message);
+    }
+  }
+);
+  socket.bind("wsock");
+  RootPanel.get("buttons").add(button);
+  RootPanel.get("buttons").add(post);
+  RootPanel.get("buttons").add(pollButton);
+  RootPanel.get("buttons").add(wnd);
+  RootPanel.get("buttons").add(sendWindow);
+  initialize();
+  Button killbutton=new Button("Stop");
+  killbutton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      client.stop();
+    }
+  }
+);
+  RootPanel.get("buttons").add(killbutton);
+}

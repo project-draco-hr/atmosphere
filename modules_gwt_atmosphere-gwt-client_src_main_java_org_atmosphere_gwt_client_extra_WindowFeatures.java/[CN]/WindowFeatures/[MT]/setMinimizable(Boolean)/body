@@ -1,0 +1,4 @@
+{
+  options.put("minimizable",minimizable);
+  return this;
+}

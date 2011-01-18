@@ -1,0 +1,13 @@
+{
+  if (message instanceof String) {
+    send("s\np" + message + "\n\n",callback);
+  }
+ else {
+    try {
+      send("o\np" + serialize(message) + "\n\n",callback);
+    }
+ catch (    SerializationException ex) {
+      logger.log(Level.SEVERE,null,ex);
+    }
+  }
+}

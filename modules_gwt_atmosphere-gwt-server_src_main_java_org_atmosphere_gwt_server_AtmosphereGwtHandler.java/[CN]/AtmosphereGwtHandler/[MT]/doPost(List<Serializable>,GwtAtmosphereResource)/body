@@ -1,0 +1,8 @@
+{
+  if (messages.size() == 1) {
+    r.broadcast(messages.get(0));
+  }
+ else {
+    r.broadcast((List)messages);
+  }
+}

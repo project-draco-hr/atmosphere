@@ -1,0 +1,4 @@
+{
+  boolean gzipEncode=RPCServletUtils.acceptsGzipEncoding(request) && shouldCompressResponse(request,response,responsePayload);
+  RPCServletUtils.writeResponse(context,response,responsePayload,gzipEncode);
+}

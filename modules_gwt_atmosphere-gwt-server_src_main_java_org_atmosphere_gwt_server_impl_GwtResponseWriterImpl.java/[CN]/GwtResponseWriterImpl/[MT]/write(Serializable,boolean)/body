@@ -1,0 +1,3 @@
+{
+  write(Collections.singletonList(message),flush);
+}

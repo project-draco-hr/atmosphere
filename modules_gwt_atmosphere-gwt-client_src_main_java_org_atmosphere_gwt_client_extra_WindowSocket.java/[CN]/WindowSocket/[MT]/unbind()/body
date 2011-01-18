@@ -1,0 +1,9 @@
+{
+  if (socket != null) {
+    Sockets sockets=Window.current().getObject("sockets");
+    sockets.remove(socket);
+    queueTimer.cancel();
+    queueTimer.run();
+    socket=null;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  getResponse().setContentType("application/x-dom-event-stream");
+  writer.append("Event: c\ndata: e").append(String.valueOf(statusCode));
+  if (message != null) {
+    writer.append(' ').append(HTTPRequestResponseWriter.escape(message));
+  }
+  writer.append("\n\n");
+}

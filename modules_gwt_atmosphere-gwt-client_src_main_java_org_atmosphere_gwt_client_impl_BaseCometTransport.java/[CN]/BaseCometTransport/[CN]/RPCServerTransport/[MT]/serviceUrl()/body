@@ -1,0 +1,5 @@
+{
+  int i=client.getUrl().indexOf('?');
+  String serviceUrl=(i > 0 ? client.getUrl().substring(0,i) : client.getUrl()) + "?servertransport=rpcprotocol&connectionID=" + connectionId;
+  return serviceUrl;
+}

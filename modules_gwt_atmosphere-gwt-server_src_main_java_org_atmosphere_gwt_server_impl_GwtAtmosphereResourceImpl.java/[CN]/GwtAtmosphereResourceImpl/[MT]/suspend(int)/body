@@ -1,0 +1,11 @@
+{
+  if (!suspended) {
+    atmResource.setSerializer(serializer);
+    if (atmResource instanceof AtmosphereEventLifecycle) {
+      AtmosphereEventLifecycle ael=(AtmosphereEventLifecycle)atmResource;
+      ael.addEventListener(eventListener);
+    }
+    writer.suspend();
+    atmResource.suspend(timeout,false);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  atmResource.getRequest().setAttribute(name,value);
+}

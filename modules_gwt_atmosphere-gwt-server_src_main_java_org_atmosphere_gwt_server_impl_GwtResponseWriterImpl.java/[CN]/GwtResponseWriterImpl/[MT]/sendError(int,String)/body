@@ -1,0 +1,20 @@
+{
+  try {
+    if (writer == null) {
+      getResponse().reset();
+      getResponse().setHeader("Cache-Control","no-cache");
+      getResponse().setCharacterEncoding("UTF-8");
+      writer=new OutputStreamWriter(getResponse().getOutputStream(),"UTF-8");
+    }
+    doSendError(statusCode,message);
+  }
+ catch (  IllegalStateException e) {
+    logger.error("Error resetting response to send error: " + e.getMessage());
+  }
+catch (  IOException e) {
+    logger.debug("Failed to send error to client",e);
+  }
+ finally {
+    setTerminated(true);
+  }
+}

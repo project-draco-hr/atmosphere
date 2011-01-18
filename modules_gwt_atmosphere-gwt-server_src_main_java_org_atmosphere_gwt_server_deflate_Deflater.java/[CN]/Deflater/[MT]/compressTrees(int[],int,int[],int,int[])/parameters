@@ -1,0 +1,5 @@
+int[] tree1
+int tree1len
+int[] tree2
+int tree2len
+int[] freq

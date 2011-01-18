@@ -1,0 +1,8 @@
+{
+  AtmosphereResource<HttpServletRequest,HttpServletResponse> atm=getAtmosphereResource();
+  if (atm == null) {
+    throw new UnexpectedException("Failed to find Atmosphere resource have you setup Atmosphere?",null);
+  }
+  Boolean var=(Boolean)atm.getRequest().getAttribute(GWT_SUSPENDED);
+  return Boolean.TRUE.equals(var);
+}

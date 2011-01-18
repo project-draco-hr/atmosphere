@@ -1,0 +1,15 @@
+{
+  domain=getDomain(getDocumentDomain(),client.getUrl());
+  StringBuilder html=new StringBuilder("<html>");
+  if (domain != null) {
+    html.append("<script>document.domain='").append(domain).append("'</script>");
+  }
+  html.append("<iframe src=''></iframe></html>");
+  iframe=createIFrame(html.toString());
+  expectingDisconnection=false;
+  String url=getUrl(connectionCount);
+  if (domain != null) {
+    url+="&d=" + domain;
+  }
+  iframe.setSrc(url);
+}

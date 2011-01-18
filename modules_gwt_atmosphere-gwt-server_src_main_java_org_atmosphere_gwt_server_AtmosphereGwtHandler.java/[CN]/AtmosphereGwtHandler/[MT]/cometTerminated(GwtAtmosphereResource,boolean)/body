@@ -1,0 +1,3 @@
+{
+  resources.remove(cometResponse.getConnectionID());
+}

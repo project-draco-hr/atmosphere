@@ -1,0 +1,3 @@
+{
+  getBroadcaster().broadcast(message,atmResource);
+}

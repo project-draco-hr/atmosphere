@@ -1,0 +1,6 @@
+{
+  if (outBufPtr > 0) {
+    out.write(outBuf,0,outBufPtr);
+    outBufPtr=0;
+  }
+}

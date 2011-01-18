@@ -1,0 +1,3 @@
+{
+  return client.getSerializer().serialize(message);
+}

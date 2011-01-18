@@ -1,0 +1,11 @@
+{
+  if (!terminated) {
+    try {
+      doTerminate();
+      flush();
+    }
+  finally {
+      setTerminated(true);
+    }
+  }
+}

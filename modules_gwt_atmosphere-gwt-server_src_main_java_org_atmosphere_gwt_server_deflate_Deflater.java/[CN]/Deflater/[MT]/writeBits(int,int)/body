@@ -1,0 +1,31 @@
+{
+  if (num == 0)   return;
+  for (; ; ) {
+    int fs=8 - outPtr;
+    int v=outByte | (val << outPtr);
+    if (fs > num) {
+      outByte=v;
+      outPtr+=num;
+      return;
+    }
+ else     if (fs == num) {
+      outBuf[outBufPtr++]=(byte)v;
+      if (outBufPtr == outBuf.length) {
+        out.write(outBuf);
+        outBufPtr=0;
+      }
+      outByte=0;
+      outPtr=0;
+      return;
+    }
+    outBuf[outBufPtr++]=(byte)v;
+    if (outBufPtr == outBuf.length) {
+      out.write(outBuf);
+      outBufPtr=0;
+    }
+    val>>>=fs;
+    num-=fs;
+    outByte=0;
+    outPtr=0;
+  }
+}

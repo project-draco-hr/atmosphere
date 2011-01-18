@@ -1,0 +1,11 @@
+{
+  heartbeatTimeout=heartbeat + connectionTimeout;
+  lastReceivedTime=Duration.currentTimeMillis();
+  this.connectionID=connectionID;
+  if (transport instanceof WebSocketCometTransport) {
+    webSocketSuccessful=true;
+  }
+  cancelTimers();
+  heartbeatTimer.schedule(heartbeatTimeout);
+  doOnConnected(heartbeat,connectionID,this);
+}

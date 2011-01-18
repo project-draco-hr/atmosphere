@@ -1,0 +1,7 @@
+{
+  for (  GwtAtmosphereResource resource : resources.values()) {
+    if (!resource.isAlive()) {
+      resources.remove(resource.getConnectionID());
+    }
+  }
+}

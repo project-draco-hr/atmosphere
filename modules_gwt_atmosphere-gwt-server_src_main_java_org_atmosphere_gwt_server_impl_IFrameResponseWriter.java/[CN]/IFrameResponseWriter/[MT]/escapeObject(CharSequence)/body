@@ -1,0 +1,35 @@
+{
+  int length=(string != null) ? string.length() : 0;
+  int i=0;
+  loop:   while (i < length) {
+    char ch=string.charAt(i);
+switch (ch) {
+case '\'':
+case '\\':
+case '/':
+      break loop;
+  }
+  i++;
+}
+if (i == length) return string;
+StringBuilder str=new StringBuilder(string.length() * 2);
+str.append(string,0,i);
+while (i < length) {
+  char ch=string.charAt(i);
+switch (ch) {
+case '\'':
+    str.append("\\\'");
+  break;
+case '\\':
+str.append("\\\\");
+break;
+case '/':
+str.append("\\/");
+break;
+default :
+str.append(ch);
+}
+i++;
+}
+return str;
+}

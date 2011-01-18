@@ -1,0 +1,16 @@
+{
+  final SuspendInfo info=suspend();
+  Timer t=new Timer();
+  t.schedule(new TimerTask(){
+    @Override public void run(){
+      try {
+        info.writeAndResume(new Event(milli,"Polling: Delayed event"));
+      }
+ catch (      IOException e) {
+        logger.error("Failed to write and resume",e);
+      }
+    }
+  }
+,milli);
+  return null;
+}

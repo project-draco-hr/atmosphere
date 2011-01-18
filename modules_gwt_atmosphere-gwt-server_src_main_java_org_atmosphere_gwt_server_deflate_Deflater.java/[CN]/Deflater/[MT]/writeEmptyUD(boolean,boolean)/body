@@ -1,0 +1,5 @@
+{
+  writeBits(fin ? 1 : 0,3);
+  if (outPtr > 0)   writeBits(0,8 - outPtr);
+  if (wd)   writeBits(0xFFFF0000,32);
+}

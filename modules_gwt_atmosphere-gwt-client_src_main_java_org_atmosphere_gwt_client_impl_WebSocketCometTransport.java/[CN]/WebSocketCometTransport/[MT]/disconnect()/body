@@ -1,0 +1,7 @@
+{
+  if (socket != null) {
+    super.disconnect();
+    socket.close();
+  }
+  socket=null;
+}

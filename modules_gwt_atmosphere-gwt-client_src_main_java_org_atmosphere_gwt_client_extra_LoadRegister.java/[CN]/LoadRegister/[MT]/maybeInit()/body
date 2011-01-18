@@ -1,0 +1,11 @@
+{
+  if (!initialized) {
+    if (isFirefox()) {
+      initWindowHandlers();
+    }
+ else {
+      initRootHandlers(Document.get().getBody());
+    }
+    initialized=true;
+  }
+}

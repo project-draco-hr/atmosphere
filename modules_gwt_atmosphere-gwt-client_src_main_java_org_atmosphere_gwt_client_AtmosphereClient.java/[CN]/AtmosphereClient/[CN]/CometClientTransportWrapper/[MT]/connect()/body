@@ -1,0 +1,4 @@
+{
+  connectionTimer.schedule(connectionTimeout);
+  transport.connect(++connectionCount);
+}

@@ -1,0 +1,5 @@
+{
+  getResponse().setContentType("application/x-dom-event-stream");
+  super.initiate();
+  writer.append("Event: c\ndata: c").append(String.valueOf(resource.getHeartBeatInterval())).append(':').append(String.valueOf(connectionID)).append("\n\n");
+}

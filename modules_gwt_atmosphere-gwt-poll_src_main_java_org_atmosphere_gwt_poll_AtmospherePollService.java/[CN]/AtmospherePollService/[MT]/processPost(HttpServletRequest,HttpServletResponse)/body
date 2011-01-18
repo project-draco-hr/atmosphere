@@ -1,0 +1,9 @@
+{
+  String requestPayload=readContent(request);
+  onBeforeRequestDeserialized(requestPayload);
+  String responsePayload=processCall(requestPayload);
+  if (!isSuspended()) {
+    onAfterResponseSerialized(responsePayload);
+    writeResponse(request,response,getServletContext(),responsePayload);
+  }
+}

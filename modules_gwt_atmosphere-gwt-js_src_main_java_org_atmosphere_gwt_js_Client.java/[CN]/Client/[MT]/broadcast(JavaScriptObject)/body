@@ -1,0 +1,3 @@
+{
+  impl.broadcast(encodeJSON(message));
+}

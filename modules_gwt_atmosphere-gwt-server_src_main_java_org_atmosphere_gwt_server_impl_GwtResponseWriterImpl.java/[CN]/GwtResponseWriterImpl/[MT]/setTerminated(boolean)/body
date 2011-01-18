@@ -1,0 +1,23 @@
+{
+  if (!terminated) {
+    terminated=true;
+    if (logger.isTraceEnabled()) {
+      logger.trace("Terminating [" + connectionID + "]");
+    }
+    if (heartbeatFuture != null) {
+      heartbeatFuture.cancel(false);
+      heartbeatFuture=null;
+    }
+    if (serverInitiated) {
+      try {
+        if (writer != null) {
+          writer.close();
+        }
+      }
+ catch (      IOException e) {
+        logger.error("Error closing connection",e);
+      }
+      resource.terminate(serverInitiated);
+    }
+  }
+}

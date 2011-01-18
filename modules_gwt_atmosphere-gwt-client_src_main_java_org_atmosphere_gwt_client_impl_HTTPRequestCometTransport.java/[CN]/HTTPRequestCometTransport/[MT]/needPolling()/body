@@ -1,0 +1,4 @@
+{
+  String ua=getUserAgent();
+  return ua.contains("opera");
+}

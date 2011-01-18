@@ -1,0 +1,30 @@
+{
+  HttpServletRequest request=resource.getRequest();
+  String servertransport=request.getParameter("servertransport");
+  if ("rpcprotocol".equals(servertransport)) {
+    Integer connectionID=Integer.parseInt(request.getParameter("connectionID"));
+    doServerMessage(request.getReader(),connectionID);
+    return;
+  }
+  try {
+    int requestHeartbeat=heartbeat;
+    String requestedHeartbeat=request.getParameter("heartbeat");
+    if (requestedHeartbeat != null) {
+      try {
+        requestHeartbeat=Integer.parseInt(requestedHeartbeat);
+        if (requestHeartbeat <= 0) {
+          throw new IOException("invalid heartbeat parameter");
+        }
+        requestHeartbeat=computeHeartbeat(requestHeartbeat);
+      }
+ catch (      NumberFormatException e) {
+        throw new IOException("invalid heartbeat parameter");
+      }
+    }
+    GwtAtmosphereResourceImpl resourceWrapper=new GwtAtmosphereResourceImpl(resource,this,requestHeartbeat);
+    doCometImpl(resourceWrapper);
+  }
+ catch (  IOException e) {
+    logger.error("Unable to initiated comet" + e.getMessage(),e);
+  }
+}

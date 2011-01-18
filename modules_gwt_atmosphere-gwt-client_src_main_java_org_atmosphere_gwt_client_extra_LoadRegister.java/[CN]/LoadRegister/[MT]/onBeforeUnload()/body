@@ -1,0 +1,4 @@
+{
+  eventBus.fireEvent(beforeUnloadEvent);
+  return null;
+}

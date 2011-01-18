@@ -1,0 +1,10 @@
+{
+  GwtAtmosphereResource r=resources.get(connectionId);
+  if (r != null) {
+    return r;
+  }
+ else {
+    logger.info("Failed to find resource for [" + connectionId + "]");
+  }
+  return null;
+}

@@ -1,0 +1,7 @@
+{
+  connected=true;
+  body=iframe.getContentDocument().getBody();
+  collect();
+  this.connectionId=connectionID;
+  listener.onConnected(heartbeat,connectionID);
+}

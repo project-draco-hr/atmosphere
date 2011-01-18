@@ -1,0 +1,16 @@
+{
+  refreshState=null;
+  GWT.log("CometClient: Failed refesh");
+  if (refreshQueue != null) {
+    for (    Object object : refreshQueue) {
+      if (object == REFRESH || object == DISCONNECT) {
+      }
+ else {
+        doOnMessage((List<? extends Serializable>)object,primaryTransport);
+      }
+    }
+    refreshQueue.clear();
+  }
+  doDisconnect();
+  doConnect();
+}

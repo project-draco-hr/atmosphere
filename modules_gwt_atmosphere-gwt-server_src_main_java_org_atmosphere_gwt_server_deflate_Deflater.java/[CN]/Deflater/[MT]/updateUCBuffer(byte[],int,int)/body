@@ -1,0 +1,19 @@
+{
+  int uLen=ucBuffer.length;
+  int sInc=(uLen >>> 1);
+  while (off1 < off2) {
+    int free=uLen - ucBufferPtr;
+    int tc=off2 - off1;
+    if (tc > sInc)     tc=sInc;
+    if (tc > free) {
+      System.arraycopy(buf,off1,ucBuffer,ucBufferPtr,free);
+      System.arraycopy(buf,off1 + free,ucBuffer,0,tc - free);
+      ucBufferPtr=tc - free;
+    }
+ else {
+      System.arraycopy(buf,off1,ucBuffer,ucBufferPtr,tc);
+      ucBufferPtr+=tc;
+    }
+    off1+=tc;
+  }
+}

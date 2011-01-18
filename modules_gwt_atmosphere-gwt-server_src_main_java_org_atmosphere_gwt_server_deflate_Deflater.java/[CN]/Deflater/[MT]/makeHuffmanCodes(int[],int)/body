@@ -1,0 +1,93 @@
+{
+  int alphLen=freq.length;
+  int[] freqTmp=new int[alphLen];
+  for (int i=0; i < alphLen; i++)   freqTmp[i]=i + (1 << 9) + (freq[i] << 10);
+  heapSort(freqTmp,0,alphLen);
+  int freqTmpPtr=0;
+  while (freqTmpPtr < alphLen && (freqTmp[freqTmpPtr] >>> 10) == 0)   freqTmpPtr++;
+  if (freqTmpPtr == alphLen) {
+    return new int[alphLen];
+  }
+  if (freqTmpPtr == (alphLen - 1)) {
+    int[] clen=new int[alphLen];
+    clen[freqTmp[freqTmpPtr] & 0x1FF]=1;
+    return clen;
+  }
+  int[] fifo=new int[alphLen - 1];
+  int fifoHead=0, fifoRear=0;
+  int[] tree=new int[alphLen - 1];
+  int treePtr=0;
+  int rootIndex;
+  for (; ; ) {
+    if (freqTmpPtr == alphLen && fifoRear == (fifoHead + 1)) {
+      rootIndex=fifo[fifoHead] & 0x1FF;
+      break;
+    }
+    int n0, n1;
+    if (fifoRear == fifoHead) {
+      n0=freqTmp[freqTmpPtr++];
+      n1=freqTmp[freqTmpPtr++];
+    }
+ else     if (freqTmpPtr == alphLen) {
+      n0=fifo[fifoHead++];
+      n1=fifo[fifoHead++];
+    }
+ else {
+      int f=fifo[fifoHead];
+      int q=freqTmp[freqTmpPtr];
+      if (f < q) {
+        n0=f;
+        fifoHead++;
+      }
+ else {
+        n0=q;
+        freqTmpPtr++;
+      }
+      if (fifoHead == fifoRear) {
+        n1=freqTmp[freqTmpPtr++];
+      }
+ else       if (freqTmpPtr == alphLen) {
+        n1=fifo[fifoHead++];
+      }
+ else {
+        f=fifo[fifoHead];
+        q=freqTmp[freqTmpPtr];
+        if (f < q) {
+          n1=f;
+          fifoHead++;
+        }
+ else {
+          n1=q;
+          freqTmpPtr++;
+        }
+      }
+    }
+    int ni=(n0 & ~0x3FF) + (n1 & ~0x3FF) + treePtr;
+    fifo[fifoRear++]=ni;
+    int nv=(n0 & 0x3FF) + ((n1 & 0x3FF) << 10);
+    tree[treePtr++]=nv;
+  }
+  int[] blCount=new int[maxCodeLen + 1];
+  int overdeep=getCodeLengths(tree,rootIndex,0,blCount,maxCodeLen);
+  int dpi=maxCodeLen;
+  while (overdeep-- > 0) {
+    if (dpi == maxCodeLen) {
+      do {
+        dpi--;
+      }
+ while (blCount[dpi] == 0);
+    }
+    blCount[dpi]--;
+    blCount[++dpi]+=2;
+  }
+  int[] codeLen=new int[alphLen];
+  int p=0;
+  while ((freqTmp[p] >>> 10) == 0)   p++;
+  for (int bits=maxCodeLen; bits > 0; bits--) {
+    for (int k=blCount[bits]; k > 0; k--) {
+      int sym=freqTmp[p++] & 0x1FF;
+      codeLen[sym]=bits;
+    }
+  }
+  return codeLen;
+}

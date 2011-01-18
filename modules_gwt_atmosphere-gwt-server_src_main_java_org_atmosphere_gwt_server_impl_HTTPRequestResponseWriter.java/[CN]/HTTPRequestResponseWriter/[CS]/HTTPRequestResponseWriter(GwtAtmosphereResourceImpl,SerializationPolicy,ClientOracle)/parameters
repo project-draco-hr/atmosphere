@@ -1,0 +1,3 @@
+GwtAtmosphereResourceImpl resource
+SerializationPolicy serializationPolicy
+ClientOracle clientOracle

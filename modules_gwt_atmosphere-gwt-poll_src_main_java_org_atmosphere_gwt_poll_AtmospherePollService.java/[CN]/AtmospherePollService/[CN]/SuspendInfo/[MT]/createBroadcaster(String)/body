@@ -1,0 +1,12 @@
+{
+  try {
+    Broadcaster b=BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,ID);
+    atm.setBroadcaster(b);
+    return b;
+  }
+ catch (  IllegalAccessException e) {
+  }
+catch (  InstantiationException e) {
+  }
+  return null;
+}

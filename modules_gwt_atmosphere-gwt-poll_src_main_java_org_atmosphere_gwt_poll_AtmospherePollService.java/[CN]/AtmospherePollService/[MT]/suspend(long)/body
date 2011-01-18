@@ -1,0 +1,6 @@
+{
+  AtmosphereResource<HttpServletRequest,HttpServletResponse> atm=getAtmosphereResource();
+  atm.getRequest().setAttribute(GWT_SUSPENDED,true);
+  atm.suspend(timeout,false);
+  return new SuspendInfo(atm);
+}

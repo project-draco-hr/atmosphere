@@ -1,0 +1,4 @@
+{
+  deflater=new Deflater(level);
+  deflater.setOut(out);
+}
