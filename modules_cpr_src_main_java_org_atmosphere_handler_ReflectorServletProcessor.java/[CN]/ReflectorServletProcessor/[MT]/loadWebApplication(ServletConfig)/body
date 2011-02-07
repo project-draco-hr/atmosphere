@@ -9,6 +9,7 @@
       servlet=(Servlet)Thread.currentThread().getContextClassLoader().loadClass(servletClassName).newInstance();
     }
   }
+  logger.info("Installing Servlet {}",servletClassName);
   filterChain.setServlet(sc,servlet);
   Filter f;
   for (  String fClass : filtersClass) {
@@ -30,5 +31,6 @@
     }
     fc.setFilterName(filterName);
     filterChain.addFilter(fc);
+    logger.info("Installing Filter {}",filterName);
   }
 }
