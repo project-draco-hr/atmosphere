@@ -2,7 +2,7 @@
   logger.info("WebSocket upgrade requested");
   return new WebSocket(){
     private WebSocketProcessor webSocketProcessor;
-    public void onConnect(    WebSocket.Outbound outbound){
+    @Override public void onConnect(    WebSocket.Outbound outbound){
       webSocketProcessor=new WebSocketProcessor(AtmosphereServlet.this,new JettyWebSocketSupport(outbound));
       try {
         webSocketProcessor.connect(new JettyRequestFix(request));
@@ -11,13 +11,16 @@
         logger.warn("failed to connect to web socket",e);
       }
     }
-    public void onMessage(    byte frame,    String data){
+    @Override public void onMessage(    byte frame,    String data){
       webSocketProcessor.broadcast(frame,data);
     }
-    public void onMessage(    byte frame,    byte[] data,    int offset,    int length){
+    @Override public void onMessage(    byte frame,    byte[] data,    int offset,    int length){
       webSocketProcessor.broadcast(frame,new String(data,offset,length));
     }
-    public void onDisconnect(){
+    @Override public void onFragment(    boolean more,    byte opcode,    byte[] data,    int offset,    int length){
+      webSocketProcessor.broadcast(opcode,new String(data,offset,length));
+    }
+    @Override public void onDisconnect(){
       webSocketProcessor.close();
     }
   }
