@@ -1,3 +1,5 @@
 {
-  executorService.shutdown();
+  if (executorService != null) {
+    executorService.shutdown();
+  }
 }
