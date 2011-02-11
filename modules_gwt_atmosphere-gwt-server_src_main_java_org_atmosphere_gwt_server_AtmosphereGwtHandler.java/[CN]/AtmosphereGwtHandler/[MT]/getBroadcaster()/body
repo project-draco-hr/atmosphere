@@ -1,3 +1,0 @@
-{
-  return BroadcasterFactory.getDefault().lookup(Broadcaster.class,GWT_BROADCASTER_ID);
-}

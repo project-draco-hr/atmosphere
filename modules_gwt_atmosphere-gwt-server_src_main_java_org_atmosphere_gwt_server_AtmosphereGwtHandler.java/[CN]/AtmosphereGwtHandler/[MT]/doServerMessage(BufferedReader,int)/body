@@ -1,5 +1,9 @@
 {
   List<Serializable> postMessages=new ArrayList<Serializable>();
+  GwtAtmosphereResource resource=lookupResource(connectionID);
+  if (resource == null) {
+    return;
+  }
   try {
     while (true) {
       String event=data.readLine();
@@ -23,7 +27,7 @@
         }
  else         if (messageData.charAt(0) == 'b') {
           Serializable message=deserialize(messageData.substring(1));
-          broadcast(message);
+          broadcast(message,resource);
         }
       }
  else       if (event.equals("s")) {
@@ -33,12 +37,12 @@
         }
  else         if (messageData.charAt(0) == 'b') {
           Serializable message=messageData.substring(1);
-          broadcast(message);
+          broadcast(message,resource);
         }
       }
  else       if (event.equals("c")) {
         if (messageData.equals("d")) {
-          disconnect(connectionID);
+          disconnect(resource);
         }
       }
     }
@@ -47,6 +51,6 @@
     logger.error("[" + connectionID + "] Failed to read",ex);
   }
   if (postMessages.size() > 0) {
-    post(postMessages,connectionID);
+    post(postMessages,resource);
   }
 }

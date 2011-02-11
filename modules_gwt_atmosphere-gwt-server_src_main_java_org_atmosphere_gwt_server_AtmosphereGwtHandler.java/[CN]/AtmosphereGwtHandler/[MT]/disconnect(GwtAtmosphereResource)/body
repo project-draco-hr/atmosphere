@@ -1,0 +1,6 @@
+{
+  if (resource != null) {
+    logger.debug("Resuming connection[" + resource.getConnectionID() + "] after client disconnect message");
+    resource.getAtmosphereResource().resume();
+  }
+}

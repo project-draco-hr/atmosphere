@@ -11,5 +11,5 @@
   if (logger.isDebugEnabled()) {
     logger.debug("Url: " + resource.getAtmosphereResource().getRequest().getRequestURL() + "?"+ resource.getAtmosphereResource().getRequest().getQueryString());
   }
-  return super.doComet(resource);
+  return NO_TIMEOUT;
 }

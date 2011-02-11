@@ -1,0 +1,8 @@
+{
+  if (resource == null) {
+    return BroadcasterFactory.getDefault().lookup(Broadcaster.class,GWT_BROADCASTER_ID);
+  }
+ else {
+    return resource.getBroadcaster();
+  }
+}

@@ -1,7 +1,0 @@
-{
-  GwtAtmosphereResource r=lookupResource(connectionID);
-  if (r != null) {
-    logger.debug("Resuming connection[" + connectionID + "] after client disconnect message");
-    r.getAtmosphereResource().resume();
-  }
-}

@@ -1,0 +1,8 @@
+{
+  if (messages == null) {
+    return;
+  }
+  if (resource != null) {
+    doPost(messages,resource);
+  }
+}
