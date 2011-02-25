@@ -9,7 +9,7 @@
         packet.append("o\nb").append(serialize(message)).append("\n\n");
       }
  catch (      SerializationException ex) {
-        logger.log(Level.SEVERE,null,ex);
+        logger.log(Level.SEVERE,"Failed to serialize message",ex);
       }
     }
   }
