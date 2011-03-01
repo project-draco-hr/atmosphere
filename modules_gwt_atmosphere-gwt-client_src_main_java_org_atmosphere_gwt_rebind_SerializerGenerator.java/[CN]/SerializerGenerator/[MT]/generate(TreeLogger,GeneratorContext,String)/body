@@ -71,7 +71,7 @@
           for (int i=0, j=serializableFields.length; i < j; i++) {
             names=Lists.add(names,serializableFields[i].getName());
           }
-          data.setFields(SerializationUtils.getRpcTypeName(t),names);
+          data.setFields(TypeOracleMediator.computeBinaryClassName(t),names);
         }
         context.commitArtifact(logger,data);
       }
@@ -81,5 +81,5 @@
       throw new UnableToCompleteException();
     }
   }
-  return new RebindResult(RebindStatus.USE_PARTIAL_CACHED,packageName + '.' + className);
+  return packageName + '.' + className;
 }
