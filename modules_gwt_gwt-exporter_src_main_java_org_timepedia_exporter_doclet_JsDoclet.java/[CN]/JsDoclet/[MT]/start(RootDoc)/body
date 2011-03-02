@@ -1,0 +1,10 @@
+{
+  JsDoclet jsDoclet=new JsDoclet();
+  try {
+    return jsDoclet.startGeneration2(rootDoc);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return false;
+}

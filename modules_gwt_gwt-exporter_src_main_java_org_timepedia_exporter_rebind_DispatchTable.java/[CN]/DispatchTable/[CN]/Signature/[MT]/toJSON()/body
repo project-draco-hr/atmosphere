@@ -1,0 +1,22 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append("[");
+  String functionRef="@" + method.getJSNIReference();
+  if (method.isStatic()) {
+    sb.append(functionRef);
+  }
+ else {
+    sb.append("function() { return this." + functionRef + ".apply(this, arguments); }");
+  }
+  sb.append(",");
+  sb.append(method.getExportableReturnType().getWrapperFunc() + ",");
+  for (  JExportableParameter param : exportableParameters) {
+    String jsType=param.getJsTypeOf();
+    if (jsType.equals("number") || jsType.equals("object") || jsType.equals("string")|| jsType.equals("boolean")) {
+      jsType="\"" + jsType + "\"";
+    }
+    sb.append(jsType + ",");
+  }
+  sb.append("]");
+  return sb.toString();
+}

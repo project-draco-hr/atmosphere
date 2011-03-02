@@ -1,0 +1,10 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  JExportableClassType that=(JExportableClassType)o;
+  return getQualifiedSourceName().equals(that.getQualifiedSourceName());
+}

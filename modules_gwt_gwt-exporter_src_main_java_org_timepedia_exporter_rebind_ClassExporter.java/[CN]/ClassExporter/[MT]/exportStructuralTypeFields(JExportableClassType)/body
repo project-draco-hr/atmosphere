@@ -1,0 +1,5 @@
+{
+  for (  JStructuralTypeField field : requestedType.getStructuralTypeFields()) {
+    exportStructuralTypeField(field);
+  }
+}

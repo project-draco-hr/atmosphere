@@ -1,0 +1,12 @@
+{
+  boolean export=isExported(cd.containingClass());
+  for (  AnnotationDesc a : cd.annotations()) {
+    if (a.annotationType().name().equals("Export")) {
+      export=true;
+    }
+    if (a.annotationType().name().equals("NoExport")) {
+      export=false;
+    }
+  }
+  return export;
+}

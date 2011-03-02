@@ -1,0 +1,30 @@
+{
+  if (clz == null) {
+    return "";
+  }
+  PackageDoc cpkg=clz.containingPackage();
+  String pkg=cpkg == null ? "" : (cpkg.name() + ".");
+  String name=clz.name();
+  for (  AnnotationDesc a : clz.annotations()) {
+    if (a.annotationType().name().equals("ExportPackage")) {
+      for (      AnnotationDesc.ElementValuePair p : a.elementValues()) {
+        pkg=p.value().toString();
+        break;
+      }
+    }
+    if (a.annotationType().name().equals("Export")) {
+      for (      AnnotationDesc.ElementValuePair p : a.elementValues()) {
+        name=p.value().toString();
+        break;
+      }
+    }
+    if (a.annotationType().name().equals("ExportClosure")) {
+      name="<i class=jsdocClosureFunc>function</i>(";
+      name+=getParameterString(clz.methods()[0].parameters());
+      name+=")";
+      pkg="";
+    }
+  }
+  pkg=pkg.replaceAll("\"","");
+  return name;
+}

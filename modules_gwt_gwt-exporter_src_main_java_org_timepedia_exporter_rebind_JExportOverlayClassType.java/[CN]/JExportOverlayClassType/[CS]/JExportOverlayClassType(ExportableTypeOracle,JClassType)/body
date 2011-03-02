@@ -1,0 +1,4 @@
+{
+  super(exportableTypeOracle,requestedType);
+  exportType=exportableTypeOracle.getExportOverlayType(requestedType);
+}

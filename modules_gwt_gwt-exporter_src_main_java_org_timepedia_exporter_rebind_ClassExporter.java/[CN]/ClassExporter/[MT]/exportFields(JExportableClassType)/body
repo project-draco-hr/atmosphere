@@ -1,0 +1,6 @@
+{
+  for (  JExportableField field : requestedType.getExportableFields()) {
+    sw.print("$wnd." + field.getJSQualifiedExportName() + " = ");
+    sw.println("@" + field.getJSNIReference() + ";");
+  }
+}

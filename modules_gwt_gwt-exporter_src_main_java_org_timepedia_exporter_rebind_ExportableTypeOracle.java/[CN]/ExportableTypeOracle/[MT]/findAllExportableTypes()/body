@@ -1,0 +1,14 @@
+{
+  ArrayList<JClassType> types=new ArrayList<JClassType>();
+  for (  JClassType t : typeOracle.getTypes()) {
+    if (t.equals(exportAllType) || t.equals(exportableType) || t.equals(exportOverlayType)) {
+      continue;
+    }
+    if (t.isAssignableTo(exportableType) || t.isAssignableTo(exportOverlayType)) {
+      if (t.isDefaultInstantiable() && t.isPublic()) {
+        types.add(t);
+      }
+    }
+  }
+  return types;
+}

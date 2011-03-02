@@ -1,0 +1,20 @@
+{
+  if (type == null) {
+    return null;
+  }
+  if (!GWT.isScript()) {
+    JavaScriptObject wrapper=wrapperMap.get(type);
+    if (wrapper != null) {
+      return wrapper;
+    }
+  }
+ else {
+    JavaScriptObject wrapper=getWrapperJS(type,WRAPPER_PROPERTY);
+    if (wrapper != null) {
+      return wrapper;
+    }
+  }
+  JavaScriptObject wrapper=wrap0(type,typeConstructor(type),WRAPPER_PROPERTY);
+  setWrapper(type,wrapper);
+  return wrapper;
+}

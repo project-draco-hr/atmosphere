@@ -1,0 +1,10 @@
+{
+  String requestedPackageName=requestedClassType.getJSExportPackage();
+  String enclosingClasses[]=requestedClassType.getEnclosingClasses();
+  String enclosing="";
+  for (  String enclosingClass : enclosingClasses) {
+    enclosing+=enclosingClass + ".";
+  }
+  enclosing=enclosing.length() > 0 ? enclosing.substring(0,enclosing.length() - 1) : enclosing;
+  sw.println("@org.timepedia.exporter.client.ExporterUtil::declarePackage(Ljava/lang/String;Ljava/lang/String;)('" + requestedPackageName + "','"+ enclosing+ "');");
+}

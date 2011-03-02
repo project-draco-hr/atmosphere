@@ -1,0 +1,3 @@
+{
+  return jExportableClassType.getType().isArray() != null;
+}

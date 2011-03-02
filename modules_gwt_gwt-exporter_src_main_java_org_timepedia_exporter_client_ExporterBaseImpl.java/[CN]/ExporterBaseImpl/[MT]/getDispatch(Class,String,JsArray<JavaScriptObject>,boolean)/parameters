@@ -1,0 +1,4 @@
+Class clazz
+String meth
+JsArray<JavaScriptObject> arguments
+boolean isStatic

@@ -1,0 +1,19 @@
+{
+  if (visited.contains(qualifiedSourceName)) {
+    return false;
+  }
+  JExportableType xType=xTypeOracle.findExportableType(qualifiedSourceName);
+  if (xType instanceof JExportableArrayType) {
+    JExportableType xcompType=((JExportableArrayType)xType).getComponentType();
+    if (xcompType instanceof JExportablePrimitiveType) {
+      return false;
+    }
+ else {
+      return exportDependentClass(xcompType.getQualifiedSourceName());
+    }
+  }
+  visited.add(qualifiedSourceName);
+  ClassExporter exporter=new ClassExporter(logger,ctx,visited);
+  exporter.exportClass(qualifiedSourceName,true);
+  return true;
+}

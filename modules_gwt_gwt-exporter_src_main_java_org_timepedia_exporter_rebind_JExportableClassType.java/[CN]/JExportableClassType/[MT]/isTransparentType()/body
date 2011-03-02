@@ -1,0 +1,3 @@
+{
+  return exportableTypeOracle.isJavaScriptObject(this) || exportableTypeOracle.isString(this) || exportableTypeOracle.isArray(this);
+}

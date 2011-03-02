@@ -1,0 +1,14 @@
+{
+  String requestedPackageName=getPrefix();
+  ExportPackage ann=type.getAnnotation(ExportPackage.class);
+  if (ann != null) {
+    requestedPackageName=ann.value();
+  }
+ else   if (type.getEnclosingType() != null) {
+    JExportableClassType encType=exportableTypeOracle.findExportableClassType(type.getEnclosingType().getQualifiedSourceName());
+    if (encType != null) {
+      return encType.getJSExportPackage();
+    }
+  }
+  return requestedPackageName;
+}

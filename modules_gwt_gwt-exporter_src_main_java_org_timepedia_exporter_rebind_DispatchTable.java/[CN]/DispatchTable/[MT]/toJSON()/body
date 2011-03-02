@@ -1,0 +1,9 @@
+{
+  StringBuilder json=new StringBuilder();
+  json.append("{");
+  for (  Integer arity : sigMap.keySet()) {
+    json.append("" + arity + ":"+ toJSON(sigMap.get(arity))+ ",");
+  }
+  json.append("}");
+  return json.toString();
+}

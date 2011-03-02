@@ -1,0 +1,18 @@
+{
+  HashMap<String,DispatchTable> dispMap=new HashMap<String,DispatchTable>();
+  for (  JExportableMethod meth : requestedType.getExportableMethods()) {
+    if (staticDispatch && !meth.isStatic() || !staticDispatch && meth.isStatic()) {
+      continue;
+    }
+    DispatchTable dt=dispMap.get(meth.getUnqualifiedExportName());
+    if (dt == null) {
+      dt=new DispatchTable();
+      dispMap.put(meth.getUnqualifiedExportName(),dt);
+    }
+    if (!dt.addSignature(meth,meth.getExportableParameters())) {
+      logger.log(TreeLogger.ERROR,"Ambiguous method signature " + meth.getJSNIReference() + " would conflict in JS with another method");
+      throw new UnableToCompleteException();
+    }
+  }
+  return dispMap;
+}

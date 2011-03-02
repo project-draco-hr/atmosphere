@@ -1,0 +1,21 @@
+{
+  if (param == null) {
+    return "null";
+  }
+ else   if (param.getType().isArray() != null) {
+    return "array";
+  }
+ else   if (param.getType().isPrimitive() != null) {
+    JPrimitiveType prim=param.getType().isPrimitive();
+    return prim == JPrimitiveType.BOOLEAN ? "boolean" : "number";
+  }
+ else   if (exportableEnclosingType.getExportableTypeOracle().isString(param.getType())) {
+    return "string";
+  }
+ else   if (exportableEnclosingType.getExportableTypeOracle().isJavaScriptObject(param.getType())) {
+    return "object";
+  }
+ else {
+    return "@" + param.getType().getQualifiedSourceName() + "::class";
+  }
+}

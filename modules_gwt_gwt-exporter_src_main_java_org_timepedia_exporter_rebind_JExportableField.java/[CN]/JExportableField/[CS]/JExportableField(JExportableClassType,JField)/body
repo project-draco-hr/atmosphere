@@ -1,0 +1,11 @@
+{
+  this.enclosingExportType=enclosingExportType;
+  this.field=field;
+  Export ann=field.getAnnotation(Export.class);
+  if (ann != null && ann.value().length() > 0) {
+    exportName=ann.value();
+  }
+ else {
+    exportName=field.getName();
+  }
+}

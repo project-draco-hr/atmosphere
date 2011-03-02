@@ -1,0 +1,17 @@
+{
+  if (qualifiedSourceName == null) {
+    return false;
+  }
+  JType type=typeOracle.findType(qualifiedSourceName);
+  if (type == null) {
+    return false;
+  }
+  JClassType cType=type.isClassOrInterface();
+  if (cType != null && cType.isAssignableTo(exportableType)) {
+    ExportClosure ann=cType.getAnnotation(ExportClosure.class);
+    if (ann != null && cType.isInterface() != null) {
+      return cType.getMethods().length == 1;
+    }
+  }
+  return false;
+}
