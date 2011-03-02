@@ -1,0 +1,17 @@
+{
+  if (clz == null) {
+    return "";
+  }
+  PackageDoc cpkg=clz.containingPackage();
+  String pkg=cpkg == null ? "" : (cpkg.name());
+  for (  AnnotationDesc a : clz.annotations()) {
+    if (a.annotationType().name().equals("ExportPackage")) {
+      for (      AnnotationDesc.ElementValuePair p : a.elementValues()) {
+        pkg=p.value().toString();
+        break;
+      }
+    }
+  }
+  pkg=pkg.replaceAll("\"","");
+  return pkg;
+}

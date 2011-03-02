@@ -1,0 +1,3 @@
+{
+  addTypeMap(type.getClass(),exportedConstructor);
+}

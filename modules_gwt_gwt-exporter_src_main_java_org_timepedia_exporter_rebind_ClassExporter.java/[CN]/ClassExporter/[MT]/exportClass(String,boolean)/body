@@ -1,0 +1,67 @@
+{
+  JExportableClassType requestedType=xTypeOracle.findExportableClassType(requestedClass);
+  if (requestedType == null) {
+    logger.log(TreeLogger.ERROR,"Type '" + requestedClass + "' does not implement Exportable",null);
+    throw new UnableToCompleteException();
+  }
+  exported.add(requestedType);
+  visited.add(requestedType.getQualifiedSourceName());
+  String genName=requestedType.getExporterImplementationName();
+  String packageName=requestedType.getPackageName();
+  String qualName=requestedType.getQualifiedExporterImplementationName();
+  boolean isClosure=xTypeOracle.isClosure(requestedClass);
+  String superClass=xTypeOracle.isStructuralType(requestedType.getType()) ? requestedClass : null;
+  if (isClosure) {
+    sw=getSourceWriter(logger,ctx,packageName,genName,superClass,"Exporter",requestedType.getQualifiedSourceName());
+  }
+ else {
+    sw=getSourceWriter(logger,ctx,packageName,genName,superClass,"Exporter");
+  }
+  if (sw == null) {
+    return qualName;
+  }
+  if (export && xTypeOracle.isExportAll(requestedClass)) {
+    exportAll(genName);
+  }
+ else   if (export) {
+    if (isClosure) {
+      exportClosure(requestedType);
+    }
+ else     if (requestedType.isStructuralType()) {
+      exportStructuralTypeConstructor(genName,requestedType);
+    }
+    if (requestedType.isStructuralType()) {
+      exportStructuralTypeImporter(requestedType);
+      exportStructuralTypeMatchMethod(requestedType);
+    }
+    sw.indent();
+    if (!isClosure) {
+      sw.println("public " + genName + "() { export(); }");
+    }
+    sw.println("public native void export0() /*-{");
+    sw.indent();
+    declarePackages(requestedType);
+    exportConstructor(requestedType);
+    exportFields(requestedType);
+    exportMethods(requestedType);
+    registerTypeMap(requestedType);
+    sw.outdent();
+    sw.println("}-*/;");
+    sw.println();
+    if (requestedType.isInstantiable()) {
+      exportStaticFactoryConstructors(requestedType);
+    }
+    if (requestedType.isStructuralType()) {
+      exportStructuralTypeFields(requestedType);
+    }
+    genExportMethod(requestedType,exported);
+    sw.outdent();
+  }
+ else {
+    sw.indent();
+    sw.println("public void export() {}");
+    sw.outdent();
+  }
+  sw.commit(logger);
+  return qualName;
+}

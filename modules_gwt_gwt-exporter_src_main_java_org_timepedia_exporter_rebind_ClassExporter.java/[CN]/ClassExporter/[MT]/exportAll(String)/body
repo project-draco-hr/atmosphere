@@ -1,0 +1,10 @@
+{
+  sw.println("public " + genName + "() { export(); } ");
+  sw.println("public void export() { ");
+  for (  JClassType type : xTypeOracle.findAllExportableTypes()) {
+    sw.indent();
+    sw.println("GWT.create(" + type.getQualifiedSourceName() + ".class);");
+    sw.outdent();
+  }
+  sw.println("}");
+}

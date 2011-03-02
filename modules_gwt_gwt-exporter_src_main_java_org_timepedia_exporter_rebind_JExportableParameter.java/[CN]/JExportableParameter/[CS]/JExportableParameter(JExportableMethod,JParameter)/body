@@ -1,0 +1,4 @@
+{
+  this.param=param;
+  this.exportableEnclosingType=exportableMethod.getEnclosingExportType();
+}

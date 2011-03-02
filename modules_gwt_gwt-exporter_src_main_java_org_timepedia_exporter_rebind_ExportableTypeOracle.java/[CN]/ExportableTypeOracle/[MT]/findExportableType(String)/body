@@ -1,0 +1,27 @@
+{
+  try {
+    JType type=typeOracle.parse(paramTypeName);
+    JClassType cType=type != null ? type.isClassOrInterface() : null;
+    if (type.isPrimitive() != null) {
+      return new JExportablePrimitiveType(this,type.isPrimitive());
+    }
+ else     if (type.isArray() != null) {
+      return new JExportableArrayType(this,type.isArray());
+    }
+ else     if (overlayTypes.containsKey(paramTypeName)) {
+      return overlayTypes.get(paramTypeName);
+    }
+ else     if (cType.isAssignableTo(exportOverlayType)) {
+      return new JExportOverlayClassType(this,type.isClassOrInterface());
+    }
+ else     if (cType != null && (cType.isAssignableTo(exportableType) || cType.isAssignableTo(stringType) || cType.isAssignableTo(jsoType))) {
+      return new JExportableClassType(this,type.isClassOrInterface());
+    }
+ else {
+      return null;
+    }
+  }
+ catch (  TypeOracleException e) {
+    return null;
+  }
+}

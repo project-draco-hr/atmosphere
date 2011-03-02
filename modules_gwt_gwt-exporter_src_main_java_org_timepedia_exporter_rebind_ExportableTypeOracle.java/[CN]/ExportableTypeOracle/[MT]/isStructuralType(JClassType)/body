@@ -1,0 +1,3 @@
+{
+  return false && type.getAnnotation(StructuralType.class) != null;
+}

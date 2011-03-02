@@ -1,0 +1,7 @@
+{
+  SType st=setterMethod.getAnnotation(SType.class);
+  if (st != null) {
+    return st.value();
+  }
+  return beanize(setterMethod.getName());
+}

@@ -1,0 +1,5 @@
+{
+  super(exportableTypeOracle,array);
+  this.exportableTypeOracle=exportableTypeOracle;
+  this.array=array;
+}

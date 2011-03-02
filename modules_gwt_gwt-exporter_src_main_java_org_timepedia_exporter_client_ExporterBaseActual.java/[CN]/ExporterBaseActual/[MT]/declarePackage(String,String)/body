@@ -1,0 +1,17 @@
+{
+  String superPackages[]=packageName.split("\\.");
+  JavaScriptObject prefix=getWindow();
+  for (int i=0; i < superPackages.length; i++) {
+    if (!superPackages[i].equals("client")) {
+      declarePackage0(prefix,superPackages[i]);
+      prefix=getProp(prefix,superPackages[i]);
+    }
+  }
+  String enclosingClasses[]=enclosingClassesString.split("\\.");
+  for (  String enclosingName : enclosingClasses) {
+    if (!enclosingName.trim().equals("")) {
+      declarePackage0(prefix,enclosingName);
+      prefix=getProp(prefix,enclosingName);
+    }
+  }
+}

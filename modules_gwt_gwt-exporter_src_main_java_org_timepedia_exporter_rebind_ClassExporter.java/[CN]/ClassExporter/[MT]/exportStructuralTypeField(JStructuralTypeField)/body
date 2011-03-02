@@ -1,0 +1,15 @@
+{
+  sw.println("public " + field.JavaDeclaration() + "{");
+  sw.indent();
+  if (field.isVoidReturn()) {
+    sw.println("super." + field.getMethodName() + "(arg);");
+    sw.println("org.timepedia.exporter.client.ExporterUtil.setStructuralField(" + "jso, \"" + field.getName() + "\", arg);");
+  }
+ else {
+    sw.println(field.getReturnType() + " x = super." + field.getMethodName()+ "(arg);");
+    sw.println("org.timepedia.exporter.client.ExporterUtil.setStructuralField(" + "jso, '" + field.getName() + "', arg);");
+    sw.println("return x;");
+  }
+  sw.outdent();
+  sw.println("}");
+}

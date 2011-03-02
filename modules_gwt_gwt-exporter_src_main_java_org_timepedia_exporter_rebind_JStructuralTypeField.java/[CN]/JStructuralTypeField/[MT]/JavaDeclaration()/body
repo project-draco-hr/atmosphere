@@ -1,0 +1,3 @@
+{
+  return setterMethod.getReturnType().getQualifiedSourceName() + " " + setterMethod.getName()+ "("+ setterMethod.getParameters()[0].getType().getQualifiedSourceName()+ " arg)";
+}

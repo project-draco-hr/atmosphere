@@ -1,0 +1,12 @@
+{
+  String ename=cd.name();
+  for (  AnnotationDesc a : cd.annotations()) {
+    if (a.annotationType().name().equals("Export")) {
+      for (      AnnotationDesc.ElementValuePair p : a.elementValues()) {
+        ename=p.value().toString();
+        break;
+      }
+    }
+  }
+  return ename.replaceAll("\"","");
+}

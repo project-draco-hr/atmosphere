@@ -1,0 +1,6 @@
+{
+  if (!needsExport()) {
+    return null;
+  }
+  return "@" + ExporterUtil.class.getName() + "::wrap(Lorg/timepedia/exporter/client/Exportable;)";
+}

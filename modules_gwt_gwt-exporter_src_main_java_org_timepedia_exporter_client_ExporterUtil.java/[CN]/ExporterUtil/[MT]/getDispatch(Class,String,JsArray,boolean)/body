@@ -1,0 +1,3 @@
+{
+  return impl.getDispatch(clazz,meth,arguments,isStatic);
+}

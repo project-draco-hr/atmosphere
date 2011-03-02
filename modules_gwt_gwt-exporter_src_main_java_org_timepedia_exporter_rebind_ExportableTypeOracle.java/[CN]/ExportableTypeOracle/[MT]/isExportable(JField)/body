@@ -1,0 +1,3 @@
+{
+  return field.isStatic() && field.isPublic() && field.isFinal()&& (isExportable(field.getAnnotation(Export.class)) || (isExportable(field.getEnclosingType()) && !isNotExportable(field.getAnnotation(NoExport.class))));
+}

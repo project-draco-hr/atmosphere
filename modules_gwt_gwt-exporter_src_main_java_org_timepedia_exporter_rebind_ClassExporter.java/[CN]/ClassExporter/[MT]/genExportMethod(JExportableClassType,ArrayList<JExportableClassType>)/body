@@ -1,0 +1,22 @@
+{
+  sw.println("private static boolean exported;");
+  sw.println("public void export() { ");
+  sw.indent();
+  sw.println("if(!exported) {");
+  sw.indent();
+  sw.println("exported=true;");
+  int exprCount=0;
+  for (  JExportableClassType classType : exported) {
+    if (requestedType.getQualifiedSourceName().equals(classType.getQualifiedSourceName()) || classType instanceof JExportableArrayType) {
+      continue;
+    }
+    String qualName=classType.getQualifiedSourceName();
+    String var="export" + exprCount++;
+    sw.println(ExportableTypeOracle.EXPORTER_CLASS + " " + var+ " = ("+ ExportableTypeOracle.EXPORTER_CLASS+ ") GWT.create("+ qualName+ ".class);");
+  }
+  sw.println("export0();");
+  sw.outdent();
+  sw.println("}");
+  sw.outdent();
+  sw.println("}");
+}

@@ -1,0 +1,8 @@
+{
+  if (isStatic) {
+    staticDispatchMap.put(clazz,dispMap);
+  }
+ else {
+    dispatchMap.put(clazz,dispMap);
+  }
+}

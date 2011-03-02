@@ -1,0 +1,9 @@
+{
+  for (  AnnotationDesc a : clz.annotations()) {
+    String aname=a.annotationType().name();
+    if (aname.equals("Export") || aname.equals("ExportClosure")) {
+      return true;
+    }
+  }
+  return false;
+}

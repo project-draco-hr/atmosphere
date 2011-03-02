@@ -1,0 +1,3 @@
+JExportableClassType requestedType
+HashMap<String,DispatchTable> dispatchMap
+boolean isStatic

@@ -1,0 +1,21 @@
+{
+  for (int i=0; i < arguments.length(); i++) {
+    Object jsType=getObject(i + 2);
+    String argJsType=typeof(arguments,i);
+    if (argJsType.equals("object")) {
+      Object gwtObject=getJavaObject(arguments,i);
+      if (gwtObject != null) {
+        if (!gwtObject.getClass().equals(jsType)) {
+          return false;
+        }
+      }
+ else       if (!jsType.equals("object")) {
+        return false;
+      }
+    }
+ else     if (!jsType.equals(argJsType)) {
+      return false;
+    }
+  }
+  return true;
+}

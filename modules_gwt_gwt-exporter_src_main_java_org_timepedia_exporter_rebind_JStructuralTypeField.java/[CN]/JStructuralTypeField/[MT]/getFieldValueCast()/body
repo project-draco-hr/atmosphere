@@ -1,0 +1,3 @@
+{
+  return setterMethod.getParameters()[0].getType().isPrimitive() != null ? "(double)" : "(Object)";
+}

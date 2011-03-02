@@ -1,0 +1,3 @@
+{
+  return param != null ? getJsTypeOf().hashCode() : 0;
+}

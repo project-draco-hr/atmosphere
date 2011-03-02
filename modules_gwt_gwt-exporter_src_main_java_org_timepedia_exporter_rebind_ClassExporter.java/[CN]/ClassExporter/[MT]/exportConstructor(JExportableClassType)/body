@@ -1,0 +1,46 @@
+{
+  sw.println("if($wnd." + requestedType.getJSQualifiedExportName() + ") {");
+  sw.println("var pkg = $wnd." + requestedType.getJSQualifiedExportName() + ";");
+  sw.println("}");
+  sw.print("$wnd." + requestedType.getJSQualifiedExportName() + " = $entry(function(");
+  sw.println(") {");
+  sw.indent();
+  sw.println("if(arguments.length == 1 && (arguments[0] != null && " + "arguments[0].@java.lang.Object::getClass()() == " + "@" + requestedType.getQualifiedSourceName() + "::class)) {");
+  sw.indent();
+  sw.println(" this.__gwt_instance = arguments[0];");
+  sw.outdent();
+  sw.println("}");
+  JExportableConstructor[] constructors=requestedType.getExportableConstructors();
+  HashMap<Integer,JExportableConstructor> arity=new HashMap<Integer,JExportableConstructor>();
+  for (  JExportableConstructor constructor : constructors) {
+    int numArguments=constructor.getExportableParameters().length;
+    JExportableConstructor conflicting=arity.get(numArguments);
+    if (conflicting != null) {
+      logger.log(TreeLogger.ERROR,"Constructor " + conflicting + " with "+ numArguments+ " "+ "arguments conflicts with "+ constructor+ "."+ "Two constructors may not have identical numbers of "+ "arguments.",null);
+      throw new UnableToCompleteException();
+    }
+    arity.put(numArguments,constructor);
+    sw.println("else if(arguments.length == " + numArguments + ") {");
+    sw.indent();
+    sw.print("this.__gwt_instance = @" + constructor.getStaticFactoryJSNIReference() + "(");
+    declareJSPassedValues(constructor,true);
+    sw.println(");");
+    sw.println("@org.timepedia.exporter.client.ExporterUtil::setWrapper(Ljava/lang/Object;Lcom/google/gwt/core/client/JavaScriptObject;)(this.__gwt_instance, this);");
+    sw.outdent();
+    sw.println("}");
+  }
+  sw.outdent();
+  sw.println("});");
+  JExportableClassType superClass=requestedType.getExportableSuperClassType();
+  if (superClass != null && superClass.needsExport() && !exported.contains(superClass)) {
+    if (exportDependentClass(superClass.getQualifiedSourceName())) {
+      ;
+    }
+    exported.add(superClass);
+  }
+  sw.print("var _=$wnd." + requestedType.getJSQualifiedExportName() + ".prototype = ");
+  sw.println(superClass == null ? "new Object();" : "new $wnd." + superClass.getJSQualifiedExportName() + "();");
+  sw.println("if(pkg) {");
+  sw.println("for(p in pkg) { $wnd." + requestedType.getJSQualifiedExportName() + "[p]=pkg[p]; }");
+  sw.println("}");
+}

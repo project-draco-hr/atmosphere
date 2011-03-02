@@ -1,0 +1,4 @@
+{
+  JPrimitiveType type=setterMethod.getParameters()[0].getType().isPrimitive();
+  return type != null ? type.getQualifiedSourceName() : "Object";
+}

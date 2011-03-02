@@ -1,0 +1,12 @@
+{
+  String result="";
+  for (int i=0; i < ps.length; i++) {
+    Type type=ps[i].type();
+    String ename=type.isPrimitive() ? type.typeName() : getExportedName(type.asClassDoc());
+    result+="<span class=jsdocParameterType>" + ename + "</span> <span class=jsdocParameterName>"+ ps[i].name()+ "</span>";
+    if (i < ps.length - 1) {
+      result+=", ";
+    }
+  }
+  return result;
+}

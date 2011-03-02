@@ -1,0 +1,9 @@
+{
+  if (type.isAssignableTo(stringType)) {
+    return "string";
+  }
+ else   if (type.isAssignableTo(jsoType)) {
+    return "object";
+  }
+  return "@" + type.getQualifiedSourceName() + "::class";
+}

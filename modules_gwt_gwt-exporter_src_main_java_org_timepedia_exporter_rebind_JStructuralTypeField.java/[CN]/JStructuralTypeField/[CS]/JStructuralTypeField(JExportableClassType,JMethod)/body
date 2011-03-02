@@ -1,0 +1,4 @@
+{
+  this.exportableClassType=exportableClassType;
+  this.setterMethod=setterMethod;
+}

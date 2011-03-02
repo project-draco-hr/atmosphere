@@ -1,0 +1,3 @@
+{
+  impl.addTypeMap(type,exportedConstructor);
+}

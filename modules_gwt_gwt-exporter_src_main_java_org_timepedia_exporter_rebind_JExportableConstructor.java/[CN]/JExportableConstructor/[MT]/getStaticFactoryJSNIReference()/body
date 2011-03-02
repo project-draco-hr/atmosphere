@@ -1,0 +1,9 @@
+{
+  String reference=exportableEnclosingType.getQualifiedExporterImplementationName() + "::" + getStaticFactoryMethodName()+ "(";
+  JParameter[] params=method.getParameters();
+  for (int i=0; i < params.length; i++) {
+    reference+=params[i].getType().getJNISignature();
+  }
+  reference+=")";
+  return reference;
+}
