@@ -1,8 +1,0 @@
-{
-  for (  ClassDoc i : clz.interfaces()) {
-    if (i.name().contains("Exportable")) {
-      return true;
-    }
-  }
-  return false;
-}

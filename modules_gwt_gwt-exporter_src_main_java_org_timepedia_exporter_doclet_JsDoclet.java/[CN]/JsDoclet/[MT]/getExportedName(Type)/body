@@ -1,3 +1,0 @@
-{
-  return clz.isPrimitive() ? clz.typeName() : getExportedName(clz.asClassDoc());
-}

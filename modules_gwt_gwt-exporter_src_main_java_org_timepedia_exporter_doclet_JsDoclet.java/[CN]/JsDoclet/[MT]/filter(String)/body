@@ -1,6 +1,0 @@
-{
-  if (s.startsWith("Created")) {
-    return "";
-  }
-  return s;
-}
