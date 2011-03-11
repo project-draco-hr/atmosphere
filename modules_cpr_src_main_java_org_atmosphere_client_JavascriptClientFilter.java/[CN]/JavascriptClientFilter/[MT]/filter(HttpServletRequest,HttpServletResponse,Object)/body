@@ -1,8 +1,8 @@
 {
-  if (request.getHeader("User-Agent") != null) {
+  if (request.getHeader("User-Agent") != null && request.getAttribute("X-Transport") != null && ((String)request.getAttribute("X-Transport")).equalsIgnoreCase("streaming")) {
     String userAgent=request.getHeader("User-Agent").toLowerCase();
     if (userAgent != null && userAgent.startsWith("opera") && message instanceof String) {
-      StringBuilder sb=new StringBuilder("<script id=\"atmosphere_").append(uniqueScriptToken.getAndIncrement()).append("\">").append("window.parent.$.atmosphere.streamingCallback").append("('").append(message.toString()).append("');</script>");
+      StringBuilder sb=new StringBuilder("<script id=\"atmosphere_").append(uniqueScriptToken.getAndIncrement()).append("\">").append("window.parent.jquery.atmosphere.streamingCallback").append("('").append(message.toString()).append("');</script>");
       message=sb.toString();
       return new BroadcastAction(BroadcastAction.ACTION.CONTINUE,message);
     }
