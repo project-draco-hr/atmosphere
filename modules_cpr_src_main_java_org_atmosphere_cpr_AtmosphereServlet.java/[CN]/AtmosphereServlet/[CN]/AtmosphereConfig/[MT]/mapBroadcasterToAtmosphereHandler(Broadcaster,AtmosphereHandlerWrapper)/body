@@ -1,7 +1,0 @@
-{
-  if (atmosphereHandlers.get(bc.getID()) == null) {
-    atmosphereHandlers.put(bc.getID(),ahw);
-    return true;
-  }
-  return false;
-}

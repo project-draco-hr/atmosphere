@@ -1,4 +1,3 @@
 {
-  resource.getAtmosphereConfig().getAtmosphereHandler(resource.getBroadcaster());
   resource.resume();
 }

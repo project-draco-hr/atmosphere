@@ -18,7 +18,7 @@
   }
   req.setAttribute(AtmosphereServlet.SUPPORT_SESSION,supportSession());
   AtmosphereHandlerWrapper handlerWrapper=map(req);
-  AtmosphereResourceImpl resource=new AtmosphereResourceImpl(config,handlerWrapper.broadcaster,req,res,this);
+  AtmosphereResourceImpl resource=new AtmosphereResourceImpl(config,handlerWrapper.broadcaster,req,res,this,handlerWrapper.atmosphereHandler);
   handlerWrapper.broadcaster.getBroadcasterConfig().setAtmosphereConfig(config);
   req.setAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE,resource);
   req.setAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
@@ -29,7 +29,6 @@
     resource.onThrowable(t);
     throw t;
   }
-  config.mapBroadcasterToAtmosphereHandler(resource.getBroadcaster(),handlerWrapper);
   if (resource.getAtmosphereResourceEvent().isSuspended()) {
     req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     aliveRequests.put(req,resource);

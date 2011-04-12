@@ -1,6 +1,6 @@
 {
   try {
-    r.getAtmosphereConfig().getAtmosphereHandler(this).onStateChange(e);
+    r.getAtmosphereHandler().onStateChange(e);
   }
  catch (  IOException ex) {
     if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {

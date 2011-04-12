@@ -3,3 +3,4 @@ Broadcaster broadcaster
 HttpServletRequest req
 HttpServletResponse response
 CometSupport cometSupport
+AtmosphereHandler atmosphereHandler
