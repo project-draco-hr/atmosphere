@@ -1,12 +1,19 @@
 {
   Object finalMsg=msg.message;
-  if (r.getRequest() instanceof HttpServletRequest && bc.hasPerRequestFilters()) {
-    Object message=msg.originalMessage;
-    BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),(HttpServletResponse)r.getResponse(),message);
-    if (a.action() == BroadcastAction.ACTION.ABORT || a.message() != null) {
-      finalMsg=a.message();
+  if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
+    if (AtmosphereResourceImpl.class.cast(r).isInScope()) {
+      if (r.getRequest() instanceof HttpServletRequest && bc.hasPerRequestFilters()) {
+        Object message=msg.originalMessage;
+        BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),(HttpServletResponse)r.getResponse(),message);
+        if (a.action() == BroadcastAction.ACTION.ABORT || a.message() != null) {
+          finalMsg=a.message();
+        }
+      }
+      trackBroadcastMessage(r,finalMsg);
+    }
+ else {
+      removeAtmosphereResource(r);
     }
   }
-  trackBroadcastMessage(r,finalMsg);
   return finalMsg;
 }
