@@ -15,7 +15,7 @@
         }
       }
  catch (      Throwable t) {
-        logger.warn("failed to load class as an AtmosphereHandler: " + className,t);
+        logger.trace("failed to load class as an AtmosphereHandler: " + className,t);
       }
     }
   }
