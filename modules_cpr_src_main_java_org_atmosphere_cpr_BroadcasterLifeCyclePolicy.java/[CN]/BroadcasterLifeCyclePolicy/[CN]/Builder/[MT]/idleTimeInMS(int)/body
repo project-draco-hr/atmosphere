@@ -1,4 +1,5 @@
 {
   timeUnit=TimeUnit.MILLISECONDS;
+  this.time=time;
   return this;
 }
