@@ -10,7 +10,12 @@ synchronized (token.resource) {
         }
       }
  catch (      Throwable ex) {
-        logger.debug("failed to submit async write task",ex);
+        if (!started.get()) {
+          logger.trace("failed to submit async write task on shutdown",ex);
+        }
+ else {
+          logger.debug("failed to submit async write task",ex);
+        }
       }
     }
   }

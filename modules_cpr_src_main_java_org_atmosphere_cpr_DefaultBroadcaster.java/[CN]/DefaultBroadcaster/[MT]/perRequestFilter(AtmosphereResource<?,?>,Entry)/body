@@ -5,7 +5,7 @@
       if (r.getRequest() instanceof HttpServletRequest && bc.hasPerRequestFilters()) {
         Object message=msg.originalMessage;
         BroadcastAction a=bc.filter((HttpServletRequest)r.getRequest(),(HttpServletResponse)r.getResponse(),message);
-        if (a.action() == BroadcastAction.ACTION.ABORT || a.message() != null) {
+        if (a.action() == BroadcastAction.ACTION.ABORT || a.message() != msg.originalMessage) {
           finalMsg=a.message();
         }
       }

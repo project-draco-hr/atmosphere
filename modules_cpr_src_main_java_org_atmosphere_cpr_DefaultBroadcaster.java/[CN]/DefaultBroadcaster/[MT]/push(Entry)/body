@@ -58,6 +58,6 @@
     entry.message=prevMessage;
   }
  catch (  InterruptedException ex) {
-    logger.warn(ex.getMessage(),ex);
+    logger.debug(ex.getMessage(),ex);
   }
 }

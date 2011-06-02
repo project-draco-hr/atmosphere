@@ -1,4 +1,6 @@
 {
+  started.set(false);
+  destroyed.set(true);
   releaseExternalResources();
   if (notifierFuture != null) {
     notifierFuture.cancel(true);
@@ -18,8 +20,6 @@
   asyncWriteQueue.clear();
   delayedBroadcast.clear();
   broadcasterCache=null;
-  started.set(false);
-  destroyed.set(true);
   if (BroadcasterFactory.getDefault() != null) {
     BroadcasterFactory.getDefault().remove(this,name);
   }
