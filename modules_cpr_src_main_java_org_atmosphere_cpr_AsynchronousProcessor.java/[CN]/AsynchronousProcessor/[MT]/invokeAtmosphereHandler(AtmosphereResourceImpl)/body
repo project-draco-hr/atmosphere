@@ -28,8 +28,7 @@
       r.notifyListeners();
     }
   finally {
-      r.removeEventListeners();
-      r.getBroadcaster().removeAtmosphereResource(r);
+      destroyResource(r);
     }
   }
 }

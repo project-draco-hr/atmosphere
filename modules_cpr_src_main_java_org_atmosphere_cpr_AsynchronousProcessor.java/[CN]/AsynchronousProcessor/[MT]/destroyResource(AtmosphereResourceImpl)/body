@@ -1,0 +1,7 @@
+{
+  r.removeEventListeners();
+  r.getBroadcaster().removeAtmosphereResource(r);
+  if (BroadcasterFactory.getDefault() != null) {
+    BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+  }
+}

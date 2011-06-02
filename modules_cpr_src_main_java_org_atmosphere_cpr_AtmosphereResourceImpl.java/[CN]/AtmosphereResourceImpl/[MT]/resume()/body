@@ -8,6 +8,7 @@
     notifyListeners();
     listeners.clear();
     broadcaster.removeAtmosphereResource(this);
+    BroadcasterFactory.getDefault().removeAllAtmosphereResource(this);
     try {
       req.setAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT,Boolean.FALSE);
     }
