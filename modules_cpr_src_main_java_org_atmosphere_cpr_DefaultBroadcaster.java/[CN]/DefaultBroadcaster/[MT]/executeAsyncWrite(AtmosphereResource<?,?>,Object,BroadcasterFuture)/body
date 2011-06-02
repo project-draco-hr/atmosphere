@@ -12,6 +12,7 @@
  catch (  Exception t) {
     logger.debug("Preventing corruption of a recycled request: resource" + resource,event);
     removeAtmosphereResource(resource);
+    BroadcasterFactory.getDefault().removeAllAtmosphereResource(resource);
     return;
   }
   broadcast(resource,event);
