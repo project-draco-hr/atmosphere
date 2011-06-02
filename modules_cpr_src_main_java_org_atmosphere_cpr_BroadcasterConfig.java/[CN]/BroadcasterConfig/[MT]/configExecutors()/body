@@ -2,7 +2,9 @@
   executorService=Executors.newSingleThreadExecutor(new ThreadFactory(){
     private final AtomicInteger count=new AtomicInteger();
     @Override public Thread newThread(    final Runnable runnable){
-      return new Thread(runnable,"Atmosphere-BroadcasterConfig-" + count.getAndIncrement());
+      Thread t=new Thread(runnable,"Atmosphere-BroadcasterConfig-" + count.getAndIncrement());
+      t.setDaemon(true);
+      return t;
     }
   }
 );
@@ -10,7 +12,9 @@
   asyncWriteService=Executors.newCachedThreadPool(new ThreadFactory(){
     private final AtomicInteger count=new AtomicInteger();
     @Override public Thread newThread(    final Runnable runnable){
-      return new Thread(runnable,"Atmosphere-AsyncWrite-" + count.getAndIncrement());
+      Thread t=new Thread(runnable,"Atmosphere-AsyncWrite-" + count.getAndIncrement());
+      t.setDaemon(true);
+      return t;
     }
   }
 );

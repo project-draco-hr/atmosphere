@@ -3,7 +3,7 @@
   if (notifierFuture != null) {
     notifierFuture.cancel(true);
   }
-  if (bc != null && scope != SCOPE.REQUEST) {
+  if (bc != null) {
     bc.destroy();
   }
   if (broadcasterCache != null) {
