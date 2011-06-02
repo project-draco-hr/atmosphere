@@ -13,6 +13,7 @@
     }
  else {
       removeAtmosphereResource(r);
+      BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
     }
   }
   return finalMsg;
