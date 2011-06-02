@@ -1,14 +1,14 @@
 {
   return new Runnable(){
     public void run(){
-      Entry msg=null;
+      Entry msg;
       try {
         msg=messages.take();
         bc.getExecutorService().submit(this);
         push(msg);
       }
  catch (      Throwable ex) {
-        logger.error("failed to submit broadcast handler runnable to broadcast executor service",ex);
+        logger.debug("failed to submit broadcast handler runnable to broadcast executor service",ex);
       }
     }
   }

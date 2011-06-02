@@ -4,6 +4,7 @@
   final CountDownLatch latch2=new CountDownLatch(1);
   servletLatch=new CountDownLatch(1);
   AsyncHttpClient c=new AsyncHttpClient();
+  Broadcaster b=null;
   try {
     long currentTime=System.currentTimeMillis();
     final AtomicReference<Response> r=new AtomicReference();
@@ -17,7 +18,7 @@
 );
     servletLatch.await();
     String id=broadcasterId.get();
-    Broadcaster b=BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,id);
+    b=BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,id);
     assertNotNull(b);
     b.broadcast("resume").get();
     try {
@@ -58,6 +59,9 @@
  catch (  Exception e) {
     logger.error("test failed",e);
     fail(e.getMessage());
+  }
+ finally {
+    if (b != null)     b.destroy();
   }
   c.close();
 }

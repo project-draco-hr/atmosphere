@@ -31,28 +31,33 @@
   }
   Object finalMsg=translate(entry.message);
   entry.message=finalMsg;
-  if (entry.multipleAtmoResources == null) {
-    for (    AtmosphereResource<?,?> r : resources) {
-      finalMsg=perRequestFilter(r,entry);
-      if (entry.writeLocally) {
-        executeAsyncWrite(r,finalMsg,entry.future);
+  try {
+    if (entry.multipleAtmoResources == null) {
+      for (      AtmosphereResource<?,?> r : resources) {
+        finalMsg=perRequestFilter(r,entry);
+        if (entry.writeLocally) {
+          asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future));
+        }
       }
     }
-  }
- else   if (entry.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
-    finalMsg=perRequestFilter((AtmosphereResource<?,?>)entry.multipleAtmoResources,entry);
-    if (entry.writeLocally) {
-      executeAsyncWrite((AtmosphereResource<?,?>)entry.multipleAtmoResources,finalMsg,entry.future);
-    }
-  }
- else   if (entry.multipleAtmoResources instanceof Set) {
-    Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)entry.multipleAtmoResources;
-    for (    AtmosphereResource<?,?> r : sub) {
-      finalMsg=perRequestFilter(r,entry);
+ else     if (entry.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
+      finalMsg=perRequestFilter((AtmosphereResource<?,?>)entry.multipleAtmoResources,entry);
       if (entry.writeLocally) {
-        executeAsyncWrite(r,finalMsg,entry.future);
+        asyncWriteQueue.put(new AsyncWriteToken((AtmosphereResource<?,?>)entry.multipleAtmoResources,finalMsg,entry.future));
       }
     }
+ else     if (entry.multipleAtmoResources instanceof Set) {
+      Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)entry.multipleAtmoResources;
+      for (      AtmosphereResource<?,?> r : sub) {
+        finalMsg=perRequestFilter(r,entry);
+        if (entry.writeLocally) {
+          asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future));
+        }
+      }
+    }
+    entry.message=prevMessage;
   }
-  entry.message=prevMessage;
+ catch (  InterruptedException ex) {
+    logger.warn(ex.getMessage(),ex);
+  }
 }

@@ -3,5 +3,6 @@
     broadcasterCache=bc.getBroadcasterCache();
     broadcasterCache.start();
     notifierFuture=bc.getExecutorService().submit(getBroadcastHandler());
+    asyncWriteFuture=bc.getAsyncWriteService().submit(getAsyncWriteHandler());
   }
 }

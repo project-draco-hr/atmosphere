@@ -3,6 +3,9 @@
   if (notifierFuture != null) {
     notifierFuture.cancel(true);
   }
+  if (asyncWriteFuture != null) {
+    asyncWriteFuture.cancel(true);
+  }
   if (bc != null) {
     bc.destroy();
   }
@@ -12,6 +15,7 @@
   resources.clear();
   broadcastOnResume.clear();
   messages.clear();
+  asyncWriteQueue.clear();
   delayedBroadcast.clear();
   broadcasterCache=null;
   started.set(false);
