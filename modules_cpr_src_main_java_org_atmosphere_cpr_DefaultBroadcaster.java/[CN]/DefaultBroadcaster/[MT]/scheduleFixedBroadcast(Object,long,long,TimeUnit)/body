@@ -3,6 +3,7 @@
   if (period == 0 || t == null) {
     return null;
   }
+  start();
   final Object msg=filter(o);
   if (msg == null)   return null;
   return bc.getScheduledExecutorService().scheduleWithFixedDelay(new Runnable(){
