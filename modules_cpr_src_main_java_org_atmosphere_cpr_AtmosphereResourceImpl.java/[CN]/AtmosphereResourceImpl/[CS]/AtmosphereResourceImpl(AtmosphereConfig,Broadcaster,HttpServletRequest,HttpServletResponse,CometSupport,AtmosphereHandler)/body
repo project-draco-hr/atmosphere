@@ -8,4 +8,6 @@
   this.event=new AtmosphereResourceEventImpl(this);
   String nocache=config.getInitParameter(AtmosphereServlet.NO_CACHE_HEADERS);
   injectCacheHeaders=nocache != null ? false : true;
+  String ac=config.getInitParameter(AtmosphereServlet.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER);
+  enableAccessControl=ac != null ? false : true;
 }

@@ -17,6 +17,9 @@
       response.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
       response.setHeader("Pragma","no-cache");
     }
+    if (enableAccessControl) {
+      response.setHeader("Access-Control-Allow-Origin","*");
+    }
     if (flushComment) {
       write();
     }
