@@ -4,10 +4,12 @@
   }
   resources.remove(r);
   if (resources.isEmpty()) {
+    notifyEmptyListener();
     if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY) {
       releaseExternalResources();
     }
  else     if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY_DESTROY) {
+      notifyDestroyListener();
       BroadcasterFactory.getDefault().remove(this,name);
       destroy();
     }

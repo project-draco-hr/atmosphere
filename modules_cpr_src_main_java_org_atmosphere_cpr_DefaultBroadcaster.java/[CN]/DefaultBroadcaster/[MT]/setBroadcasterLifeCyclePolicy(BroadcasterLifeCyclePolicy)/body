@@ -13,11 +13,14 @@
       @Override public void run(){
         try {
           if (resources.isEmpty()) {
+            notifyEmptyListener();
+            notifyIdleListener();
             if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE) {
               releaseExternalResources();
               logger.debug("Applying BroadcasterLifeCyclePolicy IDLE policy");
             }
  else {
+              notifyDestroyListener();
               destroy();
               if (ref.get() != null) {
                 currentLifecycleTask.cancel(true);

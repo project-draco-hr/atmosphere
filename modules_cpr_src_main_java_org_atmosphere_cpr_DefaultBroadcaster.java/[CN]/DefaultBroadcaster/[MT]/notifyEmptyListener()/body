@@ -1,0 +1,5 @@
+{
+  for (  BroadcasterLifeCyclePolicyListener b : lifeCycleListeners) {
+    b.onEmpty();
+  }
+}
