@@ -7,10 +7,11 @@
     if (policy == POLICY.FIFO) {
       AtmosphereResource<?,?> resource=resources.poll();
       try {
+        logger.warn("Too many resource. Forcing resume of {} ",resource);
         resource.resume();
       }
  catch (      Throwable t) {
-        logger.warn("failed to resume resource: " + resource,t);
+        logger.warn("failed to resume resource {} ",resource,t);
       }
     }
  else     if (policy == POLICY.REJECT) {
