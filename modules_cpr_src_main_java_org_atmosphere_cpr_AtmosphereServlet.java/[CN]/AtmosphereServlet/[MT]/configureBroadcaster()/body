@@ -4,6 +4,7 @@
     logger.info("using broadcaster class: {}",bc.getName());
     broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy);
     config.broadcasterFactory=broadcasterFactory;
+    BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
   }
   Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();
   AtmosphereHandlerWrapper w;
