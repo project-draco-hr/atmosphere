@@ -2,5 +2,5 @@
   if (messages == null) {
     return;
   }
-  getBroadcaster(resource).broadcast(messages);
+  resource.getBroadcaster().broadcast(messages);
 }
