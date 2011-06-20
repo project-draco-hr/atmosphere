@@ -7,7 +7,12 @@
     }
     notifyListeners();
     listeners.clear();
-    broadcaster.removeAtmosphereResource(this);
+    try {
+      broadcaster.removeAtmosphereResource(this);
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace(ex.getMessage(),ex);
+    }
     BroadcasterFactory.getDefault().removeAllAtmosphereResource(this);
     try {
       req.setAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT,Boolean.FALSE);

@@ -1,6 +1,11 @@
 {
   r.removeEventListeners();
-  r.getBroadcaster().removeAtmosphereResource(r);
+  try {
+    r.getBroadcaster().removeAtmosphereResource(r);
+  }
+ catch (  IllegalStateException ex) {
+    logger.trace(ex.getMessage(),ex);
+  }
   if (BroadcasterFactory.getDefault() != null) {
     BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
   }

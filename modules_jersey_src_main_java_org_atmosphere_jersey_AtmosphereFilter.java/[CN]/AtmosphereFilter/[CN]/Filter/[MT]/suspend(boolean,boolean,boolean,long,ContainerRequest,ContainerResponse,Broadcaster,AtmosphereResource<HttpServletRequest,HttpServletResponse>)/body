@@ -16,7 +16,12 @@
   if (sessionSupported && servletReq.getSession().getAttribute(SUSPENDED_RESOURCE) != null) {
     AtmosphereResource<HttpServletRequest,HttpServletResponse> cached=(AtmosphereResource)servletReq.getSession().getAttribute(SUSPENDED_RESOURCE);
     bc=cached.getBroadcaster();
-    bc.removeAtmosphereResource(cached);
+    try {
+      bc.removeAtmosphereResource(cached);
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace(ex.getMessage(),ex);
+    }
   }
   if (response.getEntity() instanceof Broadcastable) {
     Broadcastable b=(Broadcastable)response.getEntity();
