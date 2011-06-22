@@ -1,0 +1,3 @@
+{
+  webSocketProcessor.broadcast(frame,data);
+}

@@ -1,0 +1,3 @@
+{
+  webSocketProcessor.broadcast(frame,new String(data,offset,length));
+}

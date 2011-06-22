@@ -1,0 +1,10 @@
+{
+  try {
+    connection.sendMessage(data,offset,length);
+  }
+ catch (  IOException e) {
+    logger.warn("WebSocket.onFrame",e);
+  }
+  logger.debug("WebSocket.onFrame");
+  return false;
+}
