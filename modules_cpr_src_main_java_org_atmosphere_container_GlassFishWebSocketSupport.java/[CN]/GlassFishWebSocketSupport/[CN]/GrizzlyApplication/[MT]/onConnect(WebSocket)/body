@@ -3,11 +3,11 @@
     throw new IllegalStateException();
   }
   BaseServerWebSocket webSocket=BaseServerWebSocket.class.cast(w);
-  webSocketProcessor=new WebSocketProcessor(config.getServlet(),new GrizzlyWebSocketSupport(webSocket));
   try {
+    webSocketProcessor=(WebSocketProcessor)JettyWebSocketHandler.class.getClassLoader().loadClass(config.getServlet().getWebSocketProcessorClassName()).getDeclaredConstructor(new Class[]{AtmosphereServlet.class,WebSocketSupport.class}).newInstance(new Object[]{config.getServlet(),new GrizzlyWebSocketSupport(webSocket)});
     webSocketProcessor.connect(new HttpServletRequestWrapper(webSocket.getRequest()));
   }
- catch (  IOException e) {
+ catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);
   }
 }

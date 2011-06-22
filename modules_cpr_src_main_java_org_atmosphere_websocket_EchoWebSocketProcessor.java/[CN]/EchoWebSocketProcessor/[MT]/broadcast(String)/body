@@ -1,3 +1,0 @@
-{
-  resource().getBroadcaster().broadcast(data);
-}
