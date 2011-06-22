@@ -1,0 +1,16 @@
+{
+  super.action(resource);
+  if (resource.action().type == Action.TYPE.RESUME && resource.isInScope()) {
+    try {
+      CometEvent event=(CometEvent)resource.getRequest().getAttribute(COMET_EVENT);
+      if (event == null)       return;
+      resumed.offer(event);
+      if (config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
+        event.close();
+      }
+    }
+ catch (    IOException ex) {
+      logger.debug("action failed",ex);
+    }
+  }
+}

@@ -6,6 +6,7 @@
       if (testClassExists(JETTY_7))       add(Jetty7CometSupport.class);
       if (testClassExists(JETTY_8))       add(Jetty7CometSupport.class);
       if (testClassExists(JBOSSWEB))       add(JBossWebCometSupport.class);
+      if (testClassExists(TOMCAT_7))       add(Tomcat7CometSupport.class);
       if (testClassExists(TOMCAT) || testClassExists(JBOSS_5))       add(TomcatCometSupport.class);
       if (testClassExists(GRIZZLY))       add(GrizzlyCometSupport.class);
       if (testClassExists(WEBLOGIC))       add(WebLogicCometSupport.class);
