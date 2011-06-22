@@ -1,0 +1,4 @@
+{
+  webSocketProcessor.broadcast(data,offset,length);
+  return false;
+}

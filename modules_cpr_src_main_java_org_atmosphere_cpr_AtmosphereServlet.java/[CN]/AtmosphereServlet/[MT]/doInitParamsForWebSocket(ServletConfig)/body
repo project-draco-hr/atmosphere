@@ -10,4 +10,8 @@
     webSocketEnabled=true;
     sessionSupport(false);
   }
+  s=sc.getInitParameter(WEBSOCKET_PROCESSOR);
+  if (s != null) {
+    webSocketProcessorClassName=s;
+  }
 }

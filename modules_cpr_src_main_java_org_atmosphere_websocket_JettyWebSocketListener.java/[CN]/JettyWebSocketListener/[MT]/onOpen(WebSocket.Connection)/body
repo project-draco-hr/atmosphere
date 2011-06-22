@@ -1,4 +1,0 @@
-{
-  this.connection=connection;
-  logger.debug("WebSocket.onOpen");
-}

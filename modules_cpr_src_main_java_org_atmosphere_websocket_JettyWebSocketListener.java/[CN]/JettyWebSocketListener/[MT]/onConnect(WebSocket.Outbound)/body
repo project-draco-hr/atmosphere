@@ -1,9 +1,0 @@
-{
-  webSocketProcessor=new WebSocketProcessor(atmosphereServlet,new JettyWebSocketSupport(outbound));
-  try {
-    webSocketProcessor.connect(new JettyRequestFix(request));
-  }
- catch (  IOException e) {
-    logger.warn("failed to connect to web socket",e);
-  }
-}

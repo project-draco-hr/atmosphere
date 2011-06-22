@@ -1,4 +1,0 @@
-{
-  connection.disconnect();
-  logger.debug("WebSocket.onClose {}",message);
-}

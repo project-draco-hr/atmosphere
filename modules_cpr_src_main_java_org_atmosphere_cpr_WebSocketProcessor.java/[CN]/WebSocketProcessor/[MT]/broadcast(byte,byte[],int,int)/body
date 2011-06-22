@@ -1,5 +1,0 @@
-{
-  byte[] b=new byte[length];
-  System.arraycopy(data,offset,b,0,length);
-  resource.getBroadcaster().broadcast(b);
-}

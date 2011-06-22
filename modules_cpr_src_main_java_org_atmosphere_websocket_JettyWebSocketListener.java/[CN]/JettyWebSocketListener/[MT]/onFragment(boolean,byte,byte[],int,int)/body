@@ -1,3 +1,0 @@
-{
-  webSocketProcessor.broadcast(opcode,new String(data,offset,length));
-}

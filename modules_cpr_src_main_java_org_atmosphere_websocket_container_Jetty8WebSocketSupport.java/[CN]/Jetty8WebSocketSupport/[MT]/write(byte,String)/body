@@ -1,0 +1,4 @@
+{
+  if (!connection.isOpen())   throw new IOException("Connection closed");
+  connection.sendMessage(data);
+}

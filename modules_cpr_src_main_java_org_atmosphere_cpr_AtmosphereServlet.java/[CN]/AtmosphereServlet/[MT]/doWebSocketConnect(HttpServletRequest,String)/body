@@ -1,4 +1,4 @@
 {
   logger.info("WebSocket upgrade requested");
-  return new JettyWebSocketListener(request,this);
+  return new JettyWebSocketHandler(request,this,webSocketProcessorClassName);
 }

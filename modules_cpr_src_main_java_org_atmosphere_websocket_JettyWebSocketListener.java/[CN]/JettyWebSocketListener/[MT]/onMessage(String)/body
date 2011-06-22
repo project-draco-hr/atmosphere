@@ -1,8 +1,0 @@
-{
-  try {
-    connection.sendMessage(data);
-  }
- catch (  IOException e) {
-    logger.warn("WebSocket.onMessage",e);
-  }
-}
