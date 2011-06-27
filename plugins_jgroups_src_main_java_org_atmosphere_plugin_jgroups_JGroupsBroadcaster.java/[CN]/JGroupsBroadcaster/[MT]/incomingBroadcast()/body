@@ -1,20 +1,20 @@
 {
   try {
-    logger.info("Starting Atmosphere JGroups Clustering support");
+    logger.info("Starting Atmosphere JGroups Clustering support with group name {}",getID());
     jchannel=new JChannel();
     jchannel.setReceiver(new ReceiverAdapter(){
       /** 
  * {@inheritDoc} 
  */
       @Override public void receive(      final Message message){
-        final String msg=(String)message.getObject();
+        final Object msg=message.getObject();
         if (msg != null) {
           broadcastReceivedMessage(msg);
         }
       }
     }
 );
-    jchannel.connect(clusterName);
+    jchannel.connect(getID());
   }
  catch (  Throwable t) {
     logger.warn("failed to connect to JGroups channel",t);

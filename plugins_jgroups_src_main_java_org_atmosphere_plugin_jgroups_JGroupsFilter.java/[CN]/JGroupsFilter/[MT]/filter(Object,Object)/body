@@ -1,17 +1,11 @@
 {
-  if (o instanceof String) {
-    String message=(String)o;
-    if (!receivedMessages.remove(message)) {
-      try {
-        jchannel.send(new Message(null,null,message));
-      }
- catch (      ChannelException e) {
-        logger.warn("failed to send message",e);
-      }
+  if (!receivedMessages.remove(message)) {
+    try {
+      jchannel.send(new Message(null,null,(Serializable)message));
     }
-    return new BroadcastAction(message);
+ catch (    ChannelException e) {
+      logger.warn("failed to send message",e);
+    }
   }
- else {
-    return new BroadcastAction(o);
-  }
+  return new BroadcastAction(message);
 }

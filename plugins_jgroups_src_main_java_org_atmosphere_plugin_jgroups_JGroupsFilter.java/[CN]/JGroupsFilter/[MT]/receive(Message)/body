@@ -1,5 +1,5 @@
 {
-  final String msg=(String)message.getObject();
+  final Object msg=message.getObject();
   if (message.getSrc() != jchannel.getLocalAddress()) {
     if (msg != null) {
       receivedMessages.offer(msg);
