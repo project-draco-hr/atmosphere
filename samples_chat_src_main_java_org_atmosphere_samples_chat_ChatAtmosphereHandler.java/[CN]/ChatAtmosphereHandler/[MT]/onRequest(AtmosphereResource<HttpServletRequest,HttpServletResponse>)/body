@@ -9,7 +9,7 @@
     if (!filterAdded.getAndSet(true) && clusterType != null) {
       if (clusterType.equals("jgroups")) {
         event.getAtmosphereConfig().getServletContext().log("JGroupsFilter enabled");
-        bc.getBroadcasterConfig().addFilter(new JGroupsFilter(bc,event.getAtmosphereConfig().getWebServerName()));
+        bc.getBroadcasterConfig().addFilter(new JGroupsFilter(bc));
       }
     }
     bc.getBroadcasterConfig().addFilter(new XSSHtmlFilter());
