@@ -1,4 +1,4 @@
 {
   if (!connection.isOpen())   throw new IOException("Connection closed");
-  connection.sendMessage(data,offset,length);
+  connection.sendMessage(new String(data,offset,length,"UTF-8"));
 }
