@@ -1,7 +1,7 @@
 {
   List l=new LinkedList<Class<? extends CometSupport>>(){
 {
-      if (testClassExists(JETTY_8))       add(Jetty8WebSocketSupport.class);
+      if (testClassExists(JETTY_8))       add(JettyWebSocketSupport.class);
       if (testClassExists(GRIZZLY_WEBSOCKET))       add(GlassFishWebSocketSupport.class);
     }
   }
