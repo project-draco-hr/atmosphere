@@ -1,9 +1,9 @@
 {
   try {
-    logger.info("Starting Atmosphere JGroups Clustering support with group name {}",bc.getID());
+    logger.info("Starting Atmosphere JGroups Clustering support with group name {}",JGroupsBroadcaster.CLUSTER_NAME);
     jchannel=new JChannel();
     jchannel.setReceiver(this);
-    jchannel.connect(bc.getID());
+    jchannel.connect(JGroupsBroadcaster.CLUSTER_NAME);
   }
  catch (  Throwable t) {
     logger.warn("failed to connect to cluser",t);

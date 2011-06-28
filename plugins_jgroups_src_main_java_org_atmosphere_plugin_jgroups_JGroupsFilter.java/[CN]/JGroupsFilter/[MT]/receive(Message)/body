@@ -2,9 +2,12 @@
   final Object msg=message.getObject();
   if (message.getSrc() != jchannel.getLocalAddress()) {
     if (msg != null) {
-      receivedMessages.offer(msg);
-      if (bc != null) {
-        bc.broadcast(msg);
+      if (msg != null && JGroupsBroadcaster.BroadcastMessage.class.isAssignableFrom(msg.getClass())) {
+        receivedMessages.offer(msg);
+        JGroupsBroadcaster.BroadcastMessage b=JGroupsBroadcaster.BroadcastMessage.class.cast(msg);
+        if (b.getTopicId().equalsIgnoreCase(bc.getID())) {
+          bc.broadcast(b.getTopicId());
+        }
       }
     }
   }

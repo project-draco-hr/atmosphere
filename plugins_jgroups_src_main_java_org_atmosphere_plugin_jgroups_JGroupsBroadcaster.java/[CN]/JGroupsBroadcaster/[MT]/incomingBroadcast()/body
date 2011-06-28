@@ -1,6 +1,6 @@
 {
   try {
-    logger.info("Starting Atmosphere JGroups Clustering support with group name {}",getID());
+    logger.info("Starting Atmosphere JGroups Clustering support with group name {}",CLUSTER_NAME);
     jchannel=new JChannel();
     jchannel.setReceiver(new ReceiverAdapter(){
       /** 
@@ -8,13 +8,16 @@
  */
       @Override public void receive(      final Message message){
         final Object msg=message.getObject();
-        if (msg != null) {
-          broadcastReceivedMessage(msg);
+        if (msg != null && BroadcastMessage.class.isAssignableFrom(msg.getClass())) {
+          BroadcastMessage b=BroadcastMessage.class.cast(msg);
+          if (b.getTopicId().equalsIgnoreCase(getID())) {
+            broadcastReceivedMessage(b.getMessage());
+          }
         }
       }
     }
 );
-    jchannel.connect(getID());
+    jchannel.connect(CLUSTER_NAME);
   }
  catch (  Throwable t) {
     logger.warn("failed to connect to JGroups channel",t);
