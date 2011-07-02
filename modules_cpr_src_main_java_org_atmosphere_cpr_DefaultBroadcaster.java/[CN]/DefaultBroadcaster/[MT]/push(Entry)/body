@@ -39,14 +39,14 @@
       for (      AtmosphereResource<?,?> r : resources) {
         finalMsg=perRequestFilter(r,entry);
         if (entry.writeLocally) {
-          asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future));
+          queueWriteIO(r,finalMsg,entry);
         }
       }
     }
  else     if (entry.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
       finalMsg=perRequestFilter((AtmosphereResource<?,?>)entry.multipleAtmoResources,entry);
       if (entry.writeLocally) {
-        asyncWriteQueue.put(new AsyncWriteToken((AtmosphereResource<?,?>)entry.multipleAtmoResources,finalMsg,entry.future));
+        queueWriteIO((AtmosphereResource<?,?>)entry.multipleAtmoResources,finalMsg,entry);
       }
     }
  else     if (entry.multipleAtmoResources instanceof Set) {
@@ -54,7 +54,7 @@
       for (      AtmosphereResource<?,?> r : sub) {
         finalMsg=perRequestFilter(r,entry);
         if (entry.writeLocally) {
-          asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future));
+          queueWriteIO(r,finalMsg,entry);
         }
       }
     }
