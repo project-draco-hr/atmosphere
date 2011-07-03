@@ -25,5 +25,6 @@
     logger.debug("failed to add Jersey init parameters to Atmosphere servlet",ex);
   }
   addAtmosphereHandler(mapping,rsp);
+  guiceInstalled=true;
   return true;
 }
