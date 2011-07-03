@@ -1,6 +1,5 @@
 {
   this.bc=bc;
-  bc.setScheduledExecutorService(scheduler);
   bc.setExecutorService(null);
   bc.setAsyncWriteService(null);
 }
