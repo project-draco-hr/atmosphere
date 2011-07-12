@@ -1,30 +1,13 @@
 {
   try {
-    if (bc.getAtmosphereConfig() != null) {
-      if (bc.getAtmosphereConfig().getInitParameter(JMS_TOPIC) != null) {
-        topicId=bc.getAtmosphereConfig().getInitParameter(JMS_TOPIC);
-      }
-      if (bc.getAtmosphereConfig().getInitParameter(JNDI_NAMESPACE) != null) {
-        namespace=bc.getAtmosphereConfig().getInitParameter(JNDI_NAMESPACE);
-      }
-      if (bc.getAtmosphereConfig().getInitParameter(JNDI_FACTORY_NAME) != null) {
-        factoryName=bc.getAtmosphereConfig().getInitParameter(JNDI_FACTORY_NAME);
-      }
-      if (bc.getAtmosphereConfig().getInitParameter(JNDI_TOPIC) != null) {
-        topicId=bc.getAtmosphereConfig().getInitParameter(JNDI_TOPIC);
-      }
+synchronized (this) {
+      while (session == null)       this.wait(1000);
     }
     String id=getID();
     if (id.startsWith("/*")) {
       id="atmosphere";
     }
-    logger.info("Looking up Connection Factory {}",namespace + factoryName);
-    Context ctx=new InitialContext();
-    ConnectionFactory connectionFactory=(ConnectionFactory)ctx.lookup(namespace + factoryName);
-    logger.info("Looking up topic: {}",topicId);
-    Topic topic=(Topic)ctx.lookup(namespace + topicId);
-    connection=connectionFactory.createConnection();
-    session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+    if (consumer != null)     consumer.close();
     logger.info("Create customer: {}",id);
     String selector=String.format("BroadcasterId = '%s'",id);
     consumer=session.createConsumer(topic,selector);
@@ -43,11 +26,11 @@
       }
     }
 );
-    publisher=session.createProducer(topic);
-    connection.start();
-    logger.info("JMS created for topic {}, with filter {}",topicId,selector);
+    logger.info("Consumer created for topic {}, with filter {}",topicId,selector);
   }
  catch (  Throwable ex) {
-    throw new IllegalStateException("Unable to initialize JMSBroadcaster",ex);
+    String msg="Unable to initialize JMSBroadcaster";
+    logger.error(msg,ex);
+    throw new IllegalStateException(msg,ex);
   }
 }
