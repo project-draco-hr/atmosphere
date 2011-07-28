@@ -1,36 +1,12 @@
 {
-  try {
 synchronized (this) {
-      while (session == null)       this.wait(1000);
-    }
-    String id=getID();
-    if (id.startsWith("/*")) {
-      id="atmosphere";
-    }
-    if (consumer != null)     consumer.close();
-    logger.info("Create customer: {}",id);
-    String selector=String.format("BroadcasterId = '%s'",id);
-    consumer=session.createConsumer(topic,selector);
-    consumer.setMessageListener(new MessageListener(){
-      @Override public void onMessage(      Message msg){
-        try {
-          TextMessage textMessage=(TextMessage)msg;
-          String message=textMessage.getText();
-          if (message != null && bc != null) {
-            broadcastReceivedMessage(message);
-          }
-        }
- catch (        JMSException ex) {
-          logger.warn("Failed to broadcast message",ex);
-        }
+    while (session == null) {
+      try {
+        this.wait(1000);
+      }
+ catch (      InterruptedException e) {
       }
     }
-);
-    logger.info("Consumer created for topic {}, with filter {}",topicId,selector);
   }
- catch (  Throwable ex) {
-    String msg="Unable to initialize JMSBroadcaster";
-    logger.error(msg,ex);
-    throw new IllegalStateException(msg,ex);
-  }
+  restartConsumer();
 }
