@@ -51,4 +51,8 @@
   if (s != null) {
     broadcasterLifeCyclePolicy=s;
   }
+  s=sc.getInitParameter(BROADCASTER_FACTORY);
+  if (s != null) {
+    broadcasterFactoryClassName=s;
+  }
 }

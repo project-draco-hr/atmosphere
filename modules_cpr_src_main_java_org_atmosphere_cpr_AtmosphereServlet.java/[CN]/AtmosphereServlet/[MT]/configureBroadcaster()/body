@@ -1,11 +1,16 @@
 {
+  if (broadcasterFactoryClassName != null) {
+    logger.info("using BroadcasterFactory class: {}",broadcasterFactoryClassName);
+    broadcasterFactory=(BroadcasterFactory)Thread.currentThread().getContextClassLoader().loadClass(broadcasterFactoryClassName).newInstance();
+  }
   if (broadcasterFactory == null) {
     Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
     logger.info("using broadcaster class: {}",bc.getName());
     broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy);
-    config.broadcasterFactory=broadcasterFactory;
-    BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
   }
+  config.broadcasterFactory=broadcasterFactory;
+  BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
+  InjectorProvider.getInjector().inject(broadcasterFactory);
   Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();
   AtmosphereHandlerWrapper w;
   Entry<String,AtmosphereHandlerWrapper> e;
