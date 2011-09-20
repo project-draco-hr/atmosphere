@@ -22,7 +22,6 @@
       }
     }
 ;
-    pingForStats();
     doInitParams(scFacade);
     configureDefaultBroadcasterFactory();
     doInitParamsForWebSocket(scFacade);
