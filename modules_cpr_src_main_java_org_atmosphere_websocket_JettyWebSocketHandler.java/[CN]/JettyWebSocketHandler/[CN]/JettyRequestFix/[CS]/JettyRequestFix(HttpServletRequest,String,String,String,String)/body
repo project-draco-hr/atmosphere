@@ -1,0 +1,7 @@
+{
+  super(request);
+  this.servletPath=servletPath;
+  this.contextPath=contextPath;
+  this.pathInfo=pathInfo;
+  this.requestUri=requestUri;
+}

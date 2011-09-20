@@ -1,5 +1,5 @@
 {
-  this.request=request;
+  this.request=new JettyRequestFix(request,request.getServletPath(),request.getContextPath(),request.getPathInfo(),request.getRequestURI());
   this.atmosphereServlet=atmosphereServlet;
   this.webSocketProcessorClassName=webSocketProcessorClassName;
 }

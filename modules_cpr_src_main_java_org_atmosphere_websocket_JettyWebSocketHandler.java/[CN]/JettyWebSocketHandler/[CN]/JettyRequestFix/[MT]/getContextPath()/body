@@ -1,8 +1,3 @@
 {
-  String uri=getRequestURI();
-  String path=super.getContextPath();
-  if (path == null) {
-    path=uri.substring(0,uri.indexOf("/",1));
-  }
-  return path;
+  return contextPath;
 }

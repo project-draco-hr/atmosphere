@@ -1,0 +1,5 @@
+HttpServletRequest request
+String servletPath
+String contextPath
+String pathInfo
+String requestUri
