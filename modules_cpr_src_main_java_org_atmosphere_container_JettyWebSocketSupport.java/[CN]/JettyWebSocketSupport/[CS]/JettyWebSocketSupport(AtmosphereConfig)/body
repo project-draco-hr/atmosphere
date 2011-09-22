@@ -4,9 +4,11 @@
   if (Integer.valueOf(jettyVersion[0]) > 7 || Integer.valueOf(jettyVersion[0]) == 7 && Integer.valueOf(jettyVersion[1]) > 4) {
     webSocketFactory=new WebSocketFactory(new WebSocketFactory.Acceptor(){
       public boolean checkOrigin(      HttpServletRequest request,      String origin){
+        logger.debug("WebSocket-checkOrigin request {} with origin {}",request.getRequestURI(),origin);
         return true;
       }
       public WebSocket doWebSocketConnect(      HttpServletRequest request,      String protocol){
+        logger.debug("WebSocket-connect request {} with protocol {}",request.getRequestURI(),protocol);
         return new JettyWebSocketHandler(request,config.getServlet(),config.getServlet().getWebSocketProcessorClassName());
       }
     }
