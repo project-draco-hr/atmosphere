@@ -2,7 +2,6 @@
   if (!loggedMsg.getAndSet(true)) {
     logger.info("Atmosphere detected WebSocketSupport: {}",webSocketSupport.getClass().getName());
   }
-  request.setAttribute(WebSocketSupport.WEBSOCKET_SUSPEND,"true");
   try {
     atmosphereServlet.doCometSupport(request,new WebSocketHttpServletResponse<WebSocketSupport>(webSocketSupport));
   }
