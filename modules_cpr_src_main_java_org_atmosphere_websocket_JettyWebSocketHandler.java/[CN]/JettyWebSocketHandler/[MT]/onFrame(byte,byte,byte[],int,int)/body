@@ -1,5 +1,4 @@
 {
-  webSocketProcessor.broadcast(data,offset,length);
-  logger.debug("WebSocket.onFrame");
+  logger.debug("WebSocket.onFrame.");
   return false;
 }
