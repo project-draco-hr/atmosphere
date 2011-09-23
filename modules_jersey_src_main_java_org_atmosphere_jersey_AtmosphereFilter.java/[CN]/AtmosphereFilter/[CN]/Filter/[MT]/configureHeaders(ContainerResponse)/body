@@ -1,6 +1,6 @@
 {
   String upgrade=servletReq.getHeader("Connection");
-  boolean webSocketSupported=servletReq.getHeader("WebSocketSupport.WEBSOCKET_SUSPEND") != null;
+  boolean webSocketSupported=servletReq.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) != null;
   if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
     if (!webSocketSupported) {
       response.getHttpHeaders().putSingle("X-Atmosphere-error","Websocket protocol not supported");
