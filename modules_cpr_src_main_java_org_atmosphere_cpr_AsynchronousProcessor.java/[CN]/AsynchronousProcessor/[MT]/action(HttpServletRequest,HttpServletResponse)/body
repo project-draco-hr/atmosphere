@@ -1,6 +1,13 @@
 {
-  String upgrade=req.getHeader("Connection");
-  if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade") && !supportWebSocket()) {
+  boolean webSocketEnabled=false;
+  String[] e=req.getHeaders("Connection").nextElement().split(",");
+  for (  String upgrade : e) {
+    if (upgrade.equalsIgnoreCase("Upgrade")) {
+      webSocketEnabled=true;
+      break;
+    }
+  }
+  if (webSocketEnabled && !supportWebSocket()) {
     res.setStatus(501);
     res.addHeader("X-Atmosphere-error","Websocket protocol not supported");
     res.flushBuffer();

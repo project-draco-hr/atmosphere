@@ -3,13 +3,15 @@
     throw new IllegalStateException("Cannot suspend a " + "response longer than the session timeout. Increase the value of session-timeout in web.xml");
   }
   if (!event.isResumedOnTimeout()) {
-    String upgrade=req.getHeader("Connection");
-    if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
-      if (writeHeaders && !cometSupport.supportWebSocket()) {
-        response.addHeader("X-Atmosphere-error","Websocket protocol not supported");
-      }
+    String[] e=req.getHeaders("Connection").nextElement().split(",");
+    for (    String upgrade : e) {
+      if (upgrade.trim().equalsIgnoreCase("Upgrade")) {
+        if (writeHeaders && !cometSupport.supportWebSocket()) {
+          response.addHeader("X-Atmosphere-error","Websocket protocol not supported");
+        }
  else {
-        flushComment=false;
+          flushComment=false;
+        }
       }
     }
     if (writeHeaders && injectCacheHeaders) {
