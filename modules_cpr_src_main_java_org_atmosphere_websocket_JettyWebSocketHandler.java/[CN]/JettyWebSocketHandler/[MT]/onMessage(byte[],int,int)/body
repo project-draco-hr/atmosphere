@@ -1,3 +1,4 @@
 {
+  logger.debug("WebSocket.onMessage (bytes)");
   webSocketProcessor.broadcast(data,offset,length);
 }

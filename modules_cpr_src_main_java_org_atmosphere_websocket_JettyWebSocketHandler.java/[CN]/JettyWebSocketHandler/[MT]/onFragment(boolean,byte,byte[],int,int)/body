@@ -1,3 +1,4 @@
 {
+  logger.debug("WebSocket.onFragment");
   webSocketProcessor.broadcast(new String(data,offset,length));
 }

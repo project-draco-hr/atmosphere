@@ -1,4 +1,5 @@
 {
+  logger.debug("WebSocket.onControl.");
   webSocketProcessor.broadcast(data,offset,length);
   return false;
 }
