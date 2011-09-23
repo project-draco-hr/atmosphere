@@ -10,4 +10,8 @@
   injectCacheHeaders=nocache != null ? false : true;
   String ac=config.getInitParameter(AtmosphereServlet.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER);
   enableAccessControl=ac != null ? false : true;
+  String wh=config.getInitParameter(AtmosphereServlet.WRITE_HEADERS);
+  writeHeaders=wh != null ? Boolean.parseBoolean(wh) : true;
+  req.setAttribute(AtmosphereServlet.NO_CACHE_HEADERS,injectCacheHeaders);
+  req.setAttribute(AtmosphereServlet.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER,enableAccessControl);
 }

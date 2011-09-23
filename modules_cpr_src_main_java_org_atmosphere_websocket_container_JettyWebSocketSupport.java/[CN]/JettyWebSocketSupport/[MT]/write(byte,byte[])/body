@@ -1,5 +1,4 @@
 {
-  checkWebSocketLatencyCheck();
   if (!outbound.isOpen())   throw new IOException("Connection closed");
   outbound.sendMessage(frame,data,0,data.length);
 }

@@ -1,0 +1,19 @@
+{
+  String upgrade=servletReq.getHeader("Connection");
+  boolean webSocketSupported=servletReq.getHeader("WebSocketSupport.WEBSOCKET_SUSPEND") != null;
+  if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
+    if (!webSocketSupported) {
+      response.getHttpHeaders().putSingle("X-Atmosphere-error","Websocket protocol not supported");
+    }
+  }
+  boolean injectCacheHeaders=servletReq.getAttribute(AtmosphereServlet.NO_CACHE_HEADERS) != null ? false : true;
+  boolean enableAccessControl=servletReq.getAttribute(AtmosphereServlet.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER) != null ? false : true;
+  if (injectCacheHeaders) {
+    response.getHttpHeaders().putSingle("Expires","-1");
+    response.getHttpHeaders().putSingle("Cache-Control","no-store, no-cache, must-revalidate");
+    response.getHttpHeaders().putSingle("Pragma","no-cache");
+  }
+  if (enableAccessControl) {
+    response.getHttpHeaders().putSingle("Access-Control-Allow-Origin","*");
+  }
+}

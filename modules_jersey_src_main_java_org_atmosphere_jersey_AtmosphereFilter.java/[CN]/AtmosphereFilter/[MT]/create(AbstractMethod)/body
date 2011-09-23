@@ -22,7 +22,7 @@
  else {
       f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,suspendTimeout);
     }
-    list.addLast((ResourceFilter)f);
+    list.addLast(f);
     if (am.isAnnotationPresent(Cluster.class)) {
       suspendTimeout=am.getAnnotation(Cluster.class).value();
       for (      Class<ClusterBroadcastFilter> c : suspendTimeout) {
@@ -44,14 +44,18 @@
     suspendTimeout=translateTimeUnit(suspendTimeout,tu);
     Suspend.SCOPE scope=am.getAnnotation(Suspend.class).scope();
     boolean outputComments=am.getAnnotation(Suspend.class).outputComments();
+    boolean trackable=false;
+    if (TrackableResource.class.isAssignableFrom(am.getMethod().getReturnType())) {
+      trackable=true;
+    }
     if (am.getAnnotation(Suspend.class).resumeOnBroadcast()) {
-      f=new Filter(Action.SUSPEND_RESUME,suspendTimeout,0,scope,outputComments);
+      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND_RESUME,suspendTimeout,0,scope,outputComments);
     }
  else {
-      f=new Filter(Action.SUSPEND,suspendTimeout,0,scope,outputComments);
+      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND,suspendTimeout,0,scope,outputComments);
     }
     f.setListeners(am.getAnnotation(Suspend.class).listeners());
-    list.addFirst((ResourceFilter)f);
+    list.addFirst(f);
   }
   if (am.isAnnotationPresent(Resume.class)) {
     int suspendTimeout=am.getAnnotation(Resume.class).value();

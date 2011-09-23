@@ -5,19 +5,19 @@
   if (!event.isResumedOnTimeout()) {
     String upgrade=req.getHeader("Connection");
     if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
-      if (!cometSupport.supportWebSocket()) {
+      if (writeHeaders && !cometSupport.supportWebSocket()) {
         response.addHeader("X-Atmosphere-error","Websocket protocol not supported");
       }
  else {
         flushComment=false;
       }
     }
-    if (injectCacheHeaders) {
+    if (writeHeaders && injectCacheHeaders) {
       response.setHeader("Expires","-1");
       response.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
       response.setHeader("Pragma","no-cache");
     }
-    if (enableAccessControl) {
+    if (writeHeaders && enableAccessControl) {
       response.setHeader("Access-Control-Allow-Origin","*");
     }
     if (flushComment) {

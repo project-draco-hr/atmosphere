@@ -1,6 +1,6 @@
 {
-  if (!Broadcaster.class.isAssignableFrom(type)) {
-    return null;
+  if (Broadcaster.class.isAssignableFrom(type)) {
+    return new BroadcasterStringReader();
   }
-  return new BroadcasterStringReader();
+  return null;
 }

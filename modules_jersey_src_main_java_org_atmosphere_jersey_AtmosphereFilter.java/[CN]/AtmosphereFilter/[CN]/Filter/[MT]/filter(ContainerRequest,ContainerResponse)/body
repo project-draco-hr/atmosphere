@@ -21,6 +21,7 @@ bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r);
 break;
 case SUSPEND:
+case SUSPEND_TRACKABLE:
 case SUSPEND_RESUME:
 outputJunk=outputJunk(request,outputComments);
 resumeOnBroadcast=resumeOnBroadcast(request,(action == Action.SUSPEND_RESUME));
@@ -36,7 +37,19 @@ if (r instanceof AtmosphereEventLifecycle) {
 throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + listener,t));
 }
 }
+boolean isTracked=TrackableResource.class.isAssignableFrom(response.getEntity().getClass());
+TrackableResource<? extends Trackable> trackableResource=null;
+if (isTracked) {
+trackableResource=TrackableResource.class.cast(response.getEntity());
+TrackableSession.getDefault().track(trackableResource);
+response.setEntity(trackableResource.entity());
+response.getHttpHeaders().putSingle(TrackableResource.TRACKING_HEADER,trackableResource.trackingID());
+}
 suspend(sessionSupported,resumeOnBroadcast,outputJunk,suspendTimeout,request,response,(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER),r);
+if (isTracked && trackableResource != null) {
+boolean isAresource=AtmosphereResource.class.isAssignableFrom(trackableResource.type()) ? true : false;
+trackableResource.setResource(isAresource ? r : r.getBroadcaster());
+}
 break;
 case RESUME:
 if (response.getEntity() != null) {

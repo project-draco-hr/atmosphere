@@ -64,10 +64,11 @@
       if (contentType == null || contentType.isWildcardType() || contentType.isWildcardSubtype())       contentType=MediaType.APPLICATION_OCTET_STREAM_TYPE;
     }
     r.getResponse().setContentType(contentType != null ? contentType.toString() : "text/html;charset=ISO-8859-1");
-    r.suspend(timeout,comments && !resumeOnBroadcast);
+    configureHeaders(response);
     if (response.getEntity() != null) {
       response.write();
     }
+    r.suspend(timeout,comments && !resumeOnBroadcast);
   }
  catch (  IOException ex) {
     throw new WebApplicationException(ex);

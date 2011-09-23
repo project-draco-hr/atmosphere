@@ -1,5 +1,5 @@
 {
-  Broadcaster broadcaster=null;
+  Broadcaster broadcaster;
   try {
     AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
     BroadcasterFactory bp=(BroadcasterFactory)req.getAttribute(AtmosphereServlet.BROADCASTER_FACTORY);
