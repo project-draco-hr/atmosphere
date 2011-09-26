@@ -1,3 +1,0 @@
-{
-  AtmosphereSpadeServer.build(args[0],"org.atmosphere.samples.spade").start();
-}
