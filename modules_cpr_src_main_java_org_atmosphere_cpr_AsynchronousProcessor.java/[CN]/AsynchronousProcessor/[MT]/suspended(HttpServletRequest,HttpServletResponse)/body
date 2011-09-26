@@ -1,4 +1,3 @@
 {
-  logger.debug("(suspend) invoked:\n HttpServletRequest: {}\n HttpServletResponse: {}",request,response);
   return action(request,response);
 }
