@@ -1,8 +1,0 @@
-{
-  AtmosphereAdapter adapter=(AtmosphereAdapter)sa;
-  if (atmosphereHandlerList != null && !atmosphereHandlerList.isEmpty()) {
-    for (    AtmosphereHandler handler : atmosphereHandlerList) {
-      adapter.addAtmosphereHandler(adapter.getServletPath(),handler);
-    }
-  }
-}

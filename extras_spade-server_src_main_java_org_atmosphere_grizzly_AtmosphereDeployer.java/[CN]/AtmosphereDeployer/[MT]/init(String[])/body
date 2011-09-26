@@ -1,6 +1,0 @@
-{
-  AtmosphereDeployerConfiguration cfg=new AtmosphereDeployerConfiguration();
-  cfg=(AtmosphereDeployerConfiguration)ConfigurationParser.parseOptions(args,AtmosphereDeployer.class.getCanonicalName(),(DeployerServerConfiguration)cfg);
-  logger.info("{}",cfg.toString());
-  return cfg;
-}

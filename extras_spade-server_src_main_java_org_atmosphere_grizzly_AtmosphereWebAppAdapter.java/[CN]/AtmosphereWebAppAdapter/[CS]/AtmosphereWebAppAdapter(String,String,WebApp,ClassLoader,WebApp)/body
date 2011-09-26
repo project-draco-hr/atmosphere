@@ -1,3 +1,0 @@
-{
-  super(root,context,webApp,webAppCL,webdefault);
-}

@@ -1,5 +1,0 @@
-String root
-String context
-WebApp webApp
-ClassLoader webAppCL
-WebApp webdefault
