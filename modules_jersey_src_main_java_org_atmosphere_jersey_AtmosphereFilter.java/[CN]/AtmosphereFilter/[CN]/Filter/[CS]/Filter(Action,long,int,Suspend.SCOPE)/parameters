@@ -1,4 +1,4 @@
 Action action
-long suspendTimeout
+long timeout
 int waitFor
 Suspend.SCOPE scope

@@ -1,10 +1,12 @@
 {
   boolean webSocketEnabled=false;
-  String[] e=((Enumeration<String>)servletReq.getHeaders("Connection")).nextElement().split(",");
-  for (  String upgrade : e) {
-    if (upgrade.trim().equalsIgnoreCase("Upgrade")) {
-      webSocketEnabled=true;
-      break;
+  if (servletReq.getHeaders("Connection") != null && servletReq.getHeaders("Connection").hasMoreElements()) {
+    String[] e=((Enumeration<String>)servletReq.getHeaders("Connection")).nextElement().split(",");
+    for (    String upgrade : e) {
+      if (upgrade.trim().equalsIgnoreCase("Upgrade")) {
+        webSocketEnabled=true;
+        break;
+      }
     }
   }
   String transport=request.getHeaderValue("X-Atmosphere-Transport");

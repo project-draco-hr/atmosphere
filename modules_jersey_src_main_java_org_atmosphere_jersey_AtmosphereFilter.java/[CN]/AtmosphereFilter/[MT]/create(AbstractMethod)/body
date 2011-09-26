@@ -17,10 +17,10 @@
     int delay=am.getAnnotation(Broadcast.class).delay();
     Class[] suspendTimeout=am.getAnnotation(Broadcast.class).value();
     if (am.getAnnotation(Broadcast.class).resumeOnBroadcast()) {
-      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,suspendTimeout);
+      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,suspendTimeout,null);
     }
  else {
-      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,suspendTimeout);
+      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,suspendTimeout,null);
     }
     list.addLast(f);
     if (am.isAnnotationPresent(Cluster.class)) {
@@ -55,6 +55,19 @@
       f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND,suspendTimeout,0,scope,outputComments);
     }
     f.setListeners(am.getAnnotation(Suspend.class).listeners());
+    list.addFirst(f);
+  }
+  if (am.isAnnotationPresent(Subscribe.class)) {
+    boolean trackable=false;
+    if (TrackableResource.class.isAssignableFrom(am.getMethod().getReturnType())) {
+      trackable=true;
+    }
+    f=new Filter(trackable ? Action.SUBSCRIBE_TRACKABLE : Action.SUBSCRIBE,30000,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Subscribe.class).value());
+    f.setListeners(am.getAnnotation(Subscribe.class).listeners());
+    list.addFirst(f);
+  }
+  if (am.isAnnotationPresent(Publish.class)) {
+    f=new Filter(Action.PUBLISH,-1,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Publish.class).value());
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Resume.class)) {

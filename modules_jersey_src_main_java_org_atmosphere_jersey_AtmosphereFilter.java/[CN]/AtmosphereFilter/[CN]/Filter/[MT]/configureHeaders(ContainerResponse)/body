@@ -1,9 +1,13 @@
 {
-  String upgrade=servletReq.getHeader("Connection");
   boolean webSocketSupported=servletReq.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) != null;
-  if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
-    if (!webSocketSupported) {
-      response.getHttpHeaders().putSingle("X-Atmosphere-error","Websocket protocol not supported");
+  if (servletReq.getHeaders("Connection") != null && servletReq.getHeaders("Connection").hasMoreElements()) {
+    String[] e=((Enumeration<String>)servletReq.getHeaders("Connection")).nextElement().split(",");
+    for (    String upgrade : e) {
+      if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
+        if (!webSocketSupported) {
+          response.getHttpHeaders().putSingle("X-Atmosphere-error","Websocket protocol not supported");
+        }
+      }
     }
   }
   boolean injectCacheHeaders=servletReq.getAttribute(AtmosphereServlet.NO_CACHE_HEADERS) != null ? false : true;

@@ -20,6 +20,8 @@ bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 }
 suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r);
 break;
+case SUBSCRIBE_TRACKABLE:
+case SUBSCRIBE:
 case SUSPEND:
 case SUSPEND_TRACKABLE:
 case SUSPEND_RESUME:
@@ -37,7 +39,18 @@ if (r instanceof AtmosphereEventLifecycle) {
 throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + listener,t));
 }
 }
-boolean isTracked=TrackableResource.class.isAssignableFrom(response.getEntity().getClass());
+Broadcaster broadcaster=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
+if (action == Action.SUBSCRIBE) {
+Class<Broadcaster> c=null;
+try {
+c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_CLASS));
+}
+ catch (Throwable e) {
+throw new IllegalStateException(e.getMessage());
+}
+broadcaster=BroadcasterFactory.getDefault().lookup(c,topic,true);
+}
+boolean isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : false;
 TrackableResource<? extends Trackable> trackableResource=null;
 if (isTracked) {
 trackableResource=TrackableResource.class.cast(response.getEntity());
@@ -45,7 +58,7 @@ TrackableSession.getDefault().track(trackableResource);
 response.setEntity(trackableResource.entity());
 response.getHttpHeaders().putSingle(TrackableResource.TRACKING_HEADER,trackableResource.trackingID());
 }
-suspend(sessionSupported,resumeOnBroadcast,outputJunk,suspendTimeout,request,response,(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER),r);
+suspend(sessionSupported,resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r);
 if (isTracked && trackableResource != null) {
 boolean isAresource=AtmosphereResource.class.isAssignableFrom(trackableResource.type()) ? true : false;
 trackableResource.setResource(isAresource ? r : r.getBroadcaster());
@@ -75,12 +88,23 @@ throw new WebApplicationException(new IllegalStateException("Unable to retrieve 
 }
 break;
 case BROADCAST:
+case PUBLISH:
 case RESUME_ON_BROADCAST:
 AtmosphereResource ar=(AtmosphereResource)servletReq.getAttribute(SUSPENDED_RESOURCE);
 if (ar != null) {
 r=ar;
 }
-broadcast(response,r,suspendTimeout);
+if (action == Action.PUBLISH) {
+Class<Broadcaster> c=null;
+try {
+c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_CLASS));
+}
+ catch (Throwable e) {
+throw new IllegalStateException(e.getMessage());
+}
+r.setBroadcaster(BroadcasterFactory.getDefault().lookup(c,topic,true));
+}
+broadcast(response,r,timeout);
 break;
 case SCHEDULE:
 case SCHEDULE_RESUME:
@@ -102,7 +126,7 @@ throw new WebApplicationException(ex);
 if (action == Action.SCHEDULE_RESUME) {
 configureResumeOnBroadcast(b);
 }
-b.scheduleFixedBroadcast(o,waitFor,suspendTimeout,TimeUnit.SECONDS);
+b.scheduleFixedBroadcast(o,waitFor,timeout,TimeUnit.SECONDS);
 break;
 }
 return response;

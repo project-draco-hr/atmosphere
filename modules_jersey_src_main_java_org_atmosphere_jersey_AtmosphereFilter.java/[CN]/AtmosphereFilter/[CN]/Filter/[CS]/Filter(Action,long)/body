@@ -1,3 +1,3 @@
 {
-  this(action,suspendTimeout,0);
+  this(action,timeout,0);
 }

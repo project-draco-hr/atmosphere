@@ -1,2 +1,2 @@
 Action action
-long suspendTimeout
+long timeout
