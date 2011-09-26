@@ -31,7 +31,7 @@
     configureBroadcaster();
     cometSupport.init(scFacade);
     initAtmosphereServletProcessor(scFacade);
-    logger.info("started atmosphere framework: {}",Version.getRawVersion());
+    logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
   }
  catch (  Throwable t) {
     logger.error("failed to initialize atmosphere framework",t);

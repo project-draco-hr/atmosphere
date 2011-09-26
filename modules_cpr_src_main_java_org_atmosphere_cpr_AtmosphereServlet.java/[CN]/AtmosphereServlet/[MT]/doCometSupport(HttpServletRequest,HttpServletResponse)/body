@@ -1,6 +1,7 @@
 {
   req.setAttribute(BROADCASTER_FACTORY,broadcasterFactory);
   req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
+  req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
   try {
     return cometSupport.service(req,res);
   }
