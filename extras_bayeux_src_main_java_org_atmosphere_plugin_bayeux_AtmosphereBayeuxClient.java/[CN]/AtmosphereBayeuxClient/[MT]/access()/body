@@ -1,8 +1,0 @@
-{
-synchronized (this) {
-    _accessed=_bayeux.getNow();
-    if (_intervalTimeoutTask != null && _intervalTimeoutTask.isScheduled()) {
-      _intervalTimeoutTask.reschedule();
-    }
-  }
-}
