@@ -10,8 +10,8 @@
       }
     }
   }
-  boolean injectCacheHeaders=servletReq.getAttribute(AtmosphereServlet.NO_CACHE_HEADERS) != null ? false : true;
-  boolean enableAccessControl=servletReq.getAttribute(AtmosphereServlet.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER) != null ? false : true;
+  boolean injectCacheHeaders=(Boolean)servletReq.getAttribute(AtmosphereServlet.NO_CACHE_HEADERS);
+  boolean enableAccessControl=(Boolean)servletReq.getAttribute(AtmosphereServlet.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER);
   if (injectCacheHeaders) {
     response.getHttpHeaders().putSingle("Expires","-1");
     response.getHttpHeaders().putSingle("Cache-Control","no-store, no-cache, must-revalidate");
