@@ -70,6 +70,7 @@
     configureHeaders(response);
     if (comments && !resumeOnBroadcast) {
       response.setEntity(AtmosphereResourceImpl.createCompatibleStringJunk());
+      response.write();
     }
     if (entity != null) {
       response.setEntity(entity);
