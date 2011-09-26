@@ -1,9 +1,0 @@
-{
-  try {
-synchronized (observable) {
-      observable.wait(keepAliveTimeout);
-    }
-  }
- catch (  InterruptedException e) {
-  }
-}

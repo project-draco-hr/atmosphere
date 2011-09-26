@@ -1,5 +1,0 @@
-{
-  if (!buttonSendMessage.isEnabled()) {
-    buttonSubscribe.setEnabled(true);
-  }
-}

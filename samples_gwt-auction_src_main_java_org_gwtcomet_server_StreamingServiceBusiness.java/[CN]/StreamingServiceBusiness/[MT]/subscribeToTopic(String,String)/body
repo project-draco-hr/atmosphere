@@ -1,6 +1,0 @@
-{
-  if (!queues.containsKey(topicName)) {
-    queues.put(topicName,new ConcurrentHashMap<String,Boolean>());
-  }
-  queues.get(topicName).putIfAbsent(clientName,Boolean.TRUE);
-}

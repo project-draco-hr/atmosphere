@@ -1,5 +1,0 @@
-{
-  if (queues.containsKey(topicName) && queues.get(topicName).containsKey(clientName)) {
-    queues.get(topicName).remove(clientName);
-  }
-}

@@ -1,3 +1,0 @@
-{
-  service.sendMessage(topicName,data,voidCallback);
-}

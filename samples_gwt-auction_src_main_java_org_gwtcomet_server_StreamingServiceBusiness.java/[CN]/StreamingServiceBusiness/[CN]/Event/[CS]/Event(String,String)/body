@@ -1,4 +1,0 @@
-{
-  this.queueName=queueName;
-  this.message=message;
-}

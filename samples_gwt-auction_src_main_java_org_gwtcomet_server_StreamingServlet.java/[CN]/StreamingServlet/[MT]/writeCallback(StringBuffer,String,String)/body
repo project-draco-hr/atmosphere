@@ -1,6 +1,0 @@
-{
-  stream.append(" <script type='text/javascript'>\n");
-  stream.append("\twindow.parent.callback('" + topicName + "',unescape('"+ URLEncoder.encode(data,"iso-8859-1").replaceAll("\\x2B","%20")+ "'));\n");
-  stream.append("</script>\n");
-  return stream;
-}

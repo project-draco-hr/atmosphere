@@ -1,3 +1,0 @@
-{
-  sendMessage(topicName,"$JSONSTART$" + object.toString() + "$JSONEND$");
-}

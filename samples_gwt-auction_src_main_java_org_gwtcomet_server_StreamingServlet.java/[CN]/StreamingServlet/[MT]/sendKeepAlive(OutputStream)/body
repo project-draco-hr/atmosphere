@@ -1,3 +1,0 @@
-{
-  writeToStream(out,writeCallback(new StringBuffer(),"keepAliveInternal",Integer.toString(counter++)).toString());
-}

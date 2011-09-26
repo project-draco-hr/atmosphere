@@ -1,3 +1,0 @@
-{
-  Window.alert(throwable.getMessage());
-}

@@ -1,3 +1,0 @@
-{
-  BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,"GWT").broadcast(new StreamingServiceBusiness.Event(queueName,message));
-}
