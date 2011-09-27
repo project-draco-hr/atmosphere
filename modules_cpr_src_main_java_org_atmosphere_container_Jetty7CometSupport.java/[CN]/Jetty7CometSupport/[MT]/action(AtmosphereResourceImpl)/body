@@ -7,7 +7,7 @@
         c.complete();
       }
  catch (      IllegalStateException ex) {
-        logger.debug("Continuation.complete() failed",ex);
+        logger.trace("Continuation.complete() failed",ex);
       }
     }
   }

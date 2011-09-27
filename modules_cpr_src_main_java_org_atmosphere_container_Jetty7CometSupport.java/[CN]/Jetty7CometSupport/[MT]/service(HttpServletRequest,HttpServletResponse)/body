@@ -20,7 +20,7 @@
           c.complete();
         }
  catch (        IllegalStateException ex) {
-          logger.debug("Continuation.complete()",ex);
+          logger.trace("Continuation.complete()",ex);
         }
  finally {
           resumed(req,res);
