@@ -1,4 +1,0 @@
-{
-  super(name);
-  bc=new GAEBroadcasterConfig(AtmosphereServlet.broadcasterFilters);
-}

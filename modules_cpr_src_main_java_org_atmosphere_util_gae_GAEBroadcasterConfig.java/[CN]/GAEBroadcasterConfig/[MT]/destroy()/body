@@ -1,7 +1,0 @@
-{
-  for (  BroadcastFilter f : filters) {
-    if (f instanceof BroadcastFilterLifecycle) {
-      ((BroadcastFilterLifecycle)f).destroy();
-    }
-  }
-}
