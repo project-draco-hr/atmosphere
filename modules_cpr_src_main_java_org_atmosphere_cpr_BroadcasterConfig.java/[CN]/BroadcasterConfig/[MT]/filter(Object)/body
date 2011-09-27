@@ -1,9 +1,11 @@
 {
   BroadcastAction transformed=new BroadcastAction(object);
   for (  BroadcastFilter mf : filters) {
-    transformed=mf.filter(object,transformed.message());
-    if (transformed == null || transformed.action() == BroadcastAction.ACTION.ABORT) {
-      return transformed;
+synchronized (mf) {
+      transformed=mf.filter(object,transformed.message());
+      if (transformed == null || transformed.action() == BroadcastAction.ACTION.ABORT) {
+        return transformed;
+      }
     }
   }
   return transformed;
