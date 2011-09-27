@@ -6,7 +6,9 @@
   setDefaultBroadcasterClassName(JERSEY_BROADCASTER);
   setUseStreamForFlushingComments(true);
   rsp.setServlet(guiceServlet);
-  rsp.setFilterClassName(GUICE_FILTER);
+  if (sc.getServletContext().getAttribute(SKIP_GUICE_FILTER) == null) {
+    rsp.setFilterClassName(GUICE_FILTER);
+  }
   getAtmosphereConfig().setSupportSession(false);
   String mapping=sc.getInitParameter(PROPERTY_SERVLET_MAPPING);
   if (mapping == null) {
