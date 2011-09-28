@@ -4,15 +4,15 @@
       private ByteInputStream bis=new ByteInputStream(data.getBytes(),0,data.getBytes().length);
       private BufferedReader br=new BufferedReader(new StringReader(data));
       @Override public String getMethod(){
-        return "POST";
+        return methodType;
       }
       @Override public String getContentType(){
-        return "text/plain";
+        return contentType;
       }
       @Override public Enumeration getHeaders(      String name){
         ArrayList list=Collections.list(super.getHeaders(name));
         if (name.equalsIgnoreCase("content-type")) {
-          list.add("text/plain");
+          list.add(contentType);
         }
         return Collections.enumeration(list);
       }
@@ -26,7 +26,7 @@
           return "keep-alive";
         }
  else         if ("content-type".equalsIgnoreCase(s)) {
-          return "text/plain";
+          return contentType;
         }
  else {
           return super.getHeader(s);
