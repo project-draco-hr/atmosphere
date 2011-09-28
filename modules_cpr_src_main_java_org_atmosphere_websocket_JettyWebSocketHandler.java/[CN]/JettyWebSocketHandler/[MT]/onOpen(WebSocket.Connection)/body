@@ -1,5 +1,5 @@
 {
-  logger.debug("WebSocket.onOPen.");
+  logger.debug("WebSocket.onOpen.");
   try {
     webSocketProcessor=(WebSocketProcessor)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProcessorClassName).getDeclaredConstructor(new Class[]{AtmosphereServlet.class,WebSocketSupport.class}).newInstance(new Object[]{atmosphereServlet,new Jetty8WebSocketSupport(connection)});
     webSocketProcessor.connect(request);

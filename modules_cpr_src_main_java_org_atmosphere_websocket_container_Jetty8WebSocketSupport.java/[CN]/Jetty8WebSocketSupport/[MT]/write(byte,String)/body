@@ -1,4 +1,5 @@
 {
   if (!connection.isOpen())   throw new IOException("Connection closed");
+  logger.debug("WebSocket.write()");
   connection.sendMessage(data);
 }
