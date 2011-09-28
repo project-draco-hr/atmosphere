@@ -1,5 +1,5 @@
 {
   if (!connection.isOpen())   throw new IOException("Connection closed");
   logger.debug("WebSocket.write()");
-  connection.sendMessage(new String(data,offset,length,"UTF-8"));
+  connection.sendMessage(data,offset,length);
 }
