@@ -1,0 +1,32 @@
+{
+  boolean webSocketEnabled=false;
+  if (req.getHeaders("Connection") != null && req.getHeaders("Connection").hasMoreElements()) {
+    String[] e=req.getHeaders("Connection").nextElement().split(",");
+    for (    String upgrade : e) {
+      if (upgrade.trim().equalsIgnoreCase("Upgrade")) {
+        webSocketEnabled=true;
+        break;
+      }
+    }
+  }
+  if (!webSocketEnabled) {
+    return super.service(req,res);
+  }
+ else {
+    if (webSocketFactory != null && req.getAttribute("websocket") == null) {
+      req.setAttribute("websocket","inprocess");
+      webSocketFactory.acceptWebSocket(req,res);
+      req.setAttribute(WebSocketSupport.WEBSOCKET_SUSPEND,"true");
+      return new Action();
+    }
+    Action action=suspended(req,res);
+    if (action.type == Action.TYPE.SUSPEND) {
+      logger.debug("Suspending response: {}",res);
+    }
+ else     if (action.type == Action.TYPE.RESUME) {
+      logger.debug("Resume response: {}",res);
+      req.setAttribute(WebSocketSupport.WEBSOCKET_RESUME,"true");
+    }
+    return action;
+  }
+}
