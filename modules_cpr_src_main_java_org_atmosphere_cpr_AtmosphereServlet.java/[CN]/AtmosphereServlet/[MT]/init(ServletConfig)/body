@@ -28,6 +28,7 @@
     loadConfiguration(scFacade);
     autoDetectContainer();
     configureBroadcaster();
+    configureWebDotXmlAtmosphereHandler(sc);
     cometSupport.init(scFacade);
     initAtmosphereServletProcessor(scFacade);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
