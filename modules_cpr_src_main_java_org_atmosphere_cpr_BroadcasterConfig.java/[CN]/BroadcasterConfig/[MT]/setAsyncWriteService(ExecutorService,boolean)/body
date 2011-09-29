@@ -1,0 +1,8 @@
+{
+  if (!this.isAsyncExecutorShared && this.asyncWriteService != null) {
+    this.asyncWriteService.shutdown();
+  }
+  this.asyncWriteService=asyncWriteService;
+  this.isAsyncExecutorShared=isAsyncExecutorShared;
+  return this;
+}

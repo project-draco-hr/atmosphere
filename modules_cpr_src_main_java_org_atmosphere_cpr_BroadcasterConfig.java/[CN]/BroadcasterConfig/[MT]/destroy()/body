@@ -2,16 +2,16 @@
   if (broadcasterCache != null) {
     broadcasterCache.stop();
   }
-  if (executorService != null) {
+  if (!isExecutorShared && executorService != null) {
     executorService.shutdownNow();
   }
-  if (asyncWriteService != null) {
+  if (!isAsyncExecutorShared && asyncWriteService != null) {
     asyncWriteService.shutdownNow();
   }
-  if (defaultExecutorService != null) {
+  if (!isExecutorShared && defaultExecutorService != null) {
     defaultExecutorService.shutdownNow();
   }
-  if (defaultAsyncWriteService != null) {
+  if (!isAsyncExecutorShared && defaultAsyncWriteService != null) {
     defaultAsyncWriteService.shutdownNow();
   }
   if (scheduler != null) {
