@@ -1,11 +1,5 @@
 {
   ClassLoader cl=Thread.currentThread().getContextClassLoader();
-  try {
-    cl.loadClass(PRIMEFACES_SERVLET);
-    return false;
-  }
- catch (  Throwable ignored) {
-  }
   String broadcasterClassNameTmp=null;
   try {
     cl.loadClass(JERSEY_CONTAINER);
