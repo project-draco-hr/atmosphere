@@ -1,4 +1,4 @@
 {
   this.broadcasterCacheClassName=broadcasterCacheClassName;
-  configureBroadcaster();
+  configureBroadcaster(config.getServletContext());
 }

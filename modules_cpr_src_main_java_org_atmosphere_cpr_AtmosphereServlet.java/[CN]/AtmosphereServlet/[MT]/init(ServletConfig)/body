@@ -26,7 +26,7 @@
     doInitParamsForWebSocket(scFacade);
     loadConfiguration(scFacade);
     autoDetectContainer();
-    configureBroadcaster();
+    configureBroadcaster(sc.getServletContext());
     configureWebDotXmlAtmosphereHandler(sc);
     cometSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
