@@ -2,5 +2,5 @@
   if (getCometSupport() == null) {
     setCometSupport(createCometSupportResolver().resolve(useNativeImplementation,useBlockingImplementation,webSocketEnabled));
   }
-  logger.info("Atmosphere is using comet support: {} running under container: {}",getCometSupport().getClass().getName(),cometSupport.getContainerName());
+  logger.info("Atmosphere is using async support: {} running under container: {}",getCometSupport().getClass().getName(),cometSupport.getContainerName());
 }

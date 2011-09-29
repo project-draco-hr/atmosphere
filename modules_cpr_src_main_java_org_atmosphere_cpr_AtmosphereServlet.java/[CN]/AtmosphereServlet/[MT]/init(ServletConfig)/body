@@ -1,5 +1,5 @@
 {
-  logger.info("initializing atmosphere framework: {}",Version.getRawVersion());
+  logger.info("Initializing Atmosphere framework: {}",Version.getRawVersion());
   try {
     super.init(sc);
     ServletContextHolder.register(this);
@@ -30,7 +30,8 @@
     configureBroadcaster();
     configureWebDotXmlAtmosphereHandler(sc);
     cometSupport.init(scFacade);
-    initAtmosphereServletProcessor(scFacade);
+    initAtmosphereHandler(scFacade);
+    logger.info("Using broadcaster class: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
   }
  catch (  Throwable t) {

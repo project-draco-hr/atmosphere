@@ -9,6 +9,5 @@
     logger.error("failed to load default broadcaster class name: " + defaultBroadcasterClassName,e);
   }
   Class bc=(b == null ? DefaultBroadcaster.class : b);
-  logger.info("using default broadcaster class: {}",bc);
   BroadcasterFactory.setBroadcasterFactory(new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy),config);
 }

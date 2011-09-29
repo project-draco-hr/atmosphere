@@ -17,7 +17,7 @@
  else {
         handler=new ReflectorServletProcessor();
       }
-      logger.info("successfully loaded handler: {} mapped to context-path: {}",handler,handlerPath);
+      logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",handler,handlerPath);
       AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler);
       atmosphereHandlers.put(handlerPath,wrapper);
       boolean isJersey=false;

@@ -1,5 +1,5 @@
 {
-  logger.info("auto detecting atmosphere handlers in WEB-INF/classes");
+  logger.info("Auto detecting atmosphere handlers in WEB-INF/classes");
   String realPath=servletContext.getRealPath(WEB_INF_CLASSES);
   if (realPath == null) {
     URL u=servletContext.getResource(WEB_INF_CLASSES);
@@ -7,5 +7,4 @@
     realPath=u.getPath();
   }
   loadAtmosphereHandlersFromPath(classloader,realPath);
-  logger.info("Atmosphere using Broadcaster: {} ",broadcasterClassName);
 }
