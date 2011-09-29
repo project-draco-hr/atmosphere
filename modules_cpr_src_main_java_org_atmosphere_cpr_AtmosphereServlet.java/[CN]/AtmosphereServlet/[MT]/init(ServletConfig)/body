@@ -1,5 +1,4 @@
 {
-  logger.info("Initializing Atmosphere framework: {}",Version.getRawVersion());
   try {
     super.init(sc);
     ServletContextHolder.register(this);
