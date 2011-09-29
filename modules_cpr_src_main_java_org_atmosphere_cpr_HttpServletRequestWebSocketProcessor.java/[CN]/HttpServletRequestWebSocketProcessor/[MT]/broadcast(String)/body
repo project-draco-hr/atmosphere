@@ -14,11 +14,23 @@
         if (name.equalsIgnoreCase("content-type")) {
           list.add(contentType);
         }
+        if (list.size() == 0 && name.startsWith("X-Atmosphere")) {
+          if (request().getAttribute(name) != null) {
+            list.add(request().getAttribute(name));
+          }
+        }
         return Collections.enumeration(list);
       }
       public Enumeration<String> getHeaderNames(){
         ArrayList list=Collections.list(super.getHeaderNames());
         list.add("content-type");
+        Enumeration e=request().getAttributeNames();
+        while (e.hasMoreElements()) {
+          String name=e.nextElement().toString();
+          if (name.startsWith("X-Atmosphere")) {
+            list.add(name);
+          }
+        }
         return Collections.enumeration(list);
       }
       @Override public String getHeader(      String s){
@@ -29,7 +41,13 @@
           return contentType;
         }
  else {
-          return super.getHeader(s);
+          String name=super.getHeader(s);
+          if (name != null) {
+            if (name.startsWith("X-Atmosphere")) {
+              return (String)request().getAttribute(s);
+            }
+          }
+          return name;
         }
       }
       @Override public ServletInputStream getInputStream() throws IOException {
