@@ -3,7 +3,7 @@
     latch.await(5,TimeUnit.SECONDS);
   }
  catch (  InterruptedException e) {
-    e.printStackTrace();
+    logger.trace("",e);
   }
   return resource;
 }
