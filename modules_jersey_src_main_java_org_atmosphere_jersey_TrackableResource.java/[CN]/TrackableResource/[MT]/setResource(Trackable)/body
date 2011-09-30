@@ -2,5 +2,6 @@
   if (!type.isAssignableFrom(resource.getClass())) {
     throw new IllegalStateException(String.format("Unassignable %s to %s",type.toString(),resource.getClass().toString()));
   }
+  latch.countDown();
   this.resource=type.cast(resource);
 }

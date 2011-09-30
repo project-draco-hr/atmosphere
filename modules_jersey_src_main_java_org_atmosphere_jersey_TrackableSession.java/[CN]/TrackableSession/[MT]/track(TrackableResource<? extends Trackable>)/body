@@ -1,3 +1,8 @@
 {
+  logger.info("Tracking {}",trackableResource.trackingID());
   factoryCache.put(trackableResource.trackingID(),trackableResource);
+  CountDownLatch latch=pendingLock.remove(trackableResource.trackingID());
+  if (latch != null) {
+    latch.countDown();
+  }
 }

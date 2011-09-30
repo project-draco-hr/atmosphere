@@ -1,0 +1,17 @@
+{
+  logger.info("Lookup trackinID {}",trackingID);
+  TrackableResource<? extends Trackable> r=factoryCache.get(trackingID);
+  if (r == null) {
+    CountDownLatch latch=new CountDownLatch(1);
+    pendingLock.put(trackingID,latch);
+    try {
+      if (!latch.await(10,TimeUnit.SECONDS)) {
+      }
+      pendingLock.remove(trackingID);
+    }
+ catch (    InterruptedException e) {
+      logger.trace("",e);
+    }
+  }
+  return factoryCache.get(trackingID);
+}
