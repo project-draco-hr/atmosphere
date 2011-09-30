@@ -1,5 +1,5 @@
 {
-  logger.debug("Lookup trackinID {}",trackingID);
+  logger.info("Lookup trackinID {}",trackingID);
   TrackableResource<? extends Trackable> r=factoryCache.get(trackingID);
   if (r == null) {
     CountDownLatch latch=new CountDownLatch(1);
