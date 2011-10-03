@@ -1,4 +1,5 @@
 {
+  logger.debug("Invoking listener with {}",event);
   if (event.isResuming() || event.isResumedOnTimeout()) {
     onResume(event);
   }
