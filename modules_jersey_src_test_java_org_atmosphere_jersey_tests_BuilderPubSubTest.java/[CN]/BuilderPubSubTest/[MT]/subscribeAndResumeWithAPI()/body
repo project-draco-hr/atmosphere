@@ -1,4 +1,4 @@
 {
-  SuspendResponse<String> r=new SuspendResponse.SuspendResponseBuilder<String>().outputComments(false).resumeOnBroadcast(true).entity("suspend").build();
+  SuspendResponse<String> r=new SuspendResponse.SuspendResponseBuilder<String>().outputComments(false).resumeOnBroadcast(true).build();
   return r;
 }
