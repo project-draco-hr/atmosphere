@@ -22,7 +22,9 @@
  catch (    Exception ex) {
       logger.debug("Cannot resume an already resumed/cancelled request");
     }
-    cometSupport.action(this);
+    if (req.getAttribute(PRE_SUSPEND) == null) {
+      cometSupport.action(this);
+    }
   }
  else {
     logger.debug("Cannot resume an already resumed/cancelled request");
