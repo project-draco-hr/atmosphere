@@ -1,5 +1,5 @@
 {
-  boolean webSocketSupported=servletReq.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) != null;
+  boolean webSocketSupported=servletReq.getAttribute(WebSocket.WEBSOCKET_SUSPEND) != null;
   if (servletReq.getHeaders("Connection") != null && servletReq.getHeaders("Connection").hasMoreElements()) {
     String[] e=((Enumeration<String>)servletReq.getHeaders("Connection")).nextElement().split(",");
     for (    String upgrade : e) {

@@ -1,5 +1,6 @@
 {
   logger.debug("WebSocket.OnClose.");
+  webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocketProcessor.webSocketSupport()));
   AtmosphereResource<?,?> r=(AtmosphereResource<?,?>)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
   if (r != null) {
     r.getBroadcaster().removeAtmosphereResource(r);

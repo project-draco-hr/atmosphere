@@ -57,7 +57,7 @@
         return br;
       }
     }
-,new WebSocketHttpServletResponse<WebSocketSupport>(webSocketSupport()));
+,new WebSocketHttpServletResponse<WebSocket>(webSocketSupport()));
   }
  catch (  IOException e) {
     logger.warn(e.getMessage(),e);

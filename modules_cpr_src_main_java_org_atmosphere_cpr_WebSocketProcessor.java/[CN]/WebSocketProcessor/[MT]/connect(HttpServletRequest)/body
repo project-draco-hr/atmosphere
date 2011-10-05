@@ -1,9 +1,9 @@
 {
   if (!loggedMsg.getAndSet(true)) {
-    logger.info("Atmosphere detected WebSocketSupport: {}",webSocketSupport.getClass().getName());
+    logger.info("Atmosphere detected WebSocket: {}",webSocket.getClass().getName());
   }
-  WebSocketHttpServletResponse wsr=new WebSocketHttpServletResponse<WebSocketSupport>(webSocketSupport);
-  request.setAttribute(WebSocketSupport.WEBSOCKET_SUSPEND,true);
+  WebSocketHttpServletResponse wsr=new WebSocketHttpServletResponse<WebSocket>(webSocket);
+  request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   try {
     atmosphereServlet.doCometSupport(request,wsr);
   }
@@ -17,6 +17,6 @@ catch (  ServletException e) {
   handler=(AtmosphereHandler)request.getAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER);
   if (resource == null || !resource.getAtmosphereResourceEvent().isSuspended()) {
     logger.error("No AtmosphereResource has been suspended. The WebSocket will be closed.");
-    webSocketSupport.close();
+    webSocket.close();
   }
 }
