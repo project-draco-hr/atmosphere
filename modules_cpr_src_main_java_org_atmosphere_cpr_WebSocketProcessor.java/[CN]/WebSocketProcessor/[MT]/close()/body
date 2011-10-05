@@ -10,4 +10,7 @@
     }
     logger.info("Failed invoking atmosphere handler onStateChange()",e);
   }
+  if (resource != null) {
+    resource.getBroadcaster().removeAtmosphereResource(resource);
+  }
 }
