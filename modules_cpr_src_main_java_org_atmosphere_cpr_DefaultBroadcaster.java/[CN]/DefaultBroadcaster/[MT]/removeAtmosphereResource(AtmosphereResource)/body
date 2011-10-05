@@ -1,5 +1,8 @@
 {
-  if (destroyed.get())   throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
+  if (destroyed.get()) {
+    logger.error("This Broadcaster has been destroyed and cannot be used");
+    return r;
+  }
   if (!resources.contains(r)) {
     return null;
   }
