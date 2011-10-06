@@ -1,4 +1,4 @@
 {
-  this.maxSuspendResource=maxSuspendResource;
+  this.maxSuspendResource.set(maxSuspendResource);
   this.policy=policy;
 }
