@@ -10,4 +10,9 @@
     methodType="POST";
   }
   this.methodType=methodType;
+  String delimiter=atmosphereServlet.getAtmosphereConfig().getInitParameter(AtmosphereServlet.WEBSOCKET_PATH_DELIMITER);
+  if (delimiter == null) {
+    delimiter="@@";
+  }
+  this.delimiter=delimiter;
 }
