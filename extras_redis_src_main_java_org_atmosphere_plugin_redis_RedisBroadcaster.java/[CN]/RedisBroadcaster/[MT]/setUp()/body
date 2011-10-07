@@ -14,6 +14,10 @@
     config.testWhileIdle=true;
     jedisPool=new JedisPool(config,uri.getHost(),uri.getPort());
   }
+ else {
+    jedisPool.returnResource(jedisPublisher);
+    jedisPool.returnResource(jedisSubscriber);
+  }
   jedisSubscriber=jedisPool.getResource();
   try {
     jedisSubscriber.connect();
