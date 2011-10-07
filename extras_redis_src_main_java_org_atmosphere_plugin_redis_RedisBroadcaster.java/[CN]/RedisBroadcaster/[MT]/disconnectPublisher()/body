@@ -4,7 +4,7 @@
       jedisPublisher.disconnect();
     }
  catch (    IOException e) {
-      logger.error("failed to disconnect publisher",e);
+      logger.warn("failed to disconnect publisher",e);
     }
   }
 }

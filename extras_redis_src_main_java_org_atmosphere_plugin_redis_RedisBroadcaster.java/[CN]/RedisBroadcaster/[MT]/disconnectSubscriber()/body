@@ -4,7 +4,7 @@
       jedisSubscriber.disconnect();
     }
  catch (    IOException e) {
-      logger.error("failed to disconnect subscriber",e);
+      logger.warn("failed to disconnect subscriber",e);
     }
   }
 }

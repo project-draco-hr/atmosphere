@@ -1,3 +1,13 @@
 {
-  jedisPublisher.publish(getID(),message.toString());
+  try {
+    jedisPublisher.publish(getID(),message.toString());
+  }
+ catch (  JedisException e) {
+    logger.warn("outgoingBroadcast exception, retying a connection",e);
+synchronized (jedisPublisher) {
+      jedisPool.returnBrokenResource(jedisPublisher);
+      jedisPublisher=jedisPool.getResource();
+      jedisPublisher.publish(getID(),message.toString());
+    }
+  }
 }

@@ -8,7 +8,13 @@
       uri=URI.create(config.getServletConfig().getInitParameter(REDIS_SERVER));
     }
   }
-  jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
+  if (jedisPool == null) {
+    GenericObjectPool.Config config=new GenericObjectPool.Config();
+    config.testOnBorrow=true;
+    config.testWhileIdle=true;
+    jedisPool=new JedisPool(config,uri.getHost(),uri.getPort());
+  }
+  jedisSubscriber=jedisPool.getResource();
   try {
     jedisSubscriber.connect();
   }
@@ -17,7 +23,7 @@
   }
   jedisSubscriber.auth(authToken);
   jedisSubscriber.flushAll();
-  jedisPublisher=new Jedis(uri.getHost(),uri.getPort());
+  jedisPublisher=jedisPool.getResource();
   try {
     jedisPublisher.connect();
   }
