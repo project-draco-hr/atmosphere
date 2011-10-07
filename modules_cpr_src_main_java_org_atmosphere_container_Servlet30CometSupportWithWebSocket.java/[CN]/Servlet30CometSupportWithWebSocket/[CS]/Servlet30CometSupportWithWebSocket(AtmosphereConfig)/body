@@ -2,25 +2,7 @@
   super(config);
   boolean isJetty=config.getServletContext().getServerInfo().toLowerCase().startsWith("jetty");
   if (isJetty) {
-    String[] jettyVersion=config.getServletContext().getServerInfo().substring(6).split("\\.");
-    if (Integer.valueOf(jettyVersion[0]) > 7 || Integer.valueOf(jettyVersion[0]) == 7 && Integer.valueOf(jettyVersion[1]) > 4) {
-      webSocketFactory=new WebSocketFactory(new WebSocketFactory.Acceptor(){
-        public boolean checkOrigin(        HttpServletRequest request,        String origin){
-          logger.debug("WebSocket-checkOrigin request {} with origin {}",request.getRequestURI(),origin);
-          return true;
-        }
-        public org.eclipse.jetty.websocket.WebSocket doWebSocketConnect(        HttpServletRequest request,        String protocol){
-          logger.debug("WebSocket-connect request {} with protocol {}",request.getRequestURI(),protocol);
-          return new JettyWebSocketHandler(request,config.getServlet(),config.getServlet().getWebSocketProcessorClassName());
-        }
-      }
-);
-      webSocketFactory.setBufferSize(4096);
-      webSocketFactory.setMaxIdleTime(60000);
-    }
- else {
-      webSocketFactory=null;
-    }
+    webSocketFactory=JettyWebSocketUtil.getFactory(config);
   }
  else {
     webSocketFactory=null;

@@ -1,33 +1,4 @@
 {
-  boolean webSocketEnabled=false;
-  if (req.getHeaders("Connection") != null && req.getHeaders("Connection").hasMoreElements()) {
-    String[] e=req.getHeaders("Connection").nextElement().split(",");
-    for (    String upgrade : e) {
-      if (upgrade.trim().equalsIgnoreCase("Upgrade")) {
-        webSocketEnabled=true;
-        break;
-      }
-    }
-  }
-  Boolean b=(Boolean)req.getAttribute(WebSocket.WEBSOCKET_INITIATED);
-  if (b == null)   b=Boolean.FALSE;
-  if (!webSocketEnabled) {
-    return super.service(req,res);
-  }
- else {
-    if (webSocketFactory != null && !b) {
-      req.setAttribute(WebSocket.WEBSOCKET_INITIATED,true);
-      webSocketFactory.acceptWebSocket(req,res);
-      return new Action();
-    }
-    Action action=suspended(req,res);
-    if (action.type == Action.TYPE.SUSPEND) {
-      logger.debug("Suspending response: {}",res);
-    }
- else     if (action.type == Action.TYPE.RESUME) {
-      logger.debug("Resume response: {}",res);
-      req.setAttribute(WebSocket.WEBSOCKET_RESUME,true);
-    }
-    return action;
-  }
+  Action action=JettyWebSocketUtil.doService(this,req,res,webSocketFactory);
+  return action == null ? super.service(req,res) : action;
 }
