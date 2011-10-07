@@ -1,6 +1,8 @@
 {
   super.destroy();
-  if (xmppConnection != null) {
-    xmppConnection.disconnect();
+synchronized (xmppConnection) {
+    if (xmppConnection != null) {
+      xmppConnection.disconnect();
+    }
   }
 }

@@ -1,4 +1,5 @@
 {
   super.destroy();
+  if (!jchannel.isOpen())   return;
   jchannel.shutdown();
 }
