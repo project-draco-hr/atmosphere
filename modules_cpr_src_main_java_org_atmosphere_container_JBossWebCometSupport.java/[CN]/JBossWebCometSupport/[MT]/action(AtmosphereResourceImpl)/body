@@ -4,7 +4,7 @@
     try {
       HttpEvent event=(HttpEvent)actionEvent.getRequest().getAttribute(HTTP_EVENT);
       resumed.offer(event);
-      if (config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
+      if (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
         event.close();
       }
     }

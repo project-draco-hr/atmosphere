@@ -1,8 +1,8 @@
 {
   Broadcaster broadcaster;
   try {
-    AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
-    BroadcasterFactory bp=(BroadcasterFactory)req.getAttribute(AtmosphereServlet.BROADCASTER_FACTORY);
+    AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+    BroadcasterFactory bp=(BroadcasterFactory)req.getAttribute(ApplicationConfig.BROADCASTER_FACTORY);
     broadcaster=bp.lookup(r.getBroadcaster().getClass(),topic,true);
   }
  catch (  Throwable ex) {

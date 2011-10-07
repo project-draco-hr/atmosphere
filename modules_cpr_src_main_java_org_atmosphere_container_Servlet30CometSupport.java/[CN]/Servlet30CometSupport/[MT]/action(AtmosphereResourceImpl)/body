@@ -4,7 +4,7 @@
     if (asyncContext == null && supportSession()) {
       asyncContext=(AsyncContext)actionEvent.getRequest().getSession().getAttribute("org.atmosphere.container.asyncContext");
     }
-    if (asyncContext != null && (config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
+    if (asyncContext != null && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
       asyncContext.complete();
     }
   }

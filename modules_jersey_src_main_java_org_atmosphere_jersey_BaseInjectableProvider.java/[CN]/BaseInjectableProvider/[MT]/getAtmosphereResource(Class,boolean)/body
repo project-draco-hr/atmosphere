@@ -2,12 +2,12 @@
   AtmosphereResource r=null;
   try {
     if (session) {
-      if ((Boolean)req.getAttribute(AtmosphereServlet.SUPPORT_SESSION)) {
+      if ((Boolean)req.getAttribute(FrameworkConfig.SUPPORT_SESSION)) {
         r=(AtmosphereResource)req.getSession().getAttribute(AtmosphereFilter.SUSPENDED_RESOURCE);
       }
     }
     if (r == null) {
-      r=(AtmosphereResource)req.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+      r=(AtmosphereResource)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
     }
     return r;
   }

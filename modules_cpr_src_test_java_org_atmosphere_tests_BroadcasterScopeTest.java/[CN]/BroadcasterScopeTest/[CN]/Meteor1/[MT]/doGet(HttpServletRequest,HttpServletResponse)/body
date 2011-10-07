@@ -7,7 +7,7 @@
   res.getOutputStream().write("resume".getBytes());
   m.addListener(new AtmosphereResourceEventListener(){
     @Override public void onSuspend(    final AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
-      event.getResource().getRequest().setAttribute(AtmosphereServlet.RESUME_ON_BROADCAST,"true");
+      event.getResource().getRequest().setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,"true");
     }
     @Override public void onResume(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
     }

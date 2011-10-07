@@ -1,16 +1,16 @@
 {
   super(atmosphereServlet,webSocket);
-  String contentType=atmosphereServlet.getAtmosphereConfig().getInitParameter(AtmosphereServlet.WEBSOCKET_CONTENT_TYPE);
+  String contentType=atmosphereServlet.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_CONTENT_TYPE);
   if (contentType == null) {
     contentType="text/html";
   }
   this.contentType=contentType;
-  String methodType=atmosphereServlet.getAtmosphereConfig().getInitParameter(AtmosphereServlet.WEBSOCKET_METHOD);
+  String methodType=atmosphereServlet.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_METHOD);
   if (methodType == null) {
     methodType="POST";
   }
   this.methodType=methodType;
-  String delimiter=atmosphereServlet.getAtmosphereConfig().getInitParameter(AtmosphereServlet.WEBSOCKET_PATH_DELIMITER);
+  String delimiter=atmosphereServlet.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_PATH_DELIMITER);
   if (delimiter == null) {
     delimiter="@@";
   }

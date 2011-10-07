@@ -11,7 +11,7 @@
     @Override public void onDisconnect(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
     }
     @Override public void onBroadcast(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
-      event.getResource().getRequest().setAttribute(AtmosphereServlet.RESUME_ON_BROADCAST,"true");
+      event.getResource().getRequest().setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,"true");
     }
     @Override public void onThrowable(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
     }

@@ -2,7 +2,7 @@
   if (response.getStatus() == 204) {
     response.setStatus(200);
   }
-  BroadcasterFactory broadcasterFactory=(BroadcasterFactory)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_FACTORY);
+  BroadcasterFactory broadcasterFactory=(BroadcasterFactory)servletReq.getAttribute(ApplicationConfig.BROADCASTER_FACTORY);
   if (!sessionSupported && !resumeOnBroadcast && response.getHttpHeaders().getFirst("Location") == null) {
     String uuid=UUID.randomUUID().toString();
     response.getHttpHeaders().putSingle(HttpHeaders.LOCATION,uriInfo.getAbsolutePathBuilder().path(uuid).build(""));
@@ -37,7 +37,7 @@
       bc.setID(bc.getClass().getSimpleName() + "-" + UUID.randomUUID());
       Class<Broadcaster> c=null;
       try {
-        c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_CLASS));
+        c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(ApplicationConfig.BROADCASTER_CLASS));
       }
  catch (      Throwable e) {
         throw new IllegalStateException(e.getMessage());
@@ -53,13 +53,13 @@
   r.setBroadcaster(bc);
   if (sessionSupported) {
     servletReq.getSession().setAttribute(SUSPENDED_RESOURCE,r);
-    servletReq.getSession().setAttribute(AtmosphereServlet.CONTAINER_RESPONSE,response);
+    servletReq.getSession().setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
   }
   servletReq.setAttribute(SUSPENDED_RESOURCE,r);
-  servletReq.setAttribute(AtmosphereServlet.CONTAINER_RESPONSE,response);
+  servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
   logger.debug("Linking HttpServletRequest {} with ContainerResponse {}",servletReq,response);
   if (resumeOnBroadcast) {
-    servletReq.setAttribute(AtmosphereServlet.RESUME_ON_BROADCAST,new Boolean(true));
+    servletReq.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,new Boolean(true));
   }
   try {
     MediaType contentType=response.getMediaType();

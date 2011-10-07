@@ -3,14 +3,14 @@
   GuiceContainer guiceServlet=injector.getInstance(GuiceContainer.class);
   setUseStreamForFlushingComments(false);
   ReflectorServletProcessor rsp=new ReflectorServletProcessor();
-  setDefaultBroadcasterClassName(JERSEY_BROADCASTER);
+  setDefaultBroadcasterClassName(FrameworkConfig.JERSEY_BROADCASTER);
   setUseStreamForFlushingComments(true);
   rsp.setServlet(guiceServlet);
   if (sc.getServletContext().getAttribute(SKIP_GUICE_FILTER) == null) {
     rsp.setFilterClassName(GUICE_FILTER);
   }
   getAtmosphereConfig().setSupportSession(false);
-  String mapping=sc.getInitParameter(PROPERTY_SERVLET_MAPPING);
+  String mapping=sc.getInitParameter(ApplicationConfig.PROPERTY_SERVLET_MAPPING);
   if (mapping == null) {
     mapping="/*";
   }

@@ -14,7 +14,7 @@
       c.suspend();
     }
  else     if (action.type == Action.TYPE.RESUME) {
-      Boolean resumeOnBroadcast=(Boolean)req.getAttribute(AtmosphereServlet.RESUME_ON_BROADCAST);
+      Boolean resumeOnBroadcast=(Boolean)req.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
       if (resumeOnBroadcast != null && resumeOnBroadcast) {
         return action;
       }

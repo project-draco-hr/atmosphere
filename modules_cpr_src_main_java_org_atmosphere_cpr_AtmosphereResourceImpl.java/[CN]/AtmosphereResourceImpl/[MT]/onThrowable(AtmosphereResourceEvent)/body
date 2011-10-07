@@ -1,5 +1,5 @@
 {
-  AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER);
+  AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
   for (  AtmosphereResourceEventListener r : listeners) {
     r.onThrowable(e);
   }

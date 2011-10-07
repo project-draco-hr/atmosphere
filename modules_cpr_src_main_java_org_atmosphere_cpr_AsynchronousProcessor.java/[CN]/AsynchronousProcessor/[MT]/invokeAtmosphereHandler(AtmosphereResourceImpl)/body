@@ -1,13 +1,13 @@
 {
   HttpServletRequest req=r.getRequest();
   HttpServletResponse response=r.getResponse();
-  String disableOnEvent=r.getAtmosphereConfig().getInitParameter(AtmosphereServlet.DISABLE_ONSTATE_EVENT);
+  String disableOnEvent=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.DISABLE_ONSTATE_EVENT);
   try {
     if (!r.getResponse().equals(response)) {
       logger.warn("Invalid response: {}",response);
     }
  else     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
-      AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER);
+      AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
       atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
     }
  else {

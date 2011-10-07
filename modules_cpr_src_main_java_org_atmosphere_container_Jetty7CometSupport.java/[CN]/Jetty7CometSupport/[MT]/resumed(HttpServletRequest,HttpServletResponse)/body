@@ -1,7 +1,7 @@
 {
   logger.debug("(resumed) invoked:\n HttpServletRequest: {}\n HttpServletResponse: {}",request,response);
-  AtmosphereResourceImpl r=(AtmosphereResourceImpl)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
-  AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)request.getAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER);
+  AtmosphereResourceImpl r=(AtmosphereResourceImpl)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)request.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
   atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
   return new Action(Action.TYPE.RESUME);
 }

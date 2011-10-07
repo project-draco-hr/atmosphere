@@ -1,6 +1,6 @@
 {
   if (r.getRequest() instanceof HttpServletRequest) {
-    if (((HttpServletRequest)r.getRequest()).getAttribute(AtmosphereServlet.CONTAINER_RESPONSE) != null) {
+    if (((HttpServletRequest)r.getRequest()).getAttribute(FrameworkConfig.CONTAINER_RESPONSE) != null) {
       try {
         if (jerseyBroadcast == null) {
           Class jerseyBroadcasterUtil=Class.forName("org.atmosphere.jersey.util.JerseyBroadcasterUtil");

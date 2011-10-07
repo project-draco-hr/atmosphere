@@ -17,7 +17,7 @@
       BroadcasterFactory.getDefault().removeAllAtmosphereResource(this);
     }
     try {
-      req.setAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT,Boolean.FALSE);
+      req.setAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT,Boolean.FALSE);
     }
  catch (    Exception ex) {
       logger.debug("Cannot resume an already resumed/cancelled request");

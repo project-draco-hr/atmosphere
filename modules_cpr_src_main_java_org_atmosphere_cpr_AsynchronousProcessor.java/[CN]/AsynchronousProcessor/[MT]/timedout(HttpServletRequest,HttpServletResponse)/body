@@ -9,15 +9,15 @@
     logger.warn("Invalid Request/Response: {}/{}",request,response);
     return timedoutAction;
   }
-  re=(AtmosphereResourceImpl)request.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
+  re=(AtmosphereResourceImpl)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
   if (re != null) {
     re.getAtmosphereResourceEvent().setIsResumedOnTimeout(true);
     Broadcaster b=re.getBroadcaster();
     if (b instanceof DefaultBroadcaster) {
       ((DefaultBroadcaster)b).broadcastOnResume(re);
     }
-    if (re.getRequest().getAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT) != null) {
-      re.getAtmosphereResourceEvent().setIsResumedOnTimeout((Boolean)re.getRequest().getAttribute(AtmosphereServlet.RESUMED_ON_TIMEOUT));
+    if (re.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) != null) {
+      re.getAtmosphereResourceEvent().setIsResumedOnTimeout((Boolean)re.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT));
     }
     invokeAtmosphereHandler(re);
   }

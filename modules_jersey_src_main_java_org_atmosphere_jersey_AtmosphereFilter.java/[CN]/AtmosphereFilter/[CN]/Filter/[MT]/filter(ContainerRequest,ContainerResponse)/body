@@ -2,8 +2,8 @@
   if (response.getMappedThrowable() != null) {
     return response;
   }
-  AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)servletReq.getAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE);
-  boolean sessionSupported=(Boolean)servletReq.getAttribute(AtmosphereServlet.SUPPORT_SESSION);
+  AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)servletReq.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
 switch (action) {
 case SUSPEND_RESPONSE:
     SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(response.getResponse()).getJResponse());
@@ -43,7 +43,7 @@ Broadcaster broadcaster=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTE
 if (action == Action.SUBSCRIBE) {
 Class<Broadcaster> c=null;
 try {
-c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_CLASS));
+c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(ApplicationConfig.BROADCASTER_CLASS));
 }
  catch (Throwable e) {
 throw new IllegalStateException(e.getMessage());
@@ -106,7 +106,7 @@ r=ar;
 if (action == Action.PUBLISH) {
 Class<Broadcaster> c=null;
 try {
-c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(AtmosphereServlet.BROADCASTER_CLASS));
+c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(ApplicationConfig.BROADCASTER_CLASS));
 }
  catch (Throwable e) {
 throw new IllegalStateException(e.getMessage());

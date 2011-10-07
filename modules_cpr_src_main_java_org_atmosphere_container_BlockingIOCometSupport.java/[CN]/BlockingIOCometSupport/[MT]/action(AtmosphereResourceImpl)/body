@@ -12,7 +12,7 @@
           latchId=(Integer)req.getSession().getAttribute(LATCH);
         }
       }
-      String s=config.getInitParameter(AtmosphereServlet.RESUME_AND_KEEPALIVE);
+      String s=config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE);
       if (latchId != -1 && (s == null || s.equalsIgnoreCase("false"))) {
         CountDownLatch latch=latchs.remove(latchId);
         if (latch == null) {

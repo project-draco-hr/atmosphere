@@ -1,6 +1,6 @@
 {
   try {
-    if (useWriter && !((Boolean)req.getAttribute(AtmosphereServlet.PROPERTY_USE_STREAM))) {
+    if (useWriter && !((Boolean)req.getAttribute(ApplicationConfig.PROPERTY_USE_STREAM))) {
       try {
         response.getWriter();
       }

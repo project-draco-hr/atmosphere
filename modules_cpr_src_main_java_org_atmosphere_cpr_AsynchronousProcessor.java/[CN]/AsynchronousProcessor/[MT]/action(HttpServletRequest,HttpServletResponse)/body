@@ -25,12 +25,12 @@
       session.setMaxInactiveInterval(-1);
     }
   }
-  req.setAttribute(AtmosphereServlet.SUPPORT_SESSION,supportSession());
+  req.setAttribute(FrameworkConfig.SUPPORT_SESSION,supportSession());
   AtmosphereHandlerWrapper handlerWrapper=map(req);
   AtmosphereResourceImpl resource=new AtmosphereResourceImpl(config,handlerWrapper.broadcaster,req,res,this,handlerWrapper.atmosphereHandler);
   handlerWrapper.broadcaster.getBroadcasterConfig().setAtmosphereConfig(config);
-  req.setAttribute(AtmosphereServlet.ATMOSPHERE_RESOURCE,resource);
-  req.setAttribute(AtmosphereServlet.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
+  req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
+  req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
   try {
     handlerWrapper.atmosphereHandler.onRequest(resource);
   }
