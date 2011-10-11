@@ -1,6 +1,6 @@
 {
   logger.debug("WebSocket.onControl.");
-  webSocketProcessor.broadcast(data,offset,length);
+  webSocketProcessor.parseMessage(data,offset,length);
   try {
     webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),CONTROL,webSocketProcessor.webSocketSupport()));
   }

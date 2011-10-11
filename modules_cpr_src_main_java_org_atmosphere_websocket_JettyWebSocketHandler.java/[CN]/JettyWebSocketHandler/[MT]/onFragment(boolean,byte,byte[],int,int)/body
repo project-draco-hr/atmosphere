@@ -1,6 +1,6 @@
 {
   logger.debug("WebSocket.onFragment");
-  webSocketProcessor.broadcast(new String(data,offset,length));
+  webSocketProcessor.parseMessage(new String(data,offset,length));
   try {
     webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),MESSAGE,webSocketProcessor.webSocketSupport()));
   }
