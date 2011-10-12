@@ -8,12 +8,9 @@
       d=token[2].getBytes("UTF-8");
     }
     WebSocketHttpServletRequest r=new WebSocketHttpServletRequest.Builder().request(request()).method(methodType).contentType(contentType).body(d,offset,length).pathInfo(pathInfo).headers(configureHeader(request())).build();
-    atmosphereServlet().doCometSupport(r,new WebSocketHttpServletResponse<WebSocket>(webSocketSupport()));
+    dispatch(r,new WebSocketHttpServletResponse<WebSocket>(webSocketSupport()));
   }
  catch (  IOException e) {
-    logger.warn(e.getMessage(),e);
-  }
-catch (  ServletException e) {
     logger.warn(e.getMessage(),e);
   }
 }

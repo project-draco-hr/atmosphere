@@ -2,7 +2,7 @@
   logger.debug("WebSocket.onOpen.");
   try {
     webSocketProcessor=(WebSocketProcessor)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProcessorClassName).getDeclaredConstructor(new Class[]{AtmosphereServlet.class,WebSocket.class}).newInstance(new Object[]{atmosphereServlet,new Jetty8WebSocket(connection)});
-    webSocketProcessor.connect(request);
+    webSocketProcessor.dispatch(request);
     webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CONNECT,webSocketProcessor.webSocketSupport()));
   }
  catch (  Exception e) {

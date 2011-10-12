@@ -2,7 +2,7 @@
   logger.debug("WebSocket.onConnect (outbound)");
   try {
     webSocketProcessor=(WebSocketProcessor)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProcessorClassName).getDeclaredConstructor(new Class[]{AtmosphereServlet.class,WebSocket.class}).newInstance(new Object[]{atmosphereServlet,new JettyWebSocket(outbound)});
-    webSocketProcessor.connect(request);
+    webSocketProcessor.dispatch(request);
   }
  catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);
