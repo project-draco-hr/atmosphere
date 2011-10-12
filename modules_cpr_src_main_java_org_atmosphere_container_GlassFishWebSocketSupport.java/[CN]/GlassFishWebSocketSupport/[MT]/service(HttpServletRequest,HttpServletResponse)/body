@@ -3,7 +3,7 @@
   if (request.getHeaders("Connection") != null && request.getHeaders("Connection").hasMoreElements()) {
     String[] e=request.getHeaders("Connection").nextElement().split(",");
     for (    String upgrade : e) {
-      if (upgrade.equalsIgnoreCase("Upgrade")) {
+      if (upgrade.equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
         webSocketEnabled=true;
         break;
       }

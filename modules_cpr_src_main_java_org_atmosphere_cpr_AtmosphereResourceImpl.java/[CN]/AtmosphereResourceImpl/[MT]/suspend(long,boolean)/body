@@ -10,7 +10,7 @@
     if (req.getHeaders("Connection") != null && req.getHeaders("Connection").hasMoreElements()) {
       String[] e=req.getHeaders("Connection").nextElement().split(",");
       for (      String upgrade : e) {
-        if (upgrade.trim().equalsIgnoreCase("Upgrade")) {
+        if (upgrade.trim().equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
           if (writeHeaders && !cometSupport.supportWebSocket()) {
             response.addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
           }
@@ -21,13 +21,13 @@
       }
     }
     if (writeHeaders && injectCacheHeaders) {
-      response.setHeader("Expires","-1");
-      response.setHeader("Cache-Control","no-store, no-cache, must-revalidate");
-      response.setHeader("Pragma","no-cache");
+      response.setHeader(EXPIRES,"-1");
+      response.setHeader(CACHE_CONTROL,"no-store, no-cache, must-revalidate");
+      response.setHeader(PRAGMA,"no-cache");
     }
     if (writeHeaders && enableAccessControl) {
-      response.setHeader("Access-Control-Allow-Origin","*");
-      response.setHeader("Access-Control-Allow-Credentials","true");
+      response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN,"*");
+      response.setHeader(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
     }
     if (flushComment) {
       write();
