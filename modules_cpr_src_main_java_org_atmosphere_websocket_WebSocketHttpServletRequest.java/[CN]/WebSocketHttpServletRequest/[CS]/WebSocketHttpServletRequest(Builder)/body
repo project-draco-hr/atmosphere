@@ -1,0 +1,25 @@
+{
+  super(b.request);
+  pathInfo=b.pathInfo == null ? b.request.getPathInfo() : b.pathInfo;
+  request=b.request;
+  headers=b.headers;
+  if (b.dataBytes != null) {
+    bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
+    try {
+      br=new BufferedReader(new StringReader(new String(b.dataBytes,b.offset,b.length,b.encoding)));
+    }
+ catch (    UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
+  }
+ else   if (b.data != null) {
+    bis=new ByteInputStream(b.data.getBytes(),0,b.data.getBytes().length);
+    br=new BufferedReader(new StringReader(b.data));
+  }
+ else {
+    bis=null;
+    br=null;
+  }
+  methodType=b.methodType == null ? b.request.getMethod() : b.methodType;
+  contentType=b.contentType == null ? b.request.getContentType() : b.contentType;
+}

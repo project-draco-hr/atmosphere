@@ -1,0 +1,20 @@
+{
+  if (s.equalsIgnoreCase("Connection")) {
+    return "keep-alive";
+  }
+ else   if ("content-type".equalsIgnoreCase(s)) {
+    return contentType;
+  }
+ else {
+    String name=super.getHeader(s);
+    if (name == null) {
+      if (headers.get(s) != null) {
+        return headers.get(s);
+      }
+      if (s.startsWith(X_ATMOSPHERE)) {
+        return (String)request.getAttribute(s);
+      }
+    }
+    return name;
+  }
+}

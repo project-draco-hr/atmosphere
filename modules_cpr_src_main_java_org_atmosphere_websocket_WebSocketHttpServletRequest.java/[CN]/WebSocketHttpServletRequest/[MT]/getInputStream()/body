@@ -1,0 +1,3 @@
+{
+  return bis == null ? request.getInputStream() : bis;
+}

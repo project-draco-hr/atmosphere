@@ -1,0 +1,3 @@
+{
+  return br == null ? request.getReader() : br;
+}

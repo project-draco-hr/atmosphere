@@ -1,0 +1,4 @@
+{
+  this.methodType=methodType;
+  return this;
+}
