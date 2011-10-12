@@ -1,3 +1,0 @@
-{
-  this.bis=new ByteArrayInputStream(data,offset,length);
-}

@@ -2,6 +2,7 @@
   req.setAttribute(BROADCASTER_FACTORY,broadcasterFactory);
   req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
+  req.setAttribute(SUPPORT_TRACKABLE,config.getInitParameter(SUPPORT_TRACKABLE));
   try {
     return cometSupport.service(req,res);
   }

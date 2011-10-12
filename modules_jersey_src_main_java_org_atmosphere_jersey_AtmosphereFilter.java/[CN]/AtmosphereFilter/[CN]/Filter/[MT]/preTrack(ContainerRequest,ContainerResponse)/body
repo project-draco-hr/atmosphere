@@ -1,6 +1,11 @@
 {
   TrackableResource<? extends Trackable> trackableResource=TrackableResource.class.cast(response.getEntity());
-  response.setEntity(trackableResource.entity());
+  if (trackableResource == null) {
+    trackableResource=new TrackableResource<AtmosphereResource>(AtmosphereResource.class,servletReq.getHeader(X_ATMOSPHERE_TRACKING_ID),"");
+  }
+ else {
+    response.setEntity(trackableResource.entity());
+  }
   String trackableUUID=request.getHeaderValue(X_ATMOSPHERE_TRACKING_ID);
   if (trackableUUID == null && trackableResource.trackingID() != null) {
     trackableUUID=trackableResource.trackingID();

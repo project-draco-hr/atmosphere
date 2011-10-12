@@ -18,7 +18,8 @@ Broadcaster bc=s.broadcaster();
 if (bc == null) {
 bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 }
-boolean isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : false;
+boolean supportTrackable=servletReq.getAttribute(ApplicationConfig.SUPPORT_TRACKABLE) != null;
+boolean isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : supportTrackable;
 TrackableResource<? extends Trackable> trackableResource=null;
 if (isTracked) {
 trackableResource=preTrack(request,response);
@@ -58,10 +59,13 @@ throw new IllegalStateException(e.getMessage());
 }
 broadcaster=BroadcasterFactory.getDefault().lookup(c,topic,true);
 }
-isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : false;
-trackableResource=null;
+supportTrackable=servletReq.getAttribute(ApplicationConfig.SUPPORT_TRACKABLE) != null;
+isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : supportTrackable;
 if (isTracked) {
 trackableResource=preTrack(request,response);
+}
+ else {
+trackableResource=null;
 }
 suspend(sessionSupported,resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r);
 if (isTracked && trackableResource != null) {

@@ -3,9 +3,10 @@
     logger.info("Atmosphere detected WebSocket: {}",webSocket.getClass().getName());
   }
   WebSocketHttpServletResponse wsr=new WebSocketHttpServletResponse<WebSocket>(webSocket);
+  WebSocketHttpServletRequest r=new WebSocketHttpServletRequest.Builder().request(request).headers(configureHeader(request)).build();
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   try {
-    atmosphereServlet.doCometSupport(request,wsr);
+    atmosphereServlet.doCometSupport(r,wsr);
   }
  catch (  IOException e) {
     logger.info("failed invoking atmosphere servlet doCometSupport()",e);
