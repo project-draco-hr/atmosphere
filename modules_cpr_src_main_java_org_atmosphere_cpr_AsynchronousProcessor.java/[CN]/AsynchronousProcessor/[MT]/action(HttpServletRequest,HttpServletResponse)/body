@@ -11,7 +11,7 @@
   }
   if (webSocketEnabled && !supportWebSocket()) {
     res.setStatus(501);
-    res.addHeader("X-Atmosphere-error","Websocket protocol not supported");
+    res.addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
     res.flushBuffer();
     return new Action();
   }

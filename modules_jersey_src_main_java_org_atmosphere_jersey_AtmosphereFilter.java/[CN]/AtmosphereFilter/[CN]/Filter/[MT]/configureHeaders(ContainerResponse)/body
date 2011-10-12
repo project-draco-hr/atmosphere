@@ -5,7 +5,7 @@
     for (    String upgrade : e) {
       if (upgrade != null && upgrade.equalsIgnoreCase("Upgrade")) {
         if (!webSocketSupported) {
-          response.getHttpHeaders().putSingle("X-Atmosphere-error","Websocket protocol not supported");
+          response.getHttpHeaders().putSingle(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
         }
       }
     }

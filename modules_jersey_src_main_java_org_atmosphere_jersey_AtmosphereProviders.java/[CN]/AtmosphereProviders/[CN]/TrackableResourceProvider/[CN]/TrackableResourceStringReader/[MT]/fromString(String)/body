@@ -1,9 +1,9 @@
 {
   TrackableResource<?> trackableResource=null;
   try {
-    String trackingId=req.getHeader(TrackableResource.TRACKING_HEADER);
+    String trackingId=req.getHeader(X_ATMOSPHERE_TRANSPORT);
     if (trackingId == null) {
-      trackingId=(String)req.getAttribute(TrackableResource.TRACKING_HEADER);
+      trackingId=(String)req.getAttribute(X_ATMOSPHERE_TRANSPORT);
     }
     if (trackingId != null) {
       trackableResource=TrackableSession.getDefault().lookupAndWait(trackingId);

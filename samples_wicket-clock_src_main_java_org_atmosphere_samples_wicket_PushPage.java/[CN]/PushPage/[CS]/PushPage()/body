@@ -11,6 +11,6 @@
 ,1);
   }
   meteor.addListener(this);
-  String transport=req.getHeader("X-Atmosphere-Transport");
-  meteor.suspend(-1,!(transport != null && transport.equalsIgnoreCase("long-polling")));
+  String transport=req.getHeader(X_ATMOSPHERE_TRANSPORT);
+  meteor.suspend(-1,!(transport != null && transport.equalsIgnoreCase(LONG_POLLING_TRANSPORT)));
 }

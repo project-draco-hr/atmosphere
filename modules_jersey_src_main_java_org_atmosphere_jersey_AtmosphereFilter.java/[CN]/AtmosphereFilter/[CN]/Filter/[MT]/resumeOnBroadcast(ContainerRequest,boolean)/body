@@ -1,6 +1,6 @@
 {
-  String transport=request.getHeaderValue("X-Atmosphere-Transport");
-  if (transport != null && transport.equals("long-polling")) {
+  String transport=request.getHeaderValue(X_ATMOSPHERE_TRANSPORT);
+  if (transport != null && transport.equals(LONG_POLLING_TRANSPORT)) {
     return true;
   }
   return resumeOnBroadcast;

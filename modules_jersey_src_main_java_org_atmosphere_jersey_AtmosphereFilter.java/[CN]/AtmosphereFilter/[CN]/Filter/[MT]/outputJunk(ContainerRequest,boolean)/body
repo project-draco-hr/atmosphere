@@ -9,11 +9,11 @@
       }
     }
   }
-  String transport=request.getHeaderValue("X-Atmosphere-Transport");
+  String transport=request.getHeaderValue(X_ATMOSPHERE_TRANSPORT);
   if (webSocketEnabled) {
     return false;
   }
- else   if (transport != null && transport.equals("long-polling")) {
+ else   if (transport != null && transport.equals(LONG_POLLING_TRANSPORT)) {
     return false;
   }
   return outputJunk;

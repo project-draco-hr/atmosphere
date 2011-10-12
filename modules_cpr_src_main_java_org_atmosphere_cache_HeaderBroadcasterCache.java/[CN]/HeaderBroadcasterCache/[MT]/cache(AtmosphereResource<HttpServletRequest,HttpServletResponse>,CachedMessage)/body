@@ -1,4 +1,4 @@
 {
   long time=cm.next() == null ? cm.currentTime() : cm.next().currentTime();
-  r.getResponse().addHeader(HEADER_CACHE,String.valueOf(time));
+  r.getResponse().addHeader(X_CACHE_DATE,String.valueOf(time));
 }

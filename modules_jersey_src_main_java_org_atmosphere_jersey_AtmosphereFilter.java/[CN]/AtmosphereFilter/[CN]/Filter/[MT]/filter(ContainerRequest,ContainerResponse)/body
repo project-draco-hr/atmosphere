@@ -55,7 +55,7 @@ TrackableResource<? extends Trackable> trackableResource=null;
 if (isTracked) {
 trackableResource=TrackableResource.class.cast(response.getEntity());
 response.setEntity(trackableResource.entity());
-String trackableUUID=request.getHeaderValue(TrackableResource.TRACKING_HEADER);
+String trackableUUID=request.getHeaderValue(X_ATMOSPHERE_TRACKING_ID);
 if (trackableUUID == null && trackableResource.trackingID() != null) {
 trackableUUID=trackableResource.trackingID();
 }
@@ -64,8 +64,8 @@ trackableUUID=UUID.randomUUID().toString();
 }
 trackableResource.setTrackingID(trackableUUID);
 TrackableSession.getDefault().track(trackableResource);
-response.getHttpHeaders().putSingle(TrackableResource.TRACKING_HEADER,trackableResource.trackingID());
-servletReq.setAttribute(TrackableResource.TRACKING_HEADER,trackableResource.trackingID());
+response.getHttpHeaders().putSingle(X_ATMOSPHERE_TRACKING_ID,trackableResource.trackingID());
+servletReq.setAttribute(X_ATMOSPHERE_TRACKING_ID,trackableResource.trackingID());
 }
 suspend(sessionSupported,resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r);
 if (isTracked && trackableResource != null) {
