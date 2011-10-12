@@ -1,12 +1,17 @@
 {
-  TrackableResource<?> trackableResource=null;
+  TrackableResource<AtmosphereResourceImpl> trackableResource=null;
   try {
-    String trackingId=req.getHeader(X_ATMOSPHERE_TRANSPORT);
+    String trackingId=req.getHeader(X_ATMOSPHERE_TRACKING_ID);
     if (trackingId == null) {
-      trackingId=(String)req.getAttribute(X_ATMOSPHERE_TRANSPORT);
+      trackingId=(String)req.getAttribute(X_ATMOSPHERE_TRACKING_ID);
     }
     if (trackingId != null) {
-      trackableResource=TrackableSession.getDefault().lookupAndWait(trackingId);
+      trackableResource=(TrackableResource<AtmosphereResourceImpl>)TrackableSession.getDefault().lookup(trackingId);
+      AtmosphereResource<?,?> r=(AtmosphereResource<?,?>)req.getAttribute(ATMOSPHERE_RESOURCE);
+      if (trackableResource == null && r != null && r.getAtmosphereResourceEvent().isSuspended()) {
+        trackableResource=new TrackableResource<AtmosphereResourceImpl>(AtmosphereResourceImpl.class,trackingId,"");
+        trackableResource.setResource(r);
+      }
       req.setAttribute(AtmosphereFilter.INJECTED_TRACKABLE,trackableResource);
     }
   }
