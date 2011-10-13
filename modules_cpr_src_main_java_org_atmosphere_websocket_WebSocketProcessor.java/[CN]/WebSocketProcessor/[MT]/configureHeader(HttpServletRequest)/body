@@ -6,5 +6,6 @@
     s=e.nextElement();
     headers.put(s,request.getParameter(s));
   }
+  headers.put(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.WEBSOCKET_TRANSPORT);
   return headers;
 }
