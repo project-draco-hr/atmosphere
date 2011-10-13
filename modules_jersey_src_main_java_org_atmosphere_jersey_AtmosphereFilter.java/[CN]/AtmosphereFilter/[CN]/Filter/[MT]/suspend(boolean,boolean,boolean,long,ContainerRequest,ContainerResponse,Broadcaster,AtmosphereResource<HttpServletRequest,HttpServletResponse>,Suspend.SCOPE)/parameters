@@ -6,3 +6,4 @@ ContainerRequest request
 ContainerResponse response
 Broadcaster bc
 AtmosphereResource<HttpServletRequest,HttpServletResponse> r
+Suspend.SCOPE localScope

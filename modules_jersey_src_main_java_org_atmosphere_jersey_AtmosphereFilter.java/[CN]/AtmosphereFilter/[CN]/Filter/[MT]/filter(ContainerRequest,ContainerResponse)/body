@@ -15,7 +15,7 @@ if (r instanceof AtmosphereEventLifecycle) {
 }
 }
 Broadcaster bc=s.broadcaster();
-if (bc == null) {
+if (bc == null && s.scope() != Suspend.SCOPE.REQUEST) {
 bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 }
 boolean supportTrackable=servletReq.getAttribute(ApplicationConfig.SUPPORT_TRACKABLE) != null;
@@ -24,7 +24,7 @@ TrackableResource<? extends Trackable> trackableResource=null;
 if (isTracked) {
 trackableResource=preTrack(request,response);
 }
-suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r);
+suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope());
 if (isTracked && trackableResource != null) {
 postTrack(trackableResource,r);
 }
@@ -67,7 +67,7 @@ trackableResource=preTrack(request,response);
  else {
 trackableResource=null;
 }
-suspend(sessionSupported,resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r);
+suspend(sessionSupported,resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r,scope);
 if (isTracked && trackableResource != null) {
 postTrack(trackableResource,r);
 }
