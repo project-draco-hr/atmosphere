@@ -5,6 +5,6 @@
     pathInfo=token[1];
     d=token[2];
   }
-  WebSocketHttpServletRequest r=new WebSocketHttpServletRequest.Builder().request(request()).method(methodType).contentType(contentType).body(d).pathInfo(pathInfo).headers(configureHeader(request())).build();
+  AtmosphereRequest r=new AtmosphereRequest.Builder().request(request()).method(methodType).contentType(contentType).body(d).pathInfo(pathInfo).headers(configureHeader(request())).build();
   dispatch(r,new WebSocketHttpServletResponse<WebSocket>(webSocketSupport()));
 }

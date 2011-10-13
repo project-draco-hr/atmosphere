@@ -4,7 +4,12 @@
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
   req.setAttribute(SUPPORT_TRACKABLE,config.getInitParameter(SUPPORT_TRACKABLE));
   try {
-    return cometSupport.service(req,res);
+    if (config.getInitParameter(ALLOW_QUERYSTRING_AS_HEADER) != null) {
+      return cometSupport.service(new AtmosphereRequest.Builder().headers(configureHeader(req)).request(req).build(),res);
+    }
+ else {
+      return cometSupport.service(req,res);
+    }
   }
  catch (  IllegalStateException ex) {
     logger.warn(ex.getMessage(),ex);
