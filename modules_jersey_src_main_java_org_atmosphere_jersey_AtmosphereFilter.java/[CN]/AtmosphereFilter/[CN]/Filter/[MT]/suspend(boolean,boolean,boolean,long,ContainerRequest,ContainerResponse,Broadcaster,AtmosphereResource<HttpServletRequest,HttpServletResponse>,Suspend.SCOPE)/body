@@ -13,7 +13,7 @@
   if (bc == null && localScope != Suspend.SCOPE.REQUEST) {
     bc=r.getBroadcaster();
   }
-  if (sessionSupported && servletReq.getSession().getAttribute(SUSPENDED_RESOURCE) != null) {
+  if (sessionSupported && localScope != Suspend.SCOPE.REQUEST && servletReq.getSession().getAttribute(SUSPENDED_RESOURCE) != null) {
     AtmosphereResource<HttpServletRequest,HttpServletResponse> cached=(AtmosphereResource)servletReq.getSession().getAttribute(SUSPENDED_RESOURCE);
     bc=cached.getBroadcaster();
     try {
