@@ -1,0 +1,7 @@
+{
+  if (userAgent == null)   return false;
+  if (userAgent.contains("MSIE") || userAgent.contains(".NET")) {
+    return true;
+  }
+  return false;
+}

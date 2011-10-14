@@ -4,8 +4,8 @@
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
   req.setAttribute(SUPPORT_TRACKABLE,config.getInitParameter(SUPPORT_TRACKABLE));
   try {
-    if (config.getInitParameter(ALLOW_QUERYSTRING_AS_REQUEST) != null && req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
-      Map<String,String> headers=configureQueryStringAsPost(req);
+    if (config.getInitParameter(ALLOW_QUERYSTRING_AS_REQUEST) != null && isCandidate(req.getHeader("User-Agent")) && req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
+      Map<String,String> headers=configureQueryStringAsRequest(req);
       String body=headers.remove(ATMOSPHERE_POST_BODY);
       return cometSupport.service(new AtmosphereRequest.Builder().headers(headers).method(body != null ? "POST" : "GET").body(body).request(req).build(),res);
     }
