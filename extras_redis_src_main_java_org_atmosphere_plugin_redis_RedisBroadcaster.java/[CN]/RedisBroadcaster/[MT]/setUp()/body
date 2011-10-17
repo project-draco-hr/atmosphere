@@ -8,32 +8,38 @@
       uri=URI.create(config.getServletConfig().getInitParameter(REDIS_SERVER));
     }
   }
-  if (jedisPool == null) {
-    GenericObjectPool.Config config=new GenericObjectPool.Config();
-    config.testOnBorrow=true;
-    config.testWhileIdle=true;
-    jedisPool=new JedisPool(config,uri.getHost(),uri.getPort());
-  }
- else {
-    jedisPool.returnResource(jedisPublisher);
-    jedisPool.returnResource(jedisSubscriber);
-  }
-  jedisSubscriber=jedisPool.getResource();
+  jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisSubscriber.connect();
+    if (authToken != null) {
+      jedisSubscriber.auth(authToken);
+    }
+    jedisSubscriber.flushAll();
   }
  catch (  IOException e) {
     logger.error("failed to connect subscriber",e);
+    try {
+      jedisSubscriber.disconnect();
+    }
+ catch (    IOException e1) {
+      logger.error("failed to disconnect subscriber",e);
+    }
   }
-  jedisSubscriber.auth(authToken);
-  jedisSubscriber.flushAll();
-  jedisPublisher=jedisPool.getResource();
+  jedisPublisher=new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisPublisher.connect();
+    if (authToken != null) {
+      jedisPublisher.auth(authToken);
+    }
+    jedisPublisher.flushAll();
   }
  catch (  IOException e) {
     logger.error("failed to connect publisher",e);
+    try {
+      jedisPublisher.disconnect();
+    }
+ catch (    IOException e1) {
+      logger.error("failed to disconnect publisher",e);
+    }
   }
-  jedisPublisher.auth(authToken);
-  jedisPublisher.flushAll();
 }

@@ -1,5 +1,7 @@
 {
   super.setID(id);
+  disconnectPublisher();
+  disconnectSubscriber();
   setUp();
   reconfigure();
 }

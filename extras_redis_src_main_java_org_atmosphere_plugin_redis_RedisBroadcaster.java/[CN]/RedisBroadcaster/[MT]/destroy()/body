@@ -3,7 +3,6 @@
   try {
     disconnectPublisher();
     disconnectSubscriber();
-    jedisPool.destroy();
   }
  catch (  Throwable t) {
     logger.warn("Jedis error on close",t);
