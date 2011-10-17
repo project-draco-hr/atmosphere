@@ -1,10 +1,12 @@
 {
-  if (jedisSubscriber != null) {
-    try {
-      jedisSubscriber.disconnect();
-    }
- catch (    IOException e) {
-      logger.error("failed to disconnect subscriber",e);
+synchronized (jedisSubscriber) {
+    if (jedisSubscriber != null) {
+      try {
+        jedisSubscriber.disconnect();
+      }
+ catch (      IOException e) {
+        logger.error("failed to disconnect subscriber",e);
+      }
     }
   }
 }
