@@ -1,12 +1,21 @@
 {
   logger.debug("onException()",t);
+  removeAtmosphereResource(r);
+  final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)r.getAtmosphereResourceEvent();
+  event.setThrowable(t);
   if (r instanceof AtmosphereEventLifecycle) {
-    ((AtmosphereEventLifecycle)r).notifyListeners(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,true,false,t));
+    ((AtmosphereEventLifecycle)r).notifyListeners(event);
     ((AtmosphereEventLifecycle)r).removeEventListeners();
   }
   bc.getAsyncWriteService().execute(new Runnable(){
     @Override public void run(){
-      r.resume();
+      try {
+        r.resume();
+      }
+ catch (      Throwable t) {
+        logger.warn("Was unable to resume a corrupted AtmosphereResource {}",r);
+        logger.warn("Cause",t);
+      }
     }
   }
 );

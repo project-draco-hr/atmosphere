@@ -11,7 +11,8 @@
       broadcaster.removeAtmosphereResource(this);
     }
  catch (    IllegalStateException ex) {
-      logger.trace(ex.getMessage(),ex);
+      logger.warn("Unable to resume",this);
+      logger.debug(ex.getMessage(),ex);
     }
     if (BroadcasterFactory.getDefault() != null) {
       BroadcasterFactory.getDefault().removeAllAtmosphereResource(this);
