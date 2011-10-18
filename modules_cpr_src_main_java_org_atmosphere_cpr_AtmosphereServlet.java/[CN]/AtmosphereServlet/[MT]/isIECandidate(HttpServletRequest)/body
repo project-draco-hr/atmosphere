@@ -6,6 +6,9 @@
     if (transport != null) {
       return false;
     }
+ else {
+      return true;
+    }
   }
   return false;
 }
