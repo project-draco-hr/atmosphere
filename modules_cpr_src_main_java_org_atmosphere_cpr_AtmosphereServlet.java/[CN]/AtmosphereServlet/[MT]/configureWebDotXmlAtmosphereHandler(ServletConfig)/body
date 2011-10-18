@@ -9,5 +9,4 @@
       logger.warn("Unable to load WebSocketHandle instance",ex);
     }
   }
-  logger.info("Installed AtmosphereHandler {} mapped to context-path: /*",s);
 }
