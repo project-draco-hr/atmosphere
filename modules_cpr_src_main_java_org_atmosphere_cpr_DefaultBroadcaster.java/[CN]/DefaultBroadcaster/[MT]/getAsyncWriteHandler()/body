@@ -4,9 +4,9 @@
       AsyncWriteToken token;
       try {
         token=asyncWriteQueue.take();
+        bc.getAsyncWriteService().submit(this);
 synchronized (token.resource) {
           if (AtmosphereResourceImpl.class.cast(token.resource).isInScope()) {
-            bc.getAsyncWriteService().submit(this);
             executeAsyncWrite(token.resource,token.msg,token.future);
           }
         }
