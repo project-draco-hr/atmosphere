@@ -38,6 +38,10 @@
     if (entry.multipleAtmoResources == null) {
       for (      AtmosphereResource<?,?> r : resources) {
         finalMsg=perRequestFilter(r,entry);
+        if (finalMsg == null) {
+          logger.debug("Skipping broadcast delivery resource {} ",r);
+          continue;
+        }
         if (entry.writeLocally) {
           queueWriteIO(r,finalMsg,entry);
         }
@@ -45,6 +49,10 @@
     }
  else     if (entry.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
       finalMsg=perRequestFilter((AtmosphereResource<?,?>)entry.multipleAtmoResources,entry);
+      if (finalMsg == null) {
+        logger.debug("Skipping broadcast delivery resource {} ",entry.multipleAtmoResources);
+        return;
+      }
       if (entry.writeLocally) {
         queueWriteIO((AtmosphereResource<?,?>)entry.multipleAtmoResources,finalMsg,entry);
       }
@@ -53,6 +61,10 @@
       Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)entry.multipleAtmoResources;
       for (      AtmosphereResource<?,?> r : sub) {
         finalMsg=perRequestFilter(r,entry);
+        if (finalMsg == null) {
+          logger.debug("Skipping broadcast delivery resource {} ",r);
+          continue;
+        }
         if (entry.writeLocally) {
           queueWriteIO(r,finalMsg,entry);
         }
