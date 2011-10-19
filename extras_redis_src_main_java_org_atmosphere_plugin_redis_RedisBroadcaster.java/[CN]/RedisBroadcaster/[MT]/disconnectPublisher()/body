@@ -1,12 +1,11 @@
 {
+  if (jedisPublisher == null)   return;
 synchronized (jedisPublisher) {
-    if (jedisPublisher != null) {
-      try {
-        jedisPublisher.disconnect();
-      }
- catch (      IOException e) {
-        logger.error("failed to disconnect publisher",e);
-      }
+    try {
+      jedisPublisher.disconnect();
+    }
+ catch (    IOException e) {
+      logger.error("failed to disconnect publisher",e);
     }
   }
 }
