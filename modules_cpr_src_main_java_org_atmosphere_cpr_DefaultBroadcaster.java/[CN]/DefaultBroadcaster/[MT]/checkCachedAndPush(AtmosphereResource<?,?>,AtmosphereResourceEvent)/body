@@ -2,6 +2,8 @@
   retrieveTrackedBroadcast(r,e);
   if (e.getMessage() instanceof List && !((List)e.getMessage()).isEmpty()) {
     HttpServletRequest.class.cast(r.getRequest()).setAttribute(CACHED,"true");
-    broadcast(r,e);
+synchronized (r) {
+      broadcast(r,e);
+    }
   }
 }

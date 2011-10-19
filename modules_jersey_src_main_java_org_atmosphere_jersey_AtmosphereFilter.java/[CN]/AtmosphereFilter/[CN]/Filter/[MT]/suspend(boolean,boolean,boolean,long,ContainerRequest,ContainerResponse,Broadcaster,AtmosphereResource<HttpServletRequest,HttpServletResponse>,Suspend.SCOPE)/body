@@ -58,7 +58,7 @@
   }
   servletReq.setAttribute(SUSPENDED_RESOURCE,r);
   servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
-  logger.debug("Linking HttpServletRequest {} with ContainerResponse {}",servletReq,response);
+  logger.debug("Linked HttpServletRequest {} with ContainerResponse {}",servletReq,response);
   if (resumeOnBroadcast) {
     servletReq.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,new Boolean(true));
   }
