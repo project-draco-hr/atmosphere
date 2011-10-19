@@ -28,7 +28,7 @@
         jedisPool.returnResource(jedisPublisher);
       }
       if (jedisSubscriber != null) {
-        jedisPool.returnResource(jedisSubscriber);
+        disconnectSubscriber();
       }
     }
   }
