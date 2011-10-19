@@ -7,8 +7,32 @@
     if (config.getServletConfig().getInitParameter(REDIS_SERVER) != null) {
       uri=URI.create(config.getServletConfig().getInitParameter(REDIS_SERVER));
     }
+    if (config.getServletConfig().getInitParameter(REDIS_SHARED_POOL) != null) {
+      sharedPool=Boolean.parseBoolean(config.getServletConfig().getInitParameter(REDIS_SHARED_POOL));
+    }
   }
-  jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
+  logger.info("{} shared connection pool {}",getClass().getName(),sharedPool);
+  if (sharedPool) {
+    if (config.properties().get(REDIS_SHARED_POOL) == null) {
+      jedisPool=(JedisPool)config.properties().get(REDIS_SHARED_POOL);
+    }
+    if (jedisPool == null) {
+      GenericObjectPool.Config gConfig=new GenericObjectPool.Config();
+      gConfig.testOnBorrow=true;
+      gConfig.testWhileIdle=true;
+      jedisPool=new JedisPool(gConfig,uri.getHost(),uri.getPort());
+      config.properties().put(REDIS_SHARED_POOL,jedisPool);
+    }
+ else {
+      if (jedisPublisher != null) {
+        jedisPool.returnResource(jedisPublisher);
+      }
+      if (jedisSubscriber != null) {
+        jedisPool.returnResource(jedisSubscriber);
+      }
+    }
+  }
+  jedisSubscriber=sharedPool ? jedisPool.getResource() : new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisSubscriber.connect();
     if (authToken != null) {
@@ -25,7 +49,7 @@
       logger.error("failed to disconnect subscriber",e);
     }
   }
-  jedisPublisher=new Jedis(uri.getHost(),uri.getPort());
+  jedisPublisher=sharedPool ? jedisPool.getResource() : new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisPublisher.connect();
     if (authToken != null) {
