@@ -14,8 +14,10 @@
       r.getBroadcaster().removeAtmosphereResource(r);
       return;
     }
+    MediaType m=(MediaType)cr.getHttpHeaders().getFirst(HttpHeaders.CONTENT_TYPE);
     if (e.getMessage() instanceof Response) {
       cr.setResponse((Response)e.getMessage());
+      cr.getHttpHeaders().add(HttpHeaders.CONTENT_TYPE,m);
       cr.write();
       if (!cr.isCommitted()) {
         cr.getOutputStream().flush();
@@ -24,6 +26,7 @@
  else     if (e.getMessage() instanceof List) {
       for (      Object msg : (List<Object>)e.getMessage()) {
         cr.setResponse(Response.ok(msg).build());
+        cr.getHttpHeaders().add(HttpHeaders.CONTENT_TYPE,m);
         cr.write();
         if (!cr.isCommitted()) {
           cr.getOutputStream().flush();
@@ -35,6 +38,7 @@
         logger.warn("Broadcasted message is null");
       }
       cr.setResponse(Response.ok(e.getMessage()).build());
+      cr.getHttpHeaders().add(HttpHeaders.CONTENT_TYPE,m);
       cr.write();
       if (!cr.isCommitted()) {
         cr.getOutputStream().flush();
