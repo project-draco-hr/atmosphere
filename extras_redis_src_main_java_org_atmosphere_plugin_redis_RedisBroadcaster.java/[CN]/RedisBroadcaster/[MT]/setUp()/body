@@ -32,7 +32,7 @@
       }
     }
   }
-  jedisSubscriber=sharedPool ? jedisPool.getResource() : new Jedis(uri.getHost(),uri.getPort());
+  jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisSubscriber.connect();
     if (authToken != null) {
@@ -49,21 +49,23 @@
       logger.error("failed to disconnect subscriber",e);
     }
   }
-  jedisPublisher=sharedPool ? jedisPool.getResource() : new Jedis(uri.getHost(),uri.getPort());
-  try {
-    jedisPublisher.connect();
-    if (authToken != null) {
-      jedisPublisher.auth(authToken);
-    }
-    jedisPublisher.flushAll();
-  }
- catch (  IOException e) {
-    logger.error("failed to connect publisher",e);
+  jedisPublisher=sharedPool ? null : new Jedis(uri.getHost(),uri.getPort());
+  if (!sharedPool) {
     try {
-      jedisPublisher.disconnect();
+      jedisPublisher.connect();
+      if (authToken != null) {
+        jedisPublisher.auth(authToken);
+      }
+      jedisPublisher.flushAll();
     }
- catch (    IOException e1) {
-      logger.error("failed to disconnect publisher",e);
+ catch (    IOException e) {
+      logger.error("failed to connect publisher",e);
+      try {
+        jedisPublisher.disconnect();
+      }
+ catch (      IOException e1) {
+        logger.error("failed to disconnect publisher",e);
+      }
     }
   }
 }
