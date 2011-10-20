@@ -76,7 +76,9 @@
     }
     configureHeaders(response);
     if (comments && !resumeOnBroadcast) {
-      response.setEntity(AtmosphereResourceImpl.createCompatibleStringJunk());
+      String padding=(String)servletReq.getAttribute(ApplicationConfig.STREAMING_PADDING_MODE);
+      String paddingData=AtmosphereResourceImpl.createStreamingPadding(padding);
+      response.setEntity(paddingData);
       response.write();
     }
     if (entity != null) {

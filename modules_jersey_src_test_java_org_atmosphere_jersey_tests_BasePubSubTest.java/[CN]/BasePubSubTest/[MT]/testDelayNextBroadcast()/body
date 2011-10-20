@@ -28,7 +28,7 @@
     }
     Response r=response.get();
     assertNotNull(r);
-    assertEquals(r.getResponseBody(),AtmosphereResourceImpl.createCompatibleStringJunk() + "foo\nbar\n");
+    assertEquals(r.getResponseBody(),AtmosphereResourceImpl.createStreamingPadding(null) + "foo\nbar\n");
     assertEquals(r.getStatusCode(),200);
     long current=System.currentTimeMillis() - t1;
     assertTrue(current > 5000 && current < 10000);
