@@ -1,3 +1,4 @@
 {
+  if (resource == null)   throw new IllegalStateException("No AtmosphereResource has been suspended.");
   return resource;
 }
