@@ -6,15 +6,7 @@
     throw new IllegalStateException(msg);
   }
   if (b == null && createIfNull) {
-    try {
-      b=get(c,id);
-    }
- catch (    IllegalAccessException e) {
-      throw new IllegalStateException(e);
-    }
-catch (    InstantiationException e) {
-      throw new IllegalStateException(e);
-    }
+    b=get(c,id);
   }
   return b;
 }

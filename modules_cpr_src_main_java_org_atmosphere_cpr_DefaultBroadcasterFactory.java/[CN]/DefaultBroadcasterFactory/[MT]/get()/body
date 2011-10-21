@@ -1,11 +1,13 @@
 {
-  Broadcaster b=clazz.newInstance();
-  InjectorProvider.getInjector().inject(b);
-  if (AbstractBroadcasterProxy.class.isAssignableFrom(b.getClass())) {
-    AbstractBroadcasterProxy.class.cast(b).configure(config);
+  Broadcaster b=null;
+  try {
+    b=clazz.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(clazz.getSimpleName() + "-" + UUID.randomUUID(),config);
   }
+ catch (  Throwable t) {
+    throw new BroadcasterCreationException(t);
+  }
+  InjectorProvider.getInjector().inject(b);
   b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
-  b.setID(clazz.getSimpleName() + "-" + UUID.randomUUID());
   b.setBroadcasterLifeCyclePolicy(policy);
   store.put(b.getID(),b);
   return b;
