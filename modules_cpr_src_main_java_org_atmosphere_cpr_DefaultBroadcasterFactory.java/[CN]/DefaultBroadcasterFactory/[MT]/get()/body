@@ -1,14 +1,3 @@
 {
-  Broadcaster b=null;
-  try {
-    b=clazz.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(clazz.getSimpleName() + "-" + UUID.randomUUID(),config);
-  }
- catch (  Throwable t) {
-    throw new BroadcasterCreationException(t);
-  }
-  InjectorProvider.getInjector().inject(b);
-  b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
-  b.setBroadcasterLifeCyclePolicy(policy);
-  store.put(b.getID(),b);
-  return b;
+  return get(clazz.getSimpleName() + "-" + UUID.randomUUID());
 }

@@ -1,10 +1,7 @@
 {
-  if (id == null)   throw new NullPointerException("id is null");
-  if (c == null)   throw new NullPointerException("Class is null");
-  if (getBroadcaster(id) != null)   throw new IllegalStateException("Broadcaster already existing. Use BroadcasterFactory.lookup instead");
   Broadcaster b=null;
   try {
-    b=c.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
+    b=clazz.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
   }
  catch (  Throwable t) {
     throw new BroadcasterCreationException(t);
@@ -15,6 +12,6 @@
   if (DefaultBroadcaster.class.isAssignableFrom(clazz)) {
     DefaultBroadcaster.class.cast(b).start();
   }
-  store.put(id,b);
+  store.put(b.getID(),b);
   return b;
 }

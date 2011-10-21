@@ -8,12 +8,12 @@
           push(msg);
         }
  catch (        Throwable ex) {
-          logger.warn("This message {} will be lost",msg);
           if (!started.get()) {
-            logger.trace("failed to submit broadcast handler runnable to broadcast executor service on shutdown",ex);
+            logger.trace("Failed to submit broadcast handler runnable to broadcast executor service on shutdown",ex);
           }
  else {
-            logger.debug("failed to submit broadcast handler runnable to broadcast executor service",ex);
+            logger.warn("This message {} will be lost",msg);
+            logger.debug("Failed to submit broadcast handler runnable to broadcast executor service",ex);
           }
         }
       }
