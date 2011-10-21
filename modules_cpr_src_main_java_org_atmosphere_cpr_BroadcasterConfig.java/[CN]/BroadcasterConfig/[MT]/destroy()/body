@@ -1,26 +1,3 @@
 {
-  if (broadcasterCache != null) {
-    broadcasterCache.stop();
-  }
-  if (!isExecutorShared && executorService != null) {
-    executorService.shutdownNow();
-  }
-  if (!isAsyncExecutorShared && asyncWriteService != null) {
-    asyncWriteService.shutdownNow();
-  }
-  if (!isExecutorShared && defaultExecutorService != null) {
-    defaultExecutorService.shutdownNow();
-  }
-  if (!isAsyncExecutorShared && defaultAsyncWriteService != null) {
-    defaultAsyncWriteService.shutdownNow();
-  }
-  if (scheduler != null) {
-    scheduler.shutdownNow();
-  }
-  for (  BroadcastFilter f : filters) {
-    if (f instanceof BroadcastFilterLifecycle) {
-      ((BroadcastFilterLifecycle)f).destroy();
-    }
-  }
-  removeAllFilters();
+  destroy(false);
 }

@@ -2,17 +2,22 @@
   if (cometSupport != null && AsynchronousProcessor.class.isAssignableFrom(cometSupport.getClass())) {
     ((AsynchronousProcessor)cometSupport).shutdown();
   }
+  BroadcasterConfig bc=null;
   for (  Entry<String,AtmosphereHandlerWrapper> entry : atmosphereHandlers.entrySet()) {
     AtmosphereHandlerWrapper handlerWrapper=entry.getValue();
     handlerWrapper.atmosphereHandler.destroy();
     Broadcaster broadcaster=handlerWrapper.broadcaster;
     if (broadcaster != null) {
       broadcaster.destroy();
+      bc=broadcaster.getBroadcasterConfig();
     }
   }
   BroadcasterFactory factory=BroadcasterFactory.getDefault();
   if (factory != null) {
     factory.destroy();
     BroadcasterFactory.factory=null;
+  }
+  if (bc != null) {
+    bc.forceDestroy();
   }
 }

@@ -10,7 +10,7 @@
     if (s != null) {
       numberOfMessageProcessingThread=Integer.parseInt(s);
     }
-    int numberOfAsyncThread=-1;
+    int numberOfAsyncThread=1;
     s=config.getInitParameter(ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
     if (s != null) {
       numberOfAsyncThread=Integer.parseInt(s);
@@ -30,7 +30,7 @@
       executorService=Executors.newFixedThreadPool(numberOfMessageProcessingThread,new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,"Atmosphere-BroadcasterConfig-" + +count.getAndIncrement());
+          Thread t=new Thread(runnable,"Atmosphere-BroadcasterConfig-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }

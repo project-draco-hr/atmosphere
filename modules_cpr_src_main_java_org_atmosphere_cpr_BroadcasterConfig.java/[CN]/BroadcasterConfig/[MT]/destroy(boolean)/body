@@ -1,0 +1,26 @@
+{
+  if (broadcasterCache != null) {
+    broadcasterCache.stop();
+  }
+  if ((force || !isExecutorShared) && executorService != null) {
+    executorService.shutdownNow();
+  }
+  if ((force || !isAsyncExecutorShared) && asyncWriteService != null) {
+    asyncWriteService.shutdownNow();
+  }
+  if ((force || !isExecutorShared) && defaultExecutorService != null) {
+    defaultExecutorService.shutdownNow();
+  }
+  if ((force || !isAsyncExecutorShared) && defaultAsyncWriteService != null) {
+    defaultAsyncWriteService.shutdownNow();
+  }
+  if (scheduler != null) {
+    scheduler.shutdownNow();
+  }
+  for (  BroadcastFilter f : filters) {
+    if (f instanceof BroadcastFilterLifecycle) {
+      ((BroadcastFilterLifecycle)f).destroy();
+    }
+  }
+  removeAllFilters();
+}

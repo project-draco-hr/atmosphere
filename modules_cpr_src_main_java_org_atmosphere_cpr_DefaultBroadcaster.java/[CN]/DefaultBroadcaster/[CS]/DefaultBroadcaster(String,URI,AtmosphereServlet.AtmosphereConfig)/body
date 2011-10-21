@@ -4,5 +4,4 @@
   this.config=config;
   broadcasterCache=new DefaultBroadcasterCache();
   bc=new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config);
-  initialId=name;
 }
