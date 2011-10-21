@@ -5,7 +5,7 @@
   }
   if (broadcasterFactory == null) {
     Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
-    broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy);
+    broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
   }
   sc.setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
   config.broadcasterFactory=broadcasterFactory;

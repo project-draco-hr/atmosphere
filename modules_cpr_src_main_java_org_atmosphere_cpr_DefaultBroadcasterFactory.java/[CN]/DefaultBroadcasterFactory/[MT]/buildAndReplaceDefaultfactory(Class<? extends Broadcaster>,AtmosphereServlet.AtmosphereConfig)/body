@@ -1,5 +1,4 @@
 {
-  factory=new DefaultBroadcasterFactory(clazz,"NEVER");
-  config=c;
+  factory=new DefaultBroadcasterFactory(clazz,"NEVER",c);
   return factory;
 }
