@@ -1,7 +1,10 @@
 {
   Enumeration<Broadcaster> e=store.elements();
+  Broadcaster b;
   while (e.hasMoreElements()) {
-    e.nextElement().destroy();
+    b=e.nextElement();
+    b.resumeAll();
+    b.destroy();
   }
   store.clear();
   factory=null;
