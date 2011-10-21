@@ -30,7 +30,12 @@
           }
         }
  catch (        Throwable t) {
-          logger.warn("Scheduled BroadcasterLifeCyclePolicy exception",t);
+          if (destroyed.get()) {
+            logger.trace("Scheduled BroadcasterLifeCyclePolicy exception",t);
+          }
+ else {
+            logger.warn("Scheduled BroadcasterLifeCyclePolicy exception",t);
+          }
         }
       }
     }

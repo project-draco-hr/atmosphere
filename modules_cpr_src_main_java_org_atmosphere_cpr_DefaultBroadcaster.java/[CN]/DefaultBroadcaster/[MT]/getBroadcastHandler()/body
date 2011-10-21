@@ -8,7 +8,7 @@
           push(msg);
         }
  catch (        Throwable ex) {
-          if (!started.get()) {
+          if (!started.get() || destroyed.get()) {
             logger.trace("Failed to submit broadcast handler runnable to broadcast executor service on shutdown",ex);
           }
  else {

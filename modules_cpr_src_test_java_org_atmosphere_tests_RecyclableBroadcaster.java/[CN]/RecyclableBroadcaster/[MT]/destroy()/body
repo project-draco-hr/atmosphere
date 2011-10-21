@@ -1,4 +1,7 @@
 {
+  resumeAll();
+  notifierFuture.cancel(true);
+  asyncWriteFuture.cancel(true);
   broadcasterCache=new BroadcasterConfig.DefaultBroadcasterCache();
   setScope(Broadcaster.SCOPE.APPLICATION);
 }
