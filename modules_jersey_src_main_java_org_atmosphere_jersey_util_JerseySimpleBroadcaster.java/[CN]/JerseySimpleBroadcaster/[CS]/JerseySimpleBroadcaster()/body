@@ -1,4 +1,0 @@
-{
-  super();
-  setID(SimpleBroadcaster.class.getSimpleName());
-}

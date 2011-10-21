@@ -29,6 +29,5 @@
         broadcasterConfig.setBroadcasterCache(cache);
       }
     }
-    w.broadcaster.setID(e.getKey());
   }
 }

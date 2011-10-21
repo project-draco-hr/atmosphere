@@ -34,7 +34,7 @@ catch (      ExecutionException e) {
       }
     }
   }
-,new RecyclableBroadcaster("suspend"));
+,BroadcasterFactory.getDefault().get(RecyclableBroadcaster.class,"suspend"));
   AsyncHttpClient c=new AsyncHttpClient();
   try {
     Future<Response> f=c.prepareGet(urlTarget).execute();

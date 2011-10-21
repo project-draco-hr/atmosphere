@@ -1,6 +1,0 @@
-{
-  this.name=name;
-  broadcasterCache=new DefaultBroadcasterCache();
-  bc=new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,null);
-  setID(name);
-}

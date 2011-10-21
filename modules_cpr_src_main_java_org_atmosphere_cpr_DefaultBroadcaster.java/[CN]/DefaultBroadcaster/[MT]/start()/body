@@ -1,5 +1,6 @@
 {
   if (!started.getAndSet(true)) {
+    setID(initialId);
     broadcasterCache=bc.getBroadcasterCache();
     broadcasterCache.start();
     notifierFuture=bc.getExecutorService().submit(getBroadcastHandler());

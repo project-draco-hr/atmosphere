@@ -1,0 +1,3 @@
+{
+  this(id,URI.create("http://gmail.com"),config);
+}

@@ -1,3 +1,0 @@
-{
-  setID(ExcludeSessionBroadcaster.class.getSimpleName());
-}

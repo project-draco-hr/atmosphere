@@ -1,7 +1,7 @@
 {
   return new Runnable(){
     public void run(){
-      AsyncWriteToken token;
+      AsyncWriteToken token=null;
       try {
         token=asyncWriteQueue.take();
 synchronized (token.resource) {
@@ -12,6 +12,7 @@ synchronized (token.resource) {
         }
       }
  catch (      Throwable ex) {
+        logger.warn("Failed to write {}",token);
         if (!started.get()) {
           logger.trace("failed to submit async write task on shutdown",ex);
         }

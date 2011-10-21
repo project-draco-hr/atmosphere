@@ -23,7 +23,7 @@
       }
     }
   }
-,new RecyclableBroadcaster("suspend"));
+,BroadcasterFactory.getDefault().get(RecyclableBroadcaster.class,"suspend"));
   AsyncHttpClient c=new AsyncHttpClient();
   try {
     Response r=c.prepareGet(urlTarget).execute().get();

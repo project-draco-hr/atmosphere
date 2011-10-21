@@ -1,18 +1,16 @@
 {
   try {
-    if (config != null) {
-      if (config.getInitParameter(JMS_TOPIC) != null) {
-        topicId=config.getInitParameter(JMS_TOPIC);
-      }
-      if (config.getInitParameter(JNDI_NAMESPACE) != null) {
-        namespace=config.getInitParameter(JNDI_NAMESPACE);
-      }
-      if (config.getInitParameter(JNDI_FACTORY_NAME) != null) {
-        factoryName=config.getInitParameter(JNDI_FACTORY_NAME);
-      }
-      if (config.getInitParameter(JNDI_TOPIC) != null) {
-        topicId=config.getInitParameter(JNDI_TOPIC);
-      }
+    if (config.getInitParameter(JMS_TOPIC) != null) {
+      topicId=config.getInitParameter(JMS_TOPIC);
+    }
+    if (config.getInitParameter(JNDI_NAMESPACE) != null) {
+      namespace=config.getInitParameter(JNDI_NAMESPACE);
+    }
+    if (config.getInitParameter(JNDI_FACTORY_NAME) != null) {
+      factoryName=config.getInitParameter(JNDI_FACTORY_NAME);
+    }
+    if (config.getInitParameter(JNDI_TOPIC) != null) {
+      topicId=config.getInitParameter(JNDI_TOPIC);
     }
     logger.info("Looking up Connection Factory {}",namespace + factoryName);
     Context ctx=new InitialContext();

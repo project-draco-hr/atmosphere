@@ -1,7 +1,13 @@
 {
   return new Runnable(){
     public void run(){
-      incomingBroadcast();
+      try {
+        incomingBroadcast();
+      }
+ catch (      Throwable t) {
+        logger.trace("incomingBroadcast Exception. Broadcaster will be broken unless reconfigured",t);
+        return;
+      }
     }
   }
 ;

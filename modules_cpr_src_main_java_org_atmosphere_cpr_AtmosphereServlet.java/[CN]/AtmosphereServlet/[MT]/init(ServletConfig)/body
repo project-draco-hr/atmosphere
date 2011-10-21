@@ -22,8 +22,8 @@
     }
 ;
     doInitParams(scFacade);
-    configureDefaultBroadcasterFactory();
     doInitParamsForWebSocket(scFacade);
+    configureDefaultBroadcasterFactory();
     loadConfiguration(scFacade);
     autoDetectContainer();
     configureBroadcaster(sc.getServletContext());

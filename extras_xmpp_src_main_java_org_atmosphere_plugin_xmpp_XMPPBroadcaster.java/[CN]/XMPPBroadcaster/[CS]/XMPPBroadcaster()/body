@@ -1,3 +1,0 @@
-{
-  this("atmosphere",URI.create("http://gmail.com"));
-}

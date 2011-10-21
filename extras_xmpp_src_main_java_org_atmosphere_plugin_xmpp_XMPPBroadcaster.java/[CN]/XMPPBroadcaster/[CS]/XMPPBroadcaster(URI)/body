@@ -1,3 +1,0 @@
-{
-  this(XMPPBroadcaster.class.getSimpleName(),uri);
-}

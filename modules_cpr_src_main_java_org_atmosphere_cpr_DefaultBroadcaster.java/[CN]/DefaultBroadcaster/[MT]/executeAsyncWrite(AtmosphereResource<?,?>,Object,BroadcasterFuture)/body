@@ -10,7 +10,7 @@
     }
     event.setMessage(msg);
     try {
-      if (resource.getAtmosphereResourceEvent() != null && resource.getAtmosphereResourceEvent().isSuspended()) {
+      if (event.isSuspended()) {
         HttpServletRequest.class.cast(resource.getRequest()).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
       }
  else {
@@ -20,7 +20,6 @@
       }
     }
  catch (    Exception t) {
-      logger.warn("executeAsyncWrite exception.",t);
       logger.debug("Preventing corruption of a recycled request: resource" + resource,event);
       removeAtmosphereResource(resource);
       BroadcasterFactory.getDefault().removeAllAtmosphereResource(resource);

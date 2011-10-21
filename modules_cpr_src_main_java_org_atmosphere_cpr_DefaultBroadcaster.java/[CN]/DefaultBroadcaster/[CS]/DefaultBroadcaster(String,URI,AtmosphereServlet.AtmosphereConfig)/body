@@ -1,0 +1,7 @@
+{
+  this.name=name;
+  this.uri=uri;
+  this.config=config;
+  broadcasterCache=new DefaultBroadcasterCache();
+  bc=new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config);
+}

@@ -1,5 +1,4 @@
 {
-  if (uri == null)   return;
   try {
     if (config != null) {
       if (config.getServletConfig().getInitParameter(XMPP_AUTH) != null) {
@@ -10,6 +9,9 @@
       }
       if (config.getServletConfig().getInitParameter(XMPP_SERVER) != null) {
         uri=URI.create(config.getServletConfig().getInitParameter(XMPP_SERVER));
+      }
+ else       if (uri == null) {
+        throw new NullPointerException("uri cannot be null");
       }
       if (config.getServletConfig().getInitParameter(XMPP_DEBUG) != null) {
         XMPPConnection.DEBUG_ENABLED=true;

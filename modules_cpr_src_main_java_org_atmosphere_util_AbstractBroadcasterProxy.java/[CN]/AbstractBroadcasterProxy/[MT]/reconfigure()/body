@@ -1,4 +1,7 @@
 {
+  if (!started.get()) {
+    return;
+  }
   if (notifierFuture != null) {
     notifierFuture.cancel(true);
   }

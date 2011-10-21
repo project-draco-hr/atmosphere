@@ -40,7 +40,7 @@ catch (      ExecutionException e) {
       }
     }
   }
-,new RecyclableBroadcaster("suspend"));
+,BroadcasterFactory.getDefault().get(RecyclableBroadcaster.class,"suspend"));
   AsyncHttpClient c=new AsyncHttpClient();
   try {
     c.prepareGet(urlTarget).execute().get();
