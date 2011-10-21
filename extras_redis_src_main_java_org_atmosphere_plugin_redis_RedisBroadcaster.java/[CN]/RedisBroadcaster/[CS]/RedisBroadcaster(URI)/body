@@ -1,3 +1,0 @@
-{
-  this(RedisBroadcaster.class.getSimpleName(),uri);
-}

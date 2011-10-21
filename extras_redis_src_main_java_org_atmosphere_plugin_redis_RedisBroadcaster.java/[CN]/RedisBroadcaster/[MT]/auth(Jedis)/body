@@ -1,0 +1,6 @@
+{
+  if (authToken != null) {
+    jedis.auth(authToken);
+  }
+  jedis.flushAll();
+}

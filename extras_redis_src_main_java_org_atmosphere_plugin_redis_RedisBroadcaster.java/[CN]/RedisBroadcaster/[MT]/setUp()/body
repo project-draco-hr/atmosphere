@@ -1,15 +1,15 @@
 {
-  if (uri == null)   return;
-  if (config != null) {
-    if (config.getServletConfig().getInitParameter(REDIS_AUTH) != null) {
-      authToken=config.getServletConfig().getInitParameter(REDIS_AUTH);
-    }
-    if (config.getServletConfig().getInitParameter(REDIS_SERVER) != null) {
-      uri=URI.create(config.getServletConfig().getInitParameter(REDIS_SERVER));
-    }
-    if (config.getServletConfig().getInitParameter(REDIS_SHARED_POOL) != null) {
-      sharedPool=Boolean.parseBoolean(config.getServletConfig().getInitParameter(REDIS_SHARED_POOL));
-    }
+  if (config.getServletConfig().getInitParameter(REDIS_AUTH) != null) {
+    authToken=config.getServletConfig().getInitParameter(REDIS_AUTH);
+  }
+  if (config.getServletConfig().getInitParameter(REDIS_SERVER) != null) {
+    uri=URI.create(config.getServletConfig().getInitParameter(REDIS_SERVER));
+  }
+ else   if (uri == null) {
+    throw new NullPointerException("uri cannot be null");
+  }
+  if (config.getServletConfig().getInitParameter(REDIS_SHARED_POOL) != null) {
+    sharedPool=Boolean.parseBoolean(config.getServletConfig().getInitParameter(REDIS_SHARED_POOL));
   }
   logger.info("{} shared connection pool {}",getClass().getName(),sharedPool);
   if (sharedPool) {
@@ -35,10 +35,7 @@
   jedisSubscriber=new Jedis(uri.getHost(),uri.getPort());
   try {
     jedisSubscriber.connect();
-    if (authToken != null) {
-      jedisSubscriber.auth(authToken);
-    }
-    jedisSubscriber.flushAll();
+    auth(jedisSubscriber);
   }
  catch (  IOException e) {
     logger.error("failed to connect subscriber",e);
@@ -53,10 +50,7 @@
   if (!sharedPool) {
     try {
       jedisPublisher.connect();
-      if (authToken != null) {
-        jedisPublisher.auth(authToken);
-      }
-      jedisPublisher.flushAll();
+      auth(jedisPublisher);
     }
  catch (    IOException e) {
       logger.error("failed to connect publisher",e);

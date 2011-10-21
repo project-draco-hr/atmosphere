@@ -1,26 +1,28 @@
 {
   Object lockingObject=sharedPool ? jedisPool : jedisPublisher;
+  boolean valid=true;
 synchronized (lockingObject) {
     try {
       if (sharedPool) {
         jedisPublisher=jedisPool.getResource();
-        if (authToken != null) {
-          jedisPublisher.auth(authToken);
-        }
-        jedisPublisher.flushAll();
+        auth(jedisPublisher);
       }
       jedisPublisher.publish(getID(),message.toString());
-      jedisPool.returnResource(jedisPublisher);
     }
  catch (    JedisException e) {
       logger.warn("outgoingBroadcast exception",e);
+      valid=false;
+    }
+ finally {
       if (sharedPool) {
-        jedisPool.returnBrokenResource(jedisPublisher);
-        if (pubTry.getAndIncrement() < 10) {
-          outgoingBroadcast(message);
+        if (!valid) {
+          jedisPool.returnBrokenResource(jedisPublisher);
         }
  else {
-          logger.error("Redis connections brokens");
+          jedisPool.returnResource(jedisPublisher);
+        }
+        if (!valid) {
+          outgoingBroadcast(message);
         }
       }
     }

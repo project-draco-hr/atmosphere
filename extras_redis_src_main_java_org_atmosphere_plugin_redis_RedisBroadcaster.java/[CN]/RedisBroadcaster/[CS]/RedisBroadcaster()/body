@@ -1,3 +1,0 @@
-{
-  this(RedisBroadcaster.class.getSimpleName(),URI.create("http://localhost:6379"));
-}
