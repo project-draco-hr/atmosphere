@@ -1,4 +1,8 @@
 {
+  if (destroyed.get()) {
+    logger.error("This Broadcaster has been destroyed and cannot be used");
+    return null;
+  }
   start();
   Object newMsg=filter(msg);
   if (newMsg == null)   return null;
