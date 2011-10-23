@@ -1,3 +1,9 @@
 {
+  try {
+    broadcasterCreated.await(5,TimeUnit.SECONDS);
+  }
+ catch (  InterruptedException e) {
+    throw new IOException(e);
+  }
   BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,"Test-Destroy").destroy();
 }
