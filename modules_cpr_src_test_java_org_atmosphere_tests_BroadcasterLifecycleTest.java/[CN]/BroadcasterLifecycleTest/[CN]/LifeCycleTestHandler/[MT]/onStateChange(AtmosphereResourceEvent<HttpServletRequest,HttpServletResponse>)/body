@@ -1,0 +1,8 @@
+{
+  if (r.isSuspended()) {
+    r.getResource().getResponse().getWriter().print(r.getMessage());
+    r.getResource().getResponse().getWriter().flush();
+    r.getResource().resume();
+    suspended.countDown();
+  }
+}
