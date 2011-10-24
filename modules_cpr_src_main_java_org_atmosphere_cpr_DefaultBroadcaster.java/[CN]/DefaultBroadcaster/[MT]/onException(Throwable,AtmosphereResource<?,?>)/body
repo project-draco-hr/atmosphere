@@ -3,10 +3,8 @@
   removeAtmosphereResource(r);
   final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)r.getAtmosphereResourceEvent();
   event.setThrowable(t);
-  if (r instanceof AtmosphereEventLifecycle) {
-    ((AtmosphereEventLifecycle)r).notifyListeners(event);
-    ((AtmosphereEventLifecycle)r).removeEventListeners();
-  }
+  r.notifyListeners(event);
+  r.removeEventListeners();
   bc.getAsyncWriteService().execute(new Runnable(){
     @Override public void run(){
       try {

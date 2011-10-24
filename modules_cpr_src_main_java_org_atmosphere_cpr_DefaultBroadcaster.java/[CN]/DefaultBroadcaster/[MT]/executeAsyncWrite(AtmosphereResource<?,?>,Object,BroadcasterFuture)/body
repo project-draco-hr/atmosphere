@@ -30,8 +30,8 @@
     broadcast(resource,event);
   }
   finally {
-    if (notifyListeners && resource instanceof AtmosphereEventLifecycle) {
-      ((AtmosphereEventLifecycle)resource).notifyListeners();
+    if (notifyListeners) {
+      resource.notifyListeners();
     }
     if (future != null) {
       future.done();

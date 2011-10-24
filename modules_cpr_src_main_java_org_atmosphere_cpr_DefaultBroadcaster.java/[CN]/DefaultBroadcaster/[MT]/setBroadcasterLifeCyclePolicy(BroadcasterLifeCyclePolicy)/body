@@ -3,7 +3,7 @@
   if (currentLifecycleTask != null) {
     currentLifecycleTask.cancel(false);
   }
-  if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE || lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE_DESTROY) {
+  if (lifeCyclePolicy.getLifeCyclePolicy() == IDLE || lifeCyclePolicy.getLifeCyclePolicy() == IDLE_RESUME || lifeCyclePolicy.getLifeCyclePolicy() == IDLE_DESTROY) {
     int time=lifeCyclePolicy.getTimeout();
     if (time == -1) {
       throw new IllegalStateException("BroadcasterLifeCyclePolicy time is not set");
@@ -15,7 +15,7 @@
           if (resources.isEmpty()) {
             notifyEmptyListener();
             notifyIdleListener();
-            if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE) {
+            if (lifeCyclePolicy.getLifeCyclePolicy() == IDLE) {
               releaseExternalResources();
               logger.debug("Applying BroadcasterLifeCyclePolicy IDLE policy to Broadcaster {}",getID());
             }
@@ -24,7 +24,7 @@
               logger.debug("Applying BroadcasterLifeCyclePolicy IDLE_DESTROY policy to Broadcaster {}",getID());
             }
           }
- else           if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE_RESUME) {
+ else           if (lifeCyclePolicy.getLifeCyclePolicy() == IDLE_RESUME) {
             destroy(true);
             logger.debug("Applying BroadcasterLifeCyclePolicy IDLE_RESUME policy to Broadcaster {}",getID());
           }
