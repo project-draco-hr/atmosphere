@@ -1,5 +1,5 @@
 {
-  logger.info("Running testBroadcasterLifecylePolicy");
+  logger.info("Running testConcurrentSuspendAndBroadcast");
   AsyncHttpClient c=new AsyncHttpClient();
   Broadcaster b=null;
   try {
