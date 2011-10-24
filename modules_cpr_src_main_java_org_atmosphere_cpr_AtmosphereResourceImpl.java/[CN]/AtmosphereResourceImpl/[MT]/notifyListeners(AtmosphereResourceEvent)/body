@@ -1,5 +1,10 @@
 {
-  logger.debug("Invoking listener with {}",event);
+  if (listeners.size() > 0) {
+    logger.debug("Invoking listener with {}",event);
+  }
+ else {
+    return;
+  }
   if (event.isResuming() || event.isResumedOnTimeout()) {
     onResume(event);
   }
