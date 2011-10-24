@@ -1,3 +1,4 @@
 {
+  event.getResource().getBroadcaster().setBroadcasterLifeCyclePolicy(new BroadcasterLifeCyclePolicy.Builder().policy(EMPTY_DESTROY).build());
   event.getResource().getBroadcaster().broadcast("foo");
 }

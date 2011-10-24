@@ -1,0 +1,36 @@
+{
+  logger.info("Running testConcurrentAndEmptyDestroyPolicy");
+  AsyncHttpClient c=new AsyncHttpClient();
+  Broadcaster b=null;
+  try {
+    final AtomicReference<StringBuffer> r=new AtomicReference<StringBuffer>(new StringBuffer());
+    for (int i=0; i < MAX_CLIENT; i++) {
+      c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<Response>(){
+        @Override public Response onCompleted(        Response response) throws Exception {
+          r.get().append(response.getResponseBody());
+          suspended.countDown();
+          logger.info("suspendedCount" + suspended.getCount());
+          return response;
+        }
+      }
+);
+    }
+    suspended.await(60,TimeUnit.SECONDS);
+    StringBuffer b2=new StringBuffer();
+    for (int i=0; i < MAX_CLIENT; i++) {
+      b2.append("foo");
+    }
+    assertEquals(r.get().toString(),b2.toString());
+    assertEquals(1,BroadcasterFactory.getDefault().lookupAll().size());
+    Iterator<Broadcaster> i=BroadcasterFactory.getDefault().lookupAll().iterator();
+    assertEquals("/*",i.next().getID());
+  }
+ catch (  Exception e) {
+    logger.error("test failed",e);
+    fail(e.getMessage());
+  }
+ finally {
+    if (b != null)     b.destroy();
+  }
+  c.close();
+}
