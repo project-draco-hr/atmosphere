@@ -3,7 +3,7 @@
     if (store.size() > 0) {
       for (      Broadcaster b : lookupAll()) {
         try {
-          if (!b.getAtmosphereResources().contains(r)) {
+          if (b.getAtmosphereResources().contains(r)) {
             b.removeAtmosphereResource(r);
           }
         }
