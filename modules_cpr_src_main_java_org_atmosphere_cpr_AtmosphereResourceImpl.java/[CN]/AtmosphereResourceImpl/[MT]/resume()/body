@@ -1,42 +1,47 @@
 {
+  try {
 synchronized (event) {
-    if (!event.isResuming() && !event.isResumedOnTimeout() && event.isSuspended()&& isInScope) {
-      action.type=AtmosphereServlet.Action.TYPE.RESUME;
-      logger.debug("Resuming {}",getRequest());
-      Broadcaster b=getBroadcaster(false);
-      if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
-        ((DefaultBroadcaster)b).broadcastOnResume(this);
-      }
-      notifyListeners();
-      listeners.clear();
-      try {
-        if (!b.isDestroyed()) {
-          broadcaster.removeAtmosphereResource(this);
+      if (!event.isResuming() && !event.isResumedOnTimeout() && event.isSuspended()&& isInScope) {
+        action.type=AtmosphereServlet.Action.TYPE.RESUME;
+        logger.debug("Resuming {}",getRequest());
+        Broadcaster b=getBroadcaster(false);
+        if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
+          ((DefaultBroadcaster)b).broadcastOnResume(this);
+        }
+        notifyListeners();
+        listeners.clear();
+        try {
+          if (!b.isDestroyed()) {
+            broadcaster.removeAtmosphereResource(this);
+          }
+        }
+ catch (        IllegalStateException ex) {
+          logger.warn("Unable to resume",this);
+          logger.debug(ex.getMessage(),ex);
+        }
+        if (b.getScope() == Broadcaster.SCOPE.REQUEST) {
+          logger.debug("Broadcaster's scope is set to request, destroying it {}",b.getID());
+          b.destroy();
+        }
+        if (BroadcasterFactory.getDefault() != null) {
+          BroadcasterFactory.getDefault().removeAllAtmosphereResource(this);
+        }
+        try {
+          req.setAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT,Boolean.FALSE);
+        }
+ catch (        Exception ex) {
+          logger.debug("Cannot resume an already resumed/cancelled request");
+        }
+        if (req.getAttribute(PRE_SUSPEND) == null) {
+          cometSupport.action(this);
         }
       }
- catch (      IllegalStateException ex) {
-        logger.warn("Unable to resume",this);
-        logger.debug(ex.getMessage(),ex);
-      }
-      if (b.getScope() == Broadcaster.SCOPE.REQUEST) {
-        logger.debug("Broadcaster's scope is set to request, destroying it {}",b.getID());
-        b.destroy();
-      }
-      if (BroadcasterFactory.getDefault() != null) {
-        BroadcasterFactory.getDefault().removeAllAtmosphereResource(this);
-      }
-      try {
-        req.setAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT,Boolean.FALSE);
-      }
- catch (      Exception ex) {
-        logger.debug("Cannot resume an already resumed/cancelled request");
-      }
-      if (req.getAttribute(PRE_SUSPEND) == null) {
-        cometSupport.action(this);
-      }
-    }
  else {
-      logger.debug("Cannot resume an already resumed/cancelled request {}",getRequest());
+        logger.debug("Cannot resume an already resumed/cancelled request {}",getRequest());
+      }
     }
+  }
+ catch (  Throwable t) {
+    logger.trace("Wasn't able to resume a connection {}",this,t);
   }
 }
