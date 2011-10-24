@@ -1,10 +1,12 @@
 {
-  for (  AtmosphereResource<?,?> r : resources) {
-    try {
-      r.resume();
-    }
- catch (    Throwable t) {
-      logger.trace("resumeAll",t);
+synchronized (resources) {
+    for (    AtmosphereResource<?,?> r : resources) {
+      try {
+        r.resume();
+      }
+ catch (      Throwable t) {
+        logger.trace("resumeAll",t);
+      }
     }
   }
 }

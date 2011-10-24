@@ -3,24 +3,26 @@
   if (scope != SCOPE.REQUEST) {
     return;
   }
-  try {
-    for (    AtmosphereResource<?,?> resource : resources) {
-      Broadcaster b=BroadcasterFactory.getDefault().get(getClass(),getClass().getSimpleName() + "/" + UUID.randomUUID());
-      if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
-        BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
-        InjectorProvider.getInjector().inject(cache);
-        DefaultBroadcaster.class.cast(b).broadcasterCache=cache;
+  logger.debug("Changing broadcaster scope for {}. This broadcaster will be destroyed.",getID());
+synchronized (resources) {
+    try {
+      for (      AtmosphereResource<?,?> resource : resources) {
+        Broadcaster b=BroadcasterFactory.getDefault().get(getClass(),getClass().getSimpleName() + "/" + UUID.randomUUID());
+        if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
+          BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
+          InjectorProvider.getInjector().inject(cache);
+          DefaultBroadcaster.class.cast(b).broadcasterCache=cache;
+        }
+        resource.setBroadcaster(b);
+        if (resource.getAtmosphereResourceEvent().isSuspended()) {
+          b.addAtmosphereResource(resource);
+        }
+        logger.debug("Resource {} not using broadcaster {}",resource,b.getID());
       }
-      resource.setBroadcaster(b);
-      if (resource.getAtmosphereResourceEvent().isSuspended()) {
-        b.addAtmosphereResource(resource);
-      }
-    }
-    if (!resources.isEmpty()) {
       destroy();
     }
-  }
- catch (  Exception e) {
-    logger.error("failed to set request scope for current resources",e);
+ catch (    Exception e) {
+      logger.error("Failed to set request scope for current resources",e);
+    }
   }
 }

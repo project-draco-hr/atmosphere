@@ -3,19 +3,21 @@
     logger.error("This Broadcaster has been destroyed and cannot be used");
     return r;
   }
-  if (!resources.contains(r)) {
-    return null;
-  }
-  resources.remove(r);
-  if (resources.isEmpty()) {
-    notifyEmptyListener();
-    if (scope != SCOPE.REQUEST && lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY) {
-      releaseExternalResources();
+synchronized (resources) {
+    if (!resources.contains(r)) {
+      return null;
     }
- else     if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY_DESTROY) {
-      notifyDestroyListener();
-      BroadcasterFactory.getDefault().remove(this,name);
-      destroy();
+    resources.remove(r);
+    if (resources.isEmpty()) {
+      notifyEmptyListener();
+      if (scope != SCOPE.REQUEST && lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY) {
+        releaseExternalResources();
+      }
+ else       if (lifeCyclePolicy.getLifeCyclePolicy() == BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY_DESTROY) {
+        notifyDestroyListener();
+        BroadcasterFactory.getDefault().remove(this,name);
+        destroy();
+      }
     }
   }
   return r;
