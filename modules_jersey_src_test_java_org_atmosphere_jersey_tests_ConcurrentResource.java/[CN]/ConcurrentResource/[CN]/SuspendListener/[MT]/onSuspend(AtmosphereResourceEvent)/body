@@ -1,0 +1,3 @@
+{
+  event.getResource().getBroadcaster().broadcast("foo");
+}
