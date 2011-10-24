@@ -3,18 +3,20 @@
   if (c == null)   throw new NullPointerException("Class is null");
   if (getBroadcaster(id) != null)   throw new IllegalStateException("Broadcaster already existing. Use BroadcasterFactory.lookup instead");
   Broadcaster b=null;
-  try {
-    b=c.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
+synchronized (id) {
+    try {
+      b=c.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
+    }
+ catch (    Throwable t) {
+      throw new BroadcasterCreationException(t);
+    }
+    InjectorProvider.getInjector().inject(b);
+    b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
+    b.setBroadcasterLifeCyclePolicy(policy);
+    if (DefaultBroadcaster.class.isAssignableFrom(clazz)) {
+      DefaultBroadcaster.class.cast(b).start();
+    }
+    store.put(id,b);
   }
- catch (  Throwable t) {
-    throw new BroadcasterCreationException(t);
-  }
-  InjectorProvider.getInjector().inject(b);
-  b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
-  b.setBroadcasterLifeCyclePolicy(policy);
-  if (DefaultBroadcaster.class.isAssignableFrom(clazz)) {
-    DefaultBroadcaster.class.cast(b).start();
-  }
-  store.put(id,b);
   return b;
 }
