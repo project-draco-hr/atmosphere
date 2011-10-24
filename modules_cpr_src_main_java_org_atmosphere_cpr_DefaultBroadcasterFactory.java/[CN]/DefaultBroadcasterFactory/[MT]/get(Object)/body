@@ -1,5 +1,8 @@
 {
-  Broadcaster b=null;
+  Broadcaster b=store.get(id);
+  if (b != null) {
+    return b;
+  }
   try {
     b=clazz.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
   }
