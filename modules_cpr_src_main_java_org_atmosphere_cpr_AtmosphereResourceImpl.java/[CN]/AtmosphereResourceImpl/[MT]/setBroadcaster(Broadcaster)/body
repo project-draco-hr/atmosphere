@@ -1,6 +1,3 @@
 {
   this.broadcaster=broadcaster;
-  if (broadcaster != null) {
-    broadcaster.getBroadcasterConfig().setAtmosphereConfig(config);
-  }
 }
