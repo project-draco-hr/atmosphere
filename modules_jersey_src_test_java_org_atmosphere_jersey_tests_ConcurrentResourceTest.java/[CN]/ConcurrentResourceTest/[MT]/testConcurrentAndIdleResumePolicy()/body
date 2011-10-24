@@ -20,7 +20,7 @@
     for (int i=0; i < MAX_CLIENT; i++) {
       b2.append("foo");
     }
-    Thread.sleep(15000);
+    Thread.sleep(40000);
     assertEquals(r.get().toString(),b2.toString());
     assertEquals(BroadcasterFactory.getDefault().lookupAll().size(),1);
     Iterator<Broadcaster> i=BroadcasterFactory.getDefault().lookupAll().iterator();
