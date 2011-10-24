@@ -6,8 +6,8 @@
   if (!resources.contains(r)) {
     return null;
   }
-synchronized (resources) {
-    resources.remove(r);
+  boolean removed=resources.remove(r);
+  if (removed) {
     if (resources.isEmpty()) {
       notifyEmptyListener();
       if (scope != SCOPE.REQUEST && lifeCyclePolicy.getLifeCyclePolicy() == EMPTY) {
