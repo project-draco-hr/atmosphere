@@ -1,6 +1,9 @@
 {
-  broadcaster=BroadcasterFactory.getDefault().get("stress");
-  broadcasterCreated.countDown();
-  r.setBroadcaster(broadcaster);
-  r.suspend(10,false);
+  r.addEventListener(new AtmosphereResourceEventListenerBase(){
+    @Override public void onSuspend(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+      broadcasterReady.countDown();
+    }
+  }
+);
+  r.suspend(-1,false);
 }

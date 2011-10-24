@@ -1,5 +1,6 @@
 {
-  if (r.isSuspended()) {
+  if (r.isSuspended() && !r.isResuming()) {
+    logger.info("Resumed");
     r.getResource().getResponse().getWriter().print(r.getMessage());
     r.getResource().getResponse().getWriter().flush();
     r.getResource().resume();
