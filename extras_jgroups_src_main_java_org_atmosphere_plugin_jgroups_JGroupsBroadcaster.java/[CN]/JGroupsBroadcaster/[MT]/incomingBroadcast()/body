@@ -1,6 +1,6 @@
 {
   try {
-    logger.info("Starting Atmosphere JGroups Clustering support with group name {}",CLUSTER_NAME);
+    logger.info("Starting Atmosphere JGroups Clustering support with group name {}",getID());
     jchannel=new JChannel();
     jchannel.setReceiver(new ReceiverAdapter(){
       /** 
@@ -17,7 +17,7 @@
       }
     }
 );
-    jchannel.connect(CLUSTER_NAME);
+    jchannel.connect(getID());
   }
  catch (  Throwable t) {
     logger.warn("failed to connect to JGroups channel",t);
