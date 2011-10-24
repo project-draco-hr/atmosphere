@@ -2,14 +2,16 @@
 synchronized (event) {
     if (!event.isResuming() && !event.isResumedOnTimeout() && event.isSuspended()&& isInScope) {
       action.type=AtmosphereServlet.Action.TYPE.RESUME;
-      Broadcaster b=getBroadcaster();
-      if (b instanceof DefaultBroadcaster) {
+      Broadcaster b=getBroadcaster(false);
+      if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
         ((DefaultBroadcaster)b).broadcastOnResume(this);
       }
       notifyListeners();
       listeners.clear();
       try {
-        broadcaster.removeAtmosphereResource(this);
+        if (!b.isDestroyed()) {
+          broadcaster.removeAtmosphereResource(this);
+        }
       }
  catch (      IllegalStateException ex) {
         logger.warn("Unable to resume",this);

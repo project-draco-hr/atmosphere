@@ -1,0 +1,6 @@
+{
+  broadcaster=BroadcasterFactory.getDefault().get("stress");
+  broadcasterCreated.countDown();
+  r.setBroadcaster(broadcaster);
+  r.suspend(10,false);
+}
