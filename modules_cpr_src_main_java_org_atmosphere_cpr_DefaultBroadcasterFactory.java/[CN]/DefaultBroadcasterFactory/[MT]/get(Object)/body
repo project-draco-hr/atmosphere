@@ -1,7 +1,7 @@
 {
   Broadcaster b=store.get(id);
   if (b != null) {
-    throw new IllegalStateException("Broadcaster already existing. Use BroadcasterFactory.lookup instead");
+    throw new IllegalStateException("Broadcaster already existing " + id + ". Use BroadcasterFactory.lookup instead");
   }
 synchronized (id) {
     try {
