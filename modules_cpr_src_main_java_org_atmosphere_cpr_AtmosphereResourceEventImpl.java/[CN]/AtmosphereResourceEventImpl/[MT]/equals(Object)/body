@@ -1,0 +1,11 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  AtmosphereResourceEventImpl that=(AtmosphereResourceEventImpl)o;
+  if (isCancelled != null ? !isCancelled.equals(that.isCancelled) : that.isCancelled != null)   return false;
+  if (isResumedOnTimeout != null ? !isResumedOnTimeout.equals(that.isResumedOnTimeout) : that.isResumedOnTimeout != null)   return false;
+  if (message != null ? !message.equals(that.message) : that.message != null)   return false;
+  if (resource != null ? !resource.equals(that.resource) : that.resource != null)   return false;
+  if (throwable != null ? !throwable.equals(that.throwable) : that.throwable != null)   return false;
+  return true;
+}
