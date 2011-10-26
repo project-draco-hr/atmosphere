@@ -80,6 +80,7 @@
       String paddingData=AtmosphereResourceImpl.createStreamingPadding(padding);
       response.setEntity(paddingData);
       response.write();
+      response.setEntity(null);
     }
     if (entity != null) {
       response.setEntity(entity);
