@@ -13,8 +13,10 @@
               req.setAttribute(MAX_INACTIVE,(long)-1);
             }
  catch (            IOException e) {
+              logger.trace("closedDetector",e);
             }
 catch (            ServletException e) {
+              logger.trace("closedDetector",e);
             }
           }
         }
