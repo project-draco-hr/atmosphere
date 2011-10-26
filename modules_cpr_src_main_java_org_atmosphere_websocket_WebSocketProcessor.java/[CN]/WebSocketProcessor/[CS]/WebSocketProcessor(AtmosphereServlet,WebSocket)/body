@@ -1,4 +1,0 @@
-{
-  this.webSocket=webSocket;
-  this.atmosphereServlet=atmosphereServlet;
-}

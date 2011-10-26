@@ -1,5 +1,11 @@
 {
   this.request=new JettyRequestFix(request,request.getServletPath(),request.getContextPath(),request.getPathInfo(),request.getRequestURI());
   this.atmosphereServlet=atmosphereServlet;
-  this.webSocketProcessorClassName=webSocketProcessorClassName;
+  try {
+    this.webSocketProtocol=(WebSocketProtocol)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProtocolClassName).newInstance();
+    webSocketProtocol.configure(atmosphereServlet.getAtmosphereConfig());
+  }
+ catch (  Exception ex) {
+    logger.error("Cannot load the WebSocketProtocol {}",webSocketProtocolClassName,ex);
+  }
 }

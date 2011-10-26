@@ -1,0 +1,17 @@
+{
+  String contentType=config.getInitParameter(ApplicationConfig.WEBSOCKET_CONTENT_TYPE);
+  if (contentType == null) {
+    contentType="text/html";
+  }
+  this.contentType=contentType;
+  String methodType=config.getInitParameter(ApplicationConfig.WEBSOCKET_METHOD);
+  if (methodType == null) {
+    methodType="POST";
+  }
+  this.methodType=methodType;
+  String delimiter=config.getInitParameter(ApplicationConfig.WEBSOCKET_PATH_DELIMITER);
+  if (delimiter == null) {
+    delimiter="@@";
+  }
+  this.delimiter=delimiter;
+}

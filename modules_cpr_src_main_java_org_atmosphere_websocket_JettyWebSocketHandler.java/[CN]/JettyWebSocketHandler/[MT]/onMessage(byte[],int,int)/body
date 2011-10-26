@@ -1,8 +1,8 @@
 {
   logger.debug("WebSocket.onMessage (bytes)");
-  webSocketProcessor.parseMessage(data,offset,length);
+  webSocketProcessor.invokeWebSocketProtocol(data,offset,length);
   try {
-    webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),MESSAGE,webSocketProcessor.webSocketSupport()));
+    webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),MESSAGE,webSocketProcessor.webSocket()));
   }
  catch (  UnsupportedEncodingException e) {
     logger.warn("UnsupportedEncodingException",e);

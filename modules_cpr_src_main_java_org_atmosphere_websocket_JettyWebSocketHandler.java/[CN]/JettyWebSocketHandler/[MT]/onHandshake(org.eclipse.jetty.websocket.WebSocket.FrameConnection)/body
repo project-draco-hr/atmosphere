@@ -1,10 +1,10 @@
 {
   logger.debug("WebSocket.onHandshake");
   try {
-    webSocketProcessor=(WebSocketProcessor)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProcessorClassName).getDeclaredConstructor(new Class[]{AtmosphereServlet.class,WebSocket.class}).newInstance(new Object[]{atmosphereServlet,new Jetty8WebSocket(connection)});
+    webSocketProcessor=new WebSocketProcessor(atmosphereServlet,new Jetty8WebSocket(connection),webSocketProtocol);
   }
  catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);
   }
-  webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",HANDSHAKE,webSocketProcessor.webSocketSupport()));
+  webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",HANDSHAKE,webSocketProcessor.webSocket()));
 }

@@ -1,0 +1,9 @@
+{
+  String pathInfo=resource.getRequest().getPathInfo();
+  if (d.startsWith(delimiter)) {
+    String[] token=d.split(delimiter);
+    pathInfo=token[1];
+    d=token[2];
+  }
+  return new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).pathInfo(pathInfo).headers(WebSocketProcessor.configureHeader(resource.getRequest())).build();
+}
