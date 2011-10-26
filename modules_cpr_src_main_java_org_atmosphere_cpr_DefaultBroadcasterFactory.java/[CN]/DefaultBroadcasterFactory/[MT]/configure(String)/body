@@ -16,6 +16,9 @@
  else   if (IDLE_DESTROY.name().equalsIgnoreCase(broadcasterLifeCyclePolicy)) {
     policy=new BroadcasterLifeCyclePolicy.Builder().policy(IDLE_DESTROY).idleTimeInMS(maxIdleTime).build();
   }
+ else   if (IDLE_RESUME.name().equalsIgnoreCase(broadcasterLifeCyclePolicy)) {
+    policy=new BroadcasterLifeCyclePolicy.Builder().policy(IDLE_RESUME).idleTimeInMS(maxIdleTime).build();
+  }
  else   if (NEVER.name().equalsIgnoreCase(broadcasterLifeCyclePolicy)) {
     policy=new BroadcasterLifeCyclePolicy.Builder().policy(NEVER).build();
   }
