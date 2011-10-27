@@ -1,5 +1,5 @@
 {
-  logger.debug("WebSocket.OnClose.");
+  logger.trace("WebSocket.OnClose.");
   webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocketProcessor.webSocket()));
   AtmosphereResource<?,?> r=(AtmosphereResource<?,?>)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
   if (r != null) {

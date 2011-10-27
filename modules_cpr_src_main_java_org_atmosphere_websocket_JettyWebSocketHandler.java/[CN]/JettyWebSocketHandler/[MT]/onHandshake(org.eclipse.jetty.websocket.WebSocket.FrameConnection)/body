@@ -1,5 +1,5 @@
 {
-  logger.debug("WebSocket.onHandshake");
+  logger.trace("WebSocket.onHandshake");
   try {
     webSocketProcessor=new WebSocketProcessor(atmosphereServlet,new Jetty8WebSocket(connection),webSocketProtocol);
   }

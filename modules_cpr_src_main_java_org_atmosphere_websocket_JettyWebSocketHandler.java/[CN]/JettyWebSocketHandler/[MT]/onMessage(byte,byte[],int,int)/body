@@ -1,5 +1,5 @@
 {
-  logger.debug("WebSocket.onMessage (frame)");
+  logger.trace("WebSocket.onMessage (frame)");
   webSocketProcessor.invokeWebSocketProtocol(new String(data,offset,length));
   try {
     webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),MESSAGE,webSocketProcessor.webSocket()));
