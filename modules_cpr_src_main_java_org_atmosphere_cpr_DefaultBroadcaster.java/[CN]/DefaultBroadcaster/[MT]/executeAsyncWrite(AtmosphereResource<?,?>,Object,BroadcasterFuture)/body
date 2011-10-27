@@ -4,18 +4,12 @@
     final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)resource.getAtmosphereResourceEvent();
     event.setMessage(msg);
     try {
-      try {
-        HttpServletRequest.class.cast(resource.getRequest()).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
-      }
- catch (      Exception ex) {
-        logger.warn("Invalid AtmosphereResource state {}",event);
-        removeAtmosphereResource(resource);
-        BroadcasterFactory.getDefault().removeAllAtmosphereResource(resource);
-        return;
-      }
+      HttpServletRequest.class.cast(resource.getRequest()).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     }
- catch (    Exception t) {
-      logger.debug("Preventing corruption of a recycled request: resource" + resource,event);
+ catch (    Throwable t) {
+      logger.error("Invalid AtmosphereResource state {}",event);
+      logger.error("If you are using Tomcat 7.0.22 and lower, your most probably hitting http://is.gd/NqicFT");
+      logger.error("",t);
       removeAtmosphereResource(resource);
       BroadcasterFactory.getDefault().removeAllAtmosphereResource(resource);
       event.setCancelled(true);
