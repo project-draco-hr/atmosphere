@@ -1,4 +1,5 @@
 {
+  if (request == null)   return;
   try {
     atmosphereServlet.doCometSupport(request,response);
   }
