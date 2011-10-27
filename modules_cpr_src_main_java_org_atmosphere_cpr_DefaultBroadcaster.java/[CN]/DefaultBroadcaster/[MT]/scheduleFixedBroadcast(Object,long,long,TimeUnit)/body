@@ -1,6 +1,6 @@
 {
   if (destroyed.get()) {
-    logger.debug(DESTROYED,getID());
+    logger.debug(DESTROYED,getID(),"scheduleFixedBroadcast(final Object o, long waitFor, long period, TimeUnit t)");
     return null;
   }
   start();

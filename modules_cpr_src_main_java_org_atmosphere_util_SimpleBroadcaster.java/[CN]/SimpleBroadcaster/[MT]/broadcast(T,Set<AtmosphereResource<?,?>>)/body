@@ -1,6 +1,6 @@
 {
   if (destroyed.get()) {
-    logger.error("This Broadcaster has been destroyed and cannot be used");
+    logger.warn("This Broadcaster has been destroyed and cannot be used");
     return null;
   }
   start();

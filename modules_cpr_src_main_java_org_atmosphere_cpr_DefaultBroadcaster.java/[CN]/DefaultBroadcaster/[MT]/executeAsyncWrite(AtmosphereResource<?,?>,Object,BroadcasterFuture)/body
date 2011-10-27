@@ -2,18 +2,13 @@
   boolean notifyListeners=true;
   try {
     final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)resource.getAtmosphereResourceEvent();
-    boolean isVoid=event.isCancelled() || event.isResumedOnTimeout() || event.isResuming()|| !event.isSuspended();
-    if (isVoid) {
-      logger.debug("Resource {} has been already processed",event);
-      notifyListeners=false;
-      return;
-    }
     event.setMessage(msg);
     try {
-      if (event.isSuspended()) {
+      try {
         HttpServletRequest.class.cast(resource.getRequest()).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
       }
- else {
+ catch (      Exception ex) {
+        logger.warn("Invalid AtmosphereResource state {}",event);
         removeAtmosphereResource(resource);
         BroadcasterFactory.getDefault().removeAllAtmosphereResource(resource);
         return;
