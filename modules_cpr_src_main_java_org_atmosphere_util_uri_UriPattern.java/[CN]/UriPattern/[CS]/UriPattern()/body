@@ -1,0 +1,5 @@
+{
+  this.regex="";
+  this.regexPattern=null;
+  this.groupIndexes=null;
+}

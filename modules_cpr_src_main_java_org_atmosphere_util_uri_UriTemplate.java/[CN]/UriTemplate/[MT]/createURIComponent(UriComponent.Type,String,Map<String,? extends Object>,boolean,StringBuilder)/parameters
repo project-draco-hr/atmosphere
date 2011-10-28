@@ -1,0 +1,5 @@
+UriComponent.Type t
+String template
+Map<String,? extends Object> values
+boolean encode
+StringBuilder b

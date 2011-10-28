@@ -1,0 +1,9 @@
+String scheme
+String userInfo
+String host
+String port
+String path
+String query
+String fragment
+String[] values
+boolean encode

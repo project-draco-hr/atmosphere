@@ -1,0 +1,16 @@
+{
+  if (groupValues == null)   throw new IllegalArgumentException();
+  if (uri == null || uri.length() == 0)   return (regexPattern == null) ? true : false;
+ else   if (regexPattern == null)   return false;
+  Matcher m=regexPattern.matcher(uri);
+  if (!m.matches())   return false;
+  groupValues.clear();
+  for (int i=0; i < groupNames.size(); i++) {
+    String name=groupNames.get(i);
+    String currentValue=m.group((groupIndexes.length > 0) ? groupIndexes[i] : i + 1);
+    String previousValue=groupValues.get(name);
+    if (previousValue != null && !previousValue.equals(currentValue))     return false;
+    groupValues.put(name,currentValue);
+  }
+  return true;
+}

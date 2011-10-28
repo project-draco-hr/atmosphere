@@ -1,0 +1,29 @@
+{
+  StringBuilder sb=new StringBuilder();
+  if (scheme != null)   createURIComponent(UriComponent.Type.SCHEME,scheme,values,false,sb).append(':');
+  if (userInfo != null || host != null || port != null) {
+    sb.append("//");
+    if (userInfo != null && userInfo.length() > 0)     createURIComponent(UriComponent.Type.USER_INFO,userInfo,values,encode,sb).append('@');
+    if (host != null) {
+      createURIComponent(UriComponent.Type.HOST,host,values,encode,sb);
+    }
+    if (port != null && port.length() > 0) {
+      sb.append(':');
+      createURIComponent(UriComponent.Type.PORT,port,values,false,sb);
+    }
+  }
+ else   if (authority != null) {
+    sb.append("//");
+    createURIComponent(UriComponent.Type.AUTHORITY,authority,values,encode,sb);
+  }
+  if (path != null)   createURIComponent(UriComponent.Type.PATH,path,values,encode,sb);
+  if (query != null && query.length() > 0) {
+    sb.append('?');
+    createURIComponent(UriComponent.Type.QUERY_PARAM,query,values,encode,sb);
+  }
+  if (fragment != null && fragment.length() > 0) {
+    sb.append('#');
+    createURIComponent(UriComponent.Type.FRAGMENT,fragment,values,encode,sb);
+  }
+  return sb.toString();
+}

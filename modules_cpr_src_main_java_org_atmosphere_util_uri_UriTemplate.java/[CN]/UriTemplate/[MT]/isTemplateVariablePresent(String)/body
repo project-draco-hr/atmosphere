@@ -1,0 +1,6 @@
+{
+  for (  String s : templateVariables) {
+    if (s.equals(name))     return true;
+  }
+  return false;
+}

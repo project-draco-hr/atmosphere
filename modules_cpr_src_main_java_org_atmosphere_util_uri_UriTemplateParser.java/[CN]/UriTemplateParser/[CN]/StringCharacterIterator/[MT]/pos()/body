@@ -1,0 +1,4 @@
+{
+  if (pos == 0)   return 0;
+  return pos - 1;
+}

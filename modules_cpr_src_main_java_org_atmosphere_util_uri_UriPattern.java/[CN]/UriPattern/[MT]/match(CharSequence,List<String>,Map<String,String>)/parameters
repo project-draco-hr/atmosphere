@@ -1,0 +1,3 @@
+CharSequence uri
+List<String> groupNames
+Map<String,String> groupValues

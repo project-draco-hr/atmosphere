@@ -1,0 +1,11 @@
+{
+  if (bb.limit() == 1 && (bb.get(0) & 0xFF) < 0x80) {
+    sb.append((char)bb.get(0));
+    return i + 2;
+  }
+ else {
+    CharBuffer cb=UTF_8_CHARSET.decode(bb);
+    sb.append(cb.toString());
+    return i + bb.limit() * 3 - 1;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (literalCharactersBuffer.length() > 0) {
+    literalCharacters+=literalCharactersBuffer.length();
+    String s=encodeLiteralCharacters(literalCharactersBuffer.toString());
+    normalizedTemplate.append(s);
+    for (int i=0; i < s.length(); i++) {
+      char c=s.charAt(i);
+      if (RESERVED_REGEX_CHARACTERS.contains(c))       regex.append("\\");
+      regex.append(c);
+    }
+    literalCharactersBuffer.setLength(0);
+  }
+}

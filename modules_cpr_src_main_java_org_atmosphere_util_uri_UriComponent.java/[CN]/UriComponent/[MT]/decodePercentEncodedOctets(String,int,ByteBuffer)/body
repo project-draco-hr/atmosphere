@@ -1,0 +1,21 @@
+{
+  if (bb == null)   bb=ByteBuffer.allocate(1);
+ else   bb.clear();
+  while (true) {
+    bb.put((byte)(decodeHex(s,i++) << 4 | decodeHex(s,i++)));
+    if (i == s.length()) {
+      break;
+    }
+    if (s.charAt(i++) != '%') {
+      break;
+    }
+    if (bb.position() == bb.capacity()) {
+      bb.flip();
+      ByteBuffer bb_new=ByteBuffer.allocate(s.length() / 3);
+      bb_new.put(bb);
+      bb=bb_new;
+    }
+  }
+  bb.flip();
+  return bb;
+}

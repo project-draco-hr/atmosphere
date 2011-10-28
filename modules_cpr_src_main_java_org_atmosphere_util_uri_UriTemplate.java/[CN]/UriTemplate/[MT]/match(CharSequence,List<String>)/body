@@ -1,0 +1,4 @@
+{
+  if (groupValues == null)   throw new IllegalArgumentException();
+  return pattern.match(uri,groupValues);
+}

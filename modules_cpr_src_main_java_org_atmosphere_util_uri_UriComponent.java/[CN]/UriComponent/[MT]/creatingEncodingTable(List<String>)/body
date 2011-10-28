@@ -1,0 +1,14 @@
+{
+  boolean[] table=new boolean[0x80];
+  for (  String range : allowed) {
+    if (range.length() == 1) {
+      table[range.charAt(0)]=true;
+    }
+ else     if (range.length() == 3 && range.charAt(1) == '-') {
+      for (int i=range.charAt(0); i <= range.charAt(2); i++) {
+        table[i]=true;
+      }
+    }
+  }
+  return table;
+}

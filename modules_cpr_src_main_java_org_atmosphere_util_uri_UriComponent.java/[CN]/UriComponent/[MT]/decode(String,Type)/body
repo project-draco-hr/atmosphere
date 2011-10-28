@@ -1,0 +1,36 @@
+{
+  if (s == null) {
+    throw new IllegalArgumentException();
+  }
+  final int n=s.length();
+  if (n == 0) {
+    return s;
+  }
+  if (s.indexOf('%') < 0) {
+    if (t == Type.QUERY_PARAM) {
+      if (s.indexOf('+') < 0) {
+        return s;
+      }
+    }
+ else {
+      return s;
+    }
+  }
+ else {
+    if (n < 2) {
+      throw new IllegalArgumentException("Malformed percent-encoded octet at index 1");
+    }
+    if (s.charAt(n - 2) == '%') {
+      throw new IllegalArgumentException("Malformed percent-encoded octet at index " + (n - 2));
+    }
+  }
+  if (t == null)   return decode(s,n);
+switch (t) {
+case HOST:
+    return decodeHost(s,n);
+case QUERY_PARAM:
+  return decodeQueryParam(s,n);
+default :
+return decode(s,n);
+}
+}

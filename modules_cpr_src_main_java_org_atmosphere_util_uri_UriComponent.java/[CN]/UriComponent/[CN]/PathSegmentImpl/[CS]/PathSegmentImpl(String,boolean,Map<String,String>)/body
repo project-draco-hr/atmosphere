@@ -1,0 +1,4 @@
+{
+  this.path=(decode) ? UriComponent.decode(path,UriComponent.Type.PATH_SEGMENT) : path;
+  this.matrixParameters=matrixParameters;
+}

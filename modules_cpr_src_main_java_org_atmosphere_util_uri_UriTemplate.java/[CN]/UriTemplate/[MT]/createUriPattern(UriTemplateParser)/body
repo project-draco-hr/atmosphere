@@ -1,0 +1,3 @@
+{
+  return new UriPattern(templateParser.getPattern(),templateParser.getGroupIndexes());
+}

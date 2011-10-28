@@ -1,0 +1,62 @@
+{
+  char c=consumeWhiteSpace(ci);
+  StringBuffer nameBuffer=new StringBuffer();
+  if (Character.isLetterOrDigit(c) || c == '_') {
+    nameBuffer.append(c);
+  }
+ else {
+    throw new IllegalArgumentException("Illegal character '" + c + "' at position "+ ci.pos()+ " is not as the start of a name");
+  }
+  String nameRegexString="";
+  while (true) {
+    c=ci.next();
+    if (Character.isLetterOrDigit(c) || c == '_' || c == '-' || c == '.') {
+      nameBuffer.append(c);
+    }
+ else     if (c == ':') {
+      nameRegexString=parseRegex(ci);
+      break;
+    }
+ else     if (c == '}') {
+      break;
+    }
+ else     if (c == ' ') {
+      c=consumeWhiteSpace(ci);
+      if (c == ':') {
+        nameRegexString=parseRegex(ci);
+        break;
+      }
+ else       if (c == '}') {
+        break;
+      }
+ else {
+        throw new IllegalArgumentException("Illegal character '" + c + "' at position "+ ci.pos()+ " is not allowed after a name");
+      }
+    }
+ else {
+      throw new IllegalArgumentException("Illegal character '" + c + "' at position "+ ci.pos()+ " is not allowed as part of a name");
+    }
+  }
+  String name=nameBuffer.toString();
+  names.add(name);
+  try {
+    if (nameRegexString.length() > 0)     numOfExplicitRegexes++;
+    Pattern namePattern=(nameRegexString.length() == 0) ? TEMPLATE_VALUE_PATTERN : Pattern.compile(nameRegexString);
+    if (nameToPattern.containsKey(name)) {
+      if (!nameToPattern.get(name).equals(namePattern)) {
+        throw new IllegalArgumentException("The name '" + name + "' is declared "+ "more than once with different regular expressions");
+      }
+    }
+ else {
+      nameToPattern.put(name,namePattern);
+    }
+    Matcher m=namePattern.matcher("");
+    int g=m.groupCount();
+    groupCounts.add(g + 1);
+    regex.append('(').append(namePattern).append(')');
+    normalizedTemplate.append('{').append(name).append('}');
+  }
+ catch (  PatternSyntaxException ex) {
+    throw new IllegalArgumentException("Invalid syntax for the expression '" + nameRegexString + "' associated with the name '"+ name+ "'",ex);
+  }
+}
