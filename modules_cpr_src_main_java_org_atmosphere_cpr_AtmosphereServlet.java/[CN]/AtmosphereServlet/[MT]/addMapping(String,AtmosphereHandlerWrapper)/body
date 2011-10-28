@@ -1,0 +1,6 @@
+{
+  if (path.endsWith("*")) {
+    path=path.replace("*","{all}");
+  }
+  atmosphereHandlers.put(path,w);
+}
