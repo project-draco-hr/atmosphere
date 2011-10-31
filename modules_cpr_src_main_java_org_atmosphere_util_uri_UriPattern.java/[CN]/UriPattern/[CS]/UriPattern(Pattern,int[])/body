@@ -1,0 +1,6 @@
+{
+  if (regexPattern == null)   throw new IllegalArgumentException();
+  this.regex=regexPattern.toString();
+  this.regexPattern=regexPattern;
+  this.groupIndexes=groupIndexes;
+}

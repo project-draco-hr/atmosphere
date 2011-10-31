@@ -1,4 +1,4 @@
 {
-  logger.debug("WebSocket.onFrame.");
+  logger.trace("WebSocket.onFrame.");
   return false;
 }

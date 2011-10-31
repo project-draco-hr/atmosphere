@@ -1,0 +1,3 @@
+{
+  this(regexPattern,UriTemplateParser.EMPTY_INT_ARRAY);
+}

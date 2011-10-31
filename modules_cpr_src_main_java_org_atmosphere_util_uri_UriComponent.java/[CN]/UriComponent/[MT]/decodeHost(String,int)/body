@@ -1,0 +1,22 @@
+{
+  final StringBuilder sb=new StringBuilder(n);
+  ByteBuffer bb=null;
+  boolean betweenBrackets=false;
+  for (int i=0; i < n; ) {
+    final char c=s.charAt(i++);
+    if (c == '[') {
+      betweenBrackets=true;
+    }
+ else     if (betweenBrackets && c == ']') {
+      betweenBrackets=false;
+    }
+    if (c != '%' || betweenBrackets) {
+      sb.append(c);
+    }
+ else {
+      bb=decodePercentEncodedOctets(s,i,bb);
+      i=decodeOctets(i,bb,sb);
+    }
+  }
+  return sb.toString();
+}

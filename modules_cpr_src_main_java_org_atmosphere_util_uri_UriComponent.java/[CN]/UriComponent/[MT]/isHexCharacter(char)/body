@@ -1,0 +1,3 @@
+{
+  return c < 128 && HEX_TABLE[c] != -1;
+}

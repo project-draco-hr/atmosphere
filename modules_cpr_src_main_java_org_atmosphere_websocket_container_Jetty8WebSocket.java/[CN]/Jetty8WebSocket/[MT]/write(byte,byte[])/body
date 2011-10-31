@@ -1,5 +1,5 @@
 {
-  if (!connection.isOpen())   throw new IOException("Connection closed");
-  logger.debug("WebSocket.write()");
+  if (!connection.isOpen())   throw new IOException("Connection remotely closed");
+  logger.trace("WebSocket.write()");
   connection.sendMessage(data,0,data.length);
 }

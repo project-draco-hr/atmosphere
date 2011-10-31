@@ -4,7 +4,7 @@
   }
   BaseServerWebSocket webSocket=BaseServerWebSocket.class.cast(w);
   try {
-    webSocketProcessor=(WebSocketProcessor)GrizzlyWebSocket.class.getClassLoader().loadClass(config.getServlet().getWebSocketProcessorClassName()).getDeclaredConstructor(new Class[]{AtmosphereServlet.class,WebSocket.class}).newInstance(new Object[]{config.getServlet(),new GrizzlyWebSocket(webSocket)});
+    webSocketProcessor=(WebSocketProcessor)GrizzlyWebSocket.class.getClassLoader().loadClass(config.getServlet().getWebSocketProtocolClassName()).getDeclaredConstructor(new Class[]{AtmosphereServlet.class,WebSocket.class}).newInstance(new Object[]{config.getServlet(),new GrizzlyWebSocket(webSocket)});
     webSocketProcessor.dispatch(new HttpServletRequestWrapper(webSocket.getRequest()));
   }
  catch (  Exception e) {

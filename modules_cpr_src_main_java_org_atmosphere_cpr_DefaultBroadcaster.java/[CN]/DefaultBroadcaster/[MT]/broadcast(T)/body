@@ -1,6 +1,6 @@
 {
   if (destroyed.get()) {
-    logger.debug(DESTROYED,getID());
+    logger.debug(DESTROYED,getID(),"broadcast(T msg)");
     return null;
   }
   start();

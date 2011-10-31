@@ -1,0 +1,7 @@
+{
+  String rawPath=u.getRawPath();
+  if (rawPath != null && rawPath.length() > 0 && rawPath.charAt(0) == '/') {
+    rawPath=rawPath.substring(1);
+  }
+  return decodePath(rawPath,decode);
+}

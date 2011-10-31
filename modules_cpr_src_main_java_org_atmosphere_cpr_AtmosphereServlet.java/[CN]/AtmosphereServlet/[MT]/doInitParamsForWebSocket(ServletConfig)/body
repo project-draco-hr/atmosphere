@@ -4,8 +4,8 @@
     webSocketEnabled=true;
     sessionSupport(false);
   }
-  s=sc.getInitParameter(WEBSOCKET_PROCESSOR);
+  s=sc.getInitParameter(WEBSOCKET_PROTOCOL);
   if (s != null) {
-    webSocketProcessorClassName=s;
+    webSocketProtocolClassName=s;
   }
 }

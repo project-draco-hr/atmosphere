@@ -1,0 +1,4 @@
+{
+  if (group > groupCount())   throw new IndexOutOfBoundsException();
+  return (group > 0) ? r.group(groupIndexes[group - 1]) : r.group();
+}

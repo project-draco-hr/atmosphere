@@ -1,0 +1,4 @@
+{
+  if (templateVariableToValue == null)   throw new IllegalArgumentException();
+  return pattern.match(uri,templateVariables,templateVariableToValue);
+}

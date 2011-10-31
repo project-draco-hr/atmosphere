@@ -1,0 +1,5 @@
+{
+  this.webSocket=webSocket;
+  this.atmosphereServlet=atmosphereServlet;
+  this.webSocketProtocol=webSocketProtocol;
+}

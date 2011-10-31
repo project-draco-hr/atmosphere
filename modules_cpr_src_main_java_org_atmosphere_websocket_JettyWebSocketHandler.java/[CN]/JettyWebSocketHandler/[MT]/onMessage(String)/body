@@ -1,5 +1,5 @@
 {
-  logger.debug("WebSocket.onMessage");
-  webSocketProcessor.parseMessage(data);
-  webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(data,MESSAGE,webSocketProcessor.webSocketSupport()));
+  logger.trace("WebSocket.onMessage");
+  webSocketProcessor.invokeWebSocketProtocol(data);
+  webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(data,MESSAGE,webSocketProcessor.webSocket()));
 }

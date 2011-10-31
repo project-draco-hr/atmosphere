@@ -5,7 +5,7 @@
     logger.debug("{}",msg);
     throw new IllegalStateException(msg);
   }
-  if (b == null && createIfNull) {
+  if ((b == null && createIfNull) || (b != null && b.isDestroyed())) {
     b=get(c,id);
   }
   return b;

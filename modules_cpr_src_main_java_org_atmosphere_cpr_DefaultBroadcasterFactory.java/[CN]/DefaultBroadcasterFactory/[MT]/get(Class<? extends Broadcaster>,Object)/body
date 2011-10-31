@@ -17,6 +17,7 @@ synchronized (id) {
       DefaultBroadcaster.class.cast(b).start();
     }
     store.put(id,b);
+    logger.debug("Added Broadcaster {} . Factory size: {}",id,store.size());
   }
   return b;
 }

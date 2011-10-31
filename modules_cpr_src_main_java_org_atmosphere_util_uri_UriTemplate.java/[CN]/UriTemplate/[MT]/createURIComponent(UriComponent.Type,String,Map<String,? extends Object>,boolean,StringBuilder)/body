@@ -1,0 +1,24 @@
+{
+  if (template.indexOf('{') == -1) {
+    b.append(template);
+    return b;
+  }
+  template=new UriTemplateParser(template).getNormalizedTemplate();
+  final Matcher m=TEMPLATE_NAMES_PATTERN.matcher(template);
+  int i=0;
+  while (m.find()) {
+    b.append(template,i,m.start());
+    Object tValue=values.get(m.group(1));
+    if (tValue != null) {
+      if (encode)       tValue=UriComponent.encode(tValue.toString(),t);
+ else       tValue=UriComponent.contextualEncode(tValue.toString(),t);
+      b.append(tValue);
+    }
+ else {
+      throw templateVariableHasNoValue(m.group(1));
+    }
+    i=m.end();
+  }
+  b.append(template,i,template.length());
+  return b;
+}

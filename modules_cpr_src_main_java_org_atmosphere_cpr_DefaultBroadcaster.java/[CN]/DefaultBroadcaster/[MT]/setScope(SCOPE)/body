@@ -14,6 +14,7 @@ synchronized (resources) {
           DefaultBroadcaster.class.cast(b).broadcasterCache=cache;
         }
         resource.setBroadcaster(b);
+        b.setScope(SCOPE.REQUEST);
         if (resource.getAtmosphereResourceEvent().isSuspended()) {
           b.addAtmosphereResource(resource);
         }

@@ -1,0 +1,41 @@
+{
+  final boolean[] table=ENCODING_TABLES[t.ordinal()];
+  StringBuilder sb=null;
+  for (int i=0; i < s.length(); i++) {
+    final char c=s.charAt(i);
+    if (c < 0x80 && table[c]) {
+      if (sb != null)       sb.append(c);
+    }
+ else {
+      if (template && (c == '{' || c == '}')) {
+        if (sb != null)         sb.append(c);
+        continue;
+      }
+ else       if (contextualEncode) {
+        if (c == '%' && i + 2 < s.length()) {
+          if (isHexCharacter(s.charAt(i + 1)) && isHexCharacter(s.charAt(i + 2))) {
+            if (sb != null)             sb.append('%').append(s.charAt(i + 1)).append(s.charAt(i + 2));
+            i+=2;
+            continue;
+          }
+        }
+      }
+      if (sb == null) {
+        sb=new StringBuilder();
+        sb.append(s.substring(0,i));
+      }
+      if (c < 0x80) {
+        if (c == ' ' && (t == Type.QUERY_PARAM)) {
+          sb.append('+');
+        }
+ else {
+          appendPercentEncodedOctet(sb,c);
+        }
+      }
+ else {
+        appendUTF8EncodedCharacter(sb,c);
+      }
+    }
+  }
+  return (sb == null) ? s : sb.toString();
+}

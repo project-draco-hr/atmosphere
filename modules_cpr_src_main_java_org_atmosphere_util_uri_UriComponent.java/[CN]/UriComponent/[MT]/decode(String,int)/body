@@ -1,0 +1,15 @@
+{
+  final StringBuilder sb=new StringBuilder(n);
+  ByteBuffer bb=null;
+  for (int i=0; i < n; ) {
+    final char c=s.charAt(i++);
+    if (c != '%') {
+      sb.append(c);
+    }
+ else {
+      bb=decodePercentEncodedOctets(s,i,bb);
+      i=decodeOctets(i,bb,sb);
+    }
+  }
+  return sb.toString();
+}

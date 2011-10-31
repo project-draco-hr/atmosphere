@@ -1,0 +1,9 @@
+{
+  String name=super.getParameter(s);
+  if (name == null) {
+    if (queryStrings.get(s) != null) {
+      return queryStrings.get(s)[0];
+    }
+  }
+  return name;
+}

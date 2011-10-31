@@ -1,0 +1,19 @@
+{
+  Map<String,String> queryParameters=new HashMap<String,String>();
+  if (q == null || q.length() == 0) {
+    return queryParameters;
+  }
+  int s=0, e=0;
+  do {
+    e=q.indexOf('&',s);
+    if (e == -1) {
+      decodeQueryParam(queryParameters,q.substring(s),decode);
+    }
+ else     if (e > s) {
+      decodeQueryParam(queryParameters,q.substring(s,e),decode);
+    }
+    s=e + 1;
+  }
+ while (s > 0 && s < q.length());
+  return queryParameters;
+}

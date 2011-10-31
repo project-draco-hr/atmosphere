@@ -3,6 +3,7 @@
   pathInfo=b.pathInfo == null ? b.request.getPathInfo() : b.pathInfo;
   request=b.request;
   headers=b.headers;
+  queryStrings=b.queryStrings;
   if (b.dataBytes != null) {
     bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
     try {

@@ -1,0 +1,4 @@
+AtmosphereResource<HttpServletRequest,HttpServletResponse> resource
+byte[] d
+int offset
+int length

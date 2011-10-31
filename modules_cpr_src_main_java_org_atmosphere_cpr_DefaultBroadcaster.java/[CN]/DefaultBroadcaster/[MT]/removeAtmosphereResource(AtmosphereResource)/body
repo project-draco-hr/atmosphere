@@ -1,6 +1,6 @@
 {
   if (destroyed.get()) {
-    logger.debug(DESTROYED,getID());
+    logger.debug(DESTROYED,getID(),"removeAtmosphereResource(AtmosphereResource r)");
     return r;
   }
   if (!resources.contains(r)) {

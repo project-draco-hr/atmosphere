@@ -1,0 +1,30 @@
+{
+  boolean[][] tables=new boolean[Type.values().length][];
+  List<String> l=new ArrayList<String>();
+  l.addAll(Arrays.asList(SCHEME));
+  tables[Type.SCHEME.ordinal()]=creatingEncodingTable(l);
+  l.clear();
+  l.addAll(Arrays.asList(UNRESERVED));
+  tables[Type.UNRESERVED.ordinal()]=creatingEncodingTable(l);
+  l.addAll(Arrays.asList(SUB_DELIMS));
+  tables[Type.HOST.ordinal()]=creatingEncodingTable(l);
+  tables[Type.PORT.ordinal()]=creatingEncodingTable(Arrays.asList("0-9"));
+  l.add(":");
+  tables[Type.USER_INFO.ordinal()]=creatingEncodingTable(l);
+  l.add("@");
+  tables[Type.AUTHORITY.ordinal()]=creatingEncodingTable(l);
+  tables[Type.PATH_SEGMENT.ordinal()]=creatingEncodingTable(l);
+  tables[Type.PATH_SEGMENT.ordinal()][';']=false;
+  tables[Type.MATRIX_PARAM.ordinal()]=tables[Type.PATH_SEGMENT.ordinal()].clone();
+  tables[Type.MATRIX_PARAM.ordinal()]['=']=false;
+  l.add("/");
+  tables[Type.PATH.ordinal()]=creatingEncodingTable(l);
+  l.add("?");
+  tables[Type.QUERY.ordinal()]=creatingEncodingTable(l);
+  tables[Type.FRAGMENT.ordinal()]=tables[Type.QUERY.ordinal()];
+  tables[Type.QUERY_PARAM.ordinal()]=creatingEncodingTable(l);
+  tables[Type.QUERY_PARAM.ordinal()]['=']=false;
+  tables[Type.QUERY_PARAM.ordinal()]['+']=false;
+  tables[Type.QUERY_PARAM.ordinal()]['&']=false;
+  return tables;
+}

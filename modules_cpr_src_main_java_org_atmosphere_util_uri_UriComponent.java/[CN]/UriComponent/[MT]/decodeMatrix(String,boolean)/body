@@ -1,0 +1,20 @@
+{
+  Map<String,String> matrixMap=new HashMap<String,String>();
+  int s=pathSegment.indexOf(';') + 1;
+  if (s == 0 || s == pathSegment.length()) {
+    return matrixMap;
+  }
+  int e=0;
+  do {
+    e=pathSegment.indexOf(';',s);
+    if (e == -1) {
+      decodeMatrixParam(matrixMap,pathSegment.substring(s),decode);
+    }
+ else     if (e > s) {
+      decodeMatrixParam(matrixMap,pathSegment.substring(s,e),decode);
+    }
+    s=e + 1;
+  }
+ while (s > 0 && s < pathSegment.length());
+  return matrixMap;
+}
