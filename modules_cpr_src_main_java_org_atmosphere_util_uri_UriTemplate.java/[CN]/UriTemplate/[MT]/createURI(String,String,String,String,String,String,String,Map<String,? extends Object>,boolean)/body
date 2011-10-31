@@ -1,3 +1,0 @@
-{
-  return createURI(scheme,null,userInfo,host,port,path,query,fragment,values,encode);
-}

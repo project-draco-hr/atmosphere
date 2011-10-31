@@ -1,6 +1,0 @@
-{
-  int i=_valid(s,t,template);
-  if (i > -1) {
-    throw new IllegalArgumentException("The string '" + s + "' for the URI component "+ t+ " contains an invalid character, '"+ s.charAt(i)+ "', at index "+ i);
-  }
-}

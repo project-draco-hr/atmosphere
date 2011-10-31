@@ -1,7 +1,0 @@
-UriComponent.Type t
-String template
-String[] values
-int offset
-boolean encode
-Map<String,String> mapValues
-StringBuilder b

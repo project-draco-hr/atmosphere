@@ -1,3 +1,0 @@
-{
-  this(path,decode,new HashMap<String,String>());
-}

@@ -1,3 +1,0 @@
-{
-  return new IllegalArgumentException("The template variable, " + tVariable + ", has no value");
-}

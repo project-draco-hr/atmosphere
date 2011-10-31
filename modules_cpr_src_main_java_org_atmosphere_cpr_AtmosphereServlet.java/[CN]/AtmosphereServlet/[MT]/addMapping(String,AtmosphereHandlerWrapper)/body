@@ -1,6 +1,3 @@
 {
-  if (path.contains("*")) {
-    path=path.replace("*","[/a-zA-Z0-9-&=;\\?]+");
-  }
   atmosphereHandlers.put(path,w);
 }

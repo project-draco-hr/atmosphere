@@ -1,3 +1,0 @@
-{
-  return _valid(s,t,template) == -1;
-}

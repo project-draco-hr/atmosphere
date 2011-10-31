@@ -1,9 +1,0 @@
-{
-  if (o instanceof UriTemplate) {
-    UriTemplate that=(UriTemplate)o;
-    return this.pattern.equals(that.pattern);
-  }
- else {
-    return false;
-  }
-}

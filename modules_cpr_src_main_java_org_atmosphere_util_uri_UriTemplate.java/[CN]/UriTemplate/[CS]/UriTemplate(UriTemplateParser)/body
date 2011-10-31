@@ -1,9 +1,0 @@
-{
-  this.template=templateParser.getTemplate();
-  this.normalizedTemplate=templateParser.getNormalizedTemplate();
-  this.pattern=createUriPattern(templateParser);
-  this.numOfExplicitRegexes=templateParser.getNumberOfExplicitRegexes();
-  this.numOfCharacters=templateParser.getNumberOfLiteralCharacters();
-  this.endsWithSlash=template.charAt(template.length() - 1) == '/';
-  this.templateVariables=Collections.unmodifiableList(templateParser.getNames());
-}

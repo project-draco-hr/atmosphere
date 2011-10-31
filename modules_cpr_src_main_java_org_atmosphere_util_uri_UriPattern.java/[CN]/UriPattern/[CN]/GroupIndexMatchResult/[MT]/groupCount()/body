@@ -1,3 +1,0 @@
-{
-  return groupIndexes.length - 1;
-}

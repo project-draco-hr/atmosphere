@@ -1,6 +1,0 @@
-{
-  char[] reserved={'.','?','(',')'};
-  Set<Character> s=new HashSet<Character>(reserved.length);
-  for (  char c : reserved)   s.add(c);
-  return s;
-}

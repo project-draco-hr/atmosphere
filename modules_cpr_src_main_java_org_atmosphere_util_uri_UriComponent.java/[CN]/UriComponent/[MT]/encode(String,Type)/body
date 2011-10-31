@@ -1,3 +1,0 @@
-{
-  return _encode(s,t,false,false);
-}

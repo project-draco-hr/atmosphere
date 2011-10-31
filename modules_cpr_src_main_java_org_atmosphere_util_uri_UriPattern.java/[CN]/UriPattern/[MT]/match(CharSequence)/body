@@ -1,7 +1,0 @@
-{
-  if (uri == null || uri.length() == 0)   return (regexPattern == null) ? EMPTY_STRING_MATCH_RESULT : null;
- else   if (regexPattern == null)   return null;
-  Matcher m=regexPattern.matcher(uri);
-  if (!m.matches())   return null;
-  return (groupIndexes.length > 0) ? new GroupIndexMatchResult(m) : m;
-}

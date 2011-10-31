@@ -1,9 +1,0 @@
-{
-  int colon=segment.indexOf(';');
-  if (colon != -1) {
-    segments.add(new PathSegmentImpl((colon == 0) ? "" : segment.substring(0,colon),decode,decodeMatrix(segment,decode)));
-  }
- else {
-    segments.add(new PathSegmentImpl(segment,decode));
-  }
-}

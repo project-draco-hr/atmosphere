@@ -1,6 +1,0 @@
-{
-  final ByteBuffer bb=UTF_8_CHARSET.encode("" + c);
-  while (bb.hasRemaining()) {
-    appendPercentEncodedOctet(sb,bb.get() & 0xFF);
-  }
-}

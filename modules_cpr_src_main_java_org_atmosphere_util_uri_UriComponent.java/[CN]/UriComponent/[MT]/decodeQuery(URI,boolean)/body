@@ -1,3 +1,0 @@
-{
-  return decodeQuery(u.getRawQuery(),decode);
-}

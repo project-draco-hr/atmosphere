@@ -1,7 +1,0 @@
-{
-  this.template=this.normalizedTemplate="";
-  this.pattern=UriPattern.EMPTY;
-  this.endsWithSlash=false;
-  this.templateVariables=Collections.emptyList();
-  this.numOfExplicitRegexes=this.numOfCharacters=0;
-}

@@ -1,7 +1,0 @@
-{
-  String[] stringValues=new String[values.length];
-  for (int i=0; i < values.length; i++) {
-    if (values[i] != null)     stringValues[i]=values[i].toString();
-  }
-  return createURIWithStringValues(scheme,authority,userInfo,host,port,path,query,fragment,stringValues,encode);
-}

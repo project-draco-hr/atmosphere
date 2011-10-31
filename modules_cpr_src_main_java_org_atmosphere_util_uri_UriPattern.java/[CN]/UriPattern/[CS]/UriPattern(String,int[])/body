@@ -1,3 +1,0 @@
-{
-  this(compile(regex),groupIndexes);
-}

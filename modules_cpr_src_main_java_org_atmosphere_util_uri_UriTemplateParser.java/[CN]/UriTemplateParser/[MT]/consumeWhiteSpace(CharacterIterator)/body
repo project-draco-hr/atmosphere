@@ -1,5 +1,0 @@
-{
-  char c=ci.next();
-  while (c == ' ')   c=ci.next();
-  return c;
-}

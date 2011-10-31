@@ -1,3 +1,0 @@
-{
-  this(regex,UriTemplateParser.EMPTY_INT_ARRAY);
-}

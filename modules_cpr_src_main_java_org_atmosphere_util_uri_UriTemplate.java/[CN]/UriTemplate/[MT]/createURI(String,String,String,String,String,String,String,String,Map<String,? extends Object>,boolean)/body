@@ -1,7 +1,0 @@
-{
-  Map<String,String> stringValues=new HashMap<String,String>();
-  for (  Map.Entry<String,? extends Object> e : values.entrySet()) {
-    if (e.getValue() != null)     stringValues.put(e.getKey(),e.getValue().toString());
-  }
-  return createURIWithStringValues(scheme,authority,userInfo,host,port,path,query,fragment,stringValues,encode);
-}
