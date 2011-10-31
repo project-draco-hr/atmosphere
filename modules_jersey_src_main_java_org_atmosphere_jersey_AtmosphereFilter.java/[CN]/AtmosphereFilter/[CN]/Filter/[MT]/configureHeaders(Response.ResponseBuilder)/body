@@ -5,7 +5,7 @@
     for (    String upgrade : e) {
       if (upgrade != null && upgrade.equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
         if (!webSocketSupported) {
-          response.getHttpHeaders().putSingle(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
+          b=b.header(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
         }
       }
     }
@@ -13,12 +13,13 @@
   boolean injectCacheHeaders=(Boolean)servletReq.getAttribute(ApplicationConfig.NO_CACHE_HEADERS);
   boolean enableAccessControl=(Boolean)servletReq.getAttribute(ApplicationConfig.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER);
   if (injectCacheHeaders) {
-    response.getHttpHeaders().putSingle(EXPIRES,"-1");
-    response.getHttpHeaders().putSingle(CACHE_CONTROL,"no-store, no-cache, must-revalidate");
-    response.getHttpHeaders().putSingle(PRAGMA,"no-cache");
+    b=b.header(EXPIRES,"-1");
+    b=b.header(CACHE_CONTROL,"no-store, no-cache, must-revalidate");
+    b=b.header(PRAGMA,"no-cache");
   }
   if (enableAccessControl) {
-    response.getHttpHeaders().putSingle(ACCESS_CONTROL_ALLOW_ORIGIN,"*");
-    response.getHttpHeaders().putSingle(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
+    b=b.header(ACCESS_CONTROL_ALLOW_ORIGIN,"*");
+    b=b.header(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
   }
+  return b;
 }
