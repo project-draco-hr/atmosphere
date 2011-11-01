@@ -6,7 +6,7 @@
       if (event == null)       return;
       resumed.offer(event);
       if (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
-        event.close();
+        bz51881(event);
       }
     }
  catch (    IOException ex) {

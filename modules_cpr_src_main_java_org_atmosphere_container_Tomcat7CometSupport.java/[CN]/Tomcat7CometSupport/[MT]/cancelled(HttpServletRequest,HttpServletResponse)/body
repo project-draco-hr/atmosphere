@@ -4,7 +4,7 @@
     CometEvent event=(CometEvent)req.getAttribute(COMET_EVENT);
     if (event == null)     return action;
     resumed.offer(event);
-    event.close();
+    bz51881(event);
   }
   return action;
 }

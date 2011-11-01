@@ -21,10 +21,10 @@
     }
  else     if (action.type == Action.TYPE.RESUME) {
       logger.debug("Resuming response: {}",res);
-      event.close();
+      bz51881(event);
     }
  else {
-      event.close();
+      bz51881(event);
     }
   }
  else   if (event.getEventType() == EventType.READ) {
@@ -38,15 +38,15 @@
  else {
       logger.debug("Cancelling response: {}",res);
     }
-    event.close();
+    bz51881(event);
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.TIMEOUT) {
     logger.debug("Timing out response: {}",res);
     action=timedout(req,res);
-    event.close();
+    bz51881(event);
   }
  else   if (event.getEventType() == EventType.ERROR) {
-    event.close();
+    bz51881(event);
   }
  else   if (event.getEventType() == EventType.END) {
     if (!resumed.remove(event)) {
@@ -56,7 +56,7 @@
  else {
       logger.debug("Cancelling response: {}",res);
     }
-    event.close();
+    bz51881(event);
   }
   return action;
 }
