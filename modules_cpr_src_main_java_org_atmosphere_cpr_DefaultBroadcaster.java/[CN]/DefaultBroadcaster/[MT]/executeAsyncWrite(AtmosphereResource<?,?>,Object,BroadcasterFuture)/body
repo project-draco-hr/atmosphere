@@ -3,6 +3,10 @@
   try {
     final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)resource.getAtmosphereResourceEvent();
     event.setMessage(msg);
+    if (!AtmosphereResourceImpl.class.cast(resource).isInScope()) {
+      resources.remove(resource);
+      return;
+    }
     try {
       HttpServletRequest.class.cast(resource.getRequest()).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     }
