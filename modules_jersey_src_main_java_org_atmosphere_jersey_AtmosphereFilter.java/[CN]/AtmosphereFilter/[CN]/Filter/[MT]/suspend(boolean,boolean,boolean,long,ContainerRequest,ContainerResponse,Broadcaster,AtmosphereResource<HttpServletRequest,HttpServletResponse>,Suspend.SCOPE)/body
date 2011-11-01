@@ -77,7 +77,9 @@
     if (entity != null) {
       b=b.header("Content-Type",contentType != null ? contentType.toString() : "text/html; charset=ISO-8859-1");
     }
-    if (comments && !resumeOnBroadcast) {
+    String[] jettyVersion=r.getAtmosphereConfig().getServletContext().getServerInfo().substring(6).split("\\.");
+    boolean eclipse362468=(Integer.valueOf(jettyVersion[0]) == 8 && Integer.valueOf(jettyVersion[1]) == 0 && Integer.valueOf(jettyVersion[1]) == 0);
+    if (!eclipse362468 && comments && !resumeOnBroadcast) {
       String padding=(String)servletReq.getAttribute(ApplicationConfig.STREAMING_PADDING_MODE);
       String paddingData=AtmosphereResourceImpl.createStreamingPadding(padding);
       if (location != null) {
