@@ -19,9 +19,10 @@ synchronized (lockingObject) {
           jedisPool.returnBrokenResource(jedisPublisher);
         }
  else {
+          maxTry.set(0);
           jedisPool.returnResource(jedisPublisher);
         }
-        if (!valid) {
+        if (!valid && maxTry.getAndIncrement() < 10) {
           outgoingBroadcast(message);
         }
       }
