@@ -1,0 +1,42 @@
+{
+  String[] tomcatVersion=config.getServletContext().getServerInfo().substring(14).split("\\.");
+  if (Integer.valueOf(tomcatVersion[0]) == 7 && Integer.valueOf(tomcatVersion[2]) < 23) {
+    logger.info("Patching Tomcat 7.0.22 and lower bz51881. Expect NPE inside CoyoteAdapter, just ignore them. Upgrade to 7.0.23");
+    try {
+      RequestFacade request=RequestFacade.class.cast(event.getHttpServletRequest());
+      Field coyoteRequest=RequestFacade.class.getDeclaredField("request");
+      coyoteRequest.setAccessible(true);
+      Request r=(Request)coyoteRequest.get(request);
+      r.recycle();
+      Field mappingData=Request.class.getDeclaredField("mappingData");
+      mappingData.setAccessible(true);
+      MappingData m=new MappingData();
+      m.context=null;
+      mappingData.set(r,m);
+    }
+ catch (    Throwable t) {
+      logger.trace("Was unable to recycle internal Tomcat object");
+    }
+ finally {
+      try {
+        event.close();
+      }
+ catch (      IllegalStateException e) {
+        logger.trace("",e);
+      }
+    }
+    try {
+      ResponseFacade response=ResponseFacade.class.cast(event.getHttpServletResponse());
+      Field coyoteResponse=ResponseFacade.class.getDeclaredField("response");
+      coyoteResponse.setAccessible(true);
+      Response r=(Response)coyoteResponse.get(response);
+      r.recycle();
+    }
+ catch (    Throwable t) {
+      logger.trace("Was unable to recycle internal Tomcat object");
+    }
+  }
+ else {
+    event.close();
+  }
+}
