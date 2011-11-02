@@ -5,16 +5,21 @@
   event.setThrowable(t);
   r.notifyListeners(event);
   r.removeEventListeners();
-  bc.getAsyncWriteService().execute(new Runnable(){
-    @Override public void run(){
-      try {
-        r.resume();
-      }
- catch (      Throwable t) {
-        logger.warn("Was unable to resume a corrupted AtmosphereResource {}",r);
-        logger.warn("Cause",t);
+  if (bc != null && bc.getAsyncWriteService() != null) {
+    bc.getAsyncWriteService().execute(new Runnable(){
+      @Override public void run(){
+        try {
+          r.resume();
+        }
+ catch (        Throwable t) {
+          logger.warn("Was unable to resume a corrupted AtmosphereResource {}",r);
+          logger.warn("Cause",t);
+        }
       }
     }
-  }
 );
+  }
+ else {
+    r.resume();
+  }
 }
