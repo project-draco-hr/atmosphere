@@ -1,16 +1,19 @@
 {
+  Object lockingObject=sharedPool ? jedisPool : jedisPublisher;
   super.destroy();
-  try {
-    disconnectPublisher();
-    disconnectSubscriber();
-    if (jedisPool != null) {
-      jedisPool.destroy();
+synchronized (lockingObject) {
+    try {
+      disconnectPublisher();
+      disconnectSubscriber();
+      if (jedisPool != null) {
+        jedisPool.destroy();
+      }
     }
-  }
- catch (  Throwable t) {
-    logger.warn("Jedis error on close",t);
-  }
+ catch (    Throwable t) {
+      logger.warn("Jedis error on close",t);
+    }
  finally {
-    config.properties().put(REDIS_SHARED_POOL,null);
+      config.properties().put(REDIS_SHARED_POOL,null);
+    }
   }
 }
