@@ -1,0 +1,18 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  DefaultBroadcaster that=(DefaultBroadcaster)o;
+  if (broadcastOnResume != null ? !broadcastOnResume.equals(that.broadcastOnResume) : that.broadcastOnResume != null)   return false;
+  if (broadcasterCache != null ? !broadcasterCache.equals(that.broadcasterCache) : that.broadcasterCache != null)   return false;
+  if (delayedBroadcast != null ? !delayedBroadcast.equals(that.delayedBroadcast) : that.delayedBroadcast != null)   return false;
+  if (destroyed != null ? !destroyed.equals(that.destroyed) : that.destroyed != null)   return false;
+  if (lifeCyclePolicy != null ? !lifeCyclePolicy.equals(that.lifeCyclePolicy) : that.lifeCyclePolicy != null)   return false;
+  if (name != null ? !name.equals(that.name) : that.name != null)   return false;
+  if (policy != that.policy)   return false;
+  if (requestScoped != null ? !requestScoped.equals(that.requestScoped) : that.requestScoped != null)   return false;
+  if (resources != null ? !resources.equals(that.resources) : that.resources != null)   return false;
+  if (scope != that.scope)   return false;
+  if (started != null ? !started.equals(that.started) : that.started != null)   return false;
+  if (uri != null ? !uri.equals(that.uri) : that.uri != null)   return false;
+  return true;
+}
