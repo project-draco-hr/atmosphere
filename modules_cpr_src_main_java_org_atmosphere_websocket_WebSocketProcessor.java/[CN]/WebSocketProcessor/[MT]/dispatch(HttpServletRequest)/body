@@ -7,7 +7,10 @@
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   dispatch(r,wsr);
   resource=(AtmosphereResource)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-  webSocketProtocol.onOpen(resource);
+  if (WebSocketAdapter.class.isAssignableFrom(webSocket().getClass())) {
+    WebSocketAdapter.class.cast(webSocket).setAtmosphereResource(resource);
+  }
+  webSocketProtocol.onOpen(webSocket);
   handler=(AtmosphereHandler)request.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
   if (resource == null || !resource.getAtmosphereResourceEvent().isSuspended()) {
     logger.error("No AtmosphereResource has been suspended. The WebSocket will be closed.");
