@@ -1,4 +1,4 @@
 {
-  HttpServletRequest r=webSocketProtocol.parseMessage(resource,webSocketMessage);
+  HttpServletRequest r=webSocketProtocol.onMessage(resource,webSocketMessage);
   dispatch(r,new WebSocketHttpServletResponse<WebSocket>(webSocket));
 }

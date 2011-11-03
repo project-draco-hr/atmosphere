@@ -1,0 +1,3 @@
+{
+  return onMessage(resource,new String(d,offset,length));
+}
