@@ -1,4 +1,4 @@
-AtmosphereResource resource
+WebSocket webSocket
 byte[] data
 int offset
 int length

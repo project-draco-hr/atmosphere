@@ -1,4 +1,5 @@
 {
+  webSocketProtocol.onClose(webSocket);
   try {
     if (handler != null && resource != null) {
       handler.onStateChange(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)resource,false,true));
