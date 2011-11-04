@@ -4,6 +4,9 @@
   if (getBroadcaster(id) != null)   throw new IllegalStateException("Broadcaster already existing " + id + ". Use BroadcasterFactory.lookup instead");
   Broadcaster b=null;
 synchronized (id) {
+    if (store.get(id) != null) {
+      return store.get(id);
+    }
     try {
       b=c.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
     }

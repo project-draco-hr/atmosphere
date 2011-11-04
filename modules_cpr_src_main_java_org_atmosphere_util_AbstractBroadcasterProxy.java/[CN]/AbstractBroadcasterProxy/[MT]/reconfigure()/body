@@ -2,6 +2,7 @@
   if (!started.get()) {
     return;
   }
+  logger.debug("Reconfiguring Broadcaster {}",getID());
   if (notifierFuture != null) {
     notifierFuture.cancel(true);
   }
