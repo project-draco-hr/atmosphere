@@ -1,3 +1,0 @@
-{
-  return parseMessage(resource,new String(d,offset,length));
-}
