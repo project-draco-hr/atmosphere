@@ -1,13 +1,29 @@
 {
   return new ServletOutputStream(){
     public void write(    int i) throws java.io.IOException {
-      webSocketSupport.write(frame,new byte[]{(byte)i});
+      if (webSocketProtocol.inspectWebSocketMessage()) {
+        webSocketSupport.write(webSocketProtocol.handleResponse(WebSocketHttpServletResponse.this,new byte[]{(byte)i},0,1));
+      }
+ else {
+        webSocketSupport.write(new byte[]{(byte)i});
+      }
     }
     public void write(    byte[] bytes) throws java.io.IOException {
-      webSocketSupport.write(frame,bytes);
+      if (webSocketProtocol.inspectWebSocketMessage()) {
+        webSocketSupport.write(webSocketProtocol.handleResponse(WebSocketHttpServletResponse.this,bytes,0,bytes.length));
+      }
+ else {
+        webSocketSupport.write(bytes);
+      }
     }
     public void write(    byte[] bytes,    int start,    int offset) throws java.io.IOException {
-      webSocketSupport.write(frame,bytes,start,offset);
+      if (webSocketProtocol.inspectWebSocketMessage()) {
+        byte[] b=webSocketProtocol.handleResponse(WebSocketHttpServletResponse.this,bytes,start,offset);
+        webSocketSupport.write(b,0,b.length);
+      }
+ else {
+        webSocketSupport.write(bytes,start,offset);
+      }
     }
   }
 ;

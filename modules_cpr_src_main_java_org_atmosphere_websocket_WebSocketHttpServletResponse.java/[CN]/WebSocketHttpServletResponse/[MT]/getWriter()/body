@@ -2,7 +2,12 @@
   return new PrintWriter(getOutputStream()){
     public void write(    char[] chars,    int offset,    int lenght){
       try {
-        webSocketSupport.write(frame,new String(chars,offset,lenght));
+        if (webSocketProtocol.inspectWebSocketMessage()) {
+          webSocketSupport.write(webSocketProtocol.handleResponse(WebSocketHttpServletResponse.this,new String(chars,offset,lenght)));
+        }
+ else {
+          webSocketSupport.write(new String(chars,offset,lenght));
+        }
       }
  catch (      IOException e) {
         throw new RuntimeException(e);
@@ -10,7 +15,12 @@
     }
     public void write(    char[] chars){
       try {
-        webSocketSupport.write(frame,new String(chars));
+        if (webSocketProtocol.inspectWebSocketMessage()) {
+          webSocketSupport.write(webSocketProtocol.handleResponse(WebSocketHttpServletResponse.this,new String(chars)));
+        }
+ else {
+          webSocketSupport.write(new String(chars));
+        }
       }
  catch (      IOException e) {
         throw new RuntimeException(e);
@@ -18,7 +28,12 @@
     }
     public void write(    String s,    int offset,    int lenght){
       try {
-        webSocketSupport.write(frame,new String(s.substring(offset,lenght)));
+        if (webSocketProtocol.inspectWebSocketMessage()) {
+          webSocketSupport.write(webSocketProtocol.handleResponse(WebSocketHttpServletResponse.this,new String(s.substring(offset,lenght))));
+        }
+ else {
+          webSocketSupport.write(new String(s.substring(offset,lenght)));
+        }
       }
  catch (      IOException e) {
         throw new RuntimeException(e);
@@ -26,7 +41,12 @@
     }
     public void write(    java.lang.String s){
       try {
-        webSocketSupport.write(frame,new String(s));
+        if (webSocketProtocol.inspectWebSocketMessage()) {
+          webSocketSupport.write(webSocketProtocol.handleResponse(WebSocketHttpServletResponse.this,new String(s)));
+        }
+ else {
+          webSocketSupport.write(new String(s));
+        }
       }
  catch (      IOException e) {
         throw new RuntimeException(e);
