@@ -3,7 +3,6 @@
   HttpServletResponse res=r.getResponse();
   String method=req.getMethod();
   if ("GET".equalsIgnoreCase(method)) {
-    String trackingId=trackingId(req);
     r.addEventListener(new WebSocketEventListenerAdapter());
     res.setContentType("text/html;charset=ISO-8859-1");
     Broadcaster b=lookupBroadcaster(req.getPathInfo());
