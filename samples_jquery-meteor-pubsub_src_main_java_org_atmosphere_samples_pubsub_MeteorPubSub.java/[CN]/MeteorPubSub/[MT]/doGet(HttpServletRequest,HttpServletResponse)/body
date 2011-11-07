@@ -1,7 +1,6 @@
 {
   Meteor m=Meteor.build(req);
   m.addListener(new WebSocketEventListenerAdapter());
-  String trackingId=trackingId(req);
   res.setContentType("text/html;charset=ISO-8859-1");
   Broadcaster b=lookupBroadcaster(req.getPathInfo());
   m.setBroadcaster(b);
