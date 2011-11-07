@@ -1,0 +1,6 @@
+{
+  for (  Cookie c : cookies) {
+    headers.put("Set-Cookie",c.toString());
+  }
+  return headers;
+}
