@@ -1,8 +1,7 @@
 {
-  Meteor m=meteors.get(trackingId(req));
-  res.setCharacterEncoding("UTF-8");
+  Broadcaster b=lookupBroadcaster(req.getPathInfo());
   String message=req.getReader().readLine();
   if (message != null && message.indexOf("message") != -1) {
-    m.getBroadcaster().broadcast(message.substring("message=".length()));
+    b.broadcast(message.substring("message=".length()));
   }
 }
