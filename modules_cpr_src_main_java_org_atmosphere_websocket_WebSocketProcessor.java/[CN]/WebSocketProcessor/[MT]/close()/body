@@ -9,7 +9,7 @@
     if (AtmosphereResourceImpl.class.isAssignableFrom(resource.getClass())) {
       AtmosphereResourceImpl.class.cast(resource).onThrowable(e);
     }
-    logger.info("Failed invoking atmosphere handler onStateChange()",e);
+    logger.warn("Failed invoking atmosphere handler onStateChange()",e);
   }
   if (resource != null) {
     resource.getBroadcaster().removeAtmosphereResource(resource);
