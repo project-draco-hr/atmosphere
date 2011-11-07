@@ -1,0 +1,5 @@
+{
+  String[] decodedPath=pathInfo.split("/");
+  Broadcaster b=BroadcasterFactory.getDefault().lookup(decodedPath[decodedPath.length - 1],true);
+  return b;
+}
