@@ -1,0 +1,8 @@
+{
+  Meteor m=meteors.get(trackingId(req));
+  res.setCharacterEncoding("UTF-8");
+  String message=req.getReader().readLine();
+  if (message != null && message.indexOf("message") != -1) {
+    m.getBroadcaster().broadcast(message.substring("message=".length()));
+  }
+}

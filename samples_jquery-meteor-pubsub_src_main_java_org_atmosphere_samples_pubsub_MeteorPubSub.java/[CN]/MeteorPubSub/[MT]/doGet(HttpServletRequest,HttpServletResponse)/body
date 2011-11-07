@@ -1,0 +1,17 @@
+{
+  Meteor m=Meteor.build(req);
+  m.addListener(new WebSocketEventListenerAdapter());
+  String trackingId=trackingId(req);
+  meteors.put(trackingId,m);
+  res.setContentType("text/html;charset=ISO-8859-1");
+  String[] decodedPath=req.getPathInfo().split("/");
+  Broadcaster b=BroadcasterFactory.getDefault().lookup(decodedPath[decodedPath.length - 1],true);
+  m.setBroadcaster(b);
+  if (req.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT).equalsIgnoreCase(HeaderConfig.LONG_POLLING_TRANSPORT)) {
+    req.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,Boolean.TRUE);
+    m.suspend(-1,false);
+  }
+ else {
+    m.suspend(-1);
+  }
+}
