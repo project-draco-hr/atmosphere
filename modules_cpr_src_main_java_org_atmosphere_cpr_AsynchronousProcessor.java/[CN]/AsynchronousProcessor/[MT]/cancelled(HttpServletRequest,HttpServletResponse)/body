@@ -4,6 +4,7 @@
   if (l == -1) {
     return timedoutAction;
   }
+  logger.debug("Cancelling the connection for request {}",req);
   req.setAttribute(MAX_INACTIVE,(long)-1);
   try {
     re=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
