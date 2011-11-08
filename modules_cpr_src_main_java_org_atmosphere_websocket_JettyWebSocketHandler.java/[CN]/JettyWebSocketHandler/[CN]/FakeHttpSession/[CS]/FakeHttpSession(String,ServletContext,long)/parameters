@@ -1,0 +1,3 @@
+String sessionId
+ServletContext servletContext
+long creationTime
