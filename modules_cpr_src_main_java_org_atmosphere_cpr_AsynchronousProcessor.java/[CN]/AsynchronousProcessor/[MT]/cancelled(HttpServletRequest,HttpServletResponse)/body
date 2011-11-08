@@ -5,6 +5,7 @@
     return timedoutAction;
   }
   req.setAttribute(MAX_INACTIVE,(long)-1);
+  logger.debug("Timing out the connection for request {}",req);
   try {
     re=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
     if (re != null) {
