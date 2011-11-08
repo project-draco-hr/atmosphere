@@ -1,4 +1,5 @@
 {
+  logger.debug("onOpen {} ",w);
   if (!BaseServerWebSocket.class.isAssignableFrom(w.getClass())) {
     throw new IllegalStateException();
   }

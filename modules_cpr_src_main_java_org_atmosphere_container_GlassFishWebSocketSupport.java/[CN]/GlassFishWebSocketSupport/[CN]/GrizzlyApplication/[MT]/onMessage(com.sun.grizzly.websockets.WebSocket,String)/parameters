@@ -1,2 +1,2 @@
 com.sun.grizzly.websockets.WebSocket w
-DataFrame dataFrame
+String text
