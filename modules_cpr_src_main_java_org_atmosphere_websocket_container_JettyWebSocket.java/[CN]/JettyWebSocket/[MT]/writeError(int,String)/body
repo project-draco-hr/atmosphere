@@ -1,2 +1,3 @@
 {
+  logger.error("writeError not supported");
 }

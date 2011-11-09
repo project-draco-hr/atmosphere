@@ -1,4 +1,5 @@
 {
+  super.onClose(w);
   logger.debug("onClose {} ",w);
   webSocketProcessor.close();
 }

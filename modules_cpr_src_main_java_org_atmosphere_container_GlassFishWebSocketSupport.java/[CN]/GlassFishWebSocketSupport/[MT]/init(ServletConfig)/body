@@ -1,4 +1,4 @@
 {
   super.init(sc);
-  WebSocketEngine.getEngine().register(sc.getServletContext().getContextPath(),new GrizzlyApplication());
+  WebSocketEngine.getEngine().register(new GrizzlyApplication(config));
 }
