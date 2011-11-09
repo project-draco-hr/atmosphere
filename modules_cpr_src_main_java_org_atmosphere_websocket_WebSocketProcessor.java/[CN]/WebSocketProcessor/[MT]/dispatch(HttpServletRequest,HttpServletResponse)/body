@@ -9,4 +9,14 @@
 catch (  ServletException e) {
     logger.warn("Failed invoking atmosphere servlet doCometSupport()",e);
   }
+  WebSocketHttpServletResponse r=null;
+  if (webSocket().atmosphereResource() != null) {
+    r=WebSocketHttpServletResponse.class.cast(webSocket().atmosphereResource().getResponse());
+    if (r.getStatus() >= 400) {
+      webSocketProtocol.onError(webSocket,new WebSocketException("Status code higher than 400",r));
+    }
+  }
+ else {
+    webSocketProtocol.onError(webSocket,new WebSocketException("Status code higher than 400",r));
+  }
 }
