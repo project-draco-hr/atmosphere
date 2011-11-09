@@ -1,4 +1,4 @@
 {
-  logger.debug("onMessage {} ",w);
+  logger.debug("onMessage {} ");
   webSocketProcessor.invokeWebSocketProtocol(text);
 }
