@@ -2,8 +2,14 @@
   if (!loggedMsg.getAndSet(true)) {
     logger.debug("Atmosphere detected WebSocket: {}",webSocket.getClass().getName());
   }
+  String pathInfo=request.getPathInfo();
+  String requestURI=request.getRequestURI();
+  if (atmosphereServlet.getAtmosphereConfig().getWebServerName().toLowerCase().indexOf("glassfish") != -1) {
+    pathInfo=pathInfo.substring(pathInfo.indexOf("/",1));
+    requestURI=requestURI.substring(requestURI.indexOf("/",1));
+  }
   WebSocketHttpServletResponse wsr=new WebSocketHttpServletResponse<WebSocket>(webSocket,webSocketProtocol);
-  AtmosphereRequest r=new AtmosphereRequest.Builder().request(request).headers(configureHeader(request)).build();
+  AtmosphereRequest r=new AtmosphereRequest.Builder().request(request).pathInfo(pathInfo).requestURI(requestURI).headers(configureHeader(request)).build();
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   dispatch(r,wsr);
   resource=(AtmosphereResource)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
@@ -13,7 +19,6 @@
   webSocketProtocol.onOpen(webSocket);
   handler=(AtmosphereHandler)request.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
   if (resource == null || !resource.getAtmosphereResourceEvent().isSuspended()) {
-    logger.error("No AtmosphereResource has been suspended. The WebSocket will be closed.");
-    webSocket.close();
+    webSocketProtocol.onError(webSocket,new WebSocketException("No AtmosphereResource has been suspended. The WebSocket will be closed.",wsr));
   }
 }
