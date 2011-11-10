@@ -1,5 +1,5 @@
 {
-  Object lockingObject=sharedPool ? jedisPool : jedisPublisher;
+  Object lockingObject=getLockingObject();
 synchronized (lockingObject) {
     if (destroyed.get()) {
       logger.debug("JedisPool closed. Re-opening");

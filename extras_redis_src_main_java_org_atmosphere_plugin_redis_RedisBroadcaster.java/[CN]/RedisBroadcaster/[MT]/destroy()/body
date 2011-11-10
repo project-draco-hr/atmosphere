@@ -1,5 +1,5 @@
 {
-  Object lockingObject=sharedPool ? jedisPool : jedisPublisher;
+  Object lockingObject=getLockingObject();
   super.destroy();
 synchronized (lockingObject) {
     try {
