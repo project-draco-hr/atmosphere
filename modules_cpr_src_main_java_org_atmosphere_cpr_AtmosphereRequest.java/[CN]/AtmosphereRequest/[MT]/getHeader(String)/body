@@ -11,7 +11,7 @@
       if (headers.get(s) != null) {
         return headers.get(s);
       }
-      if (s.startsWith(X_ATMOSPHERE)) {
+      if (s.startsWith(X_ATMOSPHERE) && request != null) {
         return (String)request.getAttribute(s);
       }
     }

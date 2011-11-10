@@ -6,9 +6,11 @@
   if (headers.get(name) != null) {
     list.add(headers.get(name));
   }
-  if (list.size() == 0 && name.startsWith(X_ATMOSPHERE)) {
-    if (request.getAttribute(name) != null) {
-      list.add(request.getAttribute(name));
+  if (request != null) {
+    if (list.size() == 0 && name.startsWith(X_ATMOSPHERE)) {
+      if (request.getAttribute(name) != null) {
+        list.add(request.getAttribute(name));
+      }
     }
   }
   return Collections.enumeration(list);

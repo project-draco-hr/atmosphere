@@ -1,15 +1,15 @@
 {
   ArrayList list=Collections.list(super.getHeaderNames());
   list.add("content-type");
-  Enumeration e=request.getAttributeNames();
-  while (e.hasMoreElements()) {
-    String name=e.nextElement().toString();
-    if (name.startsWith(X_ATMOSPHERE)) {
-      list.add(name);
+  if (request != null) {
+    Enumeration e=request.getAttributeNames();
+    while (e.hasMoreElements()) {
+      String name=e.nextElement().toString();
+      if (name.startsWith(X_ATMOSPHERE)) {
+        list.add(name);
+      }
     }
   }
-  for (  String s : headers.keySet()) {
-    list.add(s);
-  }
+  list.addAll(headers.keySet());
   return Collections.enumeration(list);
 }
