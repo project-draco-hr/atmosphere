@@ -7,7 +7,9 @@
     logger.info("Using BroadcasterFactory class: {}",DefaultBroadcasterFactory.class.getName());
     broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
   }
-  sc.setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
+  if (sc != null) {
+    sc.setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
+  }
   config.broadcasterFactory=broadcasterFactory;
   BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
   InjectorProvider.getInjector().inject(broadcasterFactory);
@@ -19,7 +21,7 @@
     w=e.getValue();
     BroadcasterConfig broadcasterConfig=new BroadcasterConfig(broadcasterFilters,config);
     if (w.broadcaster == null) {
-      w.broadcaster=broadcasterFactory.get();
+      w.broadcaster=broadcasterFactory.get(w.mapping);
     }
  else {
       w.broadcaster.setBroadcasterConfig(broadcasterConfig);
