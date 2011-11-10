@@ -1,0 +1,13 @@
+{
+  Map<String,Object> m=new HashMap<String,Object>();
+  m.putAll(localAttributes);
+  Enumeration<String> e=(request != null ? request.getAttributeNames() : null);
+  if (e != null) {
+    String s;
+    while (e.hasMoreElements()) {
+      s=e.nextElement();
+      m.put(s,request.getAttribute(s));
+    }
+  }
+  return Collections.enumeration(m.keySet());
+}

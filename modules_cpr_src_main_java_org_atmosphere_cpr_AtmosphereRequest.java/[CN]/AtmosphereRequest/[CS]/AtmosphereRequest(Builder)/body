@@ -7,6 +7,7 @@
   servletPath=b.servletPath;
   requestURI=b.requestURI;
   requestURL=b.requestURL;
+  localAttributes=b.localAttributes;
   if (b.dataBytes != null) {
     bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
     try {
@@ -24,6 +25,6 @@
     bis=null;
     br=null;
   }
-  methodType=b.methodType == null ? b.request.getMethod() : b.methodType;
-  contentType=b.contentType == null ? b.request.getContentType() : b.contentType;
+  methodType=b.methodType == null ? (request != null ? request.getMethod() : "GET") : b.methodType;
+  contentType=b.contentType == null ? (request != null ? request.getContentType() : "text/plain") : b.contentType;
 }
