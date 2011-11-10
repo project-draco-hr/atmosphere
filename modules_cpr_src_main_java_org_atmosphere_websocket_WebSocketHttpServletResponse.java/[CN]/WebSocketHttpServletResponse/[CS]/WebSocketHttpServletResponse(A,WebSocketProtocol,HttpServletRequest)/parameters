@@ -1,2 +1,3 @@
 A webSocketSupport
 WebSocketProtocol webSocketProtocol
+HttpServletRequest atmosphereRequest
