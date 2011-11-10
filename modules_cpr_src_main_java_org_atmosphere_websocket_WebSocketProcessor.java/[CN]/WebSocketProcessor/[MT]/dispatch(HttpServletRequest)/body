@@ -16,6 +16,7 @@
   WebSocketHttpServletResponse wsr=new WebSocketHttpServletResponse<WebSocket>(webSocket,webSocketProtocol,request);
   AtmosphereRequest r=new AtmosphereRequest.Builder().request(request).pathInfo(pathInfo).requestURI(requestURI).headers(configureHeader(request)).build();
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
+  WebSocketAdapter.class.cast(webSocket).request(r).response(wsr);
   dispatch(r,wsr);
   webSocketProtocol.onOpen(webSocket);
   handler=(AtmosphereHandler)request.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
