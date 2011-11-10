@@ -24,9 +24,6 @@
       config.properties().put(REDIS_SHARED_POOL,jedisPool);
     }
  else {
-      if (jedisPublisher != null) {
-        jedisPool.returnResource(jedisPublisher);
-      }
       disconnectSubscriber();
     }
   }
