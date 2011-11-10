@@ -13,7 +13,7 @@
       logger.warn("Unable to patch GlassFish WebSocket http://java.net/jira/browse/GRIZZLY-1114");
     }
   }
-  WebSocketHttpServletResponse wsr=new WebSocketHttpServletResponse<WebSocket>(webSocket,webSocketProtocol);
+  WebSocketHttpServletResponse wsr=new WebSocketHttpServletResponse<WebSocket>(webSocket,webSocketProtocol,request);
   AtmosphereRequest r=new AtmosphereRequest.Builder().request(request).pathInfo(pathInfo).requestURI(requestURI).headers(configureHeader(request)).build();
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   dispatch(r,wsr);
