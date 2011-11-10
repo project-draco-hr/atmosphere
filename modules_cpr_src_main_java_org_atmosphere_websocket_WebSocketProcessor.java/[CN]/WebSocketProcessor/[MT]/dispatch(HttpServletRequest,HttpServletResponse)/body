@@ -10,17 +10,11 @@ catch (  ServletException e) {
     logger.warn("Failed invoking atmosphere servlet doCometSupport()",e);
   }
   resource=(AtmosphereResource)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-  if (webSocket.atmosphereResource() == null && WebSocketAdapter.class.isAssignableFrom(webSocket.getClass())) {
+  if (webSocket.resource() == null && WebSocketAdapter.class.isAssignableFrom(webSocket.getClass())) {
     WebSocketAdapter.class.cast(webSocket).setAtmosphereResource(resource);
   }
-  WebSocketHttpServletResponse r=null;
-  if (webSocket().atmosphereResource() != null) {
-    r=WebSocketHttpServletResponse.class.cast(webSocket().atmosphereResource().getResponse());
-    if (r.getStatus() >= 400) {
-      webSocketProtocol.onError(webSocket,new WebSocketException("Status code higher than 400",r));
-    }
-  }
- else {
+  WebSocketHttpServletResponse r=WebSocketAdapter.class.cast(webSocket).response();
+  if (r.getStatus() >= 400) {
     webSocketProtocol.onError(webSocket,new WebSocketException("Status code higher than 400",r));
   }
 }

@@ -1,7 +1,6 @@
 {
   logger.debug("{} {}",errorCode,message);
-  if (atmosphereResource != null) {
-    WebSocketHttpServletResponse r=WebSocketHttpServletResponse.class.cast(atmosphereResource.getResponse());
-    r.setStatus(errorCode,message);
+  if (resource() != null) {
+    response().setStatus(errorCode,message);
   }
 }
