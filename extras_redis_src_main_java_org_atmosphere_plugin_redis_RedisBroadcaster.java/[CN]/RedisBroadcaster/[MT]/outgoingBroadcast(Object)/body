@@ -1,4 +1,5 @@
 {
+  String contents=message.toString();
   Object lockingObject=getLockingObject();
 synchronized (lockingObject) {
     if (destroyed.get()) {
@@ -11,7 +12,7 @@ synchronized (lockingObject) {
         Jedis jedis=jedisPool.getResource();
         try {
           auth(jedis);
-          jedis.publish(getID(),message.toString());
+          jedis.publish(getID(),contents);
         }
  catch (        JedisException e) {
           valid=false;
@@ -32,7 +33,7 @@ synchronized (lockingObject) {
     }
  else {
       try {
-        jedisPublisher.publish(getID(),message.toString());
+        jedisPublisher.publish(getID(),contents);
       }
  catch (      JedisException e) {
         logger.warn("outgoingBroadcast exception",e);
