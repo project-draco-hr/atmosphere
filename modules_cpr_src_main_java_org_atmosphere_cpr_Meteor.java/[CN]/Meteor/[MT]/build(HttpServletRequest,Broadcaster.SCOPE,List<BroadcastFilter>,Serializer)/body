@@ -14,5 +14,6 @@
     req.setAttribute(AtmosphereResourceImpl.SKIP_BROADCASTER_CREATION,Boolean.TRUE);
   }
   Meteor m=new Meteor(r,l,s);
+  req.setAttribute(AtmosphereResourceImpl.METEOR,m);
   return m;
 }

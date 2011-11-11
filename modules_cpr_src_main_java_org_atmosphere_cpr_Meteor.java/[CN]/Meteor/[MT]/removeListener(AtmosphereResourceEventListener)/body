@@ -1,5 +1,4 @@
 {
-  if (r instanceof AtmosphereEventLifecycle) {
-    ((AtmosphereEventLifecycle)r).removeEventListener(e);
-  }
+  if (destroyed())   return;
+  r.removeEventListener(e);
 }

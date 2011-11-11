@@ -1,3 +1,4 @@
 {
+  if (destroyed())   return;
   r.setBroadcaster(b);
 }

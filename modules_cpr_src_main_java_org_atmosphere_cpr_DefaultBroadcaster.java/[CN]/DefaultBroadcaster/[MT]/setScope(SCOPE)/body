@@ -1,4 +1,8 @@
 {
+  if (destroyed.get()) {
+    logger.debug(DESTROYED,getID(),"setScope");
+    return;
+  }
   this.scope=scope;
   if (scope != SCOPE.REQUEST) {
     return;
@@ -19,6 +23,9 @@ synchronized (resources) {
           b.addAtmosphereResource(resource);
         }
         logger.debug("Resource {} not using broadcaster {}",resource,b.getID());
+      }
+      if (resources.isEmpty()) {
+        return;
       }
       destroy();
     }
