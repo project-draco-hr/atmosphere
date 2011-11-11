@@ -1,8 +1,17 @@
 {
   webSocketProtocol.onClose(webSocket);
   try {
-    if (handler != null && resource != null) {
-      handler.onStateChange(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)resource,false,true));
+    if (resource != null) {
+      AtmosphereHandler handler=(AtmosphereHandler)resource.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
+synchronized (resource) {
+        if (handler != null) {
+          handler.onStateChange(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)resource,false,true));
+        }
+        Meteor m=(Meteor)resource.getRequest().getAttribute(AtmosphereResourceImpl.METEOR);
+        if (m != null) {
+          m.destroy();
+        }
+      }
     }
   }
  catch (  IOException e) {
@@ -11,7 +20,10 @@
     }
     logger.warn("Failed invoking atmosphere handler onStateChange()",e);
   }
-  if (resource != null) {
-    resource.getBroadcaster().removeAtmosphereResource(resource);
+  try {
+    resource.notifyListeners();
+  }
+  finally {
+    AsynchronousProcessor.destroyResource(resource);
   }
 }
