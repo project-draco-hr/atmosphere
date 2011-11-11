@@ -1,4 +1,5 @@
 {
+  if (destroyed())   return null;
   r.getBroadcaster().broadcast(o);
   return this;
 }

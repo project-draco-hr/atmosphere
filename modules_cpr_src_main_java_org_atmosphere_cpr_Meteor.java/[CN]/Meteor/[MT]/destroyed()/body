@@ -1,0 +1,7 @@
+{
+  if (isDestroyed.get()) {
+    logger.debug("This Meteor is destroyed and cannot be used.");
+    return true;
+  }
+  return false;
+}

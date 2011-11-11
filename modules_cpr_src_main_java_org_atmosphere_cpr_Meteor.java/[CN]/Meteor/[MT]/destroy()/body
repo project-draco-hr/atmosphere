@@ -1,3 +1,4 @@
 {
-  cache.clear();
+  isDestroyed.set(true);
+  cache.remove(this);
 }
