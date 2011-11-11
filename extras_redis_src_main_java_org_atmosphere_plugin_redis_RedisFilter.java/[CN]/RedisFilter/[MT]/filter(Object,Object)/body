@@ -1,6 +1,7 @@
 {
-  if (!(receivedMessages.remove(originalMessage.toString()))) {
-    jedisPublisher.publish(bc.getID(),originalMessage.toString());
+  String contents=originalMessage.toString();
+  if (!(receivedMessages.remove(contents))) {
+    jedisPublisher.publish(bc.getID(),contents);
   }
   return new BroadcastFilter.BroadcastAction(BroadcastAction.ACTION.CONTINUE,o);
 }
