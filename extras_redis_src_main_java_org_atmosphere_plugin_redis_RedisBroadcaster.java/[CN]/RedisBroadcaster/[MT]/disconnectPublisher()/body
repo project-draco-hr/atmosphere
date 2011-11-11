@@ -4,7 +4,7 @@ synchronized (jedisPublisher) {
     try {
       jedisPublisher.disconnect();
     }
- catch (    IOException e) {
+ catch (    JedisException e) {
       logger.error("failed to disconnect publisher",e);
     }
   }

@@ -4,7 +4,7 @@ synchronized (jedisSubscriber) {
     try {
       jedisSubscriber.disconnect();
     }
- catch (    IOException e) {
+ catch (    JedisException e) {
       logger.error("failed to disconnect subscriber",e);
     }
   }

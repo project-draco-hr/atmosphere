@@ -7,7 +7,7 @@
     jedisSubscriber.connect();
     auth(jedisSubscriber);
   }
- catch (  IOException e) {
+ catch (  JedisException e) {
     logger.error("failed to connect to subscriber: {}",jedisSubscriber,e);
   }
   jedisPublisher=new Jedis(uri.getHost(),uri.getPort());
@@ -15,7 +15,7 @@
     jedisPublisher.connect();
     auth(jedisPublisher);
   }
- catch (  IOException e) {
+ catch (  JedisException e) {
     logger.error("failed to connect to publisher: {}",jedisPublisher,e);
   }
 }
