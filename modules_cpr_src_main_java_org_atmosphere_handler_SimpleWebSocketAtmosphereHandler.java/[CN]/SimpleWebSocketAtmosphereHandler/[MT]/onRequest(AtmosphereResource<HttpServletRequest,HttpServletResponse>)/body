@@ -1,5 +1,5 @@
 {
-  if (!r.getResponse().getClass().isAssignableFrom(WebSocketHttpServletResponse.class)) {
+  if (!r.getResponse().getClass().isAssignableFrom(AtmosphereResponse.class)) {
     try {
       r.getAtmosphereConfig().getServletContext().getNamedDispatcher(r.getAtmosphereConfig().getDispatcherName()).forward(r.getRequest(),r.getResponse());
     }

@@ -1,3 +1,0 @@
-{
-  webSocketSupport.writeError(sc,msg);
-}

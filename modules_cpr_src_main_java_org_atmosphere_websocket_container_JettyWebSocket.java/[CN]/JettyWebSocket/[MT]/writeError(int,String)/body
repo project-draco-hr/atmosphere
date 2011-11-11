@@ -1,6 +1,0 @@
-{
-  logger.debug("{} {}",errorCode,message);
-  if (resource() != null) {
-    response().setStatus(errorCode,message);
-  }
-}

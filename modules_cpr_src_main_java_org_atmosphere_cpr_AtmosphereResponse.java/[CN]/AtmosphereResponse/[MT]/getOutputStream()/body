@@ -1,0 +1,30 @@
+{
+  return new ServletOutputStream(){
+    public void write(    int i) throws java.io.IOException {
+      if (asyncProtocol.inspectResponse()) {
+        asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new byte[]{(byte)i},0,1));
+      }
+ else {
+        asyncIOWriter.write(new byte[]{(byte)i});
+      }
+    }
+    public void write(    byte[] bytes) throws java.io.IOException {
+      if (asyncProtocol.inspectResponse()) {
+        asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,0,bytes.length));
+      }
+ else {
+        asyncIOWriter.write(bytes);
+      }
+    }
+    public void write(    byte[] bytes,    int start,    int offset) throws java.io.IOException {
+      if (asyncProtocol.inspectResponse()) {
+        byte[] b=asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,start,offset);
+        asyncIOWriter.write(b,0,b.length);
+      }
+ else {
+        asyncIOWriter.write(bytes,start,offset);
+      }
+    }
+  }
+;
+}

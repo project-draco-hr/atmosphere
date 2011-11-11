@@ -1,0 +1,4 @@
+{
+  setStatus(sc,msg);
+  asyncIOWriter.writeError(sc,msg);
+}

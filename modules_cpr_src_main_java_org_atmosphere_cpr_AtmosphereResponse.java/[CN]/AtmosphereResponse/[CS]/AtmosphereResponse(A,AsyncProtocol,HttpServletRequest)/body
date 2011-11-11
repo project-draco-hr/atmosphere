@@ -1,0 +1,6 @@
+{
+  super(dsr);
+  this.asyncIOWriter=asyncIOWriter;
+  this.asyncProtocol=asyncProtocol;
+  this.atmosphereRequest=atmosphereRequest;
+}
