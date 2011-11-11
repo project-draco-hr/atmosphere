@@ -1,34 +1,42 @@
 {
-  Object lockingObject=sharedPool ? jedisPool : jedisPublisher;
+  String contents=message.toString();
+  Object lockingObject=getLockingObject();
 synchronized (lockingObject) {
     if (destroyed.get()) {
       logger.debug("JedisPool closed. Re-opening");
       setID(getID());
     }
-    boolean valid=true;
-    try {
-      if (sharedPool) {
-        jedisPublisher=jedisPool.getResource();
-        auth(jedisPublisher);
-      }
-      jedisPublisher.publish(getID(),message.toString());
-    }
- catch (    JedisException e) {
-      logger.warn("outgoingBroadcast exception",e);
-      valid=false;
-    }
+    if (sharedPool) {
+      for (int i=0; i < 10; ++i) {
+        boolean valid=true;
+        Jedis jedis=jedisPool.getResource();
+        try {
+          auth(jedis);
+          jedis.publish(getID(),contents);
+        }
+ catch (        JedisException e) {
+          valid=false;
+          logger.warn("outgoingBroadcast exception",e);
+        }
  finally {
-      if (sharedPool) {
-        if (!valid) {
-          jedisPool.returnBrokenResource(jedisPublisher);
-        }
+          if (valid) {
+            jedisPool.returnResource(jedis);
+          }
  else {
-          maxTry.set(0);
-          jedisPool.returnResource(jedisPublisher);
+            jedisPool.returnBrokenResource(jedis);
+          }
         }
-        if (!valid && maxTry.getAndIncrement() < 10) {
-          outgoingBroadcast(message);
+        if (valid) {
+          break;
         }
+      }
+    }
+ else {
+      try {
+        jedisPublisher.publish(getID(),contents);
+      }
+ catch (      JedisException e) {
+        logger.warn("outgoingBroadcast exception",e);
       }
     }
   }

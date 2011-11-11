@@ -24,9 +24,6 @@
       config.properties().put(REDIS_SHARED_POOL,jedisPool);
     }
  else {
-      if (jedisPublisher != null) {
-        jedisPool.returnResource(jedisPublisher);
-      }
       disconnectSubscriber();
     }
   }
@@ -35,7 +32,7 @@
     jedisSubscriber.connect();
     auth(jedisSubscriber);
   }
- catch (  IOException e) {
+ catch (  JedisException e) {
     logger.error("failed to connect subscriber",e);
     disconnectSubscriber();
   }
@@ -45,7 +42,7 @@
       jedisPublisher.connect();
       auth(jedisPublisher);
     }
- catch (    IOException e) {
+ catch (    JedisException e) {
       logger.error("failed to connect publisher",e);
       disconnectPublisher();
     }
