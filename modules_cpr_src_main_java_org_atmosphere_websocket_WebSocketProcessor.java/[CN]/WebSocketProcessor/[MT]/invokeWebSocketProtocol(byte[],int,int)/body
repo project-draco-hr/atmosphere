@@ -1,8 +1,7 @@
 {
-  HttpServletRequest r=webSocketProtocol.onMessage(webSocket,data,offset,length);
+  AtmosphereRequest r=webSocketProtocol.onMessage(webSocket,data,offset,length);
   if (r != null) {
-    WebSocketHttpServletResponse<WebSocket> w=new WebSocketHttpServletResponse<WebSocket>(webSocket,webSocketProtocol,r);
-    WebSocketAdapter.class.cast(webSocket).request(r).response(w);
+    AtmosphereResponse<WebSocket> w=new AtmosphereResponse<WebSocket>(webSocket,webSocketProtocol,r);
     dispatch(r,w);
   }
 }

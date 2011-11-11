@@ -1,4 +1,0 @@
-WebSocketHttpServletResponse<?> res
-byte[] message
-int offset
-int length

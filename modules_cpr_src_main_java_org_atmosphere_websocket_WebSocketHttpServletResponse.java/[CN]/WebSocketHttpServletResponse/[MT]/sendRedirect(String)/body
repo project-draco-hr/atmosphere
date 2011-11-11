@@ -1,3 +1,0 @@
-{
-  webSocketSupport.redirect(location);
-}

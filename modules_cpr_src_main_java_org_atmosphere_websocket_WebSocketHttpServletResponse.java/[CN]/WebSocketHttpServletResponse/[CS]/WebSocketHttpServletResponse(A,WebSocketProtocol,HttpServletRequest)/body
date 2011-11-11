@@ -1,6 +1,0 @@
-{
-  super(dsr);
-  this.webSocketSupport=webSocketSupport;
-  this.webSocketProtocol=webSocketProtocol;
-  this.atmosphereRequest=atmosphereRequest;
-}

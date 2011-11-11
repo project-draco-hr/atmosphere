@@ -1,7 +1,12 @@
 {
   this.atmosphereHandler=atmosphereHandler;
   try {
-    broadcaster=BroadcasterFactory.getDefault().get(mapping);
+    if (BroadcasterFactory.getDefault() != null) {
+      this.broadcaster=BroadcasterFactory.getDefault().get(mapping);
+    }
+ else {
+      this.mapping=mapping;
+    }
   }
  catch (  Exception t) {
     throw new RuntimeException(t);
