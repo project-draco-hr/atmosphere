@@ -19,7 +19,6 @@
   WebSocketAdapter.class.cast(webSocket).request(r).response(wsr);
   dispatch(r,wsr);
   webSocketProtocol.onOpen(webSocket);
-  handler=(AtmosphereHandler)request.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
   if (resource == null || !resource.getAtmosphereResourceEvent().isSuspended()) {
     webSocketProtocol.onError(webSocket,new WebSocketException("No AtmosphereResource has been suspended. The WebSocket will be closed.",wsr));
   }
