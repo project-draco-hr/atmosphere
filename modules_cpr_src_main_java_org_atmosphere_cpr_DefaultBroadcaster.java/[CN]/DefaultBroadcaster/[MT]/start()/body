@@ -2,8 +2,8 @@
   if (!started.getAndSet(true)) {
     broadcasterCache=bc.getBroadcasterCache();
     broadcasterCache.start();
+    setID(name);
     notifierFuture=bc.getExecutorService().submit(getBroadcastHandler());
     asyncWriteFuture=bc.getAsyncWriteService().submit(getAsyncWriteHandler());
-    setID(name);
   }
 }
