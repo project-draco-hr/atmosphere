@@ -7,6 +7,7 @@
   this.requestURL=request.getRequestURL();
   HttpSession session=request.getSession(true);
   httpSession=new FakeHttpSession(session.getId(),session.getServletContext(),session.getCreationTime());
+  this.method=request.getMethod();
   Enumeration<String> e=request.getHeaderNames();
   String s;
   while (e.hasMoreElements()) {
