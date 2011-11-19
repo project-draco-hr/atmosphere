@@ -1,10 +1,5 @@
 {
-  try {
-    logger.debug("onException()",t);
-    r.notifyListeners(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,true,false));
-    r.resume();
-  }
-  finally {
-    BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
-  }
+  logger.trace("onException()",t);
+  r.notifyListeners(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,true,false));
+  AsynchronousProcessor.destroyResource(r);
 }
