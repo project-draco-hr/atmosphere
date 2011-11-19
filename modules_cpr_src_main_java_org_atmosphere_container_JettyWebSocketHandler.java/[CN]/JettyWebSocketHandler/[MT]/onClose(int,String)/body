@@ -1,5 +1,5 @@
 {
   logger.trace("WebSocket.OnClose.");
-  webSocketProcessor.close();
   webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocketProcessor.webSocket()));
+  webSocketProcessor.close();
 }

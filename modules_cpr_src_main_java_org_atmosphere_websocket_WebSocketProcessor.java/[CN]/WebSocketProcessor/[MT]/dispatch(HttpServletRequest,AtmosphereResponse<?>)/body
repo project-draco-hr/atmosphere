@@ -9,7 +9,7 @@
 catch (  ServletException e) {
     logger.warn("Failed invoking atmosphere servlet doCometSupport()",e);
   }
-  resource=(AtmosphereResource)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  AtmosphereResource resource=(AtmosphereResource)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
   if (webSocket.resource() == null && WebSocketAdapter.class.isAssignableFrom(webSocket.getClass())) {
     WebSocketAdapter.class.cast(webSocket).setAtmosphereResource(resource);
   }
