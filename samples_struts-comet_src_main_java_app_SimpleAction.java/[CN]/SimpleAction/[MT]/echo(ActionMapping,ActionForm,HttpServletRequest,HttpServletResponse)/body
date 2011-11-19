@@ -1,6 +1,0 @@
-{
-  logger.info("BEGIN SimpleAction.echo()");
-  String value=req.getParameter("value");
-  res.getWriter().print("{message: 'Server says: " + value + "'}");
-  return null;
-}

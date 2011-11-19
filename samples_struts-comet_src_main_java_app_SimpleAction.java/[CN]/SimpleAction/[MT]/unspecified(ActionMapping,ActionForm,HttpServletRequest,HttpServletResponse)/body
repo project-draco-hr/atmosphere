@@ -1,4 +1,0 @@
-{
-  logger.error("IN ACTION");
-  return mapping.findForward("success");
-}

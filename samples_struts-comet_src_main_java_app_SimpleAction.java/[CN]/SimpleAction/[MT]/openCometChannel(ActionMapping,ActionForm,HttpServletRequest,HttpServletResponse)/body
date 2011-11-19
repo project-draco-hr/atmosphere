@@ -1,9 +1,0 @@
-{
-  logger.info("BEGIN SimpleAction.openCometChannel()");
-  Meteor m=Meteor.build(req,list,null);
-  m.setBroadcaster(b);
-  req.getSession().setAttribute("meteor",m);
-  m.suspend(-1);
-  m.broadcast(req.getServerName() + "__has suspended a connection from " + req.getRemoteAddr());
-  return null;
-}
