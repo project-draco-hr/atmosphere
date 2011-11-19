@@ -1,4 +1,5 @@
 {
+  AtmosphereResource<HttpServletRequest,HttpServletResponse> resource=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)webSocket.resource();
   try {
     webSocketProtocol.onClose(webSocket);
     if (resource != null) {
