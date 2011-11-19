@@ -1,6 +1,6 @@
 {
-  webSocketProtocol.onClose(webSocket);
   try {
+    webSocketProtocol.onClose(webSocket);
     if (resource != null) {
       AtmosphereHandler handler=(AtmosphereHandler)resource.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
 synchronized (resource) {
@@ -12,18 +12,18 @@ synchronized (resource) {
           m.destroy();
         }
       }
+      try {
+        resource.notifyListeners();
+      }
+  finally {
+        AsynchronousProcessor.destroyResource(resource);
+      }
     }
   }
  catch (  IOException e) {
-    if (AtmosphereResourceImpl.class.isAssignableFrom(resource.getClass())) {
+    if (resource != null && AtmosphereResourceImpl.class.isAssignableFrom(resource.getClass())) {
       AtmosphereResourceImpl.class.cast(resource).onThrowable(e);
     }
     logger.warn("Failed invoking atmosphere handler onStateChange()",e);
-  }
-  try {
-    resource.notifyListeners();
-  }
-  finally {
-    AsynchronousProcessor.destroyResource(resource);
   }
 }
