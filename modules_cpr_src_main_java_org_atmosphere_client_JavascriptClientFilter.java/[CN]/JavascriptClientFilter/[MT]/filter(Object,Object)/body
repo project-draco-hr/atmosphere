@@ -1,3 +1,0 @@
-{
-  return new BroadcastAction(BroadcastAction.ACTION.CONTINUE,message);
-}
