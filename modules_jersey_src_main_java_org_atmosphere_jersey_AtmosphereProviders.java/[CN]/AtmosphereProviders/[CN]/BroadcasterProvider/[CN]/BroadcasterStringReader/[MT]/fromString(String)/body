@@ -15,6 +15,7 @@
  catch (  Throwable ex) {
     throw new WebApplicationException(ex);
   }
+  logger.trace("Injected Broadcaster {}",broadcaster);
   req.setAttribute(AtmosphereFilter.INJECTED_BROADCASTER,broadcaster);
   return broadcaster;
 }
