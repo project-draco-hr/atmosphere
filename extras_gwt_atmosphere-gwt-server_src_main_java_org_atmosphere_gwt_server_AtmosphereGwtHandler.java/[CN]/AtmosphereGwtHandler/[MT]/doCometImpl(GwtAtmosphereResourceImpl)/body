@@ -3,7 +3,7 @@
     resource.getWriterImpl().initiate();
     if (resources == null) {
       resources=new ConcurrentHashMap<Integer,GwtAtmosphereResource>(5);
-      resource.getBroadcaster().getBroadcasterConfig().getScheduledExecutorService().scheduleWithFixedDelay(new Runnable(){
+      scheduler.scheduleWithFixedDelay(new Runnable(){
         @Override public void run(){
           reapResources();
         }
