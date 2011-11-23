@@ -2,4 +2,7 @@
   if (executorService != null) {
     executorService.shutdown();
   }
+  if (scheduler != null) {
+    scheduler.shutdown();
+  }
 }

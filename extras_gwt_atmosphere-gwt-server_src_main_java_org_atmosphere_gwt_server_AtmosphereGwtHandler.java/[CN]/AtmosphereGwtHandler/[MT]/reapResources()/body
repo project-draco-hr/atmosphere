@@ -1,7 +1,9 @@
 {
-  for (  GwtAtmosphereResource resource : resources.values()) {
-    if (!resource.isAlive()) {
-      resources.remove(resource.getConnectionID());
+  if (resources != null) {
+    for (    GwtAtmosphereResource resource : resources.values()) {
+      if (!resource.isAlive()) {
+        resources.remove(resource.getConnectionID());
+      }
     }
   }
 }
