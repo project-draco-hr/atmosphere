@@ -4,4 +4,13 @@
   this.config=config;
   broadcasterCache=new DefaultBroadcasterCache();
   bc=new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config);
+  String s=config.getInitParameter(ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
+  if (s != null) {
+    if (s.equalsIgnoreCase("afterFilter")) {
+      cacheStrategy=BroadcasterCache.STRATEGY.AFTER_FILTER;
+    }
+ else     if (s.equalsIgnoreCase("beforeFilter")) {
+      cacheStrategy=BroadcasterCache.STRATEGY.BEFORE_FILTER;
+    }
+  }
 }

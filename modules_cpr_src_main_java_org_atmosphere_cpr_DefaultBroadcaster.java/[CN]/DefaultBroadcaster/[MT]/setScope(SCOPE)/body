@@ -16,6 +16,7 @@ synchronized (resources) {
           BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
           InjectorProvider.getInjector().inject(cache);
           DefaultBroadcaster.class.cast(b).broadcasterCache=cache;
+          DefaultBroadcaster.class.cast(b).getBroadcasterConfig().setBroadcasterCache(cache);
         }
         resource.setBroadcaster(b);
         b.setScope(SCOPE.REQUEST);

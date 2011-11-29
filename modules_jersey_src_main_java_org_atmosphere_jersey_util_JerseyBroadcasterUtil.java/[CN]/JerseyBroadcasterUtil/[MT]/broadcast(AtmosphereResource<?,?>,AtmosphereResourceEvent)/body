@@ -63,7 +63,10 @@
       r.resume();
     }
     if (lostCandidate && r != null && r.getBroadcaster() != null && r.getBroadcaster().getBroadcasterConfig().getBroadcasterCache() != null) {
-      r.getBroadcaster().getBroadcasterConfig().getBroadcasterCache().addToCache(r,e.getMessage());
+      String s=(String)request.getAttribute(ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
+      if (s == null || !s.equalsIgnoreCase("beforeFilter")) {
+        r.getBroadcaster().getBroadcasterConfig().getBroadcasterCache().addToCache(r,e.getMessage());
+      }
     }
   }
 }
