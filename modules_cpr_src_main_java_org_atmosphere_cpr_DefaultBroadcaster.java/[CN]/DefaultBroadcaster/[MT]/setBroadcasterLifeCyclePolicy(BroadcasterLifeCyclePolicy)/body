@@ -46,7 +46,6 @@
         }
       }
       void destroy(      boolean resume){
-        notifyDestroyListener();
         if (resume) {
           logger.info("All AtmosphereResource will now be resumed from Broadcaster {}",getID());
           resumeAll();
