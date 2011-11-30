@@ -1,0 +1,8 @@
+{
+  String s=request.getParameter(HeaderConfig.JSONP_CALLBACK_NAME);
+  if (s != null) {
+    String jsonPMessage=s + "({\"message\" : \"" + message+ "\"})";
+    return new BroadcastAction(jsonPMessage);
+  }
+  return new BroadcastAction(message);
+}
