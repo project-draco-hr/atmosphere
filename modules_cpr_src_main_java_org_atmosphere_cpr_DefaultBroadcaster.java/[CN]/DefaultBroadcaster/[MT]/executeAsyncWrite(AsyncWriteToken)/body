@@ -1,0 +1,40 @@
+{
+  boolean notifyListeners=true;
+  boolean lostCandidate=false;
+  try {
+    final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
+    event.setMessage(token.msg);
+    if (!AtmosphereResourceImpl.class.cast(token.resource).isInScope()) {
+      resources.remove(token.resource);
+      lostCandidate=true;
+      return;
+    }
+    try {
+      HttpServletRequest.class.cast(token.resource.getRequest()).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
+    }
+ catch (    Throwable t) {
+      logger.error("Invalid AtmosphereResource state {}",event);
+      logger.error("If you are using Tomcat 7.0.22 and lower, your most probably hitting http://is.gd/NqicFT");
+      logger.error("",t);
+      removeAtmosphereResource(token.resource);
+      BroadcasterFactory.getDefault().removeAllAtmosphereResource(token.resource);
+      event.setCancelled(true);
+      event.setThrowable(t);
+      lostCandidate=true;
+      return;
+    }
+    HttpServletRequest.class.cast(token.resource.getRequest()).setAttribute(ASYNC_TOKEN,token);
+    broadcast(token.resource,event);
+  }
+  finally {
+    if (notifyListeners) {
+      token.resource.notifyListeners();
+    }
+    if (token.future != null) {
+      token.future.done();
+    }
+    if (lostCandidate) {
+      cacheLostMessage(token.resource);
+    }
+  }
+}
