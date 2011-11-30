@@ -1,4 +1,7 @@
 {
   this.broadcasterCache=broadcasterCache;
+  if (BroadcasterCacheBase.class.isAssignableFrom(broadcasterCache.getClass())) {
+    BroadcasterCacheBase.class.cast(broadcasterCache).setExecutorService(getScheduledExecutorService());
+  }
   return this;
 }

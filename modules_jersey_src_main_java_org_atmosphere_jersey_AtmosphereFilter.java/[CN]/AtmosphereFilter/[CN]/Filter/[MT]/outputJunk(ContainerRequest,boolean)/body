@@ -13,7 +13,7 @@
   if (webSocketEnabled) {
     return false;
   }
- else   if (transport != null && transport.equals(LONG_POLLING_TRANSPORT)) {
+ else   if (transport != null && (transport.equals(JSONP) || transport.equals(LONG_POLLING_TRANSPORT))) {
     return false;
   }
   return outputJunk;

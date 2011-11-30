@@ -12,7 +12,9 @@
           finalMsg=a.message();
         }
       }
-      trackBroadcastMessage(r,finalMsg);
+      if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
+        trackBroadcastMessage(r,finalMsg);
+      }
     }
  else {
       removeAtmosphereResource(r);

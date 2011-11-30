@@ -1,7 +1,4 @@
 {
-  if (executorService.isShutdown()) {
-    return;
-  }
   if (broadcasterCache != null) {
     broadcasterCache.stop();
   }

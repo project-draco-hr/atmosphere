@@ -27,7 +27,7 @@
   }
   if (resources.isEmpty()) {
     logger.debug("Broadcaster {} doesn't have any associated resource",getID());
-    trackBroadcastMessage(null,entry.message);
+    trackBroadcastMessage(null,cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER ? entry.message : entry.originalMessage);
     if (entry.future != null) {
       entry.future.done();
     }

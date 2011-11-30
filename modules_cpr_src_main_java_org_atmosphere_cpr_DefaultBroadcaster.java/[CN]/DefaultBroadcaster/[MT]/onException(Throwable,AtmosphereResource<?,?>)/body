@@ -12,8 +12,8 @@
           r.resume();
         }
  catch (        Throwable t) {
-          logger.warn("Was unable to resume a corrupted AtmosphereResource {}",r);
-          logger.warn("Cause",t);
+          logger.trace("Was unable to resume a corrupted AtmosphereResource {}",r);
+          logger.trace("Cause",t);
         }
       }
     }
@@ -22,4 +22,5 @@
  else {
     r.resume();
   }
+  cacheLostMessage(r);
 }
