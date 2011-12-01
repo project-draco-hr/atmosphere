@@ -1,8 +1,18 @@
 {
   String s=request.getParameter(HeaderConfig.JSONP_CALLBACK_NAME);
   if (s != null) {
-    String jsonPMessage=s + "({\"message\" : \"" + message+ "\"})";
-    return new BroadcastAction(jsonPMessage);
+    String contentType=response.getContentType();
+    if (contentType == null) {
+      contentType=(String)request.getAttribute(FrameworkConfig.EXPECTED_CONTENT_TYPE);
+    }
+    if (contentType == null || !contentType.contains("json")) {
+      String jsonPMessage=s + "({\"message\" : \"" + message+ "\"})";
+      return new BroadcastAction(jsonPMessage);
+    }
+ else {
+      String jsonPMessage=s + "({\"message\" :" + message+ "})";
+      return new BroadcastAction(jsonPMessage);
+    }
   }
   return new BroadcastAction(message);
 }
