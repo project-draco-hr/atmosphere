@@ -2,7 +2,7 @@
   if (r == null)   return;
   r.removeEventListeners();
   try {
-    r.getBroadcaster().removeAtmosphereResource(r);
+    AtmosphereResourceImpl.class.cast(r).getBroadcaster(false).removeAtmosphereResource(r);
   }
  catch (  IllegalStateException ex) {
     logger.trace(ex.getMessage(),ex);

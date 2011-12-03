@@ -4,7 +4,15 @@
       Entry msg=null;
       while (started.get()) {
         try {
-          msg=messages.take();
+          msg=messages.poll(10,TimeUnit.SECONDS);
+          if (msg == null) {
+            if (destroyed.get()) {
+              return;
+            }
+ else {
+              continue;
+            }
+          }
           push(msg);
         }
  catch (        InterruptedException ex) {

@@ -3,7 +3,13 @@
     public void run(){
       AsyncWriteToken token=null;
       try {
-        token=asyncWriteQueue.take();
+        token=asyncWriteQueue.poll(10,TimeUnit.SECONDS);
+        if (token == null) {
+          if (!destroyed.get()) {
+            bc.getAsyncWriteService().submit(this);
+          }
+          return;
+        }
 synchronized (token.resource) {
           bc.getAsyncWriteService().submit(this);
           if (AtmosphereResourceImpl.class.cast(token.resource).isInScope()) {

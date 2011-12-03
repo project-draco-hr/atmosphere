@@ -1,5 +1,5 @@
 {
-  if (destroyed.get())   return;
+  if (destroyed.getAndSet(true))   return;
   notifyDestroyListener();
   try {
     logger.trace("Broadcaster {} is being destroyed and cannot be re-used",getID());
@@ -10,13 +10,12 @@
       currentLifecycleTask.cancel(true);
     }
     started.set(false);
-    destroyed.set(true);
     releaseExternalResources();
     if (notifierFuture != null) {
-      notifierFuture.cancel(false);
+      notifierFuture.cancel(true);
     }
     if (asyncWriteFuture != null) {
-      asyncWriteFuture.cancel(false);
+      asyncWriteFuture.cancel(true);
     }
     if (bc != null) {
       bc.destroy();
