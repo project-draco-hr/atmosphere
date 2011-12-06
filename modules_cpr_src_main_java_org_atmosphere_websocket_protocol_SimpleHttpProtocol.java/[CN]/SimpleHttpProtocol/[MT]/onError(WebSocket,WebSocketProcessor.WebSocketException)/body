@@ -1,3 +1,3 @@
 {
-  logger.error(t.getMessage() + " Status {} Message {}",t.response().getStatus(),t.response().getStatusMessage());
+  logger.debug(t.getMessage() + " Status {} Message {}",t.response().getStatus(),t.response().getStatusMessage());
 }
