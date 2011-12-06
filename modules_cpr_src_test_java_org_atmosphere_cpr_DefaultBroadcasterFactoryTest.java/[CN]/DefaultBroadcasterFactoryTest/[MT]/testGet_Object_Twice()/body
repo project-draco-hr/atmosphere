@@ -1,0 +1,5 @@
+{
+  String id="id";
+  factory.get(id);
+  factory.get(id);
+}
