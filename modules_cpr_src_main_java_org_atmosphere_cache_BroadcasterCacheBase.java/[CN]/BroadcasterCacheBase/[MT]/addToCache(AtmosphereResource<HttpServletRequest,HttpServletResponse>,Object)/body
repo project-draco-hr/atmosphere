@@ -1,5 +1,5 @@
 {
-  logger.debug("Adding message for resource: {}, object: {}",resource,object);
+  logger.trace("Adding message for resource: {}, object: {}",resource,object);
   CachedMessage cm=new CachedMessage(object,System.currentTimeMillis(),null);
   CachedMessage prev=null;
   if (!queue.isEmpty()) {

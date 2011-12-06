@@ -32,15 +32,11 @@
   if ((localScope == Suspend.SCOPE.REQUEST) && bc == null) {
     if (bc == null) {
       try {
-        String id=UUID.randomUUID().toString();
-        Class<Broadcaster> c=null;
-        try {
-          c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(ApplicationConfig.BROADCASTER_CLASS));
+        String id=servletReq.getHeader(X_ATMOSPHERE_TRACKING_ID);
+        if (id == null) {
+          id=UUID.randomUUID().toString();
         }
- catch (        Throwable e) {
-          throw new IllegalStateException(e.getMessage());
-        }
-        bc=broadcasterFactory.get(c,id);
+        bc=broadcasterFactory.get(id);
         bc.setScope(Broadcaster.SCOPE.REQUEST);
       }
  catch (      Exception ex) {

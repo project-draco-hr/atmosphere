@@ -1,32 +1,43 @@
 {
-  AtmosphereResourceImpl re=null;
+  AtmosphereResourceImpl r=null;
   long l=(Long)req.getAttribute(MAX_INACTIVE);
   if (l == -1) {
     return timedoutAction;
   }
+  logger.debug("Cancelling the connection for request {}",req);
   req.setAttribute(MAX_INACTIVE,(long)-1);
-  logger.debug("Cancelling out the connection for request {}",req);
   try {
-    re=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-    if (re != null) {
-      re.getAtmosphereResourceEvent().setCancelled(true);
-      invokeAtmosphereHandler(re);
-      re.setIsInScope(false);
+    r=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+    if (r != null) {
+      r.getAtmosphereResourceEvent().setCancelled(true);
+      invokeAtmosphereHandler(r);
+      try {
+        r.getResponse().sendError(503);
+        r.getResponse().getOutputStream().close();
+      }
+ catch (      Throwable t) {
+        try {
+          r.getResponse().getWriter().close();
+        }
+ catch (        Throwable t2) {
+        }
+      }
+      r.setIsInScope(false);
     }
   }
  catch (  Throwable ex) {
-    logger.debug("failed to cancel resource: " + re,ex);
+    logger.debug("failed to cancel resource: " + r,ex);
   }
  finally {
     try {
       aliveRequests.remove(req);
-      if (re != null) {
-        re.notifyListeners();
+      if (r != null) {
+        r.notifyListeners();
       }
     }
   finally {
-      if (re != null) {
-        destroyResource(re);
+      if (r != null) {
+        destroyResource(r);
       }
     }
   }

@@ -11,14 +11,11 @@
 synchronized (r) {
         atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
         r.setIsInScope(false);
+        Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
+        if (m != null) {
+          m.destroy();
+        }
       }
-      Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
-      if (m != null) {
-        m.destroy();
-      }
-    }
- else {
-      r.getResponse().flushBuffer();
     }
   }
  catch (  IOException ex) {

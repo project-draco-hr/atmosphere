@@ -1,8 +1,8 @@
 {
-  Broadcaster b=getBroadcaster(id);
+  Broadcaster b=store.get(id);
   if (b != null && !c.isAssignableFrom(b.getClass())) {
     String msg="Invalid lookup class " + c.getName() + ". Cached class is: "+ b.getClass().getName();
-    logger.debug("{}",msg);
+    logger.debug(msg);
     throw new IllegalStateException(msg);
   }
   if ((b == null && createIfNull) || (b != null && b.isDestroyed())) {
@@ -10,7 +10,10 @@
       logger.debug("Removing destroyed Broadcaster {}",b.getID());
       store.remove(b.getID(),b);
     }
-    b=get(c,id);
+    if (store.putIfAbsent(id,createBroadcaster(c,id)) == null) {
+      logger.debug("Added Broadcaster {} . Factory size: {}",id,store.size());
+    }
+    b=store.get(id);
   }
   return b;
 }

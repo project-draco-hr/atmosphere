@@ -3,7 +3,13 @@
     public void run(){
       AsyncWriteToken token=null;
       try {
-        token=asyncWriteQueue.take();
+        token=asyncWriteQueue.poll(10,TimeUnit.SECONDS);
+        if (token == null) {
+          if (!destroyed.get()) {
+            bc.getAsyncWriteService().submit(this);
+          }
+          return;
+        }
 synchronized (token.resource) {
           bc.getAsyncWriteService().submit(this);
           if (AtmosphereResourceImpl.class.cast(token.resource).isInScope()) {
@@ -11,9 +17,13 @@ synchronized (token.resource) {
           }
         }
       }
- catch (      Throwable ex) {
+ catch (      InterruptedException ex) {
+        return;
+      }
+catch (      Throwable ex) {
         if (!started.get() || destroyed.get()) {
           logger.trace("Failed to execute a write operation. Broadcaster is destroyed or not yet started for Broadcaster {}",getID(),ex);
+          return;
         }
  else {
           if (token != null) {

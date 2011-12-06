@@ -4,12 +4,24 @@
       Entry msg=null;
       while (started.get()) {
         try {
-          msg=messages.take();
+          msg=messages.poll(10,TimeUnit.SECONDS);
+          if (msg == null) {
+            if (destroyed.get()) {
+              return;
+            }
+ else {
+              continue;
+            }
+          }
           push(msg);
         }
- catch (        Throwable ex) {
+ catch (        InterruptedException ex) {
+          return;
+        }
+catch (        Throwable ex) {
           if (!started.get() || destroyed.get()) {
             logger.trace("Failed to submit broadcast handler runnable on shutdown for Broadcaster {}",getID(),ex);
+            return;
           }
  else {
             logger.warn("This message {} will be lost",msg);
