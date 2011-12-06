@@ -17,17 +17,6 @@ synchronized (r) {
         }
       }
     }
-    try {
-      r.getResponse().sendError(503);
-      r.getResponse().getOutputStream().close();
-    }
- catch (    Throwable t) {
-      try {
-        r.getResponse().getWriter().close();
-      }
- catch (      Throwable t2) {
-      }
-    }
   }
  catch (  IOException ex) {
     try {
