@@ -17,9 +17,6 @@ synchronized (r) {
         }
       }
     }
- else {
-      r.getResponse().flushBuffer();
-    }
   }
  catch (  IOException ex) {
     try {

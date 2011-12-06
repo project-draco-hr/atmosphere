@@ -10,6 +10,7 @@
     useStreamForFlushingComments=true;
   }
  catch (  Throwable t) {
+    logger.trace("",t);
     return false;
   }
   logger.warn("Missing META-INF/atmosphere.xml but found the Jersey runtime. Starting Jersey");
@@ -24,6 +25,9 @@
     mapping="/*";
   }
   Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
+  broadcasterFactory.destroy();
+  logger.info("Using BroadcasterFactory class: {}",DefaultBroadcasterFactory.class.getName());
+  broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
   Broadcaster b=BroadcasterFactory.getDefault().get(bc,mapping);
   addAtmosphereHandler(mapping,rsp,b);
   return true;

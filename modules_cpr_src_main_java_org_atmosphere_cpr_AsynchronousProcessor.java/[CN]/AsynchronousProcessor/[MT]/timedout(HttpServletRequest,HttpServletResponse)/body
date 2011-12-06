@@ -1,5 +1,5 @@
 {
-  AtmosphereResourceImpl re;
+  AtmosphereResourceImpl r;
   long l=(Long)request.getAttribute(MAX_INACTIVE);
   if (l == -1) {
     return timedoutAction;
@@ -10,17 +10,27 @@
     logger.warn("Invalid Request/Response: {}/{}",request,response);
     return timedoutAction;
   }
-  re=(AtmosphereResourceImpl)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-  if (re != null && re.getAtmosphereResourceEvent().isSuspended()) {
-    re.getAtmosphereResourceEvent().setIsResumedOnTimeout(true);
-    Broadcaster b=re.getBroadcaster();
+  r=(AtmosphereResourceImpl)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  if (r != null && r.getAtmosphereResourceEvent().isSuspended()) {
+    r.getAtmosphereResourceEvent().setIsResumedOnTimeout(true);
+    Broadcaster b=r.getBroadcaster();
     if (b instanceof DefaultBroadcaster) {
-      ((DefaultBroadcaster)b).broadcastOnResume(re);
+      ((DefaultBroadcaster)b).broadcastOnResume(r);
     }
-    if (re.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) != null) {
-      re.getAtmosphereResourceEvent().setIsResumedOnTimeout((Boolean)re.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT));
+    if (r.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) != null) {
+      r.getAtmosphereResourceEvent().setIsResumedOnTimeout((Boolean)r.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT));
     }
-    invokeAtmosphereHandler(re);
+    invokeAtmosphereHandler(r);
+    try {
+      r.getResponse().getOutputStream().close();
+    }
+ catch (    Throwable t) {
+      try {
+        r.getResponse().getWriter().close();
+      }
+ catch (      Throwable t2) {
+      }
+    }
   }
   return timedoutAction;
 }

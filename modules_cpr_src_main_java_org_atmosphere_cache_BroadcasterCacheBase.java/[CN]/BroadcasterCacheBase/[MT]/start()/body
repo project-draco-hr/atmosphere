@@ -5,9 +5,9 @@
       CachedMessage message;
       while (i.hasNext()) {
         message=i.next();
-        logger.debug("Message: {}",message.message());
+        logger.trace("Message: {}",message.message());
         if (System.currentTimeMillis() - message.currentTime() > maxCachedinMs) {
-          logger.debug("Pruning: {}",message.message());
+          logger.trace("Pruning: {}",message.message());
           queue.remove(message);
         }
  else {
