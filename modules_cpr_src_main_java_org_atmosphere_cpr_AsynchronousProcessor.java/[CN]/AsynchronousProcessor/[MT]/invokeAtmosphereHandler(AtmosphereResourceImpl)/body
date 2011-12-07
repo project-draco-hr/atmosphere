@@ -26,13 +26,4 @@ synchronized (r) {
       logger.warn("failed calling onThrowable()",ex);
     }
   }
- finally {
-    try {
-      aliveRequests.remove(req);
-      r.notifyListeners();
-    }
-  finally {
-      destroyResource(r);
-    }
-  }
 }
