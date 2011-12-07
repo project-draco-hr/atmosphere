@@ -1,0 +1,13 @@
+{
+  if (resources.isEmpty()) {
+    try {
+      logger.trace("Awaiting for AtmosphereResource for {} {}",time,timeUnit);
+      awaitBarrier.await(time,timeUnit);
+    }
+ catch (    Throwable e) {
+      logger.warn("awaitAndBroadcast",e);
+      return null;
+    }
+  }
+  return broadcast(t);
+}
