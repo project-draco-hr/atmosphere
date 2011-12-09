@@ -18,16 +18,16 @@
       if (b instanceof DefaultBroadcaster) {
         ((DefaultBroadcaster)b).broadcastOnResume(r);
       }
-      if (r.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) != null) {
-        r.getAtmosphereResourceEvent().setIsResumedOnTimeout((Boolean)r.getRequest().getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT));
+      if (request.getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) != null) {
+        r.getAtmosphereResourceEvent().setIsResumedOnTimeout((Boolean)request.getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT));
       }
       invokeAtmosphereHandler(r);
       try {
-        r.getResponse().getOutputStream().close();
+        response.getOutputStream().close();
       }
  catch (      Throwable t) {
         try {
-          r.getResponse().getWriter().close();
+          response.getWriter().close();
         }
  catch (        Throwable t2) {
         }

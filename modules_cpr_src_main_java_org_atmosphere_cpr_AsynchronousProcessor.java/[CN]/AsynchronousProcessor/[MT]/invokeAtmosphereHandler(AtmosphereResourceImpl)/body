@@ -1,12 +1,9 @@
 {
+  if (!r.isInScope())   return;
   HttpServletRequest req=r.getRequest();
-  HttpServletResponse response=r.getResponse();
   String disableOnEvent=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.DISABLE_ONSTATE_EVENT);
   try {
-    if (!r.getResponse().equals(response)) {
-      logger.warn("Invalid response: {}",response);
-    }
- else     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
+    if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
       AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
 synchronized (r) {
         atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
