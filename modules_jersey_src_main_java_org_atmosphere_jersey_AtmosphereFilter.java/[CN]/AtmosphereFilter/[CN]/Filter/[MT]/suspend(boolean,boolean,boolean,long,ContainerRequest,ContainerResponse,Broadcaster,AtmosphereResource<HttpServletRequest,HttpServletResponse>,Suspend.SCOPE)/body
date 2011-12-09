@@ -4,7 +4,7 @@
   }
   BroadcasterFactory broadcasterFactory=(BroadcasterFactory)servletReq.getAttribute(ApplicationConfig.BROADCASTER_FACTORY);
   URI location=null;
-  if (!sessionSupported && !resumeOnBroadcast && response.getHttpHeaders().getFirst("Location") == null) {
+  if (useResumeAnnotation && !sessionSupported && !resumeOnBroadcast&& response.getHttpHeaders().getFirst("Location") == null) {
     String uuid=UUID.randomUUID().toString();
     location=uriInfo.getAbsolutePathBuilder().path(uuid).build("");
     resumeCandidates.put(uuid,r);
