@@ -30,7 +30,7 @@
   }
  finally {
     try {
-      aliveRequests.remove(req);
+      r.cancel();
       if (r != null) {
         r.notifyListeners();
       }

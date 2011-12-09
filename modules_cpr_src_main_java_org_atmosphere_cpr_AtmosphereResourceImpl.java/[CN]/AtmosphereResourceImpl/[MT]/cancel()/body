@@ -1,0 +1,6 @@
+{
+  cometSupport.action(this);
+  if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
+    AtmosphereResponse.class.cast(response).close();
+  }
+}
