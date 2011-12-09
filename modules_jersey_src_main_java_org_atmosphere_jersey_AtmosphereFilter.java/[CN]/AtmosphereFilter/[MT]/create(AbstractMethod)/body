@@ -79,6 +79,7 @@
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Resume.class)) {
+    useResumeAnnotation=true;
     int suspendTimeout=am.getAnnotation(Resume.class).value();
     list.addFirst(new Filter(Action.RESUME,suspendTimeout));
   }
