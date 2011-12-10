@@ -3,6 +3,7 @@
   req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
   req.setAttribute(SUPPORT_TRACKABLE,config.getInitParameter(SUPPORT_TRACKABLE));
+  req.setAttribute(SUPPORT_LOCATION_HEADER,config.getInitParameter(SUPPORT_LOCATION_HEADER));
   try {
     if (config.getInitParameter(ALLOW_QUERYSTRING_AS_REQUEST) != null && (isIECandidate(req) || req.getParameter(HeaderConfig.JSONP_CALLBACK_NAME) != null) && req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
       Map<String,String> headers=configureQueryStringAsRequest(req);

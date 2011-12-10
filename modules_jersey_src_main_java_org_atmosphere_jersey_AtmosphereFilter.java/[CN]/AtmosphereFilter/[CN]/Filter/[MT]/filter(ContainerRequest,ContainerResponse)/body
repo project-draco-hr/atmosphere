@@ -3,6 +3,9 @@
     return response;
   }
   AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)servletReq.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  if (Boolean.parseBoolean((String)servletReq.getAttribute(ApplicationConfig.SUPPORT_LOCATION_HEADER))) {
+    useResumeAnnotation=true;
+  }
 switch (action) {
 case ASYNCHRONOUS:
     if (response.getStatus() == 204) {
