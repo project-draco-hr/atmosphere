@@ -3,7 +3,7 @@
   Continuation c=ContinuationSupport.getContinuation(req);
   if (c.isInitial()) {
     action=suspended(req,res);
-    if (action.type == Action.TYPE.SUSPEND) {
+    if (action.type == Action.TYPE.SUSPEND && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
       logger.debug("Suspending {}",res);
       if (action.timeout != -1) {
         c.setTimeout(action.timeout);

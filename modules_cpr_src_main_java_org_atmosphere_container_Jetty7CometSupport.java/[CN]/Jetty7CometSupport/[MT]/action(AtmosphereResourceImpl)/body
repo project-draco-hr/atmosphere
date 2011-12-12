@@ -1,19 +1,25 @@
 {
-  super.action(actionEvent);
-  if (actionEvent.isInScope() && actionEvent.action().type == Action.TYPE.RESUME && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
-    Continuation c=ContinuationSupport.getContinuation(actionEvent.getRequest());
+  super.action(r);
+  if (r.isInScope() && r.action().type == Action.TYPE.RESUME && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
+    Continuation c=ContinuationSupport.getContinuation(r.getRequest());
     if (c != null) {
       try {
-        c.complete();
+        if (!c.isInitial()) {
+          c.complete();
+        }
+ else {
+          r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
+        }
       }
  catch (      IllegalStateException ex) {
-        logger.trace("Continuation.complete() failed",ex);
+        r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
+        logger.error("Continuation.complete() failed",ex);
       }
     }
   }
  else {
     try {
-      actionEvent.getResponse(false).flushBuffer();
+      r.getResponse(false).flushBuffer();
     }
  catch (    IOException e) {
     }
