@@ -42,7 +42,7 @@
       response.setResponse(b.entity(paddingData).build());
       response.write();
     }
-    if (entity != null) {
+    if (entity != null && flushEntity) {
       try {
         if (Callable.class.isAssignableFrom(entity.getClass())) {
           entity=Callable.class.cast(entity).call();

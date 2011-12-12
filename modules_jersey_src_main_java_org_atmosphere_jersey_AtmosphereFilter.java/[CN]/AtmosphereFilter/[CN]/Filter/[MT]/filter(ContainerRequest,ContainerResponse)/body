@@ -57,7 +57,7 @@ if (resumeOnBroadcast) {
 servletReq.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,new Boolean(true));
 }
 r.setBroadcaster(bcaster);
-executeSuspend(r,timeout,outputJunk,resumeOnBroadcast,null,request,response);
+executeSuspend(r,timeout,outputJunk,resumeOnBroadcast,null,request,response,false);
 }
  else {
 Object entity=response.getEntity();

@@ -52,5 +52,5 @@
   if (resumeOnBroadcast) {
     servletReq.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,new Boolean(true));
   }
-  executeSuspend(r,timeout,comments,resumeOnBroadcast,location,request,response);
+  executeSuspend(r,timeout,comments,resumeOnBroadcast,location,request,response,true);
 }

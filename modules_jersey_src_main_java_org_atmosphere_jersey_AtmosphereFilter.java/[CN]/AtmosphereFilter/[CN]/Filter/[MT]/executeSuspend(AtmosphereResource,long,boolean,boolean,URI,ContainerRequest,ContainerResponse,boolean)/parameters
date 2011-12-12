@@ -5,3 +5,4 @@ boolean resumeOnBroadcast
 URI location
 ContainerRequest request
 ContainerResponse response
+boolean flushEntity
