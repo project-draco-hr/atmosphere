@@ -9,14 +9,19 @@
           long l=(Long)req.getAttribute(MAX_INACTIVE);
           if (l > 0 && System.currentTimeMillis() - l > maxInactiveTime) {
             try {
-              cancelled(req,aliveRequests.get(req).getResponse());
-              req.setAttribute(MAX_INACTIVE,(long)-1);
+              AtmosphereResourceImpl r=(AtmosphereResourceImpl)aliveRequests.remove(req);
+              cancelled(req,r.getResponse(false));
             }
- catch (            IOException e) {
-              logger.trace("closedDetector",e);
+ catch (            Throwable e) {
+              logger.warn("closedDetector",e);
             }
-catch (            ServletException e) {
-              logger.trace("closedDetector",e);
+ finally {
+              try {
+                req.setAttribute(MAX_INACTIVE,(long)-1);
+              }
+ catch (              Throwable t) {
+                logger.trace("closedDetector",t);
+              }
             }
           }
         }

@@ -1,6 +1,6 @@
 {
   if (!r.isInScope())   return;
-  HttpServletRequest req=r.getRequest();
+  HttpServletRequest req=r.getRequest(false);
   String disableOnEvent=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.DISABLE_ONSTATE_EVENT);
   try {
     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
