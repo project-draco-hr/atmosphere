@@ -9,7 +9,7 @@
       }
     }
   }
-  String transport=request.getHeaderValue(X_ATMOSPHERE_TRANSPORT);
+  String transport=servletReq.getHeader(X_ATMOSPHERE_TRANSPORT);
   if (webSocketEnabled) {
     return false;
   }

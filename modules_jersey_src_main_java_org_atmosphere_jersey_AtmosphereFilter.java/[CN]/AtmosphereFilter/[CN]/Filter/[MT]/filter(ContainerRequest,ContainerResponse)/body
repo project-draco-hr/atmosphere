@@ -21,7 +21,7 @@ final boolean waitForResource=waitFor == -1 ? true : false;
 final Broadcaster bcaster=BroadcasterFactory.getDefault().lookup(broadcasterName,true);
 if (!transport.startsWith(POLLING_TRANSPORT) && subProtocol == null) {
 boolean outputJunk=transport.equalsIgnoreCase(STREAMING_TRANSPORT);
-final boolean resumeOnBroadcast=resumeOnBroadcast(request,false);
+final boolean resumeOnBroadcast=resumeOnBroadcast(false);
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
 AtmosphereResourceEventListener el=listener.newInstance();
@@ -87,8 +87,8 @@ response.setEntity(null);
 break;
 case SUSPEND_RESPONSE:
 SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(response.getResponse()).getJResponse());
-boolean outputJunk=outputJunk(request,s.outputComments());
-boolean resumeOnBroadcast=resumeOnBroadcast(request,s.resumeOnBroadcast());
+boolean outputJunk=outputJunk(s.outputComments());
+boolean resumeOnBroadcast=resumeOnBroadcast(s.resumeOnBroadcast());
 for (AtmosphereResourceEventListener el : s.listeners()) {
 if (r instanceof AtmosphereEventLifecycle) {
 r.addEventListener(el);
@@ -114,8 +114,8 @@ case SUBSCRIBE:
 case SUSPEND:
 case SUSPEND_TRACKABLE:
 case SUSPEND_RESUME:
-outputJunk=outputJunk(request,outputComments);
-resumeOnBroadcast=resumeOnBroadcast(request,(action == Action.SUSPEND_RESUME));
+outputJunk=outputJunk(outputComments);
+resumeOnBroadcast=resumeOnBroadcast((action == Action.SUSPEND_RESUME));
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
 AtmosphereResourceEventListener el=listener.newInstance();
