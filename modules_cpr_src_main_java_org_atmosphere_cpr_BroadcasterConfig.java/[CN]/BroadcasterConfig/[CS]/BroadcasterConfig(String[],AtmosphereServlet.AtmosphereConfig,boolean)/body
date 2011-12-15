@@ -3,6 +3,9 @@
   if (createExecutor) {
     configExecutors();
   }
+ else {
+    shared=true;
+  }
   configureBroadcasterFilter(list);
   configureBroadcasterCache();
 }
