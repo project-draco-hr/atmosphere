@@ -1,10 +1,12 @@
 {
   Action action=null;
-  Continuation c=ContinuationSupport.getContinuation(req);
-  if (c.isInitial()) {
+  Continuation c=(Continuation)req.getAttribute(Continuation.class.getName());
+  if (c == null || c.isInitial()) {
     action=suspended(req,res);
     if (action.type == Action.TYPE.SUSPEND && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
       logger.debug("Suspending {}",res);
+      c=ContinuationSupport.getContinuation(req);
+      req.setAttribute(Continuation.class.getName(),c);
       if (action.timeout != -1) {
         c.setTimeout(action.timeout);
       }
@@ -19,7 +21,7 @@
         return action;
       }
       logger.debug("Resume {}",res);
-      if (!resumed.remove(c)) {
+      if (c.isSuspended()) {
         try {
           c.complete();
         }
