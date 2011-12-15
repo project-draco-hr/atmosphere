@@ -3,7 +3,7 @@
   this.uri=uri;
   this.config=config;
   broadcasterCache=new DefaultBroadcasterCache();
-  bc=new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config);
+  bc=createBroadcasterConfig(config);
   String s=config.getInitParameter(ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
   if (s != null) {
     if (s.equalsIgnoreCase("afterFilter")) {

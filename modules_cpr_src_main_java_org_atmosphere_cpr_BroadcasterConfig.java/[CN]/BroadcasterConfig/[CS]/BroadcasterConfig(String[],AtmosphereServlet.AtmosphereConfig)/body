@@ -1,6 +1,3 @@
 {
-  this.config=config;
-  configExecutors();
-  configureBroadcasterFilter(list);
-  configureBroadcasterCache();
+  this(list,config,true);
 }

@@ -1,0 +1,8 @@
+{
+  this.config=config;
+  if (createExecutor) {
+    configExecutors();
+  }
+  configureBroadcasterFilter(list);
+  configureBroadcasterCache();
+}
