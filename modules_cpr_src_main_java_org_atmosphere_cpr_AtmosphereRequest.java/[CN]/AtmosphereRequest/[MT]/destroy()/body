@@ -1,0 +1,19 @@
+{
+  localAttributes.clear();
+  if (bis != null) {
+    try {
+      bis.close();
+    }
+ catch (    IOException e) {
+    }
+  }
+  if (br != null) {
+    try {
+      br.close();
+    }
+ catch (    IOException e) {
+    }
+  }
+  headers.clear();
+  queryStrings.clear();
+}

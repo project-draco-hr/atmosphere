@@ -16,7 +16,7 @@ synchronized (resource) {
       }
       try {
         resource.notifyListeners(e);
-        ((AtmosphereResourceImpl)resource).cancel();
+        resource.cancel();
       }
   finally {
         AsynchronousProcessor.destroyResource(resource);
@@ -28,5 +28,13 @@ synchronized (resource) {
       AtmosphereResourceImpl.class.cast(resource).onThrowable(e);
     }
     logger.warn("Failed invoking atmosphere handler onStateChange()",e);
+  }
+ finally {
+    if (AtmosphereRequest.class.isAssignableFrom(resource.getRequest().getClass())) {
+      AtmosphereRequest.class.cast(resource.getRequest()).destroy();
+    }
+    if (AtmosphereResponse.class.isAssignableFrom(resource.getResponse().getClass())) {
+      AtmosphereResponse.class.cast(resource.getResponse()).destroy();
+    }
   }
 }

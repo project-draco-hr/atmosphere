@@ -4,15 +4,6 @@
   if (!DefaultWebSocket.class.isAssignableFrom(w.getClass())) {
     throw new IllegalStateException();
   }
-  WebSocketProtocol webSocketProtocol;
-  try {
-    webSocketProtocol=(WebSocketProtocol)GlassFishWebSocketSupport.class.getClassLoader().loadClass(config.getServlet().getWebSocketProtocolClassName()).newInstance();
-  }
- catch (  Exception ex) {
-    logger.error("Cannot load the WebSocketProtocol {}",config.getServlet().getWebSocketProtocolClassName(),ex);
-    webSocketProtocol=new SimpleHttpProtocol();
-  }
-  webSocketProtocol.configure(config.getServlet().getAtmosphereConfig());
   DefaultWebSocket webSocket=DefaultWebSocket.class.cast(w);
   try {
     webSocketProcessor=new WebSocketProcessor(config.getServlet(),new GrizzlyWebSocket(webSocket),webSocketProtocol);

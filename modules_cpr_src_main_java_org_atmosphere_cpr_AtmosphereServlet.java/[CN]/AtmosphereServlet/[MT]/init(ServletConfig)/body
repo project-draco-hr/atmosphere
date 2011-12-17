@@ -29,6 +29,7 @@
     configureWebDotXmlAtmosphereHandler(sc);
     cometSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
+    initWebSocketProtocol();
     logger.info("Using broadcaster class: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
   }

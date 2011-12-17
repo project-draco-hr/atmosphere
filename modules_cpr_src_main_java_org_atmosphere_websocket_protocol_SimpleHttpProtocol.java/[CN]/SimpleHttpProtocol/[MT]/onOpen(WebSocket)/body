@@ -1,3 +1,2 @@
 {
-  this.resource=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)webSocket.resource();
 }

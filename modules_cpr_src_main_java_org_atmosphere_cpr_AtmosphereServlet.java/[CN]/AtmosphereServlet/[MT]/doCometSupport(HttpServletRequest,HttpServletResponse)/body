@@ -8,7 +8,11 @@
     if (config.getInitParameter(ALLOW_QUERYSTRING_AS_REQUEST) != null && (isIECandidate(req) || req.getParameter(HeaderConfig.JSONP_CALLBACK_NAME) != null) && req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
       Map<String,String> headers=configureQueryStringAsRequest(req);
       String body=headers.remove(ATMOSPHERE_POST_BODY);
-      return cometSupport.service(new AtmosphereRequest.Builder().headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod()).body(body).request(req).build(),res);
+      AtmosphereRequest r=new AtmosphereRequest.Builder().headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod()).body(body).request(req).build();
+      Action a=cometSupport.service(r,res);
+      if (a.type != Action.TYPE.SUSPEND) {
+        r.destroy();
+      }
     }
  else {
       return cometSupport.service(req,res);
