@@ -1,12 +1,12 @@
 {
   AtmosphereResourceImpl r=null;
-  long l=(Long)req.getAttribute(MAX_INACTIVE);
-  if (l == -1) {
-    return timedoutAction;
-  }
-  logger.debug("Cancelling the connection for request {}",req);
-  req.setAttribute(MAX_INACTIVE,(long)-1);
   try {
+    long l=(Long)req.getAttribute(MAX_INACTIVE);
+    if (l == -1) {
+      return timedoutAction;
+    }
+    logger.debug("Cancelling the connection for request {}",req);
+    req.setAttribute(MAX_INACTIVE,(long)-1);
     r=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
     if (r != null) {
       r.getAtmosphereResourceEvent().setCancelled(true);
@@ -30,8 +30,8 @@
   }
  finally {
     try {
-      r.cancel();
       if (r != null) {
+        r.cancel();
         r.notifyListeners();
       }
     }

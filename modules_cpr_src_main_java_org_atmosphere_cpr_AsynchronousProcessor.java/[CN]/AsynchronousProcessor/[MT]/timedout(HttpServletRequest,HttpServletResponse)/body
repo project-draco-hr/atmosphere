@@ -34,10 +34,13 @@
       }
     }
   }
-  finally {
+ catch (  Throwable t) {
+    logger.error("failed to timeout resource {}",r,t);
+  }
+ finally {
     try {
-      r.cancel();
       if (r != null) {
+        r.cancel();
         r.notifyListeners();
       }
     }

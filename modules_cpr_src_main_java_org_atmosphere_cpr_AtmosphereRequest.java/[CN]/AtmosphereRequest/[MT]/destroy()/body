@@ -16,4 +16,5 @@
   }
   headers.clear();
   queryStrings.clear();
+  request=null;
 }
