@@ -1,5 +1,11 @@
 {
-  String path=req.getServletPath() + req.getPathInfo();
+  String path;
+  if (req.getPathInfo() != null) {
+    path=req.getServletPath() + req.getPathInfo();
+  }
+ else {
+    path=req.getServletPath();
+  }
   if (path == null || path.length() <= 1) {
     path="/all";
   }
