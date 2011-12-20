@@ -16,5 +16,8 @@
   }
   headers.clear();
   queryStrings.clear();
-  request=null;
+  if (request != null) {
+    request.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+    request=null;
+  }
 }

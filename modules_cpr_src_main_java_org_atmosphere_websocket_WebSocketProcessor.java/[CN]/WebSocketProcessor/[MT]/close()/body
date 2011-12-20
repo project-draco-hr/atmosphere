@@ -30,11 +30,14 @@ synchronized (resource) {
     logger.warn("Failed invoking atmosphere handler onStateChange()",e);
   }
  finally {
-    if (AtmosphereRequest.class.isAssignableFrom(resource.getRequest().getClass())) {
+    if (resource.getRequest() != null && AtmosphereRequest.class.isAssignableFrom(resource.getRequest().getClass())) {
       AtmosphereRequest.class.cast(resource.getRequest()).destroy();
     }
-    if (AtmosphereResponse.class.isAssignableFrom(resource.getResponse().getClass())) {
+    if (resource.getResponse() != null && AtmosphereResponse.class.isAssignableFrom(resource.getResponse().getClass())) {
       AtmosphereResponse.class.cast(resource.getResponse()).destroy();
+    }
+    if (webSocket != null) {
+      WebSocketAdapter.class.cast(webSocket).setAtmosphereResource(null);
     }
   }
 }

@@ -1,8 +1,9 @@
 {
   try {
 synchronized (event) {
-      if (!event.isResuming() && !event.isResumedOnTimeout() && event.isSuspended()&& isInScope) {
+      if (!isResumed && isInScope) {
         action.type=AtmosphereServlet.Action.TYPE.RESUME;
+        isResumed=true;
         try {
           logger.debug("Resuming {}",getRequest());
         }
@@ -58,5 +59,8 @@ synchronized (event) {
   }
  catch (  Throwable t) {
     logger.trace("Wasn't able to resume a connection {}",this,t);
+  }
+ finally {
+    event.setMessage(null);
   }
 }

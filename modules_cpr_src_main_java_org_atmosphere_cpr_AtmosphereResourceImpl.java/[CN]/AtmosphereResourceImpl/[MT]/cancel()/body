@@ -1,4 +1,5 @@
 {
+  action.type=Action.TYPE.RESUME;
   cometSupport.action(this);
   if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
     AtmosphereResponse.class.cast(response).close();
@@ -7,4 +8,8 @@
   if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
     AtmosphereRequest.class.cast(req).destroy();
   }
+  if (broadcaster != null) {
+    broadcaster.removeAtmosphereResource(this);
+  }
+  event.destroy();
 }
