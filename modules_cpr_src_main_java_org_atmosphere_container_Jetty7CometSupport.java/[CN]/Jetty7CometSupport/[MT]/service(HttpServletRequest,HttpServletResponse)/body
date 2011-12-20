@@ -1,39 +1,74 @@
 {
   Action action=null;
-  Continuation c=ContinuationSupport.getContinuation(req);
-  if (c.isInitial()) {
+  Continuation c=(Continuation)req.getAttribute(Continuation.class.getName());
+  if (c == null || c.isInitial()) {
     action=suspended(req,res);
-    if (action.type == Action.TYPE.SUSPEND) {
-      logger.debug("Suspending {}",res);
+    if (action.type == Action.TYPE.SUSPEND && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
+      c=ContinuationSupport.getContinuation(req);
+      req.setAttribute(Continuation.class.getName(),c);
       if (action.timeout != -1) {
         c.setTimeout(action.timeout);
       }
  else {
         c.setTimeout(Integer.MAX_VALUE);
       }
-      c.suspend();
+      c.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE));
+      c.addContinuationListener(new ContinuationListener(){
+        @Override public void onComplete(        Continuation continuation){
+          AtmosphereResourceImpl r=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+          if (r != null) {
+            try {
+              r.cancel();
+            }
+ catch (            IOException e) {
+            }
+          }
+        }
+        @Override public void onTimeout(        Continuation continuation){
+          AtmosphereResourceImpl r=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+          if (r != null) {
+            try {
+              timedout(r.getRequest(),r.getResponse());
+            }
+ catch (            Throwable t) {
+              logger.error("",t);
+            }
+          }
+ else {
+            logger.trace("AtmosphereResource was null");
+          }
+          try {
+            continuation.complete();
+          }
+ catch (          Throwable t) {
+          }
+        }
+      }
+);
+      if (req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE) != null) {
+        c.suspend(res);
+      }
     }
  else     if (action.type == Action.TYPE.RESUME) {
       Boolean resumeOnBroadcast=(Boolean)req.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
       if (resumeOnBroadcast != null && resumeOnBroadcast) {
         return action;
       }
-      logger.debug("Resume {}",res);
-      if (!resumed.remove(c)) {
-        try {
-          c.complete();
-        }
- catch (        IllegalStateException ex) {
-          logger.trace("Continuation.complete()",ex);
-        }
+      c=(Continuation)req.getAttribute(Continuation.class.getName());
+      if (c != null) {
+        if (c.isSuspended()) {
+          try {
+            c.complete();
+          }
+ catch (          IllegalStateException ex) {
+            logger.trace("Continuation.complete()",ex);
+          }
  finally {
-          resumed(req,res);
+            resumed(req,res);
+          }
         }
       }
     }
-  }
- else   if (!c.isInitial() && c.isExpired()) {
-    timedout(req,res);
   }
   return action;
 }

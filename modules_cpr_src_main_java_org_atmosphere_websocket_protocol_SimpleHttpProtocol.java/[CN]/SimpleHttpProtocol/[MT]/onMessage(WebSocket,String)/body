@@ -9,5 +9,7 @@
     pathInfo=token[1];
     d=token[2];
   }
-  return new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).pathInfo(pathInfo).headers(WebSocketProcessor.configureHeader(resource.getRequest())).build();
+  Map<String,Object> m=new HashMap<String,Object>();
+  m.put(FrameworkConfig.WEBSOCKET_SUBPROTOCOL,FrameworkConfig.SIMPLE_HTTP_OVER_WEBSOCKET);
+  return new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).headers(WebSocketProcessor.configureHeader(resource.getRequest())).build();
 }

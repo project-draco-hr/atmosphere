@@ -3,15 +3,95 @@
     return response;
   }
   AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)servletReq.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-  boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
+  if (Boolean.parseBoolean((String)servletReq.getAttribute(ApplicationConfig.SUPPORT_LOCATION_HEADER))) {
+    useResumeAnnotation=true;
+  }
 switch (action) {
+case ASYNCHRONOUS:
+    if (response.getStatus() == 204) {
+      response.setStatus(200);
+    }
+  String transport=servletReq.getHeader(X_ATMOSPHERE_TRANSPORT);
+String broadcasterName=servletReq.getHeader(topic);
+if (transport == null || broadcasterName == null) {
+throw new WebApplicationException(new IllegalStateException("Must specify transport using header value " + X_ATMOSPHERE_TRANSPORT + " and uuid "+ X_ATMOSPHERE_TRACKING_ID));
+}
+String subProtocol=(String)servletReq.getAttribute(FrameworkConfig.WEBSOCKET_SUBPROTOCOL);
+final boolean waitForResource=waitFor == -1 ? true : false;
+final Broadcaster bcaster=BroadcasterFactory.getDefault().lookup(broadcasterName,true);
+if (!transport.startsWith(POLLING_TRANSPORT) && subProtocol == null) {
+boolean outputJunk=transport.equalsIgnoreCase(STREAMING_TRANSPORT);
+final boolean resumeOnBroadcast=resumeOnBroadcast(false);
+for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
+try {
+AtmosphereResourceEventListener el=listener.newInstance();
+InjectorProvider.getInjector().inject(el);
+if (r instanceof AtmosphereEventLifecycle) {
+r.addEventListener(el);
+}
+}
+ catch (Throwable t) {
+throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + listener));
+}
+}
+final Object entity=response.getEntity();
+r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+@Override public void onSuspend(AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+try {
+if (entity != null) {
+if (waitForResource) {
+  bcaster.awaitAndBroadcast(entity,30,TimeUnit.SECONDS);
+}
+ else {
+  bcaster.broadcast(entity);
+}
+}
+}
+  finally {
+event.getResource().removeEventListener(this);
+}
+}
+}
+);
+if (resumeOnBroadcast) {
+servletReq.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,new Boolean(true));
+}
+r.setBroadcaster(bcaster);
+executeSuspend(r,timeout,outputJunk,resumeOnBroadcast,null,request,response,false);
+}
+ else {
+Object entity=response.getEntity();
+if (waitForResource) {
+bcaster.awaitAndBroadcast(entity,30,TimeUnit.SECONDS);
+}
+ else {
+bcaster.broadcast(entity);
+}
+if (subProtocol == null) {
+try {
+if (Callable.class.isAssignableFrom(entity.getClass())) {
+entity=Callable.class.cast(entity).call();
+}
+response.setEntity(entity);
+response.write();
+}
+ catch (Throwable t) {
+logger.debug("Error running Callable",t);
+response.setEntity(null);
+}
+}
+ else {
+response.setEntity(null);
+}
+}
+break;
 case SUSPEND_RESPONSE:
-    SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(response.getResponse()).getJResponse());
-  boolean outputJunk=outputJunk(request,s.outputComments());
-boolean resumeOnBroadcast=resumeOnBroadcast(request,s.resumeOnBroadcast());
+SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(response.getResponse()).getJResponse());
+boolean outputJunk=outputJunk(s.outputComments());
+boolean resumeOnBroadcast=resumeOnBroadcast(s.resumeOnBroadcast());
 for (AtmosphereResourceEventListener el : s.listeners()) {
 if (r instanceof AtmosphereEventLifecycle) {
-  ((AtmosphereEventLifecycle)r).addEventListener(el);
+r.addEventListener(el);
 }
 }
 Broadcaster bc=s.broadcaster();
@@ -24,7 +104,7 @@ TrackableResource<? extends Trackable> trackableResource=null;
 if (isTracked) {
 trackableResource=preTrack(request,response);
 }
-suspend(sessionSupported,resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope());
+suspend(resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope());
 if (isTracked && trackableResource != null) {
 postTrack(trackableResource,r);
 }
@@ -34,8 +114,8 @@ case SUBSCRIBE:
 case SUSPEND:
 case SUSPEND_TRACKABLE:
 case SUSPEND_RESUME:
-outputJunk=outputJunk(request,outputComments);
-resumeOnBroadcast=resumeOnBroadcast(request,(action == Action.SUSPEND_RESUME));
+outputJunk=outputJunk(outputComments);
+resumeOnBroadcast=resumeOnBroadcast((action == Action.SUSPEND_RESUME));
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
 AtmosphereResourceEventListener el=listener.newInstance();
@@ -67,7 +147,7 @@ trackableResource=preTrack(request,response);
  else {
 trackableResource=null;
 }
-suspend(sessionSupported,resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r,scope);
+suspend(resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r,scope);
 if (isTracked && trackableResource != null) {
 postTrack(trackableResource,r);
 }
@@ -81,6 +161,7 @@ response.write();
 throw new WebApplicationException(ex);
 }
 }
+boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
 if (sessionSupported) {
 r=(AtmosphereResource)servletReq.getSession().getAttribute(SUSPENDED_RESOURCE);
 }

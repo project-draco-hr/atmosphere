@@ -5,6 +5,7 @@
  else {
     return;
   }
+  Action oldAction=action;
   try {
     if (event.isResuming() || event.isResumedOnTimeout()) {
       onResume(event);
@@ -20,6 +21,9 @@
     }
  else {
       onBroadcast(event);
+    }
+    if (oldAction.type != action.type) {
+      action().type=Action.TYPE.CREATED;
     }
   }
  catch (  Throwable t) {

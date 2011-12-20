@@ -2,6 +2,12 @@
   AtmosphereRequest r=webSocketProtocol.onMessage(webSocket,webSocketMessage);
   if (r != null) {
     AtmosphereResponse<WebSocket> w=new AtmosphereResponse<WebSocket>(webSocket,webSocketProtocol,r);
-    dispatch(r,w);
+    try {
+      dispatch(r,w);
+    }
+  finally {
+      r.destroy();
+      w.destroy();
+    }
   }
 }

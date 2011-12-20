@@ -1,21 +1,22 @@
 {
-  super.action(actionEvent);
-  if (actionEvent.isInScope() && actionEvent.action().type == Action.TYPE.RESUME && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
-    Continuation c=ContinuationSupport.getContinuation(actionEvent.getRequest());
-    if (c != null) {
-      try {
+  super.action(r);
+  ServletRequest request=r.getRequest();
+  while (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
+    request=AtmosphereRequest.class.cast(request).getRequest();
+  }
+  Continuation c=(Continuation)request.getAttribute(Continuation.class.getName());
+  if (c != null) {
+    try {
+      if (c.isSuspended()) {
         c.complete();
       }
- catch (      IllegalStateException ex) {
-        logger.trace("Continuation.complete() failed",ex);
-      }
     }
-  }
- else {
-    try {
-      actionEvent.getResponse().flushBuffer();
+ catch (    IllegalStateException ex) {
+      logger.trace("c.complete()",ex);
     }
- catch (    IOException e) {
+ finally {
+      r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
     }
+    request.removeAttribute(Continuation.class.getName());
   }
 }

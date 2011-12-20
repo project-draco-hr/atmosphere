@@ -1,8 +1,8 @@
 {
   boolean notifyListeners=true;
   boolean lostCandidate=false;
+  final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
   try {
-    final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
     event.setMessage(token.msg);
     if (!AtmosphereResourceImpl.class.cast(token.resource).isInScope()) {
       resources.remove(token.resource);
@@ -36,5 +36,7 @@
     if (lostCandidate) {
       cacheLostMessage(token.resource);
     }
+    token.destroy();
+    event.setMessage(null);
   }
 }

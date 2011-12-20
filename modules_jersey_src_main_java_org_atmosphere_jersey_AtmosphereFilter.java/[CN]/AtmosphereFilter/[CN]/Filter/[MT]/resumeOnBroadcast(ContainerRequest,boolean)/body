@@ -1,7 +1,0 @@
-{
-  String transport=request.getHeaderValue(X_ATMOSPHERE_TRANSPORT);
-  if (transport != null && (transport.equals(JSONP_TRANSPORT) || transport.equals(LONG_POLLING_TRANSPORT))) {
-    return true;
-  }
-  return resumeOnBroadcast;
-}

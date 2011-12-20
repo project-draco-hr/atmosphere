@@ -1,21 +1,19 @@
 {
-  HttpServletRequest req=r.getRequest();
-  HttpServletResponse response=r.getResponse();
+  if (!r.isInScope())   return;
+  HttpServletRequest req=r.getRequest(false);
   String disableOnEvent=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.DISABLE_ONSTATE_EVENT);
   try {
-    if (!r.getResponse().equals(response)) {
-      logger.warn("Invalid response: {}",response);
-    }
- else     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
+    if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
       AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
 synchronized (r) {
         atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
-        r.setIsInScope(false);
         Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
         if (m != null) {
           m.destroy();
         }
       }
+      req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+      r.setIsInScope(false);
     }
   }
  catch (  IOException ex) {
@@ -24,15 +22,6 @@ synchronized (r) {
     }
  catch (    Throwable t) {
       logger.warn("failed calling onThrowable()",ex);
-    }
-  }
- finally {
-    try {
-      aliveRequests.remove(req);
-      r.notifyListeners();
-    }
-  finally {
-      destroyResource(r);
     }
   }
 }

@@ -1,0 +1,67 @@
+{
+  boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
+  configureFilter(r.getBroadcaster());
+  if (sessionSupported) {
+    servletReq.getSession().setAttribute(SUSPENDED_RESOURCE,r);
+    servletReq.getSession().setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
+  }
+  servletReq.setAttribute(SUSPENDED_RESOURCE,r);
+  servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
+  logger.debug("Linked HttpServletRequest {} with ContainerResponse {}",servletReq,response);
+  try {
+    MediaType contentType=response.getMediaType();
+    if (contentType == null && response.getEntity() != null) {
+      LinkedList<MediaType> l=new LinkedList<MediaType>();
+      l.add(request.getAcceptableMediaType(new LinkedList<MediaType>()));
+      contentType=response.getMessageBodyWorkers().getMessageBodyWriterMediaType(response.getEntity().getClass(),response.getEntityType(),response.getAnnotations(),l);
+      if (contentType == null || contentType.isWildcardType() || contentType.isWildcardSubtype())       contentType=MediaType.APPLICATION_OCTET_STREAM_TYPE;
+    }
+    Object entity=response.getEntity();
+    Response.ResponseBuilder b=Response.ok();
+    b=configureHeaders(b);
+    if (entity != null) {
+      b=b.header("Content-Type",contentType != null ? contentType.toString() : "text/html; charset=ISO-8859-1");
+      servletReq.setAttribute(FrameworkConfig.EXPECTED_CONTENT_TYPE,contentType.toString());
+    }
+    boolean eclipse362468=false;
+    String serverInfo=r.getAtmosphereConfig().getServletContext().getServerInfo();
+    if (serverInfo.indexOf("jetty") != -1) {
+      String[] jettyVersion=serverInfo.substring(6).split("\\.");
+      eclipse362468=((Integer.valueOf(jettyVersion[0]) == 8 && Integer.valueOf(jettyVersion[1]) == 0 && Integer.valueOf(jettyVersion[2]) > 1)) || ((Integer.valueOf(jettyVersion[0]) == 7 && Integer.valueOf(jettyVersion[1]) == 5 && Integer.valueOf(jettyVersion[2]) == 4));
+      if (comments && eclipse362468) {
+        logger.debug("Padding response is disabled to workaround https://bugs.eclipse.org/bugs/show_bug.cgi?id=362468");
+      }
+    }
+    if (!eclipse362468 && comments && !resumeOnBroadcast) {
+      String padding=(String)servletReq.getAttribute(ApplicationConfig.STREAMING_PADDING_MODE);
+      String paddingData=AtmosphereResourceImpl.createStreamingPadding(padding);
+      if (location != null) {
+        b=b.header(HttpHeaders.LOCATION,location);
+        location=null;
+      }
+      response.setResponse(b.entity(paddingData).build());
+      response.write();
+    }
+    if (entity != null && flushEntity) {
+      try {
+        if (Callable.class.isAssignableFrom(entity.getClass())) {
+          entity=Callable.class.cast(entity).call();
+        }
+      }
+ catch (      Throwable t) {
+        logger.error("Error executing callable {}",entity);
+        entity=null;
+      }
+      if (location != null) {
+        b=b.header(HttpHeaders.LOCATION,location);
+      }
+      response.setResponse(b.entity(entity).build());
+      response.write();
+    }
+    response.setEntity(null);
+    r.suspend(timeout,false);
+  }
+ catch (  IOException ex) {
+    throw new WebApplicationException(ex);
+  }
+}

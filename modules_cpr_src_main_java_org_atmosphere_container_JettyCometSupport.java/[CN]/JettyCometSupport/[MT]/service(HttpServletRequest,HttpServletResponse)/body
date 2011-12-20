@@ -1,7 +1,7 @@
 {
   Continuation c=ContinuationSupport.getContinuation(req,null);
   Action action=null;
-  if (!c.isResumed() && !c.isPending()) {
+  if (!c.isResumed() && !c.isPending() && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
     action=suspended(req,response);
     if (action.type == Action.TYPE.SUSPEND) {
       logger.debug("Suspending response: {}",response);
@@ -27,7 +27,7 @@
   }
  else {
     logger.debug("Resuming response: {}",response);
-    if (!resumed.remove(c)) {
+    if (!resumed.remove(c) && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
       c.reset();
       if (req.getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) == null) {
         timedout(req,response);

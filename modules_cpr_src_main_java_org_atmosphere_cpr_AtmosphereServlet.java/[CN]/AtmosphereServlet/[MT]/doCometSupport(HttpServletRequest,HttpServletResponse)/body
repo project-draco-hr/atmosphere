@@ -3,11 +3,15 @@
   req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
   req.setAttribute(SUPPORT_TRACKABLE,config.getInitParameter(SUPPORT_TRACKABLE));
+  req.setAttribute(SUPPORT_LOCATION_HEADER,config.getInitParameter(SUPPORT_LOCATION_HEADER));
+  AtmosphereRequest r=null;
+  Action a=null;
   try {
     if (config.getInitParameter(ALLOW_QUERYSTRING_AS_REQUEST) != null && (isIECandidate(req) || req.getParameter(HeaderConfig.JSONP_CALLBACK_NAME) != null) && req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
       Map<String,String> headers=configureQueryStringAsRequest(req);
       String body=headers.remove(ATMOSPHERE_POST_BODY);
-      return cometSupport.service(new AtmosphereRequest.Builder().headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod()).body(body).request(req).build(),res);
+      r=new AtmosphereRequest.Builder().headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod()).body(body).request(req).build();
+      a=cometSupport.service(r,res);
     }
  else {
       return cometSupport.service(req,res);
@@ -26,6 +30,11 @@
  else {
       logger.error("AtmosphereServlet exception",ex);
       throw ex;
+    }
+  }
+ finally {
+    if (r != null && a != null && a.type != Action.TYPE.SUSPEND) {
+      r.destroy();
     }
   }
   return null;

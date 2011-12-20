@@ -1,6 +1,7 @@
 {
   String maxInactive=sc.getInitParameter(MAX_INACTIVE) != null ? sc.getInitParameter(MAX_INACTIVE) : config.getInitParameter(MAX_INACTIVE);
   if (maxInactive != null) {
+    trackActiveRequest=true;
     final long maxInactiveTime=Long.parseLong(maxInactive);
     if (maxInactiveTime <= 0)     return;
     closedDetector.scheduleAtFixedRate(new Runnable(){
@@ -9,14 +10,20 @@
           long l=(Long)req.getAttribute(MAX_INACTIVE);
           if (l > 0 && System.currentTimeMillis() - l > maxInactiveTime) {
             try {
-              cancelled(req,aliveRequests.get(req).getResponse());
-              req.setAttribute(MAX_INACTIVE,(long)-1);
+              logger.debug("Close detector disconnecting {}. Current size {}",req,aliveRequests.size());
+              AtmosphereResourceImpl r=(AtmosphereResourceImpl)aliveRequests.remove(req);
+              cancelled(req,r.getResponse(false));
             }
- catch (            IOException e) {
-              logger.trace("closedDetector",e);
+ catch (            Throwable e) {
+              logger.warn("closedDetector",e);
             }
-catch (            ServletException e) {
-              logger.trace("closedDetector",e);
+ finally {
+              try {
+                req.setAttribute(MAX_INACTIVE,(long)-1);
+              }
+ catch (              Throwable t) {
+                logger.trace("closedDetector",t);
+              }
             }
           }
         }
