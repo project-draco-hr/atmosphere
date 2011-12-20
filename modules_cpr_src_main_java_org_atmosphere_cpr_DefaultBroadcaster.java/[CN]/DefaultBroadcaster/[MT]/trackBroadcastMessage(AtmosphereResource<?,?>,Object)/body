@@ -1,4 +1,9 @@
 {
   if (destroyed.get() || broadcasterCache == null)   return;
-  broadcasterCache.addToCache(r,msg);
+  try {
+    broadcasterCache.addToCache(r,msg);
+  }
+ catch (  Throwable t) {
+    logger.warn("Unable to track messages {}",msg,t);
+  }
 }
