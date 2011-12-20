@@ -1,27 +1,22 @@
 {
   super.action(r);
-  if (r.isInScope() && r.action().type == Action.TYPE.RESUME && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
-    Continuation c=ContinuationSupport.getContinuation(r.getRequest());
-    if (c != null) {
-      try {
-        if (c.isSuspended()) {
-          c.complete();
-        }
- else {
-          r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
-        }
-      }
- catch (      IllegalStateException ex) {
-        r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
-        logger.trace("Continuation.complete() failed",ex);
-      }
-    }
+  ServletRequest request=r.getRequest();
+  while (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
+    request=AtmosphereRequest.class.cast(request).getRequest();
   }
- else {
+  Continuation c=(Continuation)request.getAttribute(Continuation.class.getName());
+  if (c != null) {
     try {
-      r.getResponse(false).flushBuffer();
+      if (c.isSuspended()) {
+        c.complete();
+      }
     }
- catch (    IOException e) {
+ catch (    IllegalStateException ex) {
+      logger.trace("c.complete()",ex);
     }
+ finally {
+      r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
+    }
+    request.removeAttribute(Continuation.class.getName());
   }
 }

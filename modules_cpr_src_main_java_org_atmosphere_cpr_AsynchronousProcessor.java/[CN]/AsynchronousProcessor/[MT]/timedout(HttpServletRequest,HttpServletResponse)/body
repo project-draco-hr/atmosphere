@@ -1,11 +1,13 @@
 {
   AtmosphereResourceImpl r=null;
   try {
-    long l=(Long)request.getAttribute(MAX_INACTIVE);
-    if (l == -1) {
-      return timedoutAction;
+    if (trackActiveRequest) {
+      long l=(Long)request.getAttribute(MAX_INACTIVE);
+      if (l == -1) {
+        return timedoutAction;
+      }
+      request.setAttribute(MAX_INACTIVE,(long)-1);
     }
-    request.setAttribute(MAX_INACTIVE,(long)-1);
     logger.debug("Timing out the connection for request {}",request);
     if (request == null || response == null) {
       logger.warn("Invalid Request/Response: {}/{}",request,response);
@@ -44,7 +46,10 @@
         r.notifyListeners();
       }
     }
-  finally {
+ catch (    Throwable t) {
+      logger.trace("timedout",t);
+    }
+ finally {
       if (r != null) {
         destroyResource(r);
       }

@@ -1,6 +1,7 @@
 {
   String maxInactive=sc.getInitParameter(MAX_INACTIVE) != null ? sc.getInitParameter(MAX_INACTIVE) : config.getInitParameter(MAX_INACTIVE);
   if (maxInactive != null) {
+    trackActiveRequest=true;
     final long maxInactiveTime=Long.parseLong(maxInactive);
     if (maxInactiveTime <= 0)     return;
     closedDetector.scheduleAtFixedRate(new Runnable(){
