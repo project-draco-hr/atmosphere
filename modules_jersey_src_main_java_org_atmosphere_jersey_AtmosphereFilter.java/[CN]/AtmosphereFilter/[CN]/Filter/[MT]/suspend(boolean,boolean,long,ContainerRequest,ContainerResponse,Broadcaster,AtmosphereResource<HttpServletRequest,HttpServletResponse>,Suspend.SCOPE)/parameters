@@ -1,4 +1,3 @@
-boolean sessionSupported
 boolean resumeOnBroadcast
 boolean comments
 long timeout

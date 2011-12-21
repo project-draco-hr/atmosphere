@@ -15,17 +15,17 @@
   }
   if (am.isAnnotationPresent(Broadcast.class)) {
     int delay=am.getAnnotation(Broadcast.class).delay();
-    Class[] suspendTimeout=am.getAnnotation(Broadcast.class).value();
+    Class[] broadcastFilter=am.getAnnotation(Broadcast.class).value();
     if (am.getAnnotation(Broadcast.class).resumeOnBroadcast()) {
-      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,suspendTimeout,null);
+      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null);
     }
  else {
-      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,suspendTimeout,null);
+      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null);
     }
     list.addLast(f);
     if (am.isAnnotationPresent(Cluster.class)) {
-      suspendTimeout=am.getAnnotation(Cluster.class).value();
-      for (      Class<ClusterBroadcastFilter> c : suspendTimeout) {
+      broadcastFilter=am.getAnnotation(Cluster.class).value();
+      for (      Class<ClusterBroadcastFilter> c : broadcastFilter) {
         try {
           ClusterBroadcastFilter cbf=c.newInstance();
           InjectorProvider.getInjector().inject(cbf);
@@ -37,6 +37,14 @@
         }
       }
     }
+  }
+  if (am.isAnnotationPresent(Asynchronous.class)) {
+    int suspendTimeout=am.getAnnotation(Asynchronous.class).period();
+    Class[] broadcastFilter=am.getAnnotation(Asynchronous.class).broadcastFilter();
+    boolean wait=am.getAnnotation(Asynchronous.class).waitForResource();
+    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,false,broadcastFilter,am.getAnnotation(Asynchronous.class).header());
+    f.setListeners(am.getAnnotation(Asynchronous.class).eventListeners());
+    list.addFirst(f);
   }
   if (am.isAnnotationPresent(Suspend.class)) {
     long suspendTimeout=am.getAnnotation(Suspend.class).period();
@@ -71,6 +79,7 @@
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Resume.class)) {
+    useResumeAnnotation=true;
     int suspendTimeout=am.getAnnotation(Resume.class).value();
     list.addFirst(new Filter(Action.RESUME,suspendTimeout));
   }
