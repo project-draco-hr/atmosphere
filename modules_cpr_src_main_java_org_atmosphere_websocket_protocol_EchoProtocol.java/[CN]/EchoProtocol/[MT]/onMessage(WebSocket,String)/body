@@ -1,5 +1,5 @@
 {
   logger.trace("broadcast String");
-  resource.getBroadcaster().broadcast(data);
+  webSocket.resource().getBroadcaster().broadcast(data);
   return null;
 }
