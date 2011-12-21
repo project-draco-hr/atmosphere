@@ -1,4 +1,5 @@
 {
+  if (shared)   return;
   if (broadcasterCache != null) {
     broadcasterCache.stop();
   }

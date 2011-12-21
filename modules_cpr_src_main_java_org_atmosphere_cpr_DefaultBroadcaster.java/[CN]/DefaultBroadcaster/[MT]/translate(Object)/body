@@ -4,7 +4,8 @@
       return Callable.class.cast(msg).call();
     }
  catch (    Exception e) {
-      logger.error("failed to cast message: " + msg,e);
+      logger.warn("Callable exception",e);
+      return null;
     }
   }
   return msg;

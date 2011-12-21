@@ -1,8 +1,9 @@
 {
   try {
 synchronized (event) {
-      if (!event.isResuming() && !event.isResumedOnTimeout() && event.isSuspended()&& isInScope) {
+      if (!isResumed && isInScope) {
         action.type=AtmosphereServlet.Action.TYPE.RESUME;
+        isResumed=true;
         try {
           logger.debug("Resuming {}",getRequest());
         }
@@ -48,9 +49,18 @@ synchronized (event) {
  else {
         logger.debug("Cannot resume an already resumed/cancelled request {}",getRequest());
       }
+      if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
+        AtmosphereResponse.class.cast(response).destroy();
+      }
+      if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
+        AtmosphereRequest.class.cast(req).destroy();
+      }
     }
   }
  catch (  Throwable t) {
     logger.trace("Wasn't able to resume a connection {}",this,t);
+  }
+ finally {
+    event.setMessage(null);
   }
 }

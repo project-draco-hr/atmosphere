@@ -1,20 +1,48 @@
 {
-  String path;
-  if (req.getPathInfo() != null) {
-    path=req.getServletPath() + req.getPathInfo();
+  String path=req.getServletPath();
+  if (path == null || path.length() == 0) {
+    path="/";
   }
+  AtmosphereHandlerWrapper atmosphereHandlerWrapper=config.handlers().get(path);
+  if (atmosphereHandlerWrapper == null) {
+    if (!path.endsWith("/")) {
+      path+="/*";
+    }
  else {
-    path=req.getServletPath();
-  }
-  if (path == null || path.length() <= 1) {
-    path="/all";
-  }
-  AtmosphereHandlerWrapper atmosphereHandlerWrapper=map(path);
-  if (atmosphereHandlerWrapper == null) {
-    atmosphereHandlerWrapper=map("/all");
-  }
-  if (atmosphereHandlerWrapper == null) {
-    throw new ServletException("No AtmosphereHandler maps request for " + path);
+      path+="*";
+    }
+    atmosphereHandlerWrapper=config.handlers().get(path);
+    if (atmosphereHandlerWrapper == null) {
+      atmosphereHandlerWrapper=config.handlers().get("/*");
+      if (atmosphereHandlerWrapper == null) {
+        if (req.getPathInfo() != null) {
+          path=req.getServletPath() + req.getPathInfo();
+        }
+        atmosphereHandlerWrapper=config.handlers().get(path);
+        if (atmosphereHandlerWrapper == null) {
+          String ppath=path;
+          path=path.substring(0,path.lastIndexOf("/")) + "/*";
+          atmosphereHandlerWrapper=config.handlers().get(path);
+          if (atmosphereHandlerWrapper == null) {
+            path=ppath;
+            if (!path.endsWith("/")) {
+              path+="/*";
+            }
+ else {
+              path+="*";
+            }
+            atmosphereHandlerWrapper=config.handlers().get(path);
+            if (atmosphereHandlerWrapper == null) {
+              logger.warn("No AtmosphereHandler maps request for {}",path);
+              for (              String m : config.handlers().keySet()) {
+                logger.warn("\tAtmosphereHandler registered: {}",m);
+              }
+              throw new ServletException("No AtmosphereHandler maps request for " + path);
+            }
+          }
+        }
+      }
+    }
   }
   config.getBroadcasterFactory().add(atmosphereHandlerWrapper.broadcaster,atmosphereHandlerWrapper.broadcaster.getID());
   return atmosphereHandlerWrapper;
