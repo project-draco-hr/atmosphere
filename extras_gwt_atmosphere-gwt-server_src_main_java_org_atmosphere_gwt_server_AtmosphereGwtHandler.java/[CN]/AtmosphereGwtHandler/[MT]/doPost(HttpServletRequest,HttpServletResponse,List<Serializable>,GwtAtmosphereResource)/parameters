@@ -1,0 +1,4 @@
+HttpServletRequest postRequest
+HttpServletResponse postResponse
+List<Serializable> messages
+GwtAtmosphereResource cometResource

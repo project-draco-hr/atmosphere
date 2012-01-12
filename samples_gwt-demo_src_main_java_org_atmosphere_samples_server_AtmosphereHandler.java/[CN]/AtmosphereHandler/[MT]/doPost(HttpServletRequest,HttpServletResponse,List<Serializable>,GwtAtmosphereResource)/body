@@ -1,0 +1,10 @@
+{
+  HttpSession session=postRequest.getSession(false);
+  if (session != null) {
+    logger.info("Post has session with id: " + session.getId());
+  }
+ else {
+    logger.info("Post has no session");
+  }
+  super.doPost(postRequest,postResponse,messages,cometResource);
+}
