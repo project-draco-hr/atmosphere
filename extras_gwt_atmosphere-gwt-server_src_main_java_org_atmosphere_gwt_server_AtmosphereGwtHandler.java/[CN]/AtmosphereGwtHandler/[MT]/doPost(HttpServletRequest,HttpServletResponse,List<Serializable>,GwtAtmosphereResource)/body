@@ -1,0 +1,8 @@
+{
+  if (messages.size() == 1) {
+    cometResource.post(messages.get(0));
+  }
+ else {
+    cometResource.post((List)messages);
+  }
+}

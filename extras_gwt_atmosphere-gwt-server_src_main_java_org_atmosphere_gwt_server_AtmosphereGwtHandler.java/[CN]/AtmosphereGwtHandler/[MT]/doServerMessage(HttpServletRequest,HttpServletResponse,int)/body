@@ -1,4 +1,5 @@
 {
+  BufferedReader data=request.getReader();
   List<Serializable> postMessages=new ArrayList<Serializable>();
   GwtAtmosphereResource resource=lookupResource(connectionID);
   if (resource == null) {
@@ -51,6 +52,6 @@
     logger.error("[" + connectionID + "] Failed to read",ex);
   }
   if (postMessages.size() > 0) {
-    post(postMessages,resource);
+    post(request,response,postMessages,resource);
   }
 }

@@ -11,5 +11,7 @@
   if (logger.isDebugEnabled()) {
     logger.debug("Url: " + resource.getAtmosphereResource().getRequest().getRequestURL() + "?"+ resource.getAtmosphereResource().getRequest().getQueryString());
   }
+  String agent=resource.getRequest().getHeader("user-agent");
+  logger.info(agent);
   return NO_TIMEOUT;
 }
