@@ -17,10 +17,10 @@
     int delay=am.getAnnotation(Broadcast.class).delay();
     Class[] broadcastFilter=am.getAnnotation(Broadcast.class).value();
     if (am.getAnnotation(Broadcast.class).resumeOnBroadcast()) {
-      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null);
+      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
     }
  else {
-      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null);
+      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
     }
     list.addLast(f);
     if (am.isAnnotationPresent(Cluster.class)) {
@@ -42,7 +42,7 @@
     int suspendTimeout=am.getAnnotation(Asynchronous.class).period();
     Class[] broadcastFilter=am.getAnnotation(Asynchronous.class).broadcastFilter();
     boolean wait=am.getAnnotation(Asynchronous.class).waitForResource();
-    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,false,broadcastFilter,am.getAnnotation(Asynchronous.class).header());
+    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,false,broadcastFilter,am.getAnnotation(Asynchronous.class).header(),am.getAnnotation(Asynchronous.class).writeEntity());
     f.setListeners(am.getAnnotation(Asynchronous.class).eventListeners());
     list.addFirst(f);
   }
@@ -70,12 +70,12 @@
     if (TrackableResource.class.isAssignableFrom(am.getMethod().getReturnType())) {
       trackable=true;
     }
-    f=new Filter(trackable ? Action.SUBSCRIBE_TRACKABLE : Action.SUBSCRIBE,30000,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Subscribe.class).value());
+    f=new Filter(trackable ? Action.SUBSCRIBE_TRACKABLE : Action.SUBSCRIBE,30000,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Subscribe.class).value(),am.getAnnotation(Subscribe.class).writeEntity());
     f.setListeners(am.getAnnotation(Subscribe.class).listeners());
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Publish.class)) {
-    f=new Filter(Action.PUBLISH,-1,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Publish.class).value());
+    f=new Filter(Action.PUBLISH,-1,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Publish.class).value(),true);
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Resume.class)) {

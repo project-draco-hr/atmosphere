@@ -57,7 +57,7 @@ if (resumeOnBroadcast) {
 servletReq.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,new Boolean(true));
 }
 r.setBroadcaster(bcaster);
-executeSuspend(r,timeout,outputJunk,resumeOnBroadcast,null,request,response,false);
+executeSuspend(r,timeout,outputJunk,resumeOnBroadcast,null,request,response,writeEntity);
 }
  else {
 Object entity=response.getEntity();
@@ -67,7 +67,7 @@ bcaster.awaitAndBroadcast(entity,30,TimeUnit.SECONDS);
  else {
 bcaster.broadcast(entity);
 }
-if (subProtocol == null) {
+if (subProtocol == null && writeEntity) {
 try {
 if (Callable.class.isAssignableFrom(entity.getClass())) {
 entity=Callable.class.cast(entity).call();
@@ -104,7 +104,7 @@ TrackableResource<? extends Trackable> trackableResource=null;
 if (isTracked) {
 trackableResource=preTrack(request,response);
 }
-suspend(resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope());
+suspend(resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope(),s.writeEntity());
 if (isTracked && trackableResource != null) {
 postTrack(trackableResource,r);
 }
@@ -147,7 +147,7 @@ trackableResource=preTrack(request,response);
  else {
 trackableResource=null;
 }
-suspend(resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r,scope);
+suspend(resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r,scope,writeEntity);
 if (isTracked && trackableResource != null) {
 postTrack(trackableResource,r);
 }

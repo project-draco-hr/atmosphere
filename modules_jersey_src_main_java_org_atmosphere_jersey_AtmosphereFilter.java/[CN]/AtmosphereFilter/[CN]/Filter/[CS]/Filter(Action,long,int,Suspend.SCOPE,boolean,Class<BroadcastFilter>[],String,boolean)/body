@@ -6,4 +6,5 @@
   this.waitFor=waitFor;
   this.filters=filters;
   this.topic=topic;
+  this.writeEntity=writeEntity;
 }

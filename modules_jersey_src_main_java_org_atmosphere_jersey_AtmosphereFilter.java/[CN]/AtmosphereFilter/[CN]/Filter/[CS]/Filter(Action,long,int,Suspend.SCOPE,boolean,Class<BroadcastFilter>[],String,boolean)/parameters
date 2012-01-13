@@ -5,3 +5,4 @@ Suspend.SCOPE scope
 boolean outputComments
 Class<BroadcastFilter>[] filters
 String topic
+boolean writeEntity

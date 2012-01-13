@@ -1,0 +1,4 @@
+{
+  this.writeEntity=writeEntity;
+  return this;
+}

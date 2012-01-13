@@ -33,8 +33,10 @@
     checkCachedAndPush(r,r.getAtmosphereResourceEvent());
   }
   finally {
-    if (resources.size() > 0 && awaitBarrier.getParties() > 0) {
-      awaitBarrier.reset();
+    if (resources.size() > 0) {
+synchronized (awaitBarrier) {
+        awaitBarrier.notifyAll();
+      }
     }
   }
   return r;
