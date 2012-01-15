@@ -1,0 +1,15 @@
+{
+  if (resources.isEmpty()) {
+synchronized (awaitBarrier) {
+      try {
+        logger.trace("Awaiting for AtmosphereResource for {} {}",time,timeUnit);
+        awaitBarrier.wait(translateTimeUnit(time,timeUnit));
+      }
+ catch (      Throwable e) {
+        logger.warn("awaitAndBroadcast",e);
+        return null;
+      }
+    }
+  }
+  return broadcast(t);
+}

@@ -1,8 +1,0 @@
-{
-  if (messages.size() == 1) {
-    r.post(messages.get(0));
-  }
- else {
-    r.post((List)messages);
-  }
-}

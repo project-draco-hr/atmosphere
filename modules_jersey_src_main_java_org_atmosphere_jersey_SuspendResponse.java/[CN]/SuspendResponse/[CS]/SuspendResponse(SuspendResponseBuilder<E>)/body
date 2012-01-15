@@ -6,4 +6,5 @@
   this.resumeOnBroadcast=b.resumeOnBroadcast;
   this.listeners=b.listeners;
   this.broadcaster=b.broadcaster;
+  this.writeEntity=b.writeEntity;
 }

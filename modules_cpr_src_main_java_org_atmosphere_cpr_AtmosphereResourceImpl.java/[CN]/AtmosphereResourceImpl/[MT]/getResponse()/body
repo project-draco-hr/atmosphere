@@ -1,6 +1,3 @@
 {
-  if (!isInScope) {
-    throw new IllegalStateException("Response object no longer valid. This object has been cancelled");
-  }
-  return response;
+  return getResponse(true);
 }

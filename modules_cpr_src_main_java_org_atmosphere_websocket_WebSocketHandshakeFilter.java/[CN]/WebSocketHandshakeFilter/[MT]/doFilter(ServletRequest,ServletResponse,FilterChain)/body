@@ -1,0 +1,18 @@
+{
+  if (HttpServletRequest.class.cast(request).getHeader("Upgrade") != null) {
+    int draft=HttpServletRequest.class.cast(request).getIntHeader("Sec-WebSocket-Version");
+    if (draft < 0) {
+      draft=HttpServletRequest.class.cast(request).getIntHeader("Sec-WebSocket-Draft");
+    }
+    if (bannedVersion != null) {
+      for (      String s : bannedVersion) {
+        if (Integer.getInteger(s) == draft) {
+          HttpServletResponse.class.cast(response).addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
+          HttpServletResponse.class.cast(response).sendError(202,"Websocket protocol not supported");
+          return;
+        }
+      }
+    }
+  }
+  chain.doFilter(request,response);
+}

@@ -1,0 +1,6 @@
+{
+  String id=event.getResource().getRequest().getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
+  if (id != null) {
+    factory.factoryCache.remove(id);
+  }
+}

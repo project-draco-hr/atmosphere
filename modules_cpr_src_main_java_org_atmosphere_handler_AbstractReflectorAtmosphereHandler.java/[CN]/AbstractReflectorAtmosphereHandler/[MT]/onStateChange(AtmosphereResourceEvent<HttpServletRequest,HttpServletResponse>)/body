@@ -11,12 +11,14 @@
     }
   }
  else {
-    boolean isUsingStream=false;
-    try {
-      event.getResource().getResponse().getWriter();
-    }
- catch (    IllegalStateException e) {
-      isUsingStream=true;
+    boolean isUsingStream=(Boolean)event.getResource().getRequest().getAttribute(PROPERTY_USE_STREAM);
+    if (!isUsingStream) {
+      try {
+        event.getResource().getResponse().getWriter();
+      }
+ catch (      IllegalStateException e) {
+        isUsingStream=true;
+      }
     }
     if (message instanceof List) {
       for (      String s : (List<String>)message) {

@@ -1,0 +1,20 @@
+{
+  if (period == -1)   return period;
+switch (tu) {
+case SECONDS:
+    return TimeUnit.MILLISECONDS.convert(period,TimeUnit.SECONDS);
+case MINUTES:
+  return TimeUnit.MILLISECONDS.convert(period,TimeUnit.MINUTES);
+case HOURS:
+return TimeUnit.MILLISECONDS.convert(period,TimeUnit.HOURS);
+case DAYS:
+return TimeUnit.MILLISECONDS.convert(period,TimeUnit.DAYS);
+case MILLISECONDS:
+return period;
+case MICROSECONDS:
+return TimeUnit.MILLISECONDS.convert(period,TimeUnit.MICROSECONDS);
+case NANOSECONDS:
+return TimeUnit.MILLISECONDS.convert(period,TimeUnit.NANOSECONDS);
+}
+return period;
+}

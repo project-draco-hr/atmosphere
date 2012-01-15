@@ -50,13 +50,11 @@
   }
  else   if (event.getEventType() == EventType.END) {
     if (!resumed.remove(event)) {
-      logger.debug("Client closed connection: response: {}",res);
-      action=cancelled(req,res);
     }
  else {
       logger.debug("Cancelling response: {}",res);
+      bz51881(event);
     }
-    bz51881(event);
   }
   return action;
 }

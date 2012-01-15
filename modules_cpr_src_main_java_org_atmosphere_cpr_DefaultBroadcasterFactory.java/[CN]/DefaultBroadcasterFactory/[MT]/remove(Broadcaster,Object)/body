@@ -1,8 +1,7 @@
 {
-  boolean removed=(store.get(b.getID()) == b);
+  boolean removed=store.remove(id,b);
   if (removed) {
-    store.remove(id,b);
-    logger.debug("Removing Broadcaster {} which internal reference is {} ",id,b.getID());
+    logger.debug("Removing Broadcaster {} factory size now {} ",id,store.size());
   }
   return removed;
 }

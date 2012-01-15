@@ -1,0 +1,15 @@
+{
+  action.type=Action.TYPE.RESUME;
+  cometSupport.action(this);
+  if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
+    AtmosphereResponse.class.cast(response).close();
+    AtmosphereResponse.class.cast(response).destroy();
+  }
+  if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
+    AtmosphereRequest.class.cast(req).destroy();
+  }
+  if (broadcaster != null) {
+    broadcaster.removeAtmosphereResource(this);
+  }
+  event.destroy();
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    webSocketProtocol=(WebSocketProtocol)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProtocolClassName).newInstance();
+  }
+ catch (  Exception ex) {
+    logger.error("Cannot load the WebSocketProtocol {}",getWebSocketProtocolClassName(),ex);
+    webSocketProtocol=new SimpleHttpProtocol();
+  }
+  webSocketProtocol.configure(config);
+}

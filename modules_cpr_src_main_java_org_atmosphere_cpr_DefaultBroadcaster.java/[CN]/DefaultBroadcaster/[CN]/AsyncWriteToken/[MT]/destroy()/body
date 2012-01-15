@@ -1,0 +1,6 @@
+{
+  this.resource=null;
+  this.msg=null;
+  this.future=null;
+  this.originalMessage=null;
+}

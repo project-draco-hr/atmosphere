@@ -1,0 +1,8 @@
+{
+  if (messages == null) {
+    return;
+  }
+  if (cometResource != null) {
+    doPost(postRequest,postResponse,messages,cometResource);
+  }
+}

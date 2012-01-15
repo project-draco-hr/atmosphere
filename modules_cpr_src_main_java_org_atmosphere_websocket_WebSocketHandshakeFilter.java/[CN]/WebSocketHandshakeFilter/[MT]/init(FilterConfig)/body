@@ -1,0 +1,7 @@
+{
+  String draft=filterConfig.getInitParameter(ApplicationConfig.WEB_SOCKET_BANNED_VERSION);
+  if (draft != null) {
+    bannedVersion=draft.split(",");
+    logger.debug("Blocked WebSocket Draft version {}",draft);
+  }
+}

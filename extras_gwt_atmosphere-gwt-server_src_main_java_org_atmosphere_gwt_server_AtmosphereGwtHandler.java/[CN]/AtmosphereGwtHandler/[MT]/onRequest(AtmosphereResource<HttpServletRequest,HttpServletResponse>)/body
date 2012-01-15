@@ -3,7 +3,7 @@
   String servertransport=request.getParameter("servertransport");
   if ("rpcprotocol".equals(servertransport)) {
     Integer connectionID=Integer.parseInt(request.getParameter("connectionID"));
-    doServerMessage(request.getReader(),connectionID);
+    doServerMessage(request,resource.getResponse(),connectionID);
     return;
   }
   try {

@@ -8,6 +8,7 @@
     return;
   }
   if (lifeCyclePolicy.getLifeCyclePolicy() == IDLE || lifeCyclePolicy.getLifeCyclePolicy() == IDLE_RESUME || lifeCyclePolicy.getLifeCyclePolicy() == IDLE_DESTROY) {
+    recentActivity.set(false);
     int time=lifeCyclePolicy.getTimeout();
     if (time == -1) {
       throw new IllegalStateException("BroadcasterLifeCyclePolicy time is not set");
@@ -16,7 +17,10 @@
     currentLifecycleTask=bc.getScheduledExecutorService().scheduleAtFixedRate(new Runnable(){
       @Override public void run(){
         try {
-          if (resources.isEmpty()) {
+          if (recentActivity.getAndSet(false)) {
+            return;
+          }
+ else           if (resources.isEmpty()) {
             if (lifeCyclePolicy.getLifeCyclePolicy() == IDLE) {
               notifyEmptyListener();
               notifyIdleListener();

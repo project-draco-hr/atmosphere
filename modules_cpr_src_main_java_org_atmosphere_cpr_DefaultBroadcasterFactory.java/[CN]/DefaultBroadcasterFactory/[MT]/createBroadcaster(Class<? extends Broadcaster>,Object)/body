@@ -1,0 +1,17 @@
+{
+  try {
+    Broadcaster b=c.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
+    InjectorProvider.getInjector().inject(b);
+    if (b.getBroadcasterConfig() == null) {
+      b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));
+    }
+    b.setBroadcasterLifeCyclePolicy(policy);
+    if (DefaultBroadcaster.class.isAssignableFrom(clazz)) {
+      DefaultBroadcaster.class.cast(b).start();
+    }
+    return b;
+  }
+ catch (  Throwable t) {
+    throw new BroadcasterCreationException(t);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  if (asyncIOWriter != null) {
+    asyncIOWriter.close();
+  }
+}

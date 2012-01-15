@@ -1,5 +1,5 @@
 {
 synchronized (r) {
-    executeAsyncWrite(new AsyncWriteToken(r,entry.message,entry.future,entry.originalMessage));
+    executeAsyncWrite(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage));
   }
 }

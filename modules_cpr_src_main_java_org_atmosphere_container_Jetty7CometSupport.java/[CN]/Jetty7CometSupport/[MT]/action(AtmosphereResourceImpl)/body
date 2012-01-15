@@ -1,21 +1,30 @@
 {
-  super.action(actionEvent);
-  if (actionEvent.isInScope() && actionEvent.action().type == Action.TYPE.RESUME && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
-    Continuation c=ContinuationSupport.getContinuation(actionEvent.getRequest());
+  super.action(r);
+  ServletRequest request=r.getRequest();
+  while (request != null) {
+    Continuation c=(Continuation)request.getAttribute(Continuation.class.getName());
     if (c != null) {
       try {
-        c.complete();
+        if (c.isSuspended()) {
+          c.complete();
+        }
       }
  catch (      IllegalStateException ex) {
-        logger.trace("Continuation.complete() failed",ex);
+        logger.trace("c.complete()",ex);
       }
+ finally {
+        r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
+      }
+      request.removeAttribute(Continuation.class.getName());
+      return;
     }
-  }
  else {
-    try {
-      actionEvent.getResponse().flushBuffer();
-    }
- catch (    IOException e) {
+      if (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
+        request=AtmosphereRequest.class.cast(request).getRequest();
+      }
+ else {
+        return;
+      }
     }
   }
 }

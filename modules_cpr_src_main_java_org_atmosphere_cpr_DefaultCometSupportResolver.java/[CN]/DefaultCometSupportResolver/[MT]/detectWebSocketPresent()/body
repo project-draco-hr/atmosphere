@@ -6,8 +6,5 @@
     }
   }
 ;
-  if (l.isEmpty()) {
-    return detectContainersPresent();
-  }
   return l;
 }

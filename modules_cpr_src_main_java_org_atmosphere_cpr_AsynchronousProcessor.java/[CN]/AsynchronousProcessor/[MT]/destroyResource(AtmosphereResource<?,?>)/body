@@ -1,13 +1,18 @@
 {
   if (r == null)   return;
-  r.removeEventListeners();
   try {
-    r.getBroadcaster().removeAtmosphereResource(r);
+    r.removeEventListeners();
+    try {
+      AtmosphereResourceImpl.class.cast(r).getBroadcaster(false).removeAtmosphereResource(r);
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace(ex.getMessage(),ex);
+    }
+    if (BroadcasterFactory.getDefault() != null) {
+      BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+    }
   }
- catch (  IllegalStateException ex) {
-    logger.trace(ex.getMessage(),ex);
-  }
-  if (BroadcasterFactory.getDefault() != null) {
-    BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+ catch (  Throwable t) {
+    logger.trace("destroyResource",t);
   }
 }
