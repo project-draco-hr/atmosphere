@@ -1,4 +1,5 @@
 {
+  AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
   if (resource == null) {
     logger.error("Invalid state. No AtmosphereResource has been suspended");
     return null;
