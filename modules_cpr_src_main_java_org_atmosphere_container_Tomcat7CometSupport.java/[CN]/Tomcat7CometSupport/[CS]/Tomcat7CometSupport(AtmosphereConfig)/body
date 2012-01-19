@@ -1,3 +1,5 @@
 {
   super(config);
+  Object b=config.getInitParameter(ApplicationConfig.TOMCAT_CLOSE_STREAM);
+  closeConnectionOnInputStream=b == null ? true : Boolean.parseBoolean(b.toString());
 }

@@ -31,8 +31,8 @@
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.CLIENT_DISCONNECT) {
     logger.debug("Client closed connection: response: {}",res);
-    if (!resumed.remove(event)) {
-      logger.debug("Client closed connection: response: {}",res);
+    if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
+      req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
  else {
@@ -49,7 +49,9 @@
     event.close();
   }
  else   if (event.getEventType() == EventType.END) {
-    if (!resumed.remove(event)) {
+    if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
+      req.setAttribute(SUSPENDED,null);
+      action=cancelled(req,res);
     }
  else {
       logger.trace("Cancelling response: {}",res);
