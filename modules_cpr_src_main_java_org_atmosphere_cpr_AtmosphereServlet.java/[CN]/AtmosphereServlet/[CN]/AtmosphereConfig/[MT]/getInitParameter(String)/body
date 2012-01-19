@@ -6,7 +6,7 @@
   try {
     return AtmosphereServlet.this.getInitParameter(name);
   }
- catch (  NullPointerException ex) {
+ catch (  Throwable ex) {
     return null;
   }
 }
