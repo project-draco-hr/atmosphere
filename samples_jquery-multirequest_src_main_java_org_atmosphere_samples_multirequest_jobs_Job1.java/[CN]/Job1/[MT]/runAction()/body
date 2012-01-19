@@ -1,0 +1,4 @@
+{
+  String message="Message from Job1";
+  sendMessages("job1",message);
+}
