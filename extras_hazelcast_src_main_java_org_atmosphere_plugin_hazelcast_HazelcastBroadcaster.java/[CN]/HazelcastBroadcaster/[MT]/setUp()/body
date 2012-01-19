@@ -1,0 +1,3 @@
+{
+  topic=Hazelcast.<String>getTopic(getID());
+}
