@@ -2,25 +2,14 @@
   try {
     super.action(r);
     if (r.action().type == Action.TYPE.RESUME) {
-      int latchId=-1;
       HttpServletRequest req=r.getRequest(false);
+      CountDownLatch latch=null;
       if (req.getAttribute(LATCH) != null) {
-        latchId=(Integer)req.getAttribute(LATCH);
-      }
-      if (latchId == -1 && supportSession()) {
-        if (req.getSession().getAttribute(LATCH) != null) {
-          latchId=(Integer)req.getSession().getAttribute(LATCH);
-        }
+        latch=(CountDownLatch)req.getAttribute(LATCH);
       }
       String s=config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE);
-      if (latchId != -1 && (s == null || s.equalsIgnoreCase("false"))) {
-        CountDownLatch latch=latchs.remove(latchId);
-        if (latch == null) {
-          logger.error("Unable to resume the suspended connection with latchId: {}",latchId);
-        }
- else {
-          latch.countDown();
-        }
+      if (latch != null && (s == null || s.equalsIgnoreCase("false"))) {
+        latch.countDown();
       }
  else       if (req.getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) == null) {
         logger.error("Unable to resume the suspended connection");

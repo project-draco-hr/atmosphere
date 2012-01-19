@@ -3,5 +3,10 @@
   if (s != null) {
     return s;
   }
-  return AtmosphereServlet.this.getInitParameter(name);
+  try {
+    return AtmosphereServlet.this.getInitParameter(name);
+  }
+ catch (  NullPointerException ex) {
+    return null;
+  }
 }

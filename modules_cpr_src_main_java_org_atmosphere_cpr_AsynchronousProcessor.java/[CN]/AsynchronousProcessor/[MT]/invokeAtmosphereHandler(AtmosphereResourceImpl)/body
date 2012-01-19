@@ -13,7 +13,6 @@ synchronized (r) {
         }
       }
       req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-      r.setIsInScope(false);
     }
   }
  catch (  IOException ex) {

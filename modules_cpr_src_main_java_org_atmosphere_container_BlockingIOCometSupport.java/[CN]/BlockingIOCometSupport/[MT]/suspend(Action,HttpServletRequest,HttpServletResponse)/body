@@ -1,11 +1,6 @@
 {
   CountDownLatch latch=new CountDownLatch(1);
-  int hash=latch.hashCode();
-  req.setAttribute(LATCH,hash);
-  latchs.put(hash,latch);
-  if (supportSession()) {
-    req.getSession().setAttribute(String.valueOf(req.hashCode()),hash);
-  }
+  req.setAttribute(LATCH,latch);
   try {
     if (action.timeout != -1) {
       latch.await(action.timeout,TimeUnit.MILLISECONDS);
@@ -18,7 +13,6 @@
     logger.debug("",ex);
   }
  finally {
-    latchs.remove(hash);
     timedout(req,res);
   }
 }

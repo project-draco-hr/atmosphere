@@ -8,11 +8,7 @@
     }
  else     if (action.type == Action.TYPE.RESUME) {
       logger.debug("Resuming response: {}",res);
-      int latchId=(req.getAttribute(LATCH) == null ? 0 : (Integer)req.getAttribute(LATCH));
-      if (req.getSession(false) != null && req.getSession(false).getAttribute(LATCH) != null) {
-        latchId=(Integer)req.getSession(false).getAttribute(LATCH);
-      }
-      CountDownLatch latch=latchs.get(latchId);
+      CountDownLatch latch=(CountDownLatch)req.getAttribute(LATCH);
       if (latch == null && req.getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) == null) {
         logger.debug("response wasn't suspended: {}",res);
         return action;
@@ -26,17 +22,9 @@
     }
   }
   finally {
-    try {
-      CometEvent event=(CometEvent)req.getAttribute(TomcatCometSupport.COMET_EVENT);
-      if (event != null) {
-        event.close();
-      }
-    }
- catch (    ClassCastException ex) {
-      org.apache.catalina.connector.CometEventImpl event=(org.apache.catalina.connector.CometEventImpl)req.getAttribute(TomcatCometSupport.COMET_EVENT);
-      if (event != null) {
-        event.close();
-      }
+    CometEvent event=(CometEvent)req.getAttribute(TomcatCometSupport.COMET_EVENT);
+    if (event != null) {
+      event.close();
     }
     HttpEvent he=(HttpEvent)req.getAttribute(JBossWebCometSupport.HTTP_EVENT);
     if (he != null) {
