@@ -1,12 +1,11 @@
 {
   super.onConnect(w);
-  logger.debug("onOpen");
   if (!DefaultWebSocket.class.isAssignableFrom(w.getClass())) {
     throw new IllegalStateException();
   }
   DefaultWebSocket webSocket=DefaultWebSocket.class.cast(w);
   try {
-    webSocketProcessor=new WebSocketProcessor(config.getServlet(),new GrizzlyWebSocket(webSocket),webSocketProtocol);
+    webSocketProcessor=new WebSocketProcessor(config.getServlet(),new GrizzlyWebSocket(webSocket),config.getServlet().getWebSocketProtocol());
     webSocketProcessor.dispatch(webSocket.getRequest());
   }
  catch (  Exception e) {

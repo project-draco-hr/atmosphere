@@ -1,6 +1,6 @@
 {
-  AtmosphereResourceImpl r=null;
 synchronized (req) {
+    AtmosphereResourceImpl r=null;
     try {
       if (trackActiveRequest) {
         long l=(Long)req.getAttribute(MAX_INACTIVE);
@@ -25,7 +25,6 @@ synchronized (req) {
  catch (          Throwable t2) {
           }
         }
-        r.setIsInScope(false);
       }
     }
  catch (    Throwable ex) {
@@ -34,8 +33,9 @@ synchronized (req) {
  finally {
       try {
         if (r != null) {
-          r.cancel();
           r.notifyListeners();
+          r.setIsInScope(false);
+          r.cancel();
         }
       }
  catch (      Throwable t) {

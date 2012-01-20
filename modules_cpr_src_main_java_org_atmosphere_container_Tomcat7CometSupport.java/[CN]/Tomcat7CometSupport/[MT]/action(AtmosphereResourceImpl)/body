@@ -4,7 +4,6 @@
     try {
       CometEvent event=(CometEvent)resource.getRequest().getAttribute(COMET_EVENT);
       if (event == null)       return;
-      resumed.offer(event);
       if (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
         bz51881(event);
       }

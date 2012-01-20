@@ -32,8 +32,9 @@
  finally {
     try {
       if (r != null) {
-        r.cancel();
         r.notifyListeners();
+        r.setIsInScope(false);
+        r.cancel();
       }
     }
  catch (    Throwable t) {

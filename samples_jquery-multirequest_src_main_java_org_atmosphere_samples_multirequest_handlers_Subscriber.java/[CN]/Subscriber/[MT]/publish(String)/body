@@ -1,0 +1,4 @@
+{
+  LOG.debug("Receive message <" + message + ">, dispatch to other connected");
+  return new Broadcastable(message,"",topic);
+}

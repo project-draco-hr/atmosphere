@@ -1,10 +1,8 @@
 {
-  int latchId=-1;
-  if (req.getAttribute(LATCH) != null) {
-    latchId=(Integer)req.getAttribute(LATCH);
-  }
-  CountDownLatch latch=latchs.remove(latchId);
   Action a=super.cancelled(req,res);
-  latch.countDown();
+  if (req.getAttribute(LATCH) != null) {
+    CountDownLatch latch=(CountDownLatch)req.getAttribute(LATCH);
+    latch.countDown();
+  }
   return a;
 }
