@@ -1,6 +1,6 @@
 {
   super.setID(id);
 synchronized (this) {
-    if (session != null)     restartConsumer();
+    if (consumerSession != null)     restartConsumer();
   }
 }

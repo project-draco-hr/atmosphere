@@ -1,6 +1,6 @@
 {
 synchronized (this) {
-    while (session == null) {
+    while (consumerSession == null) {
       try {
         this.wait(1000);
       }

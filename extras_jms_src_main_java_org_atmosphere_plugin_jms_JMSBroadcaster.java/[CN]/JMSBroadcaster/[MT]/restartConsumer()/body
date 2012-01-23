@@ -10,7 +10,7 @@
     }
     logger.info("Create JMS consumer: {}",id);
     String selector=String.format("BroadcasterId = '%s'",id);
-    consumer=session.createConsumer(topic,selector);
+    consumer=consumerSession.createConsumer(topic,selector);
     consumer.setMessageListener(new MessageListener(){
       @Override public void onMessage(      Message msg){
         try {

@@ -18,8 +18,9 @@
     logger.info("Looking up topic: {}",topicId);
     topic=(Topic)ctx.lookup(namespace + topicId);
     connection=connectionFactory.createConnection();
-    session=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-    publisher=session.createProducer(topic);
+    consumerSession=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+    publisherSession=connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+    publisher=publisherSession.createProducer(topic);
     connection.start();
     logger.info("JMS created for topic {}",topicId);
     this.notify();
