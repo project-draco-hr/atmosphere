@@ -23,7 +23,6 @@
     publisher=publisherSession.createProducer(topic);
     connection.start();
     logger.info("JMS created for topic {}",topicId);
-    this.notify();
   }
  catch (  Exception e) {
     String msg="Unable to configure JMSBroadcaster";
