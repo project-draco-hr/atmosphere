@@ -1,12 +1,3 @@
 {
-synchronized (this) {
-    while (consumerSession == null) {
-      try {
-        this.wait(1000);
-      }
- catch (      InterruptedException e) {
-      }
-    }
-  }
   restartConsumer();
 }
