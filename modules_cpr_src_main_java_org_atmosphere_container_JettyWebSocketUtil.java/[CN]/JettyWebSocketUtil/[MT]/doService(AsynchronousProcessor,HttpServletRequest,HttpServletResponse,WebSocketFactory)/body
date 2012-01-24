@@ -12,7 +12,6 @@
   Boolean b=(Boolean)req.getAttribute(WebSocket.WEBSOCKET_INITIATED);
   if (b == null)   b=Boolean.FALSE;
   if (!webSocketEnabled) {
-    logger.error("Invalid WebSocketRequest: No Connection header with browser {}.",req.getHeader("User-Agent"));
     return null;
   }
  else {
