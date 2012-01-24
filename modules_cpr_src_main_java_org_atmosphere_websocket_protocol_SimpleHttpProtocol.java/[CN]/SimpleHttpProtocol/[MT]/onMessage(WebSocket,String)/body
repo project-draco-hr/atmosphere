@@ -12,7 +12,5 @@
   }
   Map<String,Object> m=new HashMap<String,Object>();
   m.put(FrameworkConfig.WEBSOCKET_SUBPROTOCOL,FrameworkConfig.SIMPLE_HTTP_OVER_WEBSOCKET);
-  List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
-  list.add(new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).headers(WebSocketProcessor.configureHeader(resource.getRequest())).build());
-  return list;
+  return new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).headers(WebSocketProcessor.configureHeader(resource.getRequest())).build();
 }
