@@ -1,13 +1,16 @@
 {
-  AtmosphereRequest r=webSocketProtocol.onMessage(webSocket,webSocketMessage);
-  if (r != null) {
-    AtmosphereResponse<WebSocket> w=new AtmosphereResponse<WebSocket>(webSocket,webSocketProtocol,r);
-    try {
-      dispatch(r,w);
-    }
+  List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,webSocketMessage);
+  if (list == null)   return;
+  for (  AtmosphereRequest r : list) {
+    if (r != null) {
+      AtmosphereResponse<WebSocket> w=new AtmosphereResponse<WebSocket>(webSocket,webSocketProtocol,r);
+      try {
+        dispatch(r,w);
+      }
   finally {
-      r.destroy();
-      w.destroy();
+        r.destroy();
+        w.destroy();
+      }
     }
   }
 }
