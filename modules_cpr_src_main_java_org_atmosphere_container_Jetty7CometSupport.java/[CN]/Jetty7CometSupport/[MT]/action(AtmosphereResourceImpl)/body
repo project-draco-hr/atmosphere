@@ -30,6 +30,7 @@
     }
  catch (    Throwable t) {
       logger.trace("action",t);
+      return;
     }
   }
 }
