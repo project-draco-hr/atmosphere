@@ -32,9 +32,9 @@
         cr.setResponse(Response.ok(msg).build());
         cr.getHttpHeaders().add(HttpHeaders.CONTENT_TYPE,m);
         cr.write();
-        if (!cr.isCommitted()) {
-          cr.getOutputStream().flush();
-        }
+      }
+      if (!cr.isCommitted()) {
+        cr.getOutputStream().flush();
       }
     }
  else {
