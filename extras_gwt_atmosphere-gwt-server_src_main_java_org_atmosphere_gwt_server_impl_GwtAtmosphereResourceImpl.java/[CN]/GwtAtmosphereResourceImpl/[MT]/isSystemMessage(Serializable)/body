@@ -1,0 +1,3 @@
+{
+  return HEARTBEAT_MESSAGE.equals(message);
+}
