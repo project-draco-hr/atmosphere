@@ -12,9 +12,7 @@
         }
 synchronized (token.resource) {
           bc.getAsyncWriteService().submit(this);
-          if (AtmosphereResourceImpl.class.cast(token.resource).isInScope()) {
-            executeAsyncWrite(token);
-          }
+          executeAsyncWrite(token);
         }
       }
  catch (      InterruptedException ex) {
@@ -28,7 +26,7 @@ catch (      Throwable ex) {
  else {
           if (token != null) {
             logger.warn("This message {} will be lost, adding it to the BroadcasterCache",token.msg);
-            cacheLostMessage(token.resource);
+            cacheLostMessage(token.resource,token);
           }
           logger.debug("Failed to execute a write operation for Broadcaster {}",getID(),ex);
         }

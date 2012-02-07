@@ -3,7 +3,6 @@
   AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)request.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
 synchronized (r) {
     atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
-    r.setIsInScope(false);
   }
   return new Action(Action.TYPE.RESUME);
 }

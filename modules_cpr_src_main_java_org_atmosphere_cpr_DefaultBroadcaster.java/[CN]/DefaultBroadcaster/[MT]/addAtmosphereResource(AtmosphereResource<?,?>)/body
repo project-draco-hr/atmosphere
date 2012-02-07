@@ -26,11 +26,15 @@
     if (resources.contains(r)) {
       return r;
     }
-    if (resources.isEmpty()) {
-      BroadcasterFactory.getDefault().add(this,name);
+synchronized (concurrentSuspendBroadcast) {
+      if (resources.isEmpty()) {
+        BroadcasterFactory.getDefault().add(this,name);
+      }
+      checkCachedAndPush(r,r.getAtmosphereResourceEvent());
+      if (isAtmosphereResourceValid(r)) {
+        resources.add(r);
+      }
     }
-    resources.add(r);
-    checkCachedAndPush(r,r.getAtmosphereResourceEvent());
   }
   finally {
     if (resources.size() > 0) {

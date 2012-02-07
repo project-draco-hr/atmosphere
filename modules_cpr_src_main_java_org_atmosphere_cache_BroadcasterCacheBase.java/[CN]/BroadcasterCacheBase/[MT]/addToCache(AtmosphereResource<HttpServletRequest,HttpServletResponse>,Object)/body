@@ -14,7 +14,5 @@
   if (prev == null) {
     cm=new CachedMessage(true);
   }
-  if (resource != null) {
-    cache(resource,cm);
-  }
+  cache(resource,cm);
 }

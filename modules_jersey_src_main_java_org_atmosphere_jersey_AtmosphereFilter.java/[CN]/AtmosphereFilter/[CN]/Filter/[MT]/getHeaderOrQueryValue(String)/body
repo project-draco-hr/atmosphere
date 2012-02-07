@@ -1,0 +1,25 @@
+{
+  String value=servletReq.getHeader(name);
+  if (value == null) {
+    value=servletReq.getParameter(name);
+    if (value == null) {
+      value=servletReq.getParameter(name.toLowerCase());
+      if (value == null) {
+        String qs=servletReq.getQueryString();
+        if (qs != null && qs.indexOf(name) != -1) {
+          String[] s=qs.split("&");
+          String[] query;
+          for (          String a : s) {
+            if (a.startsWith(name) || a.startsWith(name.toLowerCase())) {
+              query=a.split("=");
+              if (query.length == 2) {
+                return query[1];
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return value;
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    if (token != null && token.originalMessage != null) {
+      Object m=cacheStrategy.equals(BroadcasterCache.STRATEGY.BEFORE_FILTER) ? token.originalMessage : token.msg;
+      broadcasterCache.addToCache(r,m);
+      logger.trace("Lost message cached {}",m);
+    }
+  }
+ catch (  Throwable t2) {
+    logger.trace("Unable to cache message",t2);
+  }
+}

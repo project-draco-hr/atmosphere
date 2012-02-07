@@ -1,13 +1,3 @@
 {
-  try {
-    AsyncWriteToken token=(AsyncWriteToken)HttpServletRequest.class.cast(r.getRequest()).getAttribute(ASYNC_TOKEN);
-    if (token != null && token.originalMessage != null) {
-      Object m=cacheStrategy.equals(BroadcasterCache.STRATEGY.BEFORE_FILTER) ? token.originalMessage : token.msg;
-      broadcasterCache.addToCache(token.resource,m);
-      logger.trace("Lost message cached {}",m);
-    }
-  }
- catch (  Throwable t2) {
-    logger.trace("Unable to cache message",t2);
-  }
+  cacheLostMessage(r,(AsyncWriteToken)HttpServletRequest.class.cast(AtmosphereResourceImpl.class.cast(r).getRequest(false)).getAttribute(ASYNC_TOKEN));
 }

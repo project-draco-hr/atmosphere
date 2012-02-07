@@ -1,7 +1,8 @@
 {
   logger.debug("onException()",t);
+  final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(ar);
   removeAtmosphereResource(r);
-  final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)r.getAtmosphereResourceEvent();
+  final AtmosphereResourceEventImpl event=r.getAtmosphereResourceEvent();
   event.setThrowable(t);
   r.notifyListeners(event);
   r.removeEventListeners();
@@ -22,5 +23,5 @@
  else {
     r.resume();
   }
-  cacheLostMessage(r);
+  cacheLostMessage(r,(AsyncWriteToken)HttpServletRequest.class.cast(r.getRequest(false)).getAttribute(ASYNC_TOKEN));
 }

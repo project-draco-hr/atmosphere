@@ -32,9 +32,9 @@
         cr.setResponse(Response.ok(msg).build());
         cr.getHttpHeaders().add(HttpHeaders.CONTENT_TYPE,m);
         cr.write();
-      }
-      if (!cr.isCommitted()) {
-        cr.getOutputStream().flush();
+        if (!cr.isCommitted()) {
+          cr.getOutputStream().flush();
+        }
       }
     }
  else {
@@ -61,7 +61,6 @@
     if (cr != null) {
       cr.setEntity(null);
     }
-    e.setMessage(null);
     Boolean resumeOnBroadcast=(Boolean)request.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
     if (resumeOnBroadcast != null && resumeOnBroadcast) {
       String uuid=(String)request.getAttribute(AtmosphereFilter.RESUME_UUID);

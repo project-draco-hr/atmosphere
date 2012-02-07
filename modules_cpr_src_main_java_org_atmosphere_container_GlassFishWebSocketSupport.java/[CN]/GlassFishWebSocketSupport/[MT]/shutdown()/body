@@ -1,0 +1,4 @@
+{
+  WebSocketEngine.getEngine().unregister(application);
+  super.shutdown();
+}
