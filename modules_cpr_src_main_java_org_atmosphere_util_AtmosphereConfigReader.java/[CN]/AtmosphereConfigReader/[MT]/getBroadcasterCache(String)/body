@@ -1,3 +1,0 @@
-{
-  return broadcasterCache.get(contextRoot);
-}
