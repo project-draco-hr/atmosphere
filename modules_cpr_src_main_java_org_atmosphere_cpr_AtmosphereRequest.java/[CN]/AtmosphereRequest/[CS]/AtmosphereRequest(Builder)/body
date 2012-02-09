@@ -8,21 +8,27 @@
   requestURI=b.requestURI;
   requestURL=b.requestURL;
   localAttributes=b.localAttributes;
-  if (b.dataBytes != null) {
-    bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
-    try {
-      br=new BufferedReader(new StringReader(new String(b.dataBytes,b.offset,b.length,b.encoding)));
+  if (b.inputStream == null) {
+    if (b.dataBytes != null) {
+      bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
+      try {
+        br=new BufferedReader(new StringReader(new String(b.dataBytes,b.offset,b.length,b.encoding)));
+      }
+ catch (      UnsupportedEncodingException e) {
+        throw new RuntimeException(e);
+      }
     }
- catch (    UnsupportedEncodingException e) {
-      throw new RuntimeException(e);
+ else     if (b.data != null) {
+      bis=new ByteInputStream(b.data.getBytes(),0,b.data.getBytes().length);
+      br=new BufferedReader(new StringReader(b.data));
     }
-  }
- else   if (b.data != null) {
-    bis=new ByteInputStream(b.data.getBytes(),0,b.data.getBytes().length);
-    br=new BufferedReader(new StringReader(b.data));
+ else {
+      bis=null;
+      br=null;
+    }
   }
  else {
-    bis=null;
+    bis=new IS(b.inputStream);
     br=null;
   }
   methodType=b.methodType == null ? (request != null ? request.getMethod() : "GET") : b.methodType;
