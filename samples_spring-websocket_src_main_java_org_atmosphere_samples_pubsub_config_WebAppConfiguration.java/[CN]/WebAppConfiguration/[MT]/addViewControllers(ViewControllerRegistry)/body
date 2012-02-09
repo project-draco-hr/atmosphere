@@ -1,0 +1,3 @@
+{
+  registry.addViewController("/").setViewName("home");
+}

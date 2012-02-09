@@ -1,0 +1,5 @@
+{
+  this.broadcaster=broadcaster;
+  this.channel=channel;
+  broadcaster.addBroadcasterLifeCyclePolicyListener(this);
+}

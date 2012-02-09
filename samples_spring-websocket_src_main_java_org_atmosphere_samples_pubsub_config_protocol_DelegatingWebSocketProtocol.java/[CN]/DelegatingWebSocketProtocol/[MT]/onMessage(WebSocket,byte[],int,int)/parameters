@@ -1,0 +1,4 @@
+WebSocket webSocket
+byte[] bytes
+int offset
+int length

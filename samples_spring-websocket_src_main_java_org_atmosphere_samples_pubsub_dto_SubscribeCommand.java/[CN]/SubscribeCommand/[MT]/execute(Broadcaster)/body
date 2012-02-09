@@ -1,0 +1,4 @@
+{
+  broadcaster.addAtmosphereResource(resource);
+  resource.getBroadcaster().broadcast("joined channel " + channel);
+}
