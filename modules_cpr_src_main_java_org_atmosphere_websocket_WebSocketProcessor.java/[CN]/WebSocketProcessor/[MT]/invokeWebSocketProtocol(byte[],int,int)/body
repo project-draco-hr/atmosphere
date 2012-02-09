@@ -8,8 +8,10 @@
         dispatch(r,w);
       }
   finally {
-        r.destroy();
-        w.destroy();
+        if (recycleAtmosphereRequestResponse) {
+          r.destroy();
+          w.destroy();
+        }
       }
     }
   }

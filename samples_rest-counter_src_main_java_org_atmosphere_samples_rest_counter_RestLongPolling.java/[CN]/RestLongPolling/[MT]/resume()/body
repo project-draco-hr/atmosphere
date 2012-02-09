@@ -1,4 +1,0 @@
-{
-  logger.info("Resuming");
-  return "Resumed";
-}
