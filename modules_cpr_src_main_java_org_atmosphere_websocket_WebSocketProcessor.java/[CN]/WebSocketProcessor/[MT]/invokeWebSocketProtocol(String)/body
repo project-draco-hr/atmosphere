@@ -3,7 +3,7 @@
   if (list == null)   return;
   for (  AtmosphereRequest r : list) {
     if (r != null) {
-      AtmosphereResponse<WebSocket> w=new AtmosphereResponse<WebSocket>(webSocket,webSocketProtocol,r);
+      AtmosphereResponse w=new AtmosphereResponse(webSocket,webSocketProtocol,r);
       try {
         dispatch(r,w);
       }

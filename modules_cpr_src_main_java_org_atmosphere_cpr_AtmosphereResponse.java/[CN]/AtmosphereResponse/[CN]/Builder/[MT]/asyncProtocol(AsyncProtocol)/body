@@ -1,0 +1,4 @@
+{
+  this.asyncProtocol=asyncProtocol;
+  return this;
+}

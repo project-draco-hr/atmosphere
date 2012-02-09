@@ -1,0 +1,4 @@
+HttpServletResponse r
+AsyncIOWriter asyncIOWriter
+AsyncProtocol asyncProtocol
+HttpServletRequest atmosphereRequest
