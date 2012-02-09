@@ -1,6 +1,6 @@
 {
   List<?> missedMsg=broadcasterCache.retrieveFromCache(r);
-  if (!missedMsg.isEmpty()) {
+  if (missedMsg != null && !missedMsg.isEmpty()) {
     e.setMessage(missedMsg);
     return true;
   }

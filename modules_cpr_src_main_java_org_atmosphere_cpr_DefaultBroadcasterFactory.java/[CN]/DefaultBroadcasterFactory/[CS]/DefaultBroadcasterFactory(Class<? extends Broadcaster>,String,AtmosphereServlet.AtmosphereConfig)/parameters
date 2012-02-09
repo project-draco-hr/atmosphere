@@ -1,3 +1,0 @@
-Class<? extends Broadcaster> clazz
-String broadcasterLifeCyclePolicy
-AtmosphereServlet.AtmosphereConfig c

@@ -1,0 +1,12 @@
+{
+  String s=initParams.get(name);
+  if (s != null) {
+    return s;
+  }
+  try {
+    return super.getInitParameter(name);
+  }
+ catch (  NullPointerException ex) {
+    return null;
+  }
+}

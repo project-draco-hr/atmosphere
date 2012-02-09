@@ -29,7 +29,7 @@
   }
   s=sc.getInitParameter(PROPERTY_SESSION_SUPPORT);
   if (s != null) {
-    config.supportSession=Boolean.valueOf(s);
+    config.setSupportSession(Boolean.valueOf(s));
     isSessionSupportSpecified=true;
   }
   s=sc.getInitParameter(DISABLE_ONSTATE_EVENT);
@@ -45,7 +45,7 @@
   }
   s=sc.getInitParameter(BROADCAST_FILTER_CLASSES);
   if (s != null) {
-    broadcasterFilters=s.split(",");
+    broadcasterFilters=Arrays.asList(s.split(","));
   }
   s=sc.getInitParameter(BROADCASTER_LIFECYCLE_POLICY);
   if (s != null) {

@@ -2,40 +2,34 @@
   if (stream == null) {
     return;
   }
-  AtmosphereConfigReader reader=new AtmosphereConfigReader(stream);
-  Map<String,String> atmosphereHandlerNames=reader.getAtmosphereHandlers();
-  Set<Entry<String,String>> entries=atmosphereHandlerNames.entrySet();
-  for (  Entry<String,String> entry : entries) {
-    AtmosphereHandler handler;
-    String handlerClassName=entry.getValue();
-    String handlerPath=entry.getKey();
+  AtmosphereConfig atmoConfig=AtmosphereConfigReader.getInstance().parse(stream);
+  for (  org.atmosphere.config.AtmosphereHandler atmoHandler : atmoConfig.getAtmosphereHandler()) {
     try {
-      if (!handlerClassName.equals(ReflectorServletProcessor.class.getName())) {
-        handler=(AtmosphereHandler)c.loadClass(handlerClassName).newInstance();
+      AtmosphereHandler handler;
+      if (!ReflectorServletProcessor.class.getName().equals(atmoHandler.getClassName())) {
+        handler=(AtmosphereHandler)c.loadClass(atmoHandler.getClassName()).newInstance();
         InjectorProvider.getInjector().inject(handler);
       }
  else {
         handler=new ReflectorServletProcessor();
       }
-      logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",handler,handlerPath);
+      logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",handler,atmoHandler.getContextRoot());
       boolean isJersey=false;
-      for (      Property p : reader.getProperty(handlerPath)) {
-        if (p.value != null && p.value.indexOf("jersey") != -1) {
+      for (      AtmosphereHandlerProperty handlerProperty : atmoHandler.getProperties()) {
+        if (handlerProperty.getName() != null && handlerProperty.getName().indexOf("jersey") != -1) {
           isJersey=true;
           initParams.put(DISABLE_ONSTATE_EVENT,"true");
           useStreamForFlushingComments=true;
           broadcasterClassName=lookupDefaultBroadcasterType();
         }
-        IntrospectionUtils.setProperty(handler,p.name,p.value);
+        IntrospectionUtils.setProperty(handler,handlerProperty.getName(),handlerProperty.getValue());
+        IntrospectionUtils.addProperty(handler,handlerProperty.getName(),handlerProperty.getValue());
       }
-      config.supportSession=!isJersey;
-      if (!reader.supportSession().equals("")) {
-        sessionSupport(Boolean.valueOf(reader.supportSession()));
+      config.setSupportSession(!isJersey);
+      if (!atmoHandler.getSupportSession().equals("")) {
+        sessionSupport(Boolean.valueOf(atmoHandler.getSupportSession()));
       }
-      for (      Property p : reader.getProperty(handlerPath)) {
-        IntrospectionUtils.addProperty(handler,p.name,p.value);
-      }
-      String broadcasterClass=reader.getBroadcasterClass(handlerPath);
+      String broadcasterClass=atmoHandler.getBroadcaster();
       Broadcaster b;
       if (broadcasterClass != null) {
         broadcasterClassName=broadcasterClass;
@@ -44,22 +38,22 @@
         broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
         BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
       }
-      b=BroadcasterFactory.getDefault().get(handlerPath);
+      b=BroadcasterFactory.getDefault().get(atmoHandler.getContextRoot());
       AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler,b);
-      addMapping(handlerPath,wrapper);
-      String bc=reader.getBroadcasterCache(handlerPath);
+      addMapping(atmoHandler.getContextRoot(),wrapper);
+      String bc=atmoHandler.getBroadcasterCache();
       if (bc != null) {
         broadcasterCacheClassName=bc;
       }
-      if (reader.getCometSupportClass() != null) {
-        cometSupport=(CometSupport)c.loadClass(reader.getCometSupportClass()).getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(new Object[]{config});
+      if (atmoHandler.getCometSupport() != null) {
+        cometSupport=(CometSupport)c.loadClass(atmoHandler.getCometSupport()).getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(new Object[]{config});
       }
-      if (reader.getBroadcastFilterClasses() != null) {
-        broadcasterFilters=reader.getBroadcastFilterClasses();
+      if (atmoHandler.getBroadcastFilterClasses() != null) {
+        broadcasterFilters=atmoHandler.getBroadcastFilterClasses();
       }
     }
  catch (    Throwable t) {
-      logger.warn("unable to load AtmosphereHandler class: " + handlerClassName,t);
+      logger.warn("unable to load AtmosphereHandler class: " + atmoHandler.getClassName(),t);
       throw new ServletException(t);
     }
   }

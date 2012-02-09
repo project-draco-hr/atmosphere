@@ -1,6 +1,6 @@
 {
   try {
-    Broadcaster b=c.getConstructor(String.class,AtmosphereServlet.AtmosphereConfig.class).newInstance(id.toString(),config);
+    Broadcaster b=c.getConstructor(String.class,AtmosphereConfig.class).newInstance(id.toString(),config);
     InjectorProvider.getInjector().inject(b);
     if (b.getBroadcasterConfig() == null) {
       b.setBroadcasterConfig(new BroadcasterConfig(AtmosphereServlet.broadcasterFilters,config));

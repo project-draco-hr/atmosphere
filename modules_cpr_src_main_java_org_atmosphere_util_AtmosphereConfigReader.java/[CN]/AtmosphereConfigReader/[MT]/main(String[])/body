@@ -1,4 +1,0 @@
-{
-  AtmosphereConfigReader parser=AtmosphereConfigReader.getInstance();
-  parser.parse("./target/classes/atmosphere.xml");
-}
