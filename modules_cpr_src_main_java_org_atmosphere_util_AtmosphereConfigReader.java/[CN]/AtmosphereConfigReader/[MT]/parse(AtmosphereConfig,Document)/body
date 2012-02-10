@@ -7,7 +7,7 @@
     for (int j=0; j < root.getAttributes().getLength(); j++) {
       Node attribute=root.getAttributes().item(j);
       if (attribute.getNodeName().equals("support-session")) {
-        atmoHandler.setSupportSession(Boolean.valueOf(attribute.getFirstChild().getNodeValue()));
+        atmoHandler.setSupportSession(attribute.getFirstChild().getNodeValue());
       }
  else       if (attribute.getNodeName().equals("context-root")) {
         atmoHandler.setContextRoot(attribute.getFirstChild().getNodeValue());
