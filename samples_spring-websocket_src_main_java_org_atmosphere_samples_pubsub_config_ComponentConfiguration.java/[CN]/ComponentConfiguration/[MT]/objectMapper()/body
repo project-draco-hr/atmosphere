@@ -1,0 +1,10 @@
+{
+  ObjectMapper mapper=new ObjectMapper();
+  mapper.setPropertyNamingStrategy(new PropertyNamingStrategy(){
+    @Override public String nameForField(    MapperConfig<?> config,    AnnotatedField field,    String defaultName){
+      return StringUtils.uncapitalize(field.getName());
+    }
+  }
+);
+  return mapper;
+}

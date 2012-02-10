@@ -1,0 +1,17 @@
+{
+  final CountDownLatch countDownLatch=new CountDownLatch(1);
+  resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onSuspend(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+      countDownLatch.countDown();
+      resource.removeEventListener(this);
+    }
+  }
+);
+  resource.suspend();
+  try {
+    countDownLatch.await();
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Interrupted while trying to suspend resource {}",resource);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return innerStream.read(bytes);
+}

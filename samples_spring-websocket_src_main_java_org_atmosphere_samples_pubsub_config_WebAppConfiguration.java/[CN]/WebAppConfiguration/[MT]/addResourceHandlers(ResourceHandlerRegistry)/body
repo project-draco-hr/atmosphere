@@ -1,0 +1,3 @@
+{
+  registry.addResourceHandler("/resources").addResourceLocations("/resources/");
+}

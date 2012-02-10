@@ -1,0 +1,3 @@
+{
+  return AtmosphereUtils.getAtmosphereResource(webRequest.getNativeRequest(HttpServletRequest.class));
+}

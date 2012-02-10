@@ -4,7 +4,7 @@
   }
   String pathInfo=request.getPathInfo();
   String requestURI=request.getRequestURI();
-  AtmosphereResponse wsr=new AtmosphereResponse<WebSocket>(webSocket,webSocketProtocol,request);
+  AtmosphereResponse wsr=new AtmosphereResponse(webSocket,webSocketProtocol,request);
   AtmosphereRequest r=new AtmosphereRequest.Builder().request(request).pathInfo(pathInfo).requestURI(requestURI).headers(configureHeader(request)).build();
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   dispatch(r,wsr);
