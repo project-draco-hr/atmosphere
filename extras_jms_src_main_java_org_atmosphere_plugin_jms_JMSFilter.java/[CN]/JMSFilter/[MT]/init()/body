@@ -1,6 +1,6 @@
 {
   try {
-    AtmosphereServlet.AtmosphereConfig config=bc.getBroadcasterConfig().getAtmosphereConfig();
+    AtmosphereConfig config=bc.getBroadcasterConfig().getAtmosphereConfig();
     if (config != null) {
       if (config.getInitParameter(JMS_TOPIC) != null) {
         topicId=config.getInitParameter(JMS_TOPIC);
