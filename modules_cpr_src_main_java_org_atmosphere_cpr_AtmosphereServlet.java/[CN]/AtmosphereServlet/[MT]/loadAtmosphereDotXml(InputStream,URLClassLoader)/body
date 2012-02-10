@@ -26,7 +26,7 @@
         IntrospectionUtils.addProperty(handler,handlerProperty.getName(),handlerProperty.getValue());
       }
       config.setSupportSession(!isJersey);
-      if (!atmoHandler.getSupportSession().equals("")) {
+      if (!atmoHandler.getSupportSession()) {
         sessionSupport(Boolean.valueOf(atmoHandler.getSupportSession()));
       }
       String broadcasterClass=atmoHandler.getBroadcaster();
