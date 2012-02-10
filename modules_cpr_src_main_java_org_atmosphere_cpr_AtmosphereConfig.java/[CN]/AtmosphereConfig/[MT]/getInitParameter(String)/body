@@ -1,0 +1,12 @@
+{
+  String s=atmosphereServlet.initParams.get(name);
+  if (s != null) {
+    return s;
+  }
+  try {
+    return atmosphereServlet.getInitParameter(name);
+  }
+ catch (  Throwable ex) {
+    return null;
+  }
+}

@@ -1,4 +1,3 @@
 {
   this(false);
-  config.setAtmosphereServlet(this);
 }

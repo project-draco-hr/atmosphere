@@ -1,3 +1,0 @@
-{
-  return atmosphereServlet.getInitParameterNames();
-}
