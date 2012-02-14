@@ -55,4 +55,8 @@
   if (s != null) {
     broadcasterFactoryClassName=s;
   }
+  s=sc.getInitParameter(ATMOSPHERE_HANDLER_PATH);
+  if (s != null) {
+    handlersPath=s;
+  }
 }

@@ -1,8 +1,8 @@
 {
-  logger.info("Auto detecting atmosphere handlers in WEB-INF/classes");
-  String realPath=servletContext.getRealPath(WEB_INF_CLASSES);
+  logger.info("Auto detecting atmosphere handlers {}",handlersPath);
+  String realPath=servletContext.getRealPath(handlersPath);
   if (realPath == null) {
-    URL u=servletContext.getResource(WEB_INF_CLASSES);
+    URL u=servletContext.getResource(handlersPath);
     if (u == null)     return;
     realPath=u.getPath();
   }

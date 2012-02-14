@@ -1,0 +1,4 @@
+{
+  this.writeStatusAndHeader.set(writeStatusAndHeader);
+  return this;
+}

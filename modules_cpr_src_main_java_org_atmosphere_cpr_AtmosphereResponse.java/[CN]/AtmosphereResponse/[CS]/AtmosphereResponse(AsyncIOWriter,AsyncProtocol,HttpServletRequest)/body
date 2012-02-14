@@ -3,4 +3,5 @@
   this.asyncIOWriter=asyncIOWriter;
   this.asyncProtocol=asyncProtocol;
   this.atmosphereRequest=atmosphereRequest;
+  this.writeStatusAndHeader.set(false);
 }

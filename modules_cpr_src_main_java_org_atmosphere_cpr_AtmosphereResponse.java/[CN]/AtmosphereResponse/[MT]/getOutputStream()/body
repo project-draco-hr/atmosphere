@@ -1,6 +1,7 @@
 {
   return new ServletOutputStream(){
     public void write(    int i) throws java.io.IOException {
+      writeStatusAndHeaders();
       if (asyncProtocol.inspectResponse()) {
         asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new byte[]{(byte)i},0,1));
       }
@@ -8,7 +9,25 @@
         asyncIOWriter.write(new byte[]{(byte)i});
       }
     }
+    private void writeStatusAndHeaders() throws java.io.IOException {
+      if (writeStatusAndHeader.getAndSet(false)) {
+        StringBuffer b=new StringBuffer("HTTP/1.1").append(" ").append(status).append(" ").append(statusMessage).append("\n").append(new Date().toString()).append("\n");
+        b.append("Content-Type").append(":").append(headers.get("Content-Type") == null ? contentType : headers.get("Content-Type")).append("\n");
+        if (contentLength != -1) {
+          b.append("Content-Length").append(":").append(contentLength).append("\n");
+        }
+        for (        String s : headers().keySet()) {
+          if (!s.equalsIgnoreCase("Content-Type")) {
+            b.append(s).append(":").append(headers.get(s)).append("\n");
+          }
+        }
+        b.deleteCharAt(b.length() - 1);
+        b.append("\r\n\r\n");
+        asyncIOWriter.write(b.toString());
+      }
+    }
     public void write(    byte[] bytes) throws java.io.IOException {
+      writeStatusAndHeaders();
       if (asyncProtocol.inspectResponse()) {
         asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,0,bytes.length));
       }
@@ -17,6 +36,7 @@
       }
     }
     public void write(    byte[] bytes,    int start,    int offset) throws java.io.IOException {
+      writeStatusAndHeaders();
       if (asyncProtocol.inspectResponse()) {
         byte[] b=asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,start,offset);
         asyncIOWriter.write(b,0,b.length);

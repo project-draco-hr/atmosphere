@@ -5,4 +5,5 @@
   this.atmosphereRequest=b.atmosphereRequest;
   this.status=b.status;
   this.statusMessage=b.statusMessage;
+  this.writeStatusAndHeader.set(b.writeStatusAndHeader.get());
 }
