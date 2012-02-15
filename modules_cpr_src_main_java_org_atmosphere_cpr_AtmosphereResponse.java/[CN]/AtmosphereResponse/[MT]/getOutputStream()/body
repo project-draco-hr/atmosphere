@@ -1,6 +1,6 @@
 {
   return new ServletOutputStream(){
-    public void write(    int i) throws java.io.IOException {
+    @Override public void write(    int i) throws java.io.IOException {
       writeStatusAndHeaders();
       if (asyncProtocol.inspectResponse()) {
         asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new byte[]{(byte)i},0,1));
@@ -26,7 +26,7 @@
         asyncIOWriter.write(b.toString());
       }
     }
-    public void write(    byte[] bytes) throws java.io.IOException {
+    @Override public void write(    byte[] bytes) throws java.io.IOException {
       writeStatusAndHeaders();
       if (asyncProtocol.inspectResponse()) {
         asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,0,bytes.length));
@@ -35,7 +35,7 @@
         asyncIOWriter.write(bytes);
       }
     }
-    public void write(    byte[] bytes,    int start,    int offset) throws java.io.IOException {
+    @Override public void write(    byte[] bytes,    int start,    int offset) throws java.io.IOException {
       writeStatusAndHeaders();
       if (asyncProtocol.inspectResponse()) {
         byte[] b=asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,start,offset);
@@ -44,6 +44,12 @@
  else {
         asyncIOWriter.write(bytes,start,offset);
       }
+    }
+    @Override public void flush() throws IOException {
+      asyncIOWriter.flush();
+    }
+    @Override public void close() throws java.io.IOException {
+      asyncIOWriter.close();
     }
   }
 ;

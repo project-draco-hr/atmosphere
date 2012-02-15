@@ -6,4 +6,5 @@
   this.status=b.status;
   this.statusMessage=b.statusMessage;
   this.writeStatusAndHeader.set(b.writeStatusAndHeader.get());
+  this.headers=b.headers;
 }

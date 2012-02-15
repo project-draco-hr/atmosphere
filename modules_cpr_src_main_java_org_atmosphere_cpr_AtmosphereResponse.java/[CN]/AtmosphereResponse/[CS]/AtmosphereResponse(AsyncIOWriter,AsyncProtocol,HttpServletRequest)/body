@@ -4,4 +4,5 @@
   this.asyncProtocol=asyncProtocol;
   this.atmosphereRequest=atmosphereRequest;
   this.writeStatusAndHeader.set(false);
+  this.headers=new HashMap<String,String>();
 }
