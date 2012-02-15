@@ -1,6 +1,7 @@
 {
   return new LinkedList<Class<? extends CometSupport>>(){
 {
+      if (testClassExists(NETTY))       add(NettyCometSupport.class);
       if (testClassExists(GLASSFISH_V2))       add(GlassFishv2CometSupport.class);
       if (testClassExists(JETTY))       add(JettyCometSupport.class);
       if (testClassExists(JETTY_7))       add(Jetty7CometSupport.class);
