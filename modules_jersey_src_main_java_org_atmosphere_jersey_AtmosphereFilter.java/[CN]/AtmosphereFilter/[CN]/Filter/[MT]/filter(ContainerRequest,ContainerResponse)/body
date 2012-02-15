@@ -2,8 +2,24 @@
   if (response.getMappedThrowable() != null) {
     return response;
   }
+  AtmosphereConfig config=(AtmosphereConfig)servletReq.getAttribute(ATMOSPHERE_CONFIG);
+  String p=config.getInitParameter(ApplicationConfig.JERSEY_CONTAINER_RESPONSE_WRITER_CLASS);
+  ContainerResponseWriter w=null;
+  if (p != null) {
+    try {
+      w=(ContainerResponseWriter)Thread.currentThread().getContextClassLoader().loadClass(p).newInstance();
+      logger.trace("Installing ContainerResponseWriter {}",p);
+    }
+ catch (    Throwable e) {
+      logger.error("Error loading ContainerResponseWriter {}",p,e);
+    }
+  }
+  w=(ContainerResponseWriter)servletReq.getAttribute(FrameworkConfig.JERSEY_CONTAINER_RESPONSE_WRITER_INSTANCE);
+  if (w != null) {
+    response.setContainerResponseWriter(w);
+  }
   AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)servletReq.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-  if (Boolean.parseBoolean((String)servletReq.getAttribute(ApplicationConfig.SUPPORT_LOCATION_HEADER))) {
+  if (Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.SUPPORT_LOCATION_HEADER))) {
     useResumeAnnotation=true;
   }
 switch (action) {
@@ -106,7 +122,7 @@ Broadcaster bc=s.broadcaster();
 if (bc == null && s.scope() != Suspend.SCOPE.REQUEST) {
 bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 }
-boolean supportTrackable=servletReq.getAttribute(ApplicationConfig.SUPPORT_TRACKABLE) != null;
+boolean supportTrackable=config.getInitParameter(ApplicationConfig.SUPPORT_TRACKABLE) != null;
 boolean isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : supportTrackable;
 TrackableResource<? extends Trackable> trackableResource=null;
 if (isTracked) {
@@ -147,7 +163,7 @@ throw new IllegalStateException(e.getMessage());
 }
 broadcaster=BroadcasterFactory.getDefault().lookup(c,topic,true);
 }
-supportTrackable=servletReq.getAttribute(ApplicationConfig.SUPPORT_TRACKABLE) != null;
+supportTrackable=config.getInitParameter(ApplicationConfig.SUPPORT_TRACKABLE) != null;
 isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : supportTrackable;
 if (isTracked) {
 trackableResource=preTrack(request,response);

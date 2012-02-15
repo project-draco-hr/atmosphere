@@ -2,8 +2,7 @@
   req.setAttribute(BROADCASTER_FACTORY,broadcasterFactory);
   req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
-  req.setAttribute(SUPPORT_TRACKABLE,config.getInitParameter(SUPPORT_TRACKABLE));
-  req.setAttribute(SUPPORT_LOCATION_HEADER,config.getInitParameter(SUPPORT_LOCATION_HEADER));
+  req.setAttribute(ATMOSPHERE_CONFIG,config);
   AtmosphereRequest r=null;
   Action a=null;
   try {
