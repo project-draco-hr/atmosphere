@@ -17,7 +17,7 @@
   }
   if (config.handlers().isEmpty()) {
     logger.error("No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
-    throw new ServletException("No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
+    throw new AtmosphereMappingException("No AtmosphereHandler found. Make sure you define it inside META-INF/atmosphere.xml");
   }
   if (supportSession()) {
     HttpSession session=req.getSession(true);
