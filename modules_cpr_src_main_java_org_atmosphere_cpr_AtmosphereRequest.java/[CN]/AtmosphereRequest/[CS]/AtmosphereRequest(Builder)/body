@@ -11,6 +11,9 @@
   remoteAddr=b.remoteAddr;
   remoteHost=b.remoteHost;
   remotePort=b.remotePort;
+  localAddr=b.localAddr;
+  localName=b.localName;
+  localPort=b.localPort;
   if (b.inputStream == null) {
     if (b.dataBytes != null) {
       bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
