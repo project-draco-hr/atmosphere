@@ -2,6 +2,7 @@
   return new PrintWriter(getOutputStream()){
     public void write(    char[] chars,    int offset,    int lenght){
       try {
+        writeStatusAndHeaders();
         if (asyncProtocol.inspectResponse()) {
           asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(chars,offset,lenght)));
         }
@@ -15,6 +16,7 @@
     }
     public void write(    char[] chars){
       try {
+        writeStatusAndHeaders();
         if (asyncProtocol.inspectResponse()) {
           asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(chars)));
         }
@@ -28,6 +30,7 @@
     }
     public void write(    String s,    int offset,    int lenght){
       try {
+        writeStatusAndHeaders();
         if (asyncProtocol.inspectResponse()) {
           asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(s.substring(offset,lenght))));
         }
@@ -41,6 +44,7 @@
     }
     public void write(    java.lang.String s){
       try {
+        writeStatusAndHeaders();
         if (asyncProtocol.inspectResponse()) {
           asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(s)));
         }

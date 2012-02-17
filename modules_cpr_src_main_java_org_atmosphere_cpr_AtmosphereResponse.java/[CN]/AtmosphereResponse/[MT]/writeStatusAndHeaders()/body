@@ -1,0 +1,5 @@
+{
+  if (writeStatusAndHeader.getAndSet(false)) {
+    asyncIOWriter.write(constructStatusAndHeaders());
+  }
+}
