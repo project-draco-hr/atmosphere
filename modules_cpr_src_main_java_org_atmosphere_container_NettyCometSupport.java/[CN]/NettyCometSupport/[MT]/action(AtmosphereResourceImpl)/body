@@ -1,0 +1,6 @@
+{
+  super.action(r);
+  if (r.isResumed()) {
+    ((CometSupportHook)r.getRequest().getAttribute(HOOK)).resume();
+  }
+}

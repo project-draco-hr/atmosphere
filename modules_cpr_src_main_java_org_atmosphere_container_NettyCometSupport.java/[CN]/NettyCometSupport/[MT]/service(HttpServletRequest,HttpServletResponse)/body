@@ -4,6 +4,7 @@
   if (action.type == AtmosphereServlet.Action.TYPE.SUSPEND) {
     logger.debug("Suspending response: {}",res);
     req.setAttribute(SUSPEND,new Boolean(true));
+    req.setAttribute(HOOK,new CometSupportHook(req,res));
   }
  else   if (action.type == AtmosphereServlet.Action.TYPE.RESUME) {
     logger.debug("Resuming response: {}",res);

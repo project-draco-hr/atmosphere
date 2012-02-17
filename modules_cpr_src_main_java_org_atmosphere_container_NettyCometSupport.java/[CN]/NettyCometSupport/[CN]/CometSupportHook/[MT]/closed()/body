@@ -1,0 +1,11 @@
+{
+  try {
+    cancelled(req,res);
+  }
+ catch (  IOException e) {
+    logger.debug("",e);
+  }
+catch (  ServletException e) {
+    logger.debug("",e);
+  }
+}
