@@ -8,6 +8,9 @@
   requestURI=b.requestURI;
   requestURL=b.requestURL;
   localAttributes=b.localAttributes;
+  remoteAddr=b.remoteAddr;
+  remoteHost=b.remoteHost;
+  remotePort=b.remotePort;
   if (b.inputStream == null) {
     if (b.dataBytes != null) {
       bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
