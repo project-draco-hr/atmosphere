@@ -29,7 +29,7 @@
   }
  else {
     bis=new IS(b.inputStream);
-    br=null;
+    br=new BufferedReader(new InputStreamReader(b.inputStream));
   }
   methodType=b.methodType == null ? (request != null ? request.getMethod() : "GET") : b.methodType;
   contentType=b.contentType == null ? (request != null ? request.getContentType() : "text/plain") : b.contentType;

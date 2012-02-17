@@ -22,7 +22,7 @@
         }
       }
     }
-    if (timeout == -1 || flushComment) {
+    if (flushComment) {
       req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.STREAMING_TRANSPORT);
     }
  else {
