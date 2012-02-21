@@ -1,0 +1,12 @@
+{
+  broadcaster.getBroadcasterConfig().addFilter(new Filter("1"));
+  broadcaster.getBroadcasterConfig().addFilter(new Filter("2"));
+  broadcaster.getBroadcasterConfig().addFilter(new Filter("3"));
+  broadcaster.getBroadcasterConfig().addFilter(new Filter("4"));
+  broadcaster.getBroadcasterConfig().addFilter(new PerRequestFilter("1"));
+  broadcaster.getBroadcasterConfig().addFilter(new PerRequestFilter("2"));
+  broadcaster.getBroadcasterConfig().addFilter(new PerRequestFilter("3"));
+  broadcaster.getBroadcasterConfig().addFilter(new PerRequestFilter("4"));
+  broadcaster.broadcast("0").get();
+  assertEquals(atmosphereHandler.value.get().toString(),"01234");
+}

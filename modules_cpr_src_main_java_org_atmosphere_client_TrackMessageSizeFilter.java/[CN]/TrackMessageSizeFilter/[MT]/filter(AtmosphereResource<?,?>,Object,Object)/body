@@ -1,4 +1,6 @@
 {
+  HttpServletRequest request=HttpServletRequest.class.cast(r.getRequest());
+  HttpServletResponse response=HttpServletResponse.class.cast(r.getResponse());
   if ("true".equalsIgnoreCase(request.getHeader(X_ATMOSPHERE_TRACKMESSAGESIZE)) && message != null && String.class.isAssignableFrom(message.getClass())) {
     String msg=message.toString();
     msg=msg.length() + "|" + msg;
