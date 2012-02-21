@@ -1,8 +1,7 @@
 {
   for (  BroadcastFilter f : filters) {
     if (f.getClass().isAssignableFrom(e.getClass())) {
-      return true;
+      logger.trace("Duplicate Filter instance {}",f.getClass());
     }
   }
-  return false;
 }

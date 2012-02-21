@@ -1,5 +1,6 @@
 {
-  if (filters.contains(e) || checkDuplicateFilter(e))   return false;
+  logDuplicateFilter(e);
+  if (filters.contains(e))   return false;
   if (e instanceof BroadcastFilterLifecycle) {
     ((BroadcastFilterLifecycle)e).init();
   }

@@ -1,8 +1,8 @@
 {
-  BroadcastAction transformed=new BroadcastAction(object);
+  BroadcastAction transformed=new BroadcastAction(originalMessage);
   for (  PerRequestBroadcastFilter mf : perRequestFilters) {
 synchronized (mf) {
-      transformed=mf.filter(request,response,transformed.message());
+      transformed=mf.filter(r,message,transformed.message());
       if (transformed == null || transformed.action() == BroadcastAction.ACTION.ABORT) {
         return transformed;
       }
