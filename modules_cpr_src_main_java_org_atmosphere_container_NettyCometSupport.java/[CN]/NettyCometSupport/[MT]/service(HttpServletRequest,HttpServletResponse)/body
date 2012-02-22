@@ -3,7 +3,7 @@
   action=suspended(req,res);
   if (action.type == AtmosphereServlet.Action.TYPE.SUSPEND) {
     logger.debug("Suspending response: {}",res);
-    req.setAttribute(SUSPEND,new Boolean(true));
+    req.setAttribute(SUSPEND,action);
     req.setAttribute(HOOK,new CometSupportHook(req,res));
   }
  else   if (action.type == AtmosphereServlet.Action.TYPE.RESUME) {
@@ -11,7 +11,7 @@
     AtmosphereServlet.Action nextAction=resumed(req,res);
     if (nextAction.type == AtmosphereServlet.Action.TYPE.SUSPEND) {
       logger.debug("Suspending after resuming response: {}",res);
-      req.setAttribute(SUSPEND,new Boolean(true));
+      req.setAttribute(SUSPEND,action);
     }
   }
   return action;
