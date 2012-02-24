@@ -3,11 +3,11 @@
   final CountDownLatch latch=new CountDownLatch(1);
   atmoServlet.addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
     private long currentTime;
-    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onRequest(    AtmosphereResource event) throws IOException {
       currentTime=System.currentTimeMillis();
       event.suspend(5000);
     }
-    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       try {
         assertTrue(event.isResumedOnTimeout());
         long time=System.currentTimeMillis() - currentTime;

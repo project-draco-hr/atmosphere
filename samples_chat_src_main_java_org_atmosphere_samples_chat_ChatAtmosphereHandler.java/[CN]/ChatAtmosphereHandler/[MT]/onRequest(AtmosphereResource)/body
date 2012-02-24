@@ -1,0 +1,46 @@
+{
+  AtmosphereRequest req=event.getRequest();
+  AtmosphereResponse res=event.getResponse();
+  res.setContentType("text/html;charset=ISO-8859-1");
+  if (req.getMethod().equalsIgnoreCase("GET")) {
+    event.suspend();
+    Broadcaster bc=event.getBroadcaster();
+    String clusterType=event.getAtmosphereConfig().getInitParameter(CLUSTER);
+    if (!filterAdded.getAndSet(true) && clusterType != null) {
+      if (clusterType.equals("jgroups")) {
+        event.getAtmosphereConfig().getServletContext().log("JGroupsFilter enabled");
+        bc.getBroadcasterConfig().addFilter(new JGroupsFilter(bc));
+      }
+    }
+    bc.getBroadcasterConfig().addFilter(new XSSHtmlFilter());
+    Future<String> f=bc.broadcast(event.getAtmosphereConfig().getWebServerName() + "**has suspended a connection from " + req.getRemoteAddr());
+    try {
+      f.get();
+    }
+ catch (    InterruptedException ex) {
+      logger.error("",ex);
+    }
+catch (    ExecutionException ex) {
+      logger.error("",ex);
+    }
+    bc.scheduleFixedBroadcast(req.getRemoteAddr() + "**is still listening",30,TimeUnit.SECONDS);
+    bc.delayBroadcast("Delayed Chat message");
+  }
+ else   if (req.getMethod().equalsIgnoreCase("POST")) {
+    String action=req.getParameterValues("action")[0];
+    String name=req.getParameterValues("name")[0];
+    if ("login".equals(action)) {
+      req.getSession().setAttribute("name",name);
+      event.getBroadcaster().broadcast("System Message from " + event.getAtmosphereConfig().getWebServerName() + "**"+ name+ " has joined.");
+    }
+ else     if ("post".equals(action)) {
+      String message=req.getParameterValues("message")[0];
+      event.getBroadcaster().broadcast(name + "**" + message);
+    }
+ else {
+      res.setStatus(422);
+    }
+    res.getWriter().write("success");
+    res.getWriter().flush();
+  }
+}

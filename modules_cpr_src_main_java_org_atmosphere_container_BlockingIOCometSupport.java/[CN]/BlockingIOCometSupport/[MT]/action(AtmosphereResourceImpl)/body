@@ -2,7 +2,7 @@
   try {
     super.action(r);
     if (r.action().type == Action.TYPE.RESUME) {
-      HttpServletRequest req=r.getRequest(false);
+      AtmosphereRequest req=r.getRequest(false);
       CountDownLatch latch=null;
       if (req.getAttribute(LATCH) != null) {
         latch=(CountDownLatch)req.getAttribute(LATCH);

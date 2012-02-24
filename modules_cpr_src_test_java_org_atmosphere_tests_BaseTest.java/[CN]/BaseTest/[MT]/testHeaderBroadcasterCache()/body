@@ -4,7 +4,7 @@
   final CountDownLatch latch=new CountDownLatch(1);
   long t1=System.currentTimeMillis();
   atmoServlet.addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
-    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onRequest(    AtmosphereResource event) throws IOException {
       try {
         if (event.getRequest().getHeader(HeaderConfig.X_CACHE_DATE) != null) {
           event.suspend(-1,false);
@@ -20,7 +20,7 @@ catch (      ExecutionException e) {
       }
       event.getResponse().flushBuffer();
     }
-    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       if (event.isResuming()) {
         return;
       }

@@ -41,7 +41,7 @@ synchronized (concurrentSuspendBroadcast) {
     entry.message=finalMsg;
     if (resources.isEmpty()) {
       logger.debug("Broadcaster {} doesn't have any associated resource",getID());
-      AtmosphereResource<?,?> r=null;
+      AtmosphereResource r=null;
       if (entry.multipleAtmoResources != null && AtmosphereResource.class.isAssignableFrom(entry.multipleAtmoResources.getClass())) {
         r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
       }
@@ -53,7 +53,7 @@ synchronized (concurrentSuspendBroadcast) {
     }
     try {
       if (entry.multipleAtmoResources == null) {
-        for (        AtmosphereResource<?,?> r : resources) {
+        for (        AtmosphereResource r : resources) {
           finalMsg=perRequestFilter(r,entry);
           if (finalMsg == null) {
             logger.debug("Skipping broadcast delivery resource {} ",r);
@@ -64,19 +64,19 @@ synchronized (concurrentSuspendBroadcast) {
           }
         }
       }
- else       if (entry.multipleAtmoResources instanceof AtmosphereResource<?,?>) {
-        finalMsg=perRequestFilter((AtmosphereResource<?,?>)entry.multipleAtmoResources,entry);
+ else       if (entry.multipleAtmoResources instanceof AtmosphereResource) {
+        finalMsg=perRequestFilter((AtmosphereResource)entry.multipleAtmoResources,entry);
         if (finalMsg == null) {
           logger.debug("Skipping broadcast delivery resource {} ",entry.multipleAtmoResources);
           return;
         }
         if (entry.writeLocally) {
-          queueWriteIO((AtmosphereResource<?,?>)entry.multipleAtmoResources,finalMsg,entry);
+          queueWriteIO((AtmosphereResource)entry.multipleAtmoResources,finalMsg,entry);
         }
       }
  else       if (entry.multipleAtmoResources instanceof Set) {
-        Set<AtmosphereResource<?,?>> sub=(Set<AtmosphereResource<?,?>>)entry.multipleAtmoResources;
-        for (        AtmosphereResource<?,?> r : sub) {
+        Set<AtmosphereResource> sub=(Set<AtmosphereResource>)entry.multipleAtmoResources;
+        for (        AtmosphereResource r : sub) {
           finalMsg=perRequestFilter(r,entry);
           if (finalMsg == null) {
             logger.debug("Skipping broadcast delivery resource {} ",r);

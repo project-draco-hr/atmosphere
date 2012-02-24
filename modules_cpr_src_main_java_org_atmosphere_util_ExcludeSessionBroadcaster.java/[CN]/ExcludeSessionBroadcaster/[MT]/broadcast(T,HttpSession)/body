@@ -2,9 +2,9 @@
   if (destroyed.get()) {
     throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
   }
-  Set<AtmosphereResource<?,?>> subset=new HashSet<AtmosphereResource<?,?>>();
+  Set<AtmosphereResource> subset=new HashSet<AtmosphereResource>();
   subset.addAll(resources);
-  for (  AtmosphereResource<?,?> r : resources) {
+  for (  AtmosphereResource r : resources) {
     if (!r.getAtmosphereResourceEvent().isCancelled() && s.equals(((HttpServletRequest)r.getRequest()).getSession())) {
       subset.remove(r);
     }

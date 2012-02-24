@@ -1,0 +1,35 @@
+{
+  Action action=null;
+  try {
+    action=suspended(req,res);
+    if (action.type == Action.TYPE.SUSPEND) {
+      logger.debug("Suspending response: {}",res);
+      suspend(action,req,res);
+    }
+ else     if (action.type == Action.TYPE.RESUME) {
+      logger.debug("Resuming response: {}",res);
+      CountDownLatch latch=(CountDownLatch)req.getAttribute(LATCH);
+      if (latch == null || req.getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) == null) {
+        logger.debug("response wasn't suspended: {}",res);
+        return action;
+      }
+      latch.countDown();
+      Action nextAction=resumed(req,res);
+      if (nextAction.type == Action.TYPE.SUSPEND) {
+        logger.debug("Suspending after resuming response: {}",res);
+        suspend(action,req,res);
+      }
+    }
+  }
+  finally {
+    CometEvent event=(CometEvent)req.getAttribute(TomcatCometSupport.COMET_EVENT);
+    if (event != null) {
+      event.close();
+    }
+    HttpEvent he=(HttpEvent)req.getAttribute(JBossWebCometSupport.HTTP_EVENT);
+    if (he != null) {
+      he.close();
+    }
+  }
+  return action;
+}

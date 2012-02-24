@@ -1,6 +1,6 @@
 {
 synchronized (resources) {
-    for (    AtmosphereResource<?,?> r : resources) {
+    for (    AtmosphereResource r : resources) {
       try {
         r.resume();
       }

@@ -1,5 +1,5 @@
 {
-  AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)req.getAttribute(ATMOSPHERE_RESOURCE);
+  AtmosphereResource r=(AtmosphereResource)req.getAttribute(ATMOSPHERE_RESOURCE);
   if (r == null)   throw new IllegalStateException("MeteorServlet not defined in web.xml");
   Broadcaster b=null;
   if (scope == Broadcaster.SCOPE.REQUEST) {

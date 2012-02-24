@@ -1,0 +1,18 @@
+{
+  CountDownLatch latch=new CountDownLatch(1);
+  req.setAttribute(LATCH,latch);
+  try {
+    if (action.timeout != -1) {
+      latch.await(action.timeout,TimeUnit.MILLISECONDS);
+    }
+ else {
+      latch.await();
+    }
+  }
+ catch (  InterruptedException ex) {
+    logger.trace("",ex);
+  }
+ finally {
+    timedout(req,res);
+  }
+}

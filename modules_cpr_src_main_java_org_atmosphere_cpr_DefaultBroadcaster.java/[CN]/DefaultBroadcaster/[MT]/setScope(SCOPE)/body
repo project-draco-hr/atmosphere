@@ -10,7 +10,7 @@
   logger.debug("Changing broadcaster scope for {}. This broadcaster will be destroyed.",getID());
 synchronized (resources) {
     try {
-      for (      AtmosphereResource<?,?> resource : resources) {
+      for (      AtmosphereResource resource : resources) {
         Broadcaster b=BroadcasterFactory.getDefault().get(getClass(),getClass().getSimpleName() + "/" + UUID.randomUUID());
         if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
           BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();

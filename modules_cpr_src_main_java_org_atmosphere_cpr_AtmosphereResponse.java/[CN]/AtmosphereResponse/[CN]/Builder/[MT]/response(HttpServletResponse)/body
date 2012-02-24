@@ -1,0 +1,4 @@
+{
+  this.atmosphereResponse=res;
+  return this;
+}

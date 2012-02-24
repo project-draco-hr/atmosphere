@@ -2,7 +2,7 @@
   Element element=document.getDocumentElement();
   NodeList atmosphereHandlers=element.getElementsByTagName("atmosphere-handler");
   for (int i=0; i < atmosphereHandlers.getLength(); i++) {
-    AtmosphereHandler atmoHandler=new AtmosphereHandler();
+    AtmosphereHandlerConfig atmoHandler=new AtmosphereHandlerConfig();
     Node root=atmosphereHandlers.item(i);
     for (int j=0; j < root.getAttributes().getLength(); j++) {
       Node attribute=root.getAttributes().item(j);
@@ -54,7 +54,7 @@
           }
         }
         if (param != null) {
-          atmoHandler.getApplicationConfig().add(new ApplicationConfig(param,value));
+          atmoHandler.getApplicationConfig().add(new ApplicationConfiguration(param,value));
         }
       }
  else       if (n.getNodeName().equals("frameworkConfig")) {
@@ -72,7 +72,7 @@
           }
         }
         if (param != null) {
-          atmoHandler.getFrameworkConfig().add(new FrameworkConfig(param,value));
+          atmoHandler.getFrameworkConfig().add(new FrameworkConfiguration(param,value));
         }
       }
     }

@@ -1,5 +1,5 @@
 {
-  AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)webSocket.resource();
+  AtmosphereResource r=(AtmosphereResource)webSocket.resource();
   Broadcaster b=lookupBroadcaster(r.getRequest().getPathInfo());
   if (message != null && message.indexOf("message") != -1) {
     b.broadcast(message.substring("message=".length()));

@@ -4,6 +4,7 @@
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
   req.setAttribute(ATMOSPHERE_CONFIG,config);
   AtmosphereRequest r=null;
+  AtmosphereResponse ar=AtmosphereResponse.wrap(res);
   Action a=null;
   try {
     if (config.getInitParameter(ALLOW_QUERYSTRING_AS_REQUEST) != null && (isIECandidate(req) || req.getParameter(HeaderConfig.JSONP_CALLBACK_NAME) != null) && req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
@@ -13,10 +14,10 @@
         body=null;
       }
       r=new AtmosphereRequest.Builder().headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod()).body(body).request(req).build();
-      a=cometSupport.service(r,res);
+      a=cometSupport.service(r,ar);
     }
  else {
-      return cometSupport.service(req,res);
+      return cometSupport.service(AtmosphereRequest.wrap(req),ar);
     }
   }
  catch (  IllegalStateException ex) {

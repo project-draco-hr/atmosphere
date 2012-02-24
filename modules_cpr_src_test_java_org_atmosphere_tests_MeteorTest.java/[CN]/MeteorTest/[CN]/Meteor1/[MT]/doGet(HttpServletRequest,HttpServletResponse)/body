@@ -4,16 +4,16 @@
   m.suspend(5000,false);
   m.broadcast("resume");
   m.addListener(new AtmosphereResourceEventListener(){
-    @Override public void onSuspend(    final AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+    @Override public void onSuspend(    final AtmosphereResourceEvent event){
     }
-    @Override public void onResume(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+    @Override public void onResume(    AtmosphereResourceEvent event){
     }
-    @Override public void onDisconnect(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+    @Override public void onDisconnect(    AtmosphereResourceEvent event){
     }
-    @Override public void onBroadcast(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+    @Override public void onBroadcast(    AtmosphereResourceEvent event){
       event.getResource().getRequest().setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,"true");
     }
-    @Override public void onThrowable(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+    @Override public void onThrowable(    AtmosphereResourceEvent event){
     }
   }
 );

@@ -5,7 +5,7 @@
   final CountDownLatch latch=new CountDownLatch(1);
   final CountDownLatch suspendedLatch=new CountDownLatch(1);
   atmoServlet.addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
-    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onRequest(    AtmosphereResource event) throws IOException {
       if (event.getRequest().getHeader("yo") != null) {
         try {
           event.suspend(-1,false);
@@ -23,7 +23,7 @@
         event.getResponse().getOutputStream().write("OK".getBytes());
       }
     }
-    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       if (event.isResuming()) {
         return;
       }

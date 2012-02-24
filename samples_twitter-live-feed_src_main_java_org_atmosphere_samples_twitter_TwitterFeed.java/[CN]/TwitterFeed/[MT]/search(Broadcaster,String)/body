@@ -39,7 +39,7 @@
     futures.put(tagid,future);
   }
   return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(feed).outputComments(true).addListener(new EventsLogger(){
-    @Override public void onSuspend(    final AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+    @Override public void onSuspend(    final AtmosphereResourceEvent event){
       super.onSuspend(event);
       suspendLatch.countDown();
     }
