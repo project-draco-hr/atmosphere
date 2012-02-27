@@ -1,6 +1,6 @@
 {
   super(b.request);
-  pathInfo=b.pathInfo == null ? b.request.getPathInfo() : b.pathInfo;
+  pathInfo=b.pathInfo == "" ? b.request.getPathInfo() : b.pathInfo;
   headers=b.headers == null ? new HashMap<String,String>() : b.headers;
   queryStrings=b.queryStrings == null ? new HashMap<String,String[]>() : b.queryStrings;
   session=b.request == null ? new FakeHttpSession("",null,System.currentTimeMillis()) : b.request.getSession();
