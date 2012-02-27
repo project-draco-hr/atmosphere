@@ -1,3 +1,8 @@
 {
-  return locale;
+  if (!delegateToNativeResponse) {
+    return locale;
+  }
+ else {
+    return _r().getLocale();
+  }
 }

@@ -1,3 +1,8 @@
 {
-  return headers.get(name);
+  if (!delegateToNativeResponse) {
+    return headers.get(name);
+  }
+ else {
+    return _r().getHeader(name);
+  }
 }

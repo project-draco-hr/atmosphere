@@ -1,5 +1,5 @@
 {
-  if (asyncIOWriter != null) {
+  if (!delegateToNativeResponse) {
     return new ServletOutputStream(){
       @Override public void write(      int i) throws java.io.IOException {
         writeStatusAndHeaders();
@@ -39,6 +39,6 @@
 ;
   }
  else {
-    return super.getResponse().getOutputStream();
+    return _r().getOutputStream();
   }
 }

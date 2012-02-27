@@ -1,3 +1,8 @@
 {
-  return isCommited;
+  if (!delegateToNativeResponse) {
+    return isCommited;
+  }
+ else {
+    return _r().isCommitted();
+  }
 }

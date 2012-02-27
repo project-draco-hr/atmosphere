@@ -1,5 +1,6 @@
 {
-  if (localAttributes.remove(name) == null && request != null) {
-    request.removeAttribute(name);
+  b.localAttributes.remove(name);
+  if (b.request != null) {
+    b.request.removeAttribute(name);
   }
 }

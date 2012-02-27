@@ -1,5 +1,5 @@
 {
-  Map<String,String[]> m=(request != null ? request.getParameterMap() : Collections.<String,String[]>emptyMap());
+  Map<String,String[]> m=(b.request != null ? b.request.getParameterMap() : Collections.<String,String[]>emptyMap());
   for (  Map.Entry<String,String[]> e : m.entrySet()) {
     String[] s=queryStrings.get(e.getKey());
     if (s != null) {

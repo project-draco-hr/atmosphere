@@ -1,19 +1,8 @@
 {
   super(b.request);
   pathInfo=b.pathInfo == null ? b.request.getPathInfo() : b.pathInfo;
-  request=b.request;
   headers=b.headers == null ? new HashMap<String,String>() : b.headers;
   queryStrings=b.queryStrings == null ? new HashMap<String,String[]>() : b.queryStrings;
-  servletPath=b.servletPath;
-  requestURI=b.requestURI;
-  requestURL=b.requestURL;
-  localAttributes=b.localAttributes;
-  remoteAddr=b.remoteAddr;
-  remoteHost=b.remoteHost;
-  remotePort=b.remotePort;
-  localAddr=b.localAddr;
-  localName=b.localName;
-  localPort=b.localPort;
   session=b.request == null ? new FakeHttpSession("",null,System.currentTimeMillis()) : b.request.getSession();
   if (b.inputStream == null) {
     if (b.dataBytes != null) {
@@ -38,6 +27,7 @@
     bis=new IS(b.inputStream);
     br=new BufferedReader(new InputStreamReader(b.inputStream));
   }
-  methodType=b.methodType == null ? (request != null ? request.getMethod() : "GET") : b.methodType;
-  contentType=b.contentType == null ? (request != null ? request.getContentType() : "text/plain") : b.contentType;
+  methodType=b.methodType == null ? (b.request != null ? b.request.getMethod() : "GET") : b.methodType;
+  contentType=b.contentType == null ? (b.request != null ? b.request.getContentType() : "text/plain") : b.contentType;
+  this.b=b;
 }

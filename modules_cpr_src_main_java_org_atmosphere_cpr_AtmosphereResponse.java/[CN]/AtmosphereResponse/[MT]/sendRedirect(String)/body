@@ -1,3 +1,8 @@
 {
-  asyncIOWriter.redirect(location);
+  if (!delegateToNativeResponse) {
+    asyncIOWriter.redirect(location);
+  }
+ else {
+    _r().sendRedirect(location);
+  }
 }

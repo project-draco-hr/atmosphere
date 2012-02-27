@@ -1,5 +1,5 @@
 {
-  if (asyncIOWriter != null) {
+  if (!delegateToNativeResponse) {
     return new PrintWriter(getOutputStream()){
       public void write(      char[] chars,      int offset,      int lenght){
         try {
@@ -61,6 +61,6 @@
 ;
   }
  else {
-    return super.getResponse().getWriter();
+    return _r().getWriter();
   }
 }

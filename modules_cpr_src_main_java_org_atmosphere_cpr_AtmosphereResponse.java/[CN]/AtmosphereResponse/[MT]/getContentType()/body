@@ -1,3 +1,8 @@
 {
-  return contentType;
+  if (!delegateToNativeResponse) {
+    return contentType;
+  }
+ else {
+    return _r().getContentType();
+  }
 }

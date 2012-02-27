@@ -1,3 +1,8 @@
 {
-  this.locale=locale;
+  if (!delegateToNativeResponse) {
+    this.locale=locale;
+  }
+ else {
+    _r().setLocale(locale);
+  }
 }
