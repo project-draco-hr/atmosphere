@@ -1,8 +1,10 @@
 {
-  if (messages.size() == 1) {
-    cometResource.post(messages.get(0));
-  }
+  if (cometResource != null && cometResource.isAlive()) {
+    if (messages.size() == 1) {
+      cometResource.post(messages.get(0));
+    }
  else {
-    cometResource.post(messages);
+      cometResource.post(messages);
+    }
   }
 }
