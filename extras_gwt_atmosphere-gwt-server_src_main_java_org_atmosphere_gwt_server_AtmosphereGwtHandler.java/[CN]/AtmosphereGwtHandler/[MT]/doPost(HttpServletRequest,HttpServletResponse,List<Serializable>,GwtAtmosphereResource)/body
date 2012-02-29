@@ -3,6 +3,6 @@
     cometResource.post(messages.get(0));
   }
  else {
-    cometResource.post((List)messages);
+    cometResource.post(messages);
   }
 }
