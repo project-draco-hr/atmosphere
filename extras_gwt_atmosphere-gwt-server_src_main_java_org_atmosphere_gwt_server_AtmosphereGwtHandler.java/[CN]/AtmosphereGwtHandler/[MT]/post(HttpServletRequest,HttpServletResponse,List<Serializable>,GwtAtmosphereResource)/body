@@ -2,7 +2,5 @@
   if (messages == null) {
     return;
   }
-  if (cometResource != null && cometResource.isAlive()) {
-    doPost(postRequest,postResponse,messages,cometResource);
-  }
+  doPost(postRequest,postResponse,messages,cometResource);
 }
