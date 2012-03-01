@@ -1,6 +1,3 @@
 {
-  this.isFilter=isFilter;
-  readSystemProperties();
-  populateBroadcasterType();
-  config=new AtmosphereConfig(this);
+  framework=new AtmosphereFramework(isFilter);
 }

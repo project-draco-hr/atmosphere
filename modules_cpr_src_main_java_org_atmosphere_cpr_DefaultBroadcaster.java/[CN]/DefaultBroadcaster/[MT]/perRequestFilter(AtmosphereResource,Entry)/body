@@ -3,7 +3,7 @@
   if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
 synchronized (r) {
       if (isAtmosphereResourceValid(r)) {
-        if (r.getRequest() instanceof HttpServletRequest && bc.hasPerRequestFilters()) {
+        if (bc.hasPerRequestFilters()) {
           BroadcastAction a=bc.filter(r,msg.message,msg.originalMessage);
           if (a.action() == BroadcastAction.ACTION.ABORT) {
             return null;

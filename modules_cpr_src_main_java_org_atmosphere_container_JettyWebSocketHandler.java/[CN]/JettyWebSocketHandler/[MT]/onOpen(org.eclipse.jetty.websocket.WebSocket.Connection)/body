@@ -1,7 +1,7 @@
 {
   logger.trace("WebSocket.onOpen.");
   try {
-    webSocketProcessor=new WebSocketProcessor(atmosphereServlet,new Jetty8WebSocket(connection,atmosphereServlet.getAtmosphereConfig()),webSocketProtocol);
+    webSocketProcessor=new WebSocketProcessor(framework,new Jetty8WebSocket(connection,framework.getAtmosphereConfig()),webSocketProtocol);
     webSocketProcessor.dispatch(AtmosphereRequest.wrap(request));
     webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CONNECT,webSocketProcessor.webSocket()));
   }

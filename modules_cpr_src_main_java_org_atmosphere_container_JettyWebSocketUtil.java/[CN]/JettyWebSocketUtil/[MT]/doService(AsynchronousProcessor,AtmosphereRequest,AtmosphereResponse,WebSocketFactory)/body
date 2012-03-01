@@ -18,13 +18,13 @@
     if (webSocketFactory != null && !b) {
       req.setAttribute(WebSocket.WEBSOCKET_INITIATED,true);
       webSocketFactory.acceptWebSocket(req,res);
-      return new AtmosphereServlet.Action();
+      return new AtmosphereFramework.Action();
     }
-    AtmosphereServlet.Action action=cometSupport.suspended(req,res);
-    if (action.type == AtmosphereServlet.Action.TYPE.SUSPEND) {
+    AtmosphereFramework.Action action=cometSupport.suspended(req,res);
+    if (action.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
       logger.debug("Suspending response: {}",res);
     }
- else     if (action.type == AtmosphereServlet.Action.TYPE.RESUME) {
+ else     if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
       logger.debug("Resume response: {}",res);
       req.setAttribute(WebSocket.WEBSOCKET_RESUME,true);
     }

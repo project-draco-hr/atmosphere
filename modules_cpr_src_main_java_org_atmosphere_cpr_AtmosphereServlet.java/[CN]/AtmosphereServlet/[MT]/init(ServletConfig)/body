@@ -1,43 +1,4 @@
 {
-  try {
-    super.init(sc);
-    ServletContextHolder.register(this);
-    ServletConfig scFacade=new ServletConfig(){
-      public String getServletName(){
-        return sc.getServletName();
-      }
-      public ServletContext getServletContext(){
-        return sc.getServletContext();
-      }
-      public String getInitParameter(      String name){
-        String param=sc.getInitParameter(name);
-        if (param == null) {
-          return initParams.get(name);
-        }
-        return param;
-      }
-      public Enumeration<String> getInitParameterNames(){
-        return sc.getInitParameterNames();
-      }
-    }
-;
-    doInitParams(scFacade);
-    doInitParamsForWebSocket(scFacade);
-    configureBroadcaster(sc.getServletContext());
-    loadConfiguration(scFacade);
-    autoDetectContainer();
-    configureWebDotXmlAtmosphereHandler(sc);
-    initWebSocketProtocol();
-    cometSupport.init(scFacade);
-    initAtmosphereHandler(scFacade);
-    logger.info("Using broadcaster class: {}",broadcasterClassName);
-    logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
-  }
- catch (  Throwable t) {
-    logger.error("failed to initialize atmosphere framework",t);
-    if (t instanceof ServletException) {
-      throw (ServletException)t;
-    }
-    throw new ServletException(t.getCause());
-  }
+  super.init(sc);
+  framework.init(sc);
 }

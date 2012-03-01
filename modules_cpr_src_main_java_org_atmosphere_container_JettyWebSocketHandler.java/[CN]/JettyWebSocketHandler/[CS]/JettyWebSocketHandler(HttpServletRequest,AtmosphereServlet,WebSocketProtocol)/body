@@ -1,5 +1,0 @@
-{
-  this.request=new JettyRequestFix(request);
-  this.atmosphereServlet=atmosphereServlet;
-  this.webSocketProtocol=webSocketProtocol;
-}

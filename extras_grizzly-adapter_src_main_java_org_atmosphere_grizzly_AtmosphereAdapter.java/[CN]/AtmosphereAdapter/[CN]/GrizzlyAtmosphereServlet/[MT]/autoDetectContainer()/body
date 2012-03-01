@@ -1,4 +1,4 @@
 {
-  setUseStreamForFlushingComments(true);
-  cometSupport=new GrizzlyCometSupport(getAtmosphereConfig());
+  framework().setUseStreamForFlushingComments(true);
+  framework().setCometSupport(new GrizzlyCometSupport(framework().getAtmosphereConfig()));
 }

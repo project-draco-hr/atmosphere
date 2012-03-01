@@ -1,11 +1,5 @@
 {
-  try {
-    Class.forName("org.atmosphere.spade.AtmosphereSpadeLauncher");
-  }
- catch (  Exception ex) {
-    super.autoDetectAtmosphereHandlers(servletContext,classLoader);
-    return;
-  }
+  super.framework().autoDetectAtmosphereHandlers(servletContext,classLoader);
   String realPath=servletContext.getRealPath("WEB-INF/classes");
   if (realPath == null) {
     URL u=servletContext.getResource("WEB-INF/classes");
@@ -25,5 +19,5 @@
     String trailer=realPath.substring(0,index);
     f=new File(trailer + servletContext.getContextPath() + "WEB-INF/classes");
   }
-  loadAtmosphereHandlersFromPath(classLoader,realPath);
+  framework().loadAtmosphereHandlersFromPath(classLoader,realPath);
 }

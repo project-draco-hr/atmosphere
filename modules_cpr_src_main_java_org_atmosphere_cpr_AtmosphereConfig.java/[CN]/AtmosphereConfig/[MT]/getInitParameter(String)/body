@@ -1,10 +1,10 @@
 {
-  String s=atmosphereServlet.initParams.get(name);
+  String s=framework.initParams.get(name);
   if (s != null) {
     return s;
   }
   try {
-    return atmosphereServlet.getInitParameter(name);
+    return framework.getServletContext().getInitParameter(name);
   }
  catch (  Throwable ex) {
     return null;

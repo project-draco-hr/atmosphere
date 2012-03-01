@@ -1,8 +1,8 @@
 {
   try {
     rrk.getRequest().getSession().setAttribute(WebLogicCometSupport.RRK,rrk);
-    Action action=doCometSupport(rrk.getRequest(),rrk.getResponse());
-    if (action.type == Action.TYPE.SUSPEND) {
+    AtmosphereFramework.Action action=framework.doCometSupport(AtmosphereRequest.wrap(rrk.getRequest()),AtmosphereResponse.wrap(rrk.getResponse()));
+    if (action.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
       if (action.timeout == -1) {
         rrk.setTimeout(Integer.MAX_VALUE);
       }
@@ -10,7 +10,7 @@
         rrk.setTimeout((int)action.timeout);
       }
     }
-    return action.type == Action.TYPE.SUSPEND;
+    return action.type == AtmosphereFramework.Action.TYPE.SUSPEND;
   }
  catch (  IllegalStateException ex) {
     logger.error("AtmosphereServlet.doRequest exception",ex);

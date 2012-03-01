@@ -23,5 +23,5 @@
  else {
     r.resume();
   }
-  cacheLostMessage(r,(AsyncWriteToken)HttpServletRequest.class.cast(r.getRequest(false)).getAttribute(ASYNC_TOKEN));
+  cacheLostMessage(r,(AsyncWriteToken)r.getRequest(false).getAttribute(ASYNC_TOKEN));
 }

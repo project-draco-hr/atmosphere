@@ -1,5 +1,5 @@
 {
-  super.loadConfiguration(sc);
+  super.framework().loadConfiguration(sc);
   if (!guiceInstalled) {
     detectSupportedFramework(sc);
   }

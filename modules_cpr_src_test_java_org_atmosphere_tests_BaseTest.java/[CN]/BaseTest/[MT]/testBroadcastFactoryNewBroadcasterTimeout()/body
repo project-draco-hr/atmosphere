@@ -1,7 +1,7 @@
 {
   logger.info("{}: running test: testBroadcastFactoryTimeout",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(2);
-  atmoServlet.addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
+  atmoServlet.framework().addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
     private long currentTime;
     public void onRequest(    AtmosphereResource event) throws IOException {
       currentTime=System.currentTimeMillis();

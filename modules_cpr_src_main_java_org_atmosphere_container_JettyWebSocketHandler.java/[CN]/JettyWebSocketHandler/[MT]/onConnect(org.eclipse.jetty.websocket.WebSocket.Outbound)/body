@@ -1,7 +1,7 @@
 {
   logger.debug("WebSocket.onConnect (outbound)");
   try {
-    webSocketProcessor=new WebSocketProcessor(atmosphereServlet,new JettyWebSocket(outbound),webSocketProtocol);
+    webSocketProcessor=new WebSocketProcessor(framework,new JettyWebSocket(outbound),webSocketProtocol);
     webSocketProcessor.dispatch(AtmosphereRequest.wrap(request));
   }
  catch (  Exception e) {

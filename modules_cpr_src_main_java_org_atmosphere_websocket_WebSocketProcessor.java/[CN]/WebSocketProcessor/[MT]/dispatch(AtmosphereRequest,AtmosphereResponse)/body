@@ -1,7 +1,7 @@
 {
   if (request == null)   return;
   try {
-    atmosphereServlet.doCometSupport(request,r);
+    framework.doCometSupport(request,r);
   }
  catch (  IOException e) {
     logger.warn("Failed invoking atmosphere servlet doCometSupport()",e);

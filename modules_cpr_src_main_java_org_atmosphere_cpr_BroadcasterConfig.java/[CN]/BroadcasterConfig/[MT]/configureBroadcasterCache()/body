@@ -1,7 +1,7 @@
 {
   try {
-    if (AtmosphereServlet.broadcasterCacheClassName != null) {
-      BroadcasterCache cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(AtmosphereServlet.broadcasterCacheClassName).newInstance();
+    if (AtmosphereFramework.broadcasterCacheClassName != null) {
+      BroadcasterCache cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(AtmosphereFramework.broadcasterCacheClassName).newInstance();
       InjectorProvider.getInjector().inject(cache);
       setBroadcasterCache(cache);
     }
