@@ -7,6 +7,10 @@
     req.setAttribute(HOOK,new CometSupportHook(req,res));
   }
  else   if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
+    Boolean resumeOnBroadcast=(Boolean)req.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
+    if (resumeOnBroadcast != null && resumeOnBroadcast) {
+      return action;
+    }
     logger.debug("Resuming response: {}",res);
     AtmosphereFramework.Action nextAction=resumed(req,res);
     if (nextAction.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
