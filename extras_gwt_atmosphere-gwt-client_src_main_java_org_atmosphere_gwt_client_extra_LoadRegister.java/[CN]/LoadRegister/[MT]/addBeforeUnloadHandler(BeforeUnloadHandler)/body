@@ -1,12 +1,4 @@
 {
   maybeInit();
-  log("register BeforeUnloadHandler");
-  BeforeUnloadHandler wrapper=new BeforeUnloadHandler(){
-    @Override public void onBeforeUnload(    BeforeUnloadEvent event){
-      log("execute BeforeUnloadHandler");
-      handler.onBeforeUnload(event);
-    }
-  }
-;
-  return eventBus.addHandler(BeforeUnloadEvent.getType(),wrapper);
+  return eventBus.addHandler(BeforeUnloadEvent.getType(),handler);
 }

@@ -1,5 +1,4 @@
 {
-  log("LoadRegister onBeforeUnload");
   eventBus.fireEvent(beforeUnloadEvent);
   return null;
 }
