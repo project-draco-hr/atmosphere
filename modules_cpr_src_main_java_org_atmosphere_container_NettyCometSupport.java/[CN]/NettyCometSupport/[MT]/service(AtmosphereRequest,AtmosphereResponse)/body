@@ -7,6 +7,7 @@
     req.setAttribute(HOOK,new CometSupportHook(req,res));
   }
  else   if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
+    req.setAttribute(SUSPEND,action);
     Boolean resumeOnBroadcast=(Boolean)req.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
     if (resumeOnBroadcast != null && resumeOnBroadcast) {
       return action;
