@@ -1,5 +1,5 @@
 {
-  localAttributes.clear();
+  b.localAttributes.clear();
   if (bis != null) {
     try {
       bis.close();
@@ -16,8 +16,8 @@
   }
   headers.clear();
   queryStrings.clear();
-  if (request != null) {
-    request.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-    request=null;
+  if (b.request != null) {
+    b.request.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+    b.request=null;
   }
 }

@@ -1,9 +1,9 @@
 {
   logger.info("{}: running test: testBroadcastFactoryTimeout",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(2);
-  atmoServlet.addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
+  atmoServlet.framework().addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
     private long currentTime;
-    public void onRequest(    AtmosphereResource<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onRequest(    AtmosphereResource event) throws IOException {
       currentTime=System.currentTimeMillis();
       event.suspend(5000,false);
       try {
@@ -19,7 +19,7 @@ catch (      ExecutionException e) {
         e.printStackTrace();
       }
     }
-    public void onStateChange(    AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event) throws IOException {
+    public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       if (event.isResuming()) {
         return;
       }

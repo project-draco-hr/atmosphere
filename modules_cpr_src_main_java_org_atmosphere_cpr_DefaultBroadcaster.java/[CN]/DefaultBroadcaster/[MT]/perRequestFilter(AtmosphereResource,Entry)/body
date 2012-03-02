@@ -1,0 +1,26 @@
+{
+  Object finalMsg=msg.message;
+  if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
+synchronized (r) {
+      if (isAtmosphereResourceValid(r)) {
+        if (bc.hasPerRequestFilters()) {
+          BroadcastAction a=bc.filter(r,msg.message,msg.originalMessage);
+          if (a.action() == BroadcastAction.ACTION.ABORT) {
+            return null;
+          }
+          if (a.message() != msg.originalMessage) {
+            finalMsg=a.message();
+          }
+        }
+      }
+ else {
+        removeAtmosphereResource(r);
+        BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+      }
+      if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
+        trackBroadcastMessage(r,finalMsg);
+      }
+    }
+  }
+  return finalMsg;
+}

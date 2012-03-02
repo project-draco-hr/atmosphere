@@ -1,6 +1,6 @@
 {
-  Map<String,String> map=new HashMap<String,String>(atmosphereServlet.initParams);
-  Enumeration en=atmosphereServlet.getInitParameterNames();
+  final Map<String,String> map=new HashMap<String,String>(framework.initParams);
+  Enumeration en=framework.getServletContext().getInitParameterNames();
   while (en.hasMoreElements()) {
     String name=(String)en.nextElement();
     if (!map.containsKey(name)) {

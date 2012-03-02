@@ -1,0 +1,6 @@
+{
+  AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(ar);
+  if (!r.isInScope())   return null;
+  AtmosphereRequest request=r.getRequest();
+  return retrieveUsingHeader(request.getHeader(X_CACHE_DATE));
+}

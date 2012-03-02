@@ -18,7 +18,7 @@
   if (w != null) {
     response.setContainerResponseWriter(w);
   }
-  AtmosphereResource<HttpServletRequest,HttpServletResponse> r=(AtmosphereResource<HttpServletRequest,HttpServletResponse>)servletReq.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  AtmosphereResource r=(AtmosphereResource)servletReq.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
   if (Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.SUPPORT_LOCATION_HEADER))) {
     useResumeAnnotation=true;
   }
@@ -60,7 +60,7 @@ throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereR
 }
 final Object entity=response.getEntity();
 r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-@Override public void onSuspend(AtmosphereResourceEvent<HttpServletRequest,HttpServletResponse> event){
+@Override public void onSuspend(AtmosphereResourceEvent event){
 try {
 if (entity != null) {
 if (waitForResource) {

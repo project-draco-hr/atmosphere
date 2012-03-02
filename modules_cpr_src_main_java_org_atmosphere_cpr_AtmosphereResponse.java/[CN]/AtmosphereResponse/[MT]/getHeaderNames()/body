@@ -1,3 +1,8 @@
 {
-  return Collections.unmodifiableSet(headers.keySet());
+  if (!delegateToNativeResponse) {
+    return Collections.unmodifiableSet(headers.keySet());
+  }
+ else {
+    return _r().getHeaderNames();
+  }
 }

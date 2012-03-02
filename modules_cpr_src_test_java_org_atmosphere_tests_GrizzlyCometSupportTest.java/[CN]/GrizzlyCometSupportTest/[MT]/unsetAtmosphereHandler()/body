@@ -1,4 +1,4 @@
 {
-  atmoServlet.destroy();
+  atmoServlet.framework().destroy();
   ws.stop();
 }

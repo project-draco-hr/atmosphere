@@ -1,0 +1,3 @@
+AtmosphereResource resource
+AtmosphereGwtHandler servlet
+int heartBeatInterval

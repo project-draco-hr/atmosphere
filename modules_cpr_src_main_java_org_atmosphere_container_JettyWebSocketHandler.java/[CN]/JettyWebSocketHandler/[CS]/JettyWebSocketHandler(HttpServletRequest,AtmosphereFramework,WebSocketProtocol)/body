@@ -1,0 +1,5 @@
+{
+  this.request=new JettyRequestFix(request);
+  this.framework=framework;
+  this.webSocketProtocol=webSocketProtocol;
+}

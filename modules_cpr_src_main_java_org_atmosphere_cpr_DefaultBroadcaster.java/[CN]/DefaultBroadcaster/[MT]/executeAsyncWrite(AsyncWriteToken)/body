@@ -11,7 +11,7 @@
       return;
     }
     try {
-      HttpServletRequest.class.cast(r.getRequest()).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
+      r.getRequest().setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     }
  catch (    Throwable t) {
       logger.error("Invalid AtmosphereResource state {}. The connection has been remotely" + " closed and will be added to the configured BroadcasterCache for later retrieval",event);

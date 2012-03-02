@@ -1,4 +1,0 @@
-CometContext ctx
-Action action
-HttpServletRequest req
-HttpServletResponse res

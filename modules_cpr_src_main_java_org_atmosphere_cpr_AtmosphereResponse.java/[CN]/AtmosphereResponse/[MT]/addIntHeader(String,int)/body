@@ -1,3 +1,8 @@
 {
-  headers.put(name,String.valueOf(value));
+  if (!delegateToNativeResponse) {
+    headers.put(name,String.valueOf(value));
+  }
+ else {
+    _r().addIntHeader(name,value);
+  }
 }

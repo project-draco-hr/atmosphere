@@ -1,4 +1,9 @@
 {
-  setStatus(sc);
-  asyncIOWriter.writeError(sc,"");
+  if (!delegateToNativeResponse) {
+    setStatus(sc);
+    asyncIOWriter.writeError(sc,"");
+  }
+ else {
+    _r().sendError(sc);
+  }
 }

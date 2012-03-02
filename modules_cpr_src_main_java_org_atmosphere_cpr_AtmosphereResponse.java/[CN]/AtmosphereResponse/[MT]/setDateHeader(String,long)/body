@@ -1,3 +1,8 @@
 {
-  headers.put(name,String.valueOf(date));
+  if (!delegateToNativeResponse) {
+    headers.put(name,String.valueOf(date));
+  }
+ else {
+    _r().setDateHeader(name,date);
+  }
 }

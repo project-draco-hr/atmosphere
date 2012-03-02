@@ -41,7 +41,7 @@
       write();
     }
     req.setAttribute(PRE_SUSPEND,"true");
-    action.type=AtmosphereServlet.Action.TYPE.SUSPEND;
+    action.type=Action.TYPE.SUSPEND;
     action.timeout=timeout;
     boolean isJersey=req.getAttribute(FrameworkConfig.CONTAINER_RESPONSE) != null;
     boolean skipCreation=false;

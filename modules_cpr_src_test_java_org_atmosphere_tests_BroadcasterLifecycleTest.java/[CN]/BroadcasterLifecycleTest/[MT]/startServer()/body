@@ -7,7 +7,7 @@
   configureCometSupport();
   root.addServlet(new ServletHolder(atmoServlet),ROOT);
   server.start();
-  atmoServlet.addAtmosphereHandler("/suspend",new LifeCycleTestHandler());
-  atmoServlet.addAtmosphereHandler("/destroy",new Destroy());
-  atmoServlet.addAtmosphereHandler("/invoke",new Invoker());
+  atmoServlet.framework().addAtmosphereHandler("/suspend",new LifeCycleTestHandler());
+  atmoServlet.framework().addAtmosphereHandler("/destroy",new Destroy());
+  atmoServlet.framework().addAtmosphereHandler("/invoke",new Invoker());
 }

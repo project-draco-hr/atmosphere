@@ -1,0 +1,40 @@
+{
+  AtmosphereRequest req=event.getRequest();
+  AtmosphereResponse res=event.getResponse();
+  res.setContentType("text/html");
+  res.addHeader("Cache-Control","private");
+  res.addHeader("Pragma","no-cache");
+  if (req.getMethod().equalsIgnoreCase("GET")) {
+    event.suspend();
+  }
+ else   if (req.getMethod().equalsIgnoreCase("POST")) {
+synchronized (game) {
+      int cell=-1;
+      String cellStr=req.getParameter("cell");
+      PrintWriter writer=res.getWriter();
+      writer.println("cell is '" + cellStr + "'");
+      if (cellStr == null) {
+        writer.println("error - cell not set");
+        return;
+      }
+      try {
+        cell=Integer.parseInt(cellStr);
+      }
+ catch (      NumberFormatException nfe) {
+        writer.println("error - cellStr not an int: " + cellStr);
+        return;
+      }
+      if (!game.turn(cell)) {
+        writer.println("warning - invalid move");
+      }
+      writer.println(game.getJSON());
+      Broadcaster bc=event.getBroadcaster();
+      String response=game.getJSON();
+      bc.broadcast(response);
+      writer.flush();
+      if (game.win() != -1) {
+        game=new TTTGame();
+      }
+    }
+  }
+}

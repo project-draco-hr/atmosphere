@@ -1,39 +1,44 @@
 {
-  return new ServletOutputStream(){
-    @Override public void write(    int i) throws java.io.IOException {
-      writeStatusAndHeaders();
-      if (asyncProtocol.inspectResponse()) {
-        asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new byte[]{(byte)i},0,1));
-      }
+  if (!delegateToNativeResponse) {
+    return new ServletOutputStream(){
+      @Override public void write(      int i) throws java.io.IOException {
+        writeStatusAndHeaders();
+        if (asyncProtocol.inspectResponse()) {
+          asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new byte[]{(byte)i},0,1));
+        }
  else {
-        asyncIOWriter.write(new byte[]{(byte)i});
+          asyncIOWriter.write(new byte[]{(byte)i});
+        }
       }
-    }
-    @Override public void write(    byte[] bytes) throws java.io.IOException {
-      writeStatusAndHeaders();
-      if (asyncProtocol.inspectResponse()) {
-        asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,0,bytes.length));
-      }
+      @Override public void write(      byte[] bytes) throws java.io.IOException {
+        writeStatusAndHeaders();
+        if (asyncProtocol.inspectResponse()) {
+          asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,0,bytes.length));
+        }
  else {
-        asyncIOWriter.write(bytes);
+          asyncIOWriter.write(bytes);
+        }
       }
-    }
-    @Override public void write(    byte[] bytes,    int start,    int offset) throws java.io.IOException {
-      writeStatusAndHeaders();
-      if (asyncProtocol.inspectResponse()) {
-        byte[] b=asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,start,offset);
-        asyncIOWriter.write(b,0,b.length);
-      }
+      @Override public void write(      byte[] bytes,      int start,      int offset) throws java.io.IOException {
+        writeStatusAndHeaders();
+        if (asyncProtocol.inspectResponse()) {
+          byte[] b=asyncProtocol.handleResponse(AtmosphereResponse.this,bytes,start,offset);
+          asyncIOWriter.write(b,0,b.length);
+        }
  else {
-        asyncIOWriter.write(bytes,start,offset);
+          asyncIOWriter.write(bytes,start,offset);
+        }
+      }
+      @Override public void flush() throws IOException {
+        asyncIOWriter.flush();
+      }
+      @Override public void close() throws java.io.IOException {
+        asyncIOWriter.close();
       }
     }
-    @Override public void flush() throws IOException {
-      asyncIOWriter.flush();
-    }
-    @Override public void close() throws java.io.IOException {
-      asyncIOWriter.close();
-    }
-  }
 ;
+  }
+ else {
+    return _r().getOutputStream();
+  }
 }

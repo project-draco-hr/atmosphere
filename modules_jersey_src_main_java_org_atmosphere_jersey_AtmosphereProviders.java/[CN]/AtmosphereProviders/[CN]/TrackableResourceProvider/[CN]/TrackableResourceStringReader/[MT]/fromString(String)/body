@@ -8,7 +8,7 @@
     if (trackingId != null) {
       trackableResource=(TrackableResource<AtmosphereResourceImpl>)TrackableSession.getDefault().lookup(trackingId);
       if (req.getAttribute(ApplicationConfig.SUPPORT_TRACKABLE) != null) {
-        AtmosphereResource<?,?> r=(AtmosphereResource<?,?>)req.getAttribute(ATMOSPHERE_RESOURCE);
+        AtmosphereResource r=(AtmosphereResource)req.getAttribute(ATMOSPHERE_RESOURCE);
         if (trackableResource == null) {
           trackableResource=new TrackableResource<AtmosphereResourceImpl>(AtmosphereResourceImpl.class,trackingId,"");
           trackableResource.setResource(r);

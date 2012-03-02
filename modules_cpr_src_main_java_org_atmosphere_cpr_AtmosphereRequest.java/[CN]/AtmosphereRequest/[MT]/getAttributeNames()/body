@@ -1,12 +1,12 @@
 {
   Map<String,Object> m=new HashMap<String,Object>();
-  m.putAll(localAttributes);
-  Enumeration<String> e=(request != null ? request.getAttributeNames() : null);
+  m.putAll(b.localAttributes);
+  Enumeration<String> e=(b.request != null ? b.request.getAttributeNames() : null);
   if (e != null) {
     String s;
     while (e.hasMoreElements()) {
       s=e.nextElement();
-      m.put(s,request.getAttribute(s));
+      m.put(s,b.request.getAttribute(s));
     }
   }
   return Collections.enumeration(m.keySet());

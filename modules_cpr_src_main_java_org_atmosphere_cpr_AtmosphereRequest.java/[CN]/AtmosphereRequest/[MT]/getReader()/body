@@ -1,3 +1,3 @@
 {
-  return br == null ? (request != null ? request.getReader() : null) : br;
+  return br == null ? (b.request != null ? b.request.getReader() : null) : br;
 }

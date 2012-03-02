@@ -1,0 +1,43 @@
+{
+  req.setAttribute(BROADCASTER_FACTORY,broadcasterFactory);
+  req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
+  req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
+  req.setAttribute(ATMOSPHERE_CONFIG,config);
+  AtmosphereRequest r=null;
+  Action a=null;
+  try {
+    if (config.getInitParameter(ALLOW_QUERYSTRING_AS_REQUEST) != null && (isIECandidate(req) || req.getParameter(HeaderConfig.JSONP_CALLBACK_NAME) != null) && req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
+      Map<String,String> headers=configureQueryStringAsRequest(req);
+      String body=headers.remove(ATMOSPHERE_POST_BODY);
+      if (body != null && body.isEmpty()) {
+        body=null;
+      }
+      r=new AtmosphereRequest.Builder().headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod()).body(body).request(req).build();
+      a=cometSupport.service(r,res);
+    }
+ else {
+      return cometSupport.service(AtmosphereRequest.wrap(req),res);
+    }
+  }
+ catch (  IllegalStateException ex) {
+    if (ex.getMessage() != null && ex.getMessage().startsWith("Tomcat failed")) {
+      if (!isFilter) {
+        logger.warn("Failed using comet support: {}, error: {} Is the Nio or Apr Connector enabled?",cometSupport.getClass().getName(),ex.getMessage());
+        logger.warn("Using BlockingIOCometSupport.");
+      }
+      logger.trace(ex.getMessage(),ex);
+      cometSupport=new BlockingIOCometSupport(config);
+      doCometSupport(req,res);
+    }
+ else {
+      logger.error("AtmosphereServlet exception",ex);
+      throw ex;
+    }
+  }
+ finally {
+    if (r != null && a != null && a.type != Action.TYPE.SUSPEND) {
+      r.destroy();
+    }
+  }
+  return null;
+}

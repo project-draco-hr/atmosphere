@@ -2,13 +2,13 @@
   HttpServletRequest req=httpEvent.getHttpServletRequest();
   HttpServletResponse res=httpEvent.getHttpServletResponse();
   req.setAttribute(JBossWebCometSupport.HTTP_EVENT,httpEvent);
-  if (!isCometSupportSpecified && !isCometSupportConfigured.getAndSet(true)) {
-synchronized (cometSupport) {
-      if (!cometSupport.getClass().equals(JBossWebCometSupport.class)) {
+  if (!framework.isCometSupportSpecified && !framework.isCometSupportConfigured.getAndSet(true)) {
+synchronized (framework.cometSupport) {
+      if (!framework.cometSupport.getClass().equals(JBossWebCometSupport.class)) {
         logger.warn("JBossWebCometSupport is enabled, switching to it");
-        cometSupport=new JBossWebCometSupport(config);
+        framework.cometSupport=new JBossWebCometSupport(framework.config);
       }
     }
   }
-  doCometSupport(req,res);
+  framework.doCometSupport(AtmosphereRequest.wrap(req),AtmosphereResponse.wrap(res));
 }

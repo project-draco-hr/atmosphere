@@ -1,4 +1,0 @@
-AsynchronousProcessor cometSupport
-HttpServletRequest req
-HttpServletResponse res
-WebSocketFactory webSocketFactory

@@ -1,0 +1,9 @@
+{
+  r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onSuspend(    AtmosphereResourceEvent event){
+      broadcasterReady.countDown();
+    }
+  }
+);
+  r.suspend(-1,false);
+}

@@ -1,3 +1,3 @@
 {
-  return localAttributes.get(s) != null ? localAttributes.get(s) : (request != null ? request.getAttribute(s) : null);
+  return b.localAttributes.get(s) != null ? b.localAttributes.get(s) : (b.request != null ? b.request.getAttribute(s) : null);
 }

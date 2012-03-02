@@ -1,8 +1,8 @@
 {
   ArrayList list=Collections.list(super.getHeaderNames());
   list.add("content-type");
-  if (request != null) {
-    Enumeration e=request.getAttributeNames();
+  if (b.request != null) {
+    Enumeration e=b.request.getAttributeNames();
     while (e.hasMoreElements()) {
       String name=e.nextElement().toString();
       if (name.startsWith(X_ATMOSPHERE)) {

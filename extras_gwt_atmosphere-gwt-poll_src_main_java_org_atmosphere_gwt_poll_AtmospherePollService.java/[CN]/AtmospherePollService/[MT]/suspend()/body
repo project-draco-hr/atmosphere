@@ -1,5 +1,5 @@
 {
-  AtmosphereResource<HttpServletRequest,HttpServletResponse> atm=getAtmosphereResource();
+  AtmosphereResource atm=getAtmosphereResource();
   if (atm == null) {
     throw new UnexpectedException("Failed to find Atmosphere resource have you setup Atmosphere?",null);
   }

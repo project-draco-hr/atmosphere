@@ -1,3 +1,3 @@
 {
-  return "GET";
+  throw new UnsupportedOperationException();
 }

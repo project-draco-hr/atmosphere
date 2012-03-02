@@ -1,7 +1,7 @@
 {
   try {
     if (!isResumed && isInScope) {
-      action.type=AtmosphereServlet.Action.TYPE.RESUME;
+      action.type=Action.TYPE.RESUME;
       isResumed=true;
       try {
         logger.debug("Resuming {}",getRequest(false));
@@ -47,12 +47,6 @@
     }
  else {
       logger.debug("Cannot resume an already resumed/cancelled request {}",this);
-    }
-    if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
-      AtmosphereResponse.class.cast(response).destroy();
-    }
-    if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
-      AtmosphereRequest.class.cast(req).destroy();
     }
   }
  catch (  Throwable t) {

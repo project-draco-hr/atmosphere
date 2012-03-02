@@ -1,3 +1,3 @@
 {
-  atmoServlet.setCometSupport(new Jetty7CometSupport(atmoServlet.getAtmosphereConfig()));
+  atmoServlet.framework().setCometSupport(new Jetty7CometSupport(atmoServlet.framework().getAtmosphereConfig()));
 }

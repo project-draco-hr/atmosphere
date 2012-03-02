@@ -1,3 +1,8 @@
 {
-  contentLength=len;
+  if (!delegateToNativeResponse) {
+    contentLength=len;
+  }
+ else {
+    _r().setContentLength(len);
+  }
 }

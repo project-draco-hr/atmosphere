@@ -1,0 +1,12 @@
+{
+  this.webSocket=webSocket;
+  this.framework=framework;
+  this.webSocketProtocol=webSocketProtocol;
+  String s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
+  if (s != null && Boolean.valueOf(s)) {
+    recycleAtmosphereRequestResponse=true;
+  }
+ else {
+    recycleAtmosphereRequestResponse=false;
+  }
+}

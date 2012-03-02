@@ -1,3 +1,8 @@
 {
-  this.contentType=contentType;
+  if (!delegateToNativeResponse) {
+    this.contentType=contentType;
+  }
+ else {
+    _r().setContentType(contentType);
+  }
 }

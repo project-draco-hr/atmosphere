@@ -1,10 +1,10 @@
 {
   if (!r.isInScope())   return;
-  HttpServletRequest req=r.getRequest(false);
+  AtmosphereRequest req=r.getRequest(false);
   String disableOnEvent=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.DISABLE_ONSTATE_EVENT);
   try {
     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
-      AtmosphereHandler<HttpServletRequest,HttpServletResponse> atmosphereHandler=(AtmosphereHandler<HttpServletRequest,HttpServletResponse>)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
+      AtmosphereHandler atmosphereHandler=(AtmosphereHandler)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
 synchronized (r) {
         atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
         Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);

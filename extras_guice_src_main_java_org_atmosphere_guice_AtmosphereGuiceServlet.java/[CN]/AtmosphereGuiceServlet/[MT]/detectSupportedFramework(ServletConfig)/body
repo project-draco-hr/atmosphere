@@ -1,15 +1,15 @@
 {
-  Injector injector=(Injector)config.getServletContext().getAttribute(Injector.class.getName());
+  Injector injector=(Injector)framework().getAtmosphereConfig().getServletContext().getAttribute(Injector.class.getName());
   GuiceContainer guiceServlet=injector.getInstance(GuiceContainer.class);
-  setUseStreamForFlushingComments(false);
+  framework().setUseStreamForFlushingComments(false);
   ReflectorServletProcessor rsp=new ReflectorServletProcessor();
-  setDefaultBroadcasterClassName(FrameworkConfig.JERSEY_BROADCASTER);
-  setUseStreamForFlushingComments(true);
+  framework().setDefaultBroadcasterClassName(FrameworkConfig.JERSEY_BROADCASTER);
+  framework().setUseStreamForFlushingComments(true);
   rsp.setServlet(guiceServlet);
   if (sc.getServletContext().getAttribute(SKIP_GUICE_FILTER) == null) {
     rsp.setFilterClassName(GUICE_FILTER);
   }
-  getAtmosphereConfig().setSupportSession(false);
+  framework().getAtmosphereConfig().setSupportSession(false);
   String mapping=sc.getInitParameter(ApplicationConfig.PROPERTY_SERVLET_MAPPING);
   if (mapping == null) {
     mapping="/*";
@@ -20,14 +20,14 @@
 ,Names.named(JERSEY_PROPERTIES)));
     if (props != null) {
       for (      String p : props.keySet()) {
-        addInitParameter(p,props.get(p));
+        framework().addInitParameter(p,props.get(p));
       }
     }
   }
  catch (  Exception ex) {
     logger.debug("failed to add Jersey init parameters to Atmosphere servlet",ex);
   }
-  addAtmosphereHandler(mapping,rsp);
+  framework().addAtmosphereHandler(mapping,rsp);
   guiceInstalled=true;
   return true;
 }
