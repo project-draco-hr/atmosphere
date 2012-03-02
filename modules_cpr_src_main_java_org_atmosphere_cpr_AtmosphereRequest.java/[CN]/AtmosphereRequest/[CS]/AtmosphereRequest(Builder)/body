@@ -1,5 +1,5 @@
 {
-  super(b.request);
+  super(b.request == null ? new NoOpsRequest() : b.request);
   pathInfo=b.pathInfo == "" ? b.request.getPathInfo() : b.pathInfo;
   headers=b.headers == null ? new HashMap<String,String>() : b.headers;
   queryStrings=b.queryStrings == null ? new HashMap<String,String[]>() : b.queryStrings;
