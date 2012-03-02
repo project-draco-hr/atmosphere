@@ -1,4 +1,0 @@
-{
-  String ua=userAgent();
-  return ua.indexOf("gecko") != -1 && ua.indexOf("webkit") == -1;
-}

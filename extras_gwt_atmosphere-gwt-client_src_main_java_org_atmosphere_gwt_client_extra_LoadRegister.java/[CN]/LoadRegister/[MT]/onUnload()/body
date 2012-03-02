@@ -1,3 +1,4 @@
 {
+  log("LoadRegister onUnload");
   eventBus.fireEvent(unloadEvent);
 }
