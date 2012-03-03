@@ -1,3 +1,3 @@
 AsyncIOWriter asyncIOWriter
 AsyncProtocol asyncProtocol
-HttpServletRequest atmosphereRequest
+AtmosphereRequest atmosphereRequest

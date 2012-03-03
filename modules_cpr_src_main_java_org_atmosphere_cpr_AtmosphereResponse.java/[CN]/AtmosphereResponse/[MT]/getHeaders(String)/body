@@ -1,10 +1,5 @@
 {
-  if (!delegateToNativeResponse) {
-    ArrayList<String> s=new ArrayList<String>();
-    s.add(headers.get(name));
-    return Collections.unmodifiableList(s);
-  }
- else {
-    return getHeaders(name);
-  }
+  ArrayList<String> s=new ArrayList<String>();
+  s.add(headers.get(name));
+  return Collections.unmodifiableList(s);
 }
