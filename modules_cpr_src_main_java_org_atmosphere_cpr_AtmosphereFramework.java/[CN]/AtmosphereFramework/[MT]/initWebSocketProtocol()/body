@@ -1,4 +1,5 @@
 {
+  if (webSocketProtocol != null)   return;
   try {
     webSocketProtocol=(WebSocketProtocol)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProtocolClassName).newInstance();
   }

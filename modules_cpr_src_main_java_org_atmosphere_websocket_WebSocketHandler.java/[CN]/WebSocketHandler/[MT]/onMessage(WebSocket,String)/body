@@ -1,0 +1,4 @@
+{
+  onTextMessage(webSocket,data);
+  return null;
+}

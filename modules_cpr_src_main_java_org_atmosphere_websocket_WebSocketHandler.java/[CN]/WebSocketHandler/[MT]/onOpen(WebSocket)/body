@@ -1,0 +1,3 @@
+{
+  webSocket.resource().suspend(-1);
+}

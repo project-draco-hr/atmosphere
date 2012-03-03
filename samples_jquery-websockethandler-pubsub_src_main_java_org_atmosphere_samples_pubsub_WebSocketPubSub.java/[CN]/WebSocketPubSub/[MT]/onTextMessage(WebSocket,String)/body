@@ -4,5 +4,4 @@
   if (message != null && message.indexOf("message") != -1) {
     b.broadcast(message.substring("message=".length()));
   }
-  return null;
 }

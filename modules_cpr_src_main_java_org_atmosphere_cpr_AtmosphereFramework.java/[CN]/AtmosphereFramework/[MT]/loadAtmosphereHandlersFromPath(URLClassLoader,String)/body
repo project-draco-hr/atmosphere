@@ -2,7 +2,7 @@
   File file=new File(realPath);
   if (file.isDirectory()) {
     getFiles(file);
-    for (    String className : possibleAtmosphereHandlersCandidate) {
+    for (    String className : possibleComponentsCandidate) {
       try {
         className=className.replace('\\','/');
         className=className.replaceFirst("^.*/(WEB-INF|target)/(test-)?classes/(.*)\\.class","$3").replace("/",".");

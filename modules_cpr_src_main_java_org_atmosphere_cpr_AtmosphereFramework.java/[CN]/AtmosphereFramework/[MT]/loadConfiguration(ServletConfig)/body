@@ -9,6 +9,7 @@
         detectSupportedFramework(sc);
       }
     }
+    autoDetectWebSocketHandler(sc.getServletContext(),urlC);
   }
  catch (  Throwable t) {
     throw new ServletException(t);
