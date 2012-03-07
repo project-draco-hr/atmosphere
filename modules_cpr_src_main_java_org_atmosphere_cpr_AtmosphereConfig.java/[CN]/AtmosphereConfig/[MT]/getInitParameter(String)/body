@@ -1,10 +1,6 @@
 {
-  String s=framework.initParams.get(name);
-  if (s != null) {
-    return s;
-  }
   try {
-    return framework.getServletContext().getInitParameter(name);
+    return framework.getServletConfig().getInitParameter(name);
   }
  catch (  Throwable ex) {
     return null;

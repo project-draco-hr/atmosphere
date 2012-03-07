@@ -1,12 +1,3 @@
 {
-  final Map<String,String> map=new HashMap<String,String>(framework.initParams);
-  Enumeration en=framework.getServletContext().getInitParameterNames();
-  while (en.hasMoreElements()) {
-    String name=(String)en.nextElement();
-    if (!map.containsKey(name)) {
-      map.put(name,name);
-    }
-  }
-  Vector<String> v=new Vector<String>(map.keySet());
-  return v.elements();
+  return framework().getServletConfig().getInitParameterNames();
 }

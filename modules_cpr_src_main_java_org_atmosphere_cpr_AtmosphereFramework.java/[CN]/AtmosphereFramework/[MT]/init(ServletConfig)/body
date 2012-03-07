@@ -16,11 +16,18 @@
         return param;
       }
       public Enumeration<String> getInitParameterNames(){
-        return sc.getInitParameterNames();
+        Enumeration en=sc.getInitParameterNames();
+        while (en.hasMoreElements()) {
+          String name=(String)en.nextElement();
+          if (!initParams.containsKey(name)) {
+            initParams.put(name,name);
+          }
+        }
+        return Collections.enumeration(initParams.keySet());
       }
     }
 ;
-    this.servletConfig=sc;
+    this.servletConfig=scFacade;
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
     configureBroadcaster(sc.getServletContext());
