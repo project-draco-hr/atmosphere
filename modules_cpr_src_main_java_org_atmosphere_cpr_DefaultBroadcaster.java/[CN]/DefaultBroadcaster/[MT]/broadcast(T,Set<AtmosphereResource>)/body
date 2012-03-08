@@ -1,7 +1,7 @@
 {
   if (destroyed.get()) {
     logger.debug(DESTROYED,getID(),"broadcast(T msg, Set<AtmosphereResource<?, ?>> subset)");
-    return null;
+    return (new BroadcasterFuture<Object>(msg)).done();
   }
   start();
   Object newMsg=filter(msg);
