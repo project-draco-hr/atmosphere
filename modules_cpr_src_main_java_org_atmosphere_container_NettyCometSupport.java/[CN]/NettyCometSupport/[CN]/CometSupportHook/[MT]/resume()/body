@@ -1,4 +1,5 @@
 {
+  if (req.getAttribute(CHANNEL) == null)   return;
   try {
     ((AsyncIOWriter)req.getAttribute(CHANNEL)).close();
   }
