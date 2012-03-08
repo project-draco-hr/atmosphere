@@ -1,3 +1,3 @@
 {
-  suspend(timeout,true);
+  return suspend(timeout,true);
 }

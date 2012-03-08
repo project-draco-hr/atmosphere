@@ -6,4 +6,5 @@
  else {
     response.getOutputStream().write(o.toString().getBytes());
   }
+  return this;
 }

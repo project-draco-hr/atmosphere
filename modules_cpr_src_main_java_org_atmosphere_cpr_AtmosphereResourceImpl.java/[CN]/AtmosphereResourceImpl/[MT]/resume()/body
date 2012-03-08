@@ -7,7 +7,7 @@
         logger.debug("Resuming {}",getRequest(false));
       }
  catch (      Throwable ex) {
-        return;
+        return this;
       }
       Broadcaster b=getBroadcaster(false);
       if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
@@ -52,4 +52,5 @@
  catch (  Throwable t) {
     logger.trace("Wasn't able to resume a connection {}",this,t);
   }
+  return this;
 }
