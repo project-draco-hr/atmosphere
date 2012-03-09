@@ -2,7 +2,7 @@
   BufferedReader data=request.getReader();
   List<Serializable> postMessages=new ArrayList<Serializable>();
   GwtAtmosphereResource resource=lookupResource(connectionID);
-  if (resource == null || !resource.isAlive()) {
+  if (resource == null) {
     return;
   }
   try {

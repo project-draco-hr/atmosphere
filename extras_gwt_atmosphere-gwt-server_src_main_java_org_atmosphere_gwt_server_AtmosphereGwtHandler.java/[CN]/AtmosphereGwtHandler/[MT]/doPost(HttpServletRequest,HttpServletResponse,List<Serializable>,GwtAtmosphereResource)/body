@@ -1,5 +1,5 @@
 {
-  if (cometResource != null && cometResource.isAlive()) {
+  if (cometResource != null) {
     if (messages.size() == 1) {
       cometResource.post(messages.get(0));
     }
