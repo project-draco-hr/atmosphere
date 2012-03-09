@@ -22,5 +22,17 @@
   }
   logger.info("WebSocket idle timeout {}",timeOut);
   webSocketFactory.setMaxIdleTime(timeOut);
+  int maxTextBufferSize=8192;
+  if (config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE) != null) {
+    maxTextBufferSize=Integer.valueOf(config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE));
+  }
+  logger.info("WebSocket maxTextBufferSize {}",maxTextBufferSize);
+  webSocketFactory.setMaxTextMessageSize(maxTextBufferSize);
+  int maxBinaryBufferSize=8192;
+  if (config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE) != null) {
+    maxBinaryBufferSize=Integer.valueOf(config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE));
+  }
+  logger.info("WebSocket maxBinaryBufferSize {}",maxBinaryBufferSize);
+  webSocketFactory.setMaxBinaryMessageSize(maxBinaryBufferSize);
   return webSocketFactory;
 }
