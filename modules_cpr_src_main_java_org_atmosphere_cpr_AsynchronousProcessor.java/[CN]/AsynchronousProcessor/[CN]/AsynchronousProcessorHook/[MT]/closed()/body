@@ -1,6 +1,6 @@
 {
   try {
-    cancelled(req,res);
+    ((AsynchronousProcessor)r.cometSupport).cancelled(r.getRequest(),r.getResponse());
   }
  catch (  IOException e) {
     logger.debug("",e);

@@ -1,9 +1,0 @@
-{
-  if (req.getAttribute(CHANNEL) == null)   return;
-  try {
-    ((AsyncIOWriter)req.getAttribute(CHANNEL)).close();
-  }
- catch (  IOException e) {
-    logger.trace("",e);
-  }
-}

@@ -1,6 +1,12 @@
 {
   super.action(r);
-  if (r.isResumed() && r.getRequest().getAttribute(HOOK) != null) {
-    ((CometSupportHook)r.getRequest().getAttribute(HOOK)).resume();
+  if (r.isResumed() && r.getRequest().getAttribute(ASYNCHRONOUS_HOOK) != null) {
+    if (r.getRequest().getAttribute(CHANNEL) == null)     return;
+    try {
+      ((AsyncIOWriter)r.getRequest().getAttribute(CHANNEL)).close();
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
   }
 }

@@ -1,6 +1,6 @@
 {
   try {
-    timedout(req,res);
+    ((AsynchronousProcessor)r.cometSupport).timedout(r.getRequest(),r.getResponse());
   }
  catch (  IOException e) {
     logger.debug("",e);

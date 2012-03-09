@@ -1,0 +1,27 @@
+{
+  logger.debug("WebSocket closed with {}",closeCode);
+  AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
+  try {
+    webSocketProtocol.onClose(webSocket);
+    if (resource != null && resource.isInScope()) {
+      AsynchronousProcessor.AsynchronousProcessorHook h=(AsynchronousProcessor.AsynchronousProcessorHook)resource.getRequest().getAttribute(ASYNCHRONOUS_HOOK);
+      if (closeCode == 1000) {
+        h.timedOut();
+      }
+ else {
+        h.closed();
+      }
+    }
+  }
+  finally {
+    if (resource.getRequest() != null && AtmosphereRequest.class.isAssignableFrom(resource.getRequest().getClass())) {
+      AtmosphereRequest.class.cast(resource.getRequest()).destroy();
+    }
+    if (resource.getResponse() != null && AtmosphereResponse.class.isAssignableFrom(resource.getResponse().getClass())) {
+      AtmosphereResponse.class.cast(resource.getResponse()).destroy();
+    }
+    if (webSocket != null) {
+      WebSocketAdapter.class.cast(webSocket).setAtmosphereResource(null);
+    }
+  }
+}

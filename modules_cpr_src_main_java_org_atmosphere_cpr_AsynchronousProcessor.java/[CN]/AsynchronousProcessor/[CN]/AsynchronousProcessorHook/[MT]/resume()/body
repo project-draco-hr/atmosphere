@@ -1,0 +1,3 @@
+{
+  ((AsynchronousProcessor)r.cometSupport).action(r);
+}

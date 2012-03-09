@@ -4,7 +4,7 @@
   if (action.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
     logger.debug("Suspending response: {}",res);
     req.setAttribute(SUSPEND,action);
-    req.setAttribute(HOOK,new CometSupportHook(req,res));
+    req.setAttribute(ASYNCHRONOUS_HOOK,new AsynchronousProcessorHook((AtmosphereResourceImpl)req.getAttribute(ATMOSPHERE_RESOURCE)));
   }
  else   if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
     req.setAttribute(SUSPEND,action);
