@@ -1,5 +1,5 @@
 {
-  logger.info("Auto detecting atmosphere handlers {}",handlersPath);
+  logger.info("Auto detecting WebSocketHandler {}",handlersPath);
   String realPath=servletContext.getRealPath(handlersPath);
   if (realPath == null) {
     URL u=servletContext.getResource(handlersPath);
