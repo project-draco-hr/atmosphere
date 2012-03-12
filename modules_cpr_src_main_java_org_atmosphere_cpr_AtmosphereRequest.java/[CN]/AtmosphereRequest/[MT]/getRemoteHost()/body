@@ -1,3 +1,3 @@
 {
-  return b.remoteHost;
+  return b.request != null ? b.request.getRemoteHost() : b.remoteHost;
 }

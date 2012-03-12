@@ -1,0 +1,4 @@
+{
+  this.dispatchRequestAsynchronously=dispatchRequestAsynchronously;
+  return this;
+}
