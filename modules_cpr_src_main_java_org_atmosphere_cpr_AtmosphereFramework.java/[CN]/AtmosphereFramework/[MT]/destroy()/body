@@ -12,4 +12,5 @@
     factory.destroy();
     BroadcasterFactory.factory=null;
   }
+  return this;
 }

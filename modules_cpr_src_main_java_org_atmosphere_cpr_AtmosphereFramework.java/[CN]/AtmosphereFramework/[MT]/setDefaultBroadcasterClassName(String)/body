@@ -1,3 +1,4 @@
 {
   broadcasterClassName=bccn;
+  return this;
 }

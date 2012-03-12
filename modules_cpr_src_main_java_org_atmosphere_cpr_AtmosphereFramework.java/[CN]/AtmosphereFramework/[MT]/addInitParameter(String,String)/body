@@ -1,3 +1,4 @@
 {
   initParams.put(name,value);
+  return this;
 }

@@ -1,3 +1,4 @@
 {
   this.cometSupport=cometSupport;
+  return this;
 }

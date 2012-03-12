@@ -1,3 +1,4 @@
 {
-  return atmosphereHandlers.remove(mapping) == null ? false : true;
+  atmosphereHandlers.remove(mapping);
+  return this;
 }

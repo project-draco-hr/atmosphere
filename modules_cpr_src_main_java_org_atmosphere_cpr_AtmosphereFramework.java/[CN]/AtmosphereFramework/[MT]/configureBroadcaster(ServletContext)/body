@@ -10,7 +10,6 @@
   if (sc != null) {
     sc.setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
   }
-  config.setBroadcasterFactory(broadcasterFactory);
   BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
   InjectorProvider.getInjector().inject(broadcasterFactory);
   Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();

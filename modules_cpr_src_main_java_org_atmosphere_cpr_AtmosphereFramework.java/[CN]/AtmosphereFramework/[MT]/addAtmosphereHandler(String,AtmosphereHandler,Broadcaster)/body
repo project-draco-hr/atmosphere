@@ -5,4 +5,5 @@
   AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(h,broadcaster);
   addMapping(mapping,w);
   logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",h.getClass().getName(),mapping);
+  return this;
 }

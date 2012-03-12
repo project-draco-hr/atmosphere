@@ -1,3 +1,4 @@
 {
   atmosphereHandlers.clear();
+  return this;
 }
