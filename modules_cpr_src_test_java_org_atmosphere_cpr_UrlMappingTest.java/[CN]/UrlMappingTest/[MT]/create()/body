@@ -1,0 +1,26 @@
+{
+  framework=new AtmosphereFramework();
+  framework.setCometSupport(mock(CometSupport.class));
+  framework.init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return null;
+    }
+  }
+);
+  config=framework.getAtmosphereConfig();
+  processor=new AsynchronousProcessor(config){
+    @Override public AtmosphereFramework.Action service(    AtmosphereRequest req,    AtmosphereResponse res) throws IOException, ServletException {
+      return new AtmosphereFramework.Action(AtmosphereFramework.Action.TYPE.CREATED);
+    }
+  }
+;
+}

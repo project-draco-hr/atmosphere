@@ -1,0 +1,14 @@
+{
+  framework.addAtmosphereHandler("/foo/*",handler);
+  AtmosphereRequest r=new AtmosphereRequest.Builder().servletPath("/foo").pathInfo("/a").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().servletPath("/foo").pathInfo("/a/b/c/d/////").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/a/b/c/d/////").build();
+  try {
+    assertNotNull(processor.map(r));
+  }
+ catch (  AtmosphereMappingException e) {
+    assertNotNull(e);
+  }
+}

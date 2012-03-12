@@ -1,0 +1,35 @@
+{
+  framework.addAtmosphereHandler("/a/",handler);
+  framework.addAtmosphereHandler("/a",handler);
+  framework.addAtmosphereHandler("/ab/",handler);
+  framework.addAtmosphereHandler("/abc/",handler);
+  framework.addAtmosphereHandler("/a/b",handler);
+  framework.addAtmosphereHandler("/a/b/",handler);
+  framework.addAtmosphereHandler("/a/b/c",handler);
+  framework.addAtmosphereHandler("/",handler);
+  AtmosphereRequest r=new AtmosphereRequest.Builder().pathInfo("/a").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/a/").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/a/").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/ab/").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/abc/").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/a/b").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/a/b/").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/a/b/c").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/").build();
+  assertNotNull(processor.map(r));
+  r=new AtmosphereRequest.Builder().pathInfo("/c").build();
+  try {
+    processor.map(r);
+  }
+ catch (  AtmosphereMappingException e) {
+    assertNotNull(e);
+  }
+}

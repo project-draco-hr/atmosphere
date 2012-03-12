@@ -6,12 +6,17 @@
  else {
     path=req.getServletPath();
   }
-  if (path == null || path.length() <= 1) {
-    path="/all";
+  if (path.isEmpty()) {
+    path="/";
   }
   AtmosphereHandlerWrapper atmosphereHandlerWrapper=map(path);
   if (atmosphereHandlerWrapper == null) {
-    atmosphereHandlerWrapper=map("/all");
+    if (!path.endsWith("/")) {
+      atmosphereHandlerWrapper=map(path + "/");
+    }
+    if (atmosphereHandlerWrapper == null) {
+      atmosphereHandlerWrapper=map("/all");
+    }
   }
   if (atmosphereHandlerWrapper == null) {
     throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + path);
