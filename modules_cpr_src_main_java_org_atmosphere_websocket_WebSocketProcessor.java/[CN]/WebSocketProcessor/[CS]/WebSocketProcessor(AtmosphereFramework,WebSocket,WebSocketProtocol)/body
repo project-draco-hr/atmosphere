@@ -17,4 +17,5 @@
     executeAsync=false;
   }
   asyncExecutor=Executors.newCachedThreadPool();
+  voidExecutor=VoidExecutorService.VOID;
 }

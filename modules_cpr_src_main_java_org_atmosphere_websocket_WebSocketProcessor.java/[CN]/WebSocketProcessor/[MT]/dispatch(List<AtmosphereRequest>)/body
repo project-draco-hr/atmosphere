@@ -1,0 +1,24 @@
+{
+  if (list == null)   return;
+  for (  final AtmosphereRequest r : list) {
+    if (r != null) {
+      boolean b=r.dispatchRequestAsynchronously();
+      ExecutorService s=(executeAsync || b) ? asyncExecutor : voidExecutor;
+      s.execute(new Runnable(){
+        @Override public void run(){
+          AtmosphereResponse w=new AtmosphereResponse(webSocket,webSocketProtocol,r);
+          try {
+            dispatch(r,w);
+          }
+  finally {
+            if (recycleAtmosphereRequestResponse) {
+              r.destroy();
+              w.destroy();
+            }
+          }
+        }
+      }
+);
+    }
+  }
+}

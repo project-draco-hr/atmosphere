@@ -1,23 +1,4 @@
 {
   List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,data,offset,length);
-  if (list == null)   return;
-  for (  final AtmosphereRequest r : list) {
-    if (r != null) {
-      asyncExecutor.execute(new Runnable(){
-        @Override public void run(){
-          AtmosphereResponse w=new AtmosphereResponse(webSocket,webSocketProtocol,r);
-          try {
-            dispatch(r,w);
-          }
-  finally {
-            if (recycleAtmosphereRequestResponse) {
-              r.destroy();
-              w.destroy();
-            }
-          }
-        }
-      }
-);
-    }
-  }
+  dispatch(list);
 }
