@@ -31,4 +31,5 @@
       WebSocketAdapter.class.cast(webSocket).setAtmosphereResource(null);
     }
   }
+  asyncExecutor.shutdownNow();
 }
