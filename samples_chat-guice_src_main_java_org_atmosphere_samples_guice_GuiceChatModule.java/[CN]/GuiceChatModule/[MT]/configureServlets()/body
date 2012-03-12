@@ -1,3 +1,3 @@
 {
-  bind(org.atmosphere.commons.jersey.ResourceChat.class);
+  bind(GuiceResourceChat.class);
 }
