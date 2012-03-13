@@ -1,5 +1,5 @@
 {
-  AtmosphereResource resource=(AtmosphereResource)webSocket.resource();
+  AtmosphereResource resource=webSocket.resource();
   if (resource == null)   return;
   AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(resource);
   for (  AtmosphereResourceEventListener l : r.atmosphereResourceEventListener()) {

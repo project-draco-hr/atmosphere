@@ -2,3 +2,4 @@ HttpServletResponse r
 AsyncIOWriter asyncIOWriter
 AsyncProtocol asyncProtocol
 AtmosphereRequest atmosphereRequest
+boolean destroyable

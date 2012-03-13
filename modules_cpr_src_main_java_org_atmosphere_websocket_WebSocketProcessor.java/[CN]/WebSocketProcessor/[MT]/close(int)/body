@@ -21,10 +21,10 @@
     }
   }
   finally {
-    if (r != null && AtmosphereRequest.class.isAssignableFrom(r.getClass())) {
+    if (r != null) {
       r.destroy();
     }
-    if (s != null && AtmosphereResponse.class.isAssignableFrom(s.getClass())) {
+    if (s != null) {
       s.destroy();
     }
     if (webSocket != null) {

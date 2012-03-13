@@ -4,10 +4,10 @@
   this.webSocketProtocol=webSocketProtocol;
   String s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
   if (s != null && Boolean.valueOf(s)) {
-    recycleAtmosphereRequestResponse=true;
+    destroyable=true;
   }
  else {
-    recycleAtmosphereRequestResponse=false;
+    destroyable=false;
   }
   s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_PROTOCOL_EXECUTION);
   if (s != null && Boolean.valueOf(s)) {

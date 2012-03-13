@@ -14,4 +14,11 @@
     delimiter="@@";
   }
   this.delimiter=delimiter;
+  String s=config.getInitParameter(ApplicationConfig.RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
+  if (s != null && Boolean.valueOf(s)) {
+    destroyable=true;
+  }
+ else {
+    destroyable=false;
+  }
 }

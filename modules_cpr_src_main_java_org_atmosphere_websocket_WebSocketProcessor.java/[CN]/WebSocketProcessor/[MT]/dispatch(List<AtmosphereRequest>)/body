@@ -6,15 +6,13 @@
       ExecutorService s=(executeAsync || b) ? asyncExecutor : voidExecutor;
       s.execute(new Runnable(){
         @Override public void run(){
-          AtmosphereResponse w=new AtmosphereResponse(webSocket,webSocketProtocol,r);
+          AtmosphereResponse w=new AtmosphereResponse(webSocket,webSocketProtocol,r,destroyable);
           try {
             dispatch(r,w);
           }
   finally {
-            if (recycleAtmosphereRequestResponse) {
-              r.destroy();
-              w.destroy();
-            }
+            r.destroy();
+            w.destroy();
           }
         }
       }

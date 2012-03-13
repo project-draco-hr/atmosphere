@@ -1,0 +1,4 @@
+{
+  this.destroyable=isRecyclable;
+  return this;
+}
