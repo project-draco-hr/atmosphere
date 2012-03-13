@@ -1,0 +1,9 @@
+{
+  bis=new ByteInputStream(bytes,offset,length);
+  try {
+    br=new BufferedReader(new StringReader(new String(bytes,offset,length,encoding)));
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new RuntimeException(e);
+  }
+}

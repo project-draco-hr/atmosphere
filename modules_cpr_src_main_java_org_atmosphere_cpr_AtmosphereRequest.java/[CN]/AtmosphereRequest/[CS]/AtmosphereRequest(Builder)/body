@@ -6,21 +6,11 @@
   session=b.request == null ? new FakeHttpSession("",null,System.currentTimeMillis()) : b.request.getSession();
   if (b.inputStream == null) {
     if (b.dataBytes != null) {
-      bis=new ByteInputStream(b.dataBytes,b.offset,b.length);
-      try {
-        br=new BufferedReader(new StringReader(new String(b.dataBytes,b.offset,b.length,b.encoding)));
-      }
- catch (      UnsupportedEncodingException e) {
-        throw new RuntimeException(e);
-      }
-    }
- else     if (b.data != null) {
-      bis=new ByteInputStream(b.data.getBytes(),0,b.data.getBytes().length);
-      br=new BufferedReader(new StringReader(b.data));
+      configureStream(b.dataBytes,b.offset,b.length,b.encoding);
     }
  else {
-      bis=null;
-      br=null;
+      byte[] b2=b.data.getBytes();
+      configureStream(b2,0,b2.length,"UTF-8");
     }
   }
  else {

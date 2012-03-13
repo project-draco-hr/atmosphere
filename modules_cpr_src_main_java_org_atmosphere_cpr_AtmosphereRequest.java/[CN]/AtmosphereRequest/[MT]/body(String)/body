@@ -1,0 +1,5 @@
+{
+  byte[] b=body.getBytes();
+  configureStream(b,0,b.length,"ISO-8859-1");
+  return this;
+}

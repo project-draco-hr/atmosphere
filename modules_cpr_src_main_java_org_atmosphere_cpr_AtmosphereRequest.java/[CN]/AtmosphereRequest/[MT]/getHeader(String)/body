@@ -1,20 +1,3 @@
 {
-  String name=super.getHeader(s);
-  if (name == null) {
-    if (headers.get(s) != null) {
-      return headers.get(s);
-    }
-    if (s.startsWith(X_ATMOSPHERE) && b.request != null) {
-      return (String)b.request.getAttribute(s);
-    }
-  }
-  if (name == null) {
-    if ("content-type".equalsIgnoreCase(s)) {
-      return contentType;
-    }
- else     if ("connection".equalsIgnoreCase(s)) {
-      return "keep-alive";
-    }
-  }
-  return name;
+  return getHeader(s,true);
 }
