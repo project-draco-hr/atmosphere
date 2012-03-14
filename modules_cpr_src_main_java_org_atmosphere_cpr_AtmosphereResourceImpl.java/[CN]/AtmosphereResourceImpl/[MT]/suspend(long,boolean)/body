@@ -22,6 +22,9 @@
         }
       }
     }
+    if (req.getHeader(X_ATMOSPHERE_TRANSPORT) != null && !req.getHeader(X_ATMOSPHERE_TRANSPORT).equalsIgnoreCase("streaming")) {
+      flushComment=false;
+    }
     if (flushComment) {
       req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.STREAMING_TRANSPORT);
     }

@@ -1,8 +1,8 @@
 {
   String name=super.getHeader(s);
   if (name == null) {
-    if (headers.get(s) != null) {
-      return headers.get(s);
+    if (b.headers.get(s) != null) {
+      return b.headers.get(s);
     }
     if (s.startsWith(X_ATMOSPHERE) && b.request != null) {
       name=(String)b.request.getAttribute(s);
@@ -16,7 +16,7 @@
       return "keep-alive";
     }
   }
-  if (checkCase) {
+  if (name == null && checkCase) {
     return getHeader(s.toLowerCase(),false);
   }
   return name;

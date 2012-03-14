@@ -1,8 +1,8 @@
 {
   String name=super.getParameter(s);
   if (name == null) {
-    if (queryStrings.get(s) != null) {
-      return queryStrings.get(s)[0];
+    if (b.queryStrings.get(s) != null) {
+      return b.queryStrings.get(s)[0];
     }
   }
   return name;

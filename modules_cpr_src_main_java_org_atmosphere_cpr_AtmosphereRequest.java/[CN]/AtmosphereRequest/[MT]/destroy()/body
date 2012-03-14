@@ -15,8 +15,8 @@
  catch (    IOException e) {
     }
   }
-  headers.clear();
-  queryStrings.clear();
+  b.headers.clear();
+  b.queryStrings.clear();
   if (b.request != null) {
     b.request.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
     b.request=null;

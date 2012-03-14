@@ -10,6 +10,6 @@
       }
     }
   }
-  list.addAll(headers.keySet());
+  list.addAll(b.headers.keySet());
   return Collections.enumeration(list);
 }
