@@ -1,3 +1,0 @@
-{
-  return "window.parent.app.update({ name: \"" + name + "\", message: \""+ message+ "\" });\n";
-}

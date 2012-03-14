@@ -1,24 +1,23 @@
 {
-  HttpServletRequest req=event.getResource().getRequest();
-  HttpServletResponse res=event.getResource().getResponse();
-  if (event.getMessage() == null)   return;
-  String e=event.getMessage().toString();
-  String name=e;
-  String message="";
-  if (e.indexOf("**") > 0) {
-    name=e.substring(0,e.indexOf("**"));
-    message=e.substring(e.indexOf("**") + 2);
-  }
-  String msg=BEGIN_SCRIPT_TAG + toJsonp(name,message) + END_SCRIPT_TAG;
-  if (event.isCancelled()) {
-    event.getResource().getBroadcaster().broadcast(req.getSession().getAttribute("name") + " has left");
-  }
- else   if (event.isResuming() || event.isResumedOnTimeout()) {
-    String script="<script>window.parent.app.listen();\n</script>";
-    res.getWriter().write(script);
-  }
- else {
-    res.getWriter().write(msg);
-  }
+  AtmosphereResource r=event.getResource();
+  AtmosphereResponse res=r.getResponse();
+  if (event.isSuspended()) {
+    String body=event.getMessage().toString();
+    String author=body.substring(body.indexOf(":") + 2,body.indexOf(",") - 1);
+    String message=body.substring(body.lastIndexOf(":") + 2,body.length() - 2);
+    res.getWriter().write(new Data(author,message).toString());
+switch (r.transport()) {
+case JSONP:
+case LONG_POLLING:
+      event.getResource().resume();
+    break;
+case WEBSOCKET:
+case STREAMING:
   res.getWriter().flush();
+break;
+}
+}
+ else if (!event.isResuming()) {
+event.getResource().getBroadcaster().broadcast(new Data("Someone","say bye bye!").toString());
+}
 }
