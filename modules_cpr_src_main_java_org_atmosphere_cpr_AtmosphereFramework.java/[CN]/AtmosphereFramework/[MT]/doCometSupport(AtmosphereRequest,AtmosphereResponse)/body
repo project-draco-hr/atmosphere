@@ -11,7 +11,10 @@
       if (body != null && body.isEmpty()) {
         body=null;
       }
-      req.headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod()).body(body);
+      req.headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod());
+      if (body != null) {
+        req.body(body);
+      }
       a=cometSupport.service(req,res);
     }
  else {
