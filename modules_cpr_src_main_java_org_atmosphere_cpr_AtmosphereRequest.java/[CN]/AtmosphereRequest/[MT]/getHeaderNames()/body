@@ -1,6 +1,8 @@
 {
   ArrayList list=Collections.list(super.getHeaderNames());
-  list.add("content-type");
+  if (b.contentType != null) {
+    list.add("Content-Type");
+  }
   if (b.request != null) {
     Enumeration e=b.request.getAttributeNames();
     while (e.hasMoreElements()) {

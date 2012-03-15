@@ -16,6 +16,5 @@
     br=new BufferedReader(new InputStreamReader(b.inputStream));
   }
   methodType=b.methodType == null ? (b.request != null ? b.request.getMethod() : "GET") : b.methodType;
-  contentType=b.contentType == null ? (b.request != null ? b.request.getContentType() : "text/plain") : b.contentType;
   this.b=b;
 }

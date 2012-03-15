@@ -6,5 +6,4 @@
   this.writeStatusAndHeader.set(false);
   this.headers=new HashMap<String,String>();
   this.delegateToNativeResponse=asyncIOWriter == null;
-  this.destroyable=destroyable;
 }

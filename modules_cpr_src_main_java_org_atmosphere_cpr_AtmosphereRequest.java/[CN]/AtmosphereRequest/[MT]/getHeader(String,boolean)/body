@@ -1,4 +1,7 @@
 {
+  if ("content-type".equalsIgnoreCase(s)) {
+    return getContentType();
+  }
   String name=super.getHeader(s);
   if (name == null) {
     if (b.headers.get(s) != null) {
@@ -8,16 +11,11 @@
       name=(String)b.request.getAttribute(s);
     }
   }
-  if (name == null) {
-    if ("content-type".equalsIgnoreCase(s)) {
-      return contentType;
-    }
- else     if ("connection".equalsIgnoreCase(s)) {
-      return "keep-alive";
-    }
-  }
   if (name == null && checkCase) {
     return getHeader(s.toLowerCase(),false);
+  }
+  if (name == null && "connection".equalsIgnoreCase(s)) {
+    return "keep-alive";
   }
   return name;
 }
