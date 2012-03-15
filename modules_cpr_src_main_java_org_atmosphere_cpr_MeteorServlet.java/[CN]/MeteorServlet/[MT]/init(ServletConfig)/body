@@ -1,0 +1,15 @@
+{
+  super.init(sc);
+  String servletClass=sc.getInitParameter(SERVLET_CLASS);
+  String mapping=sc.getInitParameter(MAPPING);
+  String filterClass=sc.getInitParameter(FILTER_CLASS);
+  String filterName=sc.getInitParameter(FILTER_NAME);
+  ReflectorServletProcessor r=new ReflectorServletProcessor();
+  r.setServletClassName(servletClass);
+  r.setFilterClassName(filterClass);
+  r.setFilterName(filterName);
+  if (mapping == null) {
+    mapping="/*";
+  }
+  framework.addAtmosphereHandler(mapping,r);
+}
