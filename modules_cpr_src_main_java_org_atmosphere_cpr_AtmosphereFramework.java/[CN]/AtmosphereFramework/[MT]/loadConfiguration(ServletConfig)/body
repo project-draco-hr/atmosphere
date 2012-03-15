@@ -1,4 +1,5 @@
 {
+  if (!autoDetectHandlers)   return;
   try {
     URL url=sc.getServletContext().getResource(handlersPath);
     URLClassLoader urlC=new URLClassLoader(new URL[]{url},Thread.currentThread().getContextClassLoader());

@@ -1,0 +1,4 @@
+{
+  r.resumeOnBroadcast(resumeOnBroadcast);
+  return this;
+}

@@ -37,11 +37,11 @@
     initWebSocketProtocol();
     cometSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
-    logger.info("Using broadcaster class: {}",broadcasterClassName);
+    logger.info("Using Broadcaster class: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
   }
  catch (  Throwable t) {
-    logger.error("failed to initialize atmosphere framework",t);
+    logger.error("Failed to initialize Atmosphere Framework",t);
     if (t instanceof ServletException) {
       throw (ServletException)t;
     }

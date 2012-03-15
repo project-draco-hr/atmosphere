@@ -1,4 +1,4 @@
 {
-  this(false);
+  this(false,true);
   init(sc);
 }

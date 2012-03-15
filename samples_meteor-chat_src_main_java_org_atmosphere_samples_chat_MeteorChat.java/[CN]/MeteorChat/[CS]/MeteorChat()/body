@@ -1,5 +1,0 @@
-{
-  list=new LinkedList<BroadcastFilter>();
-  list.add(new XSSHtmlFilter());
-  list.add(new JsonpFilter());
-}

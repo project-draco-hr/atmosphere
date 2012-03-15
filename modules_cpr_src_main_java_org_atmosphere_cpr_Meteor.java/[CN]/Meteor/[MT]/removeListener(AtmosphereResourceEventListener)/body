@@ -1,4 +1,6 @@
 {
-  if (destroyed())   return;
-  r.removeEventListener(e);
+  if (!destroyed()) {
+    r.removeEventListener(e);
+  }
+  return this;
 }

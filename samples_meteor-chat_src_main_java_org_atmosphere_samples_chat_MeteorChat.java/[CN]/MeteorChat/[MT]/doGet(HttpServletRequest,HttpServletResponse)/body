@@ -1,8 +1,5 @@
 {
-  Meteor m=Meteor.build(req,list,null);
-  m.addListener(new EventsLogger());
+  Meteor m=Meteor.build(req).addListener(new AtmosphereResourceEventListenerAdapter());
   req.getSession().setAttribute("meteor",m);
-  res.setContentType("text/html;charset=ISO-8859-1");
-  m.suspend(-1);
-  m.broadcast(req.getServerName() + "__has suspended a connection from " + req.getRemoteAddr());
+  m.resumeOnBroadcast(m.transport() == LONG_POLLING ? true : false).suspend(-1);
 }

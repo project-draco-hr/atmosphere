@@ -42,12 +42,8 @@
         event.getResource().getResponse().getWriter().flush();
       }
     }
-    Boolean resumeOnBroadcast=false;
-    Object o=event.getResource().getRequest().getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
-    if (o != null && Boolean.class.isAssignableFrom(o.getClass())) {
-      resumeOnBroadcast=Boolean.class.cast(o);
-    }
-    if (resumeOnBroadcast != null && resumeOnBroadcast) {
+    Boolean resumeOnBroadcast=event.getResource().resumeOnBroadcast();
+    if (resumeOnBroadcast) {
       event.getResource().resume();
     }
   }

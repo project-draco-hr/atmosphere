@@ -3,8 +3,8 @@
   String s=req.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
   if (s == null)   return TRANSPORT.UNDEFINED;
   s=s.replace("-","_").toUpperCase();
-  if (TRANSPORT.POOLING.name().equals(s)) {
-    return TRANSPORT.POOLING;
+  if (TRANSPORT.POLLING.name().equals(s)) {
+    return TRANSPORT.POLLING;
   }
  else   if (TRANSPORT.LONG_POLLING.name().equals(s)) {
     return TRANSPORT.LONG_POLLING;

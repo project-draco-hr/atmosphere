@@ -25,6 +25,9 @@ catch (    Throwable e) {
     if (servlet != null) {
       servlet.service(request,response);
     }
+ else {
+      throw new ServletException("No Servlet Defined");
+    }
   }
  catch (  IOException e) {
     throw e;
