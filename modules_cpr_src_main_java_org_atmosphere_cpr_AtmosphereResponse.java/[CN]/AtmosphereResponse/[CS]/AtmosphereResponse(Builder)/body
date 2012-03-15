@@ -8,4 +8,5 @@
   this.writeStatusAndHeader.set(b.writeStatusAndHeader.get());
   this.headers=b.headers;
   this.delegateToNativeResponse=asyncIOWriter == null;
+  this.destroyable=b.destroyable;
 }

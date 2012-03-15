@@ -1,12 +1,5 @@
 {
   ArrayList<String> s=new ArrayList<String>();
-  String h;
-  if (name.equalsIgnoreCase("content-type")) {
-    h=headers.get("Content-Type");
-  }
- else {
-    h=headers.get(name);
-  }
-  s.add(h);
+  s.add(headers.get(name));
   return Collections.unmodifiableList(s);
 }

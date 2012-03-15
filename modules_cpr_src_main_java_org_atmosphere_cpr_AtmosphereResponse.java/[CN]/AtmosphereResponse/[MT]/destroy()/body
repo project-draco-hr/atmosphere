@@ -1,4 +1,5 @@
 {
+  if (!destroyable)   return;
   cookies.clear();
   headers.clear();
   atmosphereRequest=null;
