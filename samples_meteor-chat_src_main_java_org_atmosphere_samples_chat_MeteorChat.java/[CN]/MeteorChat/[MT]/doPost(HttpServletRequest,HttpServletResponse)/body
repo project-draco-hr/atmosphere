@@ -1,5 +1,6 @@
 {
   String body=req.getReader().readLine().trim();
+  Meteor m=(Meteor)req.getSession().getAttribute("meteor");
   String author=body.substring(body.indexOf(":") + 2,body.indexOf(",") - 1);
   String message=body.substring(body.lastIndexOf(":") + 2,body.length() - 2);
   BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,"/*").broadcast(new Data(author,message).toString());
