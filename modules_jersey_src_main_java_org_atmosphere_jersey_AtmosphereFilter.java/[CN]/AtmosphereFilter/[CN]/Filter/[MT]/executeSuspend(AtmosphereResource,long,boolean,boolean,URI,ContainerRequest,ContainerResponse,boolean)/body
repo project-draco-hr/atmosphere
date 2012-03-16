@@ -7,7 +7,6 @@
   }
   servletReq.setAttribute(SUSPENDED_RESOURCE,r);
   servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
-  logger.debug("Linked HttpServletRequest {} with ContainerResponse {}",servletReq,response);
   try {
     MediaType contentType=response.getMediaType();
     if (contentType == null && response.getEntity() != null) {
