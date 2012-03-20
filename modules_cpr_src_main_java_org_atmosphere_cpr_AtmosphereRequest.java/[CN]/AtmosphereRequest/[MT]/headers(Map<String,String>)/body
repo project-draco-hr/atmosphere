@@ -1,4 +1,4 @@
 {
-  headers.putAll(headers);
+  b.headers.putAll(headers);
   return this;
 }
