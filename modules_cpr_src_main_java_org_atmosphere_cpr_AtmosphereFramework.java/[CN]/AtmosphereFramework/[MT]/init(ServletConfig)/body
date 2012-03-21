@@ -47,4 +47,5 @@
     }
     throw new ServletException(t.getCause());
   }
+  return this;
 }
