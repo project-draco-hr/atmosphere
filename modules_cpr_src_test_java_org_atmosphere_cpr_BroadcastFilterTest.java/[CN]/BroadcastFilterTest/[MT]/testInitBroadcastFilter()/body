@@ -1,0 +1,24 @@
+{
+  AtmosphereConfig config=new AtmosphereFramework().addInitParameter(ApplicationConfig.BROADCAST_FILTER_CLASSES,Filter.class.getName()).setCometSupport(mock(BlockingIOCometSupport.class)).init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return null;
+    }
+  }
+).getAtmosphereConfig();
+  DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
+  broadcaster=factory.get(DefaultBroadcaster.class,"test");
+  atmosphereHandler=new AR();
+  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),mock(AtmosphereResponse.class),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  broadcaster.addAtmosphereResource(ar);
+  broadcaster.broadcast("0").get();
+  assertEquals(atmosphereHandler.value.get().toString(),"0foo");
+}
