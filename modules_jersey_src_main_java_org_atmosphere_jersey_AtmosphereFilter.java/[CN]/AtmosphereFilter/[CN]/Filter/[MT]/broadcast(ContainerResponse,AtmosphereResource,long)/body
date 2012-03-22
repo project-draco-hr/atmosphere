@@ -19,9 +19,7 @@
       r.setEntity(msg);
       if (msg == null)       return;
       if (delay == -1) {
-        Future<Object> f=b.broadcast(msg);
-        if (f == null)         return;
-        Object t=f.get();
+        Object t=b.broadcast(msg).get();
         if (o instanceof Broadcastable) {
           r.setEntity(returnMsg);
         }

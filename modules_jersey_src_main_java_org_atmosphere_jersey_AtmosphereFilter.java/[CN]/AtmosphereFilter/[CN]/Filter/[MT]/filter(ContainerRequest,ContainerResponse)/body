@@ -2,6 +2,7 @@
   if (response.getMappedThrowable() != null) {
     return response;
   }
+  if (action == Action.NONE)   return response;
   AtmosphereConfig config=(AtmosphereConfig)servletReq.getAttribute(ATMOSPHERE_CONFIG);
   String p=config.getInitParameter(ApplicationConfig.JERSEY_CONTAINER_RESPONSE_WRITER_CLASS);
   ContainerResponseWriter w=null;
@@ -22,23 +23,23 @@
   if (Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.SUPPORT_LOCATION_HEADER))) {
     useResumeAnnotation=true;
   }
+  if (response.getStatus() == 204) {
+    response.setStatus(200);
+  }
 switch (action) {
 case ASYNCHRONOUS:
-    if (response.getStatus() == 204) {
-      response.setStatus(200);
-    }
-  String transport=getHeaderOrQueryValue(X_ATMOSPHERE_TRANSPORT);
-String broadcasterName=getHeaderOrQueryValue(topic);
+    String transport=getHeaderOrQueryValue(X_ATMOSPHERE_TRANSPORT);
+  String broadcasterName=getHeaderOrQueryValue(topic);
 if (transport == null || broadcasterName == null) {
-StringBuffer s=new StringBuffer();
-Enumeration<String> e=servletReq.getHeaderNames();
-String t;
-while (e.hasMoreElements()) {
-  t=e.nextElement();
-  s.append(t).append("=").append(servletReq.getHeader(t)).append("\n");
-}
-logger.error("\nQueryString:\n{}\n\nHeaders:\n{}",servletReq.getQueryString(),s.toString());
-throw new WebApplicationException(new IllegalStateException("Must specify transport using header value " + transport + " and uuid "+ broadcasterName));
+  StringBuffer s=new StringBuffer();
+  Enumeration<String> e=servletReq.getHeaderNames();
+  String t;
+  while (e.hasMoreElements()) {
+    t=e.nextElement();
+    s.append(t).append("=").append(servletReq.getHeader(t)).append("\n");
+  }
+  logger.error("\nQueryString:\n{}\n\nHeaders:\n{}",servletReq.getQueryString(),s.toString());
+  throw new WebApplicationException(new IllegalStateException("Must specify transport using header value " + transport + " and uuid "+ broadcasterName));
 }
 String subProtocol=(String)servletReq.getAttribute(FrameworkConfig.WEBSOCKET_SUBPROTOCOL);
 final boolean waitForResource=waitFor == -1 ? true : false;
@@ -63,12 +64,12 @@ r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
 @Override public void onSuspend(AtmosphereResourceEvent event){
 try {
 if (entity != null) {
-if (waitForResource) {
-  bcaster.awaitAndBroadcast(entity,30,TimeUnit.SECONDS);
-}
+  if (waitForResource) {
+    bcaster.awaitAndBroadcast(entity,30,TimeUnit.SECONDS);
+  }
  else {
-  bcaster.broadcast(entity);
-}
+    bcaster.broadcast(entity);
+  }
 }
 }
   finally {
@@ -218,6 +219,9 @@ throw new IllegalStateException(e.getMessage());
 r.setBroadcaster(BroadcasterFactory.getDefault().lookup(c,topic,true));
 }
 broadcast(response,r,timeout);
+if (!writeEntity) {
+response.setEntity(null);
+}
 break;
 case SCHEDULE:
 case SCHEDULE_RESUME:
