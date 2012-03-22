@@ -1,5 +1,5 @@
 {
-  HttpServletRequest request=(HttpServletRequest)r.getRequest();
+  AtmosphereRequest request=r.getRequest();
   ContainerResponse cr=null;
   try {
     cr=(ContainerResponse)request.getAttribute(FrameworkConfig.CONTAINER_RESPONSE);
