@@ -1,4 +1,5 @@
 {
+  if (webSocketProtocolClassName.equalsIgnoreCase(SimpleHttpProtocol.class.getName()))   return;
   logger.info("Auto detecting WebSocketHandler {}",handlersPath);
   String realPath=servletContext.getRealPath(handlersPath);
   if (realPath == null) {

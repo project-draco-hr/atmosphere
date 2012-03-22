@@ -1,7 +1,7 @@
 {
   if (webSocketProtocol != null)   return;
   try {
-    webSocketProtocol=(WebSocketProtocol)JettyWebSocketHandler.class.getClassLoader().loadClass(webSocketProtocolClassName).newInstance();
+    webSocketProtocol=(WebSocketProtocol)AtmosphereFramework.class.getClassLoader().loadClass(webSocketProtocolClassName).newInstance();
     logger.info("Installed WebSocketProtocol {} ",webSocketProtocolClassName);
   }
  catch (  Exception ex) {
