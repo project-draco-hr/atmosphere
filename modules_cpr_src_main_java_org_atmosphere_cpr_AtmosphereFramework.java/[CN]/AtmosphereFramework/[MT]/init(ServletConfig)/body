@@ -45,7 +45,7 @@
     if (t instanceof ServletException) {
       throw (ServletException)t;
     }
-    throw new ServletException(t.getCause());
+    throw new ServletException(t);
   }
   return this;
 }
