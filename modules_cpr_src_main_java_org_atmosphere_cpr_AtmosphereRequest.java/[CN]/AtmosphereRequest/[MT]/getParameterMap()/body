@@ -1,15 +1,9 @@
 {
-  Map<String,String[]> m=(b.request != null ? b.request.getParameterMap() : Collections.<String,String[]>emptyMap());
-  for (  Map.Entry<String,String[]> e : m.entrySet()) {
-    String[] s=b.queryStrings.get(e.getKey());
-    if (s != null) {
-      String[] s1=new String[s.length + e.getValue().length];
-      System.arraycopy(s,0,s1,0,s.length);
-      System.arraycopy(s1,s.length + 1,e.getValue(),0,e.getValue().length);
-      b.queryStrings.put(e.getKey(),s1);
-    }
- else {
-      b.queryStrings.put(e.getKey(),e.getValue());
+  if (!queryComputed) {
+    queryComputed=true;
+    Map<String,String[]> m=(b.request != null ? b.request.getParameterMap() : Collections.<String,String[]>emptyMap());
+    for (    String e : m.keySet()) {
+      b.queryStrings.put(e,getParameterValues(e));
     }
   }
   return Collections.unmodifiableMap(b.queryStrings);

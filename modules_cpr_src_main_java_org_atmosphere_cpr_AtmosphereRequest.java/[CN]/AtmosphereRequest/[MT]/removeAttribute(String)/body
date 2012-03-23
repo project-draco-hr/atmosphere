@@ -1,6 +1,3 @@
 {
   b.localAttributes.remove(name);
-  if (b.request != null) {
-    b.request.removeAttribute(name);
-  }
 }
