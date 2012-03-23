@@ -1,3 +1,3 @@
 {
-  return "AtmosphereResourceImpl{" + " hasCode" + hashCode() + ",\n action="+ action+ ",\n broadcaster="+ broadcaster.getClass().getName()+ ",\n cometSupport="+ cometSupport+ ",\n serializer="+ serializer+ ",\n isInScope="+ isInScope+ ",\n useWriter="+ useWriter+ ",\n listeners="+ listeners+ '}';
+  return "AtmosphereResourceImpl{" + ", hasCode" + hashCode() + ",\n action="+ action+ ",\n broadcaster="+ broadcaster.getClass().getName()+ ",\n cometSupport="+ cometSupport+ ",\n serializer="+ serializer+ ",\n isInScope="+ isInScope+ ",\n useWriter="+ useWriter+ ",\n listeners="+ listeners+ '}';
 }

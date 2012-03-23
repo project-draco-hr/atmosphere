@@ -1,5 +1,4 @@
 {
-  firstWrite.set(true);
   if (!connection.isOpen())   throw new IOException("Connection remotely closed");
   logger.trace("WebSocket.write()");
   connection.sendMessage(data);

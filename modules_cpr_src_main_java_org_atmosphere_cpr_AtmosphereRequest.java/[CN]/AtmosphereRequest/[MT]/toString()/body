@@ -1,3 +1,0 @@
-{
-  return "AtmosphereRequest{" + "bis=" + bis + ", br="+ br+ ", pathInfo='"+ pathInfo+ '\''+ ", session="+ session+ ", methodType='"+ methodType+ '\''+ ", b="+ b+ '}';
-}
