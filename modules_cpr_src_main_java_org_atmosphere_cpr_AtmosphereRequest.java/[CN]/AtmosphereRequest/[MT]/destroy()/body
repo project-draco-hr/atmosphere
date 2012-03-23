@@ -1,5 +1,5 @@
 {
-  if (!b.destroyable)   return;
+  if (!b.destroyable || destroyed.getAndSet(true))   return;
   b.localAttributes.clear();
   if (bis != null) {
     try {
