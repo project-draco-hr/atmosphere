@@ -1,0 +1,20 @@
+{
+  final Object payload=jgroupMessage.getObject();
+  if (payload == null)   return;
+  if (BroadcastMessage.class.isAssignableFrom(payload.getClass())) {
+    BroadcastMessage broadcastMsg=BroadcastMessage.class.cast(payload);
+    if (this.id.equalsIgnoreCase(broadcastMsg.getClusterChannelId()))     return;
+    Object origMessage=broadcastMsg.getMessage();
+    receivedMessages.offer(origMessage);
+    String topicId=broadcastMsg.getTopic();
+    if (broadcasters.containsKey(topicId)) {
+      Broadcaster bc=broadcasters.get(topicId);
+      try {
+        bc.broadcast(origMessage).get();
+      }
+ catch (      Exception ex) {
+        logger.error("Failed to broadcast message received over the JGroups cluster " + this.clusterName,ex);
+      }
+    }
+  }
+}

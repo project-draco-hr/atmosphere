@@ -1,0 +1,6 @@
+{
+  if (jchannel.isConnected())   throw new IllegalArgumentException("JChannel already connected");
+  this.jchannel=jchannel;
+  this.clusterName=clusterName;
+  this.id=UUID.randomUUID().toString() + "_" + System.currentTimeMillis();
+}

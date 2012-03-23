@@ -1,4 +1,0 @@
-{
-  gws.stop();
-  return this;
-}

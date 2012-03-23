@@ -1,0 +1,5 @@
+{
+  this.clusterChannelId=clusterChannelId;
+  this.topic=topic;
+  this.message=message;
+}

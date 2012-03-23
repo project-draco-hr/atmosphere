@@ -1,0 +1,5 @@
+{
+  jchannel.shutdown();
+  receivedMessages.clear();
+  broadcasters.clear();
+}

@@ -1,3 +1,4 @@
 {
-  jchannel.shutdown();
+  jchannel.removeBroadcaster(bc);
+  this.bc=null;
 }

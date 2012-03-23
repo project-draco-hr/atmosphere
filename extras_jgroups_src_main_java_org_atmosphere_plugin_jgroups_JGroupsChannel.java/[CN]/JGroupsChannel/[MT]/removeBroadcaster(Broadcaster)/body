@@ -1,0 +1,3 @@
+{
+  this.broadcasters.remove(broadcaster.getID());
+}

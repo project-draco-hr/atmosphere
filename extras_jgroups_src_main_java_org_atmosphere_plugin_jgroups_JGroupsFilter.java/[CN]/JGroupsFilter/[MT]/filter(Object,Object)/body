@@ -1,11 +1,6 @@
 {
-  if (!receivedMessages.remove(message)) {
-    try {
-      jchannel.send(new Message(null,null,new JGroupsBroadcaster.BroadcastMessage(bc.getID(),message)));
-    }
- catch (    ChannelException e) {
-      logger.warn("failed to send message",e);
-    }
+  if (bc != null) {
+    this.jchannel.send(this.bc.getID(),message);
   }
   return new BroadcastAction(message);
 }

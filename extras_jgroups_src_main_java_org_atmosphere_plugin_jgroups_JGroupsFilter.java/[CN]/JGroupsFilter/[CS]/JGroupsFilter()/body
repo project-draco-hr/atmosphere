@@ -1,3 +1,0 @@
-{
-  this(BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"JGroupFilter"));
-}

@@ -1,0 +1,14 @@
+{
+  if (jchannel.isConnected()) {
+    if (!receivedMessages.remove(message)) {
+      try {
+        BroadcastMessage broadcastMsg=new BroadcastMessage(this.id,topic,message);
+        Message jgroupMsg=new Message(null,null,broadcastMsg);
+        jchannel.send(jgroupMsg);
+      }
+ catch (      ChannelException e) {
+        logger.warn("Failed to send message {}",message,e);
+      }
+    }
+  }
+}
