@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  Action action=(Action)o;
+  if (timeout != action.timeout)   return false;
+  if (type != action.type)   return false;
+  return true;
+}
