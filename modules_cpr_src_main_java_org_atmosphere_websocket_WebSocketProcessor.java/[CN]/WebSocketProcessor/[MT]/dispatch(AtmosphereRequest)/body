@@ -2,10 +2,8 @@
   if (!loggedMsg.getAndSet(true)) {
     logger.debug("Atmosphere detected WebSocket: {}",webSocket.getClass().getName());
   }
-  String pathInfo=request.getPathInfo();
-  String requestURI=request.getRequestURI();
   AtmosphereResponse wsr=new AtmosphereResponse(webSocket,webSocketProtocol,request,destroyable);
-  request.header(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.WEBSOCKET_TRANSPORT);
+  request.header(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.WEBSOCKET_TRANSPORT).headers(configureHeader(request));
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   dispatch(request,wsr);
   webSocketProtocol.onOpen(webSocket);

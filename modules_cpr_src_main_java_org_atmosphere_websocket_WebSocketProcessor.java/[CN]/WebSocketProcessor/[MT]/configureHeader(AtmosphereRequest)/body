@@ -1,0 +1,11 @@
+{
+  Map<String,String> headers=new HashMap<String,String>();
+  Enumeration<String> e=request.getParameterNames();
+  String s;
+  while (e.hasMoreElements()) {
+    s=e.nextElement();
+    headers.put(s,request.getParameter(s));
+  }
+  headers.put(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.WEBSOCKET_TRANSPORT);
+  return headers;
+}
