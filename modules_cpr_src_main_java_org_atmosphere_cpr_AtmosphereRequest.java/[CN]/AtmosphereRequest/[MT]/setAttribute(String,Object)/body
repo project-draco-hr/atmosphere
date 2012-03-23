@@ -1,3 +1,6 @@
 {
   b.localAttributes.put(s,o);
+  if (b.request != null) {
+    b.request.setAttribute(s,o);
+  }
 }
