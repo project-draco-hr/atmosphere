@@ -3,6 +3,6 @@
     this.charSet=charSet;
   }
  else {
-    super.setCharacterEncoding(charSet);
+    response.setCharacterEncoding(charSet);
   }
 }

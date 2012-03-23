@@ -1,5 +1,4 @@
 {
-  super(b.request == null ? new NoOpsRequest() : b.request);
   pathInfo=b.pathInfo == "" ? b.request.getPathInfo() : b.pathInfo;
   session=b.request == null ? new FakeHttpSession("",null,System.currentTimeMillis()) : b.request.getSession();
   if (b.inputStream == null) {

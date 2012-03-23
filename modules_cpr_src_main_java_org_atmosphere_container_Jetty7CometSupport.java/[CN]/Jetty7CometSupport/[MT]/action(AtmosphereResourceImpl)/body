@@ -19,12 +19,7 @@
       return;
     }
  else {
-      if (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
-        request=AtmosphereRequest.class.cast(request).getRequest();
-      }
- else {
-        return;
-      }
+      return;
     }
   }
 }

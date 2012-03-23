@@ -1,5 +1,5 @@
 {
-  ArrayList list=Collections.list(super.getHeaderNames());
+  ArrayList list=Collections.list(b.request.getHeaderNames());
   if (b.contentType != null) {
     list.add("Content-Type");
   }

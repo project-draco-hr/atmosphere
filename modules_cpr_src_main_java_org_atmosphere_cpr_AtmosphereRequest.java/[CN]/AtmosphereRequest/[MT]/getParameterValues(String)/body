@@ -1,5 +1,5 @@
 {
-  String[] list=super.getParameterValues(s) == null ? new String[0] : super.getParameterValues(s);
+  String[] list=b.request.getParameterValues(s) == null ? new String[0] : b.request.getParameterValues(s);
   if (b.queryStrings.get(s) != null) {
     String[] newList=b.queryStrings.get(s);
     String[] s1=new String[list.length + newList.length];

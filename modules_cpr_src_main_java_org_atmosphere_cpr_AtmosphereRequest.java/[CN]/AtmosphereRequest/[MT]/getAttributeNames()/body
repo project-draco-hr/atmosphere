@@ -1,5 +1,6 @@
 {
-  Set<String> l=b.localAttributes.keySet();
+  Set<String> l=new HashSet();
+  l.addAll(b.localAttributes.keySet());
   Enumeration<String> e=(b.request != null ? b.request.getAttributeNames() : null);
   if (e != null) {
     while (e.hasMoreElements()) {

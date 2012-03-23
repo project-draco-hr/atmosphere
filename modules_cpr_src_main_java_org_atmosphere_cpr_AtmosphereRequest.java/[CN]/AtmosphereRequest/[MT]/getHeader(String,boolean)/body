@@ -2,7 +2,7 @@
   if ("content-type".equalsIgnoreCase(s)) {
     return getContentType();
   }
-  String name=super.getHeader(s);
+  String name=b.request.getHeader(s);
   if (name == null) {
     if (b.headers.get(s) != null) {
       return b.headers.get(s);

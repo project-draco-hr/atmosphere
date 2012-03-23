@@ -1,5 +1,5 @@
 {
-  String name=super.getParameter(s);
+  String name=b.request.getParameter(s);
   if (name == null) {
     if (b.queryStrings.get(s) != null) {
       return b.queryStrings.get(s)[0];

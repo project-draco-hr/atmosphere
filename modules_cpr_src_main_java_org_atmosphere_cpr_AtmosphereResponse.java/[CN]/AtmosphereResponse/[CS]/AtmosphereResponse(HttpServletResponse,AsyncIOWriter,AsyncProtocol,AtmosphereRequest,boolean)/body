@@ -1,5 +1,5 @@
 {
-  super(r);
+  response=r;
   this.asyncIOWriter=asyncIOWriter;
   this.asyncProtocol=asyncProtocol;
   this.atmosphereRequest=atmosphereRequest;

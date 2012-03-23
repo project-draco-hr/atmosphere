@@ -1,5 +1,5 @@
 {
-  ArrayList list=Collections.list(super.getHeaders(name));
+  ArrayList list=Collections.list(b.request.getHeaders(name));
   if (name.equalsIgnoreCase("content-type")) {
     String s=getContentType();
     if (s != null) {
