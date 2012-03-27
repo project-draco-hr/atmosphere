@@ -1,3 +1,4 @@
 {
-  throw new UnsupportedOperationException();
+  logger.trace("Unsupported");
+  return new NoOpsOutputStream();
 }
