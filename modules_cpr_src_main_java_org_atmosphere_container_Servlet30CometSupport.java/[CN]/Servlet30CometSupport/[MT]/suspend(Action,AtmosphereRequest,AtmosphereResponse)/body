@@ -1,7 +1,7 @@
 {
   if (!req.isAsyncStarted()) {
     AsyncContext asyncContext=req.startAsync();
-    asyncContext.addListener(new CometListener());
+    asyncContext.addListener(new CometListener(this));
     if (action.timeout != -1) {
       asyncContext.setTimeout(action.timeout);
     }

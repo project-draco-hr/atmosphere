@@ -1,7 +1,7 @@
 {
   logger.debug("onTimeout(): event: {}",event.getAsyncContext().getRequest());
   try {
-    timedout((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
+    p.timedout((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
   }
  catch (  ServletException ex) {
     logger.debug("onTimeout(): failed timing out comet response: " + event.getAsyncContext().getResponse(),ex);

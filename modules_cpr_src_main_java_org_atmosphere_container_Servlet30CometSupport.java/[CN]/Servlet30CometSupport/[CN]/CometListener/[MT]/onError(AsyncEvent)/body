@@ -1,7 +1,7 @@
 {
   logger.debug("onError(): event: {}",event.getAsyncContext().getResponse());
   try {
-    cancelled((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
+    p.cancelled((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
   }
  catch (  Throwable ex) {
     logger.debug("failed cancelling comet response: " + event.getAsyncContext().getResponse(),ex);
