@@ -1,0 +1,9 @@
+{
+  Enumeration<String> e=httpSession.getAttributeNames();
+  String k;
+  while (e.hasMoreElements()) {
+    k=e.nextElement();
+    attributes.put(k,getAttribute(k));
+  }
+  return this;
+}

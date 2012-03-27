@@ -2,4 +2,5 @@
   this.sessionId=sessionId;
   this.servletContext=servletContext;
   this.creationTime=creationTime;
+  this.maxInactiveInterval=maxInactiveInterval;
 }

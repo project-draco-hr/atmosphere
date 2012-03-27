@@ -1,0 +1,4 @@
+{
+  this(session.getId(),session.getServletContext(),session.getLastAccessedTime(),session.getMaxInactiveInterval());
+  copyAttributes(session);
+}

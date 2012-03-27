@@ -1,3 +1,4 @@
 String sessionId
 ServletContext servletContext
 long creationTime
+int maxInactiveInterval
