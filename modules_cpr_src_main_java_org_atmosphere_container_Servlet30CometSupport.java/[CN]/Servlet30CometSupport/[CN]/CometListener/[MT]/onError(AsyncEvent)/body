@@ -1,5 +1,9 @@
 {
   logger.debug("onError(): event: {}",event.getAsyncContext().getResponse());
+  if (p == null) {
+    logger.error("Invalid state - CometListener");
+    return;
+  }
   try {
     p.cancelled((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
   }
