@@ -1,6 +1,6 @@
 {
-  if (webSocketProtocolClassName.equalsIgnoreCase(SimpleHttpProtocol.class.getName()))   return;
-  logger.info("Auto detecting WebSocketHandler {}",handlersPath);
+  if (hasNewWebSocketProtocol)   return;
+  logger.info("Auto detecting WebSocketHandler in {}",handlersPath);
   String realPath=servletContext.getRealPath(handlersPath);
   if (realPath == null) {
     URL u=servletContext.getResource(handlersPath);
