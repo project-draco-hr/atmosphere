@@ -2,7 +2,7 @@
   try {
     if (destroyed.get()) {
       logger.debug(DESTROYED,getID(),"addAtmosphereResource(AtmosphereResource<?, ?> r");
-      return r;
+      return this;
     }
     start();
     if (scope == SCOPE.REQUEST && requestScoped.getAndSet(true)) {
@@ -24,7 +24,7 @@
       }
     }
     if (resources.contains(r)) {
-      return r;
+      return this;
     }
 synchronized (concurrentSuspendBroadcast) {
       if (resources.isEmpty()) {
@@ -43,5 +43,5 @@ synchronized (awaitBarrier) {
       }
     }
   }
-  return r;
+  return this;
 }

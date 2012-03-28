@@ -1,10 +1,10 @@
 {
   if (destroyed.get()) {
     logger.debug(DESTROYED,getID(),"removeAtmosphereResource(AtmosphereResource r)");
-    return r;
+    return this;
   }
   if (!resources.contains(r)) {
-    return null;
+    return this;
   }
   boolean removed=resources.remove(r);
   if (removed) {
@@ -19,5 +19,5 @@
       }
     }
   }
-  return r;
+  return this;
 }
