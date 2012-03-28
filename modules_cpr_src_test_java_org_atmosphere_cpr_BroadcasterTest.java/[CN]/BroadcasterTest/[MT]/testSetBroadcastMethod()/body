@@ -1,0 +1,29 @@
+{
+  AtmosphereConfig config=new AtmosphereFramework().setCometSupport(mock(BlockingIOCometSupport.class)).init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return null;
+    }
+  }
+).getAtmosphereConfig();
+  DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
+  broadcaster=factory.get(DefaultBroadcaster.class,"test");
+  atmosphereHandler=new AR();
+  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),mock(AtmosphereResponse.class),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  AtmosphereResource ar2=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),mock(AtmosphereResponse.class),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  AtmosphereResource ar3=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),mock(AtmosphereResponse.class),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  broadcaster.addAtmosphereResource(ar).addAtmosphereResource(ar2).addAtmosphereResource(ar3);
+  Set<AtmosphereResource> set=new HashSet<AtmosphereResource>();
+  set.add(ar);
+  set.add(ar2);
+  broadcaster.broadcast("foo",set).get();
+  assertEquals(atmosphereHandler.value.get(),set);
+}
