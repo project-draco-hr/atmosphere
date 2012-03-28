@@ -1,3 +1,4 @@
 {
   broadcaster.removeAtmosphereResource(ar);
+  atmosphereHandler.value.set(new HashSet());
 }
