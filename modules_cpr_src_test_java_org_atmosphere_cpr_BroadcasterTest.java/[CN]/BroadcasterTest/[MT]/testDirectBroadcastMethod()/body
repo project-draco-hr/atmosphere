@@ -1,4 +1,4 @@
 {
   broadcaster.broadcast("foo",ar).get();
-  assertEquals(atmosphereHandler.value.get(),ar);
+  assertEquals(atmosphereHandler.value.get().toArray()[0],ar);
 }
