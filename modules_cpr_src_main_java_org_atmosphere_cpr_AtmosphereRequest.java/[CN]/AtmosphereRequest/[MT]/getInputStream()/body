@@ -1,3 +1,3 @@
 {
-  return bis == null ? (b.request != null ? b.request.getInputStream() : null) : bis;
+  return bis == null ? (isNotNoOps() ? b.request.getInputStream() : null) : bis;
 }

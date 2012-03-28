@@ -7,7 +7,7 @@
     if (b.headers.get(s) != null) {
       return b.headers.get(s);
     }
-    if (s.startsWith(X_ATMOSPHERE) && b.request != null) {
+    if (s.startsWith(X_ATMOSPHERE) && isNotNoOps()) {
       name=(String)b.request.getAttribute(s);
     }
   }

@@ -1,0 +1,3 @@
+{
+  return !NoOpsRequest.class.isAssignableFrom(b.request.getClass());
+}

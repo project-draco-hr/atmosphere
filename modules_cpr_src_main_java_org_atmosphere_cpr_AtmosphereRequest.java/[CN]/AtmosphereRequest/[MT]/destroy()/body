@@ -17,8 +17,7 @@
   }
   b.headers.clear();
   b.queryStrings.clear();
-  if (b.request != null) {
+  if (isNotNoOps()) {
     b.request.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-    b.request=null;
   }
 }
