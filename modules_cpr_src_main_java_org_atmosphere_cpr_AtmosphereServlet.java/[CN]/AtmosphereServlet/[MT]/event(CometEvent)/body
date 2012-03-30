@@ -3,10 +3,10 @@
   HttpServletResponse res=cometEvent.getHttpServletResponse();
   req.setAttribute(TomcatCometSupport.COMET_EVENT,cometEvent);
   if (!framework.isCometSupportSpecified && !framework.isCometSupportConfigured.getAndSet(true)) {
-synchronized (framework.cometSupport) {
-      if (!framework.cometSupport.getClass().equals(TomcatCometSupport.class)) {
+synchronized (framework.asyncSupport) {
+      if (!framework.asyncSupport.getClass().equals(TomcatCometSupport.class)) {
         logger.warn("TomcatCometSupport is enabled, switching to it");
-        framework.cometSupport=new TomcatCometSupport(framework.config);
+        framework.asyncSupport=new TomcatCometSupport(framework.config);
       }
     }
   }

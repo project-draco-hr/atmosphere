@@ -1,5 +1,5 @@
 {
-  AtmosphereConfig config=new AtmosphereFramework().setCometSupport(mock(BlockingIOCometSupport.class)).init(new ServletConfig(){
+  AtmosphereConfig config=new AtmosphereFramework().setAsyncSupport(mock(BlockingIOCometSupport.class)).init(new ServletConfig(){
     @Override public String getServletName(){
       return "void";
     }

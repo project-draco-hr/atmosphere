@@ -46,7 +46,7 @@
         broadcasterCacheClassName=bc;
       }
       if (atmoHandler.getCometSupport() != null) {
-        cometSupport=(CometSupport)c.loadClass(atmoHandler.getCometSupport()).getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(new Object[]{config});
+        asyncSupport=(AsyncSupport)c.loadClass(atmoHandler.getCometSupport()).getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(new Object[]{config});
       }
       if (atmoHandler.getBroadcastFilterClasses() != null) {
         broadcasterFilters.addAll(atmoHandler.getBroadcastFilterClasses());

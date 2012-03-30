@@ -35,7 +35,7 @@
     autoDetectContainer();
     configureWebDotXmlAtmosphereHandler(sc);
     initWebSocketProtocol();
-    cometSupport.init(scFacade);
+    asyncSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
     logger.info("Using Broadcaster class: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());

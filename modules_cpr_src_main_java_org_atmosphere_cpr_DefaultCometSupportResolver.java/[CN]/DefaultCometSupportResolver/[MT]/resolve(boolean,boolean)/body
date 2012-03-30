@@ -1,9 +1,0 @@
-{
-  final CometSupport servletAsyncSupport=defaultCometSupport(defaultToBlocking);
-  final CometSupport nativeSupport;
-  if (!defaultToBlocking && (useNativeIfPossible || servletAsyncSupport.getClass().getName().equals(BlockingIOCometSupport.class.getName()))) {
-    nativeSupport=resolveNativeCometSupport(detectContainersPresent());
-    return nativeSupport == null ? servletAsyncSupport : nativeSupport;
-  }
-  return servletAsyncSupport;
-}

@@ -1,6 +1,6 @@
 {
-  if (cometSupport != null && AsynchronousProcessor.class.isAssignableFrom(cometSupport.getClass())) {
-    ((AsynchronousProcessor)cometSupport).shutdown();
+  if (asyncSupport != null && AsynchronousProcessor.class.isAssignableFrom(asyncSupport.getClass())) {
+    ((AsynchronousProcessor)asyncSupport).shutdown();
   }
   BroadcasterConfig bc=null;
   for (  Entry<String,AtmosphereHandlerWrapper> entry : atmosphereHandlers.entrySet()) {

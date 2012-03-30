@@ -12,7 +12,7 @@
       String[] e=req.getHeaders("Connection").nextElement().toString().split(",");
       for (      String upgrade : e) {
         if (upgrade.trim().equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
-          if (writeHeaders && !cometSupport.supportWebSocket()) {
+          if (writeHeaders && !asyncSupport.supportWebSocket()) {
             response.addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
           }
  else {

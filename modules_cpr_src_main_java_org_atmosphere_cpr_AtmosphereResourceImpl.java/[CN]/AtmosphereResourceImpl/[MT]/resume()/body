@@ -42,7 +42,7 @@
         logger.debug("Meteor resume exception: Cannot resume an already resumed/cancelled request",ex);
       }
       if (req.getAttribute(PRE_SUSPEND) == null) {
-        cometSupport.action(this);
+        asyncSupport.action(this);
       }
     }
  else {

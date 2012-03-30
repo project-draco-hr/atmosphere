@@ -15,20 +15,20 @@
       if (body != null) {
         req.body(body);
       }
-      a=cometSupport.service(req,res);
+      a=asyncSupport.service(req,res);
     }
  else {
-      return cometSupport.service(req,res);
+      return asyncSupport.service(req,res);
     }
   }
  catch (  IllegalStateException ex) {
     if (ex.getMessage() != null && (ex.getMessage().startsWith("Tomcat failed") || ex.getMessage().startsWith("JBoss failed"))) {
       if (!isFilter) {
-        logger.warn("Failed using comet support: {}, error: {} Is the Nio or Apr Connector enabled?",cometSupport.getClass().getName(),ex.getMessage());
+        logger.warn("Failed using comet support: {}, error: {} Is the Nio or Apr Connector enabled?",asyncSupport.getClass().getName(),ex.getMessage());
         logger.warn("Using BlockingIOCometSupport.");
       }
       logger.trace(ex.getMessage(),ex);
-      cometSupport=new BlockingIOCometSupport(config);
+      asyncSupport=new BlockingIOCometSupport(config);
       doCometSupport(req,res);
     }
  else {

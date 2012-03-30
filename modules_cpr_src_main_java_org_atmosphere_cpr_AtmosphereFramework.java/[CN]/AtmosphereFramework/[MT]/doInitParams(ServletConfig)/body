@@ -15,7 +15,7 @@
   }
   s=sc.getInitParameter(PROPERTY_COMET_SUPPORT);
   if (s != null) {
-    cometSupport=new DefaultCometSupportResolver(config).newCometSupport(s);
+    asyncSupport=new DefaultAsyncSupportResolver(config).newCometSupport(s);
     isCometSupportSpecified=true;
   }
   s=sc.getInitParameter(BROADCASTER_CLASS);

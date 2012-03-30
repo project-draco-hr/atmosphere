@@ -1,3 +1,3 @@
 {
-  ((AsynchronousProcessor)framework.cometSupport).timedout(AtmosphereRequest.wrap(rrk.getRequest()),AtmosphereResponse.wrap(rrk.getResponse()));
+  ((AsynchronousProcessor)framework.asyncSupport).timedout(AtmosphereRequest.wrap(rrk.getRequest()),AtmosphereResponse.wrap(rrk.getResponse()));
 }

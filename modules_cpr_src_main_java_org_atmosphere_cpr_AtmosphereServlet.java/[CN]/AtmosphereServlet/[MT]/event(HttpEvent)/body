@@ -3,10 +3,10 @@
   HttpServletResponse res=httpEvent.getHttpServletResponse();
   req.setAttribute(JBossWebCometSupport.HTTP_EVENT,httpEvent);
   if (!framework.isCometSupportSpecified && !framework.isCometSupportConfigured.getAndSet(true)) {
-synchronized (framework.cometSupport) {
-      if (!framework.cometSupport.getClass().equals(JBossWebCometSupport.class)) {
+synchronized (framework.asyncSupport) {
+      if (!framework.asyncSupport.getClass().equals(JBossWebCometSupport.class)) {
         logger.warn("JBossWebCometSupport is enabled, switching to it");
-        framework.cometSupport=new JBossWebCometSupport(framework.config);
+        framework.asyncSupport=new JBossWebCometSupport(framework.config);
       }
     }
   }

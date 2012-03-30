@@ -1,6 +1,6 @@
 {
   this.r=r;
-  if (!AsynchronousProcessor.class.isAssignableFrom(r.cometSupport.getClass())) {
-    throw new IllegalStateException("CometSupport must extends AsynchronousProcessor");
+  if (!AsynchronousProcessor.class.isAssignableFrom(r.asyncSupport.getClass())) {
+    throw new IllegalStateException("AsyncSupport must extends AsynchronousProcessor");
   }
 }

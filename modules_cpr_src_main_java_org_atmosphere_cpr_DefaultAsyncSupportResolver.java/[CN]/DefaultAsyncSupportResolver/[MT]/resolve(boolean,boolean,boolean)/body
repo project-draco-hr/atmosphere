@@ -1,0 +1,20 @@
+{
+  AsyncSupport cs;
+  List<Class<? extends AsyncSupport>> l;
+  if (!useWebsocketIfPossible) {
+    cs=resolve(useNativeIfPossible,defaultToBlocking);
+  }
+ else {
+    l=detectWebSocketPresent();
+    if (l.isEmpty()) {
+      return resolve(useNativeIfPossible,defaultToBlocking);
+    }
+    cs=resolveWebSocket(l);
+  }
+  if (cs == null) {
+    return new BlockingIOCometSupport(config);
+  }
+ else {
+    return cs;
+  }
+}
