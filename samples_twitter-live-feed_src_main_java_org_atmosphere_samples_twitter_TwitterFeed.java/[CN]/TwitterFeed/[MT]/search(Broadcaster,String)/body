@@ -35,7 +35,7 @@
         return null;
       }
     }
-,1,TimeUnit.HOURS);
+,5,TimeUnit.SECONDS);
     futures.put(tagid,future);
   }
   return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(feed).outputComments(true).addListener(new EventsLogger(){
