@@ -32,7 +32,7 @@
       doCometSupport(req,res);
     }
  else {
-      logger.error("AtmosphereServlet exception",ex);
+      logger.error("AtmosphereFramework exception",ex);
       throw ex;
     }
   }

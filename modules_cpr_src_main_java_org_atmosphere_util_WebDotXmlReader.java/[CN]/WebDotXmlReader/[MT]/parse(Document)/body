@@ -11,7 +11,7 @@
         atmosphereServletName=n.getFirstChild().getNodeValue();
       }
       if (n.getNodeName().equals("servlet-class")) {
-        if (n.getFirstChild().getNodeValue().equals(ATMOSPHERE_SERVLET)) {
+        if (n.getFirstChild().getNodeValue().equals(FrameworkConfig.ATMOSPHERE_SERVLET)) {
           break;
         }
       }
