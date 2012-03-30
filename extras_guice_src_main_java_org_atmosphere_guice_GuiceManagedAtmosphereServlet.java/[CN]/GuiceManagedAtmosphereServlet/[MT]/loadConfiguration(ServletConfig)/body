@@ -1,4 +1,0 @@
-{
-  sc.getServletContext().setAttribute(SKIP_GUICE_FILTER,"true");
-  super.loadConfiguration(sc);
-}

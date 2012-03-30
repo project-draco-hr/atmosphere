@@ -1,3 +1,0 @@
-{
-  b.broadcast(new Response(message.author,message.message));
-}

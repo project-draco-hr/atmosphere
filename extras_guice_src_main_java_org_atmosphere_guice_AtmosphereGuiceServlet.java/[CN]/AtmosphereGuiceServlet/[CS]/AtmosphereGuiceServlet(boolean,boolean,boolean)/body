@@ -1,0 +1,62 @@
+{
+  framework=new AtmosphereFramework(isFilter,autoDetectHandlers){
+    /** 
+ * Install Guice event if other extension has been already installed.
+ * @param sc {@link javax.servlet.ServletConfig}
+ * @throws ServletException
+ */
+    public void loadConfiguration(    ServletConfig sc) throws ServletException {
+      super.loadConfiguration(sc);
+      if (!guiceInstalled) {
+        detectSupportedFramework(sc);
+      }
+    }
+    /** 
+ * Auto-detect Jersey when no atmosphere.xml file are specified.
+ * @param sc {@link javax.servlet.ServletConfig}
+ * @return true if Jersey classes are detected
+ */
+    protected boolean detectSupportedFramework(    ServletConfig sc){
+      Injector injector=(Injector)framework().getAtmosphereConfig().getServletContext().getAttribute(Injector.class.getName());
+      GuiceContainer guiceServlet=injector.getInstance(GuiceContainer.class);
+      setUseStreamForFlushingComments(false);
+      ReflectorServletProcessor rsp=new ReflectorServletProcessor();
+      boolean isJersey=false;
+      try {
+        Thread.currentThread().getContextClassLoader().loadClass(JERSEY_CONTAINER);
+        setDefaultBroadcasterClassName(FrameworkConfig.JERSEY_BROADCASTER).setUseStreamForFlushingComments(true).getAtmosphereConfig().setSupportSession(false);
+        DefaultBroadcasterFactory.buildAndReplaceDefaultfactory(JerseyBroadcaster.class,getAtmosphereConfig());
+        isJersey=true;
+      }
+ catch (      Throwable t) {
+      }
+      rsp.setServlet(guiceServlet);
+      if (skipGuiceFilter) {
+        rsp.setFilterClassName(GUICE_FILTER);
+      }
+      String mapping=sc.getInitParameter(ApplicationConfig.PROPERTY_SERVLET_MAPPING);
+      if (mapping == null) {
+        mapping="/*";
+      }
+      if (isJersey) {
+        try {
+          Map<String,String> props=injector.getInstance(Key.get(new TypeLiteral<Map<String,String>>(){
+          }
+,Names.named(JERSEY_PROPERTIES)));
+          if (props != null) {
+            for (            String p : props.keySet()) {
+              framework().addInitParameter(p,props.get(p));
+            }
+          }
+        }
+ catch (        Exception ex) {
+          logger.debug("failed to add Jersey init parameters to Atmosphere servlet",ex);
+        }
+      }
+      addAtmosphereHandler(mapping,rsp);
+      guiceInstalled=true;
+      return true;
+    }
+  }
+;
+}

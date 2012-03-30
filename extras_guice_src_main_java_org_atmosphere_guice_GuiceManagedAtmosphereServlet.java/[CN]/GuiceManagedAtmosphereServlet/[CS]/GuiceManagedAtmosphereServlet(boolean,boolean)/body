@@ -1,0 +1,3 @@
+{
+  super(isFilter,autoDetectHandlers,true);
+}
