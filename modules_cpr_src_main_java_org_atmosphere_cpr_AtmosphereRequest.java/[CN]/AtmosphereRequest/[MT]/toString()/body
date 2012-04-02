@@ -1,3 +1,8 @@
 {
-  return "AtmosphereRequest{" + " contextPath=" + getContextPath() + " servletPath="+ getServletPath()+ " pathInfo="+ getPathInfo()+ " requestURI="+ getRequestURI()+ " requestURL="+ getRequestURL()+ " destroyable="+ b.destroyable+ '}';
+  try {
+    return "AtmosphereRequest{" + " contextPath=" + getContextPath() + " servletPath="+ getServletPath()+ " pathInfo="+ getPathInfo()+ " requestURI="+ getRequestURI()+ " requestURL="+ getRequestURL()+ " destroyable="+ b.destroyable+ '}';
+  }
+ catch (  Exception e) {
+    return "AtmosphereRequest{" + " contextPath=" + getContextPath() + " servletPath="+ getServletPath()+ " pathInfo="+ getPathInfo()+ " requestURI="+ getRequestURI()+ " destroyable="+ b.destroyable+ '}';
+  }
 }
