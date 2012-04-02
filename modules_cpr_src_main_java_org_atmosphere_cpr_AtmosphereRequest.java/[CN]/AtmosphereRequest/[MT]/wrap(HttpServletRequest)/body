@@ -1,3 +1,6 @@
 {
+  if (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
+    return AtmosphereRequest.class.cast(request);
+  }
   return new Builder().request(request).build();
 }

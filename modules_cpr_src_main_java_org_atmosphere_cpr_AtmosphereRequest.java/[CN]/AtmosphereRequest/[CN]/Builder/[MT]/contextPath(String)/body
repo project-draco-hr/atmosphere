@@ -1,0 +1,4 @@
+{
+  this.contextPath=contextPath == null ? "" : contextPath;
+  return this;
+}

@@ -1,6 +1,5 @@
 {
-  pathInfo=b.pathInfo == "" ? b.request.getPathInfo() : b.pathInfo;
-  session=b.request == null ? new FakeHttpSession("",null,System.currentTimeMillis(),-1) : b.request.getSession();
+  session=b.request == null ? new FakeHttpSession("",null,System.currentTimeMillis(),-1) : b.session != null ? b.session : b.request.getSession();
   if (b.inputStream == null) {
     if (b.dataBytes != null) {
       configureStream(b.dataBytes,b.offset,b.length,b.encoding);
@@ -14,7 +13,6 @@
     bis=new IS(b.inputStream);
     br=new BufferedReader(new InputStreamReader(b.inputStream));
   }
-  methodType=b.methodType == null ? (b.request != null ? b.request.getMethod() : "GET") : b.methodType;
   if (b.request == null)   b.request(new NoOpsRequest());
   this.b=b;
 }

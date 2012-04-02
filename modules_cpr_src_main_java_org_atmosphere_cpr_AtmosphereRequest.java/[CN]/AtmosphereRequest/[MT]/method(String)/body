@@ -1,4 +1,4 @@
 {
-  methodType=m;
+  b.method(m);
   return this;
 }

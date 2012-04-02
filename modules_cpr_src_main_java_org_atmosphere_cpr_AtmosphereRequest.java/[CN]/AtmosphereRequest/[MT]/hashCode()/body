@@ -1,9 +1,7 @@
 {
   int result=bis != null ? bis.hashCode() : 0;
   result=31 * result + (br != null ? br.hashCode() : 0);
-  result=31 * result + (pathInfo != null ? pathInfo.hashCode() : 0);
   result=31 * result + (session != null ? session.hashCode() : 0);
-  result=31 * result + (methodType != null ? methodType.hashCode() : 0);
   result=31 * result + (b != null ? b.hashCode() : 0);
   return result;
 }

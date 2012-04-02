@@ -2,7 +2,7 @@
   logger.trace("WebSocket.onOpen.");
   try {
     webSocketProcessor=new WebSocketProcessor(framework,new Jetty8WebSocket(connection,framework.getAtmosphereConfig()),webSocketProtocol);
-    webSocketProcessor.dispatch(AtmosphereRequest.wrap(request));
+    webSocketProcessor.dispatch(request);
     webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CONNECT,webSocketProcessor.webSocket()));
   }
  catch (  Exception e) {
