@@ -1,3 +1,6 @@
 {
+  if (session == null) {
+    session=!isNotNoOps() ? new FakeHttpSession("",null,System.currentTimeMillis(),-1) : b.session != null ? b.session : b.request.getSession();
+  }
   return session;
 }

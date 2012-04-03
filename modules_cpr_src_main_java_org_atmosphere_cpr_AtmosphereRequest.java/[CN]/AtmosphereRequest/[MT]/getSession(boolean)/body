@@ -1,3 +1,6 @@
 {
+  if (create) {
+    return getSession();
+  }
   return session;
 }
