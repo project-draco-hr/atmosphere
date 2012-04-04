@@ -1,0 +1,8 @@
+{
+  final Meteor m=Meteor.build(req);
+  req.getSession().setAttribute("meteor",m);
+  m.suspend(20000,false).resumeOnBroadcast(true).broadcast("resume");
+  if (servletLatch != null) {
+    servletLatch.countDown();
+  }
+}

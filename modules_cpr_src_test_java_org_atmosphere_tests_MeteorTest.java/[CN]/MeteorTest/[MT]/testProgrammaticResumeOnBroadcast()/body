@@ -1,5 +1,5 @@
 {
-  startServer(Meteor1.class.getName());
+  startServer(Meteor2.class.getName());
   logger.info("running test: testSuspendTimeout");
   AsyncHttpClient c=new AsyncHttpClient();
   try {
