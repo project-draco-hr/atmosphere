@@ -14,7 +14,6 @@
   writeHeaders=wh != null ? Boolean.parseBoolean(wh) : true;
   req.setAttribute(ApplicationConfig.NO_CACHE_HEADERS,injectCacheHeaders);
   req.setAttribute(ApplicationConfig.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER,enableAccessControl);
-  String padding=config.getInitParameter(ApplicationConfig.STREAMING_PADDING_MODE);
-  beginCompatibleData=createStreamingPadding(padding);
+  padding=config.getInitParameter(ApplicationConfig.STREAMING_PADDING_MODE);
   req.setAttribute(ApplicationConfig.STREAMING_PADDING_MODE,padding);
 }
