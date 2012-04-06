@@ -1,0 +1,42 @@
+{
+  if (req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
+    String key;
+    String subProtocol=null;
+    List<String> extensions=Collections.emptyList();
+    if (!headerContainsToken(req,"upgrade","websocket")) {
+      return super.service(req,res);
+    }
+    if (!headerContainsToken(req,"connection","upgrade")) {
+      return super.service(req,res);
+    }
+    if (!headerContainsToken(req,"sec-websocket-version","13")) {
+      res.setStatus(426);
+      res.setHeader("Sec-WebSocket-Version","13");
+      return super.service(req,res);
+    }
+    key=req.getHeader("Sec-WebSocket-Key");
+    if (key == null) {
+      return super.service(req,res);
+    }
+    res.setHeader("upgrade","websocket");
+    res.setHeader("connection","upgrade");
+    res.setHeader("Sec-WebSocket-Accept",getWebSocketAccept(key));
+    if (subProtocol != null) {
+      res.setHeader("Sec-WebSocket-Protocol",subProtocol);
+    }
+    if (!extensions.isEmpty()) {
+    }
+    RequestFacade facade=(RequestFacade)req.wrappedRequest();
+    StreamInbound inbound=new TomcatWebSocketHandler(AtmosphereRequest.loadInMemory(req),config.framework(),config.framework().getWebSocketProtocol());
+    facade.doUpgrade(inbound);
+  }
+  AtmosphereFramework.Action action=suspended(req,res);
+  if (action.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
+    logger.debug("Suspending resonse: {}",res);
+  }
+ else   if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
+    logger.debug("Resume resonse: {}",res);
+    req.setAttribute(WebSocket.WEBSOCKET_RESUME,true);
+  }
+  return action;
+}

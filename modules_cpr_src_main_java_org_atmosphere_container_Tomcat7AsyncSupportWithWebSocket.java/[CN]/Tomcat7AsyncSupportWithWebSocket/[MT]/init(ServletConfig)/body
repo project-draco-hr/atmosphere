@@ -1,0 +1,9 @@
+{
+  try {
+    WS_ACCEPT="258EAFA5-E914-47DA-95CA-C5AB0DC85B11".getBytes("ISO_8859_1");
+    sha1Helper=MessageDigest.getInstance("SHA1");
+  }
+ catch (  Exception e) {
+    throw new ServletException(e);
+  }
+}

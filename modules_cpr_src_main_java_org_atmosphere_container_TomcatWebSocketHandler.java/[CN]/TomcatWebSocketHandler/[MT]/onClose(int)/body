@@ -1,0 +1,6 @@
+{
+  request.destroy();
+  if (webSocketProcessor == null)   return;
+  webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocketProcessor.webSocket()));
+  webSocketProcessor.close(closeCode);
+}

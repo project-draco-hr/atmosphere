@@ -7,9 +7,8 @@
   }
  else {
     b=new Builder();
-    b.request(request);
   }
-  b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).destroyable(false).session(new FakeHttpSession(request.getSession(true)));
+  b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).destroyable(false).session(new FakeHttpSession(request.getSession(true))).request(new NoOpsRequest());
   Enumeration<String> e=request.getHeaderNames();
   String s;
   while (e.hasMoreElements()) {

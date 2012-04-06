@@ -1,0 +1,11 @@
+{
+  logger.trace("WebSocket.onOpen.");
+  try {
+    webSocketProcessor=new WebSocketProcessor(framework,new TomcatWebSocket(outbound,framework.getAtmosphereConfig()),webSocketProtocol);
+    webSocketProcessor.dispatch(request);
+    webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CONNECT,webSocketProcessor.webSocket()));
+  }
+ catch (  Exception e) {
+    logger.warn("failed to connect to web socket",e);
+  }
+}

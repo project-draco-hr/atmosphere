@@ -1,0 +1,11 @@
+{
+synchronized (sha1Helper) {
+    sha1Helper.reset();
+    try {
+      sha1Helper.update(key.getBytes("ISO_8859_1"));
+    }
+ catch (    UnsupportedEncodingException e) {
+    }
+    return org.apache.catalina.util.Base64.encode(sha1Helper.digest(WS_ACCEPT));
+  }
+}
