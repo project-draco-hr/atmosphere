@@ -9,5 +9,4 @@
  else {
     connection.sendMessage(new String(data,0,data.length,"UTF-8"));
   }
-  lastWrite=System.currentTimeMillis();
 }

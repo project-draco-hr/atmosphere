@@ -1,3 +1,0 @@
-{
-  return lastWrite == -1 ? System.currentTimeMillis() : lastWrite;
-}
