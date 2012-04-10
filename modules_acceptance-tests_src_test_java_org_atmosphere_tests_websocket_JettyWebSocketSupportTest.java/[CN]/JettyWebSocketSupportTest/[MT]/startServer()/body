@@ -1,5 +1,5 @@
 {
-  int port=8080;
+  int port=findFreePort();
   urlTarget="ws://127.0.0.1:" + port + "/invoke";
   server=new Server(port);
   ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);
