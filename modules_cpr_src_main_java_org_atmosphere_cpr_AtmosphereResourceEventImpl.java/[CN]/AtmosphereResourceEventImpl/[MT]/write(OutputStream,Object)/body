@@ -1,4 +1,5 @@
 {
+  check();
   resource.write(os,o);
   return this;
 }
