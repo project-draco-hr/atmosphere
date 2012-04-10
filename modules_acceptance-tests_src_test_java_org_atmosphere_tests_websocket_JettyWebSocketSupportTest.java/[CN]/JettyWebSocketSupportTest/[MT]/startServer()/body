@@ -1,0 +1,12 @@
+{
+  int port=8080;
+  urlTarget="ws://127.0.0.1:" + port + "/invoke";
+  server=new Server(port);
+  ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);
+  context.setContextPath("/");
+  server.setHandler(context);
+  atmoServlet=new AtmosphereServlet();
+  configureCometSupport();
+  context.addServlet(new ServletHolder(atmoServlet),"/");
+  server.start();
+}

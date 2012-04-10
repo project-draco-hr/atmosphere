@@ -1,0 +1,3 @@
+{
+  atmoServlet.framework().setAsyncSupport(new JettyAsyncSupportWithWebSocket(atmoServlet.framework().getAtmosphereConfig()));
+}

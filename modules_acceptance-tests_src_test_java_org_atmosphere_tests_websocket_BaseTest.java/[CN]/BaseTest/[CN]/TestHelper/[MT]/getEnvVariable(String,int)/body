@@ -1,0 +1,14 @@
+{
+  if (null == varName) {
+    return defaultValue;
+  }
+  String varValue=System.getenv(varName);
+  if (null != varValue) {
+    try {
+      return Integer.parseInt(varValue);
+    }
+ catch (    NumberFormatException e) {
+    }
+  }
+  return defaultValue;
+}

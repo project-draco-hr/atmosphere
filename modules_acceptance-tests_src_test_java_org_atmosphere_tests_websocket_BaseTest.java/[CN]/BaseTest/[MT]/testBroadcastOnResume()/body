@@ -1,0 +1,66 @@
+{
+  logger.info("{}: running test: testScheduleBroadcast",getClass().getSimpleName());
+  final CountDownLatch latch=new CountDownLatch(2);
+  final CountDownLatch suspended=new CountDownLatch(1);
+  atmoServlet.framework().addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
+    AtomicBoolean b=new AtomicBoolean(false);
+    private long currentTime;
+    public void onRequest(    AtmosphereResource event) throws IOException {
+      if (!b.getAndSet(true)) {
+        try {
+          event.suspend();
+          event.getBroadcaster().broadcastOnResume("broadcastOnResume");
+        }
+  finally {
+          suspended.countDown();
+        }
+      }
+    }
+    public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
+      if (event.isResuming()) {
+        assertFalse(event.isCancelled());
+        assertNotNull(event.getMessage());
+        assertEquals(event.getMessage(),"broadcastOnResume");
+        event.getResource().getResponse().flushBuffer();
+        return;
+      }
+      try {
+        event.getResource().resume();
+      }
+  finally {
+        latch.countDown();
+      }
+    }
+  }
+,BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"suspend"));
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<String>(){
+      @Override public String onCompleted(      Response response) throws Exception {
+        try {
+          assertEquals(response.getResponseBody(),AtmosphereResourceImpl.createStreamingPadding(null));
+        }
+  finally {
+          latch.countDown();
+        }
+        return null;
+      }
+    }
+);
+    suspended.await(20,TimeUnit.SECONDS);
+    Response r=c.prepareGet(urlTarget).execute().get();
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+  }
+ catch (  Exception e) {
+    logger.error("test failed",e);
+    fail(e.getMessage());
+  }
+  try {
+    latch.await(20,TimeUnit.SECONDS);
+  }
+ catch (  InterruptedException e) {
+    fail(e.getMessage());
+  }
+  c.close();
+}
