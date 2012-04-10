@@ -28,7 +28,7 @@
     if (flushComment) {
       req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.STREAMING_TRANSPORT);
     }
- else {
+ else     if (req.getHeader(X_ATMOSPHERE_TRANSPORT) == null) {
       req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.LONG_POLLING_TRANSPORT);
     }
     if (writeHeaders && injectCacheHeaders) {
