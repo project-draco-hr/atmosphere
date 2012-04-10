@@ -1,6 +1,0 @@
-{
-  request.destroy();
-  logger.trace("WebSocket.onDisconnect");
-  webSocketProcessor.close(1000);
-  webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",DISCONNECT,webSocketProcessor.webSocket()));
-}

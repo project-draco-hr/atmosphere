@@ -9,10 +9,11 @@
   }
  else {
     b=new Builder();
-    r=new NoOpsRequest();
+    b.request(request);
   }
   b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).destroyable(false).session(new FakeHttpSession(request.getSession(true)));
   if (loadInMemory) {
+    r=new NoOpsRequest();
     load(request,b);
     if (isWrapped) {
       load(b.request,b);

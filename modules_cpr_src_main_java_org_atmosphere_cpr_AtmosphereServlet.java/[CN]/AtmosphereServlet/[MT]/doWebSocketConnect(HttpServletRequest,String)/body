@@ -1,5 +1,0 @@
-{
-  logger.debug("WebSocket upgrade requested");
-  request.setAttribute(WebSocket.WEBSOCKET_INITIATED,true);
-  return new JettyWebSocketHandler(AtmosphereRequest.loadInMemory(request),framework,framework.webSocketProtocol);
-}
