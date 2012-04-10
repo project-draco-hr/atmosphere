@@ -1,23 +1,33 @@
 {
-  logger.info("{}: running test: testSuspendTimeout",getClass().getSimpleName());
+  logger.info("{}: running test: echoTest",getClass().getSimpleName());
   final CountDownLatch latch=new CountDownLatch(1);
   atmoServlet.framework().addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
-    private long currentTime;
-    public void onRequest(    AtmosphereResource event) throws IOException {
-      currentTime=System.currentTimeMillis();
-      event.suspend(5000,false);
+    boolean isSuspended=false;
+    public void onRequest(    AtmosphereResource r) throws IOException {
+      if (!isSuspended) {
+        r.suspend();
+        isSuspended=true;
+      }
+ else {
+        String message=r.getRequest().getReader().readLine();
+        r.getBroadcaster().broadcast(message);
+      }
     }
     public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
-      event.getResource().getResponse().getOutputStream().write("resume".getBytes());
+      if (event.isSuspended()) {
+        event.write(event.getMessage().toString().getBytes());
+      }
     }
   }
 ,BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"suspend"));
   AsyncHttpClient c=new AsyncHttpClient();
   try {
     final AtomicReference<String> response=new AtomicReference<String>(null);
-    c.prepareGet(urlTarget).execute(new WebSocketUpgradeHandler.Builder().build()).get().addWebSocketListener(new WebSocketTextListener(){
+    WebSocket w=c.prepareGet(urlTarget).execute(new WebSocketUpgradeHandler.Builder().build()).get();
+    w.addWebSocketListener(new WebSocketTextListener(){
       @Override public void onMessage(      String message){
         response.set(message);
+        latch.countDown();
       }
       @Override public void onFragment(      String fragment,      boolean last){
         fail();
@@ -32,7 +42,7 @@
         fail(t.getMessage());
       }
     }
-);
+).sendTextMessage("echo");
     try {
       latch.await(20,TimeUnit.SECONDS);
     }
@@ -40,7 +50,7 @@
       fail(e.getMessage());
     }
     assertNotNull(response.get());
-    assertEquals(response.get(),"resume");
+    assertEquals(response.get(),"echo");
   }
  catch (  Exception e) {
     logger.error("test failed",e);

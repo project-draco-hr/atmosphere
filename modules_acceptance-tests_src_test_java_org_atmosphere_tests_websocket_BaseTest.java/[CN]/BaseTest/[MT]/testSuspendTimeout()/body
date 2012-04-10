@@ -8,20 +8,7 @@
       event.suspend(5000,false);
     }
     public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
-      try {
-        event.getResource().getResponse().getOutputStream().write("resume".getBytes());
-        assertTrue(event.isResumedOnTimeout());
-        long time=System.currentTimeMillis() - currentTime;
-        if (time > 5000 && time < 15000) {
-          assertTrue(true);
-        }
- else {
-          assertFalse(false);
-        }
-      }
-  finally {
-        latch.countDown();
-      }
+      event.getResource().getResponse().getOutputStream().write("resume".getBytes());
     }
   }
 ,BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"suspend"));
@@ -36,12 +23,12 @@
         fail();
       }
       @Override public void onOpen(      WebSocket websocket){
-        fail();
       }
       @Override public void onClose(      WebSocket websocket){
         latch.countDown();
       }
       @Override public void onError(      Throwable t){
+        t.printStackTrace();
         fail(t.getMessage());
       }
     }
