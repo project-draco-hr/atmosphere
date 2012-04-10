@@ -1,3 +1,4 @@
 {
   webSocket.send(new String(data));
+  lastWrite=System.currentTimeMillis();
 }
