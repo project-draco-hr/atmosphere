@@ -1,3 +1,4 @@
 {
   this.throwable=t;
+  return this;
 }
