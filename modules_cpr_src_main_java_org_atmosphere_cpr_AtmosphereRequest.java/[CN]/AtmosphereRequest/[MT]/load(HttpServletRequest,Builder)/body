@@ -1,0 +1,18 @@
+{
+  Enumeration<String> e=request.getHeaderNames();
+  String s;
+  while (e.hasMoreElements()) {
+    s=e.nextElement();
+    b.headers.put(s,request.getHeader(s));
+  }
+  e=request.getAttributeNames();
+  while (e.hasMoreElements()) {
+    s=e.nextElement();
+    b.localAttributes.put(s,request.getAttribute(s));
+  }
+  e=request.getParameterNames();
+  while (e.hasMoreElements()) {
+    s=e.nextElement();
+    b.queryStrings.put(s,request.getParameterValues(s));
+  }
+}

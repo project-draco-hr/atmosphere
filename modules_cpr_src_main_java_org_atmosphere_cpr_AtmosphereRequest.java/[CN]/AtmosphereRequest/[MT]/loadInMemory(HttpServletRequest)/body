@@ -1,5 +1,5 @@
 {
-  Builder b=null;
+  Builder b;
   boolean isWrapped=false;
   if (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
     b=AtmosphereRequest.class.cast(request).b;
@@ -8,22 +8,10 @@
  else {
     b=new Builder();
   }
+  load(request,b);
+  if (isWrapped) {
+    load(b.request,b);
+  }
   b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).destroyable(false).session(new FakeHttpSession(request.getSession(true))).request(new NoOpsRequest());
-  Enumeration<String> e=request.getHeaderNames();
-  String s;
-  while (e.hasMoreElements()) {
-    s=e.nextElement();
-    b.headers.put(s,request.getHeader(s));
-  }
-  e=request.getAttributeNames();
-  while (e.hasMoreElements()) {
-    s=e.nextElement();
-    b.localAttributes.put(s,request.getAttribute(s));
-  }
-  e=request.getParameterNames();
-  while (e.hasMoreElements()) {
-    s=e.nextElement();
-    b.queryStrings.put(s,request.getParameterValues(s));
-  }
   return isWrapped ? AtmosphereRequest.class.cast(request) : b.build();
 }
