@@ -1,0 +1,9 @@
+{
+  this.resource=r;
+  resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onResume(    AtmosphereResourceEvent event){
+      JerseyBroadcasterUtil.broadcast(resource,new AtmosphereResourceEventImpl(resource,false,false,null).setMessage(response),resource.getBroadcaster());
+    }
+  }
+);
+}

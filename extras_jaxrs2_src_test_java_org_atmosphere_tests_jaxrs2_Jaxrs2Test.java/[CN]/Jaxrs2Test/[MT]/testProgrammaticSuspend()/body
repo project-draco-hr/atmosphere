@@ -1,0 +1,18 @@
+{
+  logger.info("{}: running test:  testProgrammaticSuspend",getClass().getSimpleName());
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    long t1=System.currentTimeMillis();
+    Response r=c.prepareGet(urlTarget + "/p").execute().get(10,TimeUnit.SECONDS);
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+    String resume=r.getResponseBody();
+    assertEquals(resume,"Atmosphere!");
+    long current=System.currentTimeMillis() - t1;
+  }
+ catch (  Exception e) {
+    logger.error("test failed",e);
+    fail(e.getMessage());
+  }
+  c.close();
+}

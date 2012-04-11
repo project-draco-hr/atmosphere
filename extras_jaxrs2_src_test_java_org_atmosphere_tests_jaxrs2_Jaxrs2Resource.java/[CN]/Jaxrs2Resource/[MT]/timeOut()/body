@@ -1,0 +1,4 @@
+{
+  ctx.setResponse("Atmosphere!");
+  return "";
+}
