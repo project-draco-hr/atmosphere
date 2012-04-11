@@ -1,5 +1,4 @@
 {
   Meteor m=Meteor.build(req).addListener(new AtmosphereResourceEventListenerAdapter());
-  req.getSession().setAttribute("meteor",m);
   m.resumeOnBroadcast(m.transport() == LONG_POLLING ? true : false).suspend(-1);
 }
