@@ -2,7 +2,6 @@
   if (req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
     String key;
     String subProtocol=null;
-    List<String> extensions=Collections.emptyList();
     if (!headerContainsToken(req,"upgrade","websocket")) {
       return super.service(req,res);
     }
