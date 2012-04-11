@@ -6,7 +6,6 @@
     servletReq.getSession().setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
   }
   servletReq.setAttribute(SUSPENDED_RESOURCE,r);
-  servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
   try {
     MediaType contentType=response.getMediaType();
     if (contentType == null && response.getEntity() != null) {
