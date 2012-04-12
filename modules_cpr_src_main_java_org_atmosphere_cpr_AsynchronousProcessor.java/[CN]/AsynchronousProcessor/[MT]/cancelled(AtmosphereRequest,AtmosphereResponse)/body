@@ -1,5 +1,6 @@
 {
 synchronized (req) {
+    SessionTimeoutSupport.restoreTimeout(req);
     AtmosphereResourceImpl r=null;
     try {
       if (trackActiveRequest) {

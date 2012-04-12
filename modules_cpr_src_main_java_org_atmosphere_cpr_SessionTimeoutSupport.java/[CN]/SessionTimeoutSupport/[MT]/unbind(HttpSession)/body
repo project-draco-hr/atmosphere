@@ -1,0 +1,6 @@
+{
+  if (s == null)   return null;
+  SessionTimeoutRestorer r=(SessionTimeoutRestorer)s.getAttribute(KEY);
+  s.removeAttribute(KEY);
+  return r;
+}

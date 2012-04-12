@@ -1,3 +1,4 @@
 {
+  SessionTimeoutSupport.restoreTimeout(request);
   return action(request,response);
 }

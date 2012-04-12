@@ -21,9 +21,7 @@
   }
   if (supportSession()) {
     HttpSession session=req.getSession(true);
-    if (session.getMaxInactiveInterval() == DEFAULT_SESSION_TIMEOUT) {
-      session.setMaxInactiveInterval(-1);
-    }
+    SessionTimeoutSupport.setupTimeout(session);
   }
   req.setAttribute(FrameworkConfig.SUPPORT_SESSION,supportSession());
   AtmosphereHandlerWrapper handlerWrapper=map(req);

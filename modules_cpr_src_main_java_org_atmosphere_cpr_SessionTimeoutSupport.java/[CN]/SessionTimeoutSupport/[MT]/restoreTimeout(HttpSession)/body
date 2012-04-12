@@ -1,0 +1,6 @@
+{
+  SessionTimeoutRestorer restorer=unbind(session);
+  if (restorer != null) {
+    restorer.restore(session);
+  }
+}
