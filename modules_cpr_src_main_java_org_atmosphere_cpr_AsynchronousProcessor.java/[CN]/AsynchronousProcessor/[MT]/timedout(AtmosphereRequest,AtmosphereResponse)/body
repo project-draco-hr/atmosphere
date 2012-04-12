@@ -1,6 +1,7 @@
 {
   AtmosphereResourceImpl r=null;
   try {
+    SessionTimeoutSupport.restoreTimeout(request);
     if (trackActiveRequest) {
       long l=(Long)request.getAttribute(MAX_INACTIVE);
       if (l == -1) {

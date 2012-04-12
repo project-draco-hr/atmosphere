@@ -1,0 +1,4 @@
+{
+  bind(session,createRestorer(session));
+  session.setMaxInactiveInterval(-1);
+}
