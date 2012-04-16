@@ -1,3 +1,4 @@
 {
   notifyListeners(event);
+  return this;
 }

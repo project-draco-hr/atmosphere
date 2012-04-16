@@ -1,3 +1,4 @@
 {
   listeners.clear();
+  return this;
 }

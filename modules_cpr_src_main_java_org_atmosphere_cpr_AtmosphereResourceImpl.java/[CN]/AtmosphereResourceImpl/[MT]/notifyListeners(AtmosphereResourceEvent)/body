@@ -3,7 +3,7 @@
     logger.trace("Invoking listener with {}",event);
   }
  else {
-    return;
+    return this;
   }
   Action oldAction=action;
   try {
@@ -36,4 +36,5 @@
       logger.warn("Listener error {}",t2);
     }
   }
+  return this;
 }

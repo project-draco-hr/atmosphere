@@ -1,4 +1,5 @@
 {
-  if (listeners.contains(e))   return;
+  if (listeners.contains(e))   return this;
   listeners.add(e);
+  return this;
 }
