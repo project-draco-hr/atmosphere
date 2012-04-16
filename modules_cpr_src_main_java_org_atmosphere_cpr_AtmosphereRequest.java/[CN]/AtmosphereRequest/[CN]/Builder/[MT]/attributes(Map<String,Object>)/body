@@ -1,4 +1,4 @@
 {
-  localAttributes=attributes;
+  localAttributes=Collections.synchronizedMap(attributes);
   return this;
 }
