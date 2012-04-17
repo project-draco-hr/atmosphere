@@ -1,12 +1,19 @@
 {
+  boolean webSocketEnabled=false;
+  if (servletReq.getHeaders("Connection") != null && servletReq.getHeaders("Connection").hasMoreElements()) {
+    String[] e=((Enumeration<String>)servletReq.getHeaders("Connection")).nextElement().toString().split(",");
+    for (    String upgrade : e) {
+      if (upgrade.trim().equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
+        webSocketEnabled=true;
+        break;
+      }
+    }
+  }
   String transport=servletReq.getHeader(X_ATMOSPHERE_TRANSPORT);
-  if (Utils.webSocketEnabled(AtmosphereRequest.class.cast(servletReq))) {
+  if (webSocketEnabled) {
     return false;
   }
  else   if (transport != null && (transport.equals(JSONP_TRANSPORT) || transport.equals(LONG_POLLING_TRANSPORT))) {
-    return false;
-  }
- else   if (transport == HeaderConfig.WEBSOCKET_TRANSPORT) {
     return false;
   }
   return outputJunk;
