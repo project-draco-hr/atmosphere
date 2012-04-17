@@ -16,5 +16,8 @@
  else   if (transport != null && (transport.equals(JSONP_TRANSPORT) || transport.equals(LONG_POLLING_TRANSPORT))) {
     return false;
   }
+ else   if (transport == HeaderConfig.WEBSOCKET_TRANSPORT) {
+    return false;
+  }
   return outputJunk;
 }
