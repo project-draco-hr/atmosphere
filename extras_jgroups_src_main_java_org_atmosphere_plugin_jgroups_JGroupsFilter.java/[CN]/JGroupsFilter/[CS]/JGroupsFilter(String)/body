@@ -1,0 +1,3 @@
+{
+  jchannel=DefaultJGroupsChannelFactory.getDefaultJGroupsChannel(jGroupsFilterLocation);
+}

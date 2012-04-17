@@ -1,0 +1,13 @@
+{
+  if (jc == null) {
+    try {
+      JChannel channel=new JChannel(jGroupsFilterLocation);
+      jc=new JGroupsChannel(channel,channelName);
+      jc.init();
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("Failed to create JGroupsChannel",e);
+    }
+  }
+  return jc;
+}

@@ -1,0 +1,3 @@
+{
+  return getDefaultJGroupsChannel(DEFAULT_JGROUPS_XML,DEFAULT_CHANNEL_NAME);
+}
