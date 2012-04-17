@@ -1,0 +1,17 @@
+{
+  boolean webSocketEnabled=false;
+  Enumeration<String> connection=request.getHeaders("Connection");
+  if (connection == null) {
+    connection=request.getHeaders("connection");
+  }
+  if (connection != null && connection.hasMoreElements()) {
+    String[] e=connection.nextElement().toString().split(",");
+    for (    String upgrade : e) {
+      if (upgrade.equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
+        webSocketEnabled=true;
+        break;
+      }
+    }
+  }
+  return webSocketEnabled;
+}

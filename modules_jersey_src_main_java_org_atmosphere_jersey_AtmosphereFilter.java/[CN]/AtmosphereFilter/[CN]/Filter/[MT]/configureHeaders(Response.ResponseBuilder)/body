@@ -1,14 +1,7 @@
 {
   boolean webSocketSupported=servletReq.getAttribute(WebSocket.WEBSOCKET_SUSPEND) != null;
-  if (servletReq.getHeaders("Connection") != null && servletReq.getHeaders("Connection").hasMoreElements()) {
-    String[] e=((Enumeration<String>)servletReq.getHeaders("Connection")).nextElement().toString().split(",");
-    for (    String upgrade : e) {
-      if (upgrade != null && upgrade.equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
-        if (!webSocketSupported) {
-          b=b.header(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
-        }
-      }
-    }
+  if (!Utils.webSocketEnabled(AtmosphereRequest.class.cast(servletReq))) {
+    b=b.header(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
   }
   boolean injectCacheHeaders=(Boolean)servletReq.getAttribute(ApplicationConfig.NO_CACHE_HEADERS);
   boolean enableAccessControl=(Boolean)servletReq.getAttribute(ApplicationConfig.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER);

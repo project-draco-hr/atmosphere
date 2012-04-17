@@ -1,15 +1,5 @@
 {
-  boolean webSocketEnabled=false;
-  if (req.getHeaders("Connection") != null && req.getHeaders("Connection").hasMoreElements()) {
-    String[] e=req.getHeaders("Connection").nextElement().toString().split(",");
-    for (    String upgrade : e) {
-      if (upgrade.equalsIgnoreCase("Upgrade")) {
-        webSocketEnabled=true;
-        break;
-      }
-    }
-  }
-  if (webSocketEnabled && !supportWebSocket()) {
+  if (Utils.webSocketEnabled(req) && !supportWebSocket()) {
     res.setStatus(501);
     res.addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
     res.flushBuffer();

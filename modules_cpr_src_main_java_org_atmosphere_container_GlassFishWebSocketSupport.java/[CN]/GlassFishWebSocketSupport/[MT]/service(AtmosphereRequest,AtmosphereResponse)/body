@@ -1,15 +1,5 @@
 {
-  boolean webSocketEnabled=false;
-  if (request.getHeaders("Connection") != null && request.getHeaders("Connection").hasMoreElements()) {
-    String[] e=request.getHeaders("Connection").nextElement().toString().split(",");
-    for (    String upgrade : e) {
-      if (upgrade.equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
-        webSocketEnabled=true;
-        break;
-      }
-    }
-  }
-  if (!webSocketEnabled) {
+  if (!Utils.webSocketEnabled(request)) {
     return super.service(request,response);
   }
  else {
