@@ -1,5 +1,8 @@
 {
-  ArrayList list=Collections.list(b.request.getHeaders(name));
+  ArrayList list=new ArrayList<String>();
+  if (!name.equalsIgnoreCase("content-type")) {
+    list=Collections.list(b.request.getHeaders(name));
+  }
   if (name.equalsIgnoreCase("content-type")) {
     String s=getContentType();
     if (s != null) {
