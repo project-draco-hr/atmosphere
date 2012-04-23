@@ -1,3 +1,5 @@
 {
-  r.getRequest().getSession(true).setAttribute(BROADCASTER_CACHE_TRACKER,cm);
+  if (r != null) {
+    r.getRequest().getSession(true).setAttribute(BROADCASTER_CACHE_TRACKER,cm);
+  }
 }
