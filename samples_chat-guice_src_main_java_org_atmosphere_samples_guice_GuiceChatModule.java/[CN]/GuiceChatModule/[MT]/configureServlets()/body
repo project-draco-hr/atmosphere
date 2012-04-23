@@ -1,3 +1,6 @@
 {
   bind(ResourceChat.class);
+  bind(new TypeLiteral<Map<String,String>>(){
+  }
+).annotatedWith(Names.named(AtmosphereGuiceServlet.JERSEY_PROPERTIES)).toInstance(Collections.<String,String>emptyMap());
 }
