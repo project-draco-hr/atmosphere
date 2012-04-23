@@ -1,0 +1,4 @@
+{
+  if (guiceFilter != null)   guiceFilter.destroy();
+  stopServer();
+}

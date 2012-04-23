@@ -1,0 +1,18 @@
+{
+  return Guice.createInjector(new ServletModule(){
+    @Override protected void configureServlets(){
+      bind(PubSubTest.class);
+      bind(new TypeLiteral<Map<String,String>>(){
+      }
+).annotatedWith(Names.named(AtmosphereGuiceServlet.JERSEY_PROPERTIES)).toInstance(Collections.<String,String>emptyMap());
+      serve("/*").with(GuiceManagedAtmosphereServlet.class,new HashMap<String,String>(){
+{
+          put(ApplicationConfig.PROPERTY_COMET_SUPPORT,Jetty7CometSupport.class.getName());
+          put("org.atmosphere.useNative","true");
+        }
+      }
+);
+    }
+  }
+);
+}
