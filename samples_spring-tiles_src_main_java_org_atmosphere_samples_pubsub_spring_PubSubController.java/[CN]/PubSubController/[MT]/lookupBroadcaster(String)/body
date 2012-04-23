@@ -1,0 +1,9 @@
+{
+  if (pathInfo == null) {
+    return BroadcasterFactory.getDefault().lookup("/",true);
+  }
+ else {
+    String[] decodedPath=pathInfo.split("/");
+    return BroadcasterFactory.getDefault().lookup(decodedPath[decodedPath.length - 1],true);
+  }
+}

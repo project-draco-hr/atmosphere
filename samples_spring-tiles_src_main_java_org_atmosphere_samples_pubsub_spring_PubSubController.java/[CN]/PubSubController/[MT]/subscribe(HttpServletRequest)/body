@@ -1,0 +1,6 @@
+{
+  AtmosphereResource resource=(AtmosphereResource)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  this.doGet(resource,request,resource.getResponse());
+  ModelAndView mv=new ModelAndView(new NoOpView());
+  return mv;
+}

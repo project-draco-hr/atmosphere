@@ -1,0 +1,3 @@
+AtmosphereResource r
+HttpServletRequest req
+HttpServletResponse res

@@ -1,0 +1,14 @@
+{
+  r.addEventListener(new WebSocketEventListenerAdapter());
+  res.setContentType("text/html;charset=ISO-8859-1");
+  Broadcaster b=lookupBroadcaster(req.getPathInfo());
+  r.setBroadcaster(b);
+  String header=req.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
+  if (HeaderConfig.LONG_POLLING_TRANSPORT.equalsIgnoreCase(header)) {
+    req.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,Boolean.TRUE);
+    r.suspend(-1,false);
+  }
+ else {
+    r.suspend(-1);
+  }
+}
