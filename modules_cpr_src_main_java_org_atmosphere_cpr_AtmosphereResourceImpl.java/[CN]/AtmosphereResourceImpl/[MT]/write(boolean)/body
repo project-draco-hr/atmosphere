@@ -10,7 +10,7 @@
  catch (      IllegalStateException e) {
         return;
       }
-      response.getWriter().write(beginCompatibleData);
+      if (flushPadding)       response.getWriter().write(beginCompatibleData);
       response.getWriter().flush();
     }
  else {
@@ -20,7 +20,7 @@
  catch (      IllegalStateException e) {
         return;
       }
-      response.getOutputStream().write(beginCompatibleData.getBytes());
+      if (flushPadding)       response.getOutputStream().write(beginCompatibleData.getBytes());
       response.getOutputStream().flush();
     }
   }

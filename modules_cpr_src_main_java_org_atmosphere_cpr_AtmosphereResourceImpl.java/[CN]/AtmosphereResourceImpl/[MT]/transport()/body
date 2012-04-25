@@ -18,6 +18,9 @@
  else   if (TRANSPORT.WEBSOCKET.name().equals(s)) {
     return TRANSPORT.WEBSOCKET;
   }
+ else   if (TRANSPORT.SSE.name().equals(s)) {
+    return TRANSPORT.SSE;
+  }
  else {
     return TRANSPORT.UNDEFINED;
   }

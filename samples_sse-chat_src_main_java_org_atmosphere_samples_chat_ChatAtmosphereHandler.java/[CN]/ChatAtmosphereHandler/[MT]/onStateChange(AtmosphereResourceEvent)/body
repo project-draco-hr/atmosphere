@@ -1,0 +1,22 @@
+{
+  AtmosphereResource r=event.getResource();
+  AtmosphereResponse res=r.getResponse();
+  if (event.isSuspended()) {
+    String body=event.getMessage().toString();
+    String author=body.substring(body.indexOf(":") + 2,body.indexOf(",") - 1);
+    String message=body.substring(body.lastIndexOf(":") + 2,body.length() - 2);
+    res.getWriter().write(new Data(author,message).toString());
+switch (r.transport()) {
+case JSONP:
+case LONG_POLLING:
+      event.getResource().resume();
+    break;
+default :
+  res.getWriter().flush();
+break;
+}
+}
+ else if (!event.isResuming()) {
+event.broadcaster().broadcast(new Data("Someone","say bye bye!").toString());
+}
+}

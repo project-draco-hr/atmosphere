@@ -1,0 +1,4 @@
+{
+  this.atmosphereRequest=atmosphereRequest;
+  return this;
+}

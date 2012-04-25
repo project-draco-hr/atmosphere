@@ -44,8 +44,15 @@
       response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN,req.getHeader("Origin") == null ? "*" : req.getHeader("Origin"));
       response.setHeader(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
     }
+    if (transport().equals(TRANSPORT.SSE)) {
+      String contentType=response.getContentType();
+      response.setContentType("text/event-stream");
+      response.setCharacterEncoding("utf-8");
+      write(false);
+      response.setContentType(contentType);
+    }
     if (flushComment) {
-      write();
+      write(true);
     }
     req.setAttribute(PRE_SUSPEND,"true");
     action.type=Action.TYPE.SUSPEND;

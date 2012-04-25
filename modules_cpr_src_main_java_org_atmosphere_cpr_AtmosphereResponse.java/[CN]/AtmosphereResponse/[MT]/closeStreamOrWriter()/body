@@ -1,0 +1,14 @@
+{
+  try {
+    boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
+    if (isUsingStream) {
+      response.getOutputStream().close();
+    }
+ else {
+      response.getWriter().close();
+    }
+  }
+ catch (  IOException e) {
+    logger.trace("",e);
+  }
+}

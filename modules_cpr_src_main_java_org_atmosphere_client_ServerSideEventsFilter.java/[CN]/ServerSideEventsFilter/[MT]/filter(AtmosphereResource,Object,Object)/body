@@ -1,0 +1,34 @@
+{
+  final AtmosphereResponse response=r.getResponse();
+  if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
+    response.asyncIOWriter(new AsyncIOWriter(){
+      @Override public void redirect(      String location) throws IOException {
+        response.sendRedirect(location);
+      }
+      @Override public void writeError(      int errorCode,      String message) throws IOException {
+        response.sendError(errorCode);
+      }
+      @Override public void write(      String data) throws IOException {
+        response.write("data:" + data + "\n\n");
+      }
+      @Override public void write(      byte[] data) throws IOException {
+        response.write("data:");
+        response.write(data);
+        response.write("\n\n");
+      }
+      @Override public void write(      byte[] data,      int offset,      int length) throws IOException {
+        response.write("data:");
+        response.write(data,offset,length);
+        response.write("\n\n");
+      }
+      @Override public void close() throws IOException {
+        response.closeStreamOrWriter();
+      }
+      @Override public void flush() throws IOException {
+        response.flushBuffer();
+      }
+    }
+);
+  }
+  return new BroadcastAction(message);
+}

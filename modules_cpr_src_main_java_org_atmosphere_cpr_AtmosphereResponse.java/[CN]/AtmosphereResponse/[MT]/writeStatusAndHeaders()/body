@@ -1,5 +1,5 @@
 {
-  if (writeStatusAndHeader.getAndSet(false)) {
+  if (writeStatusAndHeader.getAndSet(false) && !forceAsyncIOWriter) {
     asyncIOWriter.write(constructStatusAndHeaders());
   }
 }
