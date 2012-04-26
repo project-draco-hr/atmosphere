@@ -1,0 +1,6 @@
+{
+  if (r.transport().equals(AtmosphereResource.TRANSPORT.STREAMING)) {
+    return true;
+  }
+  return outputJunk;
+}

@@ -115,7 +115,7 @@ response.setEntity(null);
 break;
 case SUSPEND_RESPONSE:
 SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(response.getResponse()).getJResponse());
-boolean outputJunk=outputJunk(s.outputComments());
+boolean outputJunk=outputJunk(r,s.outputComments());
 boolean resumeOnBroadcast=resumeOnBroadcast(s.resumeOnBroadcast());
 for (AtmosphereResourceEventListener el : s.listeners()) {
 if (r instanceof AtmosphereEventLifecycle) {
@@ -142,7 +142,7 @@ case SUBSCRIBE:
 case SUSPEND:
 case SUSPEND_TRACKABLE:
 case SUSPEND_RESUME:
-outputJunk=outputJunk(outputComments);
+outputJunk=outputJunk(r,outputComments);
 resumeOnBroadcast=resumeOnBroadcast((action == Action.SUSPEND_RESUME));
 if (listeners != null) {
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
