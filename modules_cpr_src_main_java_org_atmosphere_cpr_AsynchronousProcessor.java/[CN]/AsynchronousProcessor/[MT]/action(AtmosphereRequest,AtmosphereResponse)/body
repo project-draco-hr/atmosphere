@@ -25,6 +25,10 @@ synchronized (handlerWrapper) {
   AtmosphereResourceImpl resource=new AtmosphereResourceImpl(config,handlerWrapper.broadcaster,req,res,this,handlerWrapper.atmosphereHandler);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
+  LinkedList<AtmosphereResourceConfig> c=config.framework().resourcesConfig();
+  for (  AtmosphereResourceConfig arc : c) {
+    arc.configure(resource);
+  }
   try {
     handlerWrapper.atmosphereHandler.onRequest(resource);
   }

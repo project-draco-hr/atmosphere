@@ -30,6 +30,7 @@
         }
       }
       @Override public void flush() throws IOException {
+        writeStatusAndHeaders();
         asyncIOWriter.flush();
       }
       @Override public void close() throws java.io.IOException {

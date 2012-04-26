@@ -1,0 +1,4 @@
+{
+  configMap.addLast(c);
+  return this;
+}

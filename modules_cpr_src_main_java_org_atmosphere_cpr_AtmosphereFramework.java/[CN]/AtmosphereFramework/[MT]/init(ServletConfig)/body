@@ -37,6 +37,7 @@
     initWebSocketProtocol();
     asyncSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
+    configureAtmosphereConfig(sc);
     logger.info("Using Broadcaster class: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
   }
