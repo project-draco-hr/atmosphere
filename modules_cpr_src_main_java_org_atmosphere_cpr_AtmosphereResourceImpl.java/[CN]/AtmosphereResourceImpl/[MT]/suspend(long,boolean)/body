@@ -48,7 +48,8 @@
       String contentType=response.getContentType();
       response.setContentType("text/event-stream");
       response.setCharacterEncoding("utf-8");
-      write(false);
+      padding="whitespace";
+      write(true);
       response.setContentType(contentType);
     }
     if (flushComment) {
