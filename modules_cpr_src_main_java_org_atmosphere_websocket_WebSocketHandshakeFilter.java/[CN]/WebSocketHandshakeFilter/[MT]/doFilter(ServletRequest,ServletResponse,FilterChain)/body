@@ -1,24 +1,20 @@
 {
-  if (HttpServletRequest.class.cast(request).getHeader("Connection") != null && HttpServletRequest.class.cast(request).getHeader("Connection").equalsIgnoreCase("upgrade")) {
-    int draft=HttpServletRequest.class.cast(request).getIntHeader("Sec-WebSocket-Version");
+  HttpServletRequest r=HttpServletRequest.class.cast(request);
+  if (Utils.webSocketEnabled(r)) {
+    int draft=r.getIntHeader("Sec-WebSocket-Version");
     if (draft < 0) {
-      draft=HttpServletRequest.class.cast(request).getIntHeader("Sec-WebSocket-Draft");
+      draft=r.getIntHeader("Sec-WebSocket-Draft");
     }
     if (bannedVersion != null) {
       for (      String s : bannedVersion) {
-        if (Integer.getInteger(s) == draft) {
+        if (Integer.parseInt(s) == draft) {
+          logger.error("Invalid WebSocket Specification {} with {} ",r.getHeader("Connection"),r.getIntHeader("Sec-WebSocket-Version"));
           HttpServletResponse.class.cast(response).addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
           HttpServletResponse.class.cast(response).sendError(202,"Websocket protocol not supported");
           return;
         }
       }
     }
-  }
- else   if (HttpServletRequest.class.cast(request).getIntHeader("Sec-WebSocket-Version") > 0) {
-    logger.error("Invalid WebSocket Specification {} with {} ",HttpServletRequest.class.cast(request).getHeader("Connection"),HttpServletRequest.class.cast(request).getIntHeader("Sec-WebSocket-Version"));
-    HttpServletResponse.class.cast(response).addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
-    HttpServletResponse.class.cast(response).sendError(202,"Websocket protocol not supported");
-    return;
   }
   chain.doFilter(request,response);
 }
