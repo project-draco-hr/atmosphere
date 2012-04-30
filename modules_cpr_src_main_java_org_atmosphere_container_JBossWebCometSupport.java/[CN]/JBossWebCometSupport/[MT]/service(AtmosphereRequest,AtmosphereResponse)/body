@@ -15,6 +15,7 @@
  else {
           event.setTimeout(Integer.MAX_VALUE);
         }
+        req.setAttribute(SUSPENDED,true);
       }
  catch (      UnsupportedOperationException ex) {
       }
