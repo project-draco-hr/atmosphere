@@ -5,7 +5,6 @@
     if (event == null) {
       return action;
     }
-    resumed.offer(event);
     event.close();
   }
   return action;

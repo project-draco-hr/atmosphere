@@ -31,8 +31,8 @@
   }
  else   if (event.getType() == HttpEvent.EventType.EOF) {
     logger.debug("Client closed connection: response: {}",res);
-    if (!resumed.remove(event)) {
-      logger.debug("Client closed connection: response: {}",res);
+    if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
+      req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
  else {
@@ -44,14 +44,14 @@
     event.close();
   }
  else   if (event.getType() == HttpEvent.EventType.END) {
-    if (!resumed.remove(event)) {
-      logger.debug("Client closed connection response: {}",res);
+    if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
+      req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
  else {
-      logger.debug("Cancelling response: {}",res);
+      logger.trace("Cancelling response: {}",res);
+      event.close();
     }
-    event.close();
   }
  else   if (event.getType() == HttpEvent.EventType.TIMEOUT) {
     logger.debug("Timing out {}",res);
