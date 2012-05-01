@@ -32,7 +32,7 @@
         logger.warn("Failed using comet support: {}, error: {} Is the Nio or Apr Connector enabled?",asyncSupport.getClass().getName(),ex.getMessage());
       }
       logger.trace(ex.getMessage(),ex);
-      asyncSupport=asyncSupport.supportWebSocket() ? new Tomcat7BlockingIOSupportWithWebSocket(config) : new BlockingIOCometSupport(config);
+      asyncSupport=asyncSupport.supportWebSocket() ? new Tomcat7Servlet30SupportWithWebSocket(config) : new BlockingIOCometSupport(config);
       logger.warn("Using " + asyncSupport.getClass().getName());
       a=doCometSupport(req,res);
     }
