@@ -30,10 +30,10 @@
     if (ex.getMessage() != null && (ex.getMessage().startsWith("Tomcat failed") || ex.getMessage().startsWith("JBoss failed"))) {
       if (!isFilter) {
         logger.warn("Failed using comet support: {}, error: {} Is the Nio or Apr Connector enabled?",asyncSupport.getClass().getName(),ex.getMessage());
-        logger.warn("Using BlockingIOCometSupport.");
       }
       logger.trace(ex.getMessage(),ex);
-      asyncSupport=new BlockingIOCometSupport(config);
+      asyncSupport=asyncSupport.supportWebSocket() ? new Tomcat7BlockingIOSupportWithWebSocket(config) : new BlockingIOCometSupport(config);
+      logger.warn("Using " + asyncSupport.getClass().getName());
       a=doCometSupport(req,res);
     }
  else {

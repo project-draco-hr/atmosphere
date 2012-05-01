@@ -1,0 +1,4 @@
+AtmosphereRequest req
+AtmosphereResponse res
+Delegate delegate
+AtmosphereConfig config
