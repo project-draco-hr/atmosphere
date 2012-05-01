@@ -4,7 +4,7 @@
     String[] list=s.split(",");
     for (    String a : list) {
       try {
-        configMap.add((AtmosphereResourceConfig)Thread.currentThread().getContextClassLoader().loadClass(a).newInstance());
+        configMap.add((AtmosphereResourceConfig)Thread.currentThread().getContextClassLoader().loadClass(a.trim()).newInstance());
       }
  catch (      InstantiationException e) {
         logger.warn("",e);
