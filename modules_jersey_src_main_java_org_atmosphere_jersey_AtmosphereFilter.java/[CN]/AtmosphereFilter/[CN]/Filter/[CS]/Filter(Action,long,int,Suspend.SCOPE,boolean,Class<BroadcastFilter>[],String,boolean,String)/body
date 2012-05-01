@@ -1,0 +1,11 @@
+{
+  this.action=action;
+  this.timeout=timeout;
+  this.scope=scope;
+  this.outputComments=outputComments;
+  this.waitFor=waitFor;
+  this.filters=filters;
+  this.topic=topic;
+  this.writeEntity=writeEntity;
+  this.defaultContentType=contentType;
+}

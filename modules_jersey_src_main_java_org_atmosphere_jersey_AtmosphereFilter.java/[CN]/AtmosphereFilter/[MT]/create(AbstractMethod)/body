@@ -57,10 +57,10 @@
       trackable=true;
     }
     if (am.getAnnotation(Suspend.class).resumeOnBroadcast()) {
-      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND_RESUME,suspendTimeout,0,scope,outputComments);
+      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND_RESUME,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
     }
  else {
-      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND,suspendTimeout,0,scope,outputComments);
+      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
     }
     f.setListeners(am.getAnnotation(Suspend.class).listeners());
     list.addFirst(f);

@@ -23,6 +23,9 @@
       defaultCT="text/plain; charset=ISO-8859-1";
     }
     String ct=contentType == null ? defaultCT : contentType.toString();
+    if (defaultContentType != null) {
+      ct=defaultContentType;
+    }
     if (entity != null) {
       b=b.header("Content-Type",ct);
     }
