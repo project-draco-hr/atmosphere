@@ -1,3 +1,15 @@
 {
-  getFiles(f,true);
+  if (scanDone)   return;
+  File[] files=f.listFiles();
+  for (  File test : files) {
+    if (test.isDirectory()) {
+      getFiles(test);
+    }
+ else {
+      String clazz=test.getAbsolutePath();
+      if (clazz.endsWith(".class")) {
+        possibleComponentsCandidate.add(clazz);
+      }
+    }
+  }
 }
