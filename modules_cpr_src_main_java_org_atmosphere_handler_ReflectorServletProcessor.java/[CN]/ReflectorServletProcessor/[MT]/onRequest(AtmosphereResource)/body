@@ -2,7 +2,12 @@
   r.getRequest().setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,r);
   r.getRequest().setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,this);
   try {
-    wrapper.service(r.getRequest(),r.getResponse());
+    if (wrapRequest) {
+      wrapper.service(r.getRequest(),r.getResponse());
+    }
+ else {
+      wrapper.service(new AtmosphereRequestWrapper(r.getRequest()),new AtmosphereResponseWrapper(r.getResponse()));
+    }
   }
  catch (  Throwable ex) {
     logger.error("onRequest()",ex);
