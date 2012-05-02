@@ -45,7 +45,12 @@
       response.setHeader(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
     }
     if (transport().equals(TRANSPORT.SSE)) {
-      writeSSE(true);
+      String contentType=response.getContentType();
+      response.setContentType("text/event-stream");
+      response.setCharacterEncoding("utf-8");
+      padding="whitespace";
+      write(true);
+      response.setContentType(contentType);
     }
     if (flushComment) {
       write(true);

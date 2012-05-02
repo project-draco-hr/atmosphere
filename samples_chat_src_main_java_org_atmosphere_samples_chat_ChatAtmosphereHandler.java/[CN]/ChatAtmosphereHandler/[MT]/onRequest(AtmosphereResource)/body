@@ -1,12 +1,7 @@
 {
   AtmosphereRequest req=r.getRequest();
   if (req.getMethod().equalsIgnoreCase("GET")) {
-    if (req.getHeader("negotiating") == null) {
-      r.suspend();
-    }
- else {
-      r.getResponse().getWriter().write("OK");
-    }
+    r.suspend();
   }
  else   if (req.getMethod().equalsIgnoreCase("POST")) {
     r.getBroadcaster().broadcast(req.getReader().readLine().trim());
