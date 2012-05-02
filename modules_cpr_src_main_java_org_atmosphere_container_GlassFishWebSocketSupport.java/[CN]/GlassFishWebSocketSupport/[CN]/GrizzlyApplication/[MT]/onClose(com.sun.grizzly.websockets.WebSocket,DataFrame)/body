@@ -1,5 +1,5 @@
 {
   super.onClose(w,df);
-  logger.debug("onClose {} ",w);
+  logger.trace("onClose {} ",w);
   webSocketProcessor.close(1000);
 }
