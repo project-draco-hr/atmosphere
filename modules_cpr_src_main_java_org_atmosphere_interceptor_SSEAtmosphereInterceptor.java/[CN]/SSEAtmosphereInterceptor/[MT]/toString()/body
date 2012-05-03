@@ -1,3 +1,3 @@
 {
-  return "SSE-Support";
+  return "SSE Interceptor Support";
 }
