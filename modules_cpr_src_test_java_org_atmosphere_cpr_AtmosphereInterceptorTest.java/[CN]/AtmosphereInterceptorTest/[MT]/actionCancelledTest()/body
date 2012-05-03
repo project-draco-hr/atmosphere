@@ -1,0 +1,10 @@
+{
+  framework.addAtmosphereHandler("/*",handler);
+  framework.interceptor(new AtmosphereInterceptor(){
+    @Override public Action inspect(    AtmosphereResource r){
+      return Action.CANCELLED;
+    }
+  }
+);
+  assertEquals(Action.CANCELLED,processor.service(mock(AtmosphereRequest.class),mock(AtmosphereResponse.class)));
+}

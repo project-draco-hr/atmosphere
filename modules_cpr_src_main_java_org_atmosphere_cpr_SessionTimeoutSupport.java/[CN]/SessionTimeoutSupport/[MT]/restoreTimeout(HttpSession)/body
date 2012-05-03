@@ -1,4 +1,5 @@
 {
+  if (session == null)   return;
   SessionTimeoutRestorer restorer=unbind(session);
   if (restorer != null) {
     restorer.restore(session);
