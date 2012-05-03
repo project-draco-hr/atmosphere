@@ -25,9 +25,14 @@ synchronized (handlerWrapper) {
   AtmosphereResourceImpl resource=new AtmosphereResourceImpl(config,handlerWrapper.broadcaster,req,res,this,handlerWrapper.atmosphereHandler);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
-  LinkedList<AtmosphereResourceConfig> c=config.framework().resourcesConfig();
-  for (  AtmosphereResourceConfig arc : c) {
-    arc.configure(resource);
+  LinkedList<AtmosphereInterceptor> c=config.framework().interceptors();
+  Action a;
+  for (  AtmosphereInterceptor arc : c) {
+    a=arc.inspect(resource);
+    if (a.type != Action.TYPE.CONTINUE) {
+      logger.trace("Interceptor {} interrupted the dispatch with {}",arc,a);
+      return a;
+    }
   }
   try {
     handlerWrapper.atmosphereHandler.onRequest(resource);
