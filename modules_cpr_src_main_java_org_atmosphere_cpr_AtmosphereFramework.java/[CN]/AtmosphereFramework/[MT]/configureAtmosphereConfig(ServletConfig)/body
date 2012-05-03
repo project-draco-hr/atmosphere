@@ -19,5 +19,5 @@ catch (      ClassNotFoundException e) {
   }
   interceptors.addLast(new SSEAtmosphereInterceptor());
   interceptors.addLast(new JSONPAtmosphereInterceptor());
-  logger.debug("Installed AtmosphereResourceConfig {}",interceptors);
+  logger.debug("Installed AtmosphereInterceptor {}",interceptors);
 }
