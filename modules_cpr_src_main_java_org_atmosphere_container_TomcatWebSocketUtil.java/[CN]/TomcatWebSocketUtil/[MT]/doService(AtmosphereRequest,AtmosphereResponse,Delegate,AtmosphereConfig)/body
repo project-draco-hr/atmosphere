@@ -11,7 +11,7 @@
     if (!headerContainsToken(req,"sec-websocket-version","13")) {
       logger.debug("WebSocket version not supported. Downgrading to Comet");
       res.sendError(501,"Websocket protocol not supported");
-      return new AtmosphereFramework.Action(AtmosphereFramework.Action.TYPE.CANCELLED);
+      return new Action(Action.TYPE.CANCELLED);
     }
     key=req.getHeader("Sec-WebSocket-Key");
     if (key == null) {
@@ -28,13 +28,13 @@
     RequestFacade facade=(RequestFacade)hsr;
     StreamInbound inbound=new TomcatWebSocketHandler(AtmosphereRequest.loadInMemory(req,true),config.framework(),config.framework().getWebSocketProtocol());
     facade.doUpgrade(inbound);
-    return new AtmosphereFramework.Action(AtmosphereFramework.Action.TYPE.CREATED);
+    return new Action(Action.TYPE.CREATED);
   }
-  AtmosphereFramework.Action action=delegate.suspended(req,res);
-  if (action.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
+  Action action=delegate.suspended(req,res);
+  if (action.type() == Action.TYPE.SUSPEND) {
     logger.debug("Suspending resonse: {}",res);
   }
- else   if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
+ else   if (action.type() == Action.TYPE.RESUME) {
     logger.debug("Resume resonse: {}",res);
     req.setAttribute(WebSocket.WEBSOCKET_RESUME,true);
   }

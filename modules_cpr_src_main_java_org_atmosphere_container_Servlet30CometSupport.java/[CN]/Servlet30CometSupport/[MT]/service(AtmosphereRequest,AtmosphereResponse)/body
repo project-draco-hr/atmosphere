@@ -1,10 +1,10 @@
 {
   Action action=suspended(request,response);
-  if (action.type == Action.TYPE.SUSPEND) {
+  if (action.type() == Action.TYPE.SUSPEND) {
     logger.debug("Suspending response: {}",response);
     suspend(action,request,response);
   }
- else   if (action.type == Action.TYPE.RESUME) {
+ else   if (action.type() == Action.TYPE.RESUME) {
     logger.debug("Resuming response: {}",response);
     if (supportSession()) {
       AsyncContext asyncContext=(AsyncContext)request.getSession().getAttribute("org.atmosphere.container.asyncContext");
@@ -13,7 +13,7 @@
       }
     }
     Action nextAction=resumed(request,response);
-    if (nextAction.type == Action.TYPE.SUSPEND) {
+    if (nextAction.type() == Action.TYPE.SUSPEND) {
       logger.debug("Suspending after resuming response: {}",response);
       suspend(action,request,response);
     }

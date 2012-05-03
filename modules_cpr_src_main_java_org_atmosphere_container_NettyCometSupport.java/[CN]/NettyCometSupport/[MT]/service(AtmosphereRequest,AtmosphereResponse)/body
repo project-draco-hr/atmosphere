@@ -1,20 +1,20 @@
 {
-  AtmosphereFramework.Action action=null;
+  Action action=null;
   action=suspended(req,res);
-  if (action.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
+  if (action.type() == Action.TYPE.SUSPEND) {
     logger.debug("Suspending response: {}",res);
     req.setAttribute(SUSPEND,action);
     req.setAttribute(ASYNCHRONOUS_HOOK,new AsynchronousProcessorHook((AtmosphereResourceImpl)req.getAttribute(ATMOSPHERE_RESOURCE)));
   }
- else   if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
+ else   if (action.type() == Action.TYPE.RESUME) {
     req.setAttribute(SUSPEND,action);
     Boolean resumeOnBroadcast=(Boolean)req.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
     if (resumeOnBroadcast != null && resumeOnBroadcast) {
       return action;
     }
     logger.debug("Resuming response: {}",res);
-    AtmosphereFramework.Action nextAction=resumed(req,res);
-    if (nextAction.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
+    Action nextAction=resumed(req,res);
+    if (nextAction.type() == Action.TYPE.SUSPEND) {
       logger.debug("Suspending after resuming response: {}",res);
       req.setAttribute(SUSPEND,action);
     }

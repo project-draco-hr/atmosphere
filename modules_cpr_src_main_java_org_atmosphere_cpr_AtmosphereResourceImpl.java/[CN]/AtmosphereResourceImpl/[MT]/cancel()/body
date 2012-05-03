@@ -1,5 +1,5 @@
 {
-  action.type=Action.TYPE.RESUME;
+  action.type(Action.TYPE.RESUME);
   isCancelled=true;
   asyncSupport.action(this);
   if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {

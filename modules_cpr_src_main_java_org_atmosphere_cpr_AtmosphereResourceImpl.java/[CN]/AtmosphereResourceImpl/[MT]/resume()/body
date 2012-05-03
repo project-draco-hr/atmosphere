@@ -1,7 +1,7 @@
 {
   try {
     if (!isResumed && isInScope) {
-      action.type=Action.TYPE.RESUME;
+      action.type(Action.TYPE.RESUME);
       isResumed=true;
       try {
         logger.debug("Resuming {}",getRequest(false));

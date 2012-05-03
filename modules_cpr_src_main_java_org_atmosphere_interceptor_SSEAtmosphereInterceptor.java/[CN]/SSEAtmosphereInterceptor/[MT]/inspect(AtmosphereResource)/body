@@ -29,5 +29,5 @@
     }
 );
   }
-  return new AtmosphereFramework.Action(AtmosphereFramework.Action.TYPE.CONTINUE);
+  return Action.CONTINUE;
 }

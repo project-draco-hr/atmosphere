@@ -42,7 +42,7 @@
     }
   }
  finally {
-    if (req != null && a != null && a.type != Action.TYPE.SUSPEND) {
+    if (req != null && a != null && a.type() != Action.TYPE.SUSPEND) {
       req.destroy();
       res.destroy();
     }

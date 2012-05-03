@@ -1,6 +1,6 @@
 {
   check();
-  resource.action().type=AtmosphereFramework.Action.TYPE.TIMEOUT;
+  resource.action().type(Action.TYPE.TIMEOUT);
   this.isResumedOnTimeout.set(isResumedOnTimeout);
   return this;
 }

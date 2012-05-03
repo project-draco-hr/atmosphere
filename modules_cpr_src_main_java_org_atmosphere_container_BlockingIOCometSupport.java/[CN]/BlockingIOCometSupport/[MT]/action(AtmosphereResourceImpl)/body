@@ -1,7 +1,7 @@
 {
   try {
     super.action(r);
-    if (r.action().type == Action.TYPE.RESUME) {
+    if (r.action().type() == Action.TYPE.RESUME) {
       AtmosphereRequest req=r.getRequest(false);
       CountDownLatch latch=null;
       if (req.getAttribute(LATCH) != null) {

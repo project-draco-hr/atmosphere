@@ -3,11 +3,11 @@
   Continuation c=(Continuation)req.getAttribute(Continuation.class.getName());
   if (c == null || c.isInitial()) {
     action=suspended(req,res);
-    if (action.type == Action.TYPE.SUSPEND && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
+    if (action.type() == Action.TYPE.SUSPEND && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
       c=ContinuationSupport.getContinuation(req);
       req.setAttribute(Continuation.class.getName(),c);
-      if (action.timeout != -1) {
-        c.setTimeout(action.timeout);
+      if (action.timeout() != -1) {
+        c.setTimeout(action.timeout());
       }
  else {
         c.setTimeout(Integer.MAX_VALUE);
@@ -49,7 +49,7 @@
         c.suspend(res);
       }
     }
- else     if (action.type == Action.TYPE.RESUME) {
+ else     if (action.type() == Action.TYPE.RESUME) {
       Boolean resumeOnBroadcast=(Boolean)req.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
       if (resumeOnBroadcast != null && resumeOnBroadcast) {
         return action;

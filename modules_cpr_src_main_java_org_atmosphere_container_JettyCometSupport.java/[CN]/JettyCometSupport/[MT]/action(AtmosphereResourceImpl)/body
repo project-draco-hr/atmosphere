@@ -1,6 +1,6 @@
 {
   super.action(r);
-  if (r.action().type == Action.TYPE.RESUME && r.isInScope()) {
+  if (r.action().type() == Action.TYPE.RESUME && r.isInScope()) {
     Continuation c=ContinuationSupport.getContinuation(r.getRequest(),null);
     resumed.offer(c);
     if (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {

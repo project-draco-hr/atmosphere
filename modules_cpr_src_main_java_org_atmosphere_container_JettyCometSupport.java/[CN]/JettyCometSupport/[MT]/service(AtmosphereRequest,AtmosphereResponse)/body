@@ -3,16 +3,16 @@
   Action action=null;
   if (!c.isResumed() && !c.isPending() && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
     action=suspended(req,response);
-    if (action.type == Action.TYPE.SUSPEND) {
+    if (action.type() == Action.TYPE.SUSPEND) {
       logger.debug("Suspending response: {}",response);
-      if (action.timeout != -1) {
-        c.suspend(action.timeout);
+      if (action.timeout() != -1) {
+        c.suspend(action.timeout());
       }
  else {
         c.suspend(0);
       }
     }
- else     if (action.type == Action.TYPE.RESUME) {
+ else     if (action.type() == Action.TYPE.RESUME) {
       logger.debug("Resuming response: {}",response);
       if (!resumed.remove(c)) {
         c.reset();

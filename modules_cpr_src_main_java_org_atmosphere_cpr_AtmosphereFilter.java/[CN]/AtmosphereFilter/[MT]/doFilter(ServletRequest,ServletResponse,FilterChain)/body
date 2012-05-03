@@ -1,6 +1,6 @@
 {
-  AtmosphereFramework.Action a=as.framework().doCometSupport(AtmosphereRequest.wrap((HttpServletRequest)request),AtmosphereResponse.wrap((HttpServletResponse)response));
-  if (a == null || a.type != AtmosphereFramework.Action.TYPE.SUSPEND) {
+  Action a=as.framework().doCometSupport(AtmosphereRequest.wrap((HttpServletRequest)request),AtmosphereResponse.wrap((HttpServletResponse)response));
+  if (a == null || a.type() != Action.TYPE.SUSPEND) {
     chain.doFilter(request,response);
   }
 }

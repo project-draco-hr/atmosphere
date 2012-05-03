@@ -9,13 +9,13 @@
       req.setAttribute(WebSocket.WEBSOCKET_INITIATED,true);
       webSocketFactory.acceptWebSocket(req,res);
       req.setAttribute(WebSocket.WEBSOCKET_ACCEPT_DONE,true);
-      return new AtmosphereFramework.Action();
+      return new Action();
     }
-    AtmosphereFramework.Action action=cometSupport.suspended(req,res);
-    if (action.type == AtmosphereFramework.Action.TYPE.SUSPEND) {
+    Action action=cometSupport.suspended(req,res);
+    if (action.type() == Action.TYPE.SUSPEND) {
       logger.debug("Suspending response: {}",res);
     }
- else     if (action.type == AtmosphereFramework.Action.TYPE.RESUME) {
+ else     if (action.type() == Action.TYPE.RESUME) {
       logger.debug("Resume response: {}",res);
       req.setAttribute(WebSocket.WEBSOCKET_RESUME,true);
     }

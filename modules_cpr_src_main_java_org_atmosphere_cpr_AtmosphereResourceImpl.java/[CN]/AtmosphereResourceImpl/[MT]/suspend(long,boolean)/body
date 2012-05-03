@@ -51,8 +51,8 @@
       write(true);
     }
     req.setAttribute(PRE_SUSPEND,"true");
-    action.type=Action.TYPE.SUSPEND;
-    action.timeout=timeout;
+    action.type(Action.TYPE.SUSPEND);
+    action.timeout(timeout);
     boolean isJersey=req.getAttribute(FrameworkConfig.CONTAINER_RESPONSE) != null;
     boolean skipCreation=false;
     if (req.getAttribute(SKIP_BROADCASTER_CREATION) != null) {

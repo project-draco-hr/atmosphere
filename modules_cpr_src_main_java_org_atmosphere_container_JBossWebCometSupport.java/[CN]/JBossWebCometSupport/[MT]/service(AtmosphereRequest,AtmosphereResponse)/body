@@ -6,11 +6,11 @@
   Action action=null;
   if (event.getType() == HttpEvent.EventType.BEGIN) {
     action=suspended(req,res);
-    if (action.type == Action.TYPE.SUSPEND) {
+    if (action.type() == Action.TYPE.SUSPEND) {
       logger.debug("Suspending response: {}",res);
       try {
-        if (action.timeout != -1) {
-          event.setTimeout((int)action.timeout);
+        if (action.timeout() != -1) {
+          event.setTimeout((int)action.timeout());
         }
  else {
           event.setTimeout(Integer.MAX_VALUE);
@@ -20,7 +20,7 @@
  catch (      UnsupportedOperationException ex) {
       }
     }
- else     if (action.type == Action.TYPE.RESUME) {
+ else     if (action.type() == Action.TYPE.RESUME) {
       logger.debug("Resuming response: {}",res);
       event.close();
     }

@@ -1,6 +1,6 @@
 {
   super.action(actionEvent);
-  if (actionEvent.action().type == Action.TYPE.RESUME && actionEvent.isInScope()) {
+  if (actionEvent.action().type() == Action.TYPE.RESUME && actionEvent.isInScope()) {
     AsyncContext asyncContext=(AsyncContext)actionEvent.getRequest().getAttribute("org.atmosphere.container.asyncContext");
     if (asyncContext == null && supportSession()) {
       asyncContext=(AsyncContext)actionEvent.getRequest().getSession().getAttribute("org.atmosphere.container.asyncContext");

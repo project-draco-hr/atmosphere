@@ -1,6 +1,6 @@
 {
   VoidCometHandler c=new VoidCometHandler(req,res);
-  ctx.setExpirationDelay(action.timeout);
+  ctx.setExpirationDelay(action.timeout());
   ctx.addCometHandler(c);
   req.setAttribute(ATMOSPHERE,c.hashCode());
   ctx.addAttribute("Time",System.currentTimeMillis());

@@ -1,6 +1,6 @@
 {
   check();
-  resource.action().type=AtmosphereFramework.Action.TYPE.CANCELLED;
+  resource.action().type(Action.TYPE.CANCELLED);
   this.isCancelled.set(isCancelled);
   return this;
 }
