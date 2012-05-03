@@ -9,7 +9,6 @@
   if (isCommited != that.isCommited)   return false;
   if (status != that.status)   return false;
   if (asyncIOWriter != null ? !asyncIOWriter.equals(that.asyncIOWriter) : that.asyncIOWriter != null)   return false;
-  if (asyncProtocol != null ? !asyncProtocol.equals(that.asyncProtocol) : that.asyncProtocol != null)   return false;
   if (atmosphereRequest != null ? !atmosphereRequest.equals(that.atmosphereRequest) : that.atmosphereRequest != null)   return false;
   if (charSet != null ? !charSet.equals(that.charSet) : that.charSet != null)   return false;
   if (contentType != null ? !contentType.equals(that.contentType) : that.contentType != null)   return false;

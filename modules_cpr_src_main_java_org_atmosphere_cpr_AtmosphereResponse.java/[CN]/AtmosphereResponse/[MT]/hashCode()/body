@@ -9,7 +9,6 @@
   result=31 * result + (contentType != null ? contentType.hashCode() : 0);
   result=31 * result + (isCommited ? 1 : 0);
   result=31 * result + (locale != null ? locale.hashCode() : 0);
-  result=31 * result + (asyncProtocol != null ? asyncProtocol.hashCode() : 0);
   result=31 * result + (headerHandled ? 1 : 0);
   result=31 * result + (atmosphereRequest != null ? atmosphereRequest.hashCode() : 0);
   result=31 * result + (writeStatusAndHeader != null ? writeStatusAndHeader.hashCode() : 0);

@@ -4,12 +4,7 @@
       public void write(      char[] chars,      int offset,      int lenght){
         try {
           writeStatusAndHeaders();
-          if (asyncProtocol.inspectResponse()) {
-            asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(chars,offset,lenght)));
-          }
- else {
-            asyncIOWriter.write(new String(chars,offset,lenght));
-          }
+          asyncIOWriter.write(new String(chars,offset,lenght));
         }
  catch (        IOException e) {
           throw new RuntimeException(e);
@@ -18,12 +13,7 @@
       public void write(      char[] chars){
         try {
           writeStatusAndHeaders();
-          if (asyncProtocol.inspectResponse()) {
-            asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(chars)));
-          }
- else {
-            asyncIOWriter.write(new String(chars));
-          }
+          asyncIOWriter.write(new String(chars));
         }
  catch (        IOException e) {
           throw new RuntimeException(e);
@@ -32,12 +22,7 @@
       public void write(      String s,      int offset,      int lenght){
         try {
           writeStatusAndHeaders();
-          if (asyncProtocol.inspectResponse()) {
-            asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(s.substring(offset,lenght))));
-          }
- else {
-            asyncIOWriter.write(new String(s.substring(offset,lenght)));
-          }
+          asyncIOWriter.write(new String(s.substring(offset,lenght)));
         }
  catch (        IOException e) {
           throw new RuntimeException(e);
@@ -46,12 +31,7 @@
       public void write(      java.lang.String s){
         try {
           writeStatusAndHeaders();
-          if (asyncProtocol.inspectResponse()) {
-            asyncIOWriter.write(asyncProtocol.handleResponse(AtmosphereResponse.this,new String(s)));
-          }
- else {
-            asyncIOWriter.write(new String(s));
-          }
+          asyncIOWriter.write(new String(s));
         }
  catch (        IOException e) {
           throw new RuntimeException(e);

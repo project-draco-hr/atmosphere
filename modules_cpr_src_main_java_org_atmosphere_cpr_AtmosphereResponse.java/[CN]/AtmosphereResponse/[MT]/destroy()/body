@@ -4,5 +4,4 @@
   headers.clear();
   atmosphereRequest=null;
   asyncIOWriter=null;
-  asyncProtocol=null;
 }

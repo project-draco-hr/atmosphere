@@ -1,4 +1,0 @@
-AtmosphereResponse atmosphereResponse
-byte[] message
-int offset
-int length

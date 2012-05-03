@@ -1,6 +1,6 @@
 {
   firstWrite.set(true);
   logger.trace("WebSocket.write()");
-  outbound.writeTextMessage(CharBuffer.wrap(data));
+  outbound.writeTextMessage(CharBuffer.wrap(webSocketResponseFilter.filter(data)));
   lastWrite=System.currentTimeMillis();
 }

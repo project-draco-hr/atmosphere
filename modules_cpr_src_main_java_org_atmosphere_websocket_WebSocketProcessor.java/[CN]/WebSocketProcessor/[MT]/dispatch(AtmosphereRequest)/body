@@ -2,7 +2,7 @@
   if (!loggedMsg.getAndSet(true)) {
     logger.debug("Atmosphere detected WebSocket: {}",webSocket.getClass().getName());
   }
-  AtmosphereResponse wsr=new AtmosphereResponse(webSocket,webSocketProtocol,request,destroyable);
+  AtmosphereResponse wsr=new AtmosphereResponse(webSocket,request,destroyable);
   request.headers(configureHeader(request));
   request.setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   dispatch(request,wsr);

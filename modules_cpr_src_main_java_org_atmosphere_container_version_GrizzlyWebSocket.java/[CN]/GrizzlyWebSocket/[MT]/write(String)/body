@@ -1,4 +1,4 @@
 {
-  webSocket.send(data);
+  webSocket.send(webSocketResponseFilter.filter(data));
   lastWrite=System.currentTimeMillis();
 }
