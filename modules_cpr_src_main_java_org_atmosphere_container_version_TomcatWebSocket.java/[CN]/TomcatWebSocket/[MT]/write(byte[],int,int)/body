@@ -1,6 +1,17 @@
 {
   firstWrite.set(true);
   logger.trace("WebSocket.write()");
-  outbound.writeTextMessage(CharBuffer.wrap(webSocketResponseFilter.filter(new String(data,offset,length,"ISO-8859-1"))));
+  if (binaryWrite) {
+    if (!WebSocketResponseFilter.NoOpsWebSocketResponseFilter.class.isAssignableFrom(webSocketResponseFilter.getClass())) {
+      byte[] b=webSocketResponseFilter.filter(data,offset,length);
+      outbound.writeBinaryMessage(ByteBuffer.wrap(b));
+    }
+ else {
+      outbound.writeBinaryMessage(ByteBuffer.wrap(data,offset,length));
+    }
+  }
+ else {
+    outbound.writeTextMessage(CharBuffer.wrap(webSocketResponseFilter.filter(new String(data,offset,length,resource().getResponse().getCharacterEncoding()))));
+  }
   lastWrite=System.currentTimeMillis();
 }

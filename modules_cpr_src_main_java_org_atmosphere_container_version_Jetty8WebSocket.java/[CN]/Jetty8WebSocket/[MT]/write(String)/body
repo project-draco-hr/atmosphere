@@ -2,6 +2,12 @@
   firstWrite.set(true);
   if (!connection.isOpen())   throw new IOException("Connection remotely closed");
   logger.trace("WebSocket.write()");
-  connection.sendMessage(data);
+  if (binaryWrite) {
+    byte[] b=webSocketResponseFilter.filter(data.getBytes(resource().getResponse().getCharacterEncoding()));
+    connection.sendMessage(b,0,b.length);
+  }
+ else {
+    connection.sendMessage(webSocketResponseFilter.filter(data));
+  }
   lastWrite=System.currentTimeMillis();
 }

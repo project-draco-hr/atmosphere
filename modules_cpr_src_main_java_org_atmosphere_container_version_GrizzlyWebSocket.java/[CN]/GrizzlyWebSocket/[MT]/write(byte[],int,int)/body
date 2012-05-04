@@ -1,4 +1,15 @@
 {
-  webSocket.send(webSocketResponseFilter.filter(new String(data,offset,length)));
+  if (binaryWrite) {
+    if (!WebSocketResponseFilter.NoOpsWebSocketResponseFilter.class.isAssignableFrom(webSocketResponseFilter.getClass())) {
+      byte[] b=webSocketResponseFilter.filter(data,offset,length);
+      webSocket.send(b);
+    }
+ else {
+      webSocket.send(Arrays.copyOfRange(data,offset,length));
+    }
+  }
+ else {
+    webSocket.send(webSocketResponseFilter.filter(new String(data,offset,length)));
+  }
   lastWrite=System.currentTimeMillis();
 }
