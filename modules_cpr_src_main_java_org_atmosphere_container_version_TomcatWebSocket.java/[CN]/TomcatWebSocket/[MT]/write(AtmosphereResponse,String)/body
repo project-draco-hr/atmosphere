@@ -8,4 +8,5 @@
     outbound.writeTextMessage(CharBuffer.wrap(webSocketResponseFilter.filter(r,data)));
   }
   lastWrite=System.currentTimeMillis();
+  return this;
 }

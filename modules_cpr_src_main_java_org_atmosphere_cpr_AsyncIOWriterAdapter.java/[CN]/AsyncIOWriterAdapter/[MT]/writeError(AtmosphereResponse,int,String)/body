@@ -1,0 +1,4 @@
+{
+  writeError(errorCode,message);
+  return this;
+}

@@ -19,7 +19,7 @@
         final AtomicReference<Future<?>> f=new AtomicReference();
         f.set(scheduler.scheduleAtFixedRate(new Runnable(){
           @Override public void run(){
-            if (WebSocketAdapter.class.isAssignableFrom(webSocket.getClass()) && System.currentTimeMillis() - WebSocketAdapter.class.cast(webSocket).lastTick() > action.timeout()) {
+            if (WebSocket.class.isAssignableFrom(webSocket.getClass()) && System.currentTimeMillis() - WebSocket.class.cast(webSocket).lastWriteTimeStampInMilliseconds() > action.timeout()) {
               hook.timedOut();
               f.get().cancel(true);
             }

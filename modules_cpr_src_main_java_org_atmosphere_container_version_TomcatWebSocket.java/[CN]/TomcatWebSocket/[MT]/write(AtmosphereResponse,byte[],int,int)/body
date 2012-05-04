@@ -14,4 +14,5 @@
     outbound.writeTextMessage(CharBuffer.wrap(webSocketResponseFilter.filter(r,new String(data,offset,length,resource().getResponse().getCharacterEncoding()))));
   }
   lastWrite=System.currentTimeMillis();
+  return this;
 }

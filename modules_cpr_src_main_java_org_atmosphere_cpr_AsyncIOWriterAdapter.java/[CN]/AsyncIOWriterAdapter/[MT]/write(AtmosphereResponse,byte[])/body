@@ -1,0 +1,4 @@
+{
+  write(data);
+  return this;
+}

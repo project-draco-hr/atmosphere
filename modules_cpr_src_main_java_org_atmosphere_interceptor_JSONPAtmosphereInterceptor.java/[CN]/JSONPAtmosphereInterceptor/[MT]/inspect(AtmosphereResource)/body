@@ -2,7 +2,7 @@
   final AtmosphereRequest request=r.getRequest();
   final AtmosphereResponse response=r.getResponse();
   if (r.transport().equals(AtmosphereResource.TRANSPORT.JSONP)) {
-    response.asyncIOWriter(new AsyncIOWriter(){
+    response.asyncIOWriter(new AsyncIOWriterAdapter(){
       String contentType(){
         String c=response.getContentType();
         if (c == null) {
@@ -13,13 +13,15 @@
       String callbackName(){
         return request.getParameter(HeaderConfig.JSONP_CALLBACK_NAME);
       }
-      @Override public void redirect(      AtmosphereResponse r,      String location) throws IOException {
+      @Override public AsyncIOWriter redirect(      String location) throws IOException {
         response.sendRedirect(location);
+        return this;
       }
-      @Override public void writeError(      AtmosphereResponse r,      int errorCode,      String message) throws IOException {
+      @Override public AsyncIOWriter writeError(      int errorCode,      String message) throws IOException {
         response.sendError(errorCode);
+        return this;
       }
-      @Override public void write(      AtmosphereResponse r,      String data) throws IOException {
+      @Override public AsyncIOWriter write(      String data) throws IOException {
         String contentType=contentType();
         String callbackName=callbackName();
         if (contentType != null && !contentType.contains("json")) {
@@ -29,8 +31,9 @@
           data=callbackName + "({\"message\" :" + data+ "})";
         }
         response.write(data);
+        return this;
       }
-      @Override public void write(      AtmosphereResponse r,      byte[] data) throws IOException {
+      @Override public AsyncIOWriter write(      byte[] data) throws IOException {
         String contentType=contentType();
         String callbackName=callbackName();
         if (contentType != null && !contentType.contains("json")) {
@@ -39,8 +42,9 @@
  else {
           response.write(callbackName + "({\"message\" :").write(data).write("})");
         }
+        return this;
       }
-      @Override public void write(      AtmosphereResponse r,      byte[] data,      int offset,      int length) throws IOException {
+      @Override public AsyncIOWriter write(      byte[] data,      int offset,      int length) throws IOException {
         String contentType=contentType();
         String callbackName=callbackName();
         if (contentType != null && !contentType.contains("json")) {
@@ -49,12 +53,14 @@
  else {
           response.write(callbackName + "({\"message\" :").write(data,offset,length).write("})");
         }
+        return this;
       }
-      @Override public void close(      AtmosphereResponse r) throws IOException {
+      @Override public void close() throws IOException {
         response.closeStreamOrWriter();
       }
-      @Override public void flush(      AtmosphereResponse r) throws IOException {
+      @Override public AsyncIOWriter flush() throws IOException {
         response.flushBuffer();
+        return this;
       }
     }
 );

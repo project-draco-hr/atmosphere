@@ -1,3 +1,4 @@
 {
   logger.error("WebSocket Redirect not supported");
+  return this;
 }

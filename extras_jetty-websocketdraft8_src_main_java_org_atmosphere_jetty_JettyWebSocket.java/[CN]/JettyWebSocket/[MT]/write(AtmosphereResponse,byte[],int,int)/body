@@ -2,4 +2,5 @@
   if (!outbound.isOpen())   throw new IOException("Connection remotely closed");
   logger.trace("WebSocket.write()");
   outbound.sendMessage(frame,data,offset,length);
+  return this;
 }

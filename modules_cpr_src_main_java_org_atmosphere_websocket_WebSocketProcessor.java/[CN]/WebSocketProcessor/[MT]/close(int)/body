@@ -32,7 +32,7 @@
         s.destroy();
       }
       if (webSocket != null) {
-        WebSocketAdapter.class.cast(webSocket).setAtmosphereResource(null);
+        webSocket.resource(null);
       }
     }
   }

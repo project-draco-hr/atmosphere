@@ -10,4 +10,5 @@
     connection.sendMessage(webSocketResponseFilter.filter(r,data));
   }
   lastWrite=System.currentTimeMillis();
+  return this;
 }
