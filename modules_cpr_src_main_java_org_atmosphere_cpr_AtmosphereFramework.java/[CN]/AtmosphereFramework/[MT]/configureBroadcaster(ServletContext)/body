@@ -4,7 +4,6 @@
   }
   if (broadcasterFactory == null) {
     Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
-    logger.info("Using BroadcasterFactory class: {}",DefaultBroadcasterFactory.class.getName());
     broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
   }
   if (sc != null) {
@@ -28,9 +27,6 @@
         BroadcasterCache cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(broadcasterCacheClassName).newInstance();
         InjectorProvider.getInjector().inject(cache);
         broadcasterConfig.setBroadcasterCache(cache);
-      }
- else {
-        logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. It is recommended to configure the HeaderBroadcasterCache.");
       }
     }
   }
