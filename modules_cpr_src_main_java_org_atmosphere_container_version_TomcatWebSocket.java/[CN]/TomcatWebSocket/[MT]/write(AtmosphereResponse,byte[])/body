@@ -1,0 +1,11 @@
+{
+  firstWrite.set(true);
+  logger.trace("WebSocket.write()");
+  if (binaryWrite) {
+    outbound.writeBinaryMessage(ByteBuffer.wrap(webSocketResponseFilter.filter(r,data)));
+  }
+ else {
+    outbound.writeTextMessage(CharBuffer.wrap(webSocketResponseFilter.filter(r,new String(data,resource().getResponse().getCharacterEncoding()))));
+  }
+  lastWrite=System.currentTimeMillis();
+}

@@ -1,6 +1,6 @@
 {
   if (!delegateToNativeResponse) {
-    asyncIOWriter.redirect(location);
+    asyncIOWriter.redirect(this,location);
   }
  else {
     _r().sendRedirect(location);

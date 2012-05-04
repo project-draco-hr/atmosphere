@@ -3,22 +3,22 @@
     return new ServletOutputStream(){
       @Override public void write(      int i) throws java.io.IOException {
         writeStatusAndHeaders();
-        asyncIOWriter.write(new byte[]{(byte)i});
+        asyncIOWriter.write(AtmosphereResponse.this,new byte[]{(byte)i});
       }
       @Override public void write(      byte[] bytes) throws java.io.IOException {
         writeStatusAndHeaders();
-        asyncIOWriter.write(bytes);
+        asyncIOWriter.write(AtmosphereResponse.this,bytes);
       }
       @Override public void write(      byte[] bytes,      int start,      int offset) throws java.io.IOException {
         writeStatusAndHeaders();
-        asyncIOWriter.write(bytes,start,offset);
+        asyncIOWriter.write(AtmosphereResponse.this,bytes,start,offset);
       }
       @Override public void flush() throws IOException {
         writeStatusAndHeaders();
-        asyncIOWriter.flush();
+        asyncIOWriter.flush(AtmosphereResponse.this);
       }
       @Override public void close() throws java.io.IOException {
-        asyncIOWriter.close();
+        asyncIOWriter.close(AtmosphereResponse.this);
       }
     }
 ;

@@ -1,0 +1,9 @@
+{
+  if (binaryWrite) {
+    webSocket.send(webSocketResponseFilter.filter(r,data).getBytes(resource().getResponse().getCharacterEncoding()));
+  }
+ else {
+    webSocket.send(webSocketResponseFilter.filter(r,data));
+  }
+  lastWrite=System.currentTimeMillis();
+}
