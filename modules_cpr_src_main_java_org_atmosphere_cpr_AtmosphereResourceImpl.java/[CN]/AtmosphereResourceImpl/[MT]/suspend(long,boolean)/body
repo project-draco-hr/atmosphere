@@ -44,9 +44,6 @@
       response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN,req.getHeader("Origin") == null ? "*" : req.getHeader("Origin"));
       response.setHeader(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
     }
-    if (transport().equals(TRANSPORT.SSE)) {
-      writeSSE(true);
-    }
     if (flushComment) {
       write(true);
     }
