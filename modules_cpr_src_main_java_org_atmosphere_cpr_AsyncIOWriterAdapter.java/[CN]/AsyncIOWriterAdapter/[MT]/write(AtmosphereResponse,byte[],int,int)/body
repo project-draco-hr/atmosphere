@@ -1,4 +1,3 @@
 {
-  write(data,offset,length);
-  return this;
+  return write(data,offset,length);
 }

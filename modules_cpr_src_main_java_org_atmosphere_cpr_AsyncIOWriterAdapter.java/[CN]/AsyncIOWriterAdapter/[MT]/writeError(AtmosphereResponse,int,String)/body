@@ -1,4 +1,3 @@
 {
-  writeError(errorCode,message);
-  return this;
+  return writeError(errorCode,message);
 }

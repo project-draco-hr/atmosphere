@@ -1,4 +1,3 @@
 {
-  redirect(location);
-  return this;
+  return redirect(location);
 }
