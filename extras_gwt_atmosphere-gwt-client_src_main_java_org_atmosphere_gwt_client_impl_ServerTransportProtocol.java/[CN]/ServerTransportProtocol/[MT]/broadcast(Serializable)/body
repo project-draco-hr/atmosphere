@@ -1,10 +1,10 @@
 {
   if (message instanceof String) {
-    send("s\nb" + message + "\n\n",defaultCallback);
+    send(pack(MessageType.STRING,ActionType.BROADCAST,message.toString()),defaultCallback);
   }
  else {
     try {
-      send("o\nb" + serialize(message) + "\n\n",defaultCallback);
+      send(pack(MessageType.OBJECT,ActionType.BROADCAST,serialize(message)),defaultCallback);
     }
  catch (    SerializationException ex) {
       logger.log(Level.SEVERE,"Failed to serialize message",ex);

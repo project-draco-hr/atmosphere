@@ -1,0 +1,3 @@
+{
+  return msgType.type + "\n" + actType.type+ "\n";
+}

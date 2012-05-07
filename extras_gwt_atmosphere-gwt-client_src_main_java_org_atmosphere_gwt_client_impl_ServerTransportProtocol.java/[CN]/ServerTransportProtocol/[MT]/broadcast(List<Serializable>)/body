@@ -2,11 +2,11 @@
   StringBuilder packet=new StringBuilder();
   for (  Serializable message : messages) {
     if (message instanceof String) {
-      packet.append("s\nb").append(message).append("\n\n");
+      packet.append(pack(MessageType.STRING,ActionType.BROADCAST,message.toString()));
     }
  else {
       try {
-        packet.append("o\nb").append(serialize(message)).append("\n\n");
+        packet.append(pack(MessageType.OBJECT,ActionType.BROADCAST,serialize(message)));
       }
  catch (      SerializationException ex) {
         logger.log(Level.SEVERE,"Failed to serialize message",ex);
