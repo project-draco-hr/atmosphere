@@ -3,6 +3,7 @@
   CometClientTransportWrapper temp=primaryTransport;
   primaryTransport=refreshTransport;
   refreshTransport=temp;
+  listener.onAfterRefresh();
   if (refreshQueue != null) {
     if (refreshQueue.size() > 0) {
       GWT.log("CometClient: pushing queued messages");
