@@ -28,6 +28,7 @@
     }
 ;
     this.servletConfig=scFacade;
+    patchContainer();
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
     configureBroadcaster(sc.getServletContext());
