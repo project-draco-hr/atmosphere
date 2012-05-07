@@ -1,4 +1,5 @@
 {
+  super(b.request == null ? new NoOpsRequest() : b.request);
   if (b.inputStream == null) {
     if (b.dataBytes != null) {
       configureStream(b.dataBytes,b.offset,b.length,b.encoding);

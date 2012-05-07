@@ -33,8 +33,4 @@
     filterChain.addFilter(fc);
     logger.info("Installing Filter {}",filterName);
   }
-  String s=sc.getInitParameter(ApplicationConfig.USE_SERVLET_WRAPPER);
-  if (s != null && Boolean.parseBoolean(s)) {
-    wrapRequest=true;
-  }
 }
