@@ -28,7 +28,7 @@
           useStreamForFlushingComments=true;
           broadcasterClassName=lookupDefaultBroadcasterType();
           broadcasterFactory=null;
-          configureBroadcaster(servletConfig.getServletContext());
+          configureBroadcaster();
         }
         IntrospectionUtils.setProperty(handler,handlerProperty.getName(),handlerProperty.getValue());
         IntrospectionUtils.addProperty(handler,handlerProperty.getName(),handlerProperty.getValue());

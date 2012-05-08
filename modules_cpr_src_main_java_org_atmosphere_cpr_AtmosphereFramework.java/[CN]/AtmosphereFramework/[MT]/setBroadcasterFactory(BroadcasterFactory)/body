@@ -1,5 +1,5 @@
 {
   this.broadcasterFactory=broadcasterFactory;
-  configureBroadcaster(config.getServletContext());
+  configureBroadcaster();
   return this;
 }
