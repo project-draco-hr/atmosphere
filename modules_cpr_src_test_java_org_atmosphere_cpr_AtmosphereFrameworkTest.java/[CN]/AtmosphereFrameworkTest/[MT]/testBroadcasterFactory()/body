@@ -1,0 +1,5 @@
+{
+  AtmosphereFramework f=new AtmosphereFramework();
+  f.setBroadcasterFactory(new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",f.getAtmosphereConfig()));
+  assertNotNull(f.getBroadcasterFactory());
+}

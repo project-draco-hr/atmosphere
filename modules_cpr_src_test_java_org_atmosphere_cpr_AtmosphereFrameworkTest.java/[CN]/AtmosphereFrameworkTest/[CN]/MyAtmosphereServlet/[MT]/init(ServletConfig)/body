@@ -1,0 +1,15 @@
+{
+  try {
+    framework.setBroadcasterFactory(new MyBroadcasterFactory());
+  }
+ catch (  IllegalAccessException e) {
+    throw new RuntimeException(e);
+  }
+catch (  InstantiationException e) {
+    throw new RuntimeException(e);
+  }
+catch (  ClassNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+  super.init(config);
+}
