@@ -1,0 +1,6 @@
+{
+  super.setResponse(response);
+  if (HttpServletResponse.class.isAssignableFrom(response.getClass())) {
+    this.response=HttpServletResponse.class.cast(response);
+  }
+}
