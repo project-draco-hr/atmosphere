@@ -1,6 +1,24 @@
 {
-  if (!outbound.isOpen())   throw new IOException("Connection remotely closed");
+  firstWrite.set(true);
+  if (!outbound.isOpen())   throw new IOException("outbound remotely closed");
   logger.trace("WebSocket.write()");
-  outbound.sendMessage(frame,data,offset,length);
+  if (binaryWrite) {
+    if (!WebSocketResponseFilter.NoOpsWebSocketResponseFilter.class.isAssignableFrom(webSocketResponseFilter.getClass())) {
+      byte[] b=webSocketResponseFilter.filter(r,data,offset,length);
+      if (b != null) {
+        outbound.sendMessage(frame,b,0,b.length);
+      }
+    }
+ else {
+      outbound.sendMessage(frame,data,offset,length);
+    }
+  }
+ else {
+    String s=webSocketResponseFilter.filter(r,new String(data,offset,length,"UTF-8"));
+    if (s != null) {
+      outbound.sendMessage(s);
+    }
+  }
+  lastWrite=System.currentTimeMillis();
   return this;
 }

@@ -1,9 +1,11 @@
 {
   if (binaryWrite) {
-    webSocket.send(webSocketResponseFilter.filter(r,data));
+    byte[] b=webSocketResponseFilter.filter(r,data);
+    if (b != null)     webSocket.send(b);
   }
  else {
-    webSocket.send(webSocketResponseFilter.filter(r,new String(data)));
+    String s=webSocketResponseFilter.filter(r,new String(data));
+    if (s != null)     webSocket.send(s);
   }
   lastWrite=System.currentTimeMillis();
   return this;
