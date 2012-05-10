@@ -1,6 +1,9 @@
 {
   if (!delegateToNativeResponse || forceAsyncIOWriter) {
+    boolean b=forceAsyncIOWriter;
+    forceAsyncIOWriter=false;
     asyncIOWriter.redirect(this,location);
+    forceAsyncIOWriter=b;
   }
  else {
     _r().sendRedirect(location);

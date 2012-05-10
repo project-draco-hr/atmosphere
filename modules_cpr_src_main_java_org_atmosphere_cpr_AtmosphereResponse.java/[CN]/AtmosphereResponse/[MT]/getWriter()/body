@@ -4,7 +4,10 @@
       public void write(      char[] chars,      int offset,      int lenght){
         try {
           writeStatusAndHeaders();
+          boolean b=forceAsyncIOWriter;
+          forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new String(chars,offset,lenght));
+          forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
           throw new RuntimeException(e);
@@ -13,7 +16,10 @@
       public void write(      char[] chars){
         try {
           writeStatusAndHeaders();
+          boolean b=forceAsyncIOWriter;
+          forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new String(chars));
+          forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
           throw new RuntimeException(e);
@@ -22,7 +28,10 @@
       public void write(      String s,      int offset,      int lenght){
         try {
           writeStatusAndHeaders();
+          boolean b=forceAsyncIOWriter;
+          forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new String(s.substring(offset,lenght)));
+          forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
           throw new RuntimeException(e);
@@ -31,7 +40,10 @@
       public void write(      java.lang.String s){
         try {
           writeStatusAndHeaders();
+          boolean b=forceAsyncIOWriter;
+          forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new String(s));
+          forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
           throw new RuntimeException(e);

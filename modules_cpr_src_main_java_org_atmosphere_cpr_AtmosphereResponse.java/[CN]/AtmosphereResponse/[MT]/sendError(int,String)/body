@@ -1,14 +1,17 @@
 {
   if (!delegateToNativeResponse || forceAsyncIOWriter) {
     setStatus(sc,msg);
+    boolean b=forceAsyncIOWriter;
+    forceAsyncIOWriter=false;
     asyncIOWriter.writeError(this,sc,msg);
+    forceAsyncIOWriter=b;
   }
  else {
     if (!_r().isCommitted()) {
       _r().sendError(sc,msg);
     }
  else {
-      logger.trace("Committed");
+      logger.warn("Committed error code {} {}",sc,msg);
     }
   }
 }
