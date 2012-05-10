@@ -4,15 +4,20 @@
     String contentType=response.getContentType();
     response.setContentType("text/event-stream");
     response.setCharacterEncoding("utf-8");
-    PrintWriter writer=null;
+    OutputStream stream=null;
     try {
-      writer=response.getWriter();
+      stream=response.getOutputStream();
     }
  catch (    IOException e) {
       logger.trace("",e);
     }
-    writer.print(whitespace);
-    writer.flush();
+    try {
+      stream.write(padding);
+      stream.flush();
+    }
+ catch (    IOException ex) {
+      logger.warn("SSE may not work",ex);
+    }
     response.setContentType(contentType);
     response.asyncIOWriter(new AsyncIOWriterAdapter(){
       @Override public AsyncIOWriter redirect(      String location) throws IOException {

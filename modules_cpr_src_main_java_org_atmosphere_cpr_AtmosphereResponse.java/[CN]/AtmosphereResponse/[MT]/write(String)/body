@@ -2,7 +2,12 @@
   boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
   try {
     if (isUsingStream) {
-      response.getOutputStream().write(data.getBytes(getCharacterEncoding()));
+      try {
+        response.getOutputStream().write(data.getBytes(getCharacterEncoding()));
+      }
+ catch (      java.lang.IllegalStateException ex) {
+        ex.printStackTrace();
+      }
     }
  else {
       response.getWriter().write(data);
