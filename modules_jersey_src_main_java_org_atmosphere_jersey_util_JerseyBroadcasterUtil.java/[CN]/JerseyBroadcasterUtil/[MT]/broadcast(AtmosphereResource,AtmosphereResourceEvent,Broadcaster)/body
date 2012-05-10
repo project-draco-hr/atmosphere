@@ -52,6 +52,7 @@
  else {
       if (e.getMessage() == null) {
         logger.warn("Broadcasted message is null");
+        return;
       }
       cr.setResponse(Response.ok(e.getMessage()).build());
       cr.getHttpHeaders().add(HttpHeaders.CONTENT_TYPE,m);
