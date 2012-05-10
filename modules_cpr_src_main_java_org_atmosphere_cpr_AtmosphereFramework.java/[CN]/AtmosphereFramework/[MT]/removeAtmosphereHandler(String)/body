@@ -1,4 +1,10 @@
 {
+  if (mapping.endsWith("/")) {
+    mapping+="[a-zA-Z0-9-&=;\\?]+";
+  }
+  if (mapping.contains("*")) {
+    mapping=mapping.replace("*","[a-zA-Z0-9-&=;\\?]+");
+  }
   atmosphereHandlers.remove(mapping);
   return this;
 }
