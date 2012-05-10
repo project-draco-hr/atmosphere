@@ -1,24 +1,27 @@
 {
   final AtmosphereResponse response=r.getResponse();
   if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
-    String contentType=response.getContentType();
-    response.setContentType("text/event-stream");
-    response.setCharacterEncoding("utf-8");
-    OutputStream stream=null;
-    try {
-      stream=response.getOutputStream();
+    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      @Override public void onSuspend(      AtmosphereResourceEvent event){
+        response.setContentType("text/event-stream");
+        response.setCharacterEncoding("utf-8");
+        OutputStream stream=null;
+        try {
+          stream=response.getOutputStream();
+        }
+ catch (        IOException e) {
+          logger.trace("",e);
+        }
+        try {
+          stream.write(padding);
+          stream.flush();
+        }
+ catch (        IOException ex) {
+          logger.warn("SSE may not work",ex);
+        }
+      }
     }
- catch (    IOException e) {
-      logger.trace("",e);
-    }
-    try {
-      stream.write(padding);
-      stream.flush();
-    }
- catch (    IOException ex) {
-      logger.warn("SSE may not work",ex);
-    }
-    response.setContentType(contentType);
+);
     response.asyncIOWriter(new AsyncIOWriterAdapter(){
       @Override public AsyncIOWriter redirect(      String location) throws IOException {
         response.sendRedirect(location);
