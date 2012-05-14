@@ -21,25 +21,25 @@
         return this;
       }
       @Override public AsyncIOWriter write(      String data) throws IOException {
-        if (!r.isSuspended()) {
-          writePadding(response);
-        }
+        padding();
         response.write("data:" + data + "\n\n");
         return this;
       }
       @Override public AsyncIOWriter write(      byte[] data) throws IOException {
-        if (!r.isSuspended()) {
-          writePadding(response);
-        }
+        padding();
         response.write("data:").write(data).write("\n\n");
         return this;
       }
       @Override public AsyncIOWriter write(      byte[] data,      int offset,      int length) throws IOException {
-        if (!r.isSuspended()) {
-          writePadding(response);
-        }
+        padding();
         response.write("data:").write(data,offset,length).write("\n\n");
         return this;
+      }
+      private void padding(){
+        if (!r.isSuspended()) {
+          writePadding(response);
+          r.getRequest().setAttribute("paddingWritten","true");
+        }
       }
       @Override public void close() throws IOException {
         response.closeStreamOrWriter();

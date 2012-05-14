@@ -1,4 +1,5 @@
 {
+  if (response.request() != null && response.request().getAttribute("paddingWritten") != null)   return;
   response.setContentType("text/event-stream");
   response.setCharacterEncoding("utf-8");
   OutputStream stream=null;
