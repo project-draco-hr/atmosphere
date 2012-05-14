@@ -1,3 +1,0 @@
-{
-  return (turnNum > 8);
-}
