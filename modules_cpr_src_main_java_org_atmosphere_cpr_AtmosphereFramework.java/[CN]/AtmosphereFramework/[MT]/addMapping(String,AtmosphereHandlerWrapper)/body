@@ -1,9 +1,9 @@
 {
   if (path.contains("*")) {
-    path=path.replace("*","[a-zA-Z0-9-&.=;\\?]+");
+    path=path.replace("*",MAPPING_REGEX);
   }
   if (path.endsWith("/")) {
-    path=path + "[a-zA-Z0-9-&.=;\\?]+";
+    path=path + MAPPING_REGEX;
   }
   atmosphereHandlers.put(path,w);
   return this;

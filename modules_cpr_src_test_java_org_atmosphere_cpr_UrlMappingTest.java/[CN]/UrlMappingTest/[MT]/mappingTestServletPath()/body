@@ -1,5 +1,5 @@
 {
-  framework.addAtmosphereHandler("/foo/a/",handler);
-  AtmosphereRequest r=new AtmosphereRequest.Builder().servletPath("/foo").pathInfo("/a").build();
+  framework.addAtmosphereHandler("/com.zyxabc.abc.Abc/gwtCometEvent*",handler);
+  AtmosphereRequest r=new AtmosphereRequest.Builder().servletPath("/com.zyxabc.abc.Abc/gwtCometEvent").build();
   assertNotNull(processor.map(r));
 }
