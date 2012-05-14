@@ -1,8 +1,10 @@
 {
-  atmosphereHandler.execute(new Runnable(){
-    @Override public void run(){
-      atmResource.resume();
+  if (atmosphereHandler != null) {
+    atmosphereHandler.execute(new Runnable(){
+      @Override public void run(){
+        atmResource.resume();
+      }
     }
-  }
 );
+  }
 }
