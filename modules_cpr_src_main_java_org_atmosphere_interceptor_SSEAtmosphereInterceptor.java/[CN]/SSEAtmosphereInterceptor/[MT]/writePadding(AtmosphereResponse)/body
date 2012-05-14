@@ -1,0 +1,18 @@
+{
+  response.setContentType("text/event-stream");
+  response.setCharacterEncoding("utf-8");
+  OutputStream stream=null;
+  try {
+    stream=response.getOutputStream();
+  }
+ catch (  IOException e) {
+    logger.trace("",e);
+  }
+  try {
+    stream.write(padding);
+    stream.flush();
+  }
+ catch (  IOException ex) {
+    logger.warn("SSE may not work",ex);
+  }
+}
