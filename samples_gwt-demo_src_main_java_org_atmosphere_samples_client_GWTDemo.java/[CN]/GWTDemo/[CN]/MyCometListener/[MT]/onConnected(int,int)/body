@@ -1,4 +1,5 @@
 {
-  GWT.log("comet.connected [" + heartbeat + ", "+ connectionID+ "]");
+  logger.info("comet.connected [" + heartbeat + ", "+ connectionID+ "]");
   displayCookies();
+  toggleStartStop(true);
 }

@@ -3,5 +3,6 @@
   if (exception instanceof StatusCodeException) {
     statuscode=((StatusCodeException)exception).getStatusCode();
   }
-  GWT.log("comet.error [connected=" + connected + "] ("+ statuscode+ ")",exception);
+  logger.log(Level.SEVERE,"comet.error [connected=" + connected + "] ("+ statuscode+ ")",exception);
+  toggleStartStop(false);
 }

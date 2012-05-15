@@ -18,7 +18,7 @@
     @Override public void onClick(    ClickEvent event){
       polling.pollDelayed(3000,new AsyncCallback<Event>(){
         @Override public void onFailure(        Throwable caught){
-          GWT.log("Failed to poll",caught);
+          logger.log(Level.SEVERE,"Failed to poll",caught);
         }
         @Override public void onSuccess(        Event result){
           Info.display("Polling message received: " + result.getCode(),result.getData());
@@ -28,47 +28,27 @@
     }
   }
 );
-  Button wnd=new Button("Open Window");
-  wnd.addClickHandler(new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      Scheduler.get().scheduleDeferred(new ScheduledCommand(){
-        @Override public void execute(){
-          screen=Window.current().open(Document.get().getURL(),"child",new WindowFeatures().setStatus(true).setResizable(true));
-        }
-      }
-);
-    }
-  }
-);
-  Button sendWindow=new Button("Send to window");
-  sendWindow.addClickHandler(new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      if (screen != null) {
-        WindowSocket.post(screen,"wsock","Hello Child!");
-      }
-    }
-  }
-);
-  WindowSocket socket=new WindowSocket();
-  socket.addHandler(new WindowSocket.MessageHandler(){
-    @Override public void onMessage(    String message){
-      Info.display("Received through window socket",message);
-    }
-  }
-);
-  socket.bind("wsock");
   RootPanel.get("buttons").add(button);
   RootPanel.get("buttons").add(post);
   RootPanel.get("buttons").add(pollButton);
-  RootPanel.get("buttons").add(wnd);
-  RootPanel.get("buttons").add(sendWindow);
   initialize();
-  Button killbutton=new Button("Stop");
-  killbutton.addClickHandler(new ClickHandler(){
+  startButton=new Button("Start");
+  stopButton=new Button("Stop");
+  startButton.setEnabled(false);
+  startButton.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
+      toggleStartStop(true);
+      client.start();
+    }
+  }
+);
+  stopButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      toggleStartStop(false);
       client.stop();
     }
   }
 );
-  RootPanel.get("buttons").add(killbutton);
+  RootPanel.get("buttons").add(startButton);
+  RootPanel.get("buttons").add(stopButton);
 }

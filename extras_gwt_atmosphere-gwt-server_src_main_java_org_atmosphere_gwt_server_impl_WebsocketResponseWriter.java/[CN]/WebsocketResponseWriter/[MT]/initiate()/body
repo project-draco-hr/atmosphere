@@ -1,4 +1,4 @@
 {
   super.initiate();
-  writer.append("c\nc").append(String.valueOf(resource.getHeartBeatInterval())).append(':').append(String.valueOf(connectionID)).append("\n\n");
+  writer.append("c;c;").append(String.valueOf(resource.getHeartBeatInterval())).append(';').append(String.valueOf(connectionID)).append(MESSAGE_SEPERATOR);
 }

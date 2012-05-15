@@ -1,7 +1,7 @@
 {
-  writer.append("c\ne").append(String.valueOf(statusCode));
+  writer.append("c;e;").append(String.valueOf(statusCode));
   if (message != null) {
-    writer.append(' ').append(HTTPRequestResponseWriter.escape(message));
+    writer.append(";").append(message);
   }
-  writer.append("\n\n");
+  writer.append(MESSAGE_SEPERATOR);
 }
