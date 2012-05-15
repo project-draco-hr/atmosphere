@@ -1,8 +1,14 @@
 {
   HttpServletRequest request=resource.getRequest();
   String servertransport=request.getParameter("servertransport");
+  Object webSocketSubProtocol=resource.getRequest().getAttribute(FrameworkConfig.WEBSOCKET_SUBPROTOCOL);
   if ("rpcprotocol".equals(servertransport)) {
     Integer connectionID=Integer.parseInt(request.getParameter("connectionID"));
+    doServerMessage(request,resource.getResponse(),connectionID);
+    return;
+  }
+ else   if (webSocketSubProtocol != null && webSocketSubProtocol.equals(FrameworkConfig.SIMPLE_HTTP_OVER_WEBSOCKET)) {
+    Integer connectionID=(Integer)request.getAttribute(AtmosphereGwtHandler.class.getName() + ".connectionID");
     doServerMessage(request,resource.getResponse(),connectionID);
     return;
   }
@@ -22,6 +28,7 @@
       }
     }
     GwtAtmosphereResourceImpl resourceWrapper=new GwtAtmosphereResourceImpl(resource,this,requestHeartbeat);
+    request.setAttribute(AtmosphereGwtHandler.class.getName() + ".connectionID",(Integer)resourceWrapper.getConnectionID());
     doCometImpl(resourceWrapper);
   }
  catch (  IOException e) {

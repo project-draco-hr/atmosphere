@@ -2,14 +2,14 @@
   Button button=new Button("Broadcast");
   button.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
-      sendMessage();
+      client.broadcast(new Event(count++,"Send from client using broadcast"));
     }
   }
 );
   Button post=new Button("Post");
   post.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
-      client.post(new Event(count++,"This was send using the post mechanism"));
+      client.post(new Event(count++,"Send from client using post"));
     }
   }
 );

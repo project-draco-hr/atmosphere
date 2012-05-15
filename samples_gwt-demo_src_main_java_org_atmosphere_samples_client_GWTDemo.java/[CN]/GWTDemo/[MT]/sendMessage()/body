@@ -1,3 +1,0 @@
-{
-  client.broadcast(new Event(count++,"Button clicked!"));
-}
