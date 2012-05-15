@@ -1,4 +1,9 @@
 {
+  String originalRequestURI=(String)req.getAttribute("javax.servlet.forward.request_uri");
+  if (originalRequestURI != null && req.getAttribute(ATMOSPHERE_CONFIG) != null) {
+    servletConfig.getServletContext().getNamedDispatcher("jsp").forward(req,res);
+    return Action.CONTINUE;
+  }
   req.setAttribute(BROADCASTER_FACTORY,broadcasterFactory);
   req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
