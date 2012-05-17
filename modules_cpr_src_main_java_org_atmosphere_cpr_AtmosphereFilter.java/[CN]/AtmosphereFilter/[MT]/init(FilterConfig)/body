@@ -15,4 +15,8 @@
     }
   }
 );
+  String s=filterConfig.getInitParameter(ApplicationConfig.ATMOSPHERE_EXCLUDED_FILE);
+  if (s != null) {
+    excluded=s;
+  }
 }
