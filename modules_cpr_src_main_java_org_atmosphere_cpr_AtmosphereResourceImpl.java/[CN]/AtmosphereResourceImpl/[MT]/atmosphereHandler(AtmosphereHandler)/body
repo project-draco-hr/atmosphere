@@ -1,0 +1,4 @@
+{
+  this.atmosphereHandler=atmosphereHandler;
+  return this;
+}
