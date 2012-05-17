@@ -1,6 +1,15 @@
 {
   if (session == null) {
-    session=!isNotNoOps() ? new FakeHttpSession("",null,System.currentTimeMillis(),-1) : b.session != null ? b.session : b.request.getSession();
+    session=createSession();
+  }
+ else {
+    try {
+      session.getLastAccessedTime();
+    }
+ catch (    IllegalStateException e) {
+      LoggerFactory.getLogger(this.getClass()).debug("Discarding invalid session");
+      session=createSession();
+    }
   }
   return session;
 }
