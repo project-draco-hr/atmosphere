@@ -26,7 +26,7 @@
     HttpServletRequest hsr=req.wrappedRequest();
     while (hsr instanceof HttpServletRequestWrapper)     hsr=(HttpServletRequest)((HttpServletRequestWrapper)hsr).getRequest();
     RequestFacade facade=(RequestFacade)hsr;
-    StreamInbound inbound=new TomcatWebSocketHandler(AtmosphereRequest.loadInMemory(req,true),config.framework(),config.framework().getWebSocketProtocol());
+    StreamInbound inbound=new TomcatWebSocketHandler(AtmosphereRequest.cloneRequest(req,true,config.isSupportSession()),config.framework(),config.framework().getWebSocketProtocol());
     facade.doUpgrade(inbound);
     return new Action(Action.TYPE.CREATED);
   }

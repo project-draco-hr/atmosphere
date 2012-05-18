@@ -1,2 +1,3 @@
 HttpServletRequest request
 boolean loadInMemory
+boolean copySession
