@@ -9,6 +9,7 @@
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
   dispatch(request,wsr);
+  request.removeAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
   if (webSocket.resource() != null) {
     final AsynchronousProcessor.AsynchronousProcessorHook hook=new AsynchronousProcessor.AsynchronousProcessorHook((AtmosphereResourceImpl)webSocket.resource());
     request.setAttribute(ASYNCHRONOUS_HOOK,hook);
