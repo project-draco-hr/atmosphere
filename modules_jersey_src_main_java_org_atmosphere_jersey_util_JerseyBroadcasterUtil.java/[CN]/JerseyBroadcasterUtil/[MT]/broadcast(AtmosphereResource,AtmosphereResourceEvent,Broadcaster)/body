@@ -74,6 +74,12 @@
     if (cr != null) {
       cr.setEntity(null);
     }
+    try {
+      r.getResponse().flushBuffer();
+    }
+ catch (    IOException e1) {
+      e1.printStackTrace();
+    }
     Boolean resumeOnBroadcast=(Boolean)request.getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
     if (resumeOnBroadcast != null && resumeOnBroadcast) {
       String uuid=(String)request.getAttribute(AtmosphereFilter.RESUME_UUID);
