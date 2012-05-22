@@ -11,6 +11,11 @@
       throw new SerializationException(e);
     }
   }
+ else   if (getPushMode() == SerialMode.DE_RPC) {
+    SerializationStreamWriter writer=new CommandToStringWriter(null);
+    writer.writeObject(message);
+    return writer.toString();
+  }
  else   if (getPushMode() == SerialMode.PLAIN) {
     return message.toString();
   }
