@@ -28,6 +28,7 @@
     }
 ;
     this.servletConfig=scFacade;
+    asyncSupportListener(eLogger);
     autoConfigureService(scFacade.getServletContext());
     patchContainer();
     doInitParams(scFacade);

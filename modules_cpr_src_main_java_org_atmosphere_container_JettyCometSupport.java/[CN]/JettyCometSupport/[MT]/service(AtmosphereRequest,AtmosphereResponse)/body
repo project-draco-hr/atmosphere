@@ -4,7 +4,6 @@
   if (!c.isResumed() && !c.isPending() && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
     action=suspended(req,response);
     if (action.type() == Action.TYPE.SUSPEND) {
-      logger.debug("Suspending response: {}",response);
       if (action.timeout() != -1) {
         c.suspend(action.timeout());
       }
@@ -13,7 +12,6 @@
       }
     }
  else     if (action.type() == Action.TYPE.RESUME) {
-      logger.debug("Resuming response: {}",response);
       if (!resumed.remove(c)) {
         c.reset();
         if (req.getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) == null) {
@@ -26,7 +24,6 @@
     }
   }
  else {
-    logger.debug("Resuming response: {}",response);
     if (!resumed.remove(c) && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
       c.reset();
       if (req.getAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT) == null) {

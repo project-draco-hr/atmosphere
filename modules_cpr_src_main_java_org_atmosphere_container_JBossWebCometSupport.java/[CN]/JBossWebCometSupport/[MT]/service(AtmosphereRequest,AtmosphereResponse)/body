@@ -7,7 +7,6 @@
   if (event.getType() == HttpEvent.EventType.BEGIN) {
     action=suspended(req,res);
     if (action.type() == Action.TYPE.SUSPEND) {
-      logger.debug("Suspending response: {}",res);
       try {
         if (action.timeout() != -1) {
           event.setTimeout((int)action.timeout());
@@ -21,7 +20,6 @@
       }
     }
  else     if (action.type() == Action.TYPE.RESUME) {
-      logger.debug("Resuming response: {}",res);
       event.close();
     }
  else {
@@ -31,13 +29,11 @@
  else   if (event.getType() == HttpEvent.EventType.READ) {
   }
  else   if (event.getType() == HttpEvent.EventType.EOF) {
-    logger.debug("Client closed connection: response: {}",res);
     if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
       req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
  else {
-      logger.debug("Cancelling response: {}",res);
       event.close();
     }
   }
@@ -50,12 +46,10 @@
       action=cancelled(req,res);
     }
  else {
-      logger.trace("Cancelling response: {}",res);
       event.close();
     }
   }
  else   if (event.getType() == HttpEvent.EventType.TIMEOUT) {
-    logger.debug("Timing out {}",res);
     action=timedout(req,res);
     event.close();
   }
