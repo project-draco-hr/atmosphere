@@ -1,0 +1,88 @@
+{
+switch (event.getEventType()) {
+case ANNOUNCE_NEW_CHILD:
+    logger.fine("Adding new child");
+  windowList.add(source);
+return;
+case ANNOUNCE_CHILD_DEATH:
+logger.fine("Removing child");
+windowList.remove(source);
+return;
+case ANNOUNCE_NEW_PARENT:
+logger.fine("Set new parent");
+parent=source;
+return;
+case ELECT_MASTER:
+logger.fine("Become new master");
+parent=null;
+masterConnection=new AtmosphereClient(url,serializer,masterListener);
+case ADOPT_ORPHANS:
+JavaScriptObject orphanArray=Window.current().getObject("orphans");
+if (orphanArray != null) {
+JSONArray arr=new JSONArray(orphanArray);
+logger.fine("Adopting " + arr.size() + " orphans");
+for (int i=0; i < arr.size(); i++) {
+final Window w=(Window)((JSONObject)arr.get(i)).getJavaScriptObject();
+windowList.add(w);
+Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand(){
+@Override public void execute(){
+dispatchEvent(w,event(EventType.ANNOUNCE_NEW_PARENT));
+}
+}
+);
+}
+Window.current().remove("orphans");
+}
+if (masterConnection != null) {
+masterConnection.start();
+}
+return;
+case ON_CONNECTED:
+clientListener.onConnected(-1,-1);
+break;
+case ON_BEFORE_DISCONNECTED:
+clientListener.onBeforeDisconnected();
+break;
+case ON_DISCONNECTED:
+clientListener.onDisconnected();
+break;
+case ON_ERROR:
+clientListener.onError(new AtmosphereClientException((String)event.getData()),true);
+break;
+case ON_HEARTBEAT:
+clientListener.onHeartbeat();
+break;
+case ON_REFRESH:
+clientListener.onRefresh();
+break;
+case ON_AFTER_REFRESH:
+clientListener.onAfterRefresh();
+break;
+case ON_MESSAGE:
+clientListener.onMessage(Collections.singletonList(event.getData()));
+break;
+case POST:
+if (masterConnection != null) {
+masterConnection.post(event.getData());
+}
+ else if (parent != null) {
+dispatchRawEvent(parent,rawEvent);
+}
+ else {
+throw new IllegalStateException("Failed to find master connection for post");
+}
+return;
+case BROADCAST:
+if (masterConnection != null) {
+masterConnection.broadcast(event.getData());
+}
+ else if (parent != null) {
+dispatchRawEvent(parent,rawEvent);
+}
+ else {
+throw new IllegalStateException("Failed to find master connection for broadcast");
+}
+return;
+}
+dispatchRawEvent(rawEvent);
+}

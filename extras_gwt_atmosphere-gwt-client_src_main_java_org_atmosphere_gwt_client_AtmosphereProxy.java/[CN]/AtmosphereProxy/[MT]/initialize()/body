@@ -1,0 +1,32 @@
+{
+  if (WindowSocket.exists(Window.current(),EVENT_SOCKET)) {
+    throw new IllegalStateException("Only one AtmosphereProxy instance is allowed per window");
+  }
+  eventSocket=new WindowSocket();
+  eventSocket.addHandler(new WindowSocket.MessageHandler(){
+    @Override public void onMessage(    Window source,    String message){
+      AtmosphereProxyEvent event=deserialize(message);
+      onEvent(source,event,message);
+    }
+  }
+);
+  eventSocket.bind(EVENT_SOCKET);
+  Window current=Window.current();
+  if (current.opener() != null && current != current.opener() && WindowSocket.exists(current.opener(),EVENT_SOCKET)) {
+    logger.info("Connecting new client window");
+    parent=current.opener();
+    dispatchEvent(parent,event(EventType.ANNOUNCE_NEW_CHILD));
+  }
+ else {
+    logger.info("Starting master connection");
+    masterConnection=new AtmosphereClient(url,serializer,masterListener);
+    masterConnection.start();
+    parent=null;
+  }
+  com.google.gwt.user.client.Window.addWindowClosingHandler(new ClosingHandler(){
+    @Override public void onWindowClosing(    ClosingEvent event){
+      AtmosphereProxy.this.onWindowClosing(event);
+    }
+  }
+);
+}
