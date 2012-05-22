@@ -1,0 +1,10 @@
+{
+  Sockets sockets=w.getObject(DOM_NAME);
+  if (sockets == null) {
+    sockets=Sockets.create();
+    w.set(DOM_NAME,sockets);
+  }
+  SocketImpl socket=SocketImpl.create(name);
+  sockets.set(socket);
+  return socket;
+}

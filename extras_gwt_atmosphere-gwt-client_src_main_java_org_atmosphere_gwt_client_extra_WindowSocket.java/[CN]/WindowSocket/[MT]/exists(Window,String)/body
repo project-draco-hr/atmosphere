@@ -1,3 +1,7 @@
 {
-  return getSocket(w,socketName) != null;
+  Sockets sockets=w.getObject(DOM_NAME);
+  if (sockets == null) {
+    return false;
+  }
+  return sockets.isSet(socketName);
 }

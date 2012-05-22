@@ -1,0 +1,3 @@
+{
+  broadcast(Collections.singletonList(message));
+}

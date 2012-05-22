@@ -1,0 +1,4 @@
+{
+  instance.setEventType((AtmosphereProxyEvent.EventType)streamReader.readObject());
+  instance.setData((Serializable)streamReader.readObject());
+}

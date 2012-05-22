@@ -1,6 +1,6 @@
 {
   SocketImpl s=getSocket(w,socketName);
   if (s != null) {
-    s.post(message);
+    s.post(Window.current(),message);
   }
 }

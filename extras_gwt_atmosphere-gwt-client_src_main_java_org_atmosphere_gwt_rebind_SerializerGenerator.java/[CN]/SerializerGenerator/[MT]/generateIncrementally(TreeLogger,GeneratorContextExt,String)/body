@@ -13,7 +13,10 @@
       }
       SerializableTypeOracleBuilder typesSentToBrowserBuilder=new SerializableTypeOracleBuilder(logger,context.getPropertyOracle(),context);
       SerializableTypeOracleBuilder typesSentFromBrowserBuilder=new SerializableTypeOracleBuilder(logger,context.getPropertyOracle(),context);
-      for (      Class<? extends Serializable> serializable : annotation.value()) {
+      List<Class<? extends Serializable>> serializableTypes=new ArrayList();
+      Collections.addAll(serializableTypes,annotation.value());
+      serializableTypes.add(AtmosphereProxyEvent.class);
+      for (      Class<? extends Serializable> serializable : serializableTypes) {
         int rank=0;
         if (serializable.isArray()) {
           while (serializable.isArray()) {

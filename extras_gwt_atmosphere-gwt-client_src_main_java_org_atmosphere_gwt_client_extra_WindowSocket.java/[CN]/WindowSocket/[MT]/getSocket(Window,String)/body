@@ -1,5 +1,5 @@
 {
-  Sockets sockets=w.getObject("sockets");
+  Sockets sockets=w.getObject(DOM_NAME);
   if (sockets == null) {
     return null;
   }

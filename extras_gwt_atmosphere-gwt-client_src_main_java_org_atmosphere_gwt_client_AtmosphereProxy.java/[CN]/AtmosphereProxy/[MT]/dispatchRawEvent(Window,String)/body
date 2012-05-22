@@ -1,0 +1,3 @@
+{
+  WindowSocket.post(target,EVENT_SOCKET,event);
+}
