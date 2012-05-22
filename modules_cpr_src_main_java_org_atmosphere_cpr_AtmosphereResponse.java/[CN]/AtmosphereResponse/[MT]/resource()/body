@@ -1,0 +1,8 @@
+{
+  if (atmosphereRequest != null) {
+    return (AtmosphereResource)atmosphereRequest.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  }
+ else {
+    return null;
+  }
+}
