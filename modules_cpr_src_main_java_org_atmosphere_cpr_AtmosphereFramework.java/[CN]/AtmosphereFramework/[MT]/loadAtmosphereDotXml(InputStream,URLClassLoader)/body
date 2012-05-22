@@ -46,7 +46,7 @@
         broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
         BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
       }
-      b=BroadcasterFactory.getDefault().get(atmoHandler.getContextRoot());
+      b=BroadcasterFactory.getDefault().lookup(atmoHandler.getContextRoot());
       AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler,b);
       addMapping(atmoHandler.getContextRoot(),wrapper);
       String bc=atmoHandler.getBroadcasterCache();

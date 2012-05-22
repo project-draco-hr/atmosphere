@@ -28,6 +28,7 @@
     }
 ;
     this.servletConfig=scFacade;
+    autoConfigureService(scFacade.getServletContext());
     patchContainer();
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
