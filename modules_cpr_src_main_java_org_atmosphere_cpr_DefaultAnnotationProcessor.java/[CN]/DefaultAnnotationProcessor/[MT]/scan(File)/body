@@ -2,7 +2,7 @@
   final ClassLoader cl=Thread.currentThread().getContextClassLoader();
   final AnnotationDetector.TypeReporter reporter=new AnnotationDetector.TypeReporter(){
     @SuppressWarnings("unchecked") @Override public Class<? extends Annotation>[] annotations(){
-      return new Class[]{AtmosphereHandlerService.class,BroadcasterCacheService.class,BroadcasterFilterService.class,BroadcasterService.class,MeteorService.class,WebSocketHandlerService.class,WebSocketProtocolService.class,WebSocketResponseFilterService.class};
+      return new Class[]{AtmosphereHandlerService.class,BroadcasterCacheService.class,BroadcasterFilterService.class,BroadcasterService.class,MeteorService.class,WebSocketHandlerService.class,WebSocketProtocolService.class,AtmosphereInterceptor.class};
     }
     @Override public void reportTypeAnnotation(    Class<? extends Annotation> annotation,    String className){
       logger.info("Annotation in {} being scanned: {}",className,annotation);
@@ -53,7 +53,13 @@
  else       if (WebSocketProtocolService.class.equals(annotation)) {
         framework.setWebSocketProtocolClassName(className);
       }
- else       if (WebSocketResponseFilterService.class.equals(annotation)) {
+ else       if (AtmosphereInterceptorService.class.equals(annotation)) {
+        try {
+          framework.interceptor((AtmosphereInterceptor)cl.loadClass(className).newInstance());
+        }
+ catch (        Throwable e) {
+          logger.warn("",e);
+        }
       }
     }
   }
