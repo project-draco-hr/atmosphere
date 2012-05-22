@@ -1,0 +1,5 @@
+{
+  logger.info("comet.connected [" + heartbeat + ", "+ connectionID+ "]");
+  displayCookies();
+  toggleStartStop(true);
+}
