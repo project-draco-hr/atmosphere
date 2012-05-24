@@ -15,11 +15,11 @@
         return this;
       }
       @Override public AsyncIOWriter write(      byte[] data) throws IOException {
-        response.write(data).write(END);
+        response.write(data).write(end);
         return this;
       }
       @Override public AsyncIOWriter write(      byte[] data,      int offset,      int length) throws IOException {
-        response.write(data,offset,length).write(END);
+        response.write(data,offset,length).write(end);
         return this;
       }
       @Override public void close() throws IOException {
@@ -38,15 +38,15 @@
         return message + "<||>";
       }
       @Override public byte[] filter(      AtmosphereResponse r,      byte[] message){
-        byte[] nb=new byte[message.length + END.length];
+        byte[] nb=new byte[message.length + end.length];
         System.arraycopy(message,0,nb,0,message.length);
-        System.arraycopy(END,0,nb,message.length,nb.length);
+        System.arraycopy(end,0,nb,message.length,nb.length);
         return nb;
       }
       @Override public byte[] filter(      AtmosphereResponse r,      byte[] message,      int offset,      int length){
-        byte[] nb=new byte[length + END.length];
+        byte[] nb=new byte[length + end.length];
         System.arraycopy(message,offset,nb,0,length);
-        System.arraycopy(END,0,nb,length,nb.length);
+        System.arraycopy(end,0,nb,length,nb.length);
         return nb;
       }
     }
