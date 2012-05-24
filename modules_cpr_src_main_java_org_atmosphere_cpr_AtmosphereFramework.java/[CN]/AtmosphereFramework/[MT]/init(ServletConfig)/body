@@ -47,7 +47,6 @@
     if (sc.getServletContext() != null) {
       sc.getServletContext().setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
     }
-    postProcessBroadcaster();
     logger.info("Using BroadcasterFactory class: {}",BroadcasterFactory.getDefault().getClass().getName());
     logger.info("Using Broadcaster class: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
