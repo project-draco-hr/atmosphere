@@ -9,25 +9,6 @@
     }
     BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
     InjectorProvider.getInjector().inject(broadcasterFactory);
-    Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();
-    AtmosphereHandlerWrapper w;
-    Entry<String,AtmosphereHandlerWrapper> e;
-    while (i.hasNext()) {
-      e=i.next();
-      w=e.getValue();
-      BroadcasterConfig broadcasterConfig=new BroadcasterConfig(broadcasterFilters,config);
-      if (w.broadcaster == null) {
-        w.broadcaster=broadcasterFactory.get(w.mapping);
-      }
- else {
-        w.broadcaster.setBroadcasterConfig(broadcasterConfig);
-        if (broadcasterCacheClassName != null) {
-          BroadcasterCache cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(broadcasterCacheClassName).newInstance();
-          InjectorProvider.getInjector().inject(cache);
-          broadcasterConfig.setBroadcasterCache(cache);
-        }
-      }
-    }
   }
  catch (  Exception ex) {
     logger.error("Unable to configure Broadcaster/Factory/Cache",ex);
