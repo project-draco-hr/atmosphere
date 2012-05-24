@@ -40,7 +40,7 @@
     initWebSocketProtocol();
     asyncSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
-    configureAtmosphereConfig(sc);
+    configureAtmosphereInterceptor(sc);
     if (broadcasterCacheClassName == null) {
       logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. " + "It is recommended to configure the HeaderBroadcasterCache.");
     }

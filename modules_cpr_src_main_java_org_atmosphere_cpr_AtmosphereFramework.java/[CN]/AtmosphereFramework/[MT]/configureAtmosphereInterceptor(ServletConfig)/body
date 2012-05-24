@@ -4,7 +4,9 @@
     String[] list=s.split(",");
     for (    String a : list) {
       try {
-        interceptors.add((AtmosphereInterceptor)Thread.currentThread().getContextClassLoader().loadClass(a.trim()).newInstance());
+        AtmosphereInterceptor ai=(AtmosphereInterceptor)Thread.currentThread().getContextClassLoader().loadClass(a.trim()).newInstance();
+        ai.configure(config);
+        interceptors.add(ai);
       }
  catch (      InstantiationException e) {
         logger.warn("",e);
