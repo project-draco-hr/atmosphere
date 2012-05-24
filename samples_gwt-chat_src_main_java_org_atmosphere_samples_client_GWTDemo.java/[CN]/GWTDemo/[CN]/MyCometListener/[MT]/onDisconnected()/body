@@ -1,0 +1,4 @@
+{
+  logger.info("comet.disconnected");
+  addChatLine(MESSAGE_ROOM_DISCONNECTED,COLOR_SYSTEM_MESSAGE);
+}

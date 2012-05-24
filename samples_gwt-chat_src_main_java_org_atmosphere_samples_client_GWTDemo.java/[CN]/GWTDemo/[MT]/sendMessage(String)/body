@@ -1,0 +1,10 @@
+{
+  if (author == null) {
+    author=message;
+    client.broadcast(new Event(author,MESSAGE_JOINED_ROOM));
+    label.setText(LABEL_TYPE_MESSAGE);
+  }
+ else {
+    client.broadcast(new Event(author,message));
+  }
+}

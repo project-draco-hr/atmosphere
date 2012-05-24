@@ -1,0 +1,6 @@
+{
+  String room=resource.getRequest().getPathInfo();
+  Broadcaster broadcaster=BroadcasterFactory.getDefault().lookup(room,true);
+  resource.getAtmosphereResource().setBroadcaster(broadcaster);
+  return 300000;
+}

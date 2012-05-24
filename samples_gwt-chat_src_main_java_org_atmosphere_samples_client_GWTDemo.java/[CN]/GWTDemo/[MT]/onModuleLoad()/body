@@ -1,0 +1,49 @@
+{
+  final ListBox roomSelect=new ListBox();
+  roomSelect.addItem("Room 1","room1");
+  roomSelect.addItem("Room 2","room2");
+  roomSelect.addItem("Room 3","room3");
+  roomSelect.addItem("Room 4","room4");
+  roomSelect.setSelectedIndex(0);
+  roomSelect.addChangeHandler(new ChangeHandler(){
+    @Override public void onChange(    ChangeEvent event){
+      String room=roomSelect.getValue(roomSelect.getSelectedIndex());
+      changeRoom(room);
+    }
+  }
+);
+  RootPanel.get("room").add(roomSelect);
+  chat=Document.get().getElementById("chat");
+  label=new Label(LABEL_ENTER_ROOM);
+  RootPanel.get("label").add(label);
+  input=new TextBox();
+  input.addKeyDownHandler(new KeyDownHandler(){
+    @Override public void onKeyDown(    KeyDownEvent event){
+      if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+        sendMessage(input.getValue());
+        input.setText("");
+      }
+    }
+  }
+);
+  RootPanel.get("input").add(input);
+  Button send=new Button("Send");
+  send.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      sendMessage(input.getValue());
+      input.setText("");
+    }
+  }
+);
+  RootPanel.get("send").add(send);
+  HTMLPanel logPanel=new HTMLPanel(""){
+    @Override public void add(    Widget widget){
+      super.add(widget);
+      widget.getElement().scrollIntoView();
+    }
+  }
+;
+  RootPanel.get("logger").add(logPanel);
+  Logger.getLogger("").addHandler(new HasWidgetsLogHandler(logPanel));
+  changeRoom(room);
+}

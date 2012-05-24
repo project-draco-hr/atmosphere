@@ -1,0 +1,11 @@
+{
+  add(new InfoWidget(title,message));
+  setWidth("300px");
+  setHeight("50px");
+  int root_width=Window.getClientWidth();
+  int root_height=Window.getClientHeight();
+  level=findAvailableLevel();
+  int left=root_width - 320;
+  int top=root_height - 80 - (level * 60);
+  setPopupPosition(left,top);
+}

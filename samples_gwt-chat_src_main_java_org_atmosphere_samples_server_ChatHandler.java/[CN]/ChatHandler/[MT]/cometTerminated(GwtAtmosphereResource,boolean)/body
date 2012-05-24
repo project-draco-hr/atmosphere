@@ -1,0 +1,4 @@
+{
+  super.cometTerminated(cometResponse,serverInitiated);
+  logger.info("Comet disconnected");
+}
