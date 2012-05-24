@@ -1,6 +1,8 @@
 {
   framework.addAtmosphereHandler("/*",handler);
   framework.interceptor(new AtmosphereInterceptor(){
+    @Override public void configure(    AtmosphereConfig config){
+    }
     @Override public Action inspect(    AtmosphereResource r){
       AtmosphereResourceImpl.class.cast(r).action().type(Action.TYPE.CONTINUE);
       return Action.CONTINUE;
@@ -9,6 +11,8 @@
 );
   assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequest.class),mock(AtmosphereResponse.class)));
   framework.interceptor(new AtmosphereInterceptor(){
+    @Override public void configure(    AtmosphereConfig config){
+    }
     @Override public Action inspect(    AtmosphereResource r){
       AtmosphereResourceImpl.class.cast(r).action().type(Action.TYPE.CREATED);
       return Action.CONTINUE;
