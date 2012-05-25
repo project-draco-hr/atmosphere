@@ -3,7 +3,7 @@
     return;
   }
   AtmosphereConfigReader.getInstance().parse(config,stream);
-  for (  AtmosphereHandlerConfig atmoHandler : config.getAtmosphereHandler()) {
+  for (  AtmosphereHandlerConfig atmoHandler : config.getAtmosphereHandlerConfig()) {
     try {
       AtmosphereHandler handler;
       if (!ReflectorServletProcessor.class.getName().equals(atmoHandler.getClassName())) {

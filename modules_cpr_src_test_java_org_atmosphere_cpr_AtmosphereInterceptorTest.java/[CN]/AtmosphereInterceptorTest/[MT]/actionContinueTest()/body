@@ -9,5 +9,5 @@
     }
   }
 );
-  assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequest.class),mock(AtmosphereResponse.class)));
+  assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequest.class),AtmosphereResponse.create()));
 }

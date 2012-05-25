@@ -3,6 +3,6 @@
   DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
   broadcaster=factory.get(DefaultBroadcaster.class,"test");
   atmosphereHandler=new AR();
-  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),mock(AtmosphereResponse.class),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.create(),mock(BlockingIOCometSupport.class),atmosphereHandler);
   broadcaster.addAtmosphereResource(ar);
 }

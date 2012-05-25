@@ -1,0 +1,3 @@
+{
+  return new AtmosphereResourceImpl(config,broadcaster,response.request(),response,a,handler);
+}

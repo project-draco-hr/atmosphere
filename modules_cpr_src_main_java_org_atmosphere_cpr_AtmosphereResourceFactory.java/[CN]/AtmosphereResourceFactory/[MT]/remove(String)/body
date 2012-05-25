@@ -1,0 +1,7 @@
+{
+  AtmosphereResource r=find(uuid);
+  if (r != null) {
+    BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+  }
+  return r;
+}

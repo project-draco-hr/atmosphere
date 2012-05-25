@@ -4,7 +4,7 @@
   }
   AtmosphereResponse wsr=new AtmosphereResponse(webSocket,request,destroyable);
   request.headers(configureHeader(request)).setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
-  AtmosphereResourceImpl r=new AtmosphereResourceImpl(framework.getAtmosphereConfig(),null,request,wsr,framework.getAsyncSupport(),null);
+  AtmosphereResource r=AtmosphereResourceFactory.create(framework.getAtmosphereConfig(),wsr,framework.getAsyncSupport());
   request.setAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE,r);
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
