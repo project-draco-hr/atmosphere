@@ -1,24 +1,24 @@
 {
   AtmosphereRequest request=r.getRequest();
   ContainerResponse cr=null;
+  cr=(ContainerResponse)request.getAttribute(FrameworkConfig.CONTAINER_RESPONSE);
+  boolean isCancelled=r.getAtmosphereResourceEvent().isCancelled();
+  if (cr == null || isCancelled) {
+    logger.debug("Retrieving HttpServletRequest {} with ContainerResponse {}",request,cr);
+    if (!isCancelled) {
+      logger.debug("Unexpected state. ContainerResponse cannot be null or already committed. The connection hasn't been suspended yet");
+    }
+ else {
+      logger.debug("ContainerResponse already resumed or cancelled. Ignoring");
+    }
+    if (DefaultBroadcaster.class.isAssignableFrom(broadcaster.getClass())) {
+      DefaultBroadcaster.class.cast(broadcaster).cacheLostMessage(r);
+    }
+    AsynchronousProcessor.destroyResource(r);
+    return;
+  }
 synchronized (cr) {
     try {
-      cr=(ContainerResponse)request.getAttribute(FrameworkConfig.CONTAINER_RESPONSE);
-      boolean isCancelled=r.getAtmosphereResourceEvent().isCancelled();
-      if (cr == null || isCancelled) {
-        logger.debug("Retrieving HttpServletRequest {} with ContainerResponse {}",request,cr);
-        if (!isCancelled) {
-          logger.debug("Unexpected state. ContainerResponse cannot be null or already committed. The connection hasn't been suspended yet");
-        }
- else {
-          logger.debug("ContainerResponse already resumed or cancelled. Ignoring");
-        }
-        if (DefaultBroadcaster.class.isAssignableFrom(broadcaster.getClass())) {
-          DefaultBroadcaster.class.cast(broadcaster).cacheLostMessage(r);
-        }
-        AsynchronousProcessor.destroyResource(r);
-        return;
-      }
       String m=null;
       if (cr.getHttpHeaders().getFirst(HttpHeaders.CONTENT_TYPE) != null) {
         m=cr.getHttpHeaders().getFirst(HttpHeaders.CONTENT_TYPE).toString();
