@@ -1,0 +1,11 @@
+{
+  factory.get("/a");
+  factory.get("/b");
+  factory.get("/c");
+  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/*","yo").size(),3);
+  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/a/b","yo").size(),0);
+  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/a","yo").size(),1);
+  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/","yo").size(),3);
+  factory.get("/*");
+  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/","yo").size(),4);
+}

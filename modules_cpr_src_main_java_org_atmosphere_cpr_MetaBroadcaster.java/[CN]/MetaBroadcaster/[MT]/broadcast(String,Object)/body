@@ -1,0 +1,16 @@
+{
+  Collection<Broadcaster> c=BroadcasterFactory.getDefault().lookupAll();
+  final Map<String,String> m=new HashMap<String,String>();
+  List<Broadcaster> l=new ArrayList<Broadcaster>();
+  logger.debug("Map {}",path);
+  UriTemplate t=new UriTemplate(path);
+  for (  Broadcaster b : c) {
+    logger.debug("Trying to map {} to {}",t,b.getID());
+    if (t.match(b.getID(),m)) {
+      b.broadcast(message);
+      l.add(b);
+    }
+    m.clear();
+  }
+  return l;
+}
