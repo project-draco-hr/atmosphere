@@ -1,4 +1,0 @@
-{
-  boolean isAresource=AtmosphereResource.class.isAssignableFrom(trackableResource.type()) ? true : false;
-  trackableResource.setResource(isAresource ? r : r.getBroadcaster());
-}

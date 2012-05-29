@@ -52,25 +52,17 @@
     suspendTimeout=translateTimeUnit(suspendTimeout,tu);
     Suspend.SCOPE scope=am.getAnnotation(Suspend.class).scope();
     boolean outputComments=am.getAnnotation(Suspend.class).outputComments();
-    boolean trackable=false;
-    if (TrackableResource.class.isAssignableFrom(am.getMethod().getReturnType())) {
-      trackable=true;
-    }
     if (am.getAnnotation(Suspend.class).resumeOnBroadcast()) {
-      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND_RESUME,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
+      f=new Filter(Action.SUSPEND_RESUME,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
     }
  else {
-      f=new Filter(trackable ? Action.SUSPEND_TRACKABLE : Action.SUSPEND,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
+      f=new Filter(Action.SUSPEND,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
     }
     f.setListeners(am.getAnnotation(Suspend.class).listeners());
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Subscribe.class)) {
-    boolean trackable=false;
-    if (TrackableResource.class.isAssignableFrom(am.getMethod().getReturnType())) {
-      trackable=true;
-    }
-    f=new Filter(trackable ? Action.SUBSCRIBE_TRACKABLE : Action.SUBSCRIBE,30000,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Subscribe.class).value(),am.getAnnotation(Subscribe.class).writeEntity());
+    f=new Filter(Action.SUBSCRIBE,30000,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Subscribe.class).value(),am.getAnnotation(Subscribe.class).writeEntity());
     f.setListeners(am.getAnnotation(Subscribe.class).listeners());
     list.addFirst(f);
   }

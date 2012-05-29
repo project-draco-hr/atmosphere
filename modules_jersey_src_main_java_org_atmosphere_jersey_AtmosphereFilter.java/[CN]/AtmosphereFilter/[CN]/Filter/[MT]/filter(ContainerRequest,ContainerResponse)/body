@@ -128,16 +128,7 @@ Broadcaster bc=s.broadcaster();
 if (bc == null && s.scope() != Suspend.SCOPE.REQUEST) {
 bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 }
-boolean supportTrackable=config.getInitParameter(ApplicationConfig.SUPPORT_TRACKABLE) != null;
-boolean isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : supportTrackable;
-TrackableResource<? extends Trackable> trackableResource=null;
-if (isTracked) {
-trackableResource=preTrack(request,response);
-}
 suspend(resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope(),s.writeEntity());
-if (isTracked && trackableResource != null) {
-postTrack(trackableResource,r);
-}
 break;
 case SUBSCRIBE_TRACKABLE:
 case SUBSCRIBE:
@@ -171,18 +162,7 @@ throw new IllegalStateException(e.getMessage());
 }
 broadcaster=BroadcasterFactory.getDefault().lookup(c,topic,true);
 }
-supportTrackable=config.getInitParameter(ApplicationConfig.SUPPORT_TRACKABLE) != null;
-isTracked=response.getEntity() != null ? TrackableResource.class.isAssignableFrom(response.getEntity().getClass()) : supportTrackable;
-if (isTracked) {
-trackableResource=preTrack(request,response);
-}
- else {
-trackableResource=null;
-}
 suspend(resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r,scope,writeEntity);
-if (isTracked && trackableResource != null) {
-postTrack(trackableResource,r);
-}
 break;
 case RESUME:
 if (response.getEntity() != null) {

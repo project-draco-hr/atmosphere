@@ -1,9 +1,0 @@
-{
-  try {
-    latch.await(5,TimeUnit.SECONDS);
-  }
- catch (  InterruptedException e) {
-    logger.trace("",e);
-  }
-  return resource;
-}

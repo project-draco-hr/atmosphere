@@ -1,6 +1,0 @@
-{
-  if (TrackableResource.class.isAssignableFrom(type)) {
-    return new TrackableResourceStringReader();
-  }
-  return null;
-}
