@@ -1,0 +1,23 @@
+{
+  try {
+switch (getSerializationMode()) {
+case RPC:
+      ServerSerializationStreamWriter streamWriter=new ServerSerializationStreamWriter(serializationPolicy);
+    streamWriter.prepareToWrite();
+  streamWriter.writeObject(message);
+return streamWriter.toString();
+case DE_RPC:
+ByteArrayOutputStream result=new ByteArrayOutputStream();
+RPC.streamResponseForSuccess(clientOracle,result,message);
+return new String(result.toByteArray(),"UTF-8");
+case JSON:
+throw new UnsupportedOperationException("Not implemented yet");
+default :
+case PLAIN:
+return message.toString();
+}
+}
+ catch (SerializationException e) {
+throw new NotSerializableException("Unable to serialize object, message: " + e.getMessage());
+}
+}

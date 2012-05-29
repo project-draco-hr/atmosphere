@@ -1,0 +1,10 @@
+{
+  String data;
+  if (event.getData() != null) {
+    data=jsonSerializer.serialize(event.getData());
+  }
+ else {
+    data="";
+  }
+  return event.getEventType().name() + ";" + data;
+}

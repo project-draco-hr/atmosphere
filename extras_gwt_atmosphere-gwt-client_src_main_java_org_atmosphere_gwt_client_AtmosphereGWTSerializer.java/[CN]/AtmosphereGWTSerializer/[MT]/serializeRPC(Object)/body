@@ -1,0 +1,12 @@
+{
+  try {
+    Serializer serializer=getRPCSerializer();
+    ClientSerializationStreamWriter writer=new ClientSerializationStreamWriter(serializer,GWT.getModuleBaseURL(),GWT.getPermutationStrongName());
+    writer.prepareToWrite();
+    writer.writeObject(message);
+    return writer.toString();
+  }
+ catch (  RuntimeException e) {
+    throw new SerializationException(e);
+  }
+}

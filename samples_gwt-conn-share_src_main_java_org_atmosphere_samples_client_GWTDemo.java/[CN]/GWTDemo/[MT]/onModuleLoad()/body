@@ -2,14 +2,21 @@
   Button broadcast=new Button("Broadcast");
   broadcast.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
-      proxy.broadcast(new Event(count++,"Send from client using broadcast"));
+      proxy.broadcast(event(count++,"Send from client using broadcast"));
     }
   }
 );
   Button post=new Button("Post");
   post.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
-      proxy.post(new Event(count++,"Send from client using post"));
+      proxy.post(event(count++,"Send from client using post"));
+    }
+  }
+);
+  Button localBroadcast=new Button("Local Broadcast");
+  localBroadcast.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      proxy.localBroadcast(event(count++,"Send from client using local broadcast"));
     }
   }
 );
@@ -27,6 +34,7 @@
 );
   RootPanel.get("buttons").add(broadcast);
   RootPanel.get("buttons").add(post);
+  RootPanel.get("buttons").add(localBroadcast);
   RootPanel.get("buttons").add(newWindow);
   initialize();
 }

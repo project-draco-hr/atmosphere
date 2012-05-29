@@ -13,14 +13,13 @@
       }
       SerializableTypeOracleBuilder typesSentToBrowserBuilder=new SerializableTypeOracleBuilder(logger,context.getPropertyOracle(),context);
       SerializableTypeOracleBuilder typesSentFromBrowserBuilder=new SerializableTypeOracleBuilder(logger,context.getPropertyOracle(),context);
-      List<Class<? extends Serializable>> serializableTypes=new ArrayList();
+      List<Class<?>> serializableTypes=new ArrayList();
       Collections.addAll(serializableTypes,annotation.value());
-      serializableTypes.add(AtmosphereProxyEvent.class);
-      for (      Class<? extends Serializable> serializable : serializableTypes) {
+      for (      Class<?> serializable : serializableTypes) {
         int rank=0;
         if (serializable.isArray()) {
           while (serializable.isArray()) {
-            serializable=(Class<? extends Serializable>)serializable.getComponentType();
+            serializable=(Class<?>)serializable.getComponentType();
             rank++;
           }
         }
@@ -56,16 +55,37 @@
       ClassSourceFileComposerFactory composerFactory=new ClassSourceFileComposerFactory(packageName,className);
       composerFactory.addImport(Serializer.class.getName());
       composerFactory.addImport(SerialMode.class.getName());
+      composerFactory.addImport(SerializationException.class.getName());
+      composerFactory.addImport(Serializable.class.getName());
       composerFactory.setSuperclass(typeName);
       SourceWriter sourceWriter=composerFactory.createSourceWriter(context,printWriter);
       sourceWriter.print("private Serializer SERIALIZER = new " + realize + "();");
-      sourceWriter.print("protected Serializer getSerializer() {return SERIALIZER;}");
-      sourceWriter.print("public SerialMode getMode() {return SerialMode." + annotation.mode().name() + ";}");
-      sourceWriter.print("public SerialMode getPushMode() {return SerialMode." + annotation.pushmode().name() + ";}");
+      sourceWriter.print("protected Serializer getRPCSerializer() {return SERIALIZER;}");
+      sourceWriter.println("public SerialMode getMode() {return SerialMode." + annotation.mode().name() + ";}");
+      sourceWriter.println("public SerialMode getPushMode() {return SerialMode." + annotation.pushMode().name() + ";}");
+      sourceWriter.println("public Object deserialize(String message) throws SerializationException {");
+      sourceWriter.println("  return deserialize" + annotation.mode().name() + "(message);}");
+      sourceWriter.println("public String serialize(Object message) throws SerializationException {");
+      sourceWriter.println("  return serialize" + annotation.pushMode().name() + "(message);}");
       sourceWriter.commit(logger);
       if (annotation.mode() == SerialMode.DE_RPC) {
         RpcDataArtifact data=new RpcDataArtifact(type.getQualifiedSourceName());
         for (        JType t : typesSentToBrowser.getSerializableTypes()) {
+          if (!(t instanceof JClassType)) {
+            continue;
+          }
+          JField[] serializableFields=SerializationUtils.getSerializableFields(context.getTypeOracle(),(JClassType)t);
+          List<String> names=Lists.create();
+          for (int i=0, j=serializableFields.length; i < j; i++) {
+            names=Lists.add(names,serializableFields[i].getName());
+          }
+          data.setFields(SerializationUtils.getRpcTypeName(t),names);
+        }
+        context.commitArtifact(logger,data);
+      }
+      if (annotation.pushMode() == SerialMode.DE_RPC) {
+        RpcDataArtifact data=new RpcDataArtifact(type.getQualifiedSourceName());
+        for (        JType t : typesSentFromBrowser.getSerializableTypes()) {
           if (!(t instanceof JClassType)) {
             continue;
           }

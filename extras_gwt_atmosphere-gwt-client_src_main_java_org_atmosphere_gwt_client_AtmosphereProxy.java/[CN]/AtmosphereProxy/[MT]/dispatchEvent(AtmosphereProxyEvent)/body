@@ -1,3 +1,0 @@
-{
-  dispatchRawEvent(serialize(event));
-}

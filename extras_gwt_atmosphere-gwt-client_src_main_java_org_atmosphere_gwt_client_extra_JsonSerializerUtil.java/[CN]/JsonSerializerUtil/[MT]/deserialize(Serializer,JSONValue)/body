@@ -1,0 +1,9 @@
+{
+  JSONObject obj=jsonValue.isObject();
+  if (obj != null) {
+    if (obj.containsKey("class") && obj.get("class").isString() != null) {
+      return serializer.deSerialize(jsonValue,obj.get("class").isString().stringValue());
+    }
+  }
+  throw new IllegalArgumentException("Json string must contain \"class\" key.");
+}

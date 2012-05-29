@@ -1,0 +1,5 @@
+{
+  if (windowList.size() > 0) {
+    dispatchRawEvent(serialize(event));
+  }
+}

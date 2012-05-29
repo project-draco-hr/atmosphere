@@ -1,4 +1,0 @@
-{
-  streamWriter.writeObject(instance.getEventType());
-  streamWriter.writeObject(instance.getData());
-}

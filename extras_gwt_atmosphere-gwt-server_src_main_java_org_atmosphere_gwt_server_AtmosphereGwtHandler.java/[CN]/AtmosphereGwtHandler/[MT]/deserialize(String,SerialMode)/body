@@ -1,0 +1,20 @@
+{
+switch (mode) {
+default :
+case RPC:
+    try {
+      ServerSerializationStreamReader reader=new ServerSerializationStreamReader(getClass().getClassLoader(),cometSerializationPolicyProvider);
+      reader.prepareToRead(data);
+      return (Serializable)reader.readObject();
+    }
+ catch (    SerializationException ex) {
+      logger.error("Failed to deserialize message",ex);
+      return null;
+    }
+case DE_RPC:
+case JSON:
+  throw new UnsupportedOperationException("Not implemented");
+case PLAIN:
+return data;
+}
+}

@@ -1,0 +1,5 @@
+{
+  SerializationStreamWriter writer=new CommandToStringWriter(null);
+  writer.writeObject(message);
+  return writer.toString();
+}

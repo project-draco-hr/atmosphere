@@ -1,0 +1,3 @@
+{
+  localBroadcast(Collections.singletonList(message));
+}
