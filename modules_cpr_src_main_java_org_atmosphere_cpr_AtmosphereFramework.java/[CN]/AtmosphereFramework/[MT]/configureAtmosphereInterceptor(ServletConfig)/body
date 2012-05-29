@@ -6,7 +6,7 @@
       try {
         AtmosphereInterceptor ai=(AtmosphereInterceptor)Thread.currentThread().getContextClassLoader().loadClass(a.trim()).newInstance();
         ai.configure(config);
-        interceptors.add(ai);
+        interceptor(ai);
       }
  catch (      InstantiationException e) {
         logger.warn("",e);

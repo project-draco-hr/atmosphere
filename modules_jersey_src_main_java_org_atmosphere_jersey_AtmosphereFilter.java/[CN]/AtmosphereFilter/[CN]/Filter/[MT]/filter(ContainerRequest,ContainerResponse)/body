@@ -100,8 +100,10 @@ try {
 if (Callable.class.isAssignableFrom(entity.getClass())) {
 entity=Callable.class.cast(entity).call();
 }
+synchronized (response) {
 response.setEntity(entity);
 response.write();
+}
 }
  catch (Throwable t) {
 logger.debug("Error running Callable",t);
@@ -185,7 +187,9 @@ break;
 case RESUME:
 if (response.getEntity() != null) {
 try {
+synchronized (response) {
 response.write();
+}
 }
  catch (IOException ex) {
 throw new WebApplicationException(ex);
@@ -225,7 +229,9 @@ r.setBroadcaster(BroadcasterFactory.getDefault().lookup(c,topic,true));
 }
 broadcast(response,r,timeout);
 if (!writeEntity) {
+synchronized (response) {
 response.setEntity(null);
+}
 }
 break;
 case SCHEDULE:
@@ -239,7 +245,9 @@ response.setEntity(((Broadcastable)response.getEntity()).getResponseMessage());
 }
 if (response.getEntity() != null) {
 try {
+synchronized (response) {
 response.write();
+}
 }
  catch (IOException ex) {
 throw new WebApplicationException(ex);

@@ -51,8 +51,10 @@
         b=b.header(HttpHeaders.LOCATION,location);
         location=null;
       }
-      response.setResponse(b.entity(paddingData).build());
-      response.write();
+synchronized (response) {
+        response.setResponse(b.entity(paddingData).build());
+        response.write();
+      }
     }
     if (entity != null && flushEntity) {
       try {
@@ -67,8 +69,10 @@
       if (location != null) {
         b=b.header(HttpHeaders.LOCATION,location);
       }
-      response.setResponse(b.entity(entity).build());
-      response.write();
+synchronized (response) {
+        response.setResponse(b.entity(entity).build());
+        response.write();
+      }
     }
     response.setEntity(null);
     r.suspend(timeout,false);

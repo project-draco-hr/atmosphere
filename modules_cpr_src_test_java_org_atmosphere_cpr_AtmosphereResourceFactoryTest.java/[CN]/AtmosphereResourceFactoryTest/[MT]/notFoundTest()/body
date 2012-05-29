@@ -1,0 +1,8 @@
+{
+  for (int i=0; i < 10; i++) {
+    BroadcasterFactory.getDefault().get(String.valueOf(i));
+  }
+  AtmosphereResource r=AtmosphereResourceFactory.create(mock(AtmosphereConfig.class),BroadcasterFactory.getDefault().lookup("1"),AtmosphereResponse.create().request(AtmosphereRequest.create()),mock(AsyncSupport.class),mock(AtmosphereHandler.class));
+  assertNotNull(r);
+  assertNull(AtmosphereResourceFactory.find(r.uuid()));
+}

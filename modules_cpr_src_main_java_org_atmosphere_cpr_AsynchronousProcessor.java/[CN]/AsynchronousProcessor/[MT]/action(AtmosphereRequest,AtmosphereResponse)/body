@@ -9,6 +9,9 @@
     logger.error("No AtmosphereHandler found. Make sure you define it inside web/atmosphere.xml or annotate using @AtmosphereHandlerService");
     throw new AtmosphereMappingException("No AtmosphereHandler found. Make sure you define it inside web/atmosphere.xml or annotate using @AtmosphereHandlerService");
   }
+  if (res.request() == null) {
+    res.request(req);
+  }
   if (supportSession()) {
     HttpSession session=req.getSession(true);
     SessionTimeoutSupport.setupTimeout(session);
@@ -24,7 +27,7 @@ synchronized (handlerWrapper) {
   }
   AtmosphereResourceImpl resource=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
   if (resource == null) {
-    resource=new AtmosphereResourceImpl(config,handlerWrapper.broadcaster,req,res,this,handlerWrapper.atmosphereHandler);
+    resource=(AtmosphereResourceImpl)AtmosphereResourceFactory.create(config,handlerWrapper.broadcaster,res,this,handlerWrapper.atmosphereHandler);
   }
  else {
     resource.setBroadcaster(handlerWrapper.broadcaster).atmosphereHandler(handlerWrapper.atmosphereHandler);

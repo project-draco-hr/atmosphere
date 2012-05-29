@@ -1,4 +1,13 @@
 {
-  interceptors.addLast(c);
+  boolean found=false;
+  for (  AtmosphereInterceptor interceptor : interceptors) {
+    if (interceptor.getClass().equals(c.getClass())) {
+      found=true;
+      break;
+    }
+  }
+  if (!found) {
+    interceptors.addLast(c);
+  }
   return this;
 }
