@@ -15,7 +15,8 @@
  catch (    Exception e) {
       logger.trace("",e);
     }
-    webSocketProcessor=new WebSocketProcessor(config.framework(),new GrizzlyWebSocket(webSocket,config),config.framework().getWebSocketProtocol());
+    WebSocketProcessor webSocketProcessor=new WebSocketProcessor(config.framework(),new GrizzlyWebSocket(webSocket,config),config.framework().getWebSocketProtocol());
+    webSocket.getRequest().setAttribute("grizzly.webSocketProcessor",webSocketProcessor);
     webSocketProcessor.dispatch(r);
   }
  catch (  Exception e) {

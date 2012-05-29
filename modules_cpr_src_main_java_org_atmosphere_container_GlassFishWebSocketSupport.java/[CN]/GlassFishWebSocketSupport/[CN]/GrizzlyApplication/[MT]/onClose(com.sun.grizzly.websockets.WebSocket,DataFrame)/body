@@ -1,5 +1,9 @@
 {
   super.onClose(w,df);
   logger.trace("onClose {} ",w);
-  webSocketProcessor.close(1000);
+  DefaultWebSocket webSocket=DefaultWebSocket.class.cast(w);
+  if (webSocket.getRequest().getAttribute("grizzly.webSocketProcessor") != null) {
+    WebSocketProcessor webSocketProcessor=(WebSocketProcessor)webSocket.getRequest().getAttribute("grizzly.webSocketProcessor");
+    webSocketProcessor.close(1000);
+  }
 }
