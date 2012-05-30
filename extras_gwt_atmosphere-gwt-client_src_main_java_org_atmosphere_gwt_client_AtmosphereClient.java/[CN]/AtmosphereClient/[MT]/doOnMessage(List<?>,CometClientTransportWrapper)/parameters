@@ -1,2 +1,2 @@
-List<? extends Serializable> messages
+List<?> messages
 CometClientTransportWrapper transport

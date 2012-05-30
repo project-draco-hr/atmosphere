@@ -16,7 +16,7 @@
         doOnDisconnected(primaryTransport);
       }
  else {
-        doOnMessage((List<? extends Serializable>)object,primaryTransport);
+        doOnMessage((List<?>)object,primaryTransport);
       }
     }
     refreshQueue.clear();

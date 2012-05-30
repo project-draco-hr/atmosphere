@@ -1,2 +1,2 @@
-List messages
+List<?> messages
 AsyncCallback<Void> callback
