@@ -3,14 +3,14 @@
   try {
     if (isUsingStream) {
       try {
-        response.getOutputStream().write(data.getBytes(getCharacterEncoding()));
+        getOutputStream().write(data.getBytes(getCharacterEncoding()));
       }
  catch (      java.lang.IllegalStateException ex) {
         ex.printStackTrace();
       }
     }
  else {
-      response.getWriter().write(data);
+      getWriter().write(data);
     }
   }
  catch (  IOException e) {

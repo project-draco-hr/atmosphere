@@ -3,13 +3,13 @@
     boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
     if (isUsingStream) {
       try {
-        response.getOutputStream().close();
+        getOutputStream().close();
       }
  catch (      java.lang.IllegalStateException ex) {
       }
     }
  else {
-      response.getWriter().close();
+      getWriter().close();
     }
   }
  catch (  IOException e) {

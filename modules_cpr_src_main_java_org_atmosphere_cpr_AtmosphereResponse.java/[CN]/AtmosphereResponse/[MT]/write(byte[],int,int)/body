@@ -3,13 +3,13 @@
   try {
     if (isUsingStream) {
       try {
-        response.getOutputStream().write(data,offset,length);
+        getOutputStream().write(data,offset,length);
       }
  catch (      java.lang.IllegalStateException ex) {
       }
     }
  else {
-      response.getWriter().write(new String(data,offset,length,getCharacterEncoding()));
+      getWriter().write(new String(data,offset,length,getCharacterEncoding()));
     }
   }
  catch (  IOException e) {
