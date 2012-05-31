@@ -1,9 +1,0 @@
-{
-  if (request.getParameter("i") != null) {
-    jsonpIndex=Integer.parseInt(request.getParameter("i"));
-  }
- else {
-    jsonpIndex=0;
-  }
-  writeData(response,new SocketIOPacketImpl(PacketType.CONNECT).toString());
-}

@@ -1,0 +1,35 @@
+{
+  if (event.isResuming() || event.isResumedOnTimeout()) {
+    return;
+  }
+  AtmosphereRequest request=event.getResource().getRequest();
+  logger.trace("onStateChange on SessionID=" + request.getAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID) + "  Method="+ request.getMethod());
+  SocketIOSessionOutbound outbound=(org.atmosphere.socketio.SocketIOSessionOutbound)request.getAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_OUTBOUND);
+  if (outbound != null && event.getMessage() != null) {
+    try {
+      if (event.getMessage().getClass().isArray()) {
+        List<Object> list=Arrays.asList(event.getMessage());
+        for (        Object object : list) {
+          List<SocketIOPacketImpl> messages=SocketIOPacketImpl.parse(object.toString());
+          outbound.sendMessage(messages);
+        }
+      }
+ else       if (event.getMessage() instanceof List) {
+        @SuppressWarnings("unchecked") List<Object> list=List.class.cast(event.getMessage());
+        for (        Object object : list) {
+          List<SocketIOPacketImpl> messages=SocketIOPacketImpl.parse(object.toString());
+          outbound.sendMessage(messages);
+        }
+      }
+ else       if (event.getMessage() instanceof String) {
+        logger.trace("onStateChange Sending message on resume : message = " + event.getMessage().toString());
+        List<SocketIOPacketImpl> messages=SocketIOPacketImpl.parse(event.getMessage().toString());
+        outbound.sendMessage(messages);
+      }
+    }
+ catch (    Exception e) {
+      logger.warn("",e);
+      outbound.disconnect();
+    }
+  }
+}
