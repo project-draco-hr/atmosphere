@@ -2,15 +2,17 @@
   startHeartbeatTimer();
   if (atmosphereHandler != null && message != null) {
     try {
-      if (SocketIOAtmosphereHandler.class.isAssignableFrom(atmosphereHandler.getClass())) {
-        SocketIOAtmosphereHandler.class.cast(atmosphereHandler).onMessage(resource,outbound,message);
-      }
+synchronized (atmosphereHandler) {
+        if (SocketIOAtmosphereHandler.class.isAssignableFrom(atmosphereHandler.getClass())) {
+          SocketIOAtmosphereHandler.class.cast(atmosphereHandler).onMessage(resource,outbound,message);
+        }
  else {
-        SocketIOProtocol p=mapper.readValue(message,SocketIOProtocol.class);
-        for (        String msg : p.getArgs()) {
-          AtmosphereRequest r=resource.getRequest();
-          r.body(msg).method("POST");
-          atmosphereHandler.onRequest(resource);
+          SocketIOProtocol p=mapper.readValue(message,SocketIOProtocol.class);
+          for (          String msg : p.getArgs()) {
+            AtmosphereRequest r=resource.getRequest();
+            r.body(msg).method("POST");
+            atmosphereHandler.onRequest(resource);
+          }
         }
       }
     }
