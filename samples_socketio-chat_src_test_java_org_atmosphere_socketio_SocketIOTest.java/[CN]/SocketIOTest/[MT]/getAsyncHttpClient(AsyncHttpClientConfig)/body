@@ -1,6 +1,0 @@
-{
-  if (config == null) {
-    config=new AsyncHttpClientConfig.Builder().build();
-  }
-  return new AsyncHttpClient(new NettyAsyncHttpProvider(config),config);
-}

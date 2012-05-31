@@ -2,10 +2,11 @@
   if (destroyed.get()) {
     throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
   }
+  Object msg=new SocketIOPacketImpl(SocketIOPacketImpl.PacketType.EVENT,m.toString()).toString();
   Set<AtmosphereResource> subset=new HashSet<AtmosphereResource>();
   subset.addAll(resources);
   for (  AtmosphereResource r : resources) {
-    if (!r.getAtmosphereResourceEvent().isCancelled() && sessions.contains(((HttpServletRequest)r.getRequest()).getSession())) {
+    if (!r.getAtmosphereResourceEvent().isCancelled() && sessions.contains((r.getRequest()).getSession())) {
       subset.remove(r);
     }
   }

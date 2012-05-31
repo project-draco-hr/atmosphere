@@ -33,7 +33,7 @@
       messages=SocketIOPacketImpl.parse(event.message());
     }
  catch (    SocketIOException e) {
-      e.printStackTrace();
+      logger.warn("",e);
     }
     if (messages != null && !messages.isEmpty()) {
       SocketIOSession session=sessionWrapper.getSession();

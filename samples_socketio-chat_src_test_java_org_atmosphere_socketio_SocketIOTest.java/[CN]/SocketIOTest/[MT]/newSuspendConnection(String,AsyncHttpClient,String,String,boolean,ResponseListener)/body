@@ -1,3 +1,0 @@
-{
-  suspend(name,client,url,responseListener);
-}

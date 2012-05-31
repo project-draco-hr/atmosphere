@@ -1,8 +1,0 @@
-{
-  System.err.println("\n\nTEST loginWebSocketTest\n\n");
-  final AsyncHttpClient client=getAsyncHttpClient(new AsyncHttpClientConfig.Builder().setFollowRedirects(true).build());
-  final String sessionid1=getSessionID(client,GET_SESSION_URL);
-  final String username="test_" + System.currentTimeMillis();
-  WebSocket websocket=loginWS("clientWebSocket1",client,WS_GET_SESSION_URL + "websocket/" + sessionid1,username,true).websocket;
-  client.close();
-}

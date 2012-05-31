@@ -1,4 +1,0 @@
-{
-  System.err.println("newSuspendConnection name [" + name + "]");
-  suspend(name,client,url,responseListener);
-}

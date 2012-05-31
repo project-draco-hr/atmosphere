@@ -7,7 +7,7 @@
     try {
       String path=request.getPathInfo();
       if (path == null || path.length() == 0 || "/".equals(path)) {
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Missing SocketIO transport");
+        response.sendError(AtmosphereResponse.SC_BAD_REQUEST,"Missing SocketIO transport");
         return null;
       }
       if (path.startsWith("/")) {

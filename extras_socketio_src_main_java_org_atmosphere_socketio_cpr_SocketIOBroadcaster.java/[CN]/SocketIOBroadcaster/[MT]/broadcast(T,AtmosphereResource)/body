@@ -2,12 +2,7 @@
   if (destroyed.get()) {
     throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
   }
-  try {
-    logger.info("To broadcast from : " + ((HttpServletRequest)resource.getRequest()).getAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID) + " message to broadcast : "+ msg);
-  }
- catch (  Exception e) {
-    e.printStackTrace();
-  }
+  Object msg=new SocketIOPacketImpl(SocketIOPacketImpl.PacketType.EVENT,m.toString()).toString();
   Set<AtmosphereResource> sub=new HashSet<AtmosphereResource>();
   sub.addAll(resources);
   sub.remove(resource);

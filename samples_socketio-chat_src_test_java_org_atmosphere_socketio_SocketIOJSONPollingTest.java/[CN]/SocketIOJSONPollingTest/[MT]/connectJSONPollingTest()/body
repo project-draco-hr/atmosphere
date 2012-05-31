@@ -1,7 +1,0 @@
-{
-  System.err.println("\n\nTEST connectJSONPollingTest\n\n");
-  final AsyncHttpClient client=getAsyncHttpClient(new AsyncHttpClientConfig.Builder().setFollowRedirects(true).build());
-  final String sessionid1=getSessionID(client,GET_SESSION_URL);
-  connectJSONP("clientJSONPolling1",client,GET_SESSION_URL + "jsonp-polling/" + sessionid1);
-  client.close();
-}
