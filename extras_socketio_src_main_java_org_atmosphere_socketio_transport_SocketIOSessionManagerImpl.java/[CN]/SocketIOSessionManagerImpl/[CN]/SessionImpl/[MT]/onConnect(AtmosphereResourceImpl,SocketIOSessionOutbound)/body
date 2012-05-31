@@ -11,7 +11,12 @@
       resource.getRequest().setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID,sessionId);
       resource.getRequest().setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_OUTBOUND,handler);
       startHeartbeatTimer();
-      atmosphereHandler.onConnect(resource,handler);
+      if (SocketIOAtmosphereHandler.class.isAssignableFrom(atmosphereHandler.getClass())) {
+        SocketIOAtmosphereHandler.class.cast(atmosphereHandler).onConnect(resource,handler);
+      }
+ else {
+        atmosphereHandler.onRequest(resource);
+      }
     }
  catch (    Throwable e) {
       logger.error("Session[" + sessionId + "]: Exception thrown by SocketIOInbound.onConnect()",e);

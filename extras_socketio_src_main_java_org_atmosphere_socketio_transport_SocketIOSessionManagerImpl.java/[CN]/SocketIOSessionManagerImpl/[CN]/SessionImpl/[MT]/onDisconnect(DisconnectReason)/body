@@ -5,7 +5,12 @@
   if (atmosphereHandler != null) {
     state=ConnectionState.CLOSED;
     try {
-      atmosphereHandler.onDisconnect(resource,handler,reason);
+      if (SocketIOAtmosphereHandler.class.isAssignableFrom(atmosphereHandler.getClass())) {
+        SocketIOAtmosphereHandler.class.cast(atmosphereHandler).onDisconnect(resource,handler,reason);
+      }
+ else {
+        atmosphereHandler.onStateChange(new AtmosphereResourceEventImpl(resource,true,false));
+      }
     }
  catch (    Throwable e) {
       logger.error("Session[" + sessionId + "]: Exception thrown by SocketIOInbound.onDisconnect()",e);

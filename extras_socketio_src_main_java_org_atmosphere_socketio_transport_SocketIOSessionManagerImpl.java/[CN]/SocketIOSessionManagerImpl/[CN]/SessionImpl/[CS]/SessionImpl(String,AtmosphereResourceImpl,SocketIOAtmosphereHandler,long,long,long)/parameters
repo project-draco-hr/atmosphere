@@ -1,6 +1,0 @@
-String sessionId
-AtmosphereResourceImpl resource
-SocketIOAtmosphereHandler atmosphereHandler
-long timeout
-long heartBeatInterval
-long requestSuspendTime

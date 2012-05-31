@@ -2,7 +2,17 @@
   startHeartbeatTimer();
   if (atmosphereHandler != null && message != null) {
     try {
-      atmosphereHandler.onMessage(resource,handler,message);
+      if (SocketIOAtmosphereHandler.class.isAssignableFrom(atmosphereHandler.getClass())) {
+        SocketIOAtmosphereHandler.class.cast(atmosphereHandler).onMessage(resource,outbound,message);
+      }
+ else {
+        SocketIOProtocol p=mapper.readValue(message,SocketIOProtocol.class);
+        for (        String msg : p.getArgs()) {
+          AtmosphereRequest r=resource.getRequest();
+          r.body(msg).method("POST");
+          atmosphereHandler.onRequest(resource);
+        }
+      }
     }
  catch (    Throwable e) {
       logger.error("Session[" + sessionId + "]: Exception thrown by SocketIOInbound.onMessage()",e);

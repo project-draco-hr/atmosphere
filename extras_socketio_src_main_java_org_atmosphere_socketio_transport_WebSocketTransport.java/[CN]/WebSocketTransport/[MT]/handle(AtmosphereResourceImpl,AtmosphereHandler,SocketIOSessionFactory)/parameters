@@ -1,0 +1,3 @@
+AtmosphereResourceImpl resource
+AtmosphereHandler atmosphereHandler
+SocketIOSessionFactory sessionFactory

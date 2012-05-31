@@ -1,3 +1,0 @@
-{
-  logger.trace("calling from " + this.getClass().getName() + " : "+ "onSuspend");
-}

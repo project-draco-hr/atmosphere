@@ -1,0 +1,56 @@
+{
+  AtmosphereRequest request=resource.getRequest();
+  AtmosphereResponse response=resource.getResponse();
+  Object obj=request.getAttribute(SESSION_KEY);
+  SocketIOSession session=null;
+  String sessionId=null;
+  if (obj != null) {
+    session=(SocketIOSession)obj;
+  }
+ else {
+    sessionId=extractSessionId(request);
+    if (sessionId != null && sessionId.length() > 0) {
+      session=sessionFactory.getSession(sessionId);
+    }
+  }
+  boolean isDisconnectRequest=isDisconnectRequest(request);
+  if (session != null) {
+    SocketIOSessionOutbound handler=session.getTransportHandler();
+    if (handler != null) {
+      if (!isDisconnectRequest) {
+        handler.handle(request,response,session);
+      }
+ else {
+        handler.disconnect();
+        response.setStatus(200);
+      }
+    }
+ else {
+      if (!isDisconnectRequest) {
+        session=connect(session,resource,atmosphereHandler,sessionFactory);
+        if (session == null) {
+          response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+        }
+      }
+ else {
+        response.setStatus(200);
+      }
+    }
+  }
+ else   if (sessionId != null && sessionId.length() > 0) {
+    logger.trace("Session NULL but not sessionId : wrong session id or the connection was DISCONNECTED");
+    response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+  }
+ else {
+    if ("GET".equals(request.getMethod())) {
+      session=connect(resource,atmosphereHandler,sessionFactory);
+      if (session == null) {
+        response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+      }
+    }
+ else {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+    }
+  }
+  return Action.CONTINUE;
+}

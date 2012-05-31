@@ -1,0 +1,3 @@
+{
+  return "SocketIOProtocol [name=" + name + ", args="+ args+ "]";
+}

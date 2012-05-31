@@ -1,4 +1,4 @@
 {
   logger.trace("WebSocket.close()");
-  connection.disconnect();
+  connection.close();
 }

@@ -19,8 +19,8 @@
   transports.put(websocketTransport1.getName() + "-1",websocketTransport1);
   transports.put(xhrPollingTransport1.getName() + "-1",xhrPollingTransport1);
   transports.put(jsonpPollingTransport1.getName() + "-1",jsonpPollingTransport1);
-  sessionManager1=new SocketIOSessionManagerImpl();
-  sessionManager1.setTimeout(timeout);
-  sessionManager1.setHeartbeatInterval(heartbeatInterval);
-  sessionManager1.setRequestSuspendTime(suspendTime);
+  sessionManager=new SocketIOSessionManagerImpl();
+  sessionManager.setTimeout(timeout);
+  sessionManager.setHeartbeatInterval(heartbeatInterval);
+  sessionManager.setRequestSuspendTime(suspendTime);
 }
