@@ -5,8 +5,8 @@
   try {
     String path=request.getPathInfo();
     if (path == null || path.length() == 0 || "/".equals(path)) {
-      response.sendError(AtmosphereResponse.SC_BAD_REQUEST,"Missing SocketIO transport");
-      return null;
+      logger.debug("Not a SocketIO client");
+      return Action.CONTINUE;
     }
     if (path.startsWith("/")) {
       path=path.substring(1);
@@ -15,7 +15,8 @@
     String protocol=null;
     String version=null;
     if (parts.length == 0) {
-      return null;
+      logger.debug("Not a SocketIO protocol supported");
+      return Action.CONTINUE;
     }
  else     if (parts.length == 1) {
       if (parts[0].length() == 1) {
@@ -37,7 +38,8 @@
       }
     }
     if (protocol == null && version == null) {
-      return null;
+      logger.debug("Not a SocketIO protocol supported");
+      return Action.CONTINUE;
     }
  else     if (protocol == null && version != null) {
       response.setStatus(200);
