@@ -1,0 +1,4 @@
+{
+  logger.trace("calling from " + this.getClass().getName() + " : "+ "onDisconnect");
+  session.onShutdown();
+}

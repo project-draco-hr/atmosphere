@@ -1,0 +1,19 @@
+{
+  logger.trace("onDisconnect from sessionid = " + outbound.getSessionId() + " username="+ loggedUserMap.get(outbound.getSessionId()));
+  String sessionid=outbound.getSessionId();
+  String username=loggedUserMap.get(sessionid);
+  event.getBroadcaster().broadcast(new SocketIOPacketImpl(PacketType.EVENT,"{\"name\":\"announcement\",\"args\":[\"" + username + " disconnected\"]}").toString(),event);
+  loggedUserMap.remove(sessionid);
+  ObjectMapper mapper=new ObjectMapper();
+  ChatJSONObject out=new ChatJSONObject();
+  out.setName(ChatJSONObject.USERCONNECTEDLIST);
+  List list=new ArrayList();
+  list.add(loggedUserMap);
+  out.setArgs(list);
+  try {
+    event.getBroadcaster().broadcast(new SocketIOPacketImpl(PacketType.EVENT,mapper.writeValueAsString(out),false).toString(),event);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

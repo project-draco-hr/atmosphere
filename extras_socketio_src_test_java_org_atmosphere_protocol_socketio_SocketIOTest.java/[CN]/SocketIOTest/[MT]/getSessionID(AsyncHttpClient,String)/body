@@ -1,0 +1,22 @@
+{
+  final CountDownLatch l=new CountDownLatch(1);
+  final AtomicReference<String> sessionid=new AtomicReference<String>();
+  client.prepareGet(url).execute(new AsyncCompletionHandlerAdapter(){
+    @Override public Response onCompleted(    Response response) throws Exception {
+      try {
+        String body=response.getResponseBody();
+        String array[]=body.split(":");
+        sessionid.set(array[0]);
+      }
+  finally {
+        l.countDown();
+      }
+      return response;
+    }
+  }
+).get();
+  if (!l.await(TIMEOUT,TimeUnit.SECONDS)) {
+    throw new RuntimeException("Timeout out");
+  }
+  return sessionid.get();
+}

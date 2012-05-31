@@ -1,0 +1,19 @@
+{
+  String path=request.getPathInfo();
+  if (path != null && path.length() > 0 && !"/".equals(path)) {
+    if (path.startsWith("/"))     path=path.substring(1);
+    String[] parts=path.split("/");
+    if (parts.length >= 2) {
+      String requestURI=request.getRequestURI();
+      String protocol=parts[1];
+      parts=requestURI.substring(requestURI.indexOf(protocol)).split("/");
+      if (parts.length >= 2) {
+        return parts[1] == null ? null : (parts[1].length() == 0 ? null : parts[1]);
+      }
+ else {
+        return null;
+      }
+    }
+  }
+  return null;
+}

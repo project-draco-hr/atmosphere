@@ -1,0 +1,3 @@
+{
+  return "ChatJSONObject [name=" + name + ", args="+ args+ "]";
+}

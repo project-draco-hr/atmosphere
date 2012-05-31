@@ -1,0 +1,5 @@
+{
+  logger.trace("calling from " + this.getClass().getName() + " : "+ "handle");
+  response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Unexpected request on upgraded WebSocket connection");
+  return Action.CONTINUE;
+}

@@ -1,0 +1,54 @@
+{
+  final CountDownLatch latchGet=new CountDownLatch(1);
+  final CountDownLatch latchGet2=new CountDownLatch(1);
+  final CountDownLatch latchPost=new CountDownLatch(1);
+  connectJSONP(name,client,url);
+  suspend(name,client,url,new ResponseListener(){
+    @Override public void notify(    String message){
+      log.info("GET login [" + name + "] message received = "+ message);
+      latchGet.countDown();
+      Assert.assertNotNull(message);
+      if (usernameUnique) {
+        Assert.assertEquals(message,"io.j[0](\"6:::1+[false]\");");
+      }
+ else {
+        Assert.assertEquals(message,"io.j[0](\"6:::1+[true]\");");
+      }
+      try {
+        suspend(name,client,url,new ResponseListener(){
+          @Override public void notify(          String message){
+            log.info("GET login [" + name + "] message received = "+ message);
+            latchGet2.countDown();
+            Assert.assertTrue(message.startsWith("io.j[0](5:::{\"name\":\"nicknames\",\"args\":[{"));
+            Assert.assertTrue(message.contains("\"" + username + "\":\""+ username+ "\""));
+          }
+        }
+);
+      }
+ catch (      Throwable e) {
+        e.printStackTrace();
+        Assert.fail();
+      }
+    }
+  }
+);
+  String message="\"5:1+::{\\\"name\\\":\\\"nickname\\\",\\\"args\\\":[\\\"" + username + "\\\"]}\"";
+  sendMessage(name,client,url,"d=" + URLEncoder.encode(message,"UTF-8"),new ResponseListener(){
+    @Override public void notify(    String message){
+      log.info("POST login [" + name + "] message received = "+ message);
+      latchPost.countDown();
+      Assert.assertNotNull(message);
+      Assert.assertEquals(message,SocketIOPacketImpl.POST_RESPONSE);
+    }
+  }
+);
+  if (!latchGet.await(30,TimeUnit.SECONDS)) {
+    throw new RuntimeException("Timeout out");
+  }
+  if (!latchGet2.await(30,TimeUnit.SECONDS)) {
+    throw new RuntimeException("Timeout out");
+  }
+  if (!latchPost.await(30,TimeUnit.SECONDS)) {
+    throw new RuntimeException("Timeout out");
+  }
+}

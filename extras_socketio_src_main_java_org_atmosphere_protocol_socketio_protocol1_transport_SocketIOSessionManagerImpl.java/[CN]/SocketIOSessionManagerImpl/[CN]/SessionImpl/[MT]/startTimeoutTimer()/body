@@ -1,0 +1,7 @@
+{
+  logger.trace("startTimeoutTimer for SessionID= " + sessionId);
+  clearTimeoutTimer();
+  if (!timedout && timeout > 0) {
+    timeoutSessionMonitor.start();
+  }
+}

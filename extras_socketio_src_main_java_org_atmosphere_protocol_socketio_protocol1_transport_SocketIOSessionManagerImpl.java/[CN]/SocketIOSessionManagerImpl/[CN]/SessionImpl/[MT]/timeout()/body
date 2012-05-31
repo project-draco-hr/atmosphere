@@ -1,0 +1,9 @@
+{
+  logger.trace("Session[" + sessionId + "]: onTimeout");
+  if (!timedout) {
+    timedout=true;
+    state=ConnectionState.CLOSED;
+    onDisconnect(DisconnectReason.TIMEOUT);
+    handler.abort();
+  }
+}

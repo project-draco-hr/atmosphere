@@ -1,0 +1,5 @@
+String name
+AsyncHttpClient client
+String url
+String message
+ResponseListener listener

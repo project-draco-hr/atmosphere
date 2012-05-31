@@ -1,0 +1,6 @@
+{
+  logger.trace("clearTimeoutTimer for SessionID= " + sessionId);
+  if (timeoutSessionMonitor != null) {
+    timeoutSessionMonitor.cancel();
+  }
+}

@@ -1,0 +1,20 @@
+{
+  if (destroyed.get()) {
+    throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
+  }
+  Set<AtmosphereResource> subset=new HashSet<AtmosphereResource>();
+  subset.addAll(resources);
+  for (  AtmosphereResource r : resources) {
+    if (!r.getAtmosphereResourceEvent().isCancelled() && sessions.contains(((HttpServletRequest)r.getRequest()).getSession())) {
+      subset.remove(r);
+    }
+  }
+  start();
+  Object newMsg=filter(msg);
+  if (newMsg == null) {
+    return null;
+  }
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg);
+  messages.offer(new Entry(newMsg,subset,f,msg));
+  return f;
+}

@@ -1,0 +1,40 @@
+{
+  try {
+    String array[]=data.split(":");
+    if (array.length < 1) {
+      System.err.println("Message invalide=" + data);
+      return null;
+    }
+    String type=null;
+    String id=null;
+    String endpoint=null;
+    String message=null;
+    if (array.length == 1) {
+      type=array[0];
+    }
+ else     if (array.length == 2) {
+      type=array[0];
+      id=array[1];
+    }
+ else     if (array.length == 3) {
+      type=array[0];
+      id=array[1];
+      endpoint=array[2];
+    }
+ else {
+      type=array[0];
+      id=array[1];
+      endpoint=array[2];
+      int start=data.indexOf(":");
+      start=data.indexOf(":",++start);
+      start=data.indexOf(":",++start);
+      if (start > -1) {
+        message=data.substring(start + 1);
+      }
+    }
+    return new SocketIOPacketImpl(PacketType.fromInt(Integer.parseInt(type)),id,endpoint,message);
+  }
+ catch (  Exception e) {
+    throw new SocketIOException("Invalid message = " + data,e);
+  }
+}

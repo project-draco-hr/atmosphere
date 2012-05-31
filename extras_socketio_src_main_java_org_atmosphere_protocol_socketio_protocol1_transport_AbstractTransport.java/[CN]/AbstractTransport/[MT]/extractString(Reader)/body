@@ -1,0 +1,15 @@
+{
+  String output=null;
+  try {
+    Writer writer=new StringWriter();
+    char[] buffer=new char[1024];
+    int n;
+    while ((n=reader.read(buffer)) != -1) {
+      writer.write(buffer,0,n);
+    }
+    output=writer.toString();
+  }
+ catch (  Exception e) {
+  }
+  return output;
+}

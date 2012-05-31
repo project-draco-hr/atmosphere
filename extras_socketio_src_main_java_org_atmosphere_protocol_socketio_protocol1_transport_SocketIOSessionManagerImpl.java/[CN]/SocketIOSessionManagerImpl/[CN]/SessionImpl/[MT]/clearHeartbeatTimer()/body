@@ -1,0 +1,6 @@
+{
+  logger.trace("clearHeartbeatTimer : Clear previous Timer");
+  if (heartBeatSessionMonitor != null) {
+    heartBeatSessionMonitor.cancel();
+  }
+}

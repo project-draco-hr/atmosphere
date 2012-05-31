@@ -1,0 +1,110 @@
+{
+  logger.trace("Session id[" + session.getSessionId() + "] method="+ request.getMethod()+ "  response HashCode="+ response.hashCode());
+  AtmosphereResourceImpl resource=(AtmosphereResourceImpl)request.getAttribute(ApplicationConfig.ATMOSPHERE_RESOURCE);
+  if ("GET".equals(request.getMethod())) {
+synchronized (this) {
+      if (!is_open) {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+      }
+ else {
+        if (!isStreamingConnection) {
+          if (resource != null) {
+            resource.getRequest().setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID,session.getSessionId());
+            resource.getRequest().setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_OUTBOUND,session.getTransportHandler());
+            session.setAtmosphereResourceImpl(resource);
+            resource.addEventListener(new AtmosphereResourceEventListener(){
+              @Override public void onThrowable(              AtmosphereResourceEvent event){
+              }
+              @Override public void onSuspend(              AtmosphereResourceEvent event){
+              }
+              @Override public void onResume(              AtmosphereResourceEvent event){
+                if (event.isResumedOnTimeout()) {
+                  try {
+                    event.getResource().write(response.getOutputStream(),new SocketIOPacketImpl(PacketType.NOOP).toString());
+                  }
+ catch (                  IOException e) {
+                    e.printStackTrace();
+                  }
+                }
+              }
+              @Override public void onDisconnect(              AtmosphereResourceEvent event){
+              }
+              @Override public void onBroadcast(              AtmosphereResourceEvent event){
+              }
+            }
+);
+            session.clearTimeoutTimer();
+            request.setAttribute(SESSION_KEY,session);
+            StringBuilder data=new StringBuilder();
+            if (DefaultBroadcaster.class.isAssignableFrom(resource.getBroadcaster().getClass())) {
+              List<Object> cachedMessages=DefaultBroadcaster.class.cast(resource.getBroadcaster()).broadcasterCache.retrieveFromCache(resource);
+              if (cachedMessages != null) {
+                if (cachedMessages.size() > 1) {
+                  for (                  Object object : cachedMessages) {
+                    String msg=object.toString();
+                    data.append(SocketIOPacketImpl.SOCKETIO_MSG_DELIMITER).append(msg.length()).append(SocketIOPacketImpl.SOCKETIO_MSG_DELIMITER).append(msg);
+                  }
+                }
+ else                 if (cachedMessages.size() == 1) {
+                  data.append(cachedMessages.get(0));
+                }
+              }
+              if (data.toString().length() > 0) {
+                startSend(response);
+                writeData(response,data.toString());
+                finishSend(response);
+                resource.resume();
+              }
+ else {
+                resource.suspend(session.getRequestSuspendTime(),false);
+              }
+            }
+ else {
+              resource.suspend(session.getRequestSuspendTime(),false);
+              resource.getRequest().setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID,session.getSessionId());
+              resource.getRequest().setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_OUTBOUND,session.getTransportHandler());
+              session.setAtmosphereResourceImpl(resource);
+            }
+          }
+        }
+ else {
+          response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+      }
+    }
+  }
+ else   if ("POST".equals(request.getMethod())) {
+    if (is_open) {
+      int size=request.getContentLength();
+      if (size == 0) {
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+      }
+ else {
+        String data=(String)request.getAttribute(POST_MESSAGE_RECEIVED);
+        if (data == null) {
+          data=decodePostData(request.getContentType(),extractString(request.getReader()));
+        }
+        if (data != null && data.length() > 0) {
+          List<SocketIOPacketImpl> list=SocketIOPacketImpl.parse(data);
+synchronized (session) {
+            for (            SocketIOPacketImpl msg : list) {
+              if (msg.getFrameType().equals(SocketIOPacketImpl.PacketType.EVENT)) {
+                session.onMessage(session.getAtmosphereResourceImpl(),session.getTransportHandler(),msg.getData());
+                writeData(response,SocketIOPacketImpl.POST_RESPONSE);
+              }
+ else {
+                writeData(response,SocketIOPacketImpl.POST_RESPONSE);
+              }
+            }
+          }
+        }
+      }
+      resource.resume();
+      return Action.CANCELLED;
+    }
+  }
+ else {
+    response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+  }
+  return Action.CONTINUE;
+}

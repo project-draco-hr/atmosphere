@@ -1,0 +1,4 @@
+{
+  logger.trace("calling from " + this.getClass().getName() + " : "+ "onMessage");
+  throw new RuntimeException("Devrait pas arriver");
+}

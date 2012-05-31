@@ -1,0 +1,23 @@
+{
+  if (resource == null) {
+    logger.trace("retrieveFromCache resource=NULL");
+    return null;
+  }
+  String sessionid=(String)resource.getRequest().getAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID);
+  if (sessionid == null) {
+    return null;
+  }
+  logger.trace("retrieveFromCache sessionid=" + sessionid);
+  if (cache.containsKey(sessionid)) {
+    List<Object> list=new LinkedList<Object>();
+    Queue<Object> queue=cache.get(sessionid);
+    while (!queue.isEmpty()) {
+      list.add(queue.poll());
+    }
+    return list;
+  }
+ else {
+    logger.trace("No messages cached for SessionID = " + sessionid);
+  }
+  return null;
+}

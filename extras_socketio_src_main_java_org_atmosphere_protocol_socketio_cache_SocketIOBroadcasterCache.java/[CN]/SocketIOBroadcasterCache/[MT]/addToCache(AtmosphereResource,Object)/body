@@ -1,0 +1,21 @@
+{
+  if (resource == null) {
+    logger.trace("Impossible to cache because resource is null: " + object);
+    return;
+  }
+  String sessionid=(String)resource.getRequest().getAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID);
+  if (sessionid == null) {
+    logger.trace("Impossible to cache because sessionid is null: " + object);
+    return;
+  }
+  logger.trace("addToCache Message from : " + sessionid + " HASHCODE="+ resource.hashCode()+ "   message to cache : "+ object);
+  Queue<Object> queue=null;
+  if (!cache.containsKey(sessionid)) {
+    queue=new ConcurrentLinkedQueue<Object>();
+    cache.put(sessionid,queue);
+  }
+ else {
+    queue=cache.get(sessionid);
+  }
+  queue.add(object);
+}

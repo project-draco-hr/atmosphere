@@ -1,0 +1,15 @@
+{
+  logger.trace("Session[" + sessionId + "]: onDisconnect: "+ reason);
+  clearTimeoutTimer();
+  clearHeartbeatTimer();
+  if (atmosphereHandler != null) {
+    state=ConnectionState.CLOSED;
+    try {
+      atmosphereHandler.onDisconnect(resource,handler,reason);
+    }
+ catch (    Throwable e) {
+      logger.error("Session[" + sessionId + "]: Exception thrown by SocketIOInbound.onDisconnect()",e);
+    }
+    atmosphereHandler=null;
+  }
+}

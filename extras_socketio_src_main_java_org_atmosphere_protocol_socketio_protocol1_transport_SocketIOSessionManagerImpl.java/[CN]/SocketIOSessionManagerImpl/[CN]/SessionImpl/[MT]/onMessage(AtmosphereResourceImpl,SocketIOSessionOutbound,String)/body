@@ -1,0 +1,11 @@
+{
+  startHeartbeatTimer();
+  if (atmosphereHandler != null && message != null) {
+    try {
+      atmosphereHandler.onMessage(resource,handler,message);
+    }
+ catch (    Throwable e) {
+      logger.error("Session[" + sessionId + "]: Exception thrown by SocketIOInbound.onMessage()",e);
+    }
+  }
+}

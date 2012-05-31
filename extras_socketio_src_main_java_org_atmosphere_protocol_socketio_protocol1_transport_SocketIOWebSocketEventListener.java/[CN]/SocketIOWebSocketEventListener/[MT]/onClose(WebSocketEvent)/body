@@ -1,0 +1,4 @@
+{
+  logger.trace("calling from " + this.getClass().getName() + " : "+ "onClose event = "+ event);
+  sessionWrapper.getSession().onClose(event.message());
+}

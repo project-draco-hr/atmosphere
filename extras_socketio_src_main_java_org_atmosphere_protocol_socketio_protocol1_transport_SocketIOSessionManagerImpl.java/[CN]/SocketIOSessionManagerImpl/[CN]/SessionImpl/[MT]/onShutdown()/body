@@ -1,0 +1,17 @@
+{
+  logger.trace("Session[" + sessionId + "]: onShutdown");
+  if (atmosphereHandler != null) {
+    if (state == ConnectionState.CLOSING) {
+      if (closeId != null) {
+        onDisconnect(DisconnectReason.CLOSE_FAILED);
+      }
+ else {
+        onDisconnect(DisconnectReason.CLOSED_REMOTELY);
+      }
+    }
+ else {
+      onDisconnect(DisconnectReason.ERROR);
+    }
+  }
+  socketIOSessions.remove(sessionId);
+}

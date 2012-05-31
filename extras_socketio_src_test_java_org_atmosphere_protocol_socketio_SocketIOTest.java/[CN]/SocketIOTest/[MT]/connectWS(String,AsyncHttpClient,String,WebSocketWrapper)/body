@@ -1,0 +1,27 @@
+{
+  WebSocket websocket=client.prepareGet(url).execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new WebSocketTextListener(){
+    @Override public void onOpen(    WebSocket websocket){
+    }
+    @Override public void onError(    Throwable t){
+      t.printStackTrace();
+    }
+    @Override public void onClose(    WebSocket websocket){
+      System.err.println("WS onClose");
+      if (wrapper.listener != null) {
+        wrapper.listener.onClose();
+      }
+    }
+    @Override public void onMessage(    String message){
+      System.err.println("WS onMessage = " + new String(message));
+      if (wrapper.listener != null) {
+        wrapper.listener.notify(message);
+      }
+    }
+    public void onFragment(    String arg0,    boolean arg1){
+      System.err.println("onFragment=" + arg0);
+    }
+  }
+).build()).get();
+  wrapper.websocket=websocket;
+  return wrapper;
+}

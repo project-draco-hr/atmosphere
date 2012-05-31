@@ -1,0 +1,8 @@
+{
+  reaper.scheduleAtFixedRate(new Runnable(){
+    public void run(){
+      logger.trace("cleanup SocketIOBroadcasterCache");
+    }
+  }
+,0,60,TimeUnit.SECONDS);
+}

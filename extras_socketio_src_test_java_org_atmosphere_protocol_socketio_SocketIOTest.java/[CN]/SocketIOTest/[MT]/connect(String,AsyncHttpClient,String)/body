@@ -1,0 +1,15 @@
+{
+  final CountDownLatch l=new CountDownLatch(1);
+  suspend(name,client,url,new ResponseListener(){
+    @Override public void notify(    String message){
+      log.info("Connect [" + name + "] message received = "+ message);
+      l.countDown();
+      Assert.assertNotNull(message);
+      Assert.assertEquals(message,"1::");
+    }
+  }
+);
+  if (!l.await(30,TimeUnit.SECONDS)) {
+    throw new RuntimeException("Timeout out Connect from user=[" + name + "]");
+  }
+}

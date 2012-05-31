@@ -1,0 +1,14 @@
+{
+switch (val) {
+case 0:
+    return CONNECTING;
+case 1:
+  return CONNECTED;
+case 2:
+return CLOSING;
+case 3:
+return CLOSED;
+default :
+return UNKNOWN;
+}
+}

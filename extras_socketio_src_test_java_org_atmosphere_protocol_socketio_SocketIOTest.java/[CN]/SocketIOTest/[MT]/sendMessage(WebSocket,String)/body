@@ -1,0 +1,4 @@
+{
+  System.err.println("Ws Sending message = " + message);
+  websocket.sendMessage(message.getBytes());
+}

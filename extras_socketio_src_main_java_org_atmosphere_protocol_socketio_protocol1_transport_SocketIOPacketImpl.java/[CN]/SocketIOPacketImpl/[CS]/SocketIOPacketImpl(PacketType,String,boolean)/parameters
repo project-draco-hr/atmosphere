@@ -1,0 +1,3 @@
+PacketType frameType
+String data
+boolean padding

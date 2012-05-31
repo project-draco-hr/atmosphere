@@ -1,0 +1,25 @@
+{
+  if ("GET".equals(request.getMethod())) {
+    if (request.getParameterMap().containsKey("disconnect")) {
+      return true;
+    }
+  }
+ else   if ("POST".equals(request.getMethod())) {
+    try {
+      String data=decodePostData(request.getContentType(),extractString(request.getReader()));
+      request.setAttribute(POST_MESSAGE_RECEIVED,data);
+      if (data != null && data.length() > 0) {
+        List<SocketIOPacketImpl> list=SocketIOPacketImpl.parse(data);
+        if (!list.isEmpty()) {
+          if (SocketIOPacketImpl.PacketType.DISCONNECT.equals(list.get(0).getFrameType())) {
+            return true;
+          }
+        }
+      }
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+  }
+  return false;
+}

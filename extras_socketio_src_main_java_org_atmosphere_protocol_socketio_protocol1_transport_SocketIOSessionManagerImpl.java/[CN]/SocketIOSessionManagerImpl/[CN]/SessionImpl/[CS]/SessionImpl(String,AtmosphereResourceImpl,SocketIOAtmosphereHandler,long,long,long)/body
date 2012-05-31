@@ -1,0 +1,10 @@
+{
+  this.sessionId=sessionId;
+  this.atmosphereHandler=atmosphereHandler;
+  this.resource=resource;
+  this.timeout=timeout;
+  this.heartBeatInterval=heartBeatInterval;
+  this.requestSuspendTime=requestSuspendTime;
+  heartBeatSessionMonitor.setDelay(heartBeatInterval);
+  timeoutSessionMonitor.setDelay(timeout);
+}

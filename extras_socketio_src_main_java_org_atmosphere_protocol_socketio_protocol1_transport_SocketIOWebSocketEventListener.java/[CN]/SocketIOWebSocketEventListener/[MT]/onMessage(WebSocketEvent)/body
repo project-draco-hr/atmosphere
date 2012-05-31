@@ -1,0 +1,45 @@
+{
+  logger.trace("calling from " + this.getClass().getName() + " : "+ "onMessage");
+  if (!sessionWrapper.isInitiated()) {
+    if ("OPEN".equals(event.message())) {
+      try {
+        sessionWrapper.getSession().onConnect(sessionWrapper.getSession().getAtmosphereResourceImpl(),sessionWrapper);
+        sessionWrapper.initiated(true);
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+        try {
+          sessionWrapper.webSocket().close();
+        }
+ catch (        IOException e1) {
+          e1.printStackTrace();
+        }
+        sessionWrapper.getSession().onShutdown();
+      }
+    }
+ else {
+      try {
+        sessionWrapper.webSocket().close();
+      }
+ catch (      IOException e1) {
+        e1.printStackTrace();
+      }
+      sessionWrapper.getSession().onShutdown();
+    }
+  }
+ else {
+    List<SocketIOPacketImpl> messages=null;
+    try {
+      messages=SocketIOPacketImpl.parse(event.message());
+    }
+ catch (    SocketIOException e) {
+      e.printStackTrace();
+    }
+    if (messages != null && !messages.isEmpty()) {
+      SocketIOSession session=sessionWrapper.getSession();
+      for (      SocketIOPacketImpl msg : messages) {
+        session.onMessage(session.getAtmosphereResourceImpl(),session.getTransportHandler(),msg.getData());
+      }
+    }
+  }
+}

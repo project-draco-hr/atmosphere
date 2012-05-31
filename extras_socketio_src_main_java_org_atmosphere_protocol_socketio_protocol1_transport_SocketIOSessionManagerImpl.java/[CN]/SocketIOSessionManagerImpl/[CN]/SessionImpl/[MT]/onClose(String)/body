@@ -1,0 +1,30 @@
+{
+  if (state == ConnectionState.CLOSING) {
+    if (closeId != null && closeId.equals(data)) {
+      state=ConnectionState.CLOSED;
+      onDisconnect(DisconnectReason.CLOSED);
+      handler.abort();
+    }
+ else {
+      try {
+        handler.sendMessage(data);
+      }
+ catch (      SocketIOException e) {
+        logger.error("handler.sendMessage failed: ",e);
+        handler.abort();
+      }
+    }
+  }
+ else {
+    clearTimeoutTimer();
+    clearHeartbeatTimer();
+    state=ConnectionState.CLOSING;
+    try {
+      handler.sendMessage(data);
+    }
+ catch (    SocketIOException e) {
+      logger.error("handler.sendMessage failed: ",e);
+      handler.abort();
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  System.err.println("\n\nTEST getSessionIDTest\n\n");
+  final AsyncHttpClient client=getAsyncHttpClient(new AsyncHttpClientConfig.Builder().setFollowRedirects(true).build());
+  String sessionid1=getSessionID(client,GET_SESSION_URL);
+  client.close();
+  Assert.assertNotNull(sessionid1);
+}

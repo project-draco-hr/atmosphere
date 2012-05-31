@@ -1,0 +1,3 @@
+AtmosphereResource event
+SocketIOSessionOutbound outbound
+DisconnectReason reason

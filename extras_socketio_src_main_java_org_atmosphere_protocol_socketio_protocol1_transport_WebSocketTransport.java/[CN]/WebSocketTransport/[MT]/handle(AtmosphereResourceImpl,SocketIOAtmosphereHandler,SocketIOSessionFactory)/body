@@ -1,0 +1,37 @@
+{
+  HttpServletRequest request=resource.getRequest();
+  HttpServletResponse response=resource.getResponse();
+  Object obj=request.getAttribute(SESSION_KEY);
+  SocketIOSession session=null;
+  String sessionId=null;
+  if (obj != null) {
+    session=(SocketIOSession)obj;
+  }
+ else {
+    sessionId=extractSessionId(request);
+    if (sessionId != null && sessionId.length() > 0) {
+      session=sessionFactory.getSession(sessionId);
+    }
+  }
+  boolean isDisconnectRequest=isDisconnectRequest(request);
+  if (!isDisconnectRequest) {
+    if ("GET".equals(request.getMethod()) && "WebSocket".equalsIgnoreCase(request.getHeader("Upgrade"))) {
+      session=sessionFactory.getSession(sessionId);
+      request.setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID,session.getSessionId());
+      SocketIOWebSocketEventListener socketioEventListener=new SocketIOWebSocketEventListener();
+      resource.addEventListener(socketioEventListener);
+      SocketIOWebSocketSessionWrapperImpl sessionWrapper=new SocketIOWebSocketSessionWrapperImpl(session,socketioEventListener);
+      socketioEventListener.setSessionWrapper(sessionWrapper);
+      request.setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_OUTBOUND,sessionWrapper);
+      resource.suspend(-1,false);
+    }
+ else {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Invalid " + TRANSPORT_NAME + " transport request");
+    }
+  }
+ else {
+    session=sessionFactory.getSession(sessionId);
+    session.getTransportHandler().disconnect();
+  }
+  return Action.CONTINUE;
+}

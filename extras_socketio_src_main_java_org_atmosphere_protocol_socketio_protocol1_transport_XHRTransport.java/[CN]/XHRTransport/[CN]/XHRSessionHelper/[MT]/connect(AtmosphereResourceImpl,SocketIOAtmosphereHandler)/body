@@ -1,0 +1,13 @@
+{
+  HttpServletRequest request=resource.getRequest();
+  HttpServletResponse response=resource.getResponse();
+  request.setAttribute(SESSION_KEY,session);
+  response.setBufferSize(bufferSize);
+  customConnect(request,response);
+  is_open=true;
+  session.onConnect(resource,this);
+  finishSend(response);
+  if (isStreamingConnection) {
+    resource.suspend();
+  }
+}

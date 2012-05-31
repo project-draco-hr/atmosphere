@@ -1,0 +1,3 @@
+{
+  return SocketIOSessionManagerImpl.generateRandomString(length);
+}

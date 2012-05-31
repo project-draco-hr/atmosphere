@@ -1,0 +1,20 @@
+{
+  logger.trace("calling from " + this.getClass().getName() + " : "+ "onConnect");
+  sessionWrapper.setWebSocket(event.webSocket());
+  try {
+    event.webSocket().write(new SocketIOPacketImpl(PacketType.CONNECT).toString());
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    sessionWrapper.getSession().onShutdown();
+  }
+  try {
+    sessionWrapper.getSession().setAtmosphereResourceImpl((AtmosphereResourceImpl)event.webSocket().resource());
+    sessionWrapper.getSession().onConnect(sessionWrapper.getSession().getAtmosphereResourceImpl(),sessionWrapper);
+    sessionWrapper.initiated(true);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    sessionWrapper.getSession().onShutdown();
+  }
+}

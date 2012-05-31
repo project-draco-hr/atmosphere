@@ -1,0 +1,4 @@
+{
+  t.printStackTrace();
+  Assert.fail("Unexpected exception: " + t.getMessage(),t);
+}

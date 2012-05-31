@@ -1,0 +1,4 @@
+{
+  heartBeatInterval=delay;
+  heartBeatSessionMonitor.setDelay(delay);
+}

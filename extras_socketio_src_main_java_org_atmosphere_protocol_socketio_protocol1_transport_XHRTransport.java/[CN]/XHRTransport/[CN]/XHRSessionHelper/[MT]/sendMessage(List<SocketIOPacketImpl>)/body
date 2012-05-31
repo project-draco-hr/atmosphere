@@ -1,0 +1,26 @@
+{
+  if (messages != null) {
+    for (    SocketIOPacketImpl msg : messages) {
+switch (msg.getFrameType()) {
+case MESSAGE:
+case JSON:
+case EVENT:
+case ACK:
+case ERROR:
+        msg.setPadding(messages.size() > 1);
+      try {
+        sendMessage(msg.toString());
+      }
+ catch (      Exception e) {
+        AtmosphereResourceImpl resource=session.getAtmosphereResourceImpl();
+        if (resource != null && DefaultBroadcaster.class.isAssignableFrom(resource.getBroadcaster().getClass())) {
+          DefaultBroadcaster.class.cast(resource.getBroadcaster()).broadcasterCache.addToCache(resource,msg);
+        }
+      }
+    break;
+default :
+  logger.error("Unknown SocketIOEvent msg = " + msg);
+}
+}
+}
+}
