@@ -126,10 +126,8 @@ bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 }
 suspend(resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope(),s.writeEntity());
 break;
-case SUBSCRIBE_TRACKABLE:
 case SUBSCRIBE:
 case SUSPEND:
-case SUSPEND_TRACKABLE:
 case SUSPEND_RESUME:
 outputJunk=outputJunk(r,outputComments);
 resumeOnBroadcast=resumeOnBroadcast((action == Action.SUSPEND_RESUME));
