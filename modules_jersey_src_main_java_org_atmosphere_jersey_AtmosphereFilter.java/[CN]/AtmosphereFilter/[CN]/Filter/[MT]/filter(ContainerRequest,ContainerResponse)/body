@@ -53,9 +53,7 @@ for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
 AtmosphereResourceEventListener el=listener.newInstance();
 InjectorProvider.getInjector().inject(el);
-if (r instanceof AtmosphereEventLifecycle) {
-  r.addEventListener(el);
-}
+r.addEventListener(el);
 }
  catch (Throwable t) {
 throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + listener));
@@ -120,9 +118,7 @@ SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(r
 boolean outputJunk=outputJunk(r,s.outputComments());
 boolean resumeOnBroadcast=resumeOnBroadcast(s.resumeOnBroadcast());
 for (AtmosphereResourceEventListener el : s.listeners()) {
-if (r instanceof AtmosphereEventLifecycle) {
 r.addEventListener(el);
-}
 }
 Broadcaster bc=s.broadcaster();
 if (bc == null && s.scope() != Suspend.SCOPE.REQUEST) {
@@ -142,9 +138,7 @@ for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
 AtmosphereResourceEventListener el=listener.newInstance();
 InjectorProvider.getInjector().inject(el);
-if (r instanceof AtmosphereEventLifecycle) {
-((AtmosphereEventLifecycle)r).addEventListener(el);
-}
+r.addEventListener(el);
 }
  catch (Throwable t) {
 throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereResourceEventListener " + listener,t));
