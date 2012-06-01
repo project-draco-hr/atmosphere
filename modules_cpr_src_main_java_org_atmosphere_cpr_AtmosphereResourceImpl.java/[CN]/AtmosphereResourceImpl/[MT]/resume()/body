@@ -3,12 +3,6 @@
     if (!isResumed && isInScope) {
       action.type(Action.TYPE.RESUME);
       isResumed=true;
-      try {
-        logger.debug("Resuming {}",getRequest(false));
-      }
- catch (      Throwable ex) {
-        return this;
-      }
       Broadcaster b=getBroadcaster(false);
       if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
         ((DefaultBroadcaster)b).broadcastOnResume(this);
