@@ -27,6 +27,7 @@
   Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
   broadcasterFactory.destroy();
   broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
+  BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
   Broadcaster b=BroadcasterFactory.getDefault().get(bc,mapping);
   addAtmosphereHandler(mapping,rsp,b);
   return true;
