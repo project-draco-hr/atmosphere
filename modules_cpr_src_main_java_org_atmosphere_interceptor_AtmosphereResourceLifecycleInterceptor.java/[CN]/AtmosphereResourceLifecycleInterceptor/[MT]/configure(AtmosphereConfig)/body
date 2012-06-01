@@ -1,0 +1,6 @@
+{
+  String s=config.getInitParameter(ATMOSPHERERESOURCE_INTERCEPTOR_METHOD);
+  if (s != null) {
+    method=s;
+  }
+}

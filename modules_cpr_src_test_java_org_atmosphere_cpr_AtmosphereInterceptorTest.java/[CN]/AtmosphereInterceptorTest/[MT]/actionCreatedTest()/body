@@ -6,6 +6,8 @@
     @Override public Action inspect(    AtmosphereResource r){
       return Action.CREATED;
     }
+    @Override public void postInspect(    AtmosphereResource r){
+    }
   }
 );
   assertEquals(Action.CREATED,processor.service(mock(AtmosphereRequest.class),AtmosphereResponse.create()));

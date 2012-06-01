@@ -1,0 +1,12 @@
+{
+switch (r.transport()) {
+case JSONP:
+case AJAX:
+case LONG_POLLING:
+    r.resumeOnBroadcast(true);
+  break;
+default :
+break;
+}
+return Action.CONTINUE;
+}

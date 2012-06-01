@@ -1,0 +1,23 @@
+{
+  if (r.getRequest().getMethod().equalsIgnoreCase(method)) {
+    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      @Override public void onBroadcast(      AtmosphereResourceEvent event){
+switch (r.transport()) {
+case JSONP:
+case AJAX:
+case LONG_POLLING:
+          break;
+default :
+        try {
+          r.getResponse().flushBuffer();
+        }
+ catch (        IOException e) {
+          logger.warn("",e);
+        }
+      break;
+  }
+}
+}
+).suspend();
+}
+}
