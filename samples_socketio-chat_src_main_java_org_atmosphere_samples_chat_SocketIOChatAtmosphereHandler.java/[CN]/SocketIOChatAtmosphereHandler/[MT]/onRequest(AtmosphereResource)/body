@@ -1,9 +1,3 @@
 {
-  AtmosphereRequest req=r.getRequest();
-  if (req.getMethod().equalsIgnoreCase("GET")) {
-    r.suspend();
-  }
- else   if (req.getMethod().equalsIgnoreCase("POST")) {
-    r.getBroadcaster().broadcast(req.getReader().readLine());
-  }
+  r.getBroadcaster().broadcast(r.getRequest().getReader().readLine());
 }
