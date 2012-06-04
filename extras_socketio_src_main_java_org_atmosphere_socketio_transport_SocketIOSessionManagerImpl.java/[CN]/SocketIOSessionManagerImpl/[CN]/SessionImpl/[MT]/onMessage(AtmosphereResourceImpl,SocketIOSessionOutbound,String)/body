@@ -11,6 +11,7 @@ synchronized (atmosphereHandler) {
           for (          String msg : p.getArgs()) {
             AtmosphereRequest r=resource.getRequest();
             r.body(msg).method("POST");
+            resource.disableSuspend(true);
             atmosphereHandler.onRequest(resource);
           }
         }

@@ -1,6 +1,6 @@
 {
-  HttpServletRequest request=resource.getRequest();
-  HttpServletResponse response=resource.getResponse();
+  AtmosphereRequest request=resource.getRequest();
+  AtmosphereResponse response=resource.getResponse();
   request.setAttribute(SESSION_KEY,session);
   response.setBufferSize(bufferSize);
   customConnect(request,response);
