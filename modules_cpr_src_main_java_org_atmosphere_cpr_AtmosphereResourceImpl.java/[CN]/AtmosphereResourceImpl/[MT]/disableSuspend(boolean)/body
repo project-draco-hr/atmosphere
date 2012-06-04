@@ -1,0 +1,4 @@
+{
+  this.disableSuspend=disableSuspend;
+  return this;
+}
