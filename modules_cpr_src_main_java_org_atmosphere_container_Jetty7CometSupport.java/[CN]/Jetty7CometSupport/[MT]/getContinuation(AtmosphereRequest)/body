@@ -1,0 +1,3 @@
+{
+  return ContinuationSupport.getContinuation(req);
+}
