@@ -1,0 +1,30 @@
+{
+  r.addEventListener(new AtmosphereResourceEventListener(){
+    @Override public void onSuspend(    AtmosphereResourceEvent event){
+    }
+    @Override public void onResume(    AtmosphereResourceEvent event){
+      if (event.isResuming()) {
+        listener.onComplete(AtmosphereContinuation.this);
+      }
+ else {
+        try {
+          r.getAtmosphereConfig().framework().doCometSupport(r.getRequest(),r.getResponse());
+        }
+ catch (        IOException e) {
+          logger.warn("",e);
+        }
+catch (        ServletException e) {
+          logger.warn("",e);
+        }
+        listener.onTimeout(AtmosphereContinuation.this);
+      }
+    }
+    @Override public void onDisconnect(    AtmosphereResourceEvent event){
+    }
+    @Override public void onBroadcast(    AtmosphereResourceEvent event){
+    }
+    @Override public void onThrowable(    AtmosphereResourceEvent event){
+    }
+  }
+);
+}

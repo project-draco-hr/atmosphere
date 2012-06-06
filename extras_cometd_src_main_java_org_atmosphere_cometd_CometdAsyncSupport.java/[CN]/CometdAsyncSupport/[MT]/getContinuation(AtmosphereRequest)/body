@@ -1,0 +1,7 @@
+{
+  Continuation falseContinuation=(Continuation)req.getAttribute(Continuation.ATTRIBUTE);
+  req.setAttribute(Continuation.ATTRIBUTE,null);
+  Continuation c=ContinuationSupport.getContinuation(req);
+  req.setAttribute(Continuation.ATTRIBUTE,falseContinuation);
+  return c;
+}

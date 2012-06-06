@@ -1,0 +1,11 @@
+{
+  framework().interceptor(new CometdAtmosphereInterceptor());
+  framework().setUseStreamForFlushingComments(false);
+  framework().setAsyncSupport(new CometdAsyncSupport(framework().getAtmosphereConfig()));
+  framework().addInitParameter("transports",WebSocketTransport.class.getName());
+  framework().addInitParameter(ApplicationConfig.WEBSOCKET_CONTENT_TYPE,"application/json");
+  super.init(sc);
+  ReflectorServletProcessor r=new ReflectorServletProcessor();
+  r.setServletClassName(org.cometd.java.annotation.AnnotationCometdServlet.class.getName());
+  framework.addAtmosphereHandler("/*",r).initAtmosphereHandler(framework().getServletConfig());
+}

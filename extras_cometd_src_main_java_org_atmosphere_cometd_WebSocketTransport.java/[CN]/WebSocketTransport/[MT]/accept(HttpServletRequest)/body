@@ -1,0 +1,3 @@
+{
+  return request.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT) == HeaderConfig.WEBSOCKET_TRANSPORT;
+}

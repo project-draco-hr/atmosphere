@@ -1,0 +1,12 @@
+{
+  AtmosphereRequest request=r.getRequest();
+  if (r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
+    if (r.getRequest().getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE) != null) {
+      return Action.CANCELLED;
+    }
+  }
+  if (request.getAttribute(Continuation.ATTRIBUTE) == null) {
+    request.setAttribute(Continuation.ATTRIBUTE,new AtmosphereContinuation(r));
+  }
+  return Action.CONTINUE;
+}

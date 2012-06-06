@@ -1,0 +1,10 @@
+{
+  StringBuilder builder=new StringBuilder(message.size() * 32);
+  if (writer == null) {
+    response.setContentType(_mimeType);
+    writer=response.getWriter();
+  }
+  builder.append("[").append(message.getJSON()).append("]");
+  writer.append(builder.toString());
+  return writer;
+}

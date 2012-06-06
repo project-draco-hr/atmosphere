@@ -1,0 +1,3 @@
+{
+  r.getRequest().setAttribute(name,attribute);
+}
