@@ -19,7 +19,10 @@ catch (      ClassNotFoundException e) {
       }
     }
   }
-  interceptors.addFirst(new JSONPAtmosphereInterceptor());
-  interceptors.addFirst(new SSEAtmosphereInterceptor());
+  s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
+  if (s == null) {
+    interceptors.addFirst(new JSONPAtmosphereInterceptor());
+    interceptors.addFirst(new SSEAtmosphereInterceptor());
+  }
   logger.info("Installed AtmosphereInterceptor {}",interceptors);
 }
