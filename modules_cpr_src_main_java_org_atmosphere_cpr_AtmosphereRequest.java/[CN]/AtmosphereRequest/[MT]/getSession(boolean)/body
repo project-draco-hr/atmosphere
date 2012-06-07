@@ -1,3 +1,11 @@
 {
-  return b.request.getSession(create);
+  try {
+    return b.request.getSession(create);
+  }
+ catch (  java.lang.IllegalStateException ex) {
+    if (ex.getMessage() != null || ex.getMessage().equalsIgnoreCase("No Session Manager")) {
+      return b.hackedJettySession;
+    }
+    throw ex;
+  }
 }
