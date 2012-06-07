@@ -13,7 +13,11 @@
       }
     }
  else {
-      throw new IllegalStateException("Unexpected connection from primairyTransport");
+      if (refreshState != RefreshState.CONNECTING) {
+        throw new IllegalStateException("Unexpected refresh state");
+      }
+      refreshState=null;
+      listener.onAfterRefresh();
     }
   }
  else {

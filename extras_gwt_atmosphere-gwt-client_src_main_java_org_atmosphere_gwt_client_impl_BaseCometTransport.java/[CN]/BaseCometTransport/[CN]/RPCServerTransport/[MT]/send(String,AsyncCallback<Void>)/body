@@ -1,6 +1,7 @@
 {
   RequestBuilder request=new RequestBuilder(RequestBuilder.POST,serviceUrl());
   try {
+    logger.fine("Sending message to server: " + message);
     request.sendRequest(message,new RequestCallback(){
       @Override public void onResponseReceived(      Request request,      Response response){
         if (response.getStatusCode() != Response.SC_OK && response.getStatusCode() != 0) {

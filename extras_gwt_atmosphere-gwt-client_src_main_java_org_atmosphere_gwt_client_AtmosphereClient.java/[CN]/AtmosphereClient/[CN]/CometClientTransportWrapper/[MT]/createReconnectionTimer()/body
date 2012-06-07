@@ -1,9 +1,18 @@
 {
   return new Timer(){
+    int count=0;
     @Override public void run(){
-      if (running) {
+      if (count++ > 5) {
+        stop();
+      }
+ else       if (running) {
+        refreshState=RefreshState.CONNECTING;
         doConnect();
       }
+    }
+    @Override public void cancel(){
+      super.cancel();
+      count=0;
     }
   }
 ;
