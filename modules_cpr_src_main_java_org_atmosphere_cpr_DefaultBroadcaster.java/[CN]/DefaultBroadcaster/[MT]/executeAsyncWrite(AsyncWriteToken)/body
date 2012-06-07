@@ -6,7 +6,7 @@
   try {
     event.setMessage(token.msg);
     if (!isAtmosphereResourceValid(r)) {
-      resources.remove(r);
+      removeAtmosphereResource(r);
       lostCandidate=true;
       return;
     }
