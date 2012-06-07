@@ -1,4 +1,7 @@
 {
-  this.session=session;
+  if (request == null) {
+    request=new NoOpsRequest();
+  }
+  NoOpsRequest.class.cast(request).fake=session;
   return this;
 }

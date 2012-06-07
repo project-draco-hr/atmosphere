@@ -1,3 +1,6 @@
 {
-  return null;
+  if (create) {
+    fake=new FakeHttpSession("",null,System.currentTimeMillis(),-1);
+  }
+  return fake;
 }
