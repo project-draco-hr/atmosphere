@@ -16,5 +16,4 @@
     }
   }
 );
-  config=framework.getAtmosphereConfig();
 }
