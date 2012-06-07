@@ -1,0 +1,5 @@
+{
+  final List<ServerMessage> queue=session.takeQueue();
+  for (  ServerMessage m : queue)   writer=send(request,response,writer,m);
+  return writer;
+}

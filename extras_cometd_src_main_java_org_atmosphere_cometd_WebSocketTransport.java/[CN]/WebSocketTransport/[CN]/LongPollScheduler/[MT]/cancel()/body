@@ -1,0 +1,17 @@
+{
+  if (_continuation != null && _continuation.isSuspended() && !_continuation.isExpired()) {
+    try {
+      decBrowserId();
+      ((HttpServletResponse)_continuation.getServletResponse()).sendError(HttpServletResponse.SC_REQUEST_TIMEOUT);
+    }
+ catch (    IOException x) {
+      logger.trace("",x);
+    }
+    try {
+      _continuation.complete();
+    }
+ catch (    Exception x) {
+      logger.trace("",x);
+    }
+  }
+}

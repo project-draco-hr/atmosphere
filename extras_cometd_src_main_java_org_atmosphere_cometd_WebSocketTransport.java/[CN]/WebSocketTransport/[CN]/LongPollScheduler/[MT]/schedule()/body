@@ -1,0 +1,4 @@
+{
+  decBrowserId();
+  _continuation.resume();
+}

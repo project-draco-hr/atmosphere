@@ -1,0 +1,4 @@
+{
+  WebSocketTransport.this.decBrowserId(_browserId);
+  _browserId=null;
+}
