@@ -1,0 +1,34 @@
+{
+  if (r.getRequest().getMethod().equalsIgnoreCase("POST")) {
+    StringBuilder stringBuilder=new StringBuilder();
+    BufferedReader bufferedReader=null;
+    try {
+      InputStream inputStream=r.getRequest().getInputStream();
+      if (inputStream != null) {
+        bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+        char[] charBuffer=new char[128];
+        int bytesRead=-1;
+        while ((bytesRead=bufferedReader.read(charBuffer)) > 0) {
+          stringBuilder.append(charBuffer,0,bytesRead);
+        }
+      }
+ else {
+        stringBuilder.append("");
+      }
+    }
+ catch (    IOException ex) {
+      logger.warn("",ex);
+    }
+ finally {
+      if (bufferedReader != null) {
+        try {
+          bufferedReader.close();
+        }
+ catch (        IOException ex) {
+          logger.warn("",ex);
+        }
+      }
+    }
+    r.getBroadcaster().broadcast(stringBuilder.toString());
+  }
+}
