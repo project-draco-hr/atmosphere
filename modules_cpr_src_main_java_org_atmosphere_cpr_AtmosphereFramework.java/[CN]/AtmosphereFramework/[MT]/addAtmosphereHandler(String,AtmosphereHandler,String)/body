@@ -1,10 +1,4 @@
 {
-  if (!mapping.startsWith("/")) {
-    mapping="/" + mapping;
-  }
-  AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(h,mapping);
-  w.broadcaster.setID(broadcasterId);
-  addMapping(mapping,w);
-  logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",h.getClass().getName(),mapping);
+  addAtmosphereHandler(mapping,h,broadcasterId,Collections.<AtmosphereInterceptor>emptyList());
   return this;
 }

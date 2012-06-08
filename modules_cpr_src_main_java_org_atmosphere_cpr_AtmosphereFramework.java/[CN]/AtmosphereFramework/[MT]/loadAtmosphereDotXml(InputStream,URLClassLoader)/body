@@ -59,9 +59,26 @@
       if (atmoHandler.getBroadcastFilterClasses() != null) {
         broadcasterFilters.addAll(atmoHandler.getBroadcastFilterClasses());
       }
+      List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+      if (atmoHandler.getAtmosphereInterceptorClasses() != null) {
+        for (        String a : atmoHandler.getBroadcastFilterClasses()) {
+          try {
+            AtmosphereInterceptor ai=(AtmosphereInterceptor)c.loadClass(a).newInstance();
+            ai.configure(config);
+            l.add(ai);
+          }
+ catch (          Throwable e) {
+            logger.warn("",e);
+          }
+        }
+      }
+      wrapper.interceptors=l;
+      if (l.size() > 0) {
+        logger.info("Installed AtmosphereInterceptor {} mapped to AtmosphereHandler {}",l,atmoHandler.getClassName());
+      }
     }
  catch (    Throwable t) {
-      logger.warn("unable to load AtmosphereHandler class: " + atmoHandler.getClassName(),t);
+      logger.warn("Unable to load AtmosphereHandler class: " + atmoHandler.getClassName(),t);
       throw new ServletException(t);
     }
   }

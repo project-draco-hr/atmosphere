@@ -1,0 +1,11 @@
+{
+  Action a=Action.CONTINUE;
+  for (  AtmosphereInterceptor arc : c) {
+    a=arc.inspect(r);
+    if (a == null || a.type() != Action.TYPE.CONTINUE) {
+      logger.trace("Interceptor {} interrupted the dispatch with {}",arc,a);
+      return a;
+    }
+  }
+  return a;
+}

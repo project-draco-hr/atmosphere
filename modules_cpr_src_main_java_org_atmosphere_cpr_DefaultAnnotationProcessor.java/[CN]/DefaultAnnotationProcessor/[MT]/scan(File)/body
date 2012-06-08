@@ -10,7 +10,6 @@
         try {
           AtmosphereHandler handler=(AtmosphereHandler)cl.loadClass(className).newInstance();
           AtmosphereHandlerService a=handler.getClass().getAnnotation(AtmosphereHandlerService.class);
-          framework.addAtmosphereHandler(a.path(),handler);
           framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
           Class<? extends BroadcastFilter>[] bf=a.broadcastFilters();
           for (          Class<? extends BroadcastFilter> b : bf) {
@@ -26,16 +25,18 @@
             framework.addInitParameter(nv[0],nv[1]);
           }
           Class<?>[] interceptors=a.interceptors();
+          List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
           for (          Class i : interceptors) {
             try {
               AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
               ai.configure(framework.getAtmosphereConfig());
-              framework.interceptor(ai);
+              l.add(ai);
             }
  catch (            Throwable e) {
               logger.warn("",e);
             }
           }
+          framework.addAtmosphereHandler(a.path(),handler,l);
         }
  catch (        Throwable e) {
           logger.warn("",e);
@@ -51,7 +52,6 @@
           Class<Servlet> s=(Class<Servlet>)cl.loadClass(className);
           MeteorService m=s.getAnnotation(MeteorService.class);
           String mapping=m.path();
-          framework.addAtmosphereHandler(mapping,r);
           framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
           Class<? extends BroadcastFilter>[] bf=m.broadcastFilters();
           for (          Class<? extends BroadcastFilter> b : bf) {
@@ -62,16 +62,18 @@
             framework.addInitParameter(nv[0],nv[1]);
           }
           Class<?>[] interceptors=m.interceptors();
+          List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
           for (          Class i : interceptors) {
             try {
               AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
               ai.configure(framework.getAtmosphereConfig());
-              framework.interceptor(ai);
+              l.add(ai);
             }
  catch (            Throwable e) {
               logger.warn("",e);
             }
           }
+          framework.addAtmosphereHandler(mapping,r,l);
         }
  catch (        Throwable e) {
           logger.warn("",e);

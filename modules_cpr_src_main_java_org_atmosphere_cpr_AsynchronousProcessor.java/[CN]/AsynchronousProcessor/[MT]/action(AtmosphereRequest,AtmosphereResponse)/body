@@ -34,14 +34,13 @@ synchronized (handlerWrapper) {
   }
   req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
-  LinkedList<AtmosphereInterceptor> c=config.framework().interceptors();
-  Action a;
-  for (  AtmosphereInterceptor arc : c) {
-    a=arc.inspect(resource);
-    if (a == null || a.type() != Action.TYPE.CONTINUE) {
-      logger.trace("Interceptor {} interrupted the dispatch with {}",arc,a);
-      return a;
-    }
+  Action a=invokeInterceptors(config.framework().interceptors(),resource);
+  if (a == null || a.type() != Action.TYPE.CONTINUE) {
+    return a;
+  }
+  a=invokeInterceptors(handlerWrapper.interceptors,resource);
+  if (a == null || a.type() != Action.TYPE.CONTINUE) {
+    return a;
   }
   try {
     handlerWrapper.atmosphereHandler.onRequest(resource);
@@ -50,9 +49,8 @@ synchronized (handlerWrapper) {
     resource.onThrowable(t);
     throw t;
   }
-  for (int i=c.size() - 1; i > -1; i--) {
-    c.get(i).postInspect(resource);
-  }
+  postInterceptors(config.framework().interceptors(),resource);
+  postInterceptors(handlerWrapper.interceptors,resource);
   if (trackActiveRequest && resource.getAtmosphereResourceEvent().isSuspended() && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
     req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     aliveRequests.put(req,resource);
