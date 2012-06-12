@@ -1,6 +1,7 @@
 {
   AtmosphereRequest request=new AtmosphereRequest.Builder().build();
-  assertNull(request.getSession());
+  assertNull(request.getSession(false));
+  assertNotNull(request.getSession());
   assertNotNull(request.getSession(true));
   assertNotNull(request.getSession());
   request=new AtmosphereRequest.Builder().session(new FakeHttpSession("-1",null,System.currentTimeMillis(),-1)).build();
