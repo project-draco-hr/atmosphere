@@ -1,12 +1,15 @@
 {
-  return new ServerTransportProtocol(){
-    @Override void send(    String message,    AsyncCallback<Void> callback){
-      socket.send(message);
-      callback.onSuccess(null);
+  if (transport == null) {
+    transport=new ServerTransportProtocol(){
+      @Override void send(      String message,      AsyncCallback<Void> callback){
+        socket.send(message);
+        callback.onSuccess(null);
+      }
+      @Override String serialize(      Object message) throws SerializationException {
+        return client.getSerializer().serialize(message);
+      }
     }
-    @Override String serialize(    Object message) throws SerializationException {
-      return client.getSerializer().serialize(message);
-    }
-  }
 ;
+  }
+  return transport;
 }
