@@ -1,2 +1,5 @@
 {
+  if (config.getServletContext().getServerInfo().contains("jetty")) {
+    config.framework().setAsyncSupport(new JettyAsyncSupport(config));
+  }
 }
