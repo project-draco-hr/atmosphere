@@ -11,7 +11,9 @@
   if (atmosphereHandlers.size() == 0 && !SimpleHttpProtocol.class.isAssignableFrom(webSocketProtocol.getClass())) {
     logger.debug("Adding a void AtmosphereHandler mapped to /* to allow WebSocket application only");
     addAtmosphereHandler("/*",new AbstractReflectorAtmosphereHandler(){
-      @Override public void onRequest(      AtmosphereResource httpServletRequestHttpServletResponseAtmosphereResource) throws IOException {
+      @Override public void onRequest(      AtmosphereResource r) throws IOException {
+        logger.error("HTTP Protocol not supported. Is your application WebSocket enabled only?");
+        r.getResponse().sendError(500);
       }
       @Override public void destroy(){
       }
