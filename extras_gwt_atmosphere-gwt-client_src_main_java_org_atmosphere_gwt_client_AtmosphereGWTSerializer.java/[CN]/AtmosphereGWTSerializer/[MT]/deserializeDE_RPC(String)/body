@@ -1,9 +1,0 @@
-{
-  try {
-    SerializationStreamReader reader=ClientWriterFactory.createReader(message);
-    return reader.readObject();
-  }
- catch (  RuntimeException e) {
-    throw new SerializationException(e);
-  }
-}
