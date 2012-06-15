@@ -1,6 +1,6 @@
 {
-  if (transport == null) {
-    transport=new ServerTransportProtocol(){
+  if (serverTransport == null) {
+    serverTransport=new ServerTransportProtocol(){
       @Override void send(      String message,      AsyncCallback<Void> callback){
         socket.send(message);
         callback.onSuccess(null);
@@ -11,5 +11,5 @@
     }
 ;
   }
-  return transport;
+  return serverTransport;
 }
