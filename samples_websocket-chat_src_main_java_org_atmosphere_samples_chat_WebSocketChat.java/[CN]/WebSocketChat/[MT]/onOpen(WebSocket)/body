@@ -1,0 +1,3 @@
+{
+  webSocket.resource().setBroadcaster(BroadcasterFactory.getDefault().lookup("/chat",true)).suspend(-1);
+}

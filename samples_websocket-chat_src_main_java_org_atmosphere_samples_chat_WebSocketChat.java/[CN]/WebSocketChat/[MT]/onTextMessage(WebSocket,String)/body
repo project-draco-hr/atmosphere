@@ -1,0 +1,7 @@
+{
+  AtmosphereResource r=webSocket.resource();
+  Broadcaster b=r.getBroadcaster();
+  String author=message.substring(message.indexOf(":") + 2,message.indexOf(",") - 1);
+  String chat=message.substring(message.lastIndexOf(":") + 2,message.length() - 2);
+  b.broadcast(new Data(author,chat).toString());
+}
