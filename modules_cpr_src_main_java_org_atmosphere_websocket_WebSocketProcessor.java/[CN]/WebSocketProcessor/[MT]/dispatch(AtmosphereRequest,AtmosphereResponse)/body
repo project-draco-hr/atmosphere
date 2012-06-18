@@ -12,7 +12,5 @@
   if (r.getStatus() >= 400) {
     webSocketProtocol.onError(webSocket,new WebSocketException("Status code higher or equal than 400",r));
   }
-  if (webSocket.resource() == null) {
-    webSocket.resource(resource);
-  }
+  webSocket.resource(resource);
 }

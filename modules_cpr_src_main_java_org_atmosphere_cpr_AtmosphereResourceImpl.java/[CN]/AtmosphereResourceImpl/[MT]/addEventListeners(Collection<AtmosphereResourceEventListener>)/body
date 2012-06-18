@@ -1,0 +1,6 @@
+{
+  for (  AtmosphereResourceEventListener e : c) {
+    listeners.add(e);
+  }
+  return this;
+}
