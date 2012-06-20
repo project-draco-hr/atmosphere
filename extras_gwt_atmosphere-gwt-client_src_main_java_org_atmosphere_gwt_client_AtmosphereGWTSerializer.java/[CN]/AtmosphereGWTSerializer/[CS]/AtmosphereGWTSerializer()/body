@@ -1,5 +1,5 @@
 {
   if (getMode() == SerialMode.JSON || getPushMode() == SerialMode.JSON) {
-    jsonSerializer=GWT.create(com.kfuntak.gwt.json.serialization.client.Serializer.class);
+    jsonSerializer=GWT.create(JSONObjectSerializer.class);
   }
 }

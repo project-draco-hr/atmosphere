@@ -1,4 +1,10 @@
 {
+  GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler(){
+    @Override public void onUncaughtException(    Throwable e){
+      logger.log(Level.SEVERE,"Uncaught exception",e);
+    }
+  }
+);
   Button broadcast=new Button("Broadcast");
   broadcast.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
