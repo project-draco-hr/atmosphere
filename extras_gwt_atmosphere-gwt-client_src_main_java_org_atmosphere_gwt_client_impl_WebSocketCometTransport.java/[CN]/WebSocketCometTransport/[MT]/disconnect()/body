@@ -2,6 +2,7 @@
   if (socket != null) {
     super.disconnect();
     socket.close();
+    socket.clearListener();
   }
   socket=null;
 }
