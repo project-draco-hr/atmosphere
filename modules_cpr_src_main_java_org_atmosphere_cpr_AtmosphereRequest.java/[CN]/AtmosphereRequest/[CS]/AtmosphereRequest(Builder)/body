@@ -5,6 +5,13 @@
       configureStream(b.dataBytes,b.offset,b.length,b.encoding);
     }
  else     if (b.data != null) {
+      try {
+        byte[] bytes=b.data.getBytes("UTF-8");
+        bis=new ByteInputStream(bytes,0,bytes.length);
+      }
+ catch (      UnsupportedEncodingException e) {
+        logger.trace("",e);
+      }
       br=new BufferedReader(new StringReader(b.data));
     }
   }
