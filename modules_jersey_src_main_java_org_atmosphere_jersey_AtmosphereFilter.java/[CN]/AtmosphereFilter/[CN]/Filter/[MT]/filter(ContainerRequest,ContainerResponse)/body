@@ -5,6 +5,10 @@
   servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
   if (action == Action.NONE)   return response;
   AtmosphereConfig config=(AtmosphereConfig)servletReq.getAttribute(ATMOSPHERE_CONFIG);
+  if (config == null) {
+    logger.error(INSTALLATION_ERROR);
+    throw new WebApplicationException(new IllegalStateException(INSTALLATION_ERROR));
+  }
   String p=config.getInitParameter(ApplicationConfig.JERSEY_CONTAINER_RESPONSE_WRITER_CLASS);
   ContainerResponseWriter w;
   if (p != null) {
