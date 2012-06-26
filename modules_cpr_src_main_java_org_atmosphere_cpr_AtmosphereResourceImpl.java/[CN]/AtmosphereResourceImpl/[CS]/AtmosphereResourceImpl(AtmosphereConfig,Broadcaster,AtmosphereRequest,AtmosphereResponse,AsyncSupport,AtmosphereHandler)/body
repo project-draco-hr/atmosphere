@@ -17,4 +17,7 @@
   padding=config.getInitParameter(ApplicationConfig.STREAMING_PADDING_MODE);
   req.setAttribute(ApplicationConfig.STREAMING_PADDING_MODE,padding);
   uuid=UUID.randomUUID().toString();
+  if (config.isSupportSession()) {
+    session=req.getSession(true);
+  }
 }

@@ -1,5 +1,10 @@
 {
   if (r != null) {
-    r.getRequest().getSession(true).setAttribute(BROADCASTER_CACHE_TRACKER,cm);
+    HttpSession session=AtmosphereResourceImpl.class.cast(r).session();
+    if (session == null) {
+      logger.error(ERROR_MESSAGE);
+      return;
+    }
+    session.setAttribute(BROADCASTER_CACHE_TRACKER,cm);
   }
 }
