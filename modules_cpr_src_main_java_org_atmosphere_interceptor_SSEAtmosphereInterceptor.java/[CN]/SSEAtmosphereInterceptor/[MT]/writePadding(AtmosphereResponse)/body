@@ -2,18 +2,32 @@
   if (response.request() != null && response.request().getAttribute("paddingWritten") != null)   return;
   response.setContentType("text/event-stream");
   response.setCharacterEncoding("utf-8");
-  OutputStream stream=null;
-  try {
-    stream=response.getOutputStream();
+  boolean isUsingStream=(Boolean)response.request().getAttribute(PROPERTY_USE_STREAM);
+  if (isUsingStream) {
+    OutputStream stream=null;
+    try {
+      stream=response.getOutputStream();
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
+    try {
+      stream.write(padding);
+      stream.flush();
+    }
+ catch (    IOException ex) {
+      logger.warn("SSE may not work",ex);
+    }
   }
- catch (  IOException e) {
-    logger.trace("",e);
-  }
-  try {
-    stream.write(padding);
-    stream.flush();
-  }
- catch (  IOException ex) {
-    logger.warn("SSE may not work",ex);
+ else {
+    PrintWriter w=null;
+    try {
+      w=response.getWriter();
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
+    w.println(padding);
+    w.flush();
   }
 }

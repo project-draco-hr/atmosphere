@@ -1,6 +1,5 @@
 {
   final AtmosphereResponse response=r.getResponse();
-  r.getRequest().setAttribute(PROPERTY_USE_STREAM,true);
   if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
     r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
       @Override public void onSuspend(      AtmosphereResourceEvent event){
