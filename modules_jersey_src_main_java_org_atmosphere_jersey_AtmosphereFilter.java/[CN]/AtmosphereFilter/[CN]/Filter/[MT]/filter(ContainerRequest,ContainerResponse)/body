@@ -1,5 +1,6 @@
 {
   if (response.getMappedThrowable() != null) {
+    logger.debug("Unexpected exception",response.getMappedThrowable());
     return response;
   }
   servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
