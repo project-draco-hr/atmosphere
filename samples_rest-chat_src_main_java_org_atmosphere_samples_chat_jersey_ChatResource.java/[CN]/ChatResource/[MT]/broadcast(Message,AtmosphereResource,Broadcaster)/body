@@ -1,3 +1,4 @@
 {
+  b.addAtmosphereResource(r);
   return new Response(message.author,message.message);
 }
