@@ -1,5 +1,5 @@
 {
-  HttpSession session=AtmosphereResourceImpl.class.cast(r).session();
+  HttpSession session=r.session();
   if (session == null) {
     logger.error(ERROR_MESSAGE);
     return null;
