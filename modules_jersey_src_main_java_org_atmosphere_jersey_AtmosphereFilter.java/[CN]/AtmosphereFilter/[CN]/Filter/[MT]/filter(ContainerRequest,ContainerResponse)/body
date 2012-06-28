@@ -3,7 +3,6 @@
     logger.debug("Unexpected exception",response.getMappedThrowable());
     return response;
   }
-  servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
   if (action == Action.NONE)   return response;
   AtmosphereConfig config=(AtmosphereConfig)servletReq.getAttribute(ATMOSPHERE_CONFIG);
   if (config == null) {
