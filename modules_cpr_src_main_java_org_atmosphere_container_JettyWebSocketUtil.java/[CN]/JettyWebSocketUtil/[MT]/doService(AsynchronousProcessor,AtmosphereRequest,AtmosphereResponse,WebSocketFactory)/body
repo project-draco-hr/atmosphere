@@ -2,7 +2,15 @@
   Boolean b=(Boolean)req.getAttribute(WebSocket.WEBSOCKET_INITIATED);
   if (b == null)   b=Boolean.FALSE;
   if (!Utils.webSocketEnabled(req) && req.getAttribute(WebSocket.WEBSOCKET_ACCEPT_DONE) == null) {
-    return null;
+    if (req.resource().transport() == AtmosphereResource.TRANSPORT.WEBSOCKET) {
+      logger.trace("Invalid WebSocket Specification {}",req);
+      res.addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
+      res.sendError(501,"Websocket protocol not supported");
+      return Action.CANCELLED;
+    }
+ else {
+      return null;
+    }
   }
  else {
     if (webSocketFactory != null && !b) {
