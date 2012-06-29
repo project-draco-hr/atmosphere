@@ -1,8 +1,5 @@
 {
   if (!preferBlocking && testClassExists(SERVLET_30)) {
-    if (detectWebSocketPresent().size() > 0) {
-      return new JettyServlet30AsyncSupportWithWebSocket(config);
-    }
     return new Servlet30CometSupport(config);
   }
  else {

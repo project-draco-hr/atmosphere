@@ -1,0 +1,10 @@
+{
+  List l=new LinkedList<Class<? extends AsyncSupport>>(){
+{
+      if (testClassExists(TOMCAT_WEBSOCKET))       add(Tomcat7Servlet30SupportWithWebSocket.class);
+      if (testClassExists(JETTY_8))       add(JettyServlet30AsyncSupportWithWebSocket.class);
+    }
+  }
+;
+  return l;
+}

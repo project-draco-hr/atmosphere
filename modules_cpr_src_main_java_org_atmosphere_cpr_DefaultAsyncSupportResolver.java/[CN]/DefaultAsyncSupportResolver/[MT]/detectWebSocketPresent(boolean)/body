@@ -1,4 +1,7 @@
 {
+  if (useNativeIfPossible) {
+    return detectServlet3WebSocketPresent();
+  }
   List l=new LinkedList<Class<? extends AsyncSupport>>(){
 {
       if (testClassExists(TOMCAT_WEBSOCKET))       add(Tomcat7AsyncSupportWithWebSocket.class);
