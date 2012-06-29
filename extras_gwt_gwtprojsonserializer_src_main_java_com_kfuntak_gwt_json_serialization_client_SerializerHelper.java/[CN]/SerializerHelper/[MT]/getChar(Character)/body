@@ -1,0 +1,6 @@
+{
+  if (character == null) {
+    return JSONNull.getInstance();
+  }
+  return new JSONString(new String(new char[]{character}));
+}

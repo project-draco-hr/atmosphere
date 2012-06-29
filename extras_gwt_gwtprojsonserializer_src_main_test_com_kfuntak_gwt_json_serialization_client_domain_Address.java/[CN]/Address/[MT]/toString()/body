@@ -1,0 +1,18 @@
+{
+  StringBuffer buffer=new StringBuffer();
+  buffer.append("{");
+  buffer.append("line1:");
+  buffer.append(line1 + ",");
+  buffer.append("line2:");
+  buffer.append(line2 + ",");
+  buffer.append("city:");
+  buffer.append(city + ",");
+  buffer.append("state:");
+  buffer.append(state + ",");
+  buffer.append("country:");
+  buffer.append(country + ",");
+  buffer.append("zipCode:");
+  buffer.append(zipCode + ",");
+  buffer.append("}");
+  return buffer.toString();
+}

@@ -1,0 +1,6 @@
+{
+  if (boolValue == null) {
+    return JSONNull.getInstance();
+  }
+  return JSONBoolean.getInstance(boolValue);
+}

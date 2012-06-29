@@ -1,0 +1,4 @@
+StringBuffer buffer
+JClassType fieldClassType
+String fieldNameForGS
+String fieldName

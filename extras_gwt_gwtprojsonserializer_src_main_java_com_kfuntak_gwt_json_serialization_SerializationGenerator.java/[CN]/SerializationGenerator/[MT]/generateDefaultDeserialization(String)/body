@@ -1,0 +1,10 @@
+{
+  StringBuffer buffer=new StringBuffer();
+  buffer.append("public Object deSerialize(String jsonString, String className) throws JSONException{");
+  buffer.append("\n");
+  buffer.append("return deSerialize(JSONParser.parse(jsonString), \"" + className + "\");");
+  buffer.append("\n");
+  buffer.append("}");
+  buffer.append("\n");
+  return buffer.toString();
+}

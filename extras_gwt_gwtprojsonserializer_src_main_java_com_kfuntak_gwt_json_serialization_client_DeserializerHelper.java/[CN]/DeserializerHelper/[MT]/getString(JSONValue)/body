@@ -1,0 +1,12 @@
+{
+  if (value == null || value instanceof JSONNull) {
+    return null;
+  }
+  if (!(value instanceof JSONString)) {
+    throw new JSONException();
+  }
+ else {
+    JSONString jsonString=(JSONString)value;
+    return jsonString.stringValue();
+  }
+}

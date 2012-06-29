@@ -1,0 +1,97 @@
+{
+  typeOracle=ctx.getTypeOracle();
+  assert(typeOracle != null);
+  serializeInterface=typeOracle.findType(JsonSerializable.class.getName());
+  assert(serializeInterface != null);
+  stringClass=typeOracle.findType(String.class.getName());
+  assert(stringClass != null);
+  JClassType serializeClass=typeOracle.findType(requestedClass);
+  if (serializeClass == null) {
+    logger.log(TreeLogger.ERROR,"Unable to find metadata for type '" + requestedClass + "'",null);
+    throw new UnableToCompleteException();
+  }
+  String packageName=serializeClass.getPackage().getName();
+  className=serializeClass.getSimpleSourceName() + "_TypeSerializer";
+  PrintWriter printWriter=ctx.tryCreate(logger,packageName,className);
+  if (printWriter == null) {
+    return packageName + "." + className;
+  }
+  ClassSourceFileComposerFactory composerFactory=new ClassSourceFileComposerFactory(packageName,className);
+  composerFactory.setSuperclass("com.kfuntak.gwt.json.serialization.client.Serializer");
+  composerFactory.addImport(java.util.Collection.class.getName());
+  composerFactory.addImport(java.util.List.class.getName());
+  composerFactory.addImport(java.util.ArrayList.class.getName());
+  composerFactory.addImport(java.util.LinkedList.class.getName());
+  composerFactory.addImport(java.util.Stack.class.getName());
+  composerFactory.addImport(java.util.Vector.class.getName());
+  composerFactory.addImport(java.util.Set.class.getName());
+  composerFactory.addImport(java.util.TreeSet.class.getName());
+  composerFactory.addImport(java.util.HashSet.class.getName());
+  composerFactory.addImport(java.util.LinkedHashSet.class.getName());
+  composerFactory.addImport(java.util.SortedSet.class.getName());
+  composerFactory.addImport(java.util.Date.class.getName());
+  composerFactory.addImport(com.google.gwt.core.client.GWT.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONNull.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONNumber.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONString.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONValue.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONObject.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONArray.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONBoolean.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONParser.class.getName());
+  composerFactory.addImport(com.google.gwt.json.client.JSONException.class.getName());
+  composerFactory.addImport(ObjectSerializer.class.getName());
+  composerFactory.addImport(JsonSerializable.class.getName());
+  composerFactory.addImport(IncompatibleObjectException.class.getName());
+  composerFactory.addImport(SerializerHelper.class.getName());
+  composerFactory.addImport(DeserializerHelper.class.getName());
+  JClassType[] subTypes=serializeInterface.getSubtypes();
+  for (int i=0; i < subTypes.length; ++i) {
+    composerFactory.addImport(subTypes[i].getQualifiedSourceName());
+  }
+  srcWriter=composerFactory.createSourceWriter(ctx,printWriter);
+  if (srcWriter == null) {
+    return packageName + "." + className;
+  }
+  for (int i=0; i < subTypes.length; ++i) {
+    if (subTypes[i].isAbstract()) {
+      continue;
+    }
+    srcWriter.println("public class " + subTypes[i].getName() + "_SerializableImpl implements ObjectSerializer{");
+    srcWriter.indent();
+    srcWriter.println("public " + subTypes[i].getName() + "_SerializableImpl(){}");
+    StringBuffer buffer=new StringBuffer();
+    try {
+      String defaultSerializationString=generateDefaultSerialization();
+      String typeSerializationString=generateTypeSerialization(subTypes[i].getQualifiedSourceName());
+      String defaultDeserializationString=generateDefaultDeserialization(subTypes[i].getQualifiedSourceName());
+      String tyepDeserializationString=generateTypeDeserialization(subTypes[i].getQualifiedSourceName());
+      buffer.append(defaultSerializationString);
+      buffer.append("\n");
+      buffer.append(typeSerializationString);
+      buffer.append("\n");
+      buffer.append(defaultDeserializationString);
+      buffer.append("\n");
+      buffer.append(tyepDeserializationString);
+      buffer.append("\n");
+      buffer.append("}");
+      buffer.append("\n");
+    }
+ catch (    NotFoundException e) {
+      e.printStackTrace();
+    }
+    srcWriter.println(buffer.toString());
+  }
+  srcWriter.println("public " + className + "(){");
+  srcWriter.indent();
+  for (int i=0; i < subTypes.length; ++i) {
+    if (subTypes[i].isAbstract()) {
+      continue;
+    }
+    srcWriter.println("addObjectSerializer(\"" + subTypes[i].getQualifiedSourceName() + "\", new "+ subTypes[i].getName()+ "_SerializableImpl() );");
+  }
+  srcWriter.outdent();
+  srcWriter.println("}");
+  srcWriter.commit(logger);
+  return packageName + "." + className;
+}

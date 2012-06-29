@@ -1,0 +1,6 @@
+{
+  if (date == null) {
+    return JSONNull.getInstance();
+  }
+  return new JSONNumber(date.getTime());
+}

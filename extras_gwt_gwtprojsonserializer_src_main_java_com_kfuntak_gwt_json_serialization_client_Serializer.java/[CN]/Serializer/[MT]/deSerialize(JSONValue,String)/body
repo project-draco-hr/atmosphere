@@ -1,0 +1,7 @@
+{
+  ObjectSerializer serializer=getObjectSerializer(className);
+  if (serializer == null) {
+    throw new SerializationException("Can't find object serializer for " + className);
+  }
+  return serializer.deSerialize(jsonValue,className);
+}
