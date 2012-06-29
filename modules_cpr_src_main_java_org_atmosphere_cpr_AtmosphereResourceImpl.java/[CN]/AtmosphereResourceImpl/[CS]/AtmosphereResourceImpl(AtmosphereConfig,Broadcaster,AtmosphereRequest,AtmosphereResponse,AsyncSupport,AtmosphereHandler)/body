@@ -18,6 +18,11 @@
   req.setAttribute(ApplicationConfig.STREAMING_PADDING_MODE,padding);
   uuid=UUID.randomUUID().toString();
   if (config.isSupportSession()) {
-    session=req.getSession(true);
+    try {
+      session=req.getSession(true);
+    }
+ catch (    NullPointerException ex) {
+      logger.trace("http://java.net/jira/browse/GLASSFISH-18856",ex);
+    }
   }
 }
