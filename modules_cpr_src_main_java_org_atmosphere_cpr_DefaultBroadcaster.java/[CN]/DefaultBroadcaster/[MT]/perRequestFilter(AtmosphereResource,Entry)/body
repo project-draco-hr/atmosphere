@@ -1,4 +1,8 @@
 {
+  if (r == null) {
+    logger.trace("Null AtmosphereResource passed inside a Set");
+    return msg.message;
+  }
   Object finalMsg=msg.message;
   if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
 synchronized (r) {
