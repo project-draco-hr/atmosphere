@@ -1,0 +1,9 @@
+{
+  for (  AtmosphereResourceEventListener l : AtmosphereResourceImpl.class.cast(r).atmosphereResourceEventListener()) {
+    addEventListener(l);
+  }
+  AtmosphereResourceImpl.class.cast(r).session(r.session());
+  setBroadcaster(r.getBroadcaster());
+  atmosphereHandler(r.getAtmosphereHandler());
+  return this;
+}

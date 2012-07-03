@@ -1,4 +1,7 @@
 {
+  if (this.r != null) {
+    AtmosphereResourceImpl.class.cast(r).cloneState(this.r);
+  }
   this.r=r;
   return this;
 }
