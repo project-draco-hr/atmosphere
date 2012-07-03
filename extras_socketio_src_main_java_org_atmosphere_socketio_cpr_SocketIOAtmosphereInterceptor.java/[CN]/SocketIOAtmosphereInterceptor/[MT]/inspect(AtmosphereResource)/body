@@ -56,7 +56,7 @@
         response.asyncIOWriter(new AsyncIOWriterAdapter(){
           @Override public AsyncIOWriter write(          AtmosphereResponse r,          String data) throws IOException {
             SocketIOSessionOutbound outbound=(SocketIOSessionOutbound)request.getAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_OUTBOUND);
-            SocketIOSessionManagerImpl.SocketIOProtocol p=(SocketIOSessionManagerImpl.SocketIOProtocol)r.request().getAttribute(SocketIOSessionManagerImpl.SocketIOProtocol.class.getName());
+            SocketIOSessionManagerImpl.SocketIOProtocol p=(SocketIOSessionManagerImpl.SocketIOProtocol)r.request().getAttribute(SOCKETIO_PACKET);
             String msg=p == null ? data : mapper.writeValueAsString(p.clearArgs().addArgs(data));
             if (outbound != null) {
               outbound.sendMessage(new SocketIOPacketImpl(SocketIOPacketImpl.PacketType.EVENT,msg));
@@ -67,7 +67,7 @@
             return this;
           }
           @Override public AsyncIOWriter write(          AtmosphereResponse r,          byte[] data) throws IOException {
-            SocketIOSessionManagerImpl.SocketIOProtocol p=(SocketIOSessionManagerImpl.SocketIOProtocol)r.request().getAttribute(SocketIOSessionManagerImpl.SocketIOProtocol.class.getName());
+            SocketIOSessionManagerImpl.SocketIOProtocol p=(SocketIOSessionManagerImpl.SocketIOProtocol)r.request().getAttribute(SOCKETIO_PACKET);
             if (p == null) {
               r.getResponse().getOutputStream().write(data);
             }
@@ -77,7 +77,7 @@
             return this;
           }
           @Override public AsyncIOWriter write(          AtmosphereResponse r,          byte[] data,          int offset,          int length) throws IOException {
-            SocketIOSessionManagerImpl.SocketIOProtocol p=(SocketIOSessionManagerImpl.SocketIOProtocol)r.request().getAttribute(SocketIOSessionManagerImpl.SocketIOProtocol.class.getName());
+            SocketIOSessionManagerImpl.SocketIOProtocol p=(SocketIOSessionManagerImpl.SocketIOProtocol)r.request().getAttribute(SOCKETIO_PACKET);
             if (p == null) {
               r.getResponse().getOutputStream().write(data,offset,length);
             }
