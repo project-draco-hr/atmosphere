@@ -8,6 +8,7 @@
     try {
       String data=decodePostData(request.getContentType(),extractString(request.getReader()));
       request.setAttribute(POST_MESSAGE_RECEIVED,data);
+      request.body(data);
       if (data != null && data.length() > 0) {
         List<SocketIOPacketImpl> list=SocketIOPacketImpl.parse(data);
         if (!list.isEmpty()) {

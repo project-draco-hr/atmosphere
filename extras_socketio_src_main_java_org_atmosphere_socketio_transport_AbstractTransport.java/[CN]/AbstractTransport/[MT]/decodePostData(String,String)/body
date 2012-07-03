@@ -11,7 +11,7 @@
         }
       }
  catch (      UnsupportedEncodingException e) {
-        e.printStackTrace();
+        logger.trace("",e);
       }
       return extractedData;
     }
