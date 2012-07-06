@@ -1,7 +1,7 @@
 {
   try {
     Object newMsg=filter(message);
-    push(new Entry(newMsg,null,new BroadcasterFuture<Object>(newMsg),message));
+    push(new Entry(newMsg,null,new BroadcasterFuture<Object>(newMsg,broadcasterListeners,this),message));
   }
  catch (  Throwable t) {
     logger.error("failed to push message: " + message,t);

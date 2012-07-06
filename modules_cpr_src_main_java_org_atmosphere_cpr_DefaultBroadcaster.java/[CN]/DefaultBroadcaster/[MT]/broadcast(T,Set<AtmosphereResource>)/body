@@ -1,12 +1,12 @@
 {
   if (destroyed.get()) {
     logger.debug(DESTROYED,getID(),"broadcast(T msg, Set<AtmosphereResource<?, ?>> subset)");
-    return (new BroadcasterFuture<Object>(msg)).done();
+    return (new BroadcasterFuture<Object>(msg,broadcasterListeners,this)).done();
   }
   start();
   Object newMsg=filter(msg);
-  if (newMsg == null)   return (new BroadcasterFuture<Object>(msg)).done();
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(null,newMsg,subset.size());
+  if (newMsg == null)   return (new BroadcasterFuture<Object>(msg,broadcasterListeners,this)).done();
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(null,newMsg,subset.size(),broadcasterListeners,this);
   messages.offer(new Entry(newMsg,subset,f,msg));
   return f;
 }

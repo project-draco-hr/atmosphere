@@ -3,5 +3,8 @@
   if (latch != null) {
     latch.countDown();
   }
+  if (latch.getCount() == 0) {
+    notifyListener();
+  }
   return this;
 }

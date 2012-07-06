@@ -2,9 +2,10 @@
   if (innerFuture != null) {
     return innerFuture.cancel(b);
   }
-  if (latch.getCount() == 1) {
+  isCancelled=true;
+  while (latch.getCount() > 0) {
     latch.countDown();
-    isCancelled=true;
   }
+  notifyListener();
   return isCancelled;
 }
