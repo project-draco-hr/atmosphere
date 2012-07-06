@@ -1,0 +1,7 @@
+{
+  while (latch.getCount() > 0) {
+    latch.countDown();
+  }
+  isCancelled=true;
+  return isCancelled;
+}

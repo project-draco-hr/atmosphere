@@ -8,14 +8,18 @@
     for (    Broadcaster b : c) {
       logger.debug("Trying to map {} to {}",t,b.getID());
       if (t.match(b.getID(),m)) {
-        b.broadcast(message);
         l.add(b);
       }
       m.clear();
     }
-    return l;
+    MetaBroadcasterFuture f=new MetaBroadcasterFuture(l);
+    CompleteListener cl=new CompleteListener(f);
+    for (    Broadcaster b : l) {
+      b.addBroadcasterListener(cl).broadcast(message);
+    }
+    return f;
   }
  else {
-    return Collections.<Broadcaster>emptyList();
+    return new MetaBroadcasterFuture(Collections.<Broadcaster>emptyList());
   }
 }

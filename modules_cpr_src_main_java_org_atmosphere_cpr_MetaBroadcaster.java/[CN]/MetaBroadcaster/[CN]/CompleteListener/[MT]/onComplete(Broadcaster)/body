@@ -1,0 +1,4 @@
+{
+  f.countDown();
+  b.removeBroadcasterListener(this);
+}

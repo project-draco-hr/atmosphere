@@ -1,0 +1,4 @@
+{
+  this.latch=new CountDownLatch(l.size());
+  this.l=l;
+}
