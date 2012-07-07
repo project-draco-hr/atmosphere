@@ -15,7 +15,12 @@
     MetaBroadcasterFuture f=new MetaBroadcasterFuture(l);
     CompleteListener cl=new CompleteListener(f);
     for (    Broadcaster b : l) {
-      b.addBroadcasterListener(cl).broadcast(message);
+      if (time > -1) {
+        b.addBroadcasterListener(cl).broadcast(message);
+      }
+ else {
+        b.scheduleFixedBroadcast(message,time,unit);
+      }
     }
     return f;
   }
