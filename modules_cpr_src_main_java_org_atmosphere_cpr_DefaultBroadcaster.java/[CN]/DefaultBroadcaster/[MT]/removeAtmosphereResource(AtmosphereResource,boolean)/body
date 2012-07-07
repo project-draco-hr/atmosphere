@@ -4,9 +4,10 @@
     return this;
   }
   if (executeDone) {
-    BroadcasterFuture f=(BroadcasterFuture)r.getRequest().getAttribute(getID());
-    if (f != null) {
-      r.getRequest().removeAttribute(getID());
+    AtmosphereResourceImpl aImpl=AtmosphereResourceImpl.class.cast(r);
+    BroadcasterFuture f=(BroadcasterFuture)aImpl.getRequest(false).getAttribute(getID());
+    if (f != null && !f.isDone() && !f.isCancelled()) {
+      aImpl.getRequest(false).removeAttribute(getID());
       f.done();
     }
   }
