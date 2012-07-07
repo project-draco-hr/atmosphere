@@ -11,7 +11,7 @@
         return this;
       }
       @Override public AsyncIOWriter write(      String data) throws IOException {
-        response.write(data + end);
+        response.write(data + endString);
         return this;
       }
       @Override public AsyncIOWriter write(      byte[] data) throws IOException {
@@ -35,7 +35,7 @@
  else {
     ((WebSocket)response.getAsyncIOWriter()).webSocketResponseFilter(new WebSocketResponseFilter(){
       @Override public String filter(      AtmosphereResponse r,      String message){
-        return message + end;
+        return message + endString;
       }
       @Override public byte[] filter(      AtmosphereResponse r,      byte[] message){
         byte[] nb=new byte[message.length + end.length];

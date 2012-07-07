@@ -2,5 +2,6 @@
   String s=config.getInitParameter(ApplicationConfig.MESSAGE_DELIMITER);
   if (s != null) {
     end=s.getBytes();
+    endString=s;
   }
 }
