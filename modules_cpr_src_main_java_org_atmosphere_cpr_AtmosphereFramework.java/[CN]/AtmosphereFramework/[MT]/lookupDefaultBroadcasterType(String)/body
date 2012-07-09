@@ -7,5 +7,5 @@
  catch (    ClassNotFoundException e) {
     }
   }
-  return JERSEY_BROADCASTER;
+  return defaultB;
 }

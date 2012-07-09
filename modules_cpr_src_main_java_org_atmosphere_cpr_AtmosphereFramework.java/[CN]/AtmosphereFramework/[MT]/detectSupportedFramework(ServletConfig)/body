@@ -4,7 +4,7 @@
   try {
     cl.loadClass(JERSEY_CONTAINER);
     if (!isBroadcasterSpecified) {
-      broadcasterClassNameTmp=lookupDefaultBroadcasterType();
+      broadcasterClassNameTmp=lookupDefaultBroadcasterType(JERSEY_BROADCASTER);
       cl.loadClass(broadcasterClassNameTmp);
     }
     useStreamForFlushingComments=true;
