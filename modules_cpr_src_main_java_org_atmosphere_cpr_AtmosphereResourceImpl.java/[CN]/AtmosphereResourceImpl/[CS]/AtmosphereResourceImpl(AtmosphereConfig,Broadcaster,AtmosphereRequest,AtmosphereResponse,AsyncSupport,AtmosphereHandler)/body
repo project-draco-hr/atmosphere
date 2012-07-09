@@ -16,7 +16,7 @@
   req.setAttribute(ApplicationConfig.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER,enableAccessControl);
   padding=config.getInitParameter(ApplicationConfig.STREAMING_PADDING_MODE);
   req.setAttribute(ApplicationConfig.STREAMING_PADDING_MODE,padding);
-  uuid=UUID.randomUUID().toString();
+  uuid=response.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
   if (config.isSupportSession()) {
     try {
       session=req.getSession(true);
