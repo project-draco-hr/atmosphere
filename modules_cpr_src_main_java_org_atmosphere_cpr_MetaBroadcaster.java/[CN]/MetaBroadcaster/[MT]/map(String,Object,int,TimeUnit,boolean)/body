@@ -11,5 +11,5 @@
   if (path.equals("/")) {
     path+=MAPPING_REGEX;
   }
-  return broadcast(path,message,time,unit);
+  return broadcast(path,message,time,unit,delay);
 }

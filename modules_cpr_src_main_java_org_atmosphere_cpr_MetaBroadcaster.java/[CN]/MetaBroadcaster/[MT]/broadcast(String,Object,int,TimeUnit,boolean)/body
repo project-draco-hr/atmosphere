@@ -18,8 +18,11 @@
       if (time <= 0) {
         b.addBroadcasterListener(cl).broadcast(message);
       }
- else {
+ else       if (!delay) {
         b.scheduleFixedBroadcast(message,time,unit);
+      }
+ else {
+        b.delayBroadcast(message,time,unit);
       }
     }
     return f;

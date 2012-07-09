@@ -1,4 +1,4 @@
-String path
+String broadcasterID
 Object message
 int time
 TimeUnit unit
