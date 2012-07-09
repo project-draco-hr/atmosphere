@@ -1,3 +1,0 @@
-{
-  logger.trace("Destroyed request {} and response {}",request,response);
-}

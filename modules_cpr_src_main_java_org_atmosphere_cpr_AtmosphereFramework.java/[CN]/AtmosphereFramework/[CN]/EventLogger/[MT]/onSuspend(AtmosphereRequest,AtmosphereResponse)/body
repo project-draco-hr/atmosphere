@@ -1,3 +1,0 @@
-{
-  logger.trace("Suspended request {} and response {}",request,response);
-}

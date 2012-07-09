@@ -1,3 +1,0 @@
-{
-  logger.trace("Resume request {} and response {}",request,response);
-}
