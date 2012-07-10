@@ -1,0 +1,19 @@
+{
+  framework=new AtmosphereFramework();
+  framework.setAsyncSupport(new BlockingIOCometSupport(framework.getAtmosphereConfig()));
+  framework.init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return null;
+    }
+  }
+);
+}

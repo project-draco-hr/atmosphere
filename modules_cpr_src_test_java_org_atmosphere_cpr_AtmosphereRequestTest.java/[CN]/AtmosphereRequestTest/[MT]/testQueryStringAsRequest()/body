@@ -1,0 +1,30 @@
+{
+  framework.addAtmosphereHandler("/a",new AbstractReflectorAtmosphereHandler(){
+    @Override public void onRequest(    AtmosphereResource resource) throws IOException {
+    }
+    @Override public void destroy(){
+    }
+  }
+);
+  Map<String,String[]> qs=new HashMap<String,String[]>();
+  qs.put("Content-Type",new String[]{"application/xml"});
+  qs.put("X-Atmosphere-Transport",new String[]{"long-polling"});
+  AtmosphereRequest request=new AtmosphereRequest.Builder().queryStrings(qs).pathInfo("/a").build();
+  final AtomicReference<String> e=new AtomicReference<String>();
+  final AtomicReference<String> e2=new AtomicReference<String>();
+  framework.interceptor(new AtmosphereInterceptor(){
+    @Override public void configure(    AtmosphereConfig config){
+    }
+    @Override public Action inspect(    AtmosphereResource r){
+      e.set(r.getRequest().getContentType());
+      e2.set(r.transport().name());
+      return Action.CANCELLED;
+    }
+    @Override public void postInspect(    AtmosphereResource r){
+    }
+  }
+);
+  framework.doCometSupport(request,AtmosphereResponse.create());
+  assertEquals(e.get(),"application/xml");
+  assertEquals(e2.get().toLowerCase(),"long_polling");
+}
