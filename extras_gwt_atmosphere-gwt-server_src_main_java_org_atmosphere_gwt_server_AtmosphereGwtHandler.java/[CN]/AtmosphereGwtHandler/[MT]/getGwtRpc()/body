@@ -1,0 +1,6 @@
+{
+  if (gwtRpc == null) {
+    gwtRpc=new GwtRpcDeserializer();
+  }
+  return gwtRpc;
+}

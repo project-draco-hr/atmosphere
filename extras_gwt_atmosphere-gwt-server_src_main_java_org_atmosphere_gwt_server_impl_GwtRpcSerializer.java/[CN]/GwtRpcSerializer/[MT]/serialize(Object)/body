@@ -1,0 +1,12 @@
+{
+  try {
+    ServerSerializationStreamWriter streamWriter=new ServerSerializationStreamWriter(serializationPolicy);
+    streamWriter.prepareToWrite();
+    streamWriter.writeObject(message);
+    return streamWriter.toString();
+  }
+ catch (  SerializationException ex) {
+    logger.log(Level.SEVERE,"Failed to serialize message",ex);
+    return null;
+  }
+}
