@@ -16,13 +16,13 @@
     CompleteListener cl=new CompleteListener(f);
     for (    Broadcaster b : l) {
       if (time <= 0) {
-        b.addBroadcasterListener(cl).broadcast(message);
+        f.outerFuture(b.addBroadcasterListener(cl).broadcast(message));
       }
  else       if (!delay) {
-        b.scheduleFixedBroadcast(message,time,unit);
+        f.outerFuture(b.scheduleFixedBroadcast(message,time,unit));
       }
  else {
-        b.delayBroadcast(message,time,unit);
+        f.outerFuture(b.delayBroadcast(message,time,unit));
       }
     }
     return f;

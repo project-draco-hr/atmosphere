@@ -1,4 +1,7 @@
 {
+  for (  Future<?> f : outerFuture) {
+    f.cancel(b);
+  }
   while (latch.getCount() > 0) {
     latch.countDown();
   }
