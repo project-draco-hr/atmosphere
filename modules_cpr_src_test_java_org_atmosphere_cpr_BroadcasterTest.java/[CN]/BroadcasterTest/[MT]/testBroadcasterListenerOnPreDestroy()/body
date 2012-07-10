@@ -1,0 +1,15 @@
+{
+  final AtomicReference<Boolean> deleted=new AtomicReference<Boolean>();
+  BroadcasterListener l=new BroadcasterListener(){
+    @Override public void onPostCreate(    Broadcaster b){
+    }
+    @Override public void onComplete(    Broadcaster b){
+    }
+    @Override public void onPreDestroy(    Broadcaster b){
+      deleted.set(Boolean.TRUE);
+    }
+  }
+;
+  BroadcasterFactory.getDefault().addBroadcasterListener(l).get("/b1").destroy();
+  assertTrue(deleted.get());
+}

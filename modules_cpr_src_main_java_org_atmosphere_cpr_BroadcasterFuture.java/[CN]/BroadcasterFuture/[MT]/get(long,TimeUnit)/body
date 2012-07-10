@@ -3,5 +3,6 @@
     return (E)innerFuture.get();
   }
   latch.await(l,tu);
+  notifyListener();
   return msg;
 }

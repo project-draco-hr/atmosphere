@@ -1,5 +1,6 @@
 {
   if (destroyed.getAndSet(true))   return;
+  notifyOnPreDestroy();
   notifyDestroyListener();
   try {
     logger.trace("Broadcaster {} is being destroyed and cannot be re-used",getID());

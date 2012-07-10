@@ -1,10 +1,10 @@
 {
   isDone=true;
   if (latch != null) {
+    if (latch.getCount() - 1 <= 0) {
+      notifyListener();
+    }
     latch.countDown();
-  }
-  if (latch.getCount() == 0) {
-    notifyListener();
   }
   return this;
 }

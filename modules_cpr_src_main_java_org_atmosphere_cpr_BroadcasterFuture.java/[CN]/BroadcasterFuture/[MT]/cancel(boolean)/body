@@ -3,9 +3,9 @@
     return innerFuture.cancel(b);
   }
   isCancelled=true;
+  notifyListener();
   while (latch.getCount() > 0) {
     latch.countDown();
   }
-  notifyListener();
   return isCancelled;
 }

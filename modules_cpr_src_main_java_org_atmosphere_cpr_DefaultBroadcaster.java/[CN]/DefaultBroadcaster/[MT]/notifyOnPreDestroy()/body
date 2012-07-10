@@ -1,0 +1,10 @@
+{
+  for (  BroadcasterListener l : broadcasterListeners) {
+    try {
+      l.onPreDestroy(this);
+    }
+ catch (    Exception ex) {
+      logger.warn("onPreDestroy",ex);
+    }
+  }
+}

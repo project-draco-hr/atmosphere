@@ -1,0 +1,10 @@
+{
+  for (  BroadcasterListener l : broadcasterListeners) {
+    try {
+      l.onPostCreate(b);
+    }
+ catch (    Exception ex) {
+      logger.warn("onPostCreate",ex);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  final AtomicReference<Boolean> complete=new AtomicReference<Boolean>(false);
+  BroadcasterListener l=new BroadcasterListener(){
+    @Override public void onPostCreate(    Broadcaster b){
+    }
+    @Override public void onComplete(    Broadcaster b){
+      complete.set(Boolean.TRUE);
+    }
+    @Override public void onPreDestroy(    Broadcaster b){
+    }
+  }
+;
+  BroadcasterFactory.getDefault().addBroadcasterListener(l).get("/c1").broadcast("").get();
+  assertTrue(complete.get());
+}
