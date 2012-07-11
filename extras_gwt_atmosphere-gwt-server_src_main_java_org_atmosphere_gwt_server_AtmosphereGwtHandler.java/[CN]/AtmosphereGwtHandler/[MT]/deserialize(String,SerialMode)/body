@@ -4,7 +4,7 @@ default :
 case RPC:
     return getGwtRpc().deserialize(data);
 case JSON:
-  throw new UnsupportedOperationException("Not implemented");
+  return getJSONDeserializer().deserialize(data);
 case PLAIN:
 return data;
 }

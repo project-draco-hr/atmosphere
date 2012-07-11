@@ -3,7 +3,7 @@ switch (getSerializationMode()) {
 case RPC:
     return gwtRpc.serialize(message);
 case JSON:
-  throw new UnsupportedOperationException("Not implemented yet");
+  return getJsonSerializer().serialize(message);
 default :
 case PLAIN:
 return message.toString();

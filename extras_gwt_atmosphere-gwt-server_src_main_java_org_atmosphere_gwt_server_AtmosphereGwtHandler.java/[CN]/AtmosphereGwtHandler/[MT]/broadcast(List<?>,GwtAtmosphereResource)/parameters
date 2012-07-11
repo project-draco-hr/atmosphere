@@ -1,2 +1,2 @@
-List<Serializable> messages
+List<?> messages
 GwtAtmosphereResource resource

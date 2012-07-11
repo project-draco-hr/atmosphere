@@ -1,4 +1,4 @@
 HttpServletRequest postRequest
 HttpServletResponse postResponse
-List<Serializable> messages
+List<?> messages
 GwtAtmosphereResource cometResource
