@@ -1,0 +1,13 @@
+{
+  if (masterConnection != null) {
+    masterConnection.post(messages);
+  }
+ else   if (parent != null) {
+    for (    Object m : messages) {
+      dispatchEvent(parent,event(EventType.POST).setData(m));
+    }
+  }
+ else {
+    throw new IllegalStateException("Failed to find master connection for post");
+  }
+}

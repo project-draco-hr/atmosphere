@@ -1,0 +1,8 @@
+{
+  try {
+    return provider.mapper.writeValueAsString(data);
+  }
+ catch (  IOException ex) {
+    throw new SerializationException("Failed to serialize data",ex);
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (masterConnection != null) {
+    masterConnection.broadcast(messages);
+  }
+ else   if (parent != null) {
+    for (    Object m : messages) {
+      dispatchEvent(parent,event(EventType.BROADCAST).setData(m));
+    }
+  }
+ else {
+    throw new IllegalStateException("Failed to find master connection for broadcast");
+  }
+}

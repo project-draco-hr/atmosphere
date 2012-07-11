@@ -1,0 +1,3 @@
+{
+  impl=new AtmosphereProxy(url,serializer,listener);
+}

@@ -1,6 +1,6 @@
 {
   BufferedReader data=request.getReader();
-  List<Serializable> postMessages=new ArrayList<Serializable>();
+  List<Object> postMessages=new ArrayList<Object>();
   GwtAtmosphereResource resource=lookupResource(connectionID);
   if (resource == null) {
     return;
@@ -37,9 +37,14 @@
         if (totalRead != length) {
           throw new IllegalStateException("Corrupt message received");
         }
-        Serializable message;
+        Object message=null;
         if (event.equals("o")) {
-          message=deserialize(messageData,serialMode);
+          try {
+            message=deserialize(messageData,serialMode);
+          }
+ catch (          SerializationException ex) {
+            logger.error("Failed to deserialize message",ex);
+          }
         }
  else {
           message=String.copyValueOf(messageData);

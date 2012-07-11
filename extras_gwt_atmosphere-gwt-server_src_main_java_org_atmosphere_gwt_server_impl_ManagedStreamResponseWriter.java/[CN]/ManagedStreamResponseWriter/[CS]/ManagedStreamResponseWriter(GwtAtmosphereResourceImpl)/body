@@ -1,0 +1,5 @@
+{
+  super(resource);
+  String userAgent=resource.getAtmosphereResource().getRequest().getHeader("User-Agent");
+  chrome=userAgent != null && userAgent.contains("Chrome");
+}

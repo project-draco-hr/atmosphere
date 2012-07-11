@@ -2,5 +2,4 @@
   this.url=url;
   this.serializer=serializer;
   this.clientListener=clientListener;
-  initialize();
 }

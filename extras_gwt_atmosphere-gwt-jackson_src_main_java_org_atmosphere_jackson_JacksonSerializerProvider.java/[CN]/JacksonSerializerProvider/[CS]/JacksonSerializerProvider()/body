@@ -1,0 +1,5 @@
+{
+  mapper=new ObjectMapper();
+  mapper.getSerializationConfig().withSerializationInclusion(Inclusion.NON_NULL);
+  logger.info("Loaded Jackson JSONSerializerProvider");
+}
