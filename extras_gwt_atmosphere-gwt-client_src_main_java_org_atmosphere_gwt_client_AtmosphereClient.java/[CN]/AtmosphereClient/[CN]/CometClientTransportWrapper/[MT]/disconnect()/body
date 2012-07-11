@@ -1,4 +1,3 @@
 {
-  cancelTimers();
   transport.disconnect();
 }

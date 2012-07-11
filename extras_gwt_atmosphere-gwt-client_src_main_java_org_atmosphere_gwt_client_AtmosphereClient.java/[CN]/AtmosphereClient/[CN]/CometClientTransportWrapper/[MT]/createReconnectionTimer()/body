@@ -1,21 +1,23 @@
 {
   return new Timer(){
-    int count=0;
     @Override public void run(){
-      if (count++ > 10) {
+      reconnectionCounter++;
+      logger.finest("Running reconnect: count=" + (reconnectionCounter - 1));
+      if (reconnectionCount != -1 && reconnectionCounter - 2 > reconnectionCount) {
+        logger.info("Reconnection attempts exceeded " + reconnectionCount + ". Giving up...");
         stop();
       }
  else       if (running) {
-        refreshState=RefreshState.CONNECTING;
+        logger.fine("Starting reconnect");
+        refreshState=RefreshState.PRIMARY_RECONNECT;
         doConnect();
       }
     }
     @Override public void schedule(    int delayMillis){
-      super.schedule(delayMillis * count);
-    }
-    @Override public void cancel(){
+      int delay=delayMillis * (reconnectionCounter < 30 ? reconnectionCounter : 30);
+      logger.finest("Scheduling for reconnect, waiting " + (delay / 1000) + "s");
       super.cancel();
-      count=0;
+      super.schedule(delay);
     }
   }
 ;

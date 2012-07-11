@@ -1,5 +1,6 @@
 {
-  cancelTimers();
+  heartbeatTimer.cancel();
+  connectionTimer.cancel();
   if (transport instanceof WebSocketCometTransport && webSocketSuccessful == false) {
     if (connected) {
       transport.disconnect();

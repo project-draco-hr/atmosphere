@@ -1,6 +1,5 @@
 {
   if (message.startsWith("c;")) {
-    connected=true;
     String initParameters=message.substring(2);
     try {
       String[] params=initParameters.split(";");

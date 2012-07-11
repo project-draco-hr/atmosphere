@@ -6,7 +6,7 @@
   listener.onAfterRefresh();
   if (refreshQueue != null) {
     if (refreshQueue.size() > 0) {
-      GWT.log("CometClient: pushing queued messages");
+      logger.fine("pushing queued messages");
     }
     for (    Object object : refreshQueue) {
       if (object == REFRESH) {

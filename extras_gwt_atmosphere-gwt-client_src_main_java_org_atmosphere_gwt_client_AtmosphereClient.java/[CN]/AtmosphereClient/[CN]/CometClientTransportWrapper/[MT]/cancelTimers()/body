@@ -1,5 +1,0 @@
-{
-  connectionTimer.cancel();
-  reconnectionTimer.cancel();
-  heartbeatTimer.cancel();
-}

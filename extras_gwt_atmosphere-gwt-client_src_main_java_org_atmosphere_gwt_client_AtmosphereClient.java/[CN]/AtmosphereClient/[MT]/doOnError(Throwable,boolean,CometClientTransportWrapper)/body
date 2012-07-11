@@ -1,7 +1,6 @@
 {
   if (connected) {
-    doDisconnect();
+    transport.disconnect();
   }
   listener.onError(exception,connected);
-  scheduleConnect(transport);
 }

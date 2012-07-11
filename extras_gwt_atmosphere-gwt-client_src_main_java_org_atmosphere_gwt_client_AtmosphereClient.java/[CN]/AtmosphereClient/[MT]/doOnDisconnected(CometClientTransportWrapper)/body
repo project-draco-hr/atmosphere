@@ -1,11 +1,16 @@
 {
   if (refreshState != null) {
     if (transport == primaryTransport) {
-      if (refreshState != RefreshState.CONNECTING) {
+      if (refreshState != RefreshState.CONNECTING && refreshState != RefreshState.PRIMARY_RECONNECT) {
         throw new IllegalStateException("Unexpected refreshState");
       }
-      refreshState=RefreshState.PRIMARY_DISCONNECTED;
-      GWT.log("CometClient: primary disconnected before refresh transport was connected");
+      if (refreshState == RefreshState.PRIMARY_RECONNECT) {
+        scheduleConnect(transport);
+      }
+ else {
+        refreshState=RefreshState.PRIMARY_DISCONNECTED;
+        logger.warning("primary disconnected before refresh transport was connected");
+      }
     }
  else {
       failedRefresh();
@@ -13,8 +18,6 @@
   }
  else {
     listener.onDisconnected();
-    if (running) {
-      scheduleConnect(transport);
-    }
+    scheduleConnect(transport);
   }
 }

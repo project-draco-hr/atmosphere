@@ -13,7 +13,7 @@
       }
     }
  else {
-      if (refreshState != RefreshState.CONNECTING) {
+      if (refreshState != RefreshState.CONNECTING && refreshState != RefreshState.PRIMARY_RECONNECT) {
         throw new IllegalStateException("Unexpected refresh state");
       }
       refreshState=null;
