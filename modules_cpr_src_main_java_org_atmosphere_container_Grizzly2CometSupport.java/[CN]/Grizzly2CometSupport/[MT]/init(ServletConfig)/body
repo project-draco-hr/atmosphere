@@ -1,0 +1,8 @@
+{
+  super.init(sc);
+  atmosphereCtx=sc.getServletContext().getContextPath() + ATMOSPHERE;
+  CometEngine cometEngine=CometEngine.getEngine();
+  CometContext context=cometEngine.register(atmosphereCtx);
+  context.setExpirationDelay(-1);
+  logger.debug("Created CometContext for atmosphere context: {}",atmosphereCtx);
+}

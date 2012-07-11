@@ -1,0 +1,9 @@
+{
+  List<CometHandler> handlers=context.getCometHandlers();
+  for (  CometHandler handler : handlers) {
+    if (handler.hashCode() == handlerId) {
+      return handler;
+    }
+  }
+  return null;
+}
