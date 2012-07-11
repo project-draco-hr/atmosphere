@@ -1,0 +1,117 @@
+{
+  buffer.append("if(fieldJsonValue==null || fieldJsonValue instanceof JSONNull){");
+  buffer.append("\n");
+  buffer.append("mainResult.set" + fieldNameForGS + "(null);");
+  buffer.append("\n");
+  buffer.append("return mainResult;");
+  buffer.append("\n");
+  buffer.append("}");
+  buffer.append("\n");
+  buffer.append("if(!(fieldJsonValue instanceof JSONArray)){");
+  buffer.append("\n");
+  buffer.append("throw new IncompatibleObjectException();");
+  buffer.append("\n");
+  buffer.append("}");
+  buffer.append("\n");
+  buffer.append("inputJsonArray=(JSONArray)fieldJsonValue;");
+  buffer.append("\n");
+  buffer.append("inpJsonArSize=inputJsonArray.size();");
+  buffer.append("\n");
+  String fieldTypeQualifiedName=fieldClassType.getQualifiedSourceName();
+  JParameterizedType parameterizedType=(JParameterizedType)fieldClassType;
+  fieldClassType=parameterizedType.getTypeArgs()[0];
+  String parameterSimpleName=fieldClassType.getSimpleSourceName();
+  String fieldColName=fieldName + "Col";
+  importsList.add(fieldClassType.getQualifiedSourceName());
+  if (fieldTypeQualifiedName.equals("java.util.List") || fieldTypeQualifiedName.equals("java.util.ArrayList")) {
+    buffer.append("ArrayList<" + parameterSimpleName + "> "+ fieldColName+ " = new ArrayList<"+ parameterSimpleName+ ">();");
+    buffer.append("\n");
+  }
+ else   if (fieldTypeQualifiedName.equals("java.util.Set") || fieldTypeQualifiedName.equals("java.util.HashSet")) {
+    buffer.append("HashSet<" + parameterSimpleName + "> "+ fieldColName+ " = new HashSet<"+ parameterSimpleName+ ">();");
+    buffer.append("\n");
+  }
+ else   if (fieldTypeQualifiedName.equals("java.util.SortedSet") || fieldTypeQualifiedName.equals("java.util.TreeSet")) {
+    buffer.append("TreeSet<" + parameterSimpleName + "> "+ fieldColName+ " = new TreeSet<"+ parameterSimpleName+ ">();");
+    buffer.append("\n");
+  }
+ else   if (fieldTypeQualifiedName.equals("java.util.LinkedList")) {
+    buffer.append("LinkedList<" + parameterSimpleName + "> "+ fieldColName+ " = new LinkedList<"+ parameterSimpleName+ ">();");
+    buffer.append("\n");
+    buffer.append("mainResult.set" + fieldNameForGS + "("+ fieldColName+ ");");
+    buffer.append("\n");
+  }
+ else   if (fieldTypeQualifiedName.equals("java.util.Stack")) {
+    buffer.append("Stack<" + parameterSimpleName + "> "+ fieldColName+ " = new Stack<"+ parameterSimpleName+ ">();");
+    buffer.append("\n");
+  }
+ else   if (fieldTypeQualifiedName.equals("java.util.Vector")) {
+    buffer.append("Vector<" + parameterSimpleName + "> "+ fieldColName+ " = new Vector<"+ parameterSimpleName+ ">();");
+    buffer.append("\n");
+  }
+ else   if (fieldTypeQualifiedName.equals("java.util.LinkedHashSet")) {
+    buffer.append("LinkedHashSet<" + parameterSimpleName + "> "+ fieldColName+ "=new LinkedHashSet<"+ parameterSimpleName+ ">();");
+    buffer.append("\n");
+  }
+  buffer.append("for(int ij=0;ij<inpJsonArSize;ij++){");
+  buffer.append("fieldJsonValue=inputJsonArray.get(ij);");
+  if (fieldClassType.getQualifiedSourceName().equals("java.lang.Short")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getShort(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.Byte")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getByte(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.Long")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getLong(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.Integer")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getInt(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.Float")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getFloat(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.Double")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getDouble(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.Boolean")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getBoolean(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.Character")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getShort(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.util.Date")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getDate(fieldJsonValue));");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.isAssignableTo(typeOracle.getType("com.kfuntak.gwt.json.serialization.client.JsonSerializable"))) {
+    importsList.add(fieldClassType.getQualifiedSourceName());
+    buffer.append("serializer = GWT.create(Serializer.class);");
+    buffer.append("\n");
+    buffer.append("JSONValue _class = ((JSONObject)fieldJsonValue).get(\"class\");");
+    buffer.append("\n");
+    buffer.append("if (_class != null && _class instanceof JSONString) {");
+    buffer.append("\n");
+    buffer.append(fieldColName + ".add((" + fieldClassType.getSimpleSourceName()+ ")serializer.deSerialize(fieldJsonValue, ((JSONString)_class).stringValue()));");
+    buffer.append("\n");
+    buffer.append("} else {");
+    buffer.append(fieldColName + ".add((" + fieldClassType.getSimpleSourceName()+ ")serializer.deSerialize(fieldJsonValue, \""+ fieldClassType.getQualifiedSourceName()+ "\"));");
+    buffer.append("}");
+    buffer.append("\n");
+  }
+ else   if (fieldClassType.getQualifiedSourceName().equals("java.lang.String")) {
+    buffer.append(fieldColName + ".add(DeserializerHelper.getString(fieldJsonValue));");
+    buffer.append("\n");
+  }
+  buffer.append("}");
+  buffer.append("\n");
+  buffer.append("mainResult.set" + fieldNameForGS + "("+ fieldColName+ ");");
+  buffer.append("\n");
+}

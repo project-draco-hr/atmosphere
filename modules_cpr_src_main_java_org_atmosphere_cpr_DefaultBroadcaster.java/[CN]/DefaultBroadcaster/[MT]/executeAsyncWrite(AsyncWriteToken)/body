@@ -3,6 +3,7 @@
   boolean lostCandidate=false;
   final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
+  r.getRequest().setAttribute(getID(),token.future);
   try {
     event.setMessage(token.msg);
     if (!isAtmosphereResourceValid(r)) {
@@ -17,7 +18,7 @@
       logger.warn("Invalid AtmosphereResource state {}. The connection has been remotely" + " closed and will be added to the configured BroadcasterCache for later retrieval",event);
       logger.trace("If you are using Tomcat 7.0.22 and lower, your most probably hitting http://is.gd/NqicFT");
       logger.trace("",t);
-      removeAtmosphereResource(r);
+      removeAtmosphereResource(r,false);
       BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
       event.setCancelled(true);
       event.setThrowable(t);

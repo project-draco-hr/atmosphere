@@ -1,10 +1,14 @@
 {
   if (response.getMappedThrowable() != null) {
+    logger.debug("Unexpected exception",response.getMappedThrowable());
     return response;
   }
-  servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
   if (action == Action.NONE)   return response;
   AtmosphereConfig config=(AtmosphereConfig)servletReq.getAttribute(ATMOSPHERE_CONFIG);
+  if (config == null) {
+    logger.error(INSTALLATION_ERROR);
+    throw new WebApplicationException(new IllegalStateException(INSTALLATION_ERROR));
+  }
   String p=config.getInitParameter(ApplicationConfig.JERSEY_CONTAINER_RESPONSE_WRITER_CLASS);
   ContainerResponseWriter w;
   if (p != null) {
@@ -119,6 +123,9 @@ boolean outputJunk=outputJunk(r,s.outputComments());
 boolean resumeOnBroadcast=resumeOnBroadcast(s.resumeOnBroadcast());
 for (AtmosphereResourceEventListener el : s.listeners()) {
 r.addEventListener(el);
+}
+if (s.getEntity() == null && outputJunk) {
+response.setEntity("");
 }
 Broadcaster bc=s.broadcaster();
 if (bc == null && s.scope() != Suspend.SCOPE.REQUEST) {

@@ -26,7 +26,7 @@
           isJersey=true;
           initParams.put(DISABLE_ONSTATE_EVENT,"true");
           useStreamForFlushingComments=true;
-          broadcasterClassName=lookupDefaultBroadcasterType();
+          broadcasterClassName=lookupDefaultBroadcasterType(JERSEY_BROADCASTER);
           broadcasterFactory=null;
           configureBroadcaster();
         }

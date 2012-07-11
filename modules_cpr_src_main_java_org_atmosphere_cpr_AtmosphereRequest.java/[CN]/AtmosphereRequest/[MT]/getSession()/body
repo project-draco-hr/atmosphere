@@ -1,3 +1,7 @@
 {
-  return getSession(true);
+  HttpSession session=getSession(true);
+  if (session == null) {
+    session=resource().session();
+  }
+  return session;
 }

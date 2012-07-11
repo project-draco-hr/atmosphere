@@ -9,6 +9,10 @@
     if (DefaultBroadcaster.class.isAssignableFrom(clazz)) {
       DefaultBroadcaster.class.cast(b).start();
     }
+    for (    BroadcasterListener l : broadcasterListeners) {
+      b.addBroadcasterListener(l);
+    }
+    notifyOnPostCreate(b);
     return b;
   }
  catch (  Throwable t) {

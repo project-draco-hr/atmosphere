@@ -1,18 +1,3 @@
 {
-  if (destroyed.get()) {
-    logger.debug(DESTROYED,getID(),"removeAtmosphereResource(AtmosphereResource r)");
-    return this;
-  }
-  resources.remove(r);
-  if (resources.isEmpty()) {
-    notifyEmptyListener();
-    if (scope != SCOPE.REQUEST && lifeCyclePolicy.getLifeCyclePolicy() == EMPTY) {
-      releaseExternalResources();
-    }
- else     if (scope == SCOPE.REQUEST || lifeCyclePolicy.getLifeCyclePolicy() == EMPTY_DESTROY) {
-      BroadcasterFactory.getDefault().remove(this,name);
-      destroy();
-    }
-  }
-  return this;
+  return removeAtmosphereResource(r,true);
 }

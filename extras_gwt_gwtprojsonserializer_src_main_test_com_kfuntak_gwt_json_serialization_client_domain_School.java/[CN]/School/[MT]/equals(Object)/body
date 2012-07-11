@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  School other=(School)obj;
+  if (refIdKey == null) {
+    if (other.refIdKey != null) {
+      return false;
+    }
+  }
+ else   if (!refIdKey.equals(other.refIdKey)) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,36 @@
+{
+  StringBuffer buffer=new StringBuffer();
+  buffer.append("{");
+  buffer.append("refIdKey:");
+  buffer.append(refIdKey + ",");
+  buffer.append("refId:");
+  buffer.append(refId + ",");
+  buffer.append("schoolName:");
+  buffer.append(schoolName + ",");
+  buffer.append("schoolShortName:");
+  buffer.append(schoolShortName + ",");
+  buffer.append("schoolUrl:");
+  buffer.append(schoolUrl + ",");
+  buffer.append("status:");
+  buffer.append(status + ",");
+  buffer.append("gradeLevels:");
+  buffer.append("[");
+  if (gradeLevels != null) {
+    for (    String i : gradeLevels) {
+      buffer.append(i + ",");
+    }
+  }
+  buffer.append("],");
+  buffer.append("contactInfo:");
+  buffer.append("[");
+  if (contactInfo != null) {
+    for (    Contact i : contactInfo) {
+      buffer.append(i + ",");
+    }
+  }
+  buffer.append("],");
+  buffer.append("startDate:");
+  buffer.append(startDate + ",");
+  buffer.append("}");
+  return buffer.toString();
+}

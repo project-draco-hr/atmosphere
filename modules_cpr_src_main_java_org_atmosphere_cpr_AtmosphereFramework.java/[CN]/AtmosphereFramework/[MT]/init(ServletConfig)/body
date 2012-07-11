@@ -28,7 +28,7 @@
     }
 ;
     this.servletConfig=scFacade;
-    asyncSupportListener(eLogger);
+    asyncSupportListener(new AsyncSupportListenerAdapter());
     autoConfigureService(scFacade.getServletContext());
     patchContainer();
     doInitParams(scFacade);
@@ -44,11 +44,15 @@
     if (broadcasterCacheClassName == null) {
       logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. " + "It is recommended to configure the HeaderBroadcasterCache.");
     }
+ else {
+      logger.info("Using BroadcasterCache: {}",broadcasterCacheClassName);
+    }
     if (sc.getServletContext() != null) {
       sc.getServletContext().setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
     }
-    logger.info("Using BroadcasterFactory class: {}",BroadcasterFactory.getDefault().getClass().getName());
-    logger.info("Using Broadcaster class: {}",broadcasterClassName);
+    logger.info("HttpSession supported: {}",config.isSupportSession());
+    logger.info("Using BroadcasterFactory: {}",BroadcasterFactory.getDefault().getClass().getName());
+    logger.info("Using Broadcaster: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
   }
  catch (  Throwable t) {

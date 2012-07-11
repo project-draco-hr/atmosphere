@@ -1,3 +1,11 @@
 {
-  return atmResource.getRequest().getSession(create);
+  if (atmResource.session() != null) {
+    return atmResource.session();
+  }
+ else   if (atmResource.getRequest() != null) {
+    return atmResource.getRequest().getSession(create);
+  }
+ else {
+    return null;
+  }
 }

@@ -7,5 +7,6 @@
     Filter f=new Filter(Action.SUSPEND,suspendTimeout,0,org.atmosphere.annotation.Suspend.SCOPE.APPLICATION,false);
     filters.add(f);
   }
+  filters.add(new RFilter());
   return filters;
 }

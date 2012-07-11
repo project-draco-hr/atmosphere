@@ -1,0 +1,12 @@
+{
+  if (!notified.getAndSet(true)) {
+    for (    BroadcasterListener b : listeners) {
+      try {
+        b.onComplete(broadcaster);
+      }
+ catch (      Exception ex) {
+        logger.warn("",ex);
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  AtmosphereProxyEvent event=new AtmosphereProxyEvent();
+  int pos=data.indexOf(";");
+  event.setEventType(EventType.valueOf(data.substring(0,pos)));
+  if (pos + 1 < data.length()) {
+    try {
+      event.setData(jsonSerializer.deserialize(data.substring(pos + 1)));
+    }
+ catch (    SerializationException ex) {
+      throw new IllegalStateException(ex);
+    }
+  }
+  return event;
+}

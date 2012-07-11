@@ -1,0 +1,3 @@
+{
+  return (ObjectSerializer)serializableTypes().get(name);
+}

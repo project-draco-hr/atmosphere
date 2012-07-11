@@ -5,11 +5,12 @@
   AtmosphereResponse wsr=new AtmosphereResponse(webSocket,request,destroyable);
   request.headers(configureHeader(request)).setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   AtmosphereResource r=AtmosphereResourceFactory.create(framework.getAtmosphereConfig(),wsr,framework.getAsyncSupport());
-  request.setAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE,r);
+  request.setAttribute(INJECTED_ATMOSPHERE_RESOURCE,r);
+  request.setAttribute(WEBSOCKET_ATMOSPHERE_RESOURCE,r.uuid());
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
   dispatch(request,wsr);
-  request.removeAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
+  request.removeAttribute(INJECTED_ATMOSPHERE_RESOURCE);
   if (webSocket.resource() != null) {
     final AsynchronousProcessor.AsynchronousProcessorHook hook=new AsynchronousProcessor.AsynchronousProcessorHook((AtmosphereResourceImpl)webSocket.resource());
     request.setAttribute(ASYNCHRONOUS_HOOK,hook);

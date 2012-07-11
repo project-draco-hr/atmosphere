@@ -1,0 +1,12 @@
+{
+  StringBuffer buffer=new StringBuffer();
+  buffer.append("{");
+  buffer.append("refId:");
+  buffer.append(refId + ",");
+  buffer.append("address:");
+  buffer.append(address + ",");
+  buffer.append("phoneNumber:");
+  buffer.append(phoneNumber + ",");
+  buffer.append("}");
+  return buffer.toString();
+}

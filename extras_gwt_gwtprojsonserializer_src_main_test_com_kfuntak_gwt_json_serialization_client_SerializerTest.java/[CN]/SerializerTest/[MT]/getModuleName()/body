@@ -1,0 +1,3 @@
+{
+  return "com.kfuntak.gwt.json.serialization.GWTProJsonSerializer";
+}

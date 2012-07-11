@@ -1,3 +1,0 @@
-{
-  return deserialize(serializer,JSONParser.parseLenient(jsonString));
-}

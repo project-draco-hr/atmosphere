@@ -1,0 +1,3 @@
+{
+  logger.trace("Closing request {} and response {}",request,response);
+}

@@ -4,7 +4,13 @@
   String s;
   while (e.hasMoreElements()) {
     s=e.nextElement();
+    if (s.equalsIgnoreCase("Content-Type")) {
+      if (request.getContentType() == null || !request.getContentType().equalsIgnoreCase(request.getParameter(s))) {
+        request.contentType(request.getParameter(s));
+      }
+    }
     headers.put(s,request.getParameter(s));
   }
+  logger.trace("Query String translated to headers {}",headers);
   return headers;
 }

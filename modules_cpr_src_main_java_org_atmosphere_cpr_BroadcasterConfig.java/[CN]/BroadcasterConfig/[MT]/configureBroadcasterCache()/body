@@ -1,7 +1,13 @@
 {
   try {
     if (AtmosphereFramework.broadcasterCacheClassName != null) {
-      BroadcasterCache cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(AtmosphereFramework.broadcasterCacheClassName).newInstance();
+      BroadcasterCache cache;
+      try {
+        cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(AtmosphereFramework.broadcasterCacheClassName).newInstance();
+      }
+ catch (      ClassNotFoundException ex) {
+        cache=(BroadcasterCache)getClass().getClassLoader().loadClass(AtmosphereFramework.broadcasterCacheClassName).newInstance();
+      }
       InjectorProvider.getInjector().inject(cache);
       setBroadcasterCache(cache);
     }

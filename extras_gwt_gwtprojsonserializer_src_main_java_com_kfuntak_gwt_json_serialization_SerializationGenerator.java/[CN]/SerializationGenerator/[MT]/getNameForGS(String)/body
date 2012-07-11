@@ -1,0 +1,5 @@
+{
+  StringBuffer buffer=new StringBuffer(name);
+  buffer.setCharAt(0,new String(new char[]{name.charAt(0)}).toUpperCase().charAt(0));
+  return buffer.toString();
+}

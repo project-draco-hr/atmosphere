@@ -16,5 +16,14 @@
   req.setAttribute(ApplicationConfig.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER,enableAccessControl);
   padding=config.getInitParameter(ApplicationConfig.STREAMING_PADDING_MODE);
   req.setAttribute(ApplicationConfig.STREAMING_PADDING_MODE,padding);
-  uuid=UUID.randomUUID().toString();
+  String s=response.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
+  uuid=s == null ? UUID.randomUUID().toString() : s;
+  if (config.isSupportSession()) {
+    try {
+      session=req.getSession(true);
+    }
+ catch (    NullPointerException ex) {
+      logger.trace("http://java.net/jira/browse/GLASSFISH-18856",ex);
+    }
+  }
 }
