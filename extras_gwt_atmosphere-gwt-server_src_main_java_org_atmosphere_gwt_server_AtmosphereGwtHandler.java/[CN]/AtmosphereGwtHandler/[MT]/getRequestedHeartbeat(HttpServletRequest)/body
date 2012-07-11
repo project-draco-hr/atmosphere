@@ -1,0 +1,17 @@
+{
+  int requestHeartbeat=heartbeat;
+  String requestedHeartbeat=request.getParameter("heartbeat");
+  if (requestedHeartbeat != null) {
+    try {
+      requestHeartbeat=Integer.parseInt(requestedHeartbeat);
+      if (requestHeartbeat <= 0) {
+        throw new IOException("invalid heartbeat parameter");
+      }
+      requestHeartbeat=computeHeartbeat(requestHeartbeat);
+    }
+ catch (    NumberFormatException e) {
+      throw new IOException("invalid heartbeat parameter");
+    }
+  }
+  return requestHeartbeat;
+}

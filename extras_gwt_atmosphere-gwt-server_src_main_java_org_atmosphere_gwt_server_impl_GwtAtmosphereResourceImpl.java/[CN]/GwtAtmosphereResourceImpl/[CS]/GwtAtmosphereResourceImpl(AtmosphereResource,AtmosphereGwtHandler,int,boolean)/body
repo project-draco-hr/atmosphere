@@ -1,0 +1,8 @@
+{
+  this.atmosphereHandler=servlet;
+  this.atmResource=resource;
+  this.heartBeatInterval=heartBeatInterval;
+  this.writer=createResponseWriter();
+  this.writer.escapeText(escapeText);
+  resource.getRequest().setAttribute(GwtAtmosphereResource.class.getName(),this);
+}

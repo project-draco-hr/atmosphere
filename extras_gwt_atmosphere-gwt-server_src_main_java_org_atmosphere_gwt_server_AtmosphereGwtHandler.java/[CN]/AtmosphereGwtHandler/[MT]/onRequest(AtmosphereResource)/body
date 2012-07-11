@@ -13,21 +13,9 @@
     return;
   }
   try {
-    int requestHeartbeat=heartbeat;
-    String requestedHeartbeat=request.getParameter("heartbeat");
-    if (requestedHeartbeat != null) {
-      try {
-        requestHeartbeat=Integer.parseInt(requestedHeartbeat);
-        if (requestHeartbeat <= 0) {
-          throw new IOException("invalid heartbeat parameter");
-        }
-        requestHeartbeat=computeHeartbeat(requestHeartbeat);
-      }
- catch (      NumberFormatException e) {
-        throw new IOException("invalid heartbeat parameter");
-      }
-    }
-    GwtAtmosphereResourceImpl resourceWrapper=new GwtAtmosphereResourceImpl(resource,this,requestHeartbeat);
+    int requestHeartbeat=getRequestedHeartbeat(request);
+    boolean requestEscapeText=getRequestedEscapeOfText(request);
+    GwtAtmosphereResourceImpl resourceWrapper=new GwtAtmosphereResourceImpl(resource,this,requestHeartbeat,requestEscapeText);
     request.setAttribute(AtmosphereGwtHandler.class.getName() + ".connectionID",(Integer)resourceWrapper.getConnectionID());
     doCometImpl(resourceWrapper);
   }

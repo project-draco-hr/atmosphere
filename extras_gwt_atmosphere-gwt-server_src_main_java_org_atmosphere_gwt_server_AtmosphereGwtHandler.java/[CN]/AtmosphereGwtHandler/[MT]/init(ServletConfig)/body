@@ -5,4 +5,8 @@
   if (heartbeat != null) {
     this.heartbeat=Integer.parseInt(heartbeat);
   }
+  String escText=servletConfig.getInitParameter("escapeText");
+  if (escText != null) {
+    this.escapeText=Boolean.valueOf(escText);
+  }
 }

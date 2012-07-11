@@ -1,7 +1,8 @@
 {
-  int length=(string != null) ? string.length() : 0;
+  if (!this.shouldEscapeText())   return string;
+  int len=(string != null) ? string.length() : 0;
   int i=0;
-  loop:   while (i < length) {
+  loop:   while (i < len) {
     char ch=string.charAt(i);
 switch (ch) {
 case '\'':
@@ -15,10 +16,10 @@ case '\r':
   }
   i++;
 }
-if (i == length) return string;
+if (i == len) return string;
 StringBuilder str=new StringBuilder(string.length() * 2);
 str.append(string,0,i);
-while (i < length) {
+while (i < len) {
   char ch=string.charAt(i);
 switch (ch) {
 case '\'':
