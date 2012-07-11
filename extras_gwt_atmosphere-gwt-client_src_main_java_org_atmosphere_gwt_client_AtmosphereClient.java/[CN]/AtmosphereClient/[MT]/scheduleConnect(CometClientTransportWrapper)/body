@@ -1,0 +1,5 @@
+{
+  if (running && transport == primaryTransport) {
+    primaryTransport.reconnectionTimer.schedule(reconnectionTimeout);
+  }
+}

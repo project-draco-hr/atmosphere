@@ -14,7 +14,7 @@
  else {
     listener.onDisconnected();
     if (running) {
-      doConnect();
+      scheduleConnect(transport);
     }
   }
 }

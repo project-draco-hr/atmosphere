@@ -12,5 +12,5 @@
     refreshQueue.clear();
   }
   doDisconnect();
-  doConnect();
+  scheduleConnect(primaryTransport);
 }

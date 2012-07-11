@@ -2,13 +2,16 @@
   return new Timer(){
     int count=0;
     @Override public void run(){
-      if (count++ > 5) {
+      if (count++ > 10) {
         stop();
       }
  else       if (running) {
         refreshState=RefreshState.CONNECTING;
         doConnect();
       }
+    }
+    @Override public void schedule(    int delayMillis){
+      super.schedule(delayMillis * count);
     }
     @Override public void cancel(){
       super.cancel();
