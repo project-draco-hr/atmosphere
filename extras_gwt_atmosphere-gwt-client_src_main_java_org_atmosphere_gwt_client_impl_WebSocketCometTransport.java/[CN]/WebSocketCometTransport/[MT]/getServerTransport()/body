@@ -1,12 +1,9 @@
 {
   if (serverTransport == null) {
-    serverTransport=new ServerTransportProtocol(){
+    serverTransport=new ServerTransportProtocol(client.getSerializer()){
       @Override void send(      String message,      AsyncCallback<Void> callback){
         socket.send(message);
         callback.onSuccess(null);
-      }
-      @Override String serialize(      Object message) throws SerializationException {
-        return client.getSerializer().serialize(message);
       }
     }
 ;
