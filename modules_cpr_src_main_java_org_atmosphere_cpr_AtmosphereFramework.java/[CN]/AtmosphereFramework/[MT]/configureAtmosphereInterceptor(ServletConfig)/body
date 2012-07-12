@@ -25,5 +25,5 @@ catch (      ClassNotFoundException e) {
     interceptors.addFirst(newAInterceptor(SSEAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(AndroidAtmosphereInterceptor.class));
   }
-  logger.info("Installed AtmosphereInterceptor {}",interceptors);
+  logger.info("Installed Default AtmosphereInterceptor {}. " + "Set org.atmosphere.cpr.AtmosphereInterceptor.disableDefaults in your xml to disable them.",interceptors);
 }
