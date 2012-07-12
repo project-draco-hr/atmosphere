@@ -1,0 +1,3 @@
+{
+  config.framework().addInitParameter(ApplicationConfig.STREAMING_PADDING_MODE,"whitespace");
+}

@@ -1,0 +1,37 @@
+{
+  final AtmosphereResponse response=r.getResponse();
+  String userAgent=r.getRequest().getHeader("User-Agent");
+  if (r.transport().equals(TRANSPORT.STREAMING) && userAgent != null && userAgent.indexOf("Android 2.3") != -1) {
+    response.asyncIOWriter(new AsyncIOWriterAdapter(){
+      @Override public AsyncIOWriter redirect(      String location) throws IOException {
+        response.sendRedirect(location);
+        return this;
+      }
+      @Override public AsyncIOWriter writeError(      int errorCode,      String message) throws IOException {
+        response.sendError(errorCode);
+        return this;
+      }
+      @Override public AsyncIOWriter write(      String data) throws IOException {
+        response.write(paddingText).write(data);
+        return this;
+      }
+      @Override public AsyncIOWriter write(      byte[] data) throws IOException {
+        response.write(padding).write(data);
+        return this;
+      }
+      @Override public AsyncIOWriter write(      byte[] data,      int offset,      int length) throws IOException {
+        response.write(padding).write(data,offset,length);
+        return this;
+      }
+      @Override public void close() throws IOException {
+        response.closeStreamOrWriter();
+      }
+      @Override public AsyncIOWriter flush() throws IOException {
+        response.flushBuffer();
+        return this;
+      }
+    }
+);
+  }
+  return Action.CONTINUE;
+}
