@@ -21,8 +21,9 @@ catch (      ClassNotFoundException e) {
   }
   s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   if (s == null) {
-    interceptors.addFirst(new JSONPAtmosphereInterceptor());
-    interceptors.addFirst(new SSEAtmosphereInterceptor());
+    interceptors.addFirst(newAInterceptor(JSONPAtmosphereInterceptor.class));
+    interceptors.addFirst(newAInterceptor(SSEAtmosphereInterceptor.class));
+    interceptors.addFirst(newAInterceptor(AndroidAtmosphereInterceptor.class));
   }
   logger.info("Installed AtmosphereInterceptor {}",interceptors);
 }
