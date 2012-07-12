@@ -5,7 +5,6 @@
   if (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
     b=AtmosphereRequest.class.cast(request).b;
     isWrapped=true;
-    r=request;
   }
  else {
     b=new Builder();
@@ -14,9 +13,11 @@
   b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).destroyable(false).session(copySession ? new FakeHttpSession(request.getSession(true)) : null);
   if (loadInMemory) {
     r=new NoOpsRequest();
-    load(request,b);
     if (isWrapped) {
       load(b.request,b);
+    }
+ else {
+      load(request,b);
     }
     b.request(r);
   }
