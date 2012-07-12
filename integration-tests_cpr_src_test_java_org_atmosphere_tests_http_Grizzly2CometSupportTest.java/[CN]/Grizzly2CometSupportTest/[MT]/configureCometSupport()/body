@@ -1,0 +1,3 @@
+{
+  atmoServlet.framework().setAsyncSupport(new Grizzly2CometSupport(atmoServlet.framework().getAtmosphereConfig()));
+}

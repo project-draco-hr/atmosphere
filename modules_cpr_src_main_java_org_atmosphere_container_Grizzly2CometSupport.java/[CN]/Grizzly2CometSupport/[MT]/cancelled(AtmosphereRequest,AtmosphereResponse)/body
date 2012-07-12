@@ -1,0 +1,7 @@
+{
+  Action action=super.cancelled(req,res);
+  if (req.getAttribute(MAX_INACTIVE) != null && Long.class.cast(req.getAttribute(MAX_INACTIVE)) == -1) {
+    resume(req,CometEngine.getEngine().getCometContext(atmosphereCtx));
+  }
+  return action;
+}

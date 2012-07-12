@@ -1,0 +1,11 @@
+{
+  CometContext ctx=CometEngine.getEngine().getCometContext(atmosphereCtx);
+  Action action=suspended(req,res);
+  if (action.type() == Action.TYPE.SUSPEND) {
+    suspend(ctx,action,req,res);
+  }
+ else   if (action.type() == Action.TYPE.RESUME) {
+    resume(req,ctx);
+  }
+  return action;
+}
