@@ -1,9 +1,0 @@
-{
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  AtmosphereRequest that=(AtmosphereRequest)o;
-  if (b != null ? !b.equals(that.b) : that.b != null)   return false;
-  if (bis != null ? !bis.equals(that.bis) : that.bis != null)   return false;
-  if (br != null ? !br.equals(that.br) : that.br != null)   return false;
-  return true;
-}
