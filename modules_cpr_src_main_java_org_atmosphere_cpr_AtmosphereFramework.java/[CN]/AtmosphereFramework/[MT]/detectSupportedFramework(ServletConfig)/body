@@ -28,6 +28,9 @@
   broadcasterFactory.destroy();
   broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
   BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
+  for (  BroadcasterListener b : broadcasterListeners) {
+    broadcasterFactory.addBroadcasterListener(b);
+  }
   Broadcaster b=BroadcasterFactory.getDefault().get(bc,mapping);
   addAtmosphereHandler(mapping,rsp,b);
   return true;

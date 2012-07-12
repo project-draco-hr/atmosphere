@@ -10,6 +10,9 @@
       Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
       broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
     }
+    for (    BroadcasterListener b : broadcasterListeners) {
+      broadcasterFactory.addBroadcasterListener(b);
+    }
     BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
     InjectorProvider.getInjector().inject(broadcasterFactory);
     Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();
