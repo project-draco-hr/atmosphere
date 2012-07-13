@@ -1,0 +1,3 @@
+{
+  return "DefaultWebSocketProtocol{ webSocket=" + webSocket + " }";
+}

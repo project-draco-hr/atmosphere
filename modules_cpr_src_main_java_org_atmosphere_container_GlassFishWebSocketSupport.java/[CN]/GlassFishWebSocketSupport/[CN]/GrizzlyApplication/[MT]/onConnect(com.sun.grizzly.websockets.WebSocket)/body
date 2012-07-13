@@ -15,9 +15,9 @@
  catch (    Exception e) {
       logger.trace("",e);
     }
-    WebSocketProcessor webSocketProcessor=new WebSocketProcessor(config.framework(),new GrizzlyWebSocket(webSocket,config),config.framework().getWebSocketProtocol());
+    WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(new GrizzlyWebSocket(webSocket,config));
     webSocket.getRequest().setAttribute("grizzly.webSocketProcessor",webSocketProcessor);
-    webSocketProcessor.dispatch(r);
+    webSocketProcessor.open(r);
   }
  catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);

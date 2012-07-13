@@ -1,8 +1,8 @@
 {
   logger.trace("WebSocket.onOpen.");
   try {
-    webSocketProcessor=new WebSocketProcessor(framework,new Jetty8WebSocket(connection,framework.getAtmosphereConfig()),webSocketProtocol);
-    webSocketProcessor.dispatch(request);
+    webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(new Jetty8WebSocket(connection,framework.getAtmosphereConfig()));
+    webSocketProcessor.open(request);
     webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent("",CONNECT,webSocketProcessor.webSocket()));
   }
  catch (  Exception e) {

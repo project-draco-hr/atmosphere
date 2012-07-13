@@ -10,4 +10,5 @@
     }
   }
   webSocketProtocol.configure(config);
+  new WebSocketProcessorFactory(config);
 }

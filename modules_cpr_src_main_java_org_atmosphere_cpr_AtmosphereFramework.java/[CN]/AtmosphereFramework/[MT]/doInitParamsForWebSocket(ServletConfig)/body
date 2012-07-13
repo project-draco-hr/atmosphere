@@ -8,4 +8,8 @@
   if (s != null) {
     webSocketProtocolClassName=s;
   }
+  s=sc.getInitParameter(WEBSOCKET_PROCESSOR);
+  if (s != null) {
+    webSocketProcessorClassName=s;
+  }
 }

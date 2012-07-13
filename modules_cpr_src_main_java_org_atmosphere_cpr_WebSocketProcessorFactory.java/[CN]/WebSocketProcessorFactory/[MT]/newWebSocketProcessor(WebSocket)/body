@@ -1,0 +1,19 @@
+{
+  WebSocketProcessor wp=null;
+  if (webSocketProcessorName.equalsIgnoreCase(WebSocketProcessor.class.getName())) {
+    try {
+      wp=(WebSocketProcessor)Thread.currentThread().getContextClassLoader().loadClass(webSocketProcessorName).newInstance();
+    }
+ catch (    Exception ex) {
+      try {
+        wp=(WebSocketProcessor)getClass().getClassLoader().loadClass(webSocketProcessorName).newInstance();
+      }
+ catch (      Exception ex2) {
+      }
+    }
+  }
+  if (wp == null) {
+    wp=new DefaultWebSocketProcessor(config.framework(),webSocket,config.framework().getWebSocketProtocol());
+  }
+  return wp;
+}

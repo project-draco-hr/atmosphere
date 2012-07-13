@@ -37,7 +37,7 @@
     loadConfiguration(scFacade);
     autoDetectContainer();
     configureWebDotXmlAtmosphereHandler(sc);
-    initWebSocketProtocol();
+    initWebSocket();
     asyncSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
     configureAtmosphereInterceptor(sc);
@@ -52,6 +52,7 @@
     }
     logger.info("HttpSession supported: {}",config.isSupportSession());
     logger.info("Using BroadcasterFactory: {}",BroadcasterFactory.getDefault().getClass().getName());
+    logger.info("Using WebSocketProcessor: {}",webSocketProcessorClassName);
     logger.info("Using Broadcaster: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
   }
