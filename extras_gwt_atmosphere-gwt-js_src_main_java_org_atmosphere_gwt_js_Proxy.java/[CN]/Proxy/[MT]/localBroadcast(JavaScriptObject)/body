@@ -1,0 +1,3 @@
+{
+  ((AtmosphereProxy)impl).localBroadcast(message);
+}

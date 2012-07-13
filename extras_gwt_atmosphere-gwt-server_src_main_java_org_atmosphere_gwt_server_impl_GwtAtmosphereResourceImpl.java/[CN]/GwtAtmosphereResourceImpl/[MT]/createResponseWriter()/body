@@ -1,30 +1,28 @@
 {
-  ClientOracle clientOracle=RPCUtil.getClientOracle(atmResource.getRequest(),atmosphereHandler.getServletContext());
-  SerializationPolicy serializationPolicy=clientOracle == null ? RPCUtil.createSimpleSerializationPolicy() : null;
   String transport=atmResource.getRequest().getParameter("tr");
   if ("WebSocket".equals(transport)) {
     logger.debug("atmosphere-gwt Using websocket");
-    return new WebsocketResponseWriter(this,serializationPolicy,clientOracle);
+    return new WebsocketResponseWriter(this);
   }
  else   if ("HTTPRequest".equals(transport)) {
     logger.debug("atmosphere-gwt Using XMLHttpRequest");
-    return new HTTPRequestResponseWriter(this,serializationPolicy,clientOracle);
+    return new HTTPRequestResponseWriter(this);
   }
  else   if ("IFrame".equals(transport)) {
     logger.debug("atmosphere-gwt Using streaming IFrame");
-    return new IFrameResponseWriter(this,serializationPolicy,clientOracle);
+    return new IFrameResponseWriter(this);
   }
  else   if ("OperaEventSource".equals(transport)) {
     logger.debug("atmosphere-gwt Using Opera EventSource");
-    return new OperaEventSourceResponseWriter(this,serializationPolicy,clientOracle);
+    return new OperaEventSourceResponseWriter(this);
   }
  else   if ("IEXDomainRequest".equals(transport)) {
     logger.debug("atmosphere-gwt Using IE XDomainRequest");
-    return new IEXDomainRequestResponseWriter(this,serializationPolicy,clientOracle);
+    return new IEXDomainRequestResponseWriter(this);
   }
  else   if ("IEHTMLFile".equals(transport)) {
     logger.debug("atmosphere-gwt Using IE html file iframe");
-    return new IEHTMLFileResponseWriter(this,serializationPolicy,clientOracle);
+    return new IEHTMLFileResponseWriter(this);
   }
  else {
     throw new IllegalStateException("Failed to determine responsewriter");

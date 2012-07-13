@@ -1,31 +1,3 @@
 {
-  if (parent != null) {
-    dispatchEvent(parent,event(EventType.ANNOUNCE_CHILD_DEATH));
-  }
-  if (windowList.size() > 0) {
-    Window fosterParent=parent != null ? parent : windowList.get(0);
-    JSONArray arr=new JSONArray();
-    List<Window> orphans;
-    if (parent == fosterParent) {
-      orphans=windowList;
-    }
- else {
-      orphans=windowList.subList(1,windowList.size());
-    }
-    int i=0;
-    for (    Window w : orphans) {
-      arr.set(i++,new JSONObject(w));
-    }
-    if (arr.size() > 0) {
-      fosterParent.set("orphans",arr.getJavaScriptObject());
-    }
-    if (masterConnection != null) {
-      dispatchEvent(fosterParent,event(EventType.ELECT_MASTER));
-      masterConnection.stop();
-      masterConnection=null;
-    }
- else     if (arr.size() > 0) {
-      dispatchEvent(fosterParent,event(EventType.ADOPT_ORPHANS));
-    }
-  }
+  stop();
 }
