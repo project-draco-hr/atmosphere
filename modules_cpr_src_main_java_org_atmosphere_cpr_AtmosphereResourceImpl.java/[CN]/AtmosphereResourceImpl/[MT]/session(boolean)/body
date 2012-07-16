@@ -1,0 +1,6 @@
+{
+  if (session == null) {
+    session=req.getSession(create);
+  }
+  return session;
+}

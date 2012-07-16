@@ -27,7 +27,7 @@ synchronized (handlerWrapper) {
   }
   AtmosphereResourceImpl resource=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
   if (resource == null) {
-    resource=(AtmosphereResourceImpl)AtmosphereResourceFactory.create(config,handlerWrapper.broadcaster,res,this,handlerWrapper.atmosphereHandler);
+    resource=(AtmosphereResourceImpl)AtmosphereResourceFactory.getDefault().create(config,handlerWrapper.broadcaster,res,this,handlerWrapper.atmosphereHandler);
   }
  else {
     try {

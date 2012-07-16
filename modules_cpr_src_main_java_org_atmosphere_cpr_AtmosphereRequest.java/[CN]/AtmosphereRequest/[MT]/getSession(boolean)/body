@@ -1,4 +1,10 @@
 {
+  if (resource() != null) {
+    HttpSession session=AtmosphereResourceImpl.class.cast(resource()).session;
+    if (session != null) {
+      return session;
+    }
+  }
   try {
     return b.request.getSession(create);
   }

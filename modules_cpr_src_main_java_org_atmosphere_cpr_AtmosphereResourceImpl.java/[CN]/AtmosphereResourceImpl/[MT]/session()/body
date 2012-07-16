@@ -1,6 +1,3 @@
 {
-  if (session == null && config.isSupportSession()) {
-    session=req.getSession(true);
-  }
-  return session;
+  return session(true);
 }
