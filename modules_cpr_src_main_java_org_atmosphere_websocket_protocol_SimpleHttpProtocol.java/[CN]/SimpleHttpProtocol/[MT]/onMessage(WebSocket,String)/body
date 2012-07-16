@@ -14,6 +14,6 @@
   m.put(FrameworkConfig.WEBSOCKET_SUBPROTOCOL,FrameworkConfig.SIMPLE_HTTP_OVER_WEBSOCKET);
   m.putAll(resource.getRequest().attributes());
   List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
-  list.add(new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).destroyable(destroyable).headers(resource.getRequest().headersMap()).build());
+  list.add(new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).destroyable(destroyable).headers(resource.getRequest().headersMap()).session(resource.session()).build());
   return list;
 }
