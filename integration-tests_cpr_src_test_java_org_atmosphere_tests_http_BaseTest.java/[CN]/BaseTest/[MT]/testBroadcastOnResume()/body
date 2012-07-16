@@ -38,7 +38,7 @@
     c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<String>(){
       @Override public String onCompleted(      Response response) throws Exception {
         try {
-          assertEquals(response.getResponseBody(),"");
+          assertEquals(response.getResponseBody(),AtmosphereResourceImpl.createStreamingPadding(null));
         }
   finally {
           latch.countDown();
