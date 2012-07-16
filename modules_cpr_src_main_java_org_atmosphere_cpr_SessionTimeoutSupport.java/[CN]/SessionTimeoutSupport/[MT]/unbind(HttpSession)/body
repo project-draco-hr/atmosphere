@@ -1,6 +1,12 @@
 {
   if (s == null)   return null;
-  SessionTimeoutRestorer r=(SessionTimeoutRestorer)s.getAttribute(KEY);
+  SessionTimeoutRestorer r=null;
+  try {
+    r=(SessionTimeoutRestorer)s.getAttribute(KEY);
+  }
+ catch (  Exception ex) {
+    logger.trace("",ex);
+  }
   s.removeAttribute(KEY);
   return r;
 }
