@@ -1,6 +1,6 @@
 {
   StringBuilder s=new StringBuilder();
-  if (padding != null && (padding.equalsIgnoreCase("atmosphere") || padding.equalsIgnoreCase("legacy"))) {
+  if (padding == null || padding.equalsIgnoreCase("atmosphere")) {
     s.append("<!-- ----------------------------------------------------------" + "------ http://github.com/Atmosphere ----------------------------" + "-------------------------------------------- -->\n");
     s.append("<!-- Welcome to the Atmosphere Framework. To work with all the" + " browsers when suspending connection, Atmosphere must output some" + " data to makes WebKit based browser working.-->\n");
     for (int i=0; i < 10; i++) {
