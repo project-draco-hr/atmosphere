@@ -14,4 +14,7 @@
     }
     throw ex;
   }
+catch (  NullPointerException ex) {
+    return b.request.getSession(create);
+  }
 }
