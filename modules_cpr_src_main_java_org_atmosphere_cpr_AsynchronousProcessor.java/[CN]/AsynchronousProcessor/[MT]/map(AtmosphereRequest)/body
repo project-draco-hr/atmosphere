@@ -1,7 +1,13 @@
 {
   String path;
-  if (req.getPathInfo() != null) {
-    path=req.getServletPath() + req.getPathInfo();
+  String pathInfo=null;
+  try {
+    pathInfo=req.getPathInfo();
+  }
+ catch (  IllegalStateException ex) {
+  }
+  if (pathInfo != null) {
+    path=req.getServletPath() + pathInfo;
   }
  else {
     path=req.getServletPath();
