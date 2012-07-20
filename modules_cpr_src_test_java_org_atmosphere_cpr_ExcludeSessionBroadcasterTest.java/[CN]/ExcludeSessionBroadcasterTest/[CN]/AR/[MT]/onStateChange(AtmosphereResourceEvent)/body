@@ -1,0 +1,3 @@
+{
+  value.get().add(e.getResource());
+}
