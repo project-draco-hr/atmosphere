@@ -1,0 +1,5 @@
+{
+  broadcaster.resumeAll();
+  broadcaster.broadcast("foo").get();
+  assertEquals(atmosphereHandler.value.get(),new HashSet());
+}
