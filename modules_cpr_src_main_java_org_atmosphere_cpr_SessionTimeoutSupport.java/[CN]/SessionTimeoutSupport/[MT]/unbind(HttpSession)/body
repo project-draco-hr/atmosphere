@@ -3,10 +3,10 @@
   SessionTimeoutRestorer r=null;
   try {
     r=(SessionTimeoutRestorer)s.getAttribute(KEY);
+    s.removeAttribute(KEY);
   }
  catch (  Exception ex) {
     logger.trace("",ex);
   }
-  s.removeAttribute(KEY);
   return r;
 }
