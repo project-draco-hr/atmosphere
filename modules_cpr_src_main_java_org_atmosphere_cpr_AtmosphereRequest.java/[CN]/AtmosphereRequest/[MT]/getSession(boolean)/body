@@ -1,4 +1,7 @@
 {
+  if (b.webSocketFakeSession != null) {
+    return b.webSocketFakeSession;
+  }
   if (resource() != null) {
     HttpSession session=AtmosphereResourceImpl.class.cast(resource()).session;
     if (session != null) {
@@ -9,9 +12,6 @@
     return b.request.getSession(create);
   }
  catch (  java.lang.IllegalStateException ex) {
-    if (ex.getMessage() != null || ex.getMessage().equalsIgnoreCase("No Session Manager")) {
-      return b.hackedJettySession;
-    }
     throw ex;
   }
 catch (  NullPointerException ex) {

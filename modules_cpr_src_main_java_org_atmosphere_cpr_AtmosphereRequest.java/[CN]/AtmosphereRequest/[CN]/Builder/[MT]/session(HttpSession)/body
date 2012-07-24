@@ -6,7 +6,7 @@
     NoOpsRequest.class.cast(request).fake=session;
   }
  else {
-    hackedJettySession=session;
+    webSocketFakeSession=session;
   }
   return this;
 }
