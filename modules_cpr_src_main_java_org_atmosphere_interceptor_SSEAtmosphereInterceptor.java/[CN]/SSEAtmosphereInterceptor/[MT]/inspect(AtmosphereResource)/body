@@ -1,54 +1,40 @@
 {
   final AtmosphereResponse response=r.getResponse();
   if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
+    super.inspect(r);
     r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
       @Override public void onSuspend(      AtmosphereResourceEvent event){
         writePadding(response);
       }
     }
 );
-    response.asyncIOWriter(new AsyncIOWriterAdapter(){
-      @Override public AsyncIOWriter redirect(      String location) throws IOException {
-        response.sendRedirect(location);
-        return this;
-      }
-      @Override public AsyncIOWriter writeError(      int errorCode,      String message) throws IOException {
-        if (errorCode == 406) {
-          logger.warn("Status code 406: Make sure you aren't setting any @Produces " + "value if you are using Jersey and instead set the @Suspend(content-type=\"...\" value");
+    AsyncIOWriter writer=response.getAsyncIOWriter();
+    if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {
+      AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptor(){
+        private void padding(){
+          if (!r.isSuspended()) {
+            writePadding(response);
+            r.getRequest().setAttribute("paddingWritten","true");
+          }
         }
-        response.sendError(errorCode);
-        return this;
-      }
-      @Override public AsyncIOWriter write(      String data) throws IOException {
-        padding();
-        response.write("data:" + data + "\n\n");
-        return this;
-      }
-      @Override public AsyncIOWriter write(      byte[] data) throws IOException {
-        padding();
-        response.write("data:").write(data).write("\n\n");
-        return this;
-      }
-      @Override public AsyncIOWriter write(      byte[] data,      int offset,      int length) throws IOException {
-        padding();
-        response.write("data:").write(data,offset,length).write("\n\n");
-        return this;
-      }
-      private void padding(){
-        if (!r.isSuspended()) {
-          writePadding(response);
-          r.getRequest().setAttribute("paddingWritten","true");
+        @Override public void intercept(        AtmosphereResponse response,        String data){
+          padding();
+          response.write("data:" + data + "\n\n");
+        }
+        @Override public void intercept(        AtmosphereResponse response,        byte[] data){
+          padding();
+          response.write("data:").write(data).write("\n\n");
+        }
+        @Override public void intercept(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
+          padding();
+          response.write("data:").write(data,offset,length).write("\n\n");
         }
       }
-      @Override public void close() throws IOException {
-        response.closeStreamOrWriter();
-      }
-      @Override public AsyncIOWriter flush() throws IOException {
-        response.flushBuffer();
-        return this;
-      }
-    }
 );
+    }
+ else {
+      throw new IllegalStateException("AsyncIOWriter must be an instance of " + AsyncIOWriter.class.getName());
+    }
   }
   return Action.CONTINUE;
 }
