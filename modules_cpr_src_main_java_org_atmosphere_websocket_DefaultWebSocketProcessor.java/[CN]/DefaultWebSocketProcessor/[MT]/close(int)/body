@@ -1,5 +1,6 @@
 {
-  logger.debug("WebSocket closed with {}",closeCode);
+  logger.trace("WebSocket closed with {}",closeCode);
+  notifyListener(new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocket));
   AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
   if (resource == null) {
     logger.warn("Unable to retrieve AtmosphereResource for {}",webSocket);

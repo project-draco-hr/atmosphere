@@ -1,5 +1,5 @@
 {
   super.init(sc);
-  application=new GrizzlyApplication(config);
-  WebSocketEngine.getEngine().register(application);
+  glassfishWebSocketHandler=new GlassFishWebSocketHandler(config);
+  WebSocketEngine.getEngine().register(glassfishWebSocketHandler);
 }
