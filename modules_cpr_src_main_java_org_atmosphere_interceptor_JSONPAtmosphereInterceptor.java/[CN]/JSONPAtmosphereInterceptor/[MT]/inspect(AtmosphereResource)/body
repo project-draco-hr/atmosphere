@@ -11,14 +11,18 @@
           if (c == null) {
             c=(String)request.getAttribute(FrameworkConfig.EXPECTED_CONTENT_TYPE);
           }
+          if (c == null) {
+            c=request.getContentType();
+          }
           return c;
         }
         String callbackName(){
           return request.getParameter(HeaderConfig.JSONP_CALLBACK_NAME);
         }
         @Override public void intercept(        AtmosphereResponse response,        String data){
+          String contentType=contentType();
           String callbackName=callbackName();
-          if (!data.startsWith("\"")) {
+          if (!data.startsWith("\"") && !contentType.contains("json")) {
             data=callbackName + "({\"message\" : \"" + data+ "\"});";
           }
  else {
