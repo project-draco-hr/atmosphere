@@ -7,7 +7,9 @@
   if (s == null || s.equals("0")) {
     s=UUID.randomUUID().toString();
     res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
-    req.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,s);
+    if (req.getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID) == null) {
+      req.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,s);
+    }
   }
   Action a=null;
   try {
