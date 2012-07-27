@@ -3,9 +3,11 @@
   req.setAttribute(PROPERTY_USE_STREAM,useStreamForFlushingComments);
   req.setAttribute(BROADCASTER_CLASS,broadcasterClassName);
   req.setAttribute(ATMOSPHERE_CONFIG,config);
-  String s=req.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
+  String s=req.getHeader(X_ATMOSPHERE_TRACKING_ID);
   if (s == null || s.equals("0")) {
-    res.setHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID,UUID.randomUUID().toString());
+    s=UUID.randomUUID().toString();
+    res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
+    res.setHeader(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,s);
   }
   Action a=null;
   try {
@@ -14,7 +16,7 @@
     if (s != null) {
       skip=Boolean.valueOf(s);
     }
-    if (!skip || req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
+    if (!skip || req.getAttribute(WEBSOCKET_SUSPEND) == null) {
       Map<String,String> headers=configureQueryStringAsRequest(req);
       String body=headers.remove(ATMOSPHERE_POST_BODY);
       if (body != null && body.isEmpty()) {
