@@ -1,5 +1,5 @@
 {
-  String s=(String)r.getRequest().getAttribute(FrameworkConfig.WEBSOCKET_ATMOSPHERE_RESOURCE);
+  String s=(String)r.getRequest().getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
   if (s != null) {
     return s;
   }
