@@ -31,4 +31,5 @@
  else {
     logger.warn("AtmosphereResource was null");
   }
+  notifyListener(new WebSocketEventListener.WebSocketEvent("",CONNECT,webSocket));
 }

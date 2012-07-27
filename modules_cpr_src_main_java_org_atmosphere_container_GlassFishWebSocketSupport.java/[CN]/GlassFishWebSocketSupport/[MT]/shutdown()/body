@@ -1,4 +1,4 @@
 {
-  WebSocketEngine.getEngine().unregister(application);
+  WebSocketEngine.getEngine().unregister(glassfishWebSocketHandler);
   super.shutdown();
 }

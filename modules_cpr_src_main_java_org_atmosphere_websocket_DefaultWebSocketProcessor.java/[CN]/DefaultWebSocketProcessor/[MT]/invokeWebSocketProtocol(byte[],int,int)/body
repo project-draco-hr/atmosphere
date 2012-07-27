@@ -1,4 +1,10 @@
 {
   List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,data,offset,length);
   dispatch(list);
+  try {
+    notifyListener(new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),MESSAGE,webSocket));
+  }
+ catch (  UnsupportedEncodingException e) {
+    logger.warn("UnsupportedEncodingException",e);
+  }
 }

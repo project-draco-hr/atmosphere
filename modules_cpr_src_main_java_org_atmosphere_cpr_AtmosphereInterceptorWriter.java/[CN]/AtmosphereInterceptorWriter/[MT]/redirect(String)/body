@@ -1,0 +1,4 @@
+{
+  response.sendRedirect(location);
+  return this;
+}

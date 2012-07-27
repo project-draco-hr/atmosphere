@@ -1,0 +1,7 @@
+{
+  AtmosphereResponse res=r.getResponse();
+  if (res.getAsyncIOWriter() == null) {
+    res.asyncIOWriter(new AtmosphereInterceptorWriter(res));
+  }
+  return Action.CONTINUE;
+}

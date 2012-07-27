@@ -1,0 +1,6 @@
+{
+  for (  AsyncIOInterceptor i : filters) {
+    i.intercept(response,data,offset,length);
+  }
+  return this;
+}

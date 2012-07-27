@@ -8,7 +8,7 @@
   if (newMsg == null) {
     return null;
   }
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,broadcasterListeners,this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,subset.size(),broadcasterListeners,this);
   messages.offer(new Entry(newMsg,subset,f,msg));
   return f;
 }

@@ -2,7 +2,6 @@
   if (asyncSupport != null && AsynchronousProcessor.class.isAssignableFrom(asyncSupport.getClass())) {
     ((AsynchronousProcessor)asyncSupport).shutdown();
   }
-  BroadcasterConfig bc=null;
   for (  Entry<String,AtmosphereHandlerWrapper> entry : atmosphereHandlers.entrySet()) {
     AtmosphereHandlerWrapper handlerWrapper=entry.getValue();
     handlerWrapper.atmosphereHandler.destroy();

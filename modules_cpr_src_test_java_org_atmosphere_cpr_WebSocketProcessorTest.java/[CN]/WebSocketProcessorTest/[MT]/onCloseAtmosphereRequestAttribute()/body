@@ -1,0 +1,26 @@
+{
+  ByteArrayOutputStream b=new ByteArrayOutputStream();
+  final WebSocket w=new ArrayBaseWebSocket(b);
+  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(w);
+  final AtomicReference<String> uuid=new AtomicReference<String>();
+  framework.addAtmosphereHandler("/*",new AtmosphereHandler(){
+    @Override public void onRequest(    AtmosphereResource resource) throws IOException {
+      resource.addEventListener(new WebSocketEventListenerAdapter(){
+        @Override public void onClose(        WebSocketEvent event){
+          uuid.set((String)event.webSocket().resource().getRequest().getAttribute(FrameworkConfig.WEBSOCKET_ATMOSPHERE_RESOURCE));
+        }
+      }
+);
+    }
+    @Override public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
+    }
+    @Override public void destroy(){
+    }
+  }
+);
+  AtmosphereRequest request=new AtmosphereRequest.Builder().destroyable(false).body("yoComet").pathInfo("/a").build();
+  processor.open(request);
+  processor.invokeWebSocketProtocol("yoWebSocket");
+  processor.notifyListener(new WebSocketEventListener.WebSocketEvent("Close",WebSocketEventListener.WebSocketEvent.TYPE.CLOSE,w));
+  assertNotNull(uuid.get());
+}
