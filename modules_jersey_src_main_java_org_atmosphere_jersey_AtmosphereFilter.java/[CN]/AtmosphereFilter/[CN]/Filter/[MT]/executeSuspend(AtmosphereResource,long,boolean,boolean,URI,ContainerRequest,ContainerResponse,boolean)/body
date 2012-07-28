@@ -19,7 +19,7 @@
     Response.ResponseBuilder b=Response.ok();
     b=configureHeaders(b);
     AtmosphereConfig config=(AtmosphereConfig)servletReq.getAttribute(ATMOSPHERE_CONFIG);
-    String defaultCT=config.getInitParameter(ApplicationConfig.DEFAULT_CONTENT_TYPE);
+    String defaultCT=config.getInitParameter(DEFAULT_CONTENT_TYPE);
     if (defaultCT == null) {
       defaultCT="text/plain; charset=ISO-8859-1";
     }
@@ -46,7 +46,7 @@
       }
     }
     if (!eclipse362468 && comments && !resumeOnBroadcast) {
-      String padding=(String)servletReq.getAttribute(ApplicationConfig.STREAMING_PADDING_MODE);
+      String padding=(String)servletReq.getAttribute(STREAMING_PADDING_MODE);
       String paddingData=AtmosphereResourceImpl.createStreamingPadding(padding);
       if (location != null) {
         b=b.header(HttpHeaders.LOCATION,location);

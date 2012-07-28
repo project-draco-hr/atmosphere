@@ -25,5 +25,5 @@
   set.add(ar);
   set.add(ar2);
   broadcaster.broadcast("foo",set).get();
-  assertEquals(atmosphereHandler.value.get(),new HashSet());
+  assertEquals(atmosphereHandler.value.get(),set);
 }
