@@ -17,17 +17,35 @@
             r.getRequest().setAttribute("paddingWritten","true");
           }
         }
-        @Override public void intercept(        AtmosphereResponse response,        String data){
+        @Override public void prePayload(        AtmosphereResponse response,        String data){
           padding();
-          response.write("data:" + data + "\n\n");
+          response.write("data:");
         }
-        @Override public void intercept(        AtmosphereResponse response,        byte[] data){
+        @Override public void prePayload(        AtmosphereResponse response,        byte[] data){
           padding();
-          response.write("data:").write(data).write("\n\n");
+          response.write("data:");
         }
-        @Override public void intercept(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
+        @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           padding();
-          response.write("data:").write(data,offset,length).write("\n\n");
+          response.write("data:");
+        }
+        @Override public void transformPayload(        ByteArrayOutputStream response,        String data) throws IOException {
+          response.write(data.getBytes());
+        }
+        @Override public void transformPayload(        ByteArrayOutputStream response,        byte[] data) throws IOException {
+          response.write(data);
+        }
+        @Override public void transformPayload(        ByteArrayOutputStream response,        byte[] data,        int offset,        int length){
+          response.write(data,offset,length);
+        }
+        @Override public void postPayload(        AtmosphereResponse response,        String data){
+          response.write("\n\n");
+        }
+        @Override public void postPayload(        AtmosphereResponse response,        byte[] data){
+          response.write("\n\n".getBytes());
+        }
+        @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
+          response.write("\n\n".getBytes());
         }
       }
 );
