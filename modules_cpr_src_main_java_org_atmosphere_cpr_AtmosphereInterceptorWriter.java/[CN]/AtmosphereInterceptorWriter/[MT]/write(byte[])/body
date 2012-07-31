@@ -2,15 +2,12 @@
   for (  AsyncIOInterceptor i : filters) {
     i.prePayload(response,data);
   }
-  byte[] transformedData=new byte[16];
+  byte[] responseDraft=data;
   for (  AsyncIOInterceptor i : filters) {
-    ByteArrayOutputStream outputStream=new ByteArrayOutputStream(transformedData.length);
-    outputStream.write(transformedData);
-    i.transformPayload(outputStream,data);
-    transformedData=outputStream.toByteArray();
+    responseDraft=i.transformPayload(responseDraft,data);
   }
-  response.write(transformedData);
-  ArrayList<AsyncIOInterceptor> reversedFilters=filters;
+  response.write(responseDraft);
+  ArrayList<AsyncIOInterceptor> reversedFilters=(ArrayList<AsyncIOInterceptor>)filters.clone();
   Collections.reverse(reversedFilters);
   for (  AsyncIOInterceptor i : reversedFilters) {
     i.postPayload(response,data);

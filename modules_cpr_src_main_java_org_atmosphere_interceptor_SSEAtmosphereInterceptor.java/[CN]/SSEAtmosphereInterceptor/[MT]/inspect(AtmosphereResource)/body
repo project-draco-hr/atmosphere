@@ -29,14 +29,14 @@
           padding();
           response.write("data:");
         }
-        @Override public void transformPayload(        ByteArrayOutputStream response,        String data) throws IOException {
-          response.write(data.getBytes());
+        @Override public byte[] transformPayload(        String responseDraft,        String data) throws IOException {
+          return responseDraft.getBytes();
         }
-        @Override public void transformPayload(        ByteArrayOutputStream response,        byte[] data) throws IOException {
-          response.write(data);
+        @Override public byte[] transformPayload(        byte[] responseDraft,        byte[] data) throws IOException {
+          return responseDraft;
         }
-        @Override public void transformPayload(        ByteArrayOutputStream response,        byte[] data,        int offset,        int length){
-          response.write(data,offset,length);
+        @Override public byte[] transformPayload(        byte[] responseDraft,        byte[] data,        int offset,        int length){
+          return responseDraft;
         }
         @Override public void postPayload(        AtmosphereResponse response,        String data){
           response.write("\n\n");

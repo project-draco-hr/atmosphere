@@ -9,12 +9,14 @@
     }
     @Override public void prePayload(    AtmosphereResponse response,    byte[] data,    int offset,    int length){
     }
-    @Override public void transformPayload(    ByteArrayOutputStream response,    String data){
+    @Override public byte[] transformPayload(    String responseDraft,    String data) throws IOException {
+      return responseDraft.getBytes();
     }
-    @Override public void transformPayload(    ByteArrayOutputStream response,    byte[] data){
-      s.get().append(new String(data));
+    @Override public byte[] transformPayload(    byte[] responseDraft,    byte[] data) throws IOException {
+      return responseDraft;
     }
-    @Override public void transformPayload(    ByteArrayOutputStream response,    byte[] data,    int offset,    int length){
+    @Override public byte[] transformPayload(    byte[] responseDraft,    byte[] data,    int offset,    int length) throws IOException {
+      return responseDraft;
     }
     @Override public void postPayload(    AtmosphereResponse response,    String data){
     }
@@ -30,11 +32,17 @@
     }
     @Override public void prePayload(    AtmosphereResponse response,    byte[] data,    int offset,    int length){
     }
-    @Override public void transformPayload(    ByteArrayOutputStream response,    String data){
+    @Override public byte[] transformPayload(    String responseDraft,    String data) throws IOException {
+      s.get().append(responseDraft);
+      return responseDraft.getBytes();
     }
-    @Override public void transformPayload(    ByteArrayOutputStream response,    byte[] data){
+    @Override public byte[] transformPayload(    byte[] responseDraft,    byte[] data) throws IOException {
+      s.get().append(new String(responseDraft));
+      return responseDraft;
     }
-    @Override public void transformPayload(    ByteArrayOutputStream response,    byte[] data,    int offset,    int length){
+    @Override public byte[] transformPayload(    byte[] responseDraft,    byte[] data,    int offset,    int length) throws IOException {
+      s.get().append(new String(responseDraft));
+      return responseDraft;
     }
     @Override public void postPayload(    AtmosphereResponse response,    String data){
     }
