@@ -2,7 +2,7 @@
   if (response.getStatus() == 204) {
     response.setStatus(200);
   }
-  BroadcasterFactory broadcasterFactory=(BroadcasterFactory)servletReq.getAttribute(ApplicationConfig.BROADCASTER_FACTORY);
+  BroadcasterFactory broadcasterFactory=(BroadcasterFactory)servletReq.getAttribute(BROADCASTER_FACTORY);
   boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
   URI location=null;
   if (useResumeAnnotation && !sessionSupported && !resumeOnBroadcast&& response.getHttpHeaders().getFirst("Location") == null) {
@@ -50,7 +50,7 @@
   }
   r.setBroadcaster(bc);
   if (resumeOnBroadcast) {
-    servletReq.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,new Boolean(true));
+    servletReq.setAttribute(RESUME_ON_BROADCAST,new Boolean(true));
   }
   executeSuspend(r,timeout,comments,resumeOnBroadcast,location,request,response,flushEntity);
 }

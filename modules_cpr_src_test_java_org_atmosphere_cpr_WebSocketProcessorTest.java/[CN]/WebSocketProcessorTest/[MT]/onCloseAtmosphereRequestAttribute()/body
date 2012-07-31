@@ -7,7 +7,7 @@
     @Override public void onRequest(    AtmosphereResource resource) throws IOException {
       resource.addEventListener(new WebSocketEventListenerAdapter(){
         @Override public void onClose(        WebSocketEvent event){
-          uuid.set((String)event.webSocket().resource().getRequest().getAttribute(FrameworkConfig.WEBSOCKET_ATMOSPHERE_RESOURCE));
+          uuid.set((String)event.webSocket().resource().getRequest().getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID));
         }
       }
 );
@@ -23,4 +23,5 @@
   processor.invokeWebSocketProtocol("yoWebSocket");
   processor.notifyListener(new WebSocketEventListener.WebSocketEvent("Close",WebSocketEventListener.WebSocketEvent.TYPE.CLOSE,w));
   assertNotNull(uuid.get());
+  assertEquals(uuid.get(),request.getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID));
 }
