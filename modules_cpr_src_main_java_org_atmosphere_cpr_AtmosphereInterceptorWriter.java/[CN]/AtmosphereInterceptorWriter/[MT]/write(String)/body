@@ -1,3 +1,4 @@
 {
-  return write(data.getBytes());
+  write(data.getBytes());
+  return this;
 }
