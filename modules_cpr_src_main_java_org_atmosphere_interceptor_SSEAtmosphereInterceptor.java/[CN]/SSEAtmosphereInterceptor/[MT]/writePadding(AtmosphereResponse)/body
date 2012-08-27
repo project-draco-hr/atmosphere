@@ -27,7 +27,7 @@
  catch (    IOException e) {
       logger.trace("",e);
     }
-    w.println(padding);
+    w.println(paddingText);
     w.flush();
   }
 }
