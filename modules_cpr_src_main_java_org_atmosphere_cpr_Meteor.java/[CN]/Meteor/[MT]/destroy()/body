@@ -1,4 +1,4 @@
 {
   isDestroyed.set(true);
-  cache.remove(this);
+  cache.remove(r);
 }
