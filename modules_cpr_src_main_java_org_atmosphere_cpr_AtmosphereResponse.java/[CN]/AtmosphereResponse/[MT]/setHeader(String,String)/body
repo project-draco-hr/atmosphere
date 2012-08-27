@@ -1,8 +1,3 @@
 {
-  if (!delegateToNativeResponse) {
-    headers.put(name,value);
-  }
- else {
-    _r().setHeader(name,value);
-  }
+  addHeader(name,value);
 }

@@ -1,8 +1,3 @@
 {
-  if (!delegateToNativeResponse) {
-    headers.put(name,String.valueOf(value));
-  }
- else {
-    _r().setIntHeader(name,value);
-  }
+  setHeader(name,String.valueOf(value));
 }
