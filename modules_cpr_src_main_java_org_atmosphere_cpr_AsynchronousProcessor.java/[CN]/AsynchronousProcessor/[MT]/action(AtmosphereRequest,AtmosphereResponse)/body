@@ -20,9 +20,15 @@
   AtmosphereHandlerWrapper handlerWrapper=map(req);
   Broadcaster b=handlerWrapper.broadcaster;
   if (b.isDestroyed()) {
-synchronized (handlerWrapper) {
-      config.getBroadcasterFactory().remove(b,b.getID());
-      handlerWrapper.broadcaster=config.getBroadcasterFactory().get(b.getID());
+synchronized (broadcasterFactory) {
+      broadcasterFactory.remove(b,b.getID());
+      try {
+        handlerWrapper.broadcaster=broadcasterFactory.get(b.getID());
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace("",ex);
+        handlerWrapper.broadcaster=broadcasterFactory.lookup(b.getID(),true);
+      }
     }
   }
   AtmosphereResourceImpl resource=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
