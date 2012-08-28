@@ -1,0 +1,8 @@
+{
+  if (message != null) {
+    return message.toString();
+  }
+ else {
+    return "";
+  }
+}

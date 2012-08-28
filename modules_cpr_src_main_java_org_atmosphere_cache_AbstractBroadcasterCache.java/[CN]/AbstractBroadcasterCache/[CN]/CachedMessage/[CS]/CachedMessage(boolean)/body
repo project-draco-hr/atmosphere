@@ -1,0 +1,6 @@
+{
+  this.currentTime=System.currentTimeMillis();
+  this.message=null;
+  this.next=null;
+  this.isTail=isTail;
+}

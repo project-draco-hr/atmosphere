@@ -1,0 +1,18 @@
+{
+  logger.trace("Adding message for resource: {}, object: {}",resource,object);
+  CachedMessage cm=new CachedMessage(object,System.currentTimeMillis(),null);
+  CachedMessage prev=null;
+  if (!queue.isEmpty()) {
+    prev=queue.get(queue.size() - 1);
+  }
+  if (prev != null) {
+    prev.next(cm);
+  }
+  if (!queue.contains(cm)) {
+    queue.add(cm);
+  }
+  if (prev == null) {
+    cm=new CachedMessage(true);
+  }
+  cache(id,resource,cm);
+}

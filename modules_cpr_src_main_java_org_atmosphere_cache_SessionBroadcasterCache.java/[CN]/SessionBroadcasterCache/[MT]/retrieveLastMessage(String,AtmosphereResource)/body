@@ -1,0 +1,8 @@
+{
+  HttpSession session=r.session();
+  if (session == null) {
+    logger.error(ERROR_MESSAGE);
+    return null;
+  }
+  return (CachedMessage)session.getAttribute(id);
+}
