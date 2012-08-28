@@ -29,7 +29,7 @@ synchronized (this) {
             request.setAttribute(SESSION_KEY,session);
             StringBuilder data=new StringBuilder();
             if (DefaultBroadcaster.class.isAssignableFrom(resource.getBroadcaster().getClass())) {
-              List<Object> cachedMessages=DefaultBroadcaster.class.cast(resource.getBroadcaster()).broadcasterCache.retrieveFromCache(resource);
+              List<Object> cachedMessages=DefaultBroadcaster.class.cast(resource.getBroadcaster()).broadcasterCache.retrieveFromCache(resource.getBroadcaster().getID(),resource);
               if (cachedMessages != null) {
                 if (cachedMessages.size() > 1) {
                   for (                  Object object : cachedMessages) {
