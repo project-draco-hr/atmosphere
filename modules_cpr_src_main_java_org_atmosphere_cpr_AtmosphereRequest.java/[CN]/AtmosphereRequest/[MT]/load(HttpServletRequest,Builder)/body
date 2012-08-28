@@ -15,4 +15,5 @@
     s=e.nextElement();
     b.queryStrings.put(s,request.getParameterValues(s));
   }
+  b.queryString=request.getQueryString();
 }

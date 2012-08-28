@@ -1,0 +1,4 @@
+{
+  this.queryString=queryString;
+  return this;
+}
