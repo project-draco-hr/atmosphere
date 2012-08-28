@@ -5,7 +5,7 @@
   Set<AtmosphereResource> subset=new HashSet<AtmosphereResource>();
   subset.addAll(resources);
   for (  AtmosphereResource r : resources) {
-    if (!r.getAtmosphereResourceEvent().isCancelled() && s.equals(((HttpServletRequest)r.getRequest()).getSession())) {
+    if (!r.getAtmosphereResourceEvent().isCancelled() && s.equals(r.getRequest().getSession())) {
       subset.remove(r);
     }
   }
