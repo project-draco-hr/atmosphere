@@ -1,0 +1,2 @@
+org.glassfish.grizzly.websockets.WebSocket webSocket
+AtmosphereConfig config

@@ -1,0 +1,3 @@
+WebSocket socket
+byte[] fragment
+boolean last

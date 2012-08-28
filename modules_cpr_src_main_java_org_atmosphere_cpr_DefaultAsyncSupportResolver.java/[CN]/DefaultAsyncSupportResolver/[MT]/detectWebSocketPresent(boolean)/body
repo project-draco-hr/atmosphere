@@ -7,6 +7,7 @@
       if (testClassExists(TOMCAT_WEBSOCKET))       add(Tomcat7AsyncSupportWithWebSocket.class);
       if (testClassExists(JETTY_8))       add(JettyAsyncSupportWithWebSocket.class);
       if (testClassExists(GRIZZLY_WEBSOCKET))       add(GlassFishWebSocketSupport.class);
+      if (testClassExists(GRIZZLY2_WEBSOCKET))       add(Grizzly2WebSocketSupport.class);
     }
   }
 ;
