@@ -1,0 +1,17 @@
+{
+  if (binaryWrite) {
+    if (!WebSocketResponseFilter.NoOpsWebSocketResponseFilter.class.isAssignableFrom(webSocketResponseFilter.getClass())) {
+      byte[] b=webSocketResponseFilter.filter(r,data,offset,length);
+      if (b != null)       webSocket.send(b);
+    }
+ else {
+      webSocket.send(Arrays.copyOfRange(data,offset,length));
+    }
+  }
+ else {
+    String s=webSocketResponseFilter.filter(r,new String(data,offset,length));
+    if (s != null)     webSocket.send(s);
+  }
+  lastWrite=System.currentTimeMillis();
+  return this;
+}

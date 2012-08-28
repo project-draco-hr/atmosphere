@@ -1,0 +1,16 @@
+{
+  super(protocolHandler,request,listeners);
+  Request req=Request.create();
+  Response res=req.getResponse();
+  req.initialize(request,protocolHandler.getFilterChainContext(),null);
+  res.initialize(req,request.getResponse(),protocolHandler.getFilterChainContext(),null,null);
+  servletRequest=HttpServletRequestImpl.create();
+  servletResponse=HttpServletResponseImpl.create();
+  try {
+    servletRequest.initialize(req,(WebappContext)config.getServletContext());
+    servletResponse.initialize(res);
+  }
+ catch (  IOException e) {
+    throw new WebSocketException("Unable to initialize WebSocket instance",e);
+  }
+}
