@@ -1,6 +1,17 @@
 {
   for (  AsyncIOInterceptor i : filters) {
-    i.intercept(response,data,offset,length);
+    i.prePayload(response,data,offset,length);
+  }
+  byte[] responseDraft=new byte[length];
+  System.arraycopy(data,offset,responseDraft,0,length);
+  for (  AsyncIOInterceptor i : filters) {
+    responseDraft=i.transformPayload(responseDraft,data);
+  }
+  response.write(responseDraft);
+  ArrayList<AsyncIOInterceptor> reversedFilters=(ArrayList<AsyncIOInterceptor>)filters.clone();
+  Collections.reverse(reversedFilters);
+  for (  AsyncIOInterceptor i : reversedFilters) {
+    i.postPayload(response,data,offset,length);
   }
   return this;
 }
