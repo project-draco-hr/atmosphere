@@ -1,0 +1,10 @@
+{
+  if (r != null) {
+    HttpSession session=r.session();
+    if (session == null) {
+      logger.error(ERROR_MESSAGE);
+      return;
+    }
+    session.setAttribute(id,cm);
+  }
+}
