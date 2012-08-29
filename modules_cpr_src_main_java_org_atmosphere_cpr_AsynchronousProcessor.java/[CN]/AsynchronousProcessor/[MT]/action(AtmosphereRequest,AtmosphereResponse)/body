@@ -20,14 +20,15 @@
   AtmosphereHandlerWrapper handlerWrapper=map(req);
   Broadcaster b=handlerWrapper.broadcaster;
   if (b.isDestroyed()) {
-synchronized (broadcasterFactory) {
-      broadcasterFactory.remove(b,b.getID());
+    BroadcasterFactory f=BroadcasterFactory.getDefault();
+synchronized (f) {
+      f.remove(b,b.getID());
       try {
-        handlerWrapper.broadcaster=broadcasterFactory.get(b.getID());
+        handlerWrapper.broadcaster=f.get(b.getID());
       }
  catch (      IllegalStateException ex) {
         logger.trace("",ex);
-        handlerWrapper.broadcaster=broadcasterFactory.lookup(b.getID(),true);
+        handlerWrapper.broadcaster=f.lookup(b.getID(),true);
       }
     }
   }
