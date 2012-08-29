@@ -1,0 +1,3 @@
+{
+  atmoServlet.framework().setAsyncSupport(new Grizzly2WebSocketSupport(atmoServlet.framework().getAtmosphereConfig()));
+}
