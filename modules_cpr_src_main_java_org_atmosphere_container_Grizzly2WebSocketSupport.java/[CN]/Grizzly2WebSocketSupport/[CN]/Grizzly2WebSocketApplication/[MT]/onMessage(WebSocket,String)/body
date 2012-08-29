@@ -1,0 +1,9 @@
+{
+  super.onMessage(socket,text);
+  LOGGER.trace("onMessage(String) {} ",socket);
+  G2WebSocket webSocket=G2WebSocket.class.cast(socket);
+  if (webSocket.getRequest().getAttribute("grizzly.webSocketProcessor") != null) {
+    WebSocketProcessor webSocketProcessor=(WebSocketProcessor)webSocket.getRequest().getAttribute("grizzly.webSocketProcessor");
+    webSocketProcessor.invokeWebSocketProtocol(text);
+  }
+}
