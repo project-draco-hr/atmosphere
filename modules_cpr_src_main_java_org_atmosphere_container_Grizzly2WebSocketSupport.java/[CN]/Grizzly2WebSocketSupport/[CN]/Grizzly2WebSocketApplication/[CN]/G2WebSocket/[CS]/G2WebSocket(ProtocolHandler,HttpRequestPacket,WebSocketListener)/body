@@ -7,8 +7,10 @@
   servletRequest=HttpServletRequestImpl.create();
   servletResponse=HttpServletResponseImpl.create();
   try {
-    servletRequest.initialize(req,(WebappContext)config.getServletContext());
+    WebappContext context=(WebappContext)config.getServletContext();
+    servletRequest.initialize(req,context);
     servletResponse.initialize(res);
+    mapRequest(context,request,servletRequest);
   }
  catch (  IOException e) {
     throw new WebSocketException("Unable to initialize WebSocket instance",e);

@@ -1,0 +1,18 @@
+{
+  try {
+    Field dispatcher=WebappContext.class.getDeclaredField("dispatcherHelper");
+    dispatcher.setAccessible(true);
+    MappingData data=new MappingData();
+    DispatcherHelper helper=(DispatcherHelper)dispatcher.get(ctx);
+    DataChunk host=DataChunk.newInstance();
+    host.setString(request.getHeader("host"));
+    helper.mapPath(host,request.getRequestURIRef().getDecodedRequestURIBC(),data);
+    servletRequest.setServletPath(data.wrapperPath.toString());
+    Method m=HttpServletRequestImpl.class.getDeclaredMethod("setPathInfo",String.class);
+    m.setAccessible(true);
+    m.invoke(servletRequest,data.pathInfo.toString());
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e);
+  }
+}
