@@ -1,0 +1,7 @@
+{
+  if (!force)   return;
+  cookies.clear();
+  headers.clear();
+  atmosphereRequest=null;
+  asyncIOWriter=null;
+}

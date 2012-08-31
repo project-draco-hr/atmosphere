@@ -1,7 +1,3 @@
 {
-  if (!destroyable)   return;
-  cookies.clear();
-  headers.clear();
-  atmosphereRequest=null;
-  asyncIOWriter=null;
+  destroy(destroyable);
 }
