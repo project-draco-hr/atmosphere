@@ -7,15 +7,6 @@
   G2WebSocket webSocket=G2WebSocket.class.cast(socket);
   try {
     AtmosphereRequest r=AtmosphereRequest.wrap(webSocket.getRequest());
-    try {
-      if (r.getPathInfo().startsWith(r.getContextPath())) {
-        r.servletPath(r.getPathInfo().substring(r.getContextPath().length()));
-        r.pathInfo(null);
-      }
-    }
- catch (    Exception e) {
-      LOGGER.trace("",e);
-    }
     WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(new Grizzly2WebSocket(webSocket,config));
     webSocket.getRequest().setAttribute("grizzly.webSocketProcessor",webSocketProcessor);
     webSocketProcessor.open(r);
