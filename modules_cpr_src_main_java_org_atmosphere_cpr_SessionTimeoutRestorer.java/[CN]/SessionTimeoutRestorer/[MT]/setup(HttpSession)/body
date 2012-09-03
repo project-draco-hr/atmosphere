@@ -1,0 +1,4 @@
+{
+  int oldCount=requestCount.getAndIncrement();
+  if (oldCount == 0)   refreshTimeout(session);
+}

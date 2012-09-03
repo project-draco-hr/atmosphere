@@ -1,7 +1,10 @@
 {
   if (session == null)   return;
-  SessionTimeoutRestorer restorer=unbind(session);
-  if (restorer != null) {
-    restorer.restore(session);
+  try {
+    SessionTimeoutRestorer restorer=get(session);
+    if (restorer != null)     restorer.restore(session);
+  }
+ catch (  Exception e) {
+    logger.trace("",e);
   }
 }

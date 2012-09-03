@@ -1,5 +1,10 @@
 {
   if (session == null)   return;
-  bind(session,createRestorer(session));
-  session.setMaxInactiveInterval(-1);
+  try {
+    SessionTimeoutRestorer restorer=getOrCreate(session);
+    restorer.setup(session);
+  }
+ catch (  Exception e) {
+    logger.trace("",e);
+  }
 }
