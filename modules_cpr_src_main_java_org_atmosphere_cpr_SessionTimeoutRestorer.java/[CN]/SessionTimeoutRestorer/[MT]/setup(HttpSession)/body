@@ -1,0 +1,6 @@
+{
+  int oldCount=requestCount.getAndIncrement();
+  if (oldCount == 0) {
+    session.setMaxInactiveInterval(-1);
+  }
+}

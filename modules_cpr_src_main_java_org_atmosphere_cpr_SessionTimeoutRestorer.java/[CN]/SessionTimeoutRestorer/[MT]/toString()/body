@@ -1,0 +1,9 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append("SessionTimeoutRestorer[timeout=");
+  sb.append(timeout);
+  sb.append(", requestCount=");
+  sb.append(requestCount.get());
+  sb.append(']');
+  return sb.toString();
+}

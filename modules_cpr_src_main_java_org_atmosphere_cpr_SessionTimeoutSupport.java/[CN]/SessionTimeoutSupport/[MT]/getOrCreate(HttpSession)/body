@@ -1,0 +1,8 @@
+{
+  SessionTimeoutRestorer restorer=(SessionTimeoutRestorer)s.getAttribute(KEY);
+  if (restorer == null) {
+    restorer=new SessionTimeoutRestorer(s.getMaxInactiveInterval());
+    s.setAttribute(KEY,restorer);
+  }
+  return restorer;
+}
