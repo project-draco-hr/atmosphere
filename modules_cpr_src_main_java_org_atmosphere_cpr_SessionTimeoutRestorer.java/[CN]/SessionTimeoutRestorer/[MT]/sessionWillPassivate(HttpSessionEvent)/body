@@ -1,4 +1,4 @@
 {
-  hse.getSession().setMaxInactiveInterval(timeout);
   requestCount.set(0);
+  refreshTimeout(hse.getSession());
 }
