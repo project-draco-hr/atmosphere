@@ -6,6 +6,7 @@
         getOutputStream().close();
       }
  catch (      java.lang.IllegalStateException ex) {
+        logger.trace("",ex);
       }
     }
  else {

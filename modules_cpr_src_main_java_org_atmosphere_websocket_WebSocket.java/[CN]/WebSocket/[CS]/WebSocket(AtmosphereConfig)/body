@@ -1,4 +1,5 @@
 {
+  super(null);
   String s=config.getInitParameter(ApplicationConfig.WEBSOCKET_BINARY_WRITE);
   if (s != null && Boolean.parseBoolean(s)) {
     binaryWrite=true;
