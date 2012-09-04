@@ -26,7 +26,11 @@ catch (    Throwable e) {
       servlet.service(request,response);
     }
  else {
-      throw new ServletException("No Servlet Defined");
+      RequestDispatcher rd=configImpl.getServletContext().getNamedDispatcher("default");
+      if (rd == null) {
+        throw new ServletException("No Servlet Found");
+      }
+      rd.forward(request,response);
     }
   }
  catch (  IOException e) {
