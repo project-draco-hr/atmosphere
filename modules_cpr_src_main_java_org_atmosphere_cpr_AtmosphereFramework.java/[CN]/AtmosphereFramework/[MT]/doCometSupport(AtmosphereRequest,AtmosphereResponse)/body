@@ -26,6 +26,14 @@
       s=UUID.randomUUID().toString();
       res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
     }
+ else {
+      if (req.resource() == null) {
+        res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
+      }
+ else       if (req.getAttribute(WebSocket.WEBSOCKET_INITIATED) == null) {
+        res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
+      }
+    }
     if (req.getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID) == null) {
       req.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,s);
     }
