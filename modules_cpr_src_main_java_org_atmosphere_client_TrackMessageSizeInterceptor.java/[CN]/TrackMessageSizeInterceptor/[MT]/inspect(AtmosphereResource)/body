@@ -8,14 +8,8 @@
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
         }
         @Override public byte[] transformPayload(        byte[] responseDraft,        byte[] data) throws IOException {
-          String s=new String(responseDraft,response.getCharacterEncoding());
-          if (s.trim().length() != 0) {
-            s=s.length() + endString + s;
-            return s.getBytes(response.getCharacterEncoding());
-          }
- else {
-            return responseDraft;
-          }
+          response.setCharacterEncoding(OUT_ENCODING);
+          return transform(responseDraft);
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
         }
@@ -32,35 +26,27 @@
         return message.length() + endString + message;
       }
       @Override public byte[] filter(      AtmosphereResponse r,      byte[] message){
-        String s=null;
         try {
-          s=new String(message,r.getCharacterEncoding());
+          r.setCharacterEncoding(OUT_ENCODING);
+          return transform(message);
         }
- catch (        UnsupportedEncodingException e) {
+ catch (        CharacterCodingException e) {
           logger.trace("",e);
         }
-        s=s.length() + endString + s;
-        try {
-          return s.getBytes(response.getCharacterEncoding());
-        }
- catch (        UnsupportedEncodingException e) {
+catch (        UnsupportedEncodingException e) {
           logger.trace("",e);
         }
         return message;
       }
       @Override public byte[] filter(      AtmosphereResponse r,      byte[] message,      int offset,      int length){
-        String s=null;
         try {
-          s=new String(message,offset,length,r.getCharacterEncoding());
+          r.setCharacterEncoding(OUT_ENCODING);
+          return transform(message,offset,length);
         }
- catch (        UnsupportedEncodingException e) {
+ catch (        CharacterCodingException e) {
           logger.trace("",e);
         }
-        s=s.length() + endString + s;
-        try {
-          return s.getBytes(response.getCharacterEncoding());
-        }
- catch (        UnsupportedEncodingException e) {
+catch (        UnsupportedEncodingException e) {
           logger.trace("",e);
         }
         return message;
