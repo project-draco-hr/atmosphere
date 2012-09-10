@@ -7,6 +7,7 @@ synchronized (framework.asyncSupport) {
       if (!framework.asyncSupport.getClass().equals(JBossWebCometSupport.class)) {
         logger.warn("JBossWebCometSupport is enabled, switching to it");
         framework.asyncSupport=new JBossWebCometSupport(framework.config);
+        framework.asyncSupport.init(framework.config.getServletConfig());
       }
     }
   }
