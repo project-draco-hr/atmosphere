@@ -1,4 +1,0 @@
-{
-  logger.trace("WebSocket.close()");
-  outbound.close(1005,ByteBuffer.wrap(new byte[0]));
-}

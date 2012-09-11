@@ -1,3 +1,0 @@
-{
-  return writeError(r,errorCode,message);
-}

@@ -1,0 +1,8 @@
+{
+  try {
+    outbound.close(1005,ByteBuffer.wrap(new byte[0]));
+  }
+ catch (  IOException e) {
+    logger.trace("",e);
+  }
+}

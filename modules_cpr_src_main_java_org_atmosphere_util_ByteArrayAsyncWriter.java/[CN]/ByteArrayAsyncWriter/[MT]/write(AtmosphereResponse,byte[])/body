@@ -1,0 +1,4 @@
+{
+  o.write(data);
+  return this;
+}

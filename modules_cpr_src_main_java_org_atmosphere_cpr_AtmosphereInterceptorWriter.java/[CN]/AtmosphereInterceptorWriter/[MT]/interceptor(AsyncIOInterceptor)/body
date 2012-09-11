@@ -1,4 +1,6 @@
 {
-  filters.add(filter);
+  if (!filters.contains(filter)) {
+    filters.addFirst(filter);
+  }
   return this;
 }

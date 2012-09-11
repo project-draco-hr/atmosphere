@@ -21,7 +21,7 @@
           padding();
           response.write("data:");
         }
-        @Override public byte[] transformPayload(        byte[] responseDraft,        byte[] data) throws IOException {
+        @Override public byte[] transformPayload(        AtmosphereResponse response,        byte[] responseDraft,        byte[] data) throws IOException {
           return responseDraft;
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
@@ -31,7 +31,7 @@
 );
     }
  else {
-      throw new IllegalStateException("AsyncIOWriter must be an instance of " + AsyncIOWriter.class.getName());
+      logger.warn("Unable to apply {}. Your AsyncIOWriter must implement {}",getClass().getName(),AtmosphereInterceptorWriter.class.getName());
     }
   }
   return Action.CONTINUE;

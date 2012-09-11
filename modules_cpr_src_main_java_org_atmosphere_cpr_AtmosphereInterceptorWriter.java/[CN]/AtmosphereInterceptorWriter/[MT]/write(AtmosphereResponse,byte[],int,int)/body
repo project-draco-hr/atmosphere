@@ -1,0 +1,4 @@
+{
+  invokeInterceptor(response,data,offset,length);
+  return this;
+}
