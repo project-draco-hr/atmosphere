@@ -7,7 +7,7 @@
   for (  AsyncIOInterceptor i : filters) {
     responseDraft=i.transformPayload(response,responseDraft,data);
   }
-  response.write(responseDraft);
+  writeReady(response,responseDraft);
   LinkedList<AsyncIOInterceptor> reversedFilters=(LinkedList<AsyncIOInterceptor>)filters.clone();
   Collections.reverse(reversedFilters);
   for (  AsyncIOInterceptor i : reversedFilters) {

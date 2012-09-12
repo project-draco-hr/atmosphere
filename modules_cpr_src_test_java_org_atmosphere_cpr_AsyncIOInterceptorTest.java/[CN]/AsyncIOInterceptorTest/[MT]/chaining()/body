@@ -10,6 +10,11 @@
     }
     @Override public void postPayload(    AtmosphereResponse response,    byte[] data,    int offset,    int length){
     }
+    @Override public byte[] error(    AtmosphereResponse response,    int statusCode,    String reasonPhrase){
+      return new byte[0];
+    }
+    @Override public void redirect(    AtmosphereResponse response,    String location){
+    }
   }
 ).interceptor(new AsyncIOInterceptor(){
     @Override public void prePayload(    AtmosphereResponse response,    byte[] data,    int offset,    int length){
@@ -19,6 +24,11 @@
       return responseDraft;
     }
     @Override public void postPayload(    AtmosphereResponse response,    byte[] data,    int offset,    int length){
+    }
+    @Override public byte[] error(    AtmosphereResponse response,    int statusCode,    String reasonPhrase){
+      return new byte[0];
+    }
+    @Override public void redirect(    AtmosphereResponse response,    String location){
     }
   }
 )).write("test");

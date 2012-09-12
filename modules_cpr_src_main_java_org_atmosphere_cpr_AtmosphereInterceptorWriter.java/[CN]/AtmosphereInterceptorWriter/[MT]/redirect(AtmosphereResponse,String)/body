@@ -1,4 +1,6 @@
 {
-  response.sendRedirect(location);
+  for (  AsyncIOInterceptor i : filters) {
+    i.redirect(response,location);
+  }
   return this;
 }

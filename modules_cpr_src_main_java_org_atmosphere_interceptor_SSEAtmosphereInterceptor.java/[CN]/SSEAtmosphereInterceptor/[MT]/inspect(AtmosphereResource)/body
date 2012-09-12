@@ -10,7 +10,7 @@
 );
     AsyncIOWriter writer=response.getAsyncIOWriter();
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {
-      AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptor(){
+      AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
         private void padding(){
           if (!r.isSuspended()) {
             writePadding(response);
@@ -20,9 +20,6 @@
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           padding();
           response.write("data:");
-        }
-        @Override public byte[] transformPayload(        AtmosphereResponse response,        byte[] responseDraft,        byte[] data) throws IOException {
-          return responseDraft;
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           response.write("\n\n".getBytes());

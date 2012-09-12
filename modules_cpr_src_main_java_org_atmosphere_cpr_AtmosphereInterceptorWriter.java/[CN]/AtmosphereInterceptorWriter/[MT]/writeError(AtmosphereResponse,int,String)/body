@@ -1,4 +1,7 @@
 {
-  response.sendError(errorCode);
+  for (  AsyncIOInterceptor i : filters) {
+    byte[] b=i.error(response,errorCode,message);
+    writeReady(response,b);
+  }
   return this;
 }
