@@ -1,6 +1,0 @@
-{
-  if (number == null) {
-    return JSONNull.getInstance();
-  }
-  return new JSONNumber(number.doubleValue());
-}

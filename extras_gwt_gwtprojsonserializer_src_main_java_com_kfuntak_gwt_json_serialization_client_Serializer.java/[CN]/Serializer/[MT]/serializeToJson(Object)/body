@@ -1,8 +1,0 @@
-{
-  String name=getTypeName(pojo);
-  ObjectSerializer serializer=getObjectSerializer(name);
-  if (serializer == null) {
-    throw new SerializationException("Can't find object serializer for " + name);
-  }
-  return serializer.serializeToJson(pojo);
-}

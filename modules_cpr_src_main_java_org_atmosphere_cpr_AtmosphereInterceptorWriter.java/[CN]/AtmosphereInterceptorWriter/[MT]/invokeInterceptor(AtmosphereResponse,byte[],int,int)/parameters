@@ -1,0 +1,4 @@
+AtmosphereResponse response
+byte[] data
+int offset
+int length

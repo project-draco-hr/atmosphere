@@ -1,0 +1,4 @@
+{
+  response.setCharacterEncoding(OUT_ENCODING);
+  return transform(responseDraft);
+}

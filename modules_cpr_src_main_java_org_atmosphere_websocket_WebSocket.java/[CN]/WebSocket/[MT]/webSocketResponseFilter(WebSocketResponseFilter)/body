@@ -1,4 +1,0 @@
-{
-  this.webSocketResponseFilter=w;
-  return this;
-}

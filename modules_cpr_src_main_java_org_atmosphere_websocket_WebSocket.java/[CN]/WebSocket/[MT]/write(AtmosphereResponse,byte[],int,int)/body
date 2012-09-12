@@ -1,0 +1,28 @@
+{
+  firstWrite.set(true);
+  if (!isOpen())   throw new IOException("Connection remotely closed");
+  logger.trace("WebSocket.write()");
+  boolean transform=filters.size() > 0;
+  if (binaryWrite) {
+    if (transform) {
+      b=transform(b,offset,length);
+    }
+    if (b != null) {
+      write(b,0,length);
+    }
+  }
+ else {
+    String data=null;
+    if (transform) {
+      data=new String(transform(b,offset,length),r.getCharacterEncoding());
+    }
+ else {
+      data=new String(b,offset,length,r.getCharacterEncoding());
+    }
+    if (data != null) {
+      write(data);
+    }
+  }
+  lastWrite=System.currentTimeMillis();
+  return this;
+}

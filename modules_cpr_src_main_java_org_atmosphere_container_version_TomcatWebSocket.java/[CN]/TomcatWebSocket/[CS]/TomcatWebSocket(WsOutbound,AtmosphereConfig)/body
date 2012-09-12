@@ -1,5 +1,4 @@
 {
   super(config);
   this.outbound=outbound;
-  this.config=config;
 }

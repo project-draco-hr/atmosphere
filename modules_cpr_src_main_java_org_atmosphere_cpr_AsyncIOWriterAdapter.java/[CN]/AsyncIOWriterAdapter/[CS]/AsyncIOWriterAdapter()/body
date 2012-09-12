@@ -1,3 +1,2 @@
 {
-  this.r=new AtmosphereResponse.Builder().build();
 }

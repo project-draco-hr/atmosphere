@@ -1,6 +1,0 @@
-{
-  if (SERIALIZABLE_TYPES == null) {
-    SERIALIZABLE_TYPES=new HashMap();
-  }
-  return SERIALIZABLE_TYPES;
-}

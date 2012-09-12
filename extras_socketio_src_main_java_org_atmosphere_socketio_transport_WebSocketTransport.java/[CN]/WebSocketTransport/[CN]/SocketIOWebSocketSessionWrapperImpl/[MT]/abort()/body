@@ -1,11 +1,6 @@
 {
   logger.trace("calling from " + this.getClass().getName() + " : "+ "abort");
-  try {
-    webSocket.close();
-  }
- catch (  IOException e) {
-    e.printStackTrace();
-  }
+  webSocket.close();
   webSocket=null;
   session.onShutdown();
 }

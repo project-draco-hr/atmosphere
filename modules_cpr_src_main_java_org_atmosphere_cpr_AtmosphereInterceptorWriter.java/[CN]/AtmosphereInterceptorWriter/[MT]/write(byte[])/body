@@ -1,4 +1,0 @@
-{
-  write(data,0,data.length);
-  return this;
-}

@@ -1,5 +1,4 @@
 {
   super(config);
   this.connection=connection;
-  this.config=config;
 }

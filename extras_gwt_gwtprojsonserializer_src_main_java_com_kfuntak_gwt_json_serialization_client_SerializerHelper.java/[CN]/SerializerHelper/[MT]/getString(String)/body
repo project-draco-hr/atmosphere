@@ -1,6 +1,0 @@
-{
-  if (string == null) {
-    return JSONNull.getInstance();
-  }
-  return new JSONString(string);
-}

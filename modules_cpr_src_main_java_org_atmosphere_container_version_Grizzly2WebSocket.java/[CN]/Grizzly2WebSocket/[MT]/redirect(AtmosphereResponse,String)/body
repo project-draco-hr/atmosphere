@@ -1,4 +1,0 @@
-{
-  logger.error("redirect not supported");
-  return this;
-}

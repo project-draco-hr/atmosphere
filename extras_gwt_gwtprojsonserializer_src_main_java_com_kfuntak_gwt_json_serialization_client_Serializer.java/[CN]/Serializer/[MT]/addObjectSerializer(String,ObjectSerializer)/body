@@ -1,3 +1,0 @@
-{
-  serializableTypes().put(name,obj);
-}

@@ -1,4 +1,0 @@
-{
-  String typeName=obj.getClass().getName();
-  return typeName;
-}

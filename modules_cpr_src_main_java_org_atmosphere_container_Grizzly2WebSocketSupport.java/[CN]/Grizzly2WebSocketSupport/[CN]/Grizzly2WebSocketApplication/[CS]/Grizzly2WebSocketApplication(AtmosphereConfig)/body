@@ -1,3 +1,4 @@
 {
   this.config=config;
+  contextPath=config.getServletContext().getContextPath();
 }

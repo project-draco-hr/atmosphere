@@ -1,4 +1,0 @@
-{
-  write(data.getBytes());
-  return this;
-}
