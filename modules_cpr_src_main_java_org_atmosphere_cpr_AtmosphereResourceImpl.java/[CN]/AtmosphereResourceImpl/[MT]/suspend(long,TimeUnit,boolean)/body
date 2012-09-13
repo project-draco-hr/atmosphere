@@ -3,5 +3,5 @@
   if (timeunit != null) {
     timeoutms=TimeUnit.MILLISECONDS.convert(timeout,timeunit);
   }
-  return suspend(timeoutms,true);
+  return suspend(timeoutms,flushComment);
 }
