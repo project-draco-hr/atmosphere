@@ -2,7 +2,7 @@
   if (resources != null) {
     for (    GwtAtmosphereResource resource : resources.values()) {
       if (!resource.isAlive()) {
-        resources.remove(resource.getConnectionID());
+        resourceSerialModeMap.remove(resources.remove(resource.getConnectionID()));
       }
     }
   }

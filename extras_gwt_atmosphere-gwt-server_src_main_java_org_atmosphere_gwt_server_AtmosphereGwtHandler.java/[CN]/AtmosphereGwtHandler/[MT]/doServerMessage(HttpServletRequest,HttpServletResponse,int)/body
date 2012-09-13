@@ -5,14 +5,7 @@
   if (resource == null) {
     return;
   }
-  String mode=resource.getRequest().getParameter(Constants.CLIENT_SERIALZE_MODE_PARAMETER);
-  SerialMode serialMode;
-  if (mode != null) {
-    serialMode=SerialMode.valueOf(mode);
-  }
- else {
-    serialMode=SerialMode.RPC;
-  }
+  final SerialMode serialMode=this.getSerialMode(resource);
   try {
     while (true) {
       String event=data.readLine();
