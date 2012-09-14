@@ -1,0 +1,22 @@
+{
+  if (r == null) {
+    throw new IllegalArgumentException("AtmosphereResource can't be null");
+  }
+  List<Object> result=new ArrayList<Object>();
+  HttpSession session=r.session();
+  if (session == null) {
+    logger.error(ERROR_MESSAGE);
+    return result;
+  }
+  List<CacheMessage> m=(List<CacheMessage>)session.getAttribute(id);
+  readWriteLock.readLock().lock();
+  try {
+    for (    CacheMessage cacheMessage : m) {
+      result.add(cacheMessage.getMessage());
+    }
+  }
+  finally {
+    readWriteLock.readLock().unlock();
+  }
+  return result;
+}

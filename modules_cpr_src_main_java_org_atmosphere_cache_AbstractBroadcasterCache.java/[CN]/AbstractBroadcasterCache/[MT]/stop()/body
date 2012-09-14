@@ -1,3 +1,6 @@
 {
-  reaper.shutdown();
+  if (scheduledFuture != null) {
+    scheduledFuture.cancel(false);
+    scheduledFuture=null;
+  }
 }

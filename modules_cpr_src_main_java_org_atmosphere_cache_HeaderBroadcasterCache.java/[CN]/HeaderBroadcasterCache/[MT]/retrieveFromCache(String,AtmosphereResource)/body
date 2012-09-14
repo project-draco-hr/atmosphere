@@ -1,0 +1,25 @@
+{
+  if (r == null) {
+    throw new IllegalArgumentException("AtmosphereResource can't be null");
+  }
+  AtmosphereRequest request=r.getRequest();
+  String cacheHeader=request.getHeader(X_CACHE_DATE);
+  r.getResponse().setHeader(X_CACHE_DATE,String.valueOf(System.currentTimeMillis()));
+  if (cacheHeader == null || cacheHeader.isEmpty()) {
+    return Collections.emptyList();
+  }
+  long cacheHeaderTime=Long.valueOf(cacheHeader);
+  List<Object> result=new ArrayList<Object>();
+  readWriteLock.readLock().lock();
+  try {
+    for (    CacheMessage cacheMessage : messages) {
+      if (cacheMessage.getCreateTime() > cacheHeaderTime) {
+        result.add(cacheMessage.getMessage());
+      }
+    }
+  }
+  finally {
+    readWriteLock.readLock().unlock();
+  }
+  return result;
+}
