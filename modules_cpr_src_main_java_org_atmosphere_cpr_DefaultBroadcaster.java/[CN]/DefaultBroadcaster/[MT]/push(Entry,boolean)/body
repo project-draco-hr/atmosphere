@@ -45,7 +45,7 @@ synchronized (concurrentSuspendBroadcast) {
       if (entry.multipleAtmoResources != null && AtmosphereResource.class.isAssignableFrom(entry.multipleAtmoResources.getClass())) {
         r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
       }
-      trackBroadcastMessage(r,cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER ? entry.message : entry.originalMessage);
+      trackBroadcastMessage(r,entry);
       if (entry.future != null) {
         entry.future.done();
       }
@@ -90,7 +90,8 @@ synchronized (concurrentSuspendBroadcast) {
         }
  else {
           if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
-            trackBroadcastMessage(null,finalMsg);
+            entry.message=finalMsg;
+            trackBroadcastMessage(null,entry);
           }
         }
       }

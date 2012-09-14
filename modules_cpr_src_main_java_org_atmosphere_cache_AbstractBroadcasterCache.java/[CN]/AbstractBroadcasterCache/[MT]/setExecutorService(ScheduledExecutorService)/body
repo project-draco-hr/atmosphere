@@ -1,6 +1,0 @@
-{
-  if (reaper != null) {
-    stop();
-  }
-  this.reaper=reaper;
-}

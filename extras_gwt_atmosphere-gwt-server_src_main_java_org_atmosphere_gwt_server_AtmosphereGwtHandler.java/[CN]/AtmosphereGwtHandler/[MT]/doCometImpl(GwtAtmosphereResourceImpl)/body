@@ -3,6 +3,7 @@
     resource.getWriterImpl().initiate();
     if (resources == null) {
       resources=new ConcurrentHashMap<Integer,GwtAtmosphereResource>(5);
+      resourceSerialModeMap=new ConcurrentHashMap<GwtAtmosphereResource,SerialMode>(5);
       scheduler.scheduleWithFixedDelay(new Runnable(){
         @Override public void run(){
           reapResources();

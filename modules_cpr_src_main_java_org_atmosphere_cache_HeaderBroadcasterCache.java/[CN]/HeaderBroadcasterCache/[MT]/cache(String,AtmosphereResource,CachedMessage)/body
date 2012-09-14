@@ -1,7 +1,0 @@
-{
-  long time=cm.next() == null ? cm.currentTime() : cm.next().currentTime();
-  AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(ar);
-  if (r != null && r.isInScope() && !r.getResponse().isCommitted()) {
-    r.getResponse().addHeader(X_CACHE_DATE,String.valueOf(time));
-  }
-}

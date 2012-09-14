@@ -1,20 +1,24 @@
 {
   reaper.scheduleAtFixedRate(new Runnable(){
     public void run(){
-      Iterator<CachedMessage> i=queue.iterator();
-      CachedMessage message;
-      while (i.hasNext()) {
-        message=i.next();
-        logger.trace("Message: {}",message.message());
-        if (System.currentTimeMillis() - message.currentTime() > maxCachedinMs) {
-          logger.trace("Pruning: {}",message.message());
-          queue.remove(message);
+      readWriteLock.writeLock().lock();
+      try {
+        long now=System.currentTimeMillis();
+        List<CacheMessage> expiredMessages=new ArrayList<CacheMessage>();
+        for (        CacheMessage message : messages) {
+          if (message.getCreateTime() <= now - maxCacheTime) {
+            expiredMessages.add(message);
+          }
         }
- else {
-          break;
+        for (        CacheMessage expiredMessage : expiredMessages) {
+          messages.remove(expiredMessage);
+          messagesIds.remove(expiredMessage.getId());
         }
+      }
+  finally {
+        readWriteLock.writeLock().unlock();
       }
     }
   }
-,0,60,TimeUnit.SECONDS);
+,0,invalidateCacheInterval,TimeUnit.MINUTES);
 }

@@ -1,0 +1,22 @@
+{
+  String id=message.id;
+  long now=System.currentTimeMillis();
+  readWriteLock.writeLock().lock();
+  try {
+    boolean hasMessageWithSameId=messagesIds.contains(id);
+    if (!hasMessageWithSameId) {
+      CacheMessage cacheMessage=new CacheMessage(id,now,message.message);
+      messages.add(cacheMessage);
+      messagesIds.add(id);
+    }
+  }
+  finally {
+    readWriteLock.writeLock().unlock();
+  }
+  HttpSession session=r.session();
+  if (session == null) {
+    logger.error(ERROR_MESSAGE);
+    return;
+  }
+  session.setAttribute(id,messages);
+}
