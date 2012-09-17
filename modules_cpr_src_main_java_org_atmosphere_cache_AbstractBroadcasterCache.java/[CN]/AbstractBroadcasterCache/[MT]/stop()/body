@@ -3,5 +3,7 @@
     scheduledFuture.cancel(false);
     scheduledFuture=null;
   }
-  reaper.shutdown();
+  if (!isShared) {
+    reaper.shutdown();
+  }
 }
