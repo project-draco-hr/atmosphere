@@ -9,7 +9,7 @@
   }
   final Object msg=filter(o);
   if (msg == null)   return null;
-  return bc.getScheduledExecutorService().scheduleWithFixedDelay(new Runnable(){
+  return (Future<Object>)bc.getScheduledExecutorService().scheduleWithFixedDelay(new Runnable(){
     public void run(){
       if (Callable.class.isAssignableFrom(o.getClass())) {
         try {

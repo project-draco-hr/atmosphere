@@ -1,0 +1,2 @@
+Object msg
+List<HttpSession> sessions
