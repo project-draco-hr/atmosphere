@@ -3,4 +3,5 @@
     scheduledFuture.cancel(false);
     scheduledFuture=null;
   }
+  reaper.shutdown();
 }
