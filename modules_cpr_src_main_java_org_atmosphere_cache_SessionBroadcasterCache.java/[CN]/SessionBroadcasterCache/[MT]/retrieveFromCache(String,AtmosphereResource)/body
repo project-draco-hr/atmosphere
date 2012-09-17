@@ -8,15 +8,7 @@
     logger.error(ERROR_MESSAGE);
     return result;
   }
-  List<CacheMessage> m=(List<CacheMessage>)session.getAttribute(id);
-  readWriteLock.readLock().lock();
-  try {
-    for (    CacheMessage cacheMessage : m) {
-      result.add(cacheMessage.getMessage());
-    }
-  }
-  finally {
-    readWriteLock.readLock().unlock();
-  }
-  return result;
+  Long cacheHeaderTime=(Long)session.getAttribute(broadcasterId);
+  if (cacheHeaderTime == null)   return result;
+  return get(cacheHeaderTime);
 }

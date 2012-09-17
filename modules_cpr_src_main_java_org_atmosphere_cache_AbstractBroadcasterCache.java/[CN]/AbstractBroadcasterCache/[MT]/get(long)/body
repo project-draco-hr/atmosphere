@@ -1,0 +1,15 @@
+{
+  List<Object> result=new ArrayList<Object>();
+  readWriteLock.readLock().lock();
+  try {
+    for (    CacheMessage cacheMessage : messages) {
+      if (cacheMessage.getCreateTime() > cacheHeaderTime) {
+        result.add(cacheMessage.getMessage());
+      }
+    }
+  }
+  finally {
+    readWriteLock.readLock().unlock();
+  }
+  return result;
+}
