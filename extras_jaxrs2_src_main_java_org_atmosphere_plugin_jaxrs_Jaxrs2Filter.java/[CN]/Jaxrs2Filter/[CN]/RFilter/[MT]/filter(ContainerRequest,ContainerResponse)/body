@@ -1,4 +1,0 @@
-{
-  servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
-  return response;
-}

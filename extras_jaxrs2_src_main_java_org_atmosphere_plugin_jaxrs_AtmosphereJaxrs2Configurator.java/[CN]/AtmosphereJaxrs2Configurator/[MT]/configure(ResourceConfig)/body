@@ -1,5 +1,0 @@
-{
-  super.configure(config);
-  Collections.addAll(config.getClasses(),ExecutionContextInjector.PerRequest.class,ExecutionContextInjector.Singleton.class);
-  config.getResourceFilterFactories().add(Jaxrs2Filter.class);
-}

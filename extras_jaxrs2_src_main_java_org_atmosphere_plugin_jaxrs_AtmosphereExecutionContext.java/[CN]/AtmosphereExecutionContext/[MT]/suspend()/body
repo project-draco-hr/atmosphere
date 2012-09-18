@@ -1,8 +1,0 @@
-{
-  if (this.unit == null) {
-    resource.suspend(-1,false);
-  }
- else {
-    resource.suspend(time,unit,false);
-  }
-}

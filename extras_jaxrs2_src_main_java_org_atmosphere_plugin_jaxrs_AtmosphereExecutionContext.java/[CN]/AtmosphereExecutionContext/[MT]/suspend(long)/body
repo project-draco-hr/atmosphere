@@ -1,8 +1,0 @@
-{
-  if (this.unit == null) {
-    resource.suspend(millis);
-  }
- else {
-    resource.suspend(time,unit,false);
-  }
-}

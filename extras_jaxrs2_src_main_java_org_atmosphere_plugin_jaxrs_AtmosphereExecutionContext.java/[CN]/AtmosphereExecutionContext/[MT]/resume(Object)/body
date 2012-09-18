@@ -1,4 +1,0 @@
-{
-  JerseyBroadcasterUtil.broadcast(resource,new AtmosphereResourceEventImpl(resource,false,false,null).setMessage(response),resource.getBroadcaster());
-  resource.resume();
-}

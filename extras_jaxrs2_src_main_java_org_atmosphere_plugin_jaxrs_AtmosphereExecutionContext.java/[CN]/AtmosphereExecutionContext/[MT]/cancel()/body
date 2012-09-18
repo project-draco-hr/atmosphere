@@ -1,8 +1,0 @@
-{
-  try {
-    resource.cancel();
-  }
- catch (  IOException e) {
-    logger.debug("",e);
-  }
-}

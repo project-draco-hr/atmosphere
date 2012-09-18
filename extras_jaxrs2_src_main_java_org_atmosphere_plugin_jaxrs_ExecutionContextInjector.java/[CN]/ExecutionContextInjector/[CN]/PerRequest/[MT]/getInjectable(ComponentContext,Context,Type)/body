@@ -1,9 +1,0 @@
-{
-  if (!isValidType(t))   return null;
-  return new Injectable<ExecutionContext>(){
-    @Override public ExecutionContext getValue(){
-      return new AtmosphereExecutionContext(AtmosphereResourceImpl.class.cast(getAtmosphereResource(AtmosphereResource.class,false)));
-    }
-  }
-;
-}
