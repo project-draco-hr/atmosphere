@@ -9,6 +9,9 @@
       servlet=(Servlet)Thread.currentThread().getContextClassLoader().loadClass(servletClassName).newInstance();
     }
   }
+  if (servlet == null) {
+    throw new IllegalStateException("Servlet cannot be null");
+  }
   logger.info("Installing Servlet {}",servletClassName);
   filterChain.setServlet(sc,servlet);
   Filter f;
