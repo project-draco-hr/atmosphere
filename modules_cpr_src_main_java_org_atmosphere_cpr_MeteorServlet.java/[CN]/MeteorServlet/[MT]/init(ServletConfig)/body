@@ -10,7 +10,7 @@
   if (filterClass != null) {
     logger.info("Installed Filter/Meteor {} mapped to /*",filterClass,mapping);
   }
-  if (servletClass != null && filterClass != null) {
+  if (servletClass != null || filterClass != null) {
     ReflectorServletProcessor r=new ReflectorServletProcessor();
     r.setServletClassName(servletClass);
     r.setFilterClassName(filterClass);
