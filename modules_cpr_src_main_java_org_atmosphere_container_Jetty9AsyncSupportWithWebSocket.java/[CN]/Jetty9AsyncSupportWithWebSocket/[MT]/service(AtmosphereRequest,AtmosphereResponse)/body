@@ -10,7 +10,7 @@
       return Action.CANCELLED;
     }
  else {
-      return null;
+      return super.service(req,res);
     }
   }
  else {
