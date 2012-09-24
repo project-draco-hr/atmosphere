@@ -8,7 +8,6 @@
       AtmosphereHandler handler;
       if (!ReflectorServletProcessor.class.getName().equals(atmoHandler.getClassName())) {
         handler=(AtmosphereHandler)c.loadClass(atmoHandler.getClassName()).newInstance();
-        InjectorProvider.getInjector().inject(handler);
       }
  else {
         handler=new ReflectorServletProcessor();
