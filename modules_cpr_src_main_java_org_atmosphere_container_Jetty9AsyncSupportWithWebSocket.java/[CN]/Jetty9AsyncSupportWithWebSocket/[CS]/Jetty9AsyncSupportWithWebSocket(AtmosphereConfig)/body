@@ -1,0 +1,33 @@
+{
+  super(config);
+  String bs=config.getInitParameter("bufferSize");
+  WebSocketPolicy policy=new WebSocketPolicy(WebSocketBehavior.SERVER);
+  if (bs != null) {
+    policy.setBufferSize(Integer.parseInt(bs));
+  }
+  String max=config.getInitParameter("maxIdleTime");
+  if (max != null) {
+    policy.setIdleTimeout(Integer.parseInt(max));
+  }
+  max=config.getInitParameter("maxTextMessageSize");
+  if (max != null) {
+    policy.setMaxTextMessageSize(Integer.parseInt(max));
+  }
+  max=config.getInitParameter("maxBinaryMessageSize");
+  if (max != null) {
+    policy.setMaxBinaryMessageSize(Integer.parseInt(max));
+  }
+  webSocketFactory=new WebSocketServerFactory(policy);
+  webSocketFactory.setCreator(new WebSocketCreator(){
+    @Override public Object createWebSocket(    UpgradeRequest upgradeRequest,    UpgradeResponse upgradeResponse){
+      return new Jetty9WebSocketHandler(upgradeRequest,config.framework(),config.framework().getWebSocketProtocol());
+    }
+  }
+);
+  try {
+    webSocketFactory.start();
+  }
+ catch (  Exception e) {
+    logger.error("",e);
+  }
+}

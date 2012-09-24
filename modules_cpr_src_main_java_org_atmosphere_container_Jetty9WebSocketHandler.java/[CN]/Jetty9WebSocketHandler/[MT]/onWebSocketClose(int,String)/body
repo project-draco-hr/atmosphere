@@ -1,0 +1,5 @@
+{
+  request.destroy();
+  if (webSocketProcessor == null)   return;
+  webSocketProcessor.close(closeCode);
+}
