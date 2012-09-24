@@ -20,6 +20,8 @@
   webSocketFactory=new WebSocketServerFactory(policy);
   webSocketFactory.setCreator(new WebSocketCreator(){
     @Override public Object createWebSocket(    UpgradeRequest upgradeRequest,    UpgradeResponse upgradeResponse){
+      ServletWebSocketRequest r=ServletWebSocketRequest.class.cast(upgradeRequest);
+      r.getExtensions().clear();
       return new Jetty9WebSocketHandler(upgradeRequest,config.framework(),config.framework().getWebSocketProtocol());
     }
   }
