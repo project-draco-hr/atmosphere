@@ -4,7 +4,7 @@
   }
   AtmosphereRequest request=r.getRequest();
   String cacheHeader=request.getHeader(X_CACHE_DATE);
-  r.getResponse().setHeader(X_CACHE_DATE,String.valueOf(System.currentTimeMillis()));
+  r.getResponse().setHeader(X_CACHE_DATE,String.valueOf(System.nanoTime()));
   if (cacheHeader == null || cacheHeader.isEmpty()) {
     return Collections.emptyList();
   }

@@ -1,5 +1,5 @@
 {
-  long now=System.currentTimeMillis();
+  long now=System.nanoTime();
   put(e,now);
   if (r != null) {
     r.getResponse().setHeader(X_CACHE_DATE,String.valueOf(now));
