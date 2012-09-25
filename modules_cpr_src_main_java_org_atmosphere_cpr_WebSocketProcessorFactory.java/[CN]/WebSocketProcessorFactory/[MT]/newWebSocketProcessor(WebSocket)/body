@@ -1,5 +1,6 @@
 {
   WebSocketProcessor wp=null;
+  String webSocketProcessorName=webSocket.config().framework().getWebSocketProcessorClassName();
   if (!webSocketProcessorName.equalsIgnoreCase(DefaultWebSocketProcessor.class.getName())) {
     try {
       wp=(WebSocketProcessor)Thread.currentThread().getContextClassLoader().loadClass(webSocketProcessorName).newInstance();
@@ -13,7 +14,7 @@
     }
   }
   if (wp == null) {
-    wp=new DefaultWebSocketProcessor(config.framework(),webSocket,config.framework().getWebSocketProtocol());
+    wp=new DefaultWebSocketProcessor(webSocket);
   }
   return wp;
 }

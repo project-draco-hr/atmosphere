@@ -6,4 +6,5 @@
  else {
     binaryWrite=false;
   }
+  this.config=config;
 }
