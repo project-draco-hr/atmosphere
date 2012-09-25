@@ -1,4 +1,5 @@
 {
   this.author=author;
-  this.text=text;
+  this.message=message;
+  this.time=new Date().getTime();
 }
