@@ -1,2 +1,5 @@
 {
+  if (resource.getRequest().getMethod().equalsIgnoreCase("GET")) {
+    onOpen(resource);
+  }
 }
