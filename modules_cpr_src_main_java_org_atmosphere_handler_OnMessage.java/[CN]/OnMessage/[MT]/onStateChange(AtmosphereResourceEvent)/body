@@ -1,6 +1,16 @@
 {
+  AtmosphereResponse response=event.getResource().getResponse();
   if (event.isSuspended()) {
-    onMessage(event.getResource().getResponse(),(T)event.getMessage());
+    onMessage(response,(T)event.getMessage());
+  }
+ else   if (event.isResuming()) {
+    onResume(response);
+  }
+ else   if (event.isResumedOnTimeout()) {
+    onTimeout(response);
+  }
+ else   if (event.isCancelled()) {
+    onDisconnect(response);
   }
   postStateChange(event);
 }
