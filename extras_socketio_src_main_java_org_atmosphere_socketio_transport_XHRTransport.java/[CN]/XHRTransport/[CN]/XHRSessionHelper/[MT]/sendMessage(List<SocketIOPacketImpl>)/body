@@ -14,7 +14,7 @@ case ERROR:
  catch (      Exception e) {
         AtmosphereResourceImpl resource=session.getAtmosphereResourceImpl();
         if (resource != null && DefaultBroadcaster.class.isAssignableFrom(resource.getBroadcaster().getClass())) {
-          DefaultBroadcaster.class.cast(resource.getBroadcaster()).broadcasterCache.addToCache(resource.getBroadcaster().getID(),resource,new BroadcasterCache.Message(msg));
+          resource.getBroadcaster().getBroadcasterConfig().getBroadcasterCache().addToCache(resource.getBroadcaster().getID(),resource,new BroadcasterCache.Message(msg));
         }
       }
     break;
