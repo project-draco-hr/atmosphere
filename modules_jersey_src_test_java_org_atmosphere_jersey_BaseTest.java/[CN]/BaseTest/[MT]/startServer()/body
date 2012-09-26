@@ -1,0 +1,8 @@
+{
+  server=new Server(port);
+  ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);
+  context.setContextPath("/");
+  server.setHandler(context);
+  context.addServlet(new ServletHolder(atmoServlet),"/*");
+  server.start();
+}

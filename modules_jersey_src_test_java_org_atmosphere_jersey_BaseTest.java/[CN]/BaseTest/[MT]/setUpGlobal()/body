@@ -1,0 +1,8 @@
+{
+  port=TestHelper.getEnvVariable("ATMOSPHERE_HTTP_PORT",findFreePort());
+  urlTarget=getUrlTarget(port);
+  atmoServlet=new AtmosphereServlet();
+  atmoServlet.framework().addInitParameter("com.sun.jersey.config.property.packages",this.getClass().getPackage().getName());
+  configureCometSupport();
+  startServer();
+}

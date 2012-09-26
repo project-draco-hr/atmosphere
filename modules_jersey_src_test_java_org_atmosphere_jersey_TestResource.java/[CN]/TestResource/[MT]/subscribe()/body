@@ -1,0 +1,6 @@
+{
+  assertNotNull(topic.toString());
+  assertNotNull(bf.toString());
+  assertNotNull(ar.toString());
+  return "";
+}
