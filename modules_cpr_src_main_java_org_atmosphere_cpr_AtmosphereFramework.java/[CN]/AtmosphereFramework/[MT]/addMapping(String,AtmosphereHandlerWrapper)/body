@@ -1,9 +1,9 @@
 {
   if (path.contains("*")) {
-    path=path.replace("*",MAPPING_REGEX);
+    path=path.replace("*",mappingRegex);
   }
   if (path.endsWith("/")) {
-    path=path + MAPPING_REGEX;
+    path=path + mappingRegex;
   }
   InjectorProvider.getInjector().inject(w.atmosphereHandler);
   atmosphereHandlers.put(path,w);

@@ -1,6 +1,6 @@
 {
   if (mapping.endsWith("/")) {
-    mapping+=MAPPING_REGEX;
+    mapping+=mappingRegex;
   }
   atmosphereHandlers.remove(mapping);
   return this;
