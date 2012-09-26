@@ -5,8 +5,12 @@
   if (!framework.isCometSupportSpecified && !framework.isCometSupportConfigured.getAndSet(true)) {
 synchronized (framework.asyncSupport) {
       if (!framework.asyncSupport.getClass().equals(JBossWebCometSupport.class)) {
+        AsyncSupport current=framework.asyncSupport;
         logger.warn("JBossWebCometSupport is enabled, switching to it");
         framework.asyncSupport=new JBossWebCometSupport(framework.config);
+        if (current instanceof AsynchronousProcessor) {
+          ((AsynchronousProcessor)current).shutdown();
+        }
         framework.asyncSupport.init(framework.config.getServletConfig());
       }
     }
