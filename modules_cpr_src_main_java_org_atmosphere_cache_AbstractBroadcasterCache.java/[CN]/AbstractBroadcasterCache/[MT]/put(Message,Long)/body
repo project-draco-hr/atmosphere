@@ -1,4 +1,5 @@
 {
+  if (!inspect(message))   return;
   readWriteLock.writeLock().lock();
   try {
     boolean hasMessageWithSameId=messagesIds.contains(message.id);

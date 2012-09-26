@@ -21,9 +21,6 @@
     if (bc != null) {
       bc.destroy();
     }
-    if (broadcasterCache != null) {
-      broadcasterCache.stop();
-    }
     resources.clear();
     broadcastOnResume.clear();
     messages.clear();

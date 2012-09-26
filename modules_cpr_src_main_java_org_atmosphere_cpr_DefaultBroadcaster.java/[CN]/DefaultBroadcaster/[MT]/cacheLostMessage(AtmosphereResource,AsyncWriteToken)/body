@@ -2,7 +2,7 @@
   try {
     if (token != null && token.originalMessage != null) {
       Object m=cacheStrategy.equals(BroadcasterCache.STRATEGY.BEFORE_FILTER) ? token.originalMessage : token.msg;
-      broadcasterCache.addToCache(getID(),r,new BroadcasterCache.Message(String.valueOf(token.future.hashCode()),m));
+      bc.getBroadcasterCache().addToCache(getID(),r,new BroadcasterCache.Message(String.valueOf(token.future.hashCode()),m));
       logger.trace("Lost message cached {}",m);
     }
   }

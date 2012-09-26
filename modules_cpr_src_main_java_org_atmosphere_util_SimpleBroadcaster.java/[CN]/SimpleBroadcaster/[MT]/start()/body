@@ -1,7 +1,6 @@
 {
   if (!started.getAndSet(true)) {
     setID(name);
-    broadcasterCache=bc.getBroadcasterCache();
-    broadcasterCache.start();
+    bc.getBroadcasterCache().start();
   }
 }

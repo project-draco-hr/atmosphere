@@ -2,7 +2,6 @@
   this.name=name;
   this.uri=uri;
   this.config=config;
-  broadcasterCache=new DefaultBroadcasterCache();
   bc=createBroadcasterConfig(config);
   String s=config.getInitParameter(ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
   if (s != null) {

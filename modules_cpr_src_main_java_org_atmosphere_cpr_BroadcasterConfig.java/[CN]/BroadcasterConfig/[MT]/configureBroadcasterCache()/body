@@ -2,15 +2,17 @@
   try {
     String className=config.framework().getBroadcasterCacheClassName();
     if (className != null) {
-      BroadcasterCache cache;
       try {
-        cache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(className).newInstance();
+        broadcasterCache=(BroadcasterCache)Thread.currentThread().getContextClassLoader().loadClass(className).newInstance();
       }
  catch (      ClassNotFoundException ex) {
-        cache=(BroadcasterCache)getClass().getClassLoader().loadClass(className).newInstance();
+        broadcasterCache=(BroadcasterCache)getClass().getClassLoader().loadClass(className).newInstance();
       }
-      InjectorProvider.getInjector().inject(cache);
-      setBroadcasterCache(cache);
+      InjectorProvider.getInjector().inject(broadcasterCache);
+    }
+    for (    BroadcasterCacheInspector b : config.framework().inspectors()) {
+      broadcasterCache.inspector(b);
+      InjectorProvider.getInjector().inject(b);
     }
   }
  catch (  InstantiationException e) {

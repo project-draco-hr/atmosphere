@@ -1,0 +1,19 @@
+{
+  broadcaster.getBroadcasterConfig().setBroadcasterCache(new AbstractBroadcasterCache(){
+    @Override public void addToCache(    String id,    AtmosphereResource r,    Message e){
+      put(e,System.nanoTime());
+      cachedMessage.set(messages);
+    }
+    @Override public List<Object> retrieveFromCache(    String id,    AtmosphereResource r){
+      return Collections.<Object>emptyList();
+    }
+  }
+).getBroadcasterCache().inspector(new BroadcasterCacheInspector(){
+    @Override public boolean inspect(    BroadcasterCache.Message message){
+      return false;
+    }
+  }
+);
+  broadcaster.broadcast("foo",ar).get();
+  assertEquals(cachedMessage.get().size(),0);
+}
