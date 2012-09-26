@@ -1,9 +1,3 @@
 {
   logger.info("Subscribing to: {}",getID());
-  topic.addMessageListener(new MessageListener<String>(){
-    @Override public void onMessage(    String message){
-      broadcastReceivedMessage(message);
-    }
-  }
-);
 }
