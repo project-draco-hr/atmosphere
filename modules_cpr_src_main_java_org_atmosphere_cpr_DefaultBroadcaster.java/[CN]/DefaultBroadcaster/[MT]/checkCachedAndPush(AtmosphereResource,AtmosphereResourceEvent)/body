@@ -10,6 +10,25 @@
     r.getRequest().setAttribute(CACHED,"true");
 synchronized (r) {
       invokeOnStateChange(r,e);
-    }
-  }
+      for (      AtmosphereResourceEventListener l : AtmosphereResourceImpl.class.cast(r).atmosphereResourceEventListener()) {
+        l.onBroadcast(e);
+      }
+switch (r.transport()) {
+case JSONP:
+case AJAX:
+case LONG_POLLING:
+case SSE:
+        break;
+default :
+      try {
+        r.getResponse().flushBuffer();
+      }
+ catch (      IOException ioe) {
+        logger.warn("",ioe);
+        AsynchronousProcessor.destroyResource(r);
+      }
+    break;
+}
+}
+}
 }
