@@ -63,9 +63,9 @@
         broadcaster=BroadcasterFactory.getDefault().lookup(clazz,id + "/" + UUID.randomUUID(),true);
       }
     }
+    notifyListeners();
     broadcaster.addAtmosphereResource(this);
     req.removeAttribute(PRE_SUSPEND);
-    notifyListeners();
   }
   return this;
 }
