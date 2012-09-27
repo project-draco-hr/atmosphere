@@ -11,7 +11,7 @@
       store.remove(b.getID(),b);
     }
     Broadcaster existingOne=store.putIfAbsent(id,createBroadcaster(c,id));
-    if (existingOne == null) {
+    if (existingOne != null) {
       logger.debug("Added Broadcaster {} . Factory size: {}",id,store.size());
     }
  else {
