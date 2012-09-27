@@ -1,0 +1,6 @@
+{
+  String s=config.getInitParameter(HEARTBEAT_INTERVAL_IN_SECONDS);
+  if (s != null) {
+    heartbeatFrequencyInSeconds=Integer.valueOf(s);
+  }
+}
