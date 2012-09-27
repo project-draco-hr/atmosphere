@@ -1,0 +1,21 @@
+{
+  boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
+  try {
+    if (isUsingStream) {
+      try {
+        OutputStream o=writeUsingOriginalResponse ? _r().getOutputStream() : getOutputStream();
+        o.write(data,offset,length);
+      }
+ catch (      java.lang.IllegalStateException ex) {
+      }
+    }
+ else {
+      PrintWriter w=writeUsingOriginalResponse ? _r().getWriter() : getWriter();
+      w.write(new String(data,offset,length,getCharacterEncoding()));
+    }
+  }
+ catch (  IOException e) {
+    logger.trace("",e);
+  }
+  return this;
+}

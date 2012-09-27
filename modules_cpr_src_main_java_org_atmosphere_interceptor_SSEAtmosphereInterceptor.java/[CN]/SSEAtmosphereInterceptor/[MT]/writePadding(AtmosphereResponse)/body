@@ -6,7 +6,7 @@
   if (isUsingStream) {
     OutputStream stream=null;
     try {
-      stream=response.getOutputStream();
+      stream=response.getResponse().getOutputStream();
     }
  catch (    IOException e) {
       logger.trace("",e);
@@ -22,7 +22,7 @@
  else {
     PrintWriter w=null;
     try {
-      w=response.getWriter();
+      w=response.getResponse().getWriter();
     }
  catch (    IOException e) {
       logger.trace("",e);

@@ -24,15 +24,15 @@
           String contentType=contentType();
           response.write(callbackName + "({\"message\" : ");
           if (contentType != null && !contentType.contains("json")) {
-            response.write("\"");
+            response.write("\"",true);
           }
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           String contentType=contentType();
           if (contentType != null && !contentType.contains("json")) {
-            response.write("\"");
+            response.write("\"",true);
           }
-          response.write("});");
+          response.write("});",true);
         }
       }
 );
