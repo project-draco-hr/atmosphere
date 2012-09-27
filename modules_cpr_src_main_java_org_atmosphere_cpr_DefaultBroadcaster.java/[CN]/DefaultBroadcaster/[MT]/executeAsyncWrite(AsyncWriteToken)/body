@@ -27,7 +27,7 @@
       return;
     }
     r.getRequest().setAttribute(ASYNC_TOKEN,token);
-    broadcast(r,event);
+    invokeOnStateChange(r,event);
   }
   finally {
     if (notifyListeners) {

@@ -6,7 +6,8 @@
   start();
   Object newMsg=filter(msg);
   if (newMsg == null)   return (new BroadcasterFuture<Object>(msg,broadcasterListeners,this)).done();
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,resources.size(),broadcasterListeners,this);
+  int callee=resources.size() == 0 ? 1 : resources.size();
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,callee,broadcasterListeners,this);
   messages.offer(new Entry(newMsg,null,f,msg));
   return f;
 }
