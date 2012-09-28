@@ -3,7 +3,7 @@
   if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
     super.inspect(r);
     r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-      @Override public void onSuspend(      AtmosphereResourceEvent event){
+      @Override public void onPreSuspend(      AtmosphereResourceEvent event){
         writePadding(response);
       }
     }
