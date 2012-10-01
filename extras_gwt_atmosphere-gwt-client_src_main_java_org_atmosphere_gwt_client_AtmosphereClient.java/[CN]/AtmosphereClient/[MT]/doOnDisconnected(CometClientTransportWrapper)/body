@@ -18,6 +18,8 @@
   }
  else {
     listener.onDisconnected();
-    scheduleConnect(transport);
+    if (running) {
+      scheduleConnect(transport);
+    }
   }
 }

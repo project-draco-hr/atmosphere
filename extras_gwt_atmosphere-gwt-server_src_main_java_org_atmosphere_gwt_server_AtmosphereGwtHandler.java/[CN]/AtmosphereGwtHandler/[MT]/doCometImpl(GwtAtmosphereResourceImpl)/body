@@ -20,7 +20,7 @@
   int timeout;
   try {
     timeout=doComet(resource);
-    if (timeout == -1) {
+    if (timeout == NO_TIMEOUT) {
       logger.info("You have set an infinite timeout for your comet connection this is not recommended");
     }
   }
@@ -32,5 +32,10 @@ catch (  IOException e) {
     logger.error("Error calling doComet()",e);
     return;
   }
-  resource.suspend(timeout);
+  if (timeout == DO_COMET_RESUME) {
+    resource.resume();
+  }
+ else {
+    resource.suspend(timeout);
+  }
 }
