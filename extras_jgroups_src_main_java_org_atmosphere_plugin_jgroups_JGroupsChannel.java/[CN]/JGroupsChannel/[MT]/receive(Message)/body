@@ -3,7 +3,6 @@
   if (payload == null)   return;
   if (BroadcastMessage.class.isAssignableFrom(payload.getClass())) {
     BroadcastMessage broadcastMsg=BroadcastMessage.class.cast(payload);
-    if (this.id.equalsIgnoreCase(broadcastMsg.getClusterChannelId()))     return;
     Object origMessage=broadcastMsg.getMessage();
     receivedMessages.offer(origMessage);
     String topicId=broadcastMsg.getTopic();
