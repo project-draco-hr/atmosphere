@@ -3,7 +3,7 @@
   if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
     super.inspect(r);
     r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-      @Override public void onSuspend(      AtmosphereResourceEvent event){
+      @Override public void onPreSuspend(      AtmosphereResourceEvent event){
         writePadding(response);
       }
     }
@@ -19,10 +19,10 @@
         }
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           padding();
-          response.write("data:");
+          response.write("data:",true);
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          response.write("\n\n".getBytes());
+          response.write("\n\n".getBytes(),true);
         }
       }
 );

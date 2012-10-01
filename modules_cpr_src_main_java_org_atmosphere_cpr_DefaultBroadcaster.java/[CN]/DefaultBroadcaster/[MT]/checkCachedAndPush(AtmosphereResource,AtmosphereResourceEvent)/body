@@ -1,9 +1,34 @@
 {
   retrieveTrackedBroadcast(r,e);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(e.getMessage(),1,broadcasterListeners,this);
   if (e.getMessage() instanceof List && !((List)e.getMessage()).isEmpty()) {
+    List<Object> filteredMessage=new ArrayList<Object>();
+    for (    Object o : ((List)e.getMessage())) {
+      filteredMessage.add(perRequestFilter(r,new Entry(o,r,f,o)));
+    }
+    e.setMessage(filteredMessage);
     r.getRequest().setAttribute(CACHED,"true");
 synchronized (r) {
-      broadcast(r,e);
-    }
-  }
+      invokeOnStateChange(r,e);
+      for (      AtmosphereResourceEventListener l : AtmosphereResourceImpl.class.cast(r).atmosphereResourceEventListener()) {
+        l.onBroadcast(e);
+      }
+switch (r.transport()) {
+case JSONP:
+case AJAX:
+case LONG_POLLING:
+case SSE:
+        break;
+default :
+      try {
+        r.getResponse().flushBuffer();
+      }
+ catch (      IOException ioe) {
+        logger.warn("",ioe);
+        AsynchronousProcessor.destroyResource(r);
+      }
+    break;
+}
+}
+}
 }

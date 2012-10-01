@@ -8,7 +8,7 @@
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {
       AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          response.write(padding);
+          response.write(padding,true);
         }
       }
 );

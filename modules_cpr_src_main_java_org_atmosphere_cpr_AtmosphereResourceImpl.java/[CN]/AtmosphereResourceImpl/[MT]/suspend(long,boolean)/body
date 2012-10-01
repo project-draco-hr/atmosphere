@@ -7,6 +7,7 @@
     req.removeAttribute(DefaultBroadcaster.CACHED);
     return this;
   }
+  onPreSuspend(event);
   if (!event.isResumedOnTimeout()) {
     Enumeration<String> connection=req.getHeaders("Connection");
     if (connection == null) {
