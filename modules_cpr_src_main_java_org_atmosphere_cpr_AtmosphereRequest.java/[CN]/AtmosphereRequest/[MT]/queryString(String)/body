@@ -1,0 +1,15 @@
+{
+  if (!queryString.isEmpty()) {
+    b.queryString=queryString;
+    if (queryString.length() != 0) {
+      String[] qs=queryString.split("&");
+      Map<String,String[]> m=new HashMap<String,String[]>();
+      for (      String q : qs) {
+        String[] nameValue=q.split("=");
+        m.put(nameValue[0],new String[]{nameValue[1]});
+      }
+      b.queryStrings(m);
+    }
+  }
+  return this;
+}

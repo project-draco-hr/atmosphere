@@ -16,9 +16,18 @@
       if (body != null && body.isEmpty()) {
         body=null;
       }
-      req.headers(headers).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod());
+      StringBuilder queryStrings=new StringBuilder("");
+      Enumeration<String> e=req.getParameterNames();
+      String name;
+      while (e.hasMoreElements()) {
+        name=e.nextElement().toLowerCase().trim();
+        if (!name.startsWith("x-atmosphere") && !name.equalsIgnoreCase("x-cache-date")) {
+          queryStrings.append(name).append("=").append(req.getParameter(name));
+        }
+      }
+      req.headers(headers).queryString(queryStrings.toString()).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod());
       if (body != null) {
-        req.body(body);
+        req.body(URLDecoder.decode(body,req.getCharacterEncoding() == null ? "UTF-8" : req.getCharacterEncoding()));
       }
     }
     s=req.getHeader(X_ATMOSPHERE_TRACKING_ID);
