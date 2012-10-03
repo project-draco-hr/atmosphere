@@ -1,5 +1,11 @@
 {
   super.destroy();
   if (!jchannel.isOpen())   return;
-  jchannel.shutdown();
+  try {
+    Util.shutdown(jchannel);
+  }
+ catch (  Throwable t) {
+    Util.close(jchannel);
+    logger.warn("failed to properly shutdown jgroups channel, closing abnormally",t);
+  }
 }

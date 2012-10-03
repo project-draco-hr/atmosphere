@@ -1,3 +1,2 @@
-String clusterChannelId
 String topic
 Object message
