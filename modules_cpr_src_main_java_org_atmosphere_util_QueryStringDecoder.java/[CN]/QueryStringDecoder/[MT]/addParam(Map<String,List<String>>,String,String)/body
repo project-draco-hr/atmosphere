@@ -1,0 +1,13 @@
+{
+  if (nParams >= maxParams) {
+    return false;
+  }
+  List<String> values=params.get(name);
+  if (values == null) {
+    values=new ArrayList<String>(1);
+    params.put(name,values);
+  }
+  values.add(value);
+  nParams++;
+  return true;
+}

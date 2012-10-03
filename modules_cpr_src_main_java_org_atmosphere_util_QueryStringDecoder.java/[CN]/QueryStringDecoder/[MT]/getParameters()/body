@@ -1,0 +1,18 @@
+{
+  if (params == null) {
+    if (hasPath) {
+      int pathLength=getPath().length();
+      if (uri.length() == pathLength) {
+        return Collections.emptyMap();
+      }
+      decodeParams(uri.substring(pathLength + 1));
+    }
+ else {
+      if (uri.length() == 0) {
+        return Collections.emptyMap();
+      }
+      decodeParams(uri);
+    }
+  }
+  return params;
+}

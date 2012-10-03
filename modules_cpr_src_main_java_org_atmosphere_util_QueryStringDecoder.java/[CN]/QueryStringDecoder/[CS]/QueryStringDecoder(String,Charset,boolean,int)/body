@@ -1,0 +1,15 @@
+{
+  if (uri == null) {
+    throw new NullPointerException("uri");
+  }
+  if (charset == null) {
+    throw new NullPointerException("charset");
+  }
+  if (maxParams <= 0) {
+    throw new IllegalArgumentException("maxParams: " + maxParams + " (expected: a positive integer)");
+  }
+  this.uri=uri.replace(';','&');
+  this.charset=charset;
+  this.maxParams=maxParams;
+  this.hasPath=hasPath;
+}

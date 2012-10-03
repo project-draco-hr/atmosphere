@@ -1,0 +1,3 @@
+{
+  this(uri,UTF_8,hasPath);
+}

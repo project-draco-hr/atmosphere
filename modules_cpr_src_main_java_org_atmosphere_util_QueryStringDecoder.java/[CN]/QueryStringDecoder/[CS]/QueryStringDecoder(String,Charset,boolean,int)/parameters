@@ -1,0 +1,4 @@
+String uri
+Charset charset
+boolean hasPath
+int maxParams

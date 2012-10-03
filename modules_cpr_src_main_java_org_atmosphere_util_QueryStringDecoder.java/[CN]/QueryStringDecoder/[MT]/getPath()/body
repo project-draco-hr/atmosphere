@@ -1,0 +1,15 @@
+{
+  if (path == null) {
+    if (!hasPath) {
+      return path="";
+    }
+    int pathEndPos=uri.indexOf('?');
+    if (pathEndPos < 0) {
+      path=uri;
+    }
+ else {
+      return path=uri.substring(0,pathEndPos);
+    }
+  }
+  return path;
+}

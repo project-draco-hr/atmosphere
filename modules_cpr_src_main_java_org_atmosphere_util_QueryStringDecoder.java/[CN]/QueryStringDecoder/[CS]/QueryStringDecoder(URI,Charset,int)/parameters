@@ -1,0 +1,3 @@
+URI uri
+Charset charset
+int maxParams

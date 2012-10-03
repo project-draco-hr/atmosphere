@@ -1,0 +1,23 @@
+{
+  if (uri == null) {
+    throw new NullPointerException("uri");
+  }
+  if (charset == null) {
+    throw new NullPointerException("charset");
+  }
+  if (maxParams <= 0) {
+    throw new IllegalArgumentException("maxParams: " + maxParams + " (expected: a positive integer)");
+  }
+  String rawPath=uri.getRawPath();
+  if (rawPath != null) {
+    hasPath=true;
+  }
+ else {
+    rawPath="";
+    hasPath=false;
+  }
+  String newUri=rawPath + "?" + uri.getRawQuery();
+  this.uri=newUri.replace(';','&');
+  this.charset=charset;
+  this.maxParams=maxParams;
+}

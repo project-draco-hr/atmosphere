@@ -1,0 +1,3 @@
+{
+  this(uri,charset,hasPath,DEFAULT_MAX_PARAMS);
+}
