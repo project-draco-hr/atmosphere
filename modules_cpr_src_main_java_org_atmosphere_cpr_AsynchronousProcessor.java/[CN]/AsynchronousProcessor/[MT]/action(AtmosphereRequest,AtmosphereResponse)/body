@@ -17,7 +17,7 @@
     SessionTimeoutSupport.setupTimeout(session);
   }
   req.setAttribute(FrameworkConfig.SUPPORT_SESSION,supportSession());
-  AtmosphereHandlerWrapper handlerWrapper=map(req);
+  AtmosphereHandlerWrapper handlerWrapper=mapper.map(req,config.handlers());
   Broadcaster b=handlerWrapper.broadcaster;
   if (b.isDestroyed()) {
     BroadcasterFactory f=BroadcasterFactory.getDefault();

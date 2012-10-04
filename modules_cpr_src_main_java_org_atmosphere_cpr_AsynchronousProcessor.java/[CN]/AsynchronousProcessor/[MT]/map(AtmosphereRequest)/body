@@ -1,40 +1,8 @@
 {
-  String path;
-  String pathInfo=null;
-  try {
-    pathInfo=req.getPathInfo();
-  }
- catch (  IllegalStateException ex) {
-  }
-  if (pathInfo != null) {
-    path=req.getServletPath() + pathInfo;
-  }
- else {
-    path=req.getServletPath();
-  }
-  if (path == null || path.isEmpty()) {
-    path="/";
-  }
-  AtmosphereHandlerWrapper atmosphereHandlerWrapper=map(path + (path.endsWith("/") ? "all" : "/all"));
+  AtmosphereHandlerWrapper atmosphereHandlerWrapper=mapper.map(req,config.handlers());
   if (atmosphereHandlerWrapper == null) {
-    atmosphereHandlerWrapper=map(path);
-    if (atmosphereHandlerWrapper == null) {
-      atmosphereHandlerWrapper=map(path + "*");
-      if (atmosphereHandlerWrapper == null) {
-        String p=path.lastIndexOf("/") == 0 ? "/" : path.substring(0,path.lastIndexOf("/"));
-        while (p.length() > 0) {
-          atmosphereHandlerWrapper=map(p);
-          if (atmosphereHandlerWrapper != null) {
-            break;
-          }
-          p=p.substring(0,p.lastIndexOf("/"));
-        }
-      }
-    }
-  }
-  if (atmosphereHandlerWrapper == null) {
-    logger.debug("No AtmosphereHandler maps request for {} with mapping {}",path,config.handlers());
-    throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + path);
+    logger.debug("No AtmosphereHandler maps request for {} with mapping {}",req.getRequestURI(),config.handlers());
+    throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + req.getRequestURI());
   }
   config.getBroadcasterFactory().add(atmosphereHandlerWrapper.broadcaster,atmosphereHandlerWrapper.broadcaster.getID());
   return atmosphereHandlerWrapper;

@@ -1,0 +1,36 @@
+{
+  String path;
+  String pathInfo=null;
+  try {
+    pathInfo=req.getPathInfo();
+  }
+ catch (  IllegalStateException ex) {
+  }
+  if (pathInfo != null) {
+    path=req.getServletPath() + pathInfo;
+  }
+ else {
+    path=req.getServletPath();
+  }
+  if (path == null || path.isEmpty()) {
+    path="/";
+  }
+  U handler=map(path + (path.endsWith("/") ? "all" : "/all"),handlers);
+  if (handler == null) {
+    handler=map(path,handlers);
+    if (handler == null) {
+      handler=map(path + "*",handlers);
+      if (handler == null) {
+        String p=path.lastIndexOf("/") == 0 ? "/" : path.substring(0,path.lastIndexOf("/"));
+        while (p.length() > 0) {
+          handler=map(p,handlers);
+          if (handler != null) {
+            break;
+          }
+          p=p.substring(0,p.lastIndexOf("/"));
+        }
+      }
+    }
+  }
+  return handler;
+}
