@@ -1,6 +1,6 @@
 {
   try {
-    if (broadcasterClassName.equalsIgnoreCase(DefaultBroadcaster.class.getName())) {
+    if (!broadcasterClassName.equalsIgnoreCase(DefaultBroadcaster.class.getName())) {
       broadcasterClassName=lookupDefaultBroadcasterType(broadcasterClassName);
     }
     if (broadcasterFactoryClassName != null) {
