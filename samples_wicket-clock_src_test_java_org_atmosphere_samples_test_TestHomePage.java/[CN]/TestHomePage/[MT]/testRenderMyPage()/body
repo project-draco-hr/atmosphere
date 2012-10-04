@@ -1,5 +1,0 @@
-{
-  tester.startPage(HomePage.class);
-  tester.assertRenderedPage(HomePage.class);
-  tester.assertLabel("message","This clock updates the time using Atmosphere Meteor PUSH framework");
-}

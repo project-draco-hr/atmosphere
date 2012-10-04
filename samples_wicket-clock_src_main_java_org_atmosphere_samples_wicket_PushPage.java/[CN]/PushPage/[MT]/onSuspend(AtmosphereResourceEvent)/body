@@ -1,5 +1,0 @@
-{
-  String transport=event.getResource().getRequest().getHeader(X_ATMOSPHERE_TRANSPORT);
-  HttpServletRequest req=event.getResource().getRequest();
-  logger.info("Suspending the %s response from ip {}:{}",new Object[]{transport == null ? WEBSOCKET_TRANSPORT : transport,req.getRemoteAddr(),req.getRemotePort()});
-}

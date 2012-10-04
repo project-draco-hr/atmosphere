@@ -1,9 +1,0 @@
-{
-  logger.info("onBroadcast(): {}",event.getMessage());
-  String transport=event.getResource().getRequest().getHeader(X_ATMOSPHERE_TRANSPORT);
-  if (transport != null && transport.equalsIgnoreCase(LONG_POLLING_TRANSPORT)) {
-    Meteor meteor=Meteor.lookup(event.getResource().getRequest());
-    meteor.removeListener(this);
-    meteor.resume();
-  }
-}
