@@ -5,7 +5,7 @@
         incomingBroadcast();
       }
  catch (      Throwable t) {
-        logger.debug("incomingBroadcast Exception. Broadcaster will be broken unless reconfigured",t);
+        logger.warn("incomingBroadcast Exception. Broadcaster will be broken unless reconfigured",t);
         destroy();
         return;
       }
