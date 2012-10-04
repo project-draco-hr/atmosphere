@@ -1,0 +1,6 @@
+{
+  if (webSocketprocessor != null) {
+    webSocketprocessor.destroy();
+    webSocketprocessor=null;
+  }
+}

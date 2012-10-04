@@ -1,0 +1,4 @@
+{
+  this.webSocketHandler=webSocketHandler;
+  return this;
+}

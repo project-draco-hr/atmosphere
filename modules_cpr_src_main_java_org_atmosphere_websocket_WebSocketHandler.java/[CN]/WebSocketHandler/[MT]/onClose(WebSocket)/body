@@ -1,3 +1,0 @@
-{
-  webSocket.resource().resume();
-}

@@ -96,7 +96,22 @@
         framework.setDefaultBroadcasterClassName(className);
       }
  else       if (WebSocketHandlerService.class.equals(annotation)) {
-        framework.setWebSocketProtocolClassName(className);
+        try {
+          framework.initWebSocket();
+          Class<WebSocketHandler> s=(Class<WebSocketHandler>)cl.loadClass(className);
+          WebSocketHandlerService m=s.getAnnotation(WebSocketHandlerService.class);
+          WebSocketProcessor p=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
+          p.registerWebSocketHandler(m.path(),s.newInstance());
+          framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
+          Class<? extends BroadcastFilter>[] bf=m.broadcastFilters();
+          for (          Class<? extends BroadcastFilter> b : bf) {
+            framework.broadcasterFilters().add(b.getName());
+          }
+          framework.setBroadcasterCacheClassName(m.broadcasterCache().getName());
+        }
+ catch (        Throwable e) {
+          logger.warn("",e);
+        }
       }
  else       if (WebSocketProtocolService.class.equals(annotation)) {
         framework.setWebSocketProtocolClassName(className);

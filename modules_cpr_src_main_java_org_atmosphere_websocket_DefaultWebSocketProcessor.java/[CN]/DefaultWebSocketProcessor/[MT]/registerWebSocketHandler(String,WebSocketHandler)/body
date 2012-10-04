@@ -1,3 +1,4 @@
 {
-  return null;
+  handlers.put(path,webSockethandler);
+  return this;
 }

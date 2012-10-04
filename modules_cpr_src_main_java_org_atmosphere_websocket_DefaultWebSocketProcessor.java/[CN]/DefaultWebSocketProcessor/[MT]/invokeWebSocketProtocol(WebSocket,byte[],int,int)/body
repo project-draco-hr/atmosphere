@@ -1,6 +1,17 @@
 {
-  List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,data,offset,length);
-  dispatch(webSocket,list);
+  WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
+  if (webSocketHandler == null) {
+    List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,data,offset,length);
+    dispatch(webSocket,list);
+  }
+ else {
+    try {
+      webSocketHandler.onByteMessage(webSocket,data,offset,length);
+    }
+ catch (    Exception ex) {
+      webSocketHandler.onError(webSocket,new WebSocketException(ex,new AtmosphereResponse.Builder().request(webSocket.resource().getRequest()).status(500).statusMessage("Server Error").build()));
+    }
+  }
   try {
     notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),MESSAGE,webSocket));
   }

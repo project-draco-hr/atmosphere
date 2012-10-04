@@ -1,5 +1,6 @@
 {
   logger.trace("WebSocket closed with {}",closeCode);
+  WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
   notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocket));
   AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
   if (resource == null) {
@@ -20,8 +21,11 @@
             h.closed();
           }
         }
- else {
+ else         if (webSocketHandler == null) {
           logger.warn("AsynchronousProcessor.AsynchronousProcessorHook was null");
+        }
+        if (webSocketHandler != null) {
+          webSocketHandler.onClose(webSocket);
         }
         resource.setIsInScope(false);
         try {
@@ -45,7 +49,4 @@
       }
     }
   }
-  asyncExecutor.shutdown();
-  voidExecutor.shutdown();
-  scheduler.shutdown();
 }

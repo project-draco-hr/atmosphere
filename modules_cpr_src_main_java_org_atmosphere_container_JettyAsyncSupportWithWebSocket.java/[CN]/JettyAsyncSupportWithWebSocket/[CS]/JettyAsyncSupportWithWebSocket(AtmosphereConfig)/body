@@ -1,6 +1,6 @@
 {
   super(config);
-  final WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(config.framework());
+  final WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config.framework());
   WebSocketFactory wsf;
   try {
     String[] jettyVersion=config.getServletContext().getServerInfo().substring(6).split("\\.");

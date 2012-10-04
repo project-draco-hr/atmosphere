@@ -1,7 +1,7 @@
 {
   ByteArrayOutputStream b=new ByteArrayOutputStream();
   final WebSocket w=new ArrayBaseWebSocket(b);
-  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(framework);
+  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
   final AtomicReference<String> uuid=new AtomicReference<String>();
   framework.addAtmosphereHandler("/*",new AtmosphereHandler(){
     @Override public void onRequest(    AtmosphereResource resource) throws IOException {

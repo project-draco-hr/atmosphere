@@ -9,7 +9,18 @@
   request.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,r.uuid());
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
-  dispatch(webSocket,request,wsr);
+  if (handlers.size() == 0) {
+    dispatch(webSocket,request,wsr);
+  }
+ else {
+    WebSocketHandler handler=mapper.map(request,handlers);
+    if (handler == null) {
+      logger.debug("No WebSocketHandler maps request for {} with mapping {}",request.getRequestURI(),handlers);
+      throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + request.getRequestURI());
+    }
+    handler.onOpen(webSocket);
+    webSocket.webSocketHandler(handler).resource().suspend(-1);
+  }
   request.removeAttribute(INJECTED_ATMOSPHERE_RESOURCE);
   if (webSocket.resource() != null) {
     final AsynchronousProcessor.AsynchronousProcessorHook hook=new AsynchronousProcessor.AsynchronousProcessorHook((AtmosphereResourceImpl)webSocket.resource());
