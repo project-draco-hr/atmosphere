@@ -1,5 +1,0 @@
-{
-  this.request=request;
-  this.framework=framework;
-  this.webSocketProtocol=webSocketProtocol;
-}

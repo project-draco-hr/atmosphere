@@ -1,0 +1,5 @@
+{
+  List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,webSocketMessage);
+  dispatch(webSocket,list);
+  notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(webSocketMessage,MESSAGE,webSocket));
+}

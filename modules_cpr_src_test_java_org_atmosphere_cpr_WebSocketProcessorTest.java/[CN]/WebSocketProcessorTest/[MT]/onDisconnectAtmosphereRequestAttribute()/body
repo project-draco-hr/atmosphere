@@ -1,7 +1,7 @@
 {
   ByteArrayOutputStream b=new ByteArrayOutputStream();
   final WebSocket w=new ArrayBaseWebSocket(b);
-  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(w);
+  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(framework);
   final AtomicReference<String> uuid=new AtomicReference<String>();
   framework.addAtmosphereHandler("/*",new AtmosphereHandler(){
     @Override public void onRequest(    AtmosphereResource resource) throws IOException {
@@ -19,9 +19,9 @@
   }
 );
   AtmosphereRequest request=new AtmosphereRequest.Builder().destroyable(false).body("yoComet").pathInfo("/a").build();
-  processor.open(request);
-  processor.invokeWebSocketProtocol("yoWebSocket");
-  processor.notifyListener(new WebSocketEventListener.WebSocketEvent("Disconnect",DISCONNECT,w));
+  processor.open(w,request);
+  processor.invokeWebSocketProtocol(w,"yoWebSocket");
+  processor.notifyListener(w,new WebSocketEventListener.WebSocketEvent("Disconnect",DISCONNECT,w));
   assertNotNull(uuid.get());
   assertEquals(uuid.get(),request.getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID));
 }

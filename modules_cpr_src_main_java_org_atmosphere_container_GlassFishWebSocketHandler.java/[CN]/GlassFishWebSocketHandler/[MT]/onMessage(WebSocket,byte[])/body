@@ -1,8 +1,6 @@
 {
   logger.trace("onMessage (bytes) {} ",w);
-  DefaultWebSocket webSocket=DefaultWebSocket.class.cast(w);
-  WebSocketProcessor webSocketProcessor=(WebSocketProcessor)webSocket.getRequest().getAttribute("grizzly.webSocketProcessor");
   if (webSocketProcessor != null) {
-    webSocketProcessor.invokeWebSocketProtocol(bytes,0,bytes.length);
+    webSocketProcessor.invokeWebSocketProtocol(webSocket,bytes,0,bytes.length);
   }
 }

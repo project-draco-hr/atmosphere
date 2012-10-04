@@ -1,0 +1,51 @@
+{
+  logger.trace("WebSocket closed with {}",closeCode);
+  notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocket));
+  AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
+  if (resource == null) {
+    logger.warn("Unable to retrieve AtmosphereResource for {}",webSocket);
+  }
+ else {
+    AtmosphereRequest r=resource.getRequest(false);
+    AtmosphereResponse s=resource.getResponse(false);
+    try {
+      webSocketProtocol.onClose(webSocket);
+      if (resource != null && resource.isInScope()) {
+        AsynchronousProcessor.AsynchronousProcessorHook h=(AsynchronousProcessor.AsynchronousProcessorHook)r.getAttribute(ASYNCHRONOUS_HOOK);
+        if (h != null) {
+          if (closeCode == 1000) {
+            h.timedOut();
+          }
+ else {
+            h.closed();
+          }
+        }
+ else {
+          logger.warn("AsynchronousProcessor.AsynchronousProcessorHook was null");
+        }
+        resource.setIsInScope(false);
+        try {
+          resource.cancel();
+        }
+ catch (        IOException e) {
+          logger.trace("",e);
+        }
+        AsynchronousProcessor.destroyResource(resource);
+      }
+    }
+  finally {
+      if (r != null) {
+        r.destroy(true);
+      }
+      if (s != null) {
+        s.destroy(true);
+      }
+      if (webSocket != null) {
+        webSocket.resource(null);
+      }
+    }
+  }
+  asyncExecutor.shutdown();
+  voidExecutor.shutdown();
+  scheduler.shutdown();
+}

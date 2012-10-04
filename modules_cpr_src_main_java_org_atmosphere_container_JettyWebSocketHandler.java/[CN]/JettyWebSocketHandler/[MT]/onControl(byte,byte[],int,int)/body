@@ -1,7 +1,7 @@
 {
   logger.trace("WebSocket.onControl.");
   try {
-    webSocketProcessor.notifyListener(new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),CONTROL,webSocketProcessor.webSocket()));
+    webSocketProcessor.notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),CONTROL,webSocket));
   }
  catch (  UnsupportedEncodingException e) {
     logger.warn("UnsupportedEncodingException",e);

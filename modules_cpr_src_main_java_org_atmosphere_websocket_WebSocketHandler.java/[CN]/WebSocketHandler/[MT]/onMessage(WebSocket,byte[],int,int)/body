@@ -1,4 +1,0 @@
-{
-  onByteMessage(webSocket,data,offset,length);
-  return null;
-}

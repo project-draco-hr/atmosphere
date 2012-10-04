@@ -1,10 +1,11 @@
 {
   super(config);
+  final WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(config.framework());
   WebSocketFactory wsf;
   try {
     String[] jettyVersion=config.getServletContext().getServerInfo().substring(6).split("\\.");
     if (Integer.valueOf(jettyVersion[0]) > 7 || Integer.valueOf(jettyVersion[0]) == 7 && Integer.valueOf(jettyVersion[1]) > 4) {
-      wsf=JettyWebSocketUtil.getFactory(config);
+      wsf=JettyWebSocketUtil.getFactory(config,webSocketProcessor);
     }
  else {
       wsf=null;
@@ -16,7 +17,7 @@
     }
  catch (    Throwable t) {
     }
-    wsf=JettyWebSocketUtil.getFactory(config);
+    wsf=JettyWebSocketUtil.getFactory(config,webSocketProcessor);
   }
   webSocketFactory=wsf;
 }

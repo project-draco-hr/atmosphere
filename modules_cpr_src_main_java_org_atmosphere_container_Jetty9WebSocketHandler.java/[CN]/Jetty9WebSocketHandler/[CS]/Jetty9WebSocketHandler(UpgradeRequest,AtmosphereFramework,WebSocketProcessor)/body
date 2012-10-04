@@ -1,0 +1,5 @@
+{
+  this.framework=framework;
+  this.request=cloneRequest(request);
+  this.webSocketProcessor=webSocketProcessor;
+}

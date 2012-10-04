@@ -1,8 +1,8 @@
 {
   logger.trace("WebSocket.onOpen.");
+  webSocket=new TomcatWebSocket(outbound,framework.getAtmosphereConfig());
   try {
-    webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(new TomcatWebSocket(outbound,framework.getAtmosphereConfig()));
-    webSocketProcessor.open(request);
+    webSocketProcessor.open(webSocket,request);
   }
  catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);

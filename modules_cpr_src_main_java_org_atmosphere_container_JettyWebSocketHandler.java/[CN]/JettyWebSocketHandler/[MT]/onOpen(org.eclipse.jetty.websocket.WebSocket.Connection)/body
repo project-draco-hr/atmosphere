@@ -1,8 +1,7 @@
 {
   logger.trace("WebSocket.onOpen.");
   try {
-    webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(new Jetty8WebSocket(connection,framework.getAtmosphereConfig()));
-    webSocketProcessor.open(request);
+    webSocketProcessor.open(webSocket,request);
   }
  catch (  Exception e) {
     logger.warn("Failed to connect to WebSocket",e);

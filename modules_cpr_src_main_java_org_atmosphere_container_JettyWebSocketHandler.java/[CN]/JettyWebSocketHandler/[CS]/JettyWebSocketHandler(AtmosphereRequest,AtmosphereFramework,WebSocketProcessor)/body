@@ -1,0 +1,5 @@
+{
+  this.request=request;
+  this.framework=framework;
+  this.webSocketProcessor=webSocketProcessor;
+}

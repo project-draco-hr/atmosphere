@@ -1,8 +1,9 @@
 {
   super(config);
+  final WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(config.framework());
   boolean isJetty=config.getServletContext().getServerInfo().toLowerCase().startsWith("jetty");
   if (isJetty) {
-    webSocketFactory=JettyWebSocketUtil.getFactory(config);
+    webSocketFactory=JettyWebSocketUtil.getFactory(config,webSocketProcessor);
   }
  else {
     webSocketFactory=null;

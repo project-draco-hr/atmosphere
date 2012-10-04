@@ -1,11 +1,12 @@
 {
   super.onConnect(w);
+  webSocket=new GrizzlyWebSocket(w,config);
   if (!DefaultWebSocket.class.isAssignableFrom(w.getClass())) {
     throw new IllegalStateException();
   }
-  DefaultWebSocket webSocket=DefaultWebSocket.class.cast(w);
+  DefaultWebSocket dws=DefaultWebSocket.class.cast(w);
   try {
-    AtmosphereRequest r=AtmosphereRequest.wrap(webSocket.getRequest());
+    AtmosphereRequest r=AtmosphereRequest.wrap(dws.getRequest());
     try {
       if (r.getPathInfo().startsWith(r.getContextPath())) {
         r.servletPath(r.getPathInfo().substring(r.getContextPath().length()));
@@ -15,9 +16,7 @@
  catch (    Exception e) {
       logger.trace("",e);
     }
-    WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(new GrizzlyWebSocket(webSocket,config));
-    webSocket.getRequest().setAttribute("grizzly.webSocketProcessor",webSocketProcessor);
-    webSocketProcessor.open(r);
+    webSocketProcessor.open(webSocket,r);
   }
  catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);

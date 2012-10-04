@@ -1,4 +1,4 @@
 {
   logger.trace("WebSocket.onMessage (bytes)");
-  webSocketProcessor.invokeWebSocketProtocol(s);
+  webSocketProcessor.invokeWebSocketProtocol(webSocket,s);
 }

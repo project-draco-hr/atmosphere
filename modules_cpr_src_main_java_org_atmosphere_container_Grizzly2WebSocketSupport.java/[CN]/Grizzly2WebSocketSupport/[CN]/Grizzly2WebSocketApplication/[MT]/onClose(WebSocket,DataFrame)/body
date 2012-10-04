@@ -1,9 +1,9 @@
 {
   super.onClose(socket,frame);
   LOGGER.trace("onClose {} ",socket);
-  G2WebSocket webSocket=G2WebSocket.class.cast(socket);
-  if (webSocket.getRequest().getAttribute("grizzly.webSocketProcessor") != null) {
-    WebSocketProcessor webSocketProcessor=(WebSocketProcessor)webSocket.getRequest().getAttribute("grizzly.webSocketProcessor");
-    webSocketProcessor.close(1000);
+  G2WebSocket g2w=G2WebSocket.class.cast(socket);
+  org.atmosphere.websocket.WebSocket webSocket=(org.atmosphere.websocket.WebSocket)g2w.getRequest().getAttribute("grizzly.webSocket");
+  if (webSocket != null) {
+    webSocketProcessor.close(webSocket,1000);
   }
 }

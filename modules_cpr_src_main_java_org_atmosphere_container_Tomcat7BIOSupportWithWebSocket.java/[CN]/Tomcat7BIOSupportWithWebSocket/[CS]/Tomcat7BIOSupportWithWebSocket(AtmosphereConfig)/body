@@ -1,3 +1,4 @@
 {
   super(config);
+  webSocketProcessor=WebSocketProcessorFactory.getDefault().newWebSocketProcessor(config.framework());
 }
