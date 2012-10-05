@@ -54,7 +54,7 @@ synchronized (concurrentSuspendBroadcast) {
     try {
       if (entry.multipleAtmoResources == null) {
         for (        AtmosphereResource r : resources) {
-          finalMsg=perRequestFilter(r,entry);
+          finalMsg=perRequestFilter(r,entry,true);
           if (finalMsg == null) {
             logger.debug("Skipping broadcast delivery resource {} ",r);
             continue;
@@ -65,7 +65,7 @@ synchronized (concurrentSuspendBroadcast) {
         }
       }
  else       if (entry.multipleAtmoResources instanceof AtmosphereResource) {
-        finalMsg=perRequestFilter((AtmosphereResource)entry.multipleAtmoResources,entry);
+        finalMsg=perRequestFilter((AtmosphereResource)entry.multipleAtmoResources,entry,true);
         if (finalMsg == null) {
           logger.debug("Skipping broadcast delivery resource {} ",entry.multipleAtmoResources);
           return;
@@ -78,7 +78,7 @@ synchronized (concurrentSuspendBroadcast) {
         Set<AtmosphereResource> sub=(Set<AtmosphereResource>)entry.multipleAtmoResources;
         if (sub.size() != 0) {
           for (          AtmosphereResource r : sub) {
-            finalMsg=perRequestFilter(r,entry);
+            finalMsg=perRequestFilter(r,entry,true);
             if (finalMsg == null) {
               logger.debug("Skipping broadcast delivery resource {} ",r);
               continue;

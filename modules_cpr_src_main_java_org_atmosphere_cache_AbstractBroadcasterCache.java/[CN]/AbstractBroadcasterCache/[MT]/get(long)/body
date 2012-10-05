@@ -11,5 +11,6 @@
   finally {
     readWriteLock.readLock().unlock();
   }
+  logger.trace("Retrieved messages {}",result);
   return result;
 }

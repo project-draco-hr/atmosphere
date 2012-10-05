@@ -1,2 +1,3 @@
 AtmosphereResource r
 Entry msg
+boolean cache
