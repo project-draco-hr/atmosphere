@@ -1,4 +1,0 @@
-{
-  resourceSerialModeMap.remove(resources.remove(cometResponse.getConnectionID()));
-  cometTerminated(cometResponse,serverInitiated);
-}

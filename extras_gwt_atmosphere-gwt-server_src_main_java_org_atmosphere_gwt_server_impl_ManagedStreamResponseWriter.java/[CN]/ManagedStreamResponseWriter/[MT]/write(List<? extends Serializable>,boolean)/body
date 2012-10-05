@@ -1,4 +1,0 @@
-{
-  super.write(messages,flush);
-  checkLength();
-}

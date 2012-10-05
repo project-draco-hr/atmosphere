@@ -1,6 +1,0 @@
-{
-  JExportableConstructor[] constructors=requestedType.getExportableConstructors();
-  for (  JExportableConstructor constructor : constructors) {
-    exportStaticFactoryConstructor(constructor);
-  }
-}

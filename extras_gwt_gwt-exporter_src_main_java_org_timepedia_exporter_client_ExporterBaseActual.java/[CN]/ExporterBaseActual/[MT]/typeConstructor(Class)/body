@@ -1,4 +1,0 @@
-{
-  Object o=typeMap.get(type);
-  return (JavaScriptObject)o;
-}

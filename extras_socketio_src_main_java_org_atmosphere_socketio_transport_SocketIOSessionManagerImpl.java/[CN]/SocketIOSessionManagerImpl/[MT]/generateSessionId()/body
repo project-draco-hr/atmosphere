@@ -1,3 +1,0 @@
-{
-  return generateRandomString(SESSION_ID_LENGTH);
-}

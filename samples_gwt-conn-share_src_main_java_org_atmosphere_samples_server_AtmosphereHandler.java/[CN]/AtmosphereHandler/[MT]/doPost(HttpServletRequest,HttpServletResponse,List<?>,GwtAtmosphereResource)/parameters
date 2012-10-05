@@ -1,4 +1,0 @@
-HttpServletRequest postRequest
-HttpServletResponse postResponse
-List<?> messages
-GwtAtmosphereResource cometResource

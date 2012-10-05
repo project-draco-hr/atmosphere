@@ -1,5 +1,0 @@
-{
-  this.doPost(request);
-  ModelAndView mv=new ModelAndView(new NoOpView());
-  return mv;
-}

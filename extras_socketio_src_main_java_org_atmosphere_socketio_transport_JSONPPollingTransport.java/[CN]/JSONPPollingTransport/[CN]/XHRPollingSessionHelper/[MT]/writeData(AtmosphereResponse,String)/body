@@ -1,6 +1,0 @@
-{
-  logger.trace("calling from " + this.getClass().getName() + " : "+ "writeData(string) = "+ data);
-  response.setContentType("text/javascript; charset=UTF-8");
-  response.getOutputStream().print("io.j[" + jsonpIndex + "](\""+ data+ "\");");
-  logger.trace("WRITE SUCCESS calling from " + this.getClass().getName() + " : "+ "writeData(string) = "+ data);
-}

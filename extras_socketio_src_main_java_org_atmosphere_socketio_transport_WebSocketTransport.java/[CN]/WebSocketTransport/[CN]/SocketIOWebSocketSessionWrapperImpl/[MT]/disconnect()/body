@@ -1,5 +1,0 @@
-{
-  logger.trace("calling from " + this.getClass().getName() + " : "+ "disconnect");
-  session.onDisconnect(DisconnectReason.DISCONNECT);
-  webSocket.close();
-}

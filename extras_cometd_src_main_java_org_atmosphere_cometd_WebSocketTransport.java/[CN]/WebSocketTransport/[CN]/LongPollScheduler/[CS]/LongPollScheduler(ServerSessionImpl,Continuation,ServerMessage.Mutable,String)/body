@@ -1,7 +1,0 @@
-{
-  _session=session;
-  _continuation=continuation;
-  _continuation.addContinuationListener(this);
-  _reply=reply;
-  _browserId=browserId;
-}

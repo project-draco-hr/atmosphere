@@ -1,5 +1,0 @@
-{
-  SessionImpl impl=new SessionImpl(generateSessionId(),resource,inbound,getTimeout(),getHeartbeatInterval(),getRequestSuspendTime());
-  socketIOSessions.put(impl.getSessionId(),impl);
-  return impl;
-}

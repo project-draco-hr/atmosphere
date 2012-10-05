@@ -1,5 +1,0 @@
-{
-  if (!ignoreFlush) {
-    out.flush();
-  }
-}

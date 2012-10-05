@@ -1,3 +1,0 @@
-{
-  return type.isClass() != null && type.isClass().isAssignableTo(stringType);
-}

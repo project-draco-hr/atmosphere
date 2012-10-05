@@ -1,3 +1,0 @@
-{
-  return AtmosphereUtils.getMeteor(webRequest.getNativeRequest(HttpServletRequest.class));
-}

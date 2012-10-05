@@ -1,3 +1,0 @@
-{
-  return getBroadcaster().getBroadcasterConfig().getScheduledExecutorService().schedule(heartBeatTask,heartBeatInterval,TimeUnit.MILLISECONDS);
-}

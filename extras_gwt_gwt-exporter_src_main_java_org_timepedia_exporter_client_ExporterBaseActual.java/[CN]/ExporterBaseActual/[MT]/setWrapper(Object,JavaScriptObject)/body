@@ -1,8 +1,0 @@
-{
-  if (GWT.isScript()) {
-    setWrapperJS(instance,wrapper,WRAPPER_PROPERTY);
-  }
- else {
-    setWrapperHosted(instance,wrapper);
-  }
-}

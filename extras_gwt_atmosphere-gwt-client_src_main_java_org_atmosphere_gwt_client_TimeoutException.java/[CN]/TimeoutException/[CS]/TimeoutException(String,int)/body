@@ -1,3 +1,0 @@
-{
-  super(url + " timeout has expired after " + timeoutMillis+ "ms");
-}

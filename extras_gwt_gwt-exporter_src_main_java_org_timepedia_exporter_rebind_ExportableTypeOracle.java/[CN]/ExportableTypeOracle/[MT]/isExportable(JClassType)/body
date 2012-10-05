@@ -1,3 +1,0 @@
-{
-  return isExportable(type.getAnnotation(Export.class)) || (type.isInterface() != null && isExportable(type.getAnnotation(ExportClosure.class)));
-}

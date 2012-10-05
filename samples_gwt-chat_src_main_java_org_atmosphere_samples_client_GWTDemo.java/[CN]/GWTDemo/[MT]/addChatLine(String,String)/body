@@ -1,6 +1,0 @@
-{
-  HTML newLine=new HTML(line);
-  newLine.getElement().getStyle().setColor(color);
-  chat.appendChild(newLine.getElement());
-  newLine.getElement().scrollIntoView();
-}

@@ -1,5 +1,0 @@
-{
-  if (transport == primaryTransport) {
-    listener.onHeartbeat();
-  }
-}

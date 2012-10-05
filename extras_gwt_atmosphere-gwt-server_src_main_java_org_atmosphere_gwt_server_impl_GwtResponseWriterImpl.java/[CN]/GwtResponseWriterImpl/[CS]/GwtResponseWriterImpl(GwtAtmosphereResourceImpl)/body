@@ -1,7 +1,0 @@
-{
-  this.resource=resource;
-  this.connectionID=connectionIDs.getAndIncrement();
-  if (getSerializationMode() == SerialMode.RPC) {
-    gwtRpc=new GwtRpcSerializer(resource.getRequest(),resource.getServletContext());
-  }
-}

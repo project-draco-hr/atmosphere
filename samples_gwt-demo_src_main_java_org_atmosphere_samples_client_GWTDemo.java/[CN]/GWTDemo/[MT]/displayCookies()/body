@@ -1,8 +1,0 @@
-{
-  StringBuilder cookies=new StringBuilder();
-  for (  String name : Cookies.getCookieNames()) {
-    String value=Cookies.getCookie(name);
-    cookies.append(name).append(" = ").append(value).append("<br/>");
-  }
-  Info.display("Cookies",cookies.toString());
-}

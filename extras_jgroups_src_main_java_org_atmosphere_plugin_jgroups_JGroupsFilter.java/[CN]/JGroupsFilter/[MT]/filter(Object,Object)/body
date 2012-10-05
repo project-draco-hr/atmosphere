@@ -1,6 +1,0 @@
-{
-  if (bc != null) {
-    this.jchannel.send(this.bc.getID(),message);
-  }
-  return new BroadcastAction(message);
-}

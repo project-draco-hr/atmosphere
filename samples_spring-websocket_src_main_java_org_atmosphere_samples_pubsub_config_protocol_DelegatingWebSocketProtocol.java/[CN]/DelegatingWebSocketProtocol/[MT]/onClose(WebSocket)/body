@@ -1,3 +1,0 @@
-{
-  LOG.debug("closing web socket connection {}",webSocket);
-}

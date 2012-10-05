@@ -1,4 +1,0 @@
-{
-  startButton.setEnabled(!clientConnected);
-  stopButton.setEnabled(clientConnected);
-}

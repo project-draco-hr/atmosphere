@@ -1,9 +1,0 @@
-{
-  sw.println("public void ___importStructuralType() {");
-  sw.indent();
-  for (  JStructuralTypeField field : requestedType.getStructuralTypeFields()) {
-    sw.println("super." + field.getMethodName() + "(("+ field.getFieldType()+ ")org.timepedia.exporter.client.ExporterUtil.getStructuralField"+ field.getFieldLowestType()+ "(jso, \""+ field.getName()+ "\"));");
-  }
-  sw.outdent();
-  sw.println("}");
-}

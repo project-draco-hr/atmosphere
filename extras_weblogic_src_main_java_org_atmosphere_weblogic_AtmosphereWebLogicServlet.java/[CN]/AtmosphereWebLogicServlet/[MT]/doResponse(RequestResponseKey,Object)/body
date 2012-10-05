@@ -1,3 +1,0 @@
-{
-  rrk.getResponse().flushBuffer();
-}

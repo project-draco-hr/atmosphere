@@ -1,8 +1,0 @@
-{
-  getResponse().setStatus(statusCode);
-  if (message != null) {
-    writer.append("$").append(Integer.toString(statusCode)).append(":").append(message);
-    writer.append("\n");
-    writer.flush();
-  }
-}

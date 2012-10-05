@@ -1,8 +1,0 @@
-{
-  if (XDomainRequest.isSupported()) {
-    transport=new IEXDomainRequestCometTransport();
-  }
- else {
-    transport=new IEHTMLFileCometTransport();
-  }
-}

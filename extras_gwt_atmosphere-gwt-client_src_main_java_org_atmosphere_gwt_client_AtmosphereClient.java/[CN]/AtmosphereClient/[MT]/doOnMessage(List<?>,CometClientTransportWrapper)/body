@@ -1,8 +1,0 @@
-{
-  if (transport == primaryTransport) {
-    listener.onMessage(messages);
-  }
- else   if (RefreshState.PRIMARY_DISCONNECTED.equals(refreshState)) {
-    refreshEnqueue(messages);
-  }
-}

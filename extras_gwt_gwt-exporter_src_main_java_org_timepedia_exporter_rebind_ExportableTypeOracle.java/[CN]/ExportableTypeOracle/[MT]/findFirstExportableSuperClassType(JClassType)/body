@@ -1,7 +1,0 @@
-{
-  if (type == null) {
-    return null;
-  }
-  JExportableClassType exportable=findExportableClassType(type.getQualifiedSourceName());
-  return exportable != null && exportable.needsExport() ? exportable : findFirstExportableSuperClassType(type.getSuperclass());
-}

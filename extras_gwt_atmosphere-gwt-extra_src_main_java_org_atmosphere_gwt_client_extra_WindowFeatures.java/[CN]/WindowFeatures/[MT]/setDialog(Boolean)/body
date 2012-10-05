@@ -1,4 +1,0 @@
-{
-  options.put("dialog",dialog);
-  return this;
-}

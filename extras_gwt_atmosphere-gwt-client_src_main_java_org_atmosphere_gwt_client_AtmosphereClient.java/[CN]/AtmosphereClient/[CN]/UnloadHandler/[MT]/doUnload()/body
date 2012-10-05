@@ -1,7 +1,0 @@
-{
-  if (!done) {
-    done=true;
-    logger.log(Level.FINE,"Stopping comet client because of page unload");
-    stop();
-  }
-}

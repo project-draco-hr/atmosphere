@@ -1,5 +1,0 @@
-{
-  Thread thread=new Thread(new ChannelPublisher(broadcaster,channel));
-  thread.start();
-  runningPublishers.put(channel,thread);
-}

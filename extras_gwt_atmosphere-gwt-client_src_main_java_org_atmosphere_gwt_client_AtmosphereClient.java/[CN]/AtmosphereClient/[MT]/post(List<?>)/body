@@ -1,3 +1,0 @@
-{
-  primaryTransport.post(messages,postCallback);
-}

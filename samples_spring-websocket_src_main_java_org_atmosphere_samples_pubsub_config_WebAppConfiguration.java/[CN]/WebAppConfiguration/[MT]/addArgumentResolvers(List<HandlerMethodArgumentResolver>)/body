@@ -1,4 +1,0 @@
-{
-  argumentResolvers.add(new AtmosphereArgumentResolver());
-  argumentResolvers.add(new MeteorArgumentResolver());
-}

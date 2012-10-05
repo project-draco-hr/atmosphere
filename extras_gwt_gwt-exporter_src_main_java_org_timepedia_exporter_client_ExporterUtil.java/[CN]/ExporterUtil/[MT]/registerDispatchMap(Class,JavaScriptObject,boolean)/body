@@ -1,3 +1,0 @@
-{
-  impl.registerDispatchMap(clazz,dispMap,isStatic);
-}

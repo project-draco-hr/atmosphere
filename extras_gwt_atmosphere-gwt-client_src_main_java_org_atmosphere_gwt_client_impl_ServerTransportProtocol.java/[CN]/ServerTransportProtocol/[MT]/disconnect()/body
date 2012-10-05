@@ -1,3 +1,0 @@
-{
-  send(pack(MessageType.CONNECTION,ActionType.DISCONNECT),defaultCallback);
-}

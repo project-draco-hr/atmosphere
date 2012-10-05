@@ -1,5 +1,0 @@
-{
-  this.session=session;
-  this.socketioEventListener=socketioEventListener;
-  this.socketioEventListener.setSessionWrapper(this);
-}

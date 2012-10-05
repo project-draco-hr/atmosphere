@@ -1,8 +1,0 @@
-{
-  while (shouldRun) {
-    counter++;
-    broadcaster.broadcast("counter " + counter + ", channel: "+ channel);
-    await();
-  }
-  runningPublishers.remove(channel);
-}

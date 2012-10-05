@@ -1,3 +1,0 @@
-{
-  r.getBroadcaster().broadcast(r.getRequest().getReader().readLine());
-}

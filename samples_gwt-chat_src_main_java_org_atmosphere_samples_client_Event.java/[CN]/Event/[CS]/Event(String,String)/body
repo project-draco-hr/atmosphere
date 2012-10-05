@@ -1,5 +1,0 @@
-{
-  this.author=author;
-  this.message=data;
-  this.time=new Date();
-}

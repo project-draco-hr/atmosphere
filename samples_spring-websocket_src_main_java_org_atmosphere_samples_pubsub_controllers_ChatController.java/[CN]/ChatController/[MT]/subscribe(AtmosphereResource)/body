@@ -1,4 +1,0 @@
-{
-  resource.getResponse().setContentType("text/html");
-  AtmosphereUtils.suspend(resource);
-}

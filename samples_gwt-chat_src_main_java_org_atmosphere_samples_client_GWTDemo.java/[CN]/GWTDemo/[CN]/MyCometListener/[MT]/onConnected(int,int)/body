@@ -1,4 +1,0 @@
-{
-  logger.info("comet.connected [" + heartbeat + ", "+ connectionID+ "]");
-  addChatLine(MESSAGE_ROOM_CONNECTED,COLOR_SYSTEM_MESSAGE);
-}

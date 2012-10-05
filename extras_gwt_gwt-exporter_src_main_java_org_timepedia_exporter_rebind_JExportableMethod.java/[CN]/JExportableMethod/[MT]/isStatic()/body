@@ -1,8 +1,0 @@
-{
-  if (method instanceof JConstructor) {
-    return false;
-  }
- else {
-    return ((JMethod)method).isStatic();
-  }
-}

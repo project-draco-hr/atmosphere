@@ -1,7 +1,0 @@
-{
-  SocketImpl s=getSocket(w,socketName);
-  if (s == null) {
-    s=createSocket(w,socketName);
-  }
-  s.post(Window.current(),message);
-}

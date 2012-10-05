@@ -1,5 +1,0 @@
-{
-  super.init();
-  _callbackParam=getOption(CALLBACK_PARAMETER_OPTION,_callbackParam);
-  _mimeType=getOption(MIME_TYPE_OPTION,_mimeType);
-}

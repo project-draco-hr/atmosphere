@@ -1,7 +1,0 @@
-{
-  if (value == null) {
-    return this;
-  }
-  add(name,value ? "yes" : "no");
-  return this;
-}

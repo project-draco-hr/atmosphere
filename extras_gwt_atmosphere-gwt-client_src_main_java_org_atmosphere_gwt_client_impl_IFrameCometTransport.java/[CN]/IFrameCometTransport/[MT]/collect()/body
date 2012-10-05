@@ -1,8 +1,0 @@
-{
-  if (body != null) {
-    NodeList<Node> childNodes=body.getChildNodes();
-    if (childNodes.getLength() > 1) {
-      body.removeChild(childNodes.getItem(0));
-    }
-  }
-}

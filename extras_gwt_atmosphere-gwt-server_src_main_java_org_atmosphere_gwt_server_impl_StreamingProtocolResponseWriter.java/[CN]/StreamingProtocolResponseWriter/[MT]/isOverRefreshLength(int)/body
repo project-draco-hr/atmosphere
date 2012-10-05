@@ -1,8 +1,0 @@
-{
-  if (length != null) {
-    return written > length;
-  }
- else {
-    return written > 5 * 1024 * 1024;
-  }
-}

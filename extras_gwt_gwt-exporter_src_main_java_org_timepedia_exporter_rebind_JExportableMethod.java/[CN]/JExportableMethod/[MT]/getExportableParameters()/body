@@ -1,9 +1,0 @@
-{
-  JParameter[] params=method.getParameters();
-  JExportableParameter[] eparams=new JExportableParameter[params.length];
-  int i=0;
-  for (  JParameter param : params) {
-    eparams[i++]=new JExportableParameter(this,param);
-  }
-  return eparams;
-}

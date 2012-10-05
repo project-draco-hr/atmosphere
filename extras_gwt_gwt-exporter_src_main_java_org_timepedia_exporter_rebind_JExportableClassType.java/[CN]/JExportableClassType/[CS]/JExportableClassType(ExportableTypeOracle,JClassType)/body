@@ -1,4 +1,0 @@
-{
-  this.exportableTypeOracle=exportableTypeOracle;
-  this.type=type;
-}

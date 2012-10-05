@@ -1,8 +1,0 @@
-{
-  logger.trace("startHeartbeatTimer");
-  clearHeartbeatTimer();
-  clearTimeoutTimer();
-  if (!timedout && heartBeatInterval > 0) {
-    heartBeatSessionMonitor.start();
-  }
-}

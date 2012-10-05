@@ -1,3 +1,0 @@
-{
-  writer.append("Event: c\ndata: h\n\n");
-}

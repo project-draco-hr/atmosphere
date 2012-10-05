@@ -1,3 +1,0 @@
-{
-  return runningPublishers.containsKey(channel) && runningPublishers.get(channel).isAlive();
-}

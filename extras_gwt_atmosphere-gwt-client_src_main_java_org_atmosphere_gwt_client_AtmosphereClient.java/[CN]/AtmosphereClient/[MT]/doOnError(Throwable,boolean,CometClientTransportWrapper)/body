@@ -1,9 +1,0 @@
-{
-  if (connected) {
-    transport.disconnect();
-  }
- else   if (exception instanceof StatusCodeException) {
-    running=false;
-  }
-  listener.onError(exception,connected);
-}

@@ -1,5 +1,0 @@
-{
-  logger.trace("calling from " + this.getClass().getName() + " : "+ "writeData(string) = "+ data);
-  response.getOutputStream().write(data.getBytes("UTF-8"));
-  logger.trace("WRITE SUCCESS calling from " + this.getClass().getName() + " : "+ "writeData(string) = "+ data);
-}

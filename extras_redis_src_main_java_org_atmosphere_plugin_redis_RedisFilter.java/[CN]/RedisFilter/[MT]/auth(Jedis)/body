@@ -1,6 +1,0 @@
-{
-  if (auth != null) {
-    jedis.auth(auth);
-  }
-  jedis.flushAll();
-}

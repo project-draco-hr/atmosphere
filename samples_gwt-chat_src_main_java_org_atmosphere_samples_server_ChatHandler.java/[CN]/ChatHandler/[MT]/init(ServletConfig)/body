@@ -1,8 +1,0 @@
-{
-  super.init(servletConfig);
-  Logger.getLogger("").setLevel(Level.INFO);
-  Logger.getLogger("org.atmosphere.gwt").setLevel(Level.ALL);
-  Logger.getLogger("org.atmosphere.samples").setLevel(Level.ALL);
-  Logger.getLogger("").getHandlers()[0].setLevel(Level.ALL);
-  logger.trace("Updated logging levels");
-}

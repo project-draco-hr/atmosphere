@@ -1,3 +1,0 @@
-{
-  impl.declarePackage(packageName,enclosingClasses);
-}

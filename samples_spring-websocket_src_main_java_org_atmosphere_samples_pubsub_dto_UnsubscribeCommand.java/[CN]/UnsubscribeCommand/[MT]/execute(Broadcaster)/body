@@ -1,4 +1,0 @@
-{
-  broadcaster.removeAtmosphereResource(resource);
-  resource.getBroadcaster().broadcast("left channel " + channel);
-}

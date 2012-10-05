@@ -1,8 +1,0 @@
-{
-  boolean requestEscapeText=this.escapeText;
-  String requestedEscapeText=request.getParameter("escapeText");
-  if (requestedEscapeText != null) {
-    requestEscapeText=Boolean.valueOf(requestedEscapeText);
-  }
-  return requestEscapeText;
-}

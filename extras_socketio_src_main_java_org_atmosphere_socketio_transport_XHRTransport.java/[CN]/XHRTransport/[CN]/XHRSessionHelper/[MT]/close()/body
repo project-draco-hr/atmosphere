@@ -1,5 +1,0 @@
-{
-synchronized (this) {
-    session.startClose();
-  }
-}

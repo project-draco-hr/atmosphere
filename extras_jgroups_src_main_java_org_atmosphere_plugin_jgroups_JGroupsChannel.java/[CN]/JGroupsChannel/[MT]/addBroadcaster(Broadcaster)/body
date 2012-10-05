@@ -1,3 +1,0 @@
-{
-  this.broadcasters.put(broadcaster.getID(),broadcaster);
-}

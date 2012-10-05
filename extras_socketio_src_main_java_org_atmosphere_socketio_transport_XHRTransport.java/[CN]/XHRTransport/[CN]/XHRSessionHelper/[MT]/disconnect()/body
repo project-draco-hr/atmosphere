@@ -1,6 +1,0 @@
-{
-synchronized (this) {
-    session.onDisconnect(DisconnectReason.DISCONNECT);
-    abort();
-  }
-}

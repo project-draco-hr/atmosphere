@@ -1,9 +1,0 @@
-{
-  return new Callable<Boolean>(){
-    @Override public Boolean call() throws Exception {
-      session.timeout();
-      return true;
-    }
-  }
-;
-}

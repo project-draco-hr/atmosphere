@@ -1,8 +1,0 @@
-{
-  if (running && transport == primaryTransport) {
-    primaryTransport.reconnectionTimer.schedule(reconnectionTimeout);
-  }
- else {
-    logger.warning("Schedule for reconnection is called without the primary transport");
-  }
-}

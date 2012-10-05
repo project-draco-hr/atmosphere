@@ -1,5 +1,0 @@
-{
-  Map<Scope,ComponentScope> m=super.createScopeMap();
-  m.put(ServletScopes.REQUEST,ComponentScope.PerRequest);
-  return m;
-}

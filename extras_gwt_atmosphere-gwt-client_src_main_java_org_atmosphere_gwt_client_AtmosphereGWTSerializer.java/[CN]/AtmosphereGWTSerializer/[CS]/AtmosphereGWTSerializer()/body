@@ -1,5 +1,0 @@
-{
-  if (getMode() == SerialMode.JSON || getPushMode() == SerialMode.JSON) {
-    jsonSerializer=GWT.create(JSONObjectSerializer.class);
-  }
-}

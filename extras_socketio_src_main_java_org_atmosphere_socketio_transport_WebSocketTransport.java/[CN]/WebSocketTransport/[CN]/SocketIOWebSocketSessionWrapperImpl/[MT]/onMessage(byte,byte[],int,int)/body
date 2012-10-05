@@ -1,8 +1,0 @@
-{
-  logger.trace("calling from " + this.getClass().getName() + " : "+ "onMessage frame, data, offest, length");
-  try {
-    onMessage(frame,new String(data,offset,length,"UTF-8"));
-  }
- catch (  UnsupportedEncodingException e) {
-  }
-}

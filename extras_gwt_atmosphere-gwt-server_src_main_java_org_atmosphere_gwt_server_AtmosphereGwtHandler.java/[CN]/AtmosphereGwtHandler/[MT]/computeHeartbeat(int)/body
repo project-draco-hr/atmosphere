@@ -1,3 +1,0 @@
-{
-  return requestedHeartbeat < heartbeat ? heartbeat : requestedHeartbeat;
-}

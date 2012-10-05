@@ -1,4 +1,0 @@
-{
-  shouldRun=false;
-  LOG.debug("Shutting down multicast thread for channel {}, no subscribers connected.",channel);
-}

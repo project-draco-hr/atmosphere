@@ -1,9 +1,0 @@
-{
-  if (session == null) {
-    session=sessionFactory.createSession(resource,atmosphereHandler);
-    resource.getRequest().setAttribute(SocketIOAtmosphereHandler.SOCKETIO_SESSION_ID,session.getSessionId());
-  }
-  XHRPollingSessionHelper handler=createHelper(session);
-  handler.connect(resource);
-  return session;
-}

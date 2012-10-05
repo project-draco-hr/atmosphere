@@ -1,3 +1,0 @@
-{
-  return getDefaultJGroupsChannel(jGroupsFilterLocation,DEFAULT_CHANNEL_NAME);
-}

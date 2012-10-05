@@ -1,4 +1,0 @@
-{
-  super.hide();
-  slots.set(level,null);
-}

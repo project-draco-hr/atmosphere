@@ -1,6 +1,0 @@
-{
-  JExportableParameter params[]=method.getExportableParameters();
-  for (int i=0; i < params.length; i++) {
-    sw.print("$wnd.alert(\"\"+" + params[i].getExportParameterValue(ARG_PREFIX + i) + ");");
-  }
-}

@@ -1,8 +1,0 @@
-{
-  if (method instanceof JConstructor) {
-    if (method.getParameters().length == 0 && method.isPublic()) {
-      return true;
-    }
-  }
-  return (isExportable(method.getEnclosingType()) && method.isPublic() && !isNotExportable(method.getAnnotation(NoExport.class))) || (isExportable(method.getAnnotation(Export.class)));
-}

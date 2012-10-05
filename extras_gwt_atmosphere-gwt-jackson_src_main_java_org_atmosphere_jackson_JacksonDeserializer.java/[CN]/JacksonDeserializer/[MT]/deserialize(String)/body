@@ -1,8 +1,0 @@
-{
-  try {
-    return provider.mapper.readValue(data,Map.class);
-  }
- catch (  IOException ex) {
-    throw new SerializationException("Failed to deserialize data",ex);
-  }
-}

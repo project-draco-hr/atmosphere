@@ -1,3 +1,0 @@
-{
-  return onMessage(webSocket,new String(bytes,offset,length));
-}

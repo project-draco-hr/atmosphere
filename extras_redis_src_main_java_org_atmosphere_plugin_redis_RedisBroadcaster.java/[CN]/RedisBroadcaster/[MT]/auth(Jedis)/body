@@ -1,5 +1,0 @@
-{
-  if (authToken != null) {
-    jedis.auth(authToken);
-  }
-}

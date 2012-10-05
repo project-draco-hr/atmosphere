@@ -1,6 +1,0 @@
-{
-  if (refreshQueue == null) {
-    refreshQueue=new ArrayList<Object>();
-  }
-  refreshQueue.add(message);
-}

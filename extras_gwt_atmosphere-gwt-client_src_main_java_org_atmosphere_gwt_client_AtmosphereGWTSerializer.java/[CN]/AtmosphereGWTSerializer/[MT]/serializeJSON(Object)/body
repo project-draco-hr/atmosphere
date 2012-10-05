@@ -1,3 +1,0 @@
-{
-  return jsonSerializer.serialize(message);
-}

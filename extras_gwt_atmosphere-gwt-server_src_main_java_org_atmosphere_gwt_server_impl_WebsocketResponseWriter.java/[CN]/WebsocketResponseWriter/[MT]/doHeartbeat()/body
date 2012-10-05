@@ -1,3 +1,0 @@
-{
-  writer.append("c;h").append(MESSAGE_SEPERATOR);
-}

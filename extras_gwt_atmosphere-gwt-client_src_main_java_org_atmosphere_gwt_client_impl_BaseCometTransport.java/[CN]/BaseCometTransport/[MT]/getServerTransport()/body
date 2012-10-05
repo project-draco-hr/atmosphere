@@ -1,6 +1,0 @@
-{
-  if (serverTransport == null) {
-    serverTransport=new RPCServerTransport(client.getSerializer());
-  }
-  return serverTransport;
-}

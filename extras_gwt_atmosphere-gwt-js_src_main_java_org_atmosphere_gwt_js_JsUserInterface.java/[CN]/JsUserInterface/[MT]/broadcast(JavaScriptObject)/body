@@ -1,3 +1,0 @@
-{
-  impl.broadcast(message);
-}

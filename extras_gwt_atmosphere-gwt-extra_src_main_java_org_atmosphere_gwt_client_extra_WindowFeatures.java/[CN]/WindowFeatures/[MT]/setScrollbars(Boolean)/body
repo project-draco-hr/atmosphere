@@ -1,4 +1,0 @@
-{
-  options.put("scrollbars",scrollbars);
-  return this;
-}

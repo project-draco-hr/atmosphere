@@ -1,3 +1,0 @@
-{
-  this.reconnectionTimeout=reconnectionTimeout;
-}

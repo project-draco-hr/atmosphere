@@ -1,6 +1,0 @@
-{
-  Event bean=new Event();
-  bean.setCode(count);
-  bean.setData(message);
-  return bean;
-}

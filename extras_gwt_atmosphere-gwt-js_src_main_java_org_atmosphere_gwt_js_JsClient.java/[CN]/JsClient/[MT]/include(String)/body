@@ -1,6 +1,0 @@
-{
-  ScriptElement el=Document.get().createScriptElement();
-  el.setType("text/javascript");
-  el.setSrc(source);
-  Document.get().getBody().appendChild(el);
-}

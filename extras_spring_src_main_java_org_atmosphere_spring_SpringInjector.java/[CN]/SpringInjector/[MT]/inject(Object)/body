@@ -1,4 +1,0 @@
-{
-  LOGGER.trace("inject({})",o);
-  SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(o);
-}

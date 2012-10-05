@@ -1,8 +1,0 @@
-{
-  try {
-    writer.sendError(statusCode,message);
-  }
- catch (  IOException ex) {
-    logger.error("Failed to send error to client",ex);
-  }
-}

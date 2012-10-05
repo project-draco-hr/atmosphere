@@ -1,4 +1,0 @@
-{
-  jchannel.removeBroadcaster(bc);
-  this.bc=null;
-}

@@ -1,4 +1,0 @@
-{
-  options.put("fullscreen",fullscreen);
-  return this;
-}

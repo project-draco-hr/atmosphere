@@ -1,6 +1,0 @@
-{
-  logger.trace("calling from " + this.getClass().getName() + " : "+ "abort");
-  webSocket.close();
-  webSocket=null;
-  session.onShutdown();
-}

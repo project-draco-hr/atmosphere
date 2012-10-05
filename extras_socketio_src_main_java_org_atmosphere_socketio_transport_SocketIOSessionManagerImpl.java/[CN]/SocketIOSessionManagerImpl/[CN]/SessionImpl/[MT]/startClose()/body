@@ -1,5 +1,0 @@
-{
-  logger.error("startClose");
-  state=ConnectionState.CLOSING;
-  closeId="server";
-}

@@ -1,5 +1,0 @@
-{
-  super.init(sc);
-  framework.setAsyncSupport(new WebLogicCometSupport(framework.getAtmosphereConfig()));
-  framework.init(sc);
-}

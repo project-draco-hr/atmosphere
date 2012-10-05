@@ -1,7 +1,0 @@
-{
-  this.logger=logger;
-  this.ctx=ctx;
-  xTypeOracle=new ExportableTypeOracle(ctx.getTypeOracle(),logger);
-  this.visited=visited;
-  exported=new ArrayList<JExportableClassType>();
-}

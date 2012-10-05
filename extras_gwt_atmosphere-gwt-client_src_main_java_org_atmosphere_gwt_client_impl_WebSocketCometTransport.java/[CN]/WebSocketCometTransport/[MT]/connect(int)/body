@@ -1,9 +1,0 @@
-{
-  disconnect();
-  String url=getUrl(connectionCount);
-  url=url.replaceFirst("http://","ws://");
-  url=url.replaceFirst("https://","wss://");
-  logger.fine("Creating websocket with url: " + url);
-  socket=WebSocket.create(url);
-  socket.setListener(socketListener);
-}

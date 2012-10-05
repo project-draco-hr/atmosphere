@@ -1,4 +1,0 @@
-{
-  this.bc=bc;
-  if (bc != null)   jchannel.addBroadcaster(bc);
-}

@@ -1,5 +1,0 @@
-{
-  xmlHttpRequest.clearOnReadyStateChange();
-  xmlHttpRequest=null;
-  onReceiving(statusCode,responseText,false);
-}

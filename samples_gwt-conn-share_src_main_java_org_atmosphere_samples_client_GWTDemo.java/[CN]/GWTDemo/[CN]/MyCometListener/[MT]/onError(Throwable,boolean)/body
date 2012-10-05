@@ -1,8 +1,0 @@
-{
-  int statuscode=-1;
-  if (exception instanceof StatusCodeException) {
-    statuscode=((StatusCodeException)exception).getStatusCode();
-  }
-  logger.log(Level.SEVERE,"comet.error [connected=" + connected + "] ("+ statuscode+ ")",exception);
-  toggleStartStop(connected);
-}

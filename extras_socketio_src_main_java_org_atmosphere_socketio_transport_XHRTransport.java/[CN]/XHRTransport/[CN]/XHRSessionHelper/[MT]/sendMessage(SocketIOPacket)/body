@@ -1,5 +1,0 @@
-{
-  if (packet != null) {
-    sendMessage(packet.toString());
-  }
-}

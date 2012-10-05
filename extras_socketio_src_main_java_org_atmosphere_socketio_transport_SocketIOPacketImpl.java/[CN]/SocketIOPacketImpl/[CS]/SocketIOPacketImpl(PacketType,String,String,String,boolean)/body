@@ -1,7 +1,0 @@
-{
-  this.packetType=frameType;
-  this.id=id;
-  this.endpoint=endpoint;
-  this.data=data;
-  this.padding=padding;
-}

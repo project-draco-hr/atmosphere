@@ -1,4 +1,0 @@
-{
-  JPrimitiveType prim=primitive.isPrimitive();
-  return prim == JPrimitiveType.BOOLEAN ? "boolean" : "number";
-}

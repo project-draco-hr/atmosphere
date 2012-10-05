@@ -1,5 +1,0 @@
-{
-  Broadcaster b=BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,ID);
-  atm.setBroadcaster(b);
-  return b;
-}

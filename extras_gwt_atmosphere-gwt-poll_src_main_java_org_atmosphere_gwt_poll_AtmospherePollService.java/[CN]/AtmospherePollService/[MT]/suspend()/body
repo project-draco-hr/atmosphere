@@ -1,9 +1,0 @@
-{
-  AtmosphereResource atm=getAtmosphereResource();
-  if (atm == null) {
-    throw new UnexpectedException("Failed to find Atmosphere resource have you setup Atmosphere?",null);
-  }
-  atm.getRequest().setAttribute(GWT_SUSPENDED,true);
-  atm.suspend(-1,false);
-  return new SuspendInfo(atm);
-}

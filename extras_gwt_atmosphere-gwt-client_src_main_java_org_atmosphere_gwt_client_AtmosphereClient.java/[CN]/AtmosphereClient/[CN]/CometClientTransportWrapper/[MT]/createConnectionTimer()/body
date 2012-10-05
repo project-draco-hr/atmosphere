@@ -1,9 +1,0 @@
-{
-  return new Timer(){
-    @Override public void run(){
-      doDisconnect();
-      doOnError(new TimeoutException(url,connectionTimeout),false,CometClientTransportWrapper.this);
-    }
-  }
-;
-}

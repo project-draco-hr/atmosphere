@@ -1,3 +1,0 @@
-{
-  return AtmosphereResource.class.isAssignableFrom(parameter.getParameterType());
-}

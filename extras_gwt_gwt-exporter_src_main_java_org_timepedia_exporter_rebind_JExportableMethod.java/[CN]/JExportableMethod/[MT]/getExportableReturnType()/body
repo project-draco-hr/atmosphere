@@ -1,5 +1,0 @@
-{
-  ExportableTypeOracle xTypeOracle=getExportableTypeOracle();
-  String returnTypeName=((JMethod)method).getReturnType().getQualifiedSourceName();
-  return xTypeOracle.findExportableType(returnTypeName);
-}

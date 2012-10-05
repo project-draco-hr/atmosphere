@@ -1,8 +1,0 @@
-{
-  Broadcaster broadcaster=BroadcasterFactory.getDefault().lookup(Broadcaster.class,GWT_BROADCASTER_ID);
-  if (broadcaster == null) {
-    broadcaster=BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,GWT_BROADCASTER_ID);
-  }
-  resource.getAtmosphereResource().setBroadcaster(broadcaster);
-  return NO_TIMEOUT;
-}

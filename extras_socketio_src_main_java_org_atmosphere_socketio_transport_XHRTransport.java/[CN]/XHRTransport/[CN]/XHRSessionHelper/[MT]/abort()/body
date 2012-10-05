@@ -1,8 +1,0 @@
-{
-  logger.error("calling from " + this.getClass().getName() + " : "+ "abort");
-  session.clearHeartbeatTimer();
-  session.clearTimeoutTimer();
-  is_open=false;
-  session.onShutdown();
-  session.getAtmosphereResourceImpl().resume();
-}

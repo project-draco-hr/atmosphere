@@ -1,3 +1,0 @@
-{
-  return type.getSimpleSourceName() + IMPL_EXTENSION;
-}

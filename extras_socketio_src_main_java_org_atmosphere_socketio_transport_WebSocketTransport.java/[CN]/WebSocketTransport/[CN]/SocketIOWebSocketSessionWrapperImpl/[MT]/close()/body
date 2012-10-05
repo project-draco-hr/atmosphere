@@ -1,4 +1,0 @@
-{
-  logger.trace("calling from " + this.getClass().getName() + " : "+ "close");
-  session.startClose();
-}

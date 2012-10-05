@@ -1,4 +1,0 @@
-{
-  this.webapp=webapp;
-  webapp.initiate(config,new ServletGuiceComponentProviderFactory(config,injector));
-}

@@ -1,7 +1,0 @@
-{
-  writer.append("c;e;").append(String.valueOf(statusCode));
-  if (message != null) {
-    writer.append(";").append(message);
-  }
-  writer.append(MESSAGE_SEPERATOR);
-}

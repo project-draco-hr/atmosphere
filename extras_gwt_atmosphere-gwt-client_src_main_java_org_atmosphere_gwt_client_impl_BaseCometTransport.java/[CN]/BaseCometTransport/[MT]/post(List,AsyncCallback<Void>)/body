@@ -1,3 +1,0 @@
-{
-  getServerTransport().post(messages,callback);
-}

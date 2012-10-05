@@ -1,4 +1,0 @@
-{
-  lastReceivedTime=Duration.currentTimeMillis();
-  doOnHeartbeat(this);
-}

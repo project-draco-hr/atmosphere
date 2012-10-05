@@ -1,4 +1,0 @@
-{
-  String prop=name.startsWith("set") ? name.substring(3) : name;
-  return Character.toLowerCase(prop.charAt(0)) + prop.substring(1);
-}

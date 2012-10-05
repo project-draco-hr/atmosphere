@@ -1,3 +1,0 @@
-{
-  DOM.setElementAttribute(eventSource,"src",getUrl(connectionCount));
-}

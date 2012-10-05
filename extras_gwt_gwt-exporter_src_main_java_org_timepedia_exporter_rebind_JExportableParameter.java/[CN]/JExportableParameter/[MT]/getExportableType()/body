@@ -1,3 +1,0 @@
-{
-  return exportableEnclosingType.getExportableTypeOracle().findExportableClassType(getTypeName());
-}

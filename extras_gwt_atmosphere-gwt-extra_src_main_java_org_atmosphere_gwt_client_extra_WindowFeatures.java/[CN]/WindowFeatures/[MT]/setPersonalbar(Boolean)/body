@@ -1,4 +1,0 @@
-{
-  options.put("personalbar",personalbar);
-  return this;
-}

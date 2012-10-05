@@ -1,8 +1,0 @@
-{
-  server=new Server(port);
-  ServletContextHandler sch=new ServletContextHandler(server,"/");
-  sch.addEventListener(new GuiceContextListener());
-  sch.addFilter(GuiceFilter.class,"/*",null);
-  sch.addServlet(DefaultServlet.class,"/");
-  server.start();
-}

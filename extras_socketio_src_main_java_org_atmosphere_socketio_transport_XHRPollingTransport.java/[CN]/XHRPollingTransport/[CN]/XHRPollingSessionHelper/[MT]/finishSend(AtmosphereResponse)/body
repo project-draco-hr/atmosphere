@@ -1,4 +1,0 @@
-{
-  response.flushBuffer();
-  response.getOutputStream().flush();
-}

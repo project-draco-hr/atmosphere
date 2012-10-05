@@ -1,3 +1,0 @@
-{
-  sw.print("@org.timepedia.exporter.client.ExporterUtil::addTypeMap(Ljava/lang/Class;Lcom/google/gwt/core/client/JavaScriptObject;)(" + "@" + requestedType.getQualifiedSourceName() + "::class, $wnd."+ requestedType.getJSQualifiedExportName()+ ");");
-}

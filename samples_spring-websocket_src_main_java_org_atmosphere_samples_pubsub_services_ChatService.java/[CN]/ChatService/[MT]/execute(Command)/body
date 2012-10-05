@@ -1,7 +1,0 @@
-{
-  Broadcaster broadcaster=broadcasterFactory.lookup(DefaultBroadcaster.class,command.getChannel(),true);
-  command.execute(broadcaster);
-  if (!broadcaster.isDestroyed() && !isRunningThreadOnChannel(command.getChannel())) {
-    startMessagingThread(command.getChannel(),broadcaster);
-  }
-}

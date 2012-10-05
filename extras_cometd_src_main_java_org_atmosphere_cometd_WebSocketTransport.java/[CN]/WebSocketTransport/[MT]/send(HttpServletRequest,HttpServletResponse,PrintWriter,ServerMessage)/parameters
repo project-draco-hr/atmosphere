@@ -1,4 +1,0 @@
-HttpServletRequest request
-HttpServletResponse response
-PrintWriter writer
-ServerMessage message

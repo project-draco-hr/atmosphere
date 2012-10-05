@@ -1,5 +1,0 @@
-{
-  ClassExporter classExporter=new ClassExporter(logger,ctx);
-  String generatedClass=classExporter.exportClass(requestedClass,true);
-  return generatedClass;
-}

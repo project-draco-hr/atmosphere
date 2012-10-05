@@ -1,3 +1,0 @@
-{
-  this(frameType,id,endpoint,data,false);
-}

@@ -1,4 +1,0 @@
-{
-  super(bayeux,NAME);
-  setOptionPrefix(PREFIX);
-}

@@ -1,3 +1,0 @@
-{
-  return socketIOSessions.get(sessionId);
-}

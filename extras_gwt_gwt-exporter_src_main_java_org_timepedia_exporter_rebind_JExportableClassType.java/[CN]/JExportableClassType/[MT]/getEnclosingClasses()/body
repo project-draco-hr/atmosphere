@@ -1,8 +1,0 @@
-{
-  String[] enc=type.getName().split("\\.");
-  String[] enclosingTypes=new String[enc.length - 1];
-  if (enc.length > 1) {
-    System.arraycopy(enc,0,enclosingTypes,0,enclosingTypes.length);
-  }
-  return enclosingTypes;
-}

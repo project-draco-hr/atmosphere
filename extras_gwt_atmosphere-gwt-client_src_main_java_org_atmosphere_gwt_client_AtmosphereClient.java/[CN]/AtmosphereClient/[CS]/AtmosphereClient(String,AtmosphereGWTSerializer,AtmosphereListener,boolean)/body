@@ -1,7 +1,0 @@
-{
-  this.url=url;
-  this.serializer=serializer;
-  this.listener=listener;
-  this.webSocketsEnabled=webSocketsEnabled;
-  primaryTransport=new CometClientTransportWrapper();
-}

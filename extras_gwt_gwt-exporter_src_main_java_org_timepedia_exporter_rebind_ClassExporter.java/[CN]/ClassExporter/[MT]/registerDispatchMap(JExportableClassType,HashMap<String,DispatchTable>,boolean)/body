@@ -1,3 +1,0 @@
-{
-  sw.print("@org.timepedia.exporter.client.ExporterUtil::registerDispatchMap(" + "Ljava/lang/Class;Lcom/google/gwt/core/client/JavaScriptObject;Z)(@" + requestedType.getQualifiedSourceName() + "::class,"+ DispatchTable.toJSON(dispatchMap)+ ", "+ isStatic+ ");");
-}

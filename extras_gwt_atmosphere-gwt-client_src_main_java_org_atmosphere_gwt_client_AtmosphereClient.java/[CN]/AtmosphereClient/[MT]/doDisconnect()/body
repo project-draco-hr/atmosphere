@@ -1,7 +1,0 @@
-{
-  refreshState=null;
-  primaryTransport.disconnect();
-  if (refreshTransport != null) {
-    refreshTransport.disconnect();
-  }
-}

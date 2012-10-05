@@ -1,4 +1,0 @@
-PacketType frameType
-String id
-String endpoint
-String data

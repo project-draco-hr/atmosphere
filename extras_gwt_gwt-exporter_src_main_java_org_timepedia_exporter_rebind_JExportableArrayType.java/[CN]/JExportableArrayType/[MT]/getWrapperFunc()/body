@@ -1,4 +1,0 @@
-{
-  JType type=array.getComponentType();
-  return "@" + ExporterUtil.class.getName() + "::wrap(["+ type.getJNISignature()+ ")";
-}

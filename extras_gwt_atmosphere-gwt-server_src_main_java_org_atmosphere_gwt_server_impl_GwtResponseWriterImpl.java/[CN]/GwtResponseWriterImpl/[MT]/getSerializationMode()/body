@@ -1,9 +1,0 @@
-{
-  String mode=resource.getRequest().getParameter(Constants.CLIENT_DESERIALZE_MODE_PARAMETER);
-  if (mode != null) {
-    return SerialMode.valueOf(mode);
-  }
- else {
-    return SerialMode.RPC;
-  }
-}

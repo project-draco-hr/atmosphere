@@ -1,6 +1,0 @@
-{
-  MyCometListener cometListener=new MyCometListener();
-  AtmosphereGWTSerializer serializer=GWT.create(EventSerializer.class);
-  client=new AtmosphereClient(GWT.getModuleBaseURL() + "gwtComet",serializer,cometListener);
-  client.start();
-}

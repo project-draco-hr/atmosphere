@@ -1,9 +1,0 @@
-{
-  JClassType[] inf=requestedType.getImplementedInterfaces();
-  for (  JClassType i : inf) {
-    if (isExportOverlay(i)) {
-      return i.isParameterized().getTypeArgs()[0];
-    }
-  }
-  return null;
-}

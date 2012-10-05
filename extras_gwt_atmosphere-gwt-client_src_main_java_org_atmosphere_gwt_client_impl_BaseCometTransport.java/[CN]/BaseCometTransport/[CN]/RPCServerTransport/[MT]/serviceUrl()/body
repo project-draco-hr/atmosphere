@@ -1,6 +1,0 @@
-{
-  int i=client.getUrl().indexOf('?');
-  String serviceUrl=(i > 0 ? client.getUrl().substring(0,i) : client.getUrl()) + "?servertransport=rpcprotocol&connectionID=" + connectionId;
-  serviceUrl=addUrlParameter(serviceUrl,Constants.CLIENT_SERIALZE_MODE_PARAMETER,client.getSerializer().getPushMode().name());
-  return serviceUrl;
-}

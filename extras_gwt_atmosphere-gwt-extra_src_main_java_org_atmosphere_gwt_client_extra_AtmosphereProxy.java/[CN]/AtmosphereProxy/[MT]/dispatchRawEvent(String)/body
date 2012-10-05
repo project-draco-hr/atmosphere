@@ -1,5 +1,0 @@
-{
-  for (  Window w : windowList) {
-    WindowSocket.post(w,EVENT_SOCKET,event);
-  }
-}

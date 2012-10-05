@@ -1,8 +1,0 @@
-{
-  for (  Map.Entry<String,DispatchTable> e : dispatchMap.entrySet()) {
-    if (e.getValue().isOverloaded()) {
-      return true;
-    }
-  }
-  return false;
-}

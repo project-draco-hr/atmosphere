@@ -1,8 +1,0 @@
-{
-  try {
-    terminate();
-  }
- catch (  IOException e) {
-    logger.error("Error terminating response",e);
-  }
-}

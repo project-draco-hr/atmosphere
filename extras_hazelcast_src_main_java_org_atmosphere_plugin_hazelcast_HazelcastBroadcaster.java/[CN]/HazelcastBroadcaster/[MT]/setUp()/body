@@ -1,9 +1,0 @@
-{
-  topic=Hazelcast.<String>getTopic(getID());
-  topic.addMessageListener(new MessageListener<String>(){
-    @Override public void onMessage(    String message){
-      broadcastReceivedMessage(message);
-    }
-  }
-);
-}

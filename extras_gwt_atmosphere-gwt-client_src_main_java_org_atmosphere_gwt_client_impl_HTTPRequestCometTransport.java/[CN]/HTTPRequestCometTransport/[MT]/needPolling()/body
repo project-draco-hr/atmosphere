@@ -1,4 +1,0 @@
-{
-  String ua=getUserAgent();
-  return ua.contains("opera") || ua.contains("android 2.");
-}

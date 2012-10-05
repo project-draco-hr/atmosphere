@@ -1,9 +1,0 @@
-{
-  unbind();
-  Window w=Window.current();
-  socket=getSocket(w,name);
-  if (socket == null) {
-    socket=createSocket(w,name);
-  }
-  queueTimer.scheduleRepeating(250);
-}

@@ -1,9 +1,0 @@
-{
-  if (socket != null) {
-    Sockets sockets=Window.current().getObject(DOM_NAME);
-    sockets.remove(socket);
-    queueTimer.cancel();
-    queueTimer.run();
-    socket=null;
-  }
-}
