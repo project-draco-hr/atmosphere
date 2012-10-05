@@ -1,4 +1,5 @@
 {
+  if (webSocketProtocolInitialized)   return;
   if (webSocketProtocol == null) {
     try {
       webSocketProtocol=(WebSocketProtocol)AtmosphereFramework.class.getClassLoader().loadClass(webSocketProtocolClassName).newInstance();
@@ -9,5 +10,6 @@
       webSocketProtocol=new SimpleHttpProtocol();
     }
   }
+  webSocketProtocolInitialized=true;
   webSocketProtocol.configure(config);
 }
