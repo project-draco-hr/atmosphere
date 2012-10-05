@@ -1,6 +1,0 @@
-{
-  if (service == null) {
-    throw new AssertionError();
-  }
-  logger.info("[{}] onThrowable: " + event.getResource().getRequest().getRemoteAddr() + ":"+ event.getResource().getRequest().getRemotePort(),event.throwable());
-}

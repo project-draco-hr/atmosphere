@@ -1,6 +1,0 @@
-{
-  if (service == null) {
-    throw new AssertionError();
-  }
-  logger.info("[{}] onSuspend: {}:{}",new Object[]{Thread.currentThread().getName(),event.getResource().getRequest().getRemoteAddr(),event.getResource().getRequest().getRemotePort()});
-}

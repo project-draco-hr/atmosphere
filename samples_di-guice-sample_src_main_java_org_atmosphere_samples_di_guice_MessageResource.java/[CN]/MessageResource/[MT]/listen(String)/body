@@ -1,8 +1,0 @@
-{
-  Broadcaster broadcaster=BroadcasterFactory.getDefault().lookup(JerseyBroadcaster.class,topic,true);
-  logger.info("thread: {} LISTENING to '{}'",Thread.currentThread().getName(),broadcaster.getID());
-  if (service == null) {
-    throw new AssertionError();
-  }
-  return new Broadcastable(new JSONObject().put("from","system").put("msg","Connected !"),broadcaster);
-}
