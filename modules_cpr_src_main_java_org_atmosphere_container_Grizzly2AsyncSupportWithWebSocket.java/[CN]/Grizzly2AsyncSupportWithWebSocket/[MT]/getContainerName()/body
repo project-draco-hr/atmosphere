@@ -1,0 +1,3 @@
+{
+  return config.getServletConfig().getServletContext().getServerInfo() + " with WebSocket enabled.";
+}
