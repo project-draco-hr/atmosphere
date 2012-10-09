@@ -1,7 +1,4 @@
 {
-  StringBuilder s=new StringBuilder();
-  for (int i=0; i < 4096; i++) {
-    s.append(" ");
-  }
+  StringBuilder s=new StringBuilder("");
   return s.toString();
 }
