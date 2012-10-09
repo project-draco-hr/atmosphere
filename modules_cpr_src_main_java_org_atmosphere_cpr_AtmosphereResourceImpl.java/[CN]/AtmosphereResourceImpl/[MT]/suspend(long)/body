@@ -17,7 +17,7 @@
       String[] e=connection.nextElement().toString().split(",");
       for (      String upgrade : e) {
         if (upgrade.trim().equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
-          if (writeHeaders && !asyncSupport.supportWebSocket()) {
+          if (!asyncSupport.supportWebSocket()) {
             response.addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
           }
  else {
@@ -28,15 +28,6 @@
     }
     if (req.getHeader(X_ATMOSPHERE_TRANSPORT) == null) {
       req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.LONG_POLLING_TRANSPORT);
-    }
-    if (writeHeaders && injectCacheHeaders) {
-      response.setHeader(EXPIRES,"-1");
-      response.setHeader(CACHE_CONTROL,"no-store, no-cache, must-revalidate");
-      response.setHeader(PRAGMA,"no-cache");
-    }
-    if (writeHeaders && enableAccessControl) {
-      response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN,req.getHeader("Origin") == null ? "*" : req.getHeader("Origin"));
-      response.setHeader(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
     }
     req.setAttribute(PRE_SUSPEND,"true");
     action.type(Action.TYPE.SUSPEND);
