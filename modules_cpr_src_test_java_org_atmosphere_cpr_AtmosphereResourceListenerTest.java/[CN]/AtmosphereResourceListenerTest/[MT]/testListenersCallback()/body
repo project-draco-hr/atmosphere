@@ -1,0 +1,60 @@
+{
+  framework.addAtmosphereHandler("/a",new AbstractReflectorAtmosphereHandler(){
+    @Override public void onRequest(    AtmosphereResource resource) throws IOException {
+    }
+    @Override public void destroy(){
+    }
+  }
+);
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").build();
+  final AtomicReference<Boolean> suspended=new AtomicReference<Boolean>();
+  final AtomicReference<Boolean> resumed=new AtomicReference<Boolean>();
+  final AtomicReference<Boolean> disconnected=new AtomicReference<Boolean>();
+  final AtomicReference<Boolean> preSuspended=new AtomicReference<Boolean>();
+  final AtomicReference<Boolean> broadcasted=new AtomicReference<Boolean>();
+  final AtmosphereResourceEventListener listener=new AtmosphereResourceEventListener(){
+    @Override public void onPreSuspend(    AtmosphereResourceEvent event){
+      preSuspended.set(true);
+    }
+    @Override public void onSuspend(    AtmosphereResourceEvent event){
+      suspended.set(true);
+    }
+    @Override public void onResume(    AtmosphereResourceEvent event){
+      resumed.set(true);
+    }
+    @Override public void onDisconnect(    AtmosphereResourceEvent event){
+      disconnected.set(true);
+    }
+    @Override public void onBroadcast(    AtmosphereResourceEvent event){
+      broadcasted.set(true);
+    }
+    @Override public void onThrowable(    AtmosphereResourceEvent event){
+    }
+  }
+;
+  framework.interceptor(new AtmosphereInterceptor(){
+    @Override public void configure(    AtmosphereConfig config){
+    }
+    @Override public Action inspect(    AtmosphereResource r){
+      r.addEventListener(listener).suspend();
+      try {
+        r.getBroadcaster().broadcast("void").get();
+      }
+ catch (      InterruptedException e) {
+      }
+catch (      ExecutionException e) {
+      }
+      return Action.CONTINUE;
+    }
+    @Override public void postInspect(    AtmosphereResource r){
+      r.resume();
+    }
+  }
+);
+  framework.doCometSupport(request,AtmosphereResponse.create());
+  assertTrue(preSuspended.get());
+  assertTrue(suspended.get());
+  assertTrue(resumed.get());
+  assertTrue(disconnected.get());
+  assertTrue(broadcasted.get());
+}
