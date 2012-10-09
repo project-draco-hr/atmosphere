@@ -7,7 +7,7 @@
     private long currentTime;
     public void onRequest(    AtmosphereResource event) throws IOException {
       if (!b.getAndSet(true)) {
-        event.suspend(-1,false);
+        event.suspend(-1);
       }
  else {
         currentTime=System.currentTimeMillis();

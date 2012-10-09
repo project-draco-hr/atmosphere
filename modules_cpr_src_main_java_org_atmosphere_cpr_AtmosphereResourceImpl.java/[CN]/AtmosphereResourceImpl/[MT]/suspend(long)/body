@@ -1,3 +1,62 @@
 {
-  return suspend(timeout,true);
+  if (event.isSuspended() || disableSuspend)   return this;
+  if (req.getSession(false) != null && req.getSession().getMaxInactiveInterval() != -1 && req.getSession().getMaxInactiveInterval() * 1000 < timeout) {
+    throw new IllegalStateException("Cannot suspend a " + "response longer than the session timeout. Increase the value of session-timeout in web.xml");
+  }
+  if (req.getAttribute(DefaultBroadcaster.CACHED) != null) {
+    req.removeAttribute(DefaultBroadcaster.CACHED);
+    return this;
+  }
+  onPreSuspend(event);
+  if (!event.isResumedOnTimeout()) {
+    Enumeration<String> connection=req.getHeaders("Connection");
+    if (connection == null) {
+      connection=req.getHeaders("connection");
+    }
+    if (connection != null && connection.hasMoreElements()) {
+      String[] e=connection.nextElement().toString().split(",");
+      for (      String upgrade : e) {
+        if (upgrade.trim().equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
+          if (writeHeaders && !asyncSupport.supportWebSocket()) {
+            response.addHeader(X_ATMOSPHERE_ERROR,"Websocket protocol not supported");
+          }
+ else {
+            req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.WEBSOCKET_TRANSPORT);
+          }
+        }
+      }
+    }
+    if (req.getHeader(X_ATMOSPHERE_TRANSPORT) == null) {
+      req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.LONG_POLLING_TRANSPORT);
+    }
+    if (writeHeaders && injectCacheHeaders) {
+      response.setHeader(EXPIRES,"-1");
+      response.setHeader(CACHE_CONTROL,"no-store, no-cache, must-revalidate");
+      response.setHeader(PRAGMA,"no-cache");
+    }
+    if (writeHeaders && enableAccessControl) {
+      response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN,req.getHeader("Origin") == null ? "*" : req.getHeader("Origin"));
+      response.setHeader(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
+    }
+    req.setAttribute(PRE_SUSPEND,"true");
+    action.type(Action.TYPE.SUSPEND);
+    action.timeout(timeout);
+    boolean isJersey=req.getAttribute(FrameworkConfig.CONTAINER_RESPONSE) != null;
+    boolean skipCreation=false;
+    if (req.getAttribute(SKIP_BROADCASTER_CREATION) != null) {
+      skipCreation=true;
+    }
+    if (!skipCreation && (broadcaster == null || broadcaster.getScope() == Broadcaster.SCOPE.REQUEST) && !isJersey) {
+      String id=broadcaster != null ? broadcaster.getID() : getClass().getName();
+      Class<? extends Broadcaster> clazz=broadcaster != null ? broadcaster.getClass() : DefaultBroadcaster.class;
+      broadcaster=BroadcasterFactory.getDefault().lookup(clazz,id,false);
+      if (broadcaster == null || broadcaster.getAtmosphereResources().size() > 0) {
+        broadcaster=BroadcasterFactory.getDefault().lookup(clazz,id + "/" + UUID.randomUUID(),true);
+      }
+    }
+    broadcaster.addAtmosphereResource(this);
+    req.removeAttribute(PRE_SUSPEND);
+    notifyListeners();
+  }
+  return this;
 }

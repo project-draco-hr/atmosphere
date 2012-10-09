@@ -1,0 +1,58 @@
+{
+  servletReq.setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
+  boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
+  configureFilter(r.getBroadcaster());
+  if (sessionSupported) {
+    servletReq.getSession().setAttribute(SUSPENDED_RESOURCE,r);
+    servletReq.getSession().setAttribute(FrameworkConfig.CONTAINER_RESPONSE,response);
+  }
+  servletReq.setAttribute(SUSPENDED_RESOURCE,r);
+  try {
+    MediaType contentType=response.getMediaType();
+    if (contentType == null && response.getEntity() != null) {
+      LinkedList<MediaType> l=new LinkedList<MediaType>();
+      l.add(request.getAcceptableMediaType(new LinkedList<MediaType>()));
+      contentType=response.getMessageBodyWorkers().getMessageBodyWriterMediaType(response.getEntity().getClass(),response.getEntityType(),response.getAnnotations(),l);
+      if (contentType == null || contentType.isWildcardType() || contentType.isWildcardSubtype())       contentType=MediaType.APPLICATION_OCTET_STREAM_TYPE;
+    }
+    Object entity=response.getEntity();
+    Response.ResponseBuilder b=Response.ok();
+    b=configureHeaders(b);
+    AtmosphereConfig config=(AtmosphereConfig)servletReq.getAttribute(ATMOSPHERE_CONFIG);
+    String defaultCT=config.getInitParameter(DEFAULT_CONTENT_TYPE);
+    if (defaultCT == null) {
+      defaultCT="text/plain; charset=ISO-8859-1";
+    }
+    String ct=contentType == null ? defaultCT : contentType.toString();
+    if (defaultContentType != null) {
+      ct=defaultContentType;
+    }
+    if (entity != null) {
+      b=b.header("Content-Type",ct);
+    }
+    servletReq.setAttribute(FrameworkConfig.EXPECTED_CONTENT_TYPE,ct);
+    if (entity != null && flushEntity) {
+      try {
+        if (Callable.class.isAssignableFrom(entity.getClass())) {
+          entity=Callable.class.cast(entity).call();
+        }
+      }
+ catch (      Throwable t) {
+        logger.error("Error executing callable {}",entity);
+        entity=null;
+      }
+      if (location != null) {
+        b=b.header(HttpHeaders.LOCATION,location);
+      }
+synchronized (response) {
+        response.setResponse(b.entity(entity).build());
+        response.write();
+      }
+    }
+    response.setEntity(null);
+    r.suspend(timeout);
+  }
+ catch (  IOException ex) {
+    throw new WebApplicationException(ex);
+  }
+}

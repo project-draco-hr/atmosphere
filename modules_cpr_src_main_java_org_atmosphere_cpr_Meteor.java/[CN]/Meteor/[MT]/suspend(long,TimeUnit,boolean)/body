@@ -1,5 +1,0 @@
-{
-  if (destroyed())   return null;
-  r.suspend(timeout,timeunit,outputComments);
-  return this;
-}

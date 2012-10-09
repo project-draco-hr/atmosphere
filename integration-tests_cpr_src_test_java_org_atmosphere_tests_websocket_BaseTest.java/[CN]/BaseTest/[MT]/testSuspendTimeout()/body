@@ -3,7 +3,7 @@
   final CountDownLatch latch=new CountDownLatch(1);
   atmoServlet.framework().addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
     public void onRequest(    AtmosphereResource event) throws IOException {
-      event.suspend(5000,false);
+      event.suspend(5000);
     }
     public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       event.getResource().getResponse().getOutputStream().write("resume".getBytes());

@@ -1,7 +1,0 @@
-{
-  long timeoutms=-1;
-  if (timeunit != null) {
-    timeoutms=TimeUnit.MILLISECONDS.convert(timeout,timeunit);
-  }
-  return suspend(timeoutms,flushComment);
-}

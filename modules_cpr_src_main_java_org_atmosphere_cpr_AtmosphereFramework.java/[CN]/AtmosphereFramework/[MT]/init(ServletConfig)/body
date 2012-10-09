@@ -54,11 +54,21 @@
     for (    AtmosphereInterceptor i : interceptors) {
       if (i.getClass().isAssignableFrom(TrackMessageSizeInterceptor.class)) {
         found=true;
+        break;
+      }
+    }
+    for (    Entry<String,AtmosphereHandlerWrapper> e : atmosphereHandlers.entrySet()) {
+      for (      AtmosphereInterceptor i : e.getValue().interceptors) {
+        if (i.getClass().isAssignableFrom(TrackMessageSizeInterceptor.class)) {
+          found=true;
+          break;
+        }
       }
     }
     for (    String i : broadcasterFilters) {
       if (i.equals(TrackMessageSizeFilter.class.getName())) {
         found=true;
+        break;
       }
     }
     if (!found) {

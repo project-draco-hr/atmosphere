@@ -27,7 +27,7 @@
     }
     Response r=response.get();
     assertNotNull(r);
-    assertEquals(r.getResponseBody(),AtmosphereResourceImpl.createStreamingPadding(null) + "foobar\n");
+    assertEquals(r.getResponseBody(),createStreamingPadding(null) + "foobar\n");
     assertEquals(r.getStatusCode(),200);
   }
  catch (  Exception e) {

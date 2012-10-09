@@ -9,7 +9,7 @@
       event.getResource().getBroadcaster().broadcast("resume");
     }
   }
-).suspend(5000,false);
+).suspend(5000);
   if (servletLatch != null) {
     servletLatch.countDown();
   }

@@ -1,3 +1,0 @@
-{
-  this(action,timeout,waitFor,scope,outputComments,filters,topic,writeEntity,null);
-}

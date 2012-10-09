@@ -15,10 +15,10 @@
     int delay=am.getAnnotation(Broadcast.class).delay();
     Class[] broadcastFilter=am.getAnnotation(Broadcast.class).value();
     if (am.getAnnotation(Broadcast.class).resumeOnBroadcast()) {
-      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
+      f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
     }
  else {
-      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,true,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
+      f=new Filter(Action.BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
     }
     list.addLast(f);
     if (am.isAnnotationPresent(Cluster.class)) {
@@ -40,7 +40,7 @@
     int suspendTimeout=am.getAnnotation(Asynchronous.class).period();
     Class[] broadcastFilter=am.getAnnotation(Asynchronous.class).broadcastFilter();
     boolean wait=am.getAnnotation(Asynchronous.class).waitForResource();
-    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,false,broadcastFilter,am.getAnnotation(Asynchronous.class).header(),am.getAnnotation(Asynchronous.class).writeEntity());
+    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,broadcastFilter,am.getAnnotation(Asynchronous.class).header(),am.getAnnotation(Asynchronous.class).writeEntity());
     f.setListeners(am.getAnnotation(Asynchronous.class).eventListeners());
     list.addFirst(f);
   }
@@ -49,23 +49,22 @@
     TimeUnit tu=am.getAnnotation(Suspend.class).timeUnit();
     suspendTimeout=translateTimeUnit(suspendTimeout,tu);
     Suspend.SCOPE scope=am.getAnnotation(Suspend.class).scope();
-    boolean outputComments=am.getAnnotation(Suspend.class).outputComments();
     if (am.getAnnotation(Suspend.class).resumeOnBroadcast()) {
-      f=new Filter(Action.SUSPEND_RESUME,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
+      f=new Filter(Action.SUSPEND_RESUME,suspendTimeout,0,scope,null,null,true,am.getAnnotation(Suspend.class).contentType());
     }
  else {
-      f=new Filter(Action.SUSPEND,suspendTimeout,0,scope,outputComments,null,null,true,am.getAnnotation(Suspend.class).contentType());
+      f=new Filter(Action.SUSPEND,suspendTimeout,0,scope,null,null,true,am.getAnnotation(Suspend.class).contentType());
     }
     f.setListeners(am.getAnnotation(Suspend.class).listeners());
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Subscribe.class)) {
-    f=new Filter(Action.SUBSCRIBE,30000,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Subscribe.class).value(),am.getAnnotation(Subscribe.class).writeEntity());
+    f=new Filter(Action.SUBSCRIBE,30000,-1,Suspend.SCOPE.APPLICATION,null,am.getAnnotation(Subscribe.class).value(),am.getAnnotation(Subscribe.class).writeEntity());
     f.setListeners(am.getAnnotation(Subscribe.class).listeners());
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Publish.class)) {
-    f=new Filter(Action.PUBLISH,-1,-1,Suspend.SCOPE.APPLICATION,false,null,am.getAnnotation(Publish.class).value(),true);
+    f=new Filter(Action.PUBLISH,-1,-1,Suspend.SCOPE.APPLICATION,null,am.getAnnotation(Publish.class).value(),true);
     list.addFirst(f);
   }
   if (am.isAnnotationPresent(Resume.class)) {

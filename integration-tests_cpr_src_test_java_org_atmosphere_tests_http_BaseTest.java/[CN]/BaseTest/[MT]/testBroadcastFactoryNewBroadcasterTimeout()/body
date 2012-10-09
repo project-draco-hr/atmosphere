@@ -5,7 +5,7 @@
     private long currentTime;
     public void onRequest(    AtmosphereResource event) throws IOException {
       currentTime=System.currentTimeMillis();
-      event.suspend(5000,false);
+      event.suspend(5000);
       try {
         Broadcaster b=BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,"ExternalBroadcaster",true);
         b.addAtmosphereResource(event);

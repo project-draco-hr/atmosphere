@@ -93,7 +93,7 @@ if (resumeOnBroadcast) {
 servletReq.setAttribute(RESUME_ON_BROADCAST,new Boolean(true));
 }
 r.setBroadcaster(bcaster);
-executeSuspend(r,timeout,outputJunk,resumeOnBroadcast,null,request,response,writeEntity);
+executeSuspend(r,timeout,resumeOnBroadcast,null,request,response,writeEntity);
 }
  else {
 Object entity=response.getEntity();
@@ -125,24 +125,22 @@ response.setEntity(null);
 break;
 case SUSPEND_RESPONSE:
 SuspendResponse<?> s=SuspendResponse.class.cast(JResponseAsResponse.class.cast(response.getResponse()).getJResponse());
-boolean outputJunk=outputJunk(r,s.outputComments());
 boolean resumeOnBroadcast=resumeOnBroadcast(s.resumeOnBroadcast());
 for (AtmosphereResourceEventListener el : s.listeners()) {
 r.addEventListener(el);
 }
-if (s.getEntity() == null && outputJunk) {
+if (s.getEntity() == null) {
 response.setEntity("");
 }
 Broadcaster bc=s.broadcaster();
 if (bc == null && s.scope() != Suspend.SCOPE.REQUEST) {
 bc=(Broadcaster)servletReq.getAttribute(INJECTED_BROADCASTER);
 }
-suspend(resumeOnBroadcast,outputJunk,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope(),s.writeEntity());
+suspend(resumeOnBroadcast,translateTimeUnit(s.period().value(),s.period().timeUnit()),request,response,bc,r,s.scope(),s.writeEntity());
 break;
 case SUBSCRIBE:
 case SUSPEND:
 case SUSPEND_RESUME:
-outputJunk=outputJunk(r,outputComments);
 resumeOnBroadcast=resumeOnBroadcast((action == Action.SUSPEND_RESUME));
 if (listeners != null) {
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
@@ -167,7 +165,7 @@ throw new IllegalStateException(e.getMessage());
 }
 broadcaster=BroadcasterFactory.getDefault().lookup(c,topic,true);
 }
-suspend(resumeOnBroadcast,outputJunk,timeout,request,response,broadcaster,r,scope,writeEntity);
+suspend(resumeOnBroadcast,timeout,request,response,broadcaster,r,scope,writeEntity);
 break;
 case RESUME:
 if (response.getEntity() != null) {
