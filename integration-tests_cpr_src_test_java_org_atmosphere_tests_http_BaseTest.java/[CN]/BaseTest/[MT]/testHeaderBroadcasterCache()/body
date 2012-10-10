@@ -7,7 +7,7 @@
     public void onRequest(    AtmosphereResource event) throws IOException {
       try {
         if (event.getRequest().getHeader(HeaderConfig.X_CACHE_DATE) != null) {
-          event.suspend(-1,false);
+          event.suspend(-1);
           return;
         }
         event.getBroadcaster().broadcast("12345678910").get();

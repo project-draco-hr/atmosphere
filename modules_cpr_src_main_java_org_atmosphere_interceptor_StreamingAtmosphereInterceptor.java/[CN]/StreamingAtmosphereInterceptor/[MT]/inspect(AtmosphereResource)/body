@@ -1,0 +1,33 @@
+{
+  final AtmosphereResponse response=r.getResponse();
+  if (r.transport().equals(TRANSPORT.STREAMING)) {
+    super.inspect(r);
+    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      @Override public void onPreSuspend(      AtmosphereResourceEvent event){
+        writePadding(response);
+      }
+    }
+);
+    AsyncIOWriter writer=response.getAsyncIOWriter();
+    if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {
+      AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
+        private void padding(){
+          if (!r.isSuspended()) {
+            writePadding(response);
+            r.getRequest().setAttribute("paddingWritten","true");
+          }
+        }
+        @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
+          padding();
+        }
+        @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
+        }
+      }
+);
+    }
+ else {
+      logger.warn("Unable to apply {}. Your AsyncIOWriter must implement {}",getClass().getName(),AtmosphereInterceptorWriter.class.getName());
+    }
+  }
+  return Action.CONTINUE;
+}

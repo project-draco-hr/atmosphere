@@ -8,7 +8,7 @@
     public void onRequest(    AtmosphereResource event) throws IOException {
       if (event.getRequest().getHeader("yo") != null) {
         try {
-          event.suspend(-1,false);
+          event.suspend(-1);
           suspendedLatch.countDown();
         }
   finally {

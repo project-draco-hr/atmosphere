@@ -3,7 +3,6 @@
   String userAgent=r.getRequest().getHeader("User-Agent");
   if (r.transport().equals(TRANSPORT.STREAMING) && userAgent != null && (userAgent.indexOf("Android 2.") != -1 || userAgent.indexOf("Android 3.") != -1)) {
     super.inspect(r);
-    r.padding("whitespace");
     AsyncIOWriter writer=response.getAsyncIOWriter();
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {
       AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){

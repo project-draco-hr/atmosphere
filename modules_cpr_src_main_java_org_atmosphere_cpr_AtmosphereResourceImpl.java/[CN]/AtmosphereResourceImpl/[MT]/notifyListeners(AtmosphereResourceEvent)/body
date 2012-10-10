@@ -7,11 +7,11 @@
   }
   Action oldAction=action;
   try {
-    if (event.isResuming() || event.isResumedOnTimeout()) {
-      onResume(event);
-    }
- else     if (event.isCancelled()) {
+    if (event.isCancelled()) {
       onDisconnect(event);
+    }
+ else     if (event.isResuming() || event.isResumedOnTimeout()) {
+      onResume(event);
     }
  else     if (!isSuspendEvent.getAndSet(true) && event.isSuspended()) {
       onSuspend(event);

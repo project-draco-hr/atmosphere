@@ -6,7 +6,7 @@
       event.getResource().getBroadcaster().broadcast("resume");
     }
   }
-).resumeOnBroadcast(true).suspend(20000,false);
+).resumeOnBroadcast(true).suspend(20000);
   if (servletLatch != null) {
     servletLatch.countDown();
   }

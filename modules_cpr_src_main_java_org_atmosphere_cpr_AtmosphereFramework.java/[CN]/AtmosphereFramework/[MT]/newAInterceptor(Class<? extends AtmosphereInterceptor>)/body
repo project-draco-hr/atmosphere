@@ -3,6 +3,7 @@
   try {
     ai=(AtmosphereInterceptor)getClass().getClassLoader().loadClass(a.getName()).newInstance();
     ai.configure(config);
+    logger.info("\t{} : {}",a.getName(),ai);
   }
  catch (  Exception ex) {
     logger.warn("",ex);

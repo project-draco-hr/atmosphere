@@ -6,7 +6,7 @@
     public void onRequest(    AtmosphereResource event) throws IOException {
       currentTime=System.currentTimeMillis();
       event.getBroadcaster().setSuspendPolicy(1,Broadcaster.POLICY.REJECT);
-      event.suspend(5000,false);
+      event.suspend(5000);
     }
     public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       try {

@@ -5,7 +5,7 @@
     private long currentTime;
     public void onRequest(    AtmosphereResource event) throws IOException {
       currentTime=System.currentTimeMillis();
-      event.writeOnTimeout("yo!!!").suspend(5000,false);
+      event.writeOnTimeout("yo!!!").suspend(5000);
     }
     public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       try {

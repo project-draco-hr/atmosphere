@@ -1,0 +1,8 @@
+boolean resumeOnBroadcast
+long timeout
+ContainerRequest request
+ContainerResponse response
+Broadcaster bc
+AtmosphereResource r
+Suspend.SCOPE localScope
+boolean flushEntity

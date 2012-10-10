@@ -1,0 +1,7 @@
+AtmosphereResource r
+long timeout
+boolean resumeOnBroadcast
+URI location
+ContainerRequest request
+ContainerResponse response
+boolean flushEntity

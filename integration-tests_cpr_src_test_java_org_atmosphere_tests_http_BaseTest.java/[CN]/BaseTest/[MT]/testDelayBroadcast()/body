@@ -47,12 +47,7 @@
   try {
     c.prepareGet(urlTarget).execute(new AsyncCompletionHandler<String>(){
       @Override public String onCompleted(      Response response) throws Exception {
-        try {
-          assertEquals(response.getResponseBody(),AtmosphereResourceImpl.createStreamingPadding(null));
-        }
-  finally {
-          latch.countDown();
-        }
+        latch.countDown();
         return null;
       }
     }
@@ -67,6 +62,7 @@
     }
     assertNotNull(r);
     assertEquals(r.getStatusCode(),200);
+    assertEquals(r.getResponseBody(),createStreamingPadding(null));
   }
  catch (  Exception e) {
     logger.error("test failed",e);

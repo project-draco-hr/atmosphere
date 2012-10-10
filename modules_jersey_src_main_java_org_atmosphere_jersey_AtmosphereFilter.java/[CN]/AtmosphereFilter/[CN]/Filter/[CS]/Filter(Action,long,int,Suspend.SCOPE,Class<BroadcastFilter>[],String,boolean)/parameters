@@ -1,0 +1,7 @@
+Action action
+long timeout
+int waitFor
+Suspend.SCOPE scope
+Class<BroadcastFilter>[] filters
+String topic
+boolean writeEntity

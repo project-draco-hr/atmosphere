@@ -36,7 +36,7 @@
     assertNotNull(r);
     assertEquals(r.getStatusCode(),200);
     String resume=r.getResponseBody();
-    assertEquals(resume,AtmosphereResourceImpl.createStreamingPadding(null));
+    assertEquals(resume,createStreamingPadding(null));
   }
  catch (  Exception e) {
     logger.error("test failed",e);

@@ -8,7 +8,7 @@
     String resume=r.getResponseBody();
     String[] ct=r.getContentType().toLowerCase().split(";");
     assertEquals(ct[0].trim(),"text/plain");
-    assertEquals(resume,AtmosphereResourceImpl.createStreamingPadding(null));
+    assertEquals(resume,createStreamingPadding(null));
   }
  catch (  Exception e) {
     logger.error("test failed",e);
