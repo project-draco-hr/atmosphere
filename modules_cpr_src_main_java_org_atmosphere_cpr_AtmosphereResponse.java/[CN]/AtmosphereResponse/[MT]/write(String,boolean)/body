@@ -15,8 +15,8 @@
       w.write(data);
     }
   }
- catch (  IOException e) {
-    logger.trace("",e);
+ catch (  Exception ex) {
+    handleException(ex);
   }
   return this;
 }

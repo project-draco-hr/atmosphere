@@ -14,8 +14,8 @@
       w.write(new String(data,getCharacterEncoding()));
     }
   }
- catch (  IOException e) {
-    logger.trace("",e);
+ catch (  Exception ex) {
+    handleException(ex);
   }
   return this;
 }

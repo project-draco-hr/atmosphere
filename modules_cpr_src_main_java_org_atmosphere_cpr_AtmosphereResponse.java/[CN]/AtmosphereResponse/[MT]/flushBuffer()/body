@@ -1,3 +1,9 @@
 {
-  response.flushBuffer();
+  try {
+    response.flushBuffer();
+  }
+ catch (  IOException ex) {
+    handleException(ex);
+    throw ex;
+  }
 }

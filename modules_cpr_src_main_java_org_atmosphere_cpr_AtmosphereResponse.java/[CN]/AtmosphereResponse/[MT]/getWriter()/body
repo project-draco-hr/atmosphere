@@ -10,7 +10,7 @@
           forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
-          throw new RuntimeException(e);
+          handleException(e);
         }
       }
       public void write(      char[] chars){
@@ -22,7 +22,7 @@
           forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
-          throw new RuntimeException(e);
+          handleException(e);
         }
       }
       public void write(      String s,      int offset,      int lenght){
@@ -34,7 +34,7 @@
           forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
-          throw new RuntimeException(e);
+          handleException(e);
         }
       }
       public void write(      java.lang.String s){
@@ -46,7 +46,7 @@
           forceAsyncIOWriter=b;
         }
  catch (        IOException e) {
-          throw new RuntimeException(e);
+          handleException(e);
         }
       }
     }
