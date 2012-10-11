@@ -40,7 +40,7 @@ synchronized (req) {
         }
       }
  catch (      Throwable t) {
-        logger.trace("cancel",t);
+        logger.debug("cancel",t);
       }
  finally {
         if (r != null) {
