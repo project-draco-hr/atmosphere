@@ -20,5 +20,5 @@
       }
     }
   }
-,0,invalidateCacheInterval,TimeUnit.MINUTES);
+,0,invalidateCacheInterval,TimeUnit.MILLISECONDS);
 }
