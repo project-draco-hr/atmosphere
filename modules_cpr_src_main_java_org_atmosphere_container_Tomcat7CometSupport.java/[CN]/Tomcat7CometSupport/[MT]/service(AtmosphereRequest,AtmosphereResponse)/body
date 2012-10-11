@@ -14,10 +14,11 @@
  else {
           event.setTimeout(Integer.MAX_VALUE);
         }
-        req.setAttribute(SUSPENDED,true);
       }
  catch (      UnsupportedOperationException ex) {
+        logger.trace("Warning: CometEvent.setTimeout not supported on this Tomcat instance. " + " [The Tomcat native connector does not support timeouts on asynchronous I/O.]");
       }
+      req.setAttribute(SUSPENDED,true);
     }
  else     if (action.type() == Action.TYPE.RESUME) {
       bz51881(event);
