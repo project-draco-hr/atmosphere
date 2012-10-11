@@ -1,8 +1,0 @@
-{
-  AtmosphereResourceImpl r=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-  AtmosphereHandler atmosphereHandler=(AtmosphereHandler)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
-synchronized (r) {
-    atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
-  }
-  return new Action(Action.TYPE.RESUME);
-}

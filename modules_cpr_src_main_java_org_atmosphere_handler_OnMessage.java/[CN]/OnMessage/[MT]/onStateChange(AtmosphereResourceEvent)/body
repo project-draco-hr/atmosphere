@@ -1,5 +1,6 @@
 {
   AtmosphereResponse response=event.getResource().getResponse();
+  logger.debug("{} with event {}",event.getResource().uuid(),event);
   if (event.getMessage() != null && List.class.isAssignableFrom(event.getMessage().getClass())) {
     List<T> messages=List.class.cast(event.getMessage());
     for (    T t : messages) {

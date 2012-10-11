@@ -1,4 +1,5 @@
 {
+  if (event.isResuming())   return;
   Boolean resumeOnBroadcast=event.getResource().resumeOnBroadcast();
   if (!resumeOnBroadcast) {
     Object o=event.getResource().getRequest().getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
