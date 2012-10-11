@@ -2,7 +2,7 @@
   final ClassLoader cl=Thread.currentThread().getContextClassLoader();
   final AnnotationDetector.TypeReporter reporter=new AnnotationDetector.TypeReporter(){
     @SuppressWarnings("unchecked") @Override public Class<? extends Annotation>[] annotations(){
-      return new Class[]{AtmosphereHandlerService.class,BroadcasterCacheService.class,BroadcasterFilterService.class,BroadcasterFactoryService.class,BroadcasterService.class,MeteorService.class,WebSocketHandlerService.class,WebSocketProtocolService.class,AtmosphereInterceptorService.class,BroadcasterListenerService.class,AsyncSupportService.class,AsyncSupportListenerService.class,WebSocketProcessorService.class,BroadcasterCacheInspectorService.class};
+      return new Class[]{AtmosphereHandlerService.class,BroadcasterCacheService.class,BroadcasterFilterService.class,BroadcasterFactoryService.class,BroadcasterService.class,MeteorService.class,WebSocketHandlerService.class,WebSocketProtocolService.class,AtmosphereInterceptorService.class,BroadcasterListenerService.class,AsyncSupportService.class,AsyncSupportListenerService.class,WebSocketProcessorService.class,BroadcasterCacheInspectorService.class,ManagedService.class};
     }
     @Override public void reportTypeAnnotation(    Class<? extends Annotation> annotation,    String className){
       logger.info("Found Annotation in {} being scanned: {}",className,annotation);
@@ -162,6 +162,29 @@
  else       if (WebSocketProcessorService.class.equals(annotation)) {
         try {
           framework.setWebsocketProcessorClassName(className);
+        }
+ catch (        Throwable e) {
+          logger.warn("",e);
+        }
+      }
+ else       if (ManagedService.class.equals(annotation)) {
+        try {
+          AtmosphereHandler handler=(AtmosphereHandler)cl.loadClass(className).newInstance();
+          ManagedService a=handler.getClass().getAnnotation(ManagedService.class);
+          Class<? extends AtmosphereInterceptor>[] interceptors=new Class[]{AtmosphereResourceLifecycleInterceptor.class,BroadcastOnPostAtmosphereInterceptor.class,TrackMessageSizeInterceptor.class,HeartbeatInterceptor.class};
+          List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+          for (          Class i : interceptors) {
+            try {
+              AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
+              ai.configure(framework.getAtmosphereConfig());
+              l.add(ai);
+            }
+ catch (            Throwable e) {
+              logger.warn("",e);
+            }
+          }
+          framework.addAtmosphereHandler(a.path(),handler,l);
+          framework.setBroadcasterCacheClassName(HeaderBroadcasterCache.class.getName());
         }
  catch (        Throwable e) {
           logger.warn("",e);
