@@ -1,19 +1,21 @@
 {
-  try {
-    boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
-    if (isUsingStream) {
-      try {
-        getOutputStream().close();
+  if (resource().transport() != AtmosphereResource.TRANSPORT.WEBSOCKET) {
+    try {
+      boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
+      if (isUsingStream) {
+        try {
+          getOutputStream().close();
+        }
+ catch (        java.lang.IllegalStateException ex) {
+          logger.trace("",ex);
+        }
       }
- catch (      java.lang.IllegalStateException ex) {
-        logger.trace("",ex);
-      }
-    }
  else {
-      getWriter().close();
+        getWriter().close();
+      }
     }
-  }
- catch (  IOException e) {
-    logger.trace("",e);
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
   }
 }
