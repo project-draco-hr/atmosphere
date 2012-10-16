@@ -14,9 +14,11 @@
     logger.trace("",ex);
   }
  finally {
-    AtmosphereResourceImpl.class.cast(req.resource()).cancel();
     if (!ok) {
       timedout(req,res);
+    }
+ else {
+      AtmosphereResourceImpl.class.cast(req.resource()).cancel();
     }
   }
 }
