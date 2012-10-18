@@ -29,6 +29,7 @@
 ;
     this.servletConfig=scFacade;
     asyncSupportListener(new AsyncSupportListenerAdapter());
+    installAnnotationProcessor(scFacade);
     autoConfigureService(scFacade.getServletContext());
     patchContainer();
     doInitParams(scFacade);
