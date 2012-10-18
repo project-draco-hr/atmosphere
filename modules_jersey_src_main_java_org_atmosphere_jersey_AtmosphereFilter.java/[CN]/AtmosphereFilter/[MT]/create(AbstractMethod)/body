@@ -13,7 +13,7 @@
   }
   if (am.isAnnotationPresent(Broadcast.class)) {
     int delay=am.getAnnotation(Broadcast.class).delay();
-    Class[] broadcastFilter=am.getAnnotation(Broadcast.class).value();
+    Class[] broadcastFilter=am.getAnnotation(Broadcast.class).filters();
     if (am.getAnnotation(Broadcast.class).resumeOnBroadcast()) {
       f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
     }
