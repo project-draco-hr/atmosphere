@@ -7,6 +7,8 @@
   DefaultWebSocket dws=DefaultWebSocket.class.cast(w);
   try {
     AtmosphereRequest r=AtmosphereRequest.wrap(dws.getRequest());
+    AtmosphereResponse response=AtmosphereResponse.newInstance(config,r,webSocket);
+    config.framework().configureRequestResponse(r,response);
     try {
       if (r.getPathInfo().startsWith(r.getContextPath())) {
         r.servletPath(r.getPathInfo().substring(r.getContextPath().length()));
@@ -16,7 +18,7 @@
  catch (    Exception e) {
       logger.trace("",e);
     }
-    webSocketProcessor.open(webSocket,r);
+    webSocketProcessor.open(webSocket,r,response);
   }
  catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);
