@@ -1,0 +1,28 @@
+{
+  WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
+  try {
+    if (webSocketHandler == null) {
+      if (!WebSocketProtocolStream.class.isAssignableFrom(webSocketProtocol.getClass())) {
+        List<AtmosphereRequest> list=WebSocketProtocolStream.class.cast(webSocketProtocol).onTextStream(webSocket,reader);
+        dispatch(webSocket,list);
+      }
+ else {
+        dispatchReader(webSocket,reader);
+        return;
+      }
+    }
+ else {
+      if (WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.getClass())) {
+        WebSocketStreamingHandler.class.cast(webSocketHandler).onTextStream(webSocket,reader);
+      }
+ else {
+        dispatchReader(webSocket,reader);
+        return;
+      }
+    }
+  }
+ catch (  Exception ex) {
+    webSocketHandler.onError(webSocket,new WebSocketException(ex,new AtmosphereResponse.Builder().request(webSocket.resource().getRequest()).status(500).statusMessage("Server Error").build()));
+  }
+  notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent<Reader>(reader,MESSAGE,webSocket));
+}

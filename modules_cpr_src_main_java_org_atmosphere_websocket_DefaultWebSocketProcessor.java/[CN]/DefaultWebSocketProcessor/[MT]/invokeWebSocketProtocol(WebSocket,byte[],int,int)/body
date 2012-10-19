@@ -1,21 +1,30 @@
 {
   WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
   if (webSocketHandler == null) {
-    List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,data,offset,length);
-    dispatch(webSocket,list);
+    if (!WebSocketProtocolStream.class.isAssignableFrom(webSocketProtocol.getClass())) {
+      List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,data,offset,length);
+      dispatch(webSocket,list);
+    }
+ else {
+      logger.debug("The WebServer doesn't support streaming. Wrapping the message as stream.");
+      invokeWebSocketProtocol(webSocket,new ByteArrayInputStream(data,offset,length));
+      return;
+    }
   }
  else {
-    try {
-      webSocketHandler.onByteMessage(webSocket,data,offset,length);
+    if (!WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.getClass())) {
+      try {
+        webSocketHandler.onByteMessage(webSocket,data,offset,length);
+      }
+ catch (      Exception ex) {
+        webSocketHandler.onError(webSocket,new WebSocketException(ex,new AtmosphereResponse.Builder().request(webSocket.resource().getRequest()).status(500).statusMessage("Server Error").build()));
+      }
     }
- catch (    Exception ex) {
-      webSocketHandler.onError(webSocket,new WebSocketException(ex,new AtmosphereResponse.Builder().request(webSocket.resource().getRequest()).status(500).statusMessage("Server Error").build()));
+ else {
+      logger.debug("The WebServer doesn't support streaming. Wrapping the message as stream.");
+      invokeWebSocketProtocol(webSocket,new ByteArrayInputStream(data,offset,length));
+      return;
     }
   }
-  try {
-    notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(new String(data,offset,length,"UTF-8"),MESSAGE,webSocket));
-  }
- catch (  UnsupportedEncodingException e) {
-    logger.warn("UnsupportedEncodingException",e);
-  }
+  notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent<byte[]>(data,MESSAGE,webSocket));
 }

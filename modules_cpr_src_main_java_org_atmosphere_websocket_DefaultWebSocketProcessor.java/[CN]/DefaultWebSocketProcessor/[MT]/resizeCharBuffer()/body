@@ -1,0 +1,14 @@
+{
+  int maxSize=getCharBufferMaxSize();
+  if (cb.limit() >= maxSize) {
+    throw new IOException("Message Buffer too small");
+  }
+  long newSize=cb.limit() * 2;
+  if (newSize > maxSize) {
+    newSize=maxSize;
+  }
+  CharBuffer newBuffer=CharBuffer.allocate((int)newSize);
+  cb.rewind();
+  newBuffer.put(cb);
+  cb=newBuffer;
+}

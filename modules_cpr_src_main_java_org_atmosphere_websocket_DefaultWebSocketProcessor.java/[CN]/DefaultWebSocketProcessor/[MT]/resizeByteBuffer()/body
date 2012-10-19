@@ -1,0 +1,14 @@
+{
+  int maxSize=getByteBufferMaxSize();
+  if (bb.limit() >= maxSize) {
+    throw new IOException("Message Buffer too small");
+  }
+  long newSize=bb.limit() * 2;
+  if (newSize > maxSize) {
+    newSize=maxSize;
+  }
+  ByteBuffer newBuffer=ByteBuffer.allocate((int)newSize);
+  bb.rewind();
+  newBuffer.put(bb);
+  bb=newBuffer;
+}
