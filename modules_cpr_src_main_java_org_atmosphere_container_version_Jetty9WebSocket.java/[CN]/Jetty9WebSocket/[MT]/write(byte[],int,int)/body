@@ -1,3 +1,4 @@
 {
   blockingConnection.write(b,offset,length);
+  return this;
 }

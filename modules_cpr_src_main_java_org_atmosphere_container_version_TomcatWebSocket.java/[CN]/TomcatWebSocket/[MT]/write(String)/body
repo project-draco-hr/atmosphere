@@ -1,3 +1,4 @@
 {
   outbound.writeTextMessage(CharBuffer.wrap(s));
+  return this;
 }

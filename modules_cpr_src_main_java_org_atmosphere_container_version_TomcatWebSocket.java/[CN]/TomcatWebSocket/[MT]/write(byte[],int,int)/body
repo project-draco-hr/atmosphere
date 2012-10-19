@@ -1,3 +1,4 @@
 {
   outbound.writeBinaryMessage(ByteBuffer.wrap(b,offset,length));
+  return this;
 }

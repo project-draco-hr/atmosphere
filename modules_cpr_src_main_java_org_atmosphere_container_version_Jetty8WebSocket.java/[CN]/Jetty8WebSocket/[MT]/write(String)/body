@@ -1,3 +1,4 @@
 {
   connection.sendMessage(s);
+  return this;
 }
