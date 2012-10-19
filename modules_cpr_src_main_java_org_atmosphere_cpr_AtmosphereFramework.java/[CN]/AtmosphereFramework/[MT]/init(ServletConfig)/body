@@ -37,6 +37,7 @@
     configureBroadcaster();
     loadConfiguration(scFacade);
     initWebSocket();
+    initEndpointMapper();
     autoDetectContainer();
     configureWebDotXmlAtmosphereHandler(sc);
     asyncSupport.init(scFacade);
