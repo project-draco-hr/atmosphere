@@ -8,5 +8,4 @@
  else {
     latch=null;
   }
-  this.listeners=(listeners == null ? new CopyOnWriteArrayList<BroadcasterListener>() : listeners);
 }

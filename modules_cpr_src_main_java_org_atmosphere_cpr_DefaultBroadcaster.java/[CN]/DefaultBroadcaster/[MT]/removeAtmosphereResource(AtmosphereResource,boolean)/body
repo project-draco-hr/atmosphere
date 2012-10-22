@@ -8,7 +8,7 @@
     BroadcasterFuture f=(BroadcasterFuture)aImpl.getRequest(false).getAttribute(getID());
     if (f != null && !f.isDone() && !f.isCancelled()) {
       aImpl.getRequest(false).removeAttribute(getID());
-      f.done();
+      entryDone(f);
     }
   }
   resources.remove(r);

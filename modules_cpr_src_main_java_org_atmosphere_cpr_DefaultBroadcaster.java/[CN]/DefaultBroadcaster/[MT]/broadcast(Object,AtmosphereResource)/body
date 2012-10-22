@@ -1,12 +1,12 @@
 {
   if (destroyed.get()) {
     logger.debug(DESTROYED,getID(),"broadcast(Object msg, AtmosphereResource<?, ?> r");
-    return (new BroadcasterFuture<Object>(msg,broadcasterListeners,this)).done();
+    return futureDone(msg);
   }
   start();
   Object newMsg=filter(msg);
-  if (newMsg == null)   return (new BroadcasterFuture<Object>(msg,broadcasterListeners,this)).done();
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,1,broadcasterListeners,this);
+  if (newMsg == null)   return futureDone(msg);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,1,this);
   messages.offer(new Entry(newMsg,r,f,msg));
   return f;
 }

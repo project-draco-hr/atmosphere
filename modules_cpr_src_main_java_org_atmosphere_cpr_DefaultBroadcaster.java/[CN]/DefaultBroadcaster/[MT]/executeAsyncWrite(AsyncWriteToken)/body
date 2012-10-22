@@ -33,9 +33,7 @@
     if (notifyListeners) {
       r.notifyListeners();
     }
-    if (token.future != null) {
-      token.future.done();
-    }
+    entryDone(token.future);
     if (lostCandidate) {
       cacheLostMessage(r,token);
     }

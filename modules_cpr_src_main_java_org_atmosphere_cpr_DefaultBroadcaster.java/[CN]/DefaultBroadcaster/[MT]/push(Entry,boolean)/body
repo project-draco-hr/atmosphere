@@ -30,12 +30,14 @@ synchronized (concurrentSuspendBroadcast) {
     Object finalMsg=translate(entry.message);
     if (finalMsg == null) {
       logger.trace("Broascast message was null {}",finalMsg);
+      entryDone(entry.future);
       return;
     }
     Object prevM=entry.originalMessage;
     entry.originalMessage=(entry.originalMessage != entry.message ? translate(entry.originalMessage) : finalMsg);
     if (entry.originalMessage == null) {
-      logger.trace("Broascast message was null {}",prevM);
+      logger.debug("Broascast message was null {}",prevM);
+      entryDone(entry.future);
       return;
     }
     entry.message=finalMsg;
@@ -46,9 +48,7 @@ synchronized (concurrentSuspendBroadcast) {
         r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
       }
       trackBroadcastMessage(r,entry);
-      if (entry.future != null) {
-        entry.future.done();
-      }
+      entryDone(entry.future);
       return;
     }
     try {
