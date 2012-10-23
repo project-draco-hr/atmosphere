@@ -12,7 +12,7 @@
     push(new Entry(newMsg,subset,f,false));
   }
   finally {
-    f.done();
+    futureDone(f);
   }
   return f;
 }

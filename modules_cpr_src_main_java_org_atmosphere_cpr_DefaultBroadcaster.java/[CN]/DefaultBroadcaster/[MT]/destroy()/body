@@ -26,6 +26,7 @@
     messages.clear();
     asyncWriteQueue.clear();
     delayedBroadcast.clear();
+    broadcasterListeners.clear();
   }
  catch (  Throwable t) {
     logger.error("Unexpected exception during Broadcaster destroy {}",getID(),t);
