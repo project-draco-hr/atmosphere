@@ -12,6 +12,11 @@ synchronized (resources) {
     try {
       for (      AtmosphereResource resource : resources) {
         Broadcaster b=BroadcasterFactory.getDefault().get(getClass(),getClass().getSimpleName() + "/" + UUID.randomUUID());
+        if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
+          BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
+          InjectorProvider.getInjector().inject(cache);
+          b.getBroadcasterConfig().setBroadcasterCache(cache);
+        }
         resource.setBroadcaster(b);
         b.setScope(SCOPE.REQUEST);
         if (resource.getAtmosphereResourceEvent().isSuspended()) {
