@@ -1,4 +1,5 @@
 {
+  headers.put("Content-Type",String.valueOf(contentType));
   if (!delegateToNativeResponse) {
     this.contentType=contentType;
   }

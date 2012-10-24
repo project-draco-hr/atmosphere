@@ -1,5 +1,5 @@
 {
-  if (!delegateToNativeResponse || forceAsyncIOWriter) {
+  if (forceAsyncIOWriter || !delegateToNativeResponse) {
     return new ServletOutputStream(){
       @Override public void write(      int i) throws java.io.IOException {
         writeStatusAndHeaders();
