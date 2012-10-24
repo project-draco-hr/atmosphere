@@ -13,10 +13,10 @@
     started.set(false);
     releaseExternalResources();
     if (notifierFuture != null) {
-      notifierFuture.cancel(true);
+      notifierFuture.cancel(false);
     }
     if (asyncWriteFuture != null) {
-      asyncWriteFuture.cancel(true);
+      asyncWriteFuture.cancel(false);
     }
     if (bc != null) {
       bc.destroy();
