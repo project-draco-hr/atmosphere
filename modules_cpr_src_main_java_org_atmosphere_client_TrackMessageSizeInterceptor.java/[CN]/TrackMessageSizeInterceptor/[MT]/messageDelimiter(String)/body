@@ -1,0 +1,5 @@
+{
+  this.endString=endString;
+  end=endString.getBytes();
+  return this;
+}

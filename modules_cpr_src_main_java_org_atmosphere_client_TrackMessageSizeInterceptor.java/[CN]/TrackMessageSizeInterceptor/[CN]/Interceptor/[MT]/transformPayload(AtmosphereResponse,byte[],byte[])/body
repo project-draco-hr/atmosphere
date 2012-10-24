@@ -1,14 +1,19 @@
 {
-  response.setCharacterEncoding(OUT_ENCODING);
-  CharBuffer cb=inCharset.newDecoder().decode(ByteBuffer.wrap(responseDraft,0,responseDraft.length));
-  int size=cb.length();
-  CharBuffer cb2=CharBuffer.wrap(Integer.toString(size) + endString);
-  ByteBuffer bb=ByteBuffer.allocate((cb2.length() + size) * 2);
-  CharsetEncoder encoder=outCharset.newEncoder();
-  encoder.encode(cb2,bb,false);
-  encoder.encode(cb,bb,false);
-  bb.flip();
-  byte[] b=new byte[bb.limit()];
-  bb.get(b);
-  return b;
+  if (response.getContentType() == null || !excludedContentTypes.contains(response.getContentType().toLowerCase())) {
+    response.setCharacterEncoding(OUT_ENCODING);
+    CharBuffer cb=inCharset.newDecoder().decode(ByteBuffer.wrap(responseDraft,0,responseDraft.length));
+    int size=cb.length();
+    CharBuffer cb2=CharBuffer.wrap(Integer.toString(size) + endString);
+    ByteBuffer bb=ByteBuffer.allocate((cb2.length() + size) * 2);
+    CharsetEncoder encoder=outCharset.newEncoder();
+    encoder.encode(cb2,bb,false);
+    encoder.encode(cb,bb,false);
+    bb.flip();
+    byte[] b=new byte[bb.limit()];
+    bb.get(b);
+    return b;
+  }
+ else {
+    return responseDraft;
+  }
 }
