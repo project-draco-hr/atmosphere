@@ -5,11 +5,13 @@
     return null;
   }
   String pathInfo=resource.getRequest().getPathInfo();
+  String requestURI=resource.getRequest().getRequestURI();
   if (d.startsWith(delimiter)) {
     int delimiterLength=delimiter.length();
     int bodyBeginIndex=d.indexOf(delimiter,delimiterLength);
     if (bodyBeginIndex != -1) {
       pathInfo=d.substring(delimiterLength,bodyBeginIndex);
+      requestURI+=pathInfo;
       d=d.substring(bodyBeginIndex + delimiterLength);
     }
   }
@@ -17,6 +19,6 @@
   m.put(FrameworkConfig.WEBSOCKET_SUBPROTOCOL,FrameworkConfig.SIMPLE_HTTP_OVER_WEBSOCKET);
   m.putAll(resource.getRequest().attributes());
   List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
-  list.add(new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).destroyable(destroyable).headers(resource.getRequest().headersMap()).session(resource.session()).build());
+  list.add(new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).requestURI(requestURI).destroyable(destroyable).headers(resource.getRequest().headersMap()).session(resource.session()).build());
   return list;
 }
