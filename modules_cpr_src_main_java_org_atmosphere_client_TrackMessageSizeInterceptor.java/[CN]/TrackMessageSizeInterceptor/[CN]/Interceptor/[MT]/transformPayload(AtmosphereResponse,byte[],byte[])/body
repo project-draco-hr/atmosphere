@@ -1,5 +1,5 @@
 {
-  if (response.getContentType() == null || !excludedContentTypes.contains(response.getContentType().toLowerCase())) {
+  if (response.request().getAttribute(SKIP_INTERCEPTOR) == null && (response.getContentType() == null || !excludedContentTypes.contains(response.getContentType().toLowerCase()))) {
     response.setCharacterEncoding(OUT_ENCODING);
     CharBuffer cb=inCharset.newDecoder().decode(ByteBuffer.wrap(responseDraft,0,responseDraft.length));
     int size=cb.length();
