@@ -44,7 +44,6 @@
       if (req.getAttribute(PRE_SUSPEND) == null) {
         asyncSupport.action(this);
       }
-      response.closeStreamOrWriter();
     }
  else {
       logger.debug("Cannot resume an already resumed/cancelled request {}",this);
