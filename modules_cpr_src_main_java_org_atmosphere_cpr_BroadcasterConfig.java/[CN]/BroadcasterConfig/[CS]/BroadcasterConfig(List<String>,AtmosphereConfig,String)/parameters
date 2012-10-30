@@ -1,2 +1,3 @@
 List<String> list
 AtmosphereConfig config
+String name

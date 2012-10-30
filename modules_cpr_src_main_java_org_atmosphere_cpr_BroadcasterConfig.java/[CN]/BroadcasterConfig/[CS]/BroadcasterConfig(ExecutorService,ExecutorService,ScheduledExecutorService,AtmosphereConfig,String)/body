@@ -3,4 +3,6 @@
   this.scheduler=scheduler;
   this.asyncWriteService=asyncWriteService;
   this.config=config;
+  this.name=name;
+  this.handleExecutors=true;
 }

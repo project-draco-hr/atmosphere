@@ -1,11 +1,10 @@
 {
   this.config=config;
-  if (createExecutor) {
+  if (handleExecutors) {
     configExecutors();
-  }
- else {
-    shared=true;
   }
   configureBroadcasterFilter(list);
   configureBroadcasterCache();
+  this.name=name;
+  this.handleExecutors=handleExecutors;
 }

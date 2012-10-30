@@ -7,7 +7,7 @@
           msg=messages.poll(10,TimeUnit.SECONDS);
           if (msg == null) {
             if (!destroyed.get()) {
-              bc.getAsyncWriteService().submit(this);
+              notifierFuture=bc.getExecutorService().submit(this);
               return;
             }
           }

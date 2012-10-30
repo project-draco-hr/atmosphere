@@ -1,8 +1,11 @@
 {
   String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
   if (Boolean.parseBoolean(s)) {
+    shared=true;
+    handleExecutors=false;
     isExecutorShared=true;
     isAsyncExecutorShared=true;
+    logger.info("ExecutorServices will be shared amongts Broadcasters");
   }
   if (config.properties().get("executorService") == null) {
     int numberOfMessageProcessingThread=-1;
@@ -27,7 +30,7 @@
       executorService=Executors.newCachedThreadPool(new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,"Atmosphere-BroadcasterConfig-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "SHARED" : name) + "-BroadcasterConfig-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }
@@ -38,7 +41,7 @@
       executorService=Executors.newFixedThreadPool(numberOfMessageProcessingThread,new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,"Atmosphere-BroadcasterConfig-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "SHARED" : name) + "-BroadcasterConfig-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }
@@ -50,7 +53,7 @@
       asyncWriteService=Executors.newCachedThreadPool(new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,"Atmosphere-AsyncWrite-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "SHARED" : name) + "-AsyncWrite-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }
@@ -61,7 +64,7 @@
       asyncWriteService=Executors.newFixedThreadPool(numberOfAsyncThread,new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,"Atmosphere-AsyncWrite-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "SHARED" : name) + "-AsyncWrite-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }
