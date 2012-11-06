@@ -1,5 +1,6 @@
 {
   if (webSocketprocessor == null) {
+    this.framework=framework;
     String webSocketProcessorName=framework.getWebSocketProcessorClassName();
     if (!webSocketProcessorName.equalsIgnoreCase(DefaultWebSocketProcessor.class.getName())) {
       try {
@@ -16,6 +17,9 @@
     if (webSocketprocessor == null) {
       webSocketprocessor=new DefaultWebSocketProcessor(framework);
     }
+  }
+  if (!this.framework.equals(framework)) {
+    webSocketprocessor=new DefaultWebSocketProcessor(framework);
   }
   return webSocketprocessor;
 }
