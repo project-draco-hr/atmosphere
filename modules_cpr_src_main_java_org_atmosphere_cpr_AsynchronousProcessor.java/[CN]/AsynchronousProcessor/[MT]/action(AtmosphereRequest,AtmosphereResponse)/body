@@ -22,6 +22,10 @@
     logger.debug("No AtmosphereHandler maps request for {} with mapping {}",req.getPathInfo(),config.handlers());
     throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + req.getPathInfo());
   }
+  if (config.getBroadcasterFactory() == null) {
+    logger.error("Atmosphere is misconfigured and will not work. BroadcasterFactory is null");
+    return Action.CANCELLED;
+  }
   config.getBroadcasterFactory().add(handlerWrapper.broadcaster,handlerWrapper.broadcaster.getID());
   Broadcaster b=handlerWrapper.broadcaster;
   if (b.isDestroyed()) {
