@@ -1,3 +1,8 @@
 {
-  push(entry,true);
+  if (destroyed.get()) {
+    return;
+  }
+synchronized (concurrentSuspendBroadcast) {
+    deliverPush(entry,true);
+  }
 }
