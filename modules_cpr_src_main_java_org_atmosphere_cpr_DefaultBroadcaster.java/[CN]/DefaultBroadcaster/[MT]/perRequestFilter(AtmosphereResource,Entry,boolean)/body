@@ -5,9 +5,9 @@
   }
   Object finalMsg=msg.message;
   if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
+    if (isAtmosphereResourceValid(r)) {
+      if (bc.hasPerRequestFilters()) {
 synchronized (r) {
-      if (isAtmosphereResourceValid(r)) {
-        if (bc.hasPerRequestFilters()) {
           BroadcastAction a=bc.filter(r,msg.message,msg.originalMessage);
           if (a.action() == BroadcastAction.ACTION.ABORT) {
             return null;
@@ -17,14 +17,14 @@ synchronized (r) {
           }
         }
       }
+    }
  else {
-        removeAtmosphereResource(r);
-        BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
-      }
-      if (cache && cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
-        msg.message=finalMsg;
-        trackBroadcastMessage(r,msg);
-      }
+      removeAtmosphereResource(r);
+      BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+    }
+    if (cache && cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
+      msg.message=finalMsg;
+      trackBroadcastMessage(r,msg);
     }
   }
   return finalMsg;
