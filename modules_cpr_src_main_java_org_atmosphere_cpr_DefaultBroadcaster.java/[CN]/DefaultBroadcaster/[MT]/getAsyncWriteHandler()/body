@@ -3,16 +3,13 @@
     public void run(){
       AsyncWriteToken token=null;
       try {
-        token=asyncWriteQueue.poll(10,TimeUnit.SECONDS);
+        token=asyncWriteQueue.poll(5,TimeUnit.SECONDS);
         if (token == null) {
-          if (!destroyed.get()) {
-            logger.trace("Poll Async Write for {} for resources of size {}",DefaultBroadcaster.this.getID(),DefaultBroadcaster.this.resources.size());
-            asyncWriteFuture=bc.getAsyncWriteService().submit(this);
-          }
+          if (!destroyed.get())           asyncWriteFuture=bc.getAsyncWriteService().submit(this);
           return;
         }
 synchronized (token.resource) {
-          bc.getAsyncWriteService().submit(this);
+          asyncWriteFuture=bc.getAsyncWriteService().submit(this);
           executeAsyncWrite(token);
         }
       }
