@@ -1,0 +1,16 @@
+{
+  logger.info("{}: running test:  testSpecialCharsMapping",getClass().getSimpleName());
+  AsyncHttpClient c=new AsyncHttpClient();
+  try {
+    long t1=System.currentTimeMillis();
+    Response r=c.prepareGet(urlTarget + "/a?a=a&b=b").execute().get(10,TimeUnit.SECONDS);
+    assertNotNull(r);
+    assertEquals(r.getStatusCode(),200);
+    assertEquals(r.getResponseBody(),"ab");
+  }
+ catch (  Exception e) {
+    logger.error("test failed",e);
+    fail(e.getMessage());
+  }
+  c.close();
+}

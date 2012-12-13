@@ -23,6 +23,9 @@
       if (!name.startsWith("x-atmosphere") && !name.equalsIgnoreCase("x-cache-date")) {
         queryStrings.append(key).append("=").append(req.getParameter(key));
       }
+      if (e.hasMoreElements()) {
+        queryStrings.append("&");
+      }
     }
     req.headers(headers).queryString(queryStrings.toString()).method(body != null && req.getMethod().equalsIgnoreCase("GET") ? "POST" : req.getMethod());
     if (body != null) {
