@@ -63,6 +63,7 @@
     fail(e.getMessage());
   }
  finally {
+    BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,"suspend").destroy();
     c.close();
   }
 }
