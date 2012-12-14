@@ -4,9 +4,15 @@
       Entry msg=null;
       try {
         msg=messages.poll(5,TimeUnit.SECONDS);
-        if (!destroyed.get())         notifierFuture=bc.getExecutorService().submit(this);
+        if (destroyed.get())         return;
+        if (outOfOrderBroadcastSupported.get()) {
+          notifierFuture=bc.getExecutorService().submit(this);
+        }
         if (msg != null) {
           push(msg);
+        }
+        if (!outOfOrderBroadcastSupported.get()) {
+          notifierFuture=bc.getExecutorService().submit(this);
         }
       }
  catch (      InterruptedException ex) {

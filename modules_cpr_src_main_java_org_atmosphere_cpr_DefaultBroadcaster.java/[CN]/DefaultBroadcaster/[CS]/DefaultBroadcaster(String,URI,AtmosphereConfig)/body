@@ -12,4 +12,8 @@
       cacheStrategy=BroadcasterCache.STRATEGY.BEFORE_FILTER;
     }
   }
+  s=config.getInitParameter(OUT_OF_ORDER_BROADCAST);
+  if (s != null) {
+    outOfOrderBroadcastSupported.set(Boolean.valueOf(s));
+  }
 }
