@@ -5,11 +5,16 @@
       try {
         token=asyncWriteQueue.poll(5,TimeUnit.SECONDS);
         if (token == null) {
-          if (!destroyed.get())           asyncWriteFuture=bc.getAsyncWriteService().submit(this);
+          if (!destroyed.get())           bc.getAsyncWriteService().submit(this);
           return;
         }
+        if (outOfOrderBroadcastSupported.get()) {
+          bc.getAsyncWriteService().submit(this);
+        }
 synchronized (token.resource) {
-          asyncWriteFuture=bc.getAsyncWriteService().submit(this);
+          if (!outOfOrderBroadcastSupported.get()) {
+            bc.getAsyncWriteService().submit(this);
+          }
           executeAsyncWrite(token);
         }
       }

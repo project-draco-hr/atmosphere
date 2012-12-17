@@ -12,12 +12,7 @@
     }
     started.set(false);
     releaseExternalResources();
-    if (notifierFuture != null) {
-      notifierFuture.cancel(false);
-    }
-    if (asyncWriteFuture != null) {
-      asyncWriteFuture.cancel(false);
-    }
+    killReactiveThreads();
     if (bc != null) {
       bc.destroy();
     }

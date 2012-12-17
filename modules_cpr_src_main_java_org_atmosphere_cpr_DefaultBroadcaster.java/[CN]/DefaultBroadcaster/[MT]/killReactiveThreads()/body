@@ -1,0 +1,12 @@
+{
+  if (notifierFuture != null) {
+    for (    Future<?> f : notifierFuture) {
+      f.cancel(false);
+    }
+  }
+  if (asyncWriteFuture != null) {
+    for (    Future<?> f : asyncWriteFuture) {
+      f.cancel(false);
+    }
+  }
+}
