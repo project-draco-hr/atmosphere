@@ -1,0 +1,10 @@
+{
+  this.object=c;
+  this.onMessageMethod=populate(c,OnMessage.class);
+  this.onDisconnectMethod=populate(c,OnDisconnect.class);
+  this.onTimeoutMethod=populate(c,OnTimeout.class);
+  this.onGetMethod=populate(c,Get.class);
+  this.onPostMethod=populate(c,Post.class);
+  this.onPutMethod=populate(c,Put.class);
+  this.onDeleteMethod=populate(c,Delete.class);
+}

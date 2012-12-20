@@ -1,0 +1,13 @@
+{
+  AtmosphereResource resource=event.getResource();
+  if (event.isCancelled()) {
+    invoke(onDisconnectMethod,resource);
+  }
+ else   if (event.isResumedOnTimeout() || event.isResuming()) {
+    invoke(onTimeoutMethod,resource);
+  }
+ else {
+    String message=event.getMessage().toString();
+    invoke(onMessageMethod,event);
+  }
+}

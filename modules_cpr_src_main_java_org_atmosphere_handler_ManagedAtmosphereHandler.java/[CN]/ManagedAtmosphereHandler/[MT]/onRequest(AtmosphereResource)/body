@@ -1,0 +1,16 @@
+{
+  AtmosphereRequest request=resource.getRequest();
+  String method=request.getMethod();
+  if (method.equalsIgnoreCase("get")) {
+    invoke(onGetMethod,resource);
+  }
+ else   if (method.equalsIgnoreCase("post")) {
+    invoke(onPostMethod,resource);
+  }
+ else   if (method.equalsIgnoreCase("delete")) {
+    invoke(onDeleteMethod,resource);
+  }
+ else   if (method.equalsIgnoreCase("put")) {
+    invoke(onPutMethod,resource);
+  }
+}

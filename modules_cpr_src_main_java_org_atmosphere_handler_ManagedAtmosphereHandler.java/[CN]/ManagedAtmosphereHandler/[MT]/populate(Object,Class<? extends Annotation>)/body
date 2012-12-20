@@ -1,0 +1,8 @@
+{
+  for (  Method m : c.getClass().getMethods()) {
+    if (m.isAnnotationPresent(annotation)) {
+      return m;
+    }
+  }
+  return null;
+}
