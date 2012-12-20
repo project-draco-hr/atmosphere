@@ -1,0 +1,9 @@
+{
+  r.set(resource);
+  resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onSuspend(    AtmosphereResourceEvent event){
+      event.getResource().getBroadcaster().broadcast("message");
+    }
+  }
+).suspend();
+}

@@ -1,8 +1,8 @@
 {
   this.object=c;
-  this.onMessageMethod=populate(c,OnMessage.class);
-  this.onDisconnectMethod=populate(c,OnDisconnect.class);
-  this.onTimeoutMethod=populate(c,OnTimeout.class);
+  this.onMessageMethod=populate(c,Message.class);
+  this.onDisconnectMethod=populate(c,Disconnect.class);
+  this.onTimeoutMethod=populate(c,Resume.class);
   this.onGetMethod=populate(c,Get.class);
   this.onPostMethod=populate(c,Post.class);
   this.onPutMethod=populate(c,Put.class);
