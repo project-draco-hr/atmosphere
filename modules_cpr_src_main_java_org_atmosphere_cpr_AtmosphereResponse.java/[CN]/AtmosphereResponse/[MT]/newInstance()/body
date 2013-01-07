@@ -1,3 +1,3 @@
 {
-  return new Builder().delegateToNativeResponse(true).build();
+  return new Builder().build();
 }
