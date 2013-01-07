@@ -8,6 +8,7 @@
  catch (    NullPointerException ex) {
       servlet=(Servlet)Thread.currentThread().getContextClassLoader().loadClass(servletClassName).newInstance();
     }
+    InjectorProvider.getInjector().inject(servlet);
   }
   logger.info("Installing Servlet {}",servletClassName);
   filterChain.setServlet(sc,servlet);
@@ -21,6 +22,7 @@
     }
     FilterConfigImpl fc=new FilterConfigImpl(sc);
     fc.setFilter(f);
+    InjectorProvider.getInjector().inject(f);
     if (filterName == null) {
       if (sc.getInitParameter(APPLICATION_NAME) != null) {
         filterName=sc.getInitParameter(APPLICATION_NAME);
