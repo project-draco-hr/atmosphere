@@ -3,7 +3,12 @@
   if (req.getAttribute(MAX_INACTIVE) != null && Long.class.cast(req.getAttribute(MAX_INACTIVE)) == -1) {
     CometEvent event=(CometEvent)req.getAttribute(COMET_EVENT);
     if (event == null)     return action;
-    event.close();
+    try {
+      event.close();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("event.close",ex);
+    }
   }
   return action;
 }

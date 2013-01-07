@@ -20,9 +20,6 @@
       }
       req.setAttribute(SUSPENDED,true);
     }
- else     if (action.type() == Action.TYPE.RESUME) {
-      bz51881(event);
-    }
  else {
       bz51881(event);
     }

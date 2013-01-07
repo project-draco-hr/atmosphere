@@ -44,6 +44,11 @@
     }
   }
  else {
-    event.close();
+    try {
+      event.close();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("event.close",ex);
+    }
   }
 }
