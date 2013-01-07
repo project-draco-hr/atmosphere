@@ -7,6 +7,6 @@
   this.statusMessage=b.statusMessage;
   this.writeStatusAndHeader.set(b.writeStatusAndHeader.get());
   this.headers=b.headers;
-  this.delegateToNativeResponse=asyncIOWriter == null;
+  this.delegateToNativeResponse=b.delegateToNativeResponse;
   this.destroyable=b.destroyable;
 }
