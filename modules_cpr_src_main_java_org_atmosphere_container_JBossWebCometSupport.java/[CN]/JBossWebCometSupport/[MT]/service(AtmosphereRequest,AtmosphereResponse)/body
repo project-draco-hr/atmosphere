@@ -1,7 +1,7 @@
 {
   HttpEvent event=(HttpEvent)req.getAttribute(HTTP_EVENT);
   if (event == null) {
-    throw new IllegalStateException(unableToDetectComet());
+    throw unableToDetectComet;
   }
   Action action=null;
   if (event.getType() == HttpEvent.EventType.BEGIN) {

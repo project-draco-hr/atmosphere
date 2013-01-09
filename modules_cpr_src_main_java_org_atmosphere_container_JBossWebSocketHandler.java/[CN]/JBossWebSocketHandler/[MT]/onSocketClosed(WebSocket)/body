@@ -1,0 +1,5 @@
+{
+  logger.trace("WebSocket.onSocketClosed.");
+  org.atmosphere.websocket.WebSocket webSocket=new JBossWebSocket(socket,config);
+  webSocketProcessor.close(webSocket,0);
+}

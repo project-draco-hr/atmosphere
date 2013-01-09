@@ -1,0 +1,4 @@
+{
+  webSocket.writeFrame(BinaryFrame.from(Arrays.copyOfRange(b,offset,length)));
+  return this;
+}
