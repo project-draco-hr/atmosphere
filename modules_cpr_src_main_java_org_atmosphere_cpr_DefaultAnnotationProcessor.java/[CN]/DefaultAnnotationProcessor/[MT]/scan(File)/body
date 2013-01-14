@@ -183,6 +183,32 @@
               logger.warn("",e);
             }
           }
+          final Class<? extends AtmosphereResourceEventListener>[] listeners=a.listeners();
+          try {
+            AtmosphereInterceptor ai=new AtmosphereInterceptor(){
+              @Override public void configure(              AtmosphereConfig config){
+              }
+              @Override public Action inspect(              AtmosphereResource r){
+                for (                Class<? extends AtmosphereResourceEventListener> l : listeners) {
+                  try {
+                    r.addEventListener(l.newInstance());
+                  }
+ catch (                  Throwable e) {
+                    logger.warn("",e);
+                  }
+                }
+                return Action.CONTINUE;
+              }
+              @Override public void postInspect(              AtmosphereResource r){
+              }
+            }
+;
+            ai.configure(framework.getAtmosphereConfig());
+            l.add(ai);
+          }
+ catch (          Throwable e) {
+            logger.warn("",e);
+          }
           framework.addAtmosphereHandler(a.path(),handler,l);
           framework.setBroadcasterCacheClassName(HeaderBroadcasterCache.class.getName());
         }
