@@ -1,0 +1,6 @@
+{
+  factory.get("/a/_b");
+  factory.get("/b");
+  factory.get("/c");
+  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/a/_b","yo").get().size(),1);
+}
