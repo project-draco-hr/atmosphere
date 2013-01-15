@@ -1,6 +1,6 @@
 {
   action.type(Action.TYPE.RESUME);
-  isCancelled=true;
+  if (isCancelled.getAndSet(true))   return;
   if (asyncSupport instanceof AsynchronousProcessor) {
     try {
       AsynchronousProcessor.class.cast(asyncSupport).resumed(req,response);
