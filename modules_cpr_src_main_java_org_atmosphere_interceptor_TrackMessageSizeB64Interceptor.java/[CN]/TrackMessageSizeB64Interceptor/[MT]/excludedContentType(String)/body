@@ -1,0 +1,4 @@
+{
+  excludedContentTypes.add(excludedContentType.toLowerCase());
+  return this;
+}
