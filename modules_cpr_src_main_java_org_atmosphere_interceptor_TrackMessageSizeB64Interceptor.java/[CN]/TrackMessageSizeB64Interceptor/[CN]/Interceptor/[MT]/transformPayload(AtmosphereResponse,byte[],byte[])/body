@@ -1,0 +1,12 @@
+{
+  if (response.request().getAttribute(SKIP_INTERCEPTOR) == null && (response.getContentType() == null || !excludedContentTypes.contains(response.getContentType().toLowerCase()))) {
+    response.setCharacterEncoding(OUT_ENCODING);
+    String s=DatatypeConverter.printBase64Binary(responseDraft);
+    StringBuilder sb=new StringBuilder();
+    sb.append(s.length()).append(DELIMITER).append(s);
+    return sb.toString().getBytes(OUT_ENCODING);
+  }
+ else {
+    return responseDraft;
+  }
+}
