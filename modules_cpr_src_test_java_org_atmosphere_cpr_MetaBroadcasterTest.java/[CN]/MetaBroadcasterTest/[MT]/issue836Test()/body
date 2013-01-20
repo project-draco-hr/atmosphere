@@ -1,0 +1,6 @@
+{
+  factory.get("/a/@b");
+  factory.get("/b");
+  factory.get("/c");
+  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/a/@b","yo").get().size(),1);
+}
