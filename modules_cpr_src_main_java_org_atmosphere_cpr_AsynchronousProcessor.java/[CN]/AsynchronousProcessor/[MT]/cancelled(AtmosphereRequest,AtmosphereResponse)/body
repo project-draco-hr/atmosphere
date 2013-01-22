@@ -4,11 +4,16 @@ synchronized (req) {
     AtmosphereResourceImpl r=null;
     try {
       if (trackActiveRequest) {
-        long l=(Long)req.getAttribute(MAX_INACTIVE);
-        if (l == -1) {
-          return timedoutAction;
+        try {
+          long l=(Long)req.getAttribute(MAX_INACTIVE);
+          if (l == -1) {
+            return timedoutAction;
+          }
+          req.setAttribute(MAX_INACTIVE,(long)-1);
         }
-        req.setAttribute(MAX_INACTIVE,(long)-1);
+ catch (        NullPointerException ex) {
+          return cancelledAction;
+        }
       }
       logger.debug("Cancelling the connection for request {}",req);
       r=(AtmosphereResourceImpl)req.resource();
