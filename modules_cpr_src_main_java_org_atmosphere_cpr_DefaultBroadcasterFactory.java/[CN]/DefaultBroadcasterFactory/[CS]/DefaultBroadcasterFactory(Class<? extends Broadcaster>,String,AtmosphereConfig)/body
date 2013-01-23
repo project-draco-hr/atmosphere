@@ -1,8 +1,6 @@
 {
   this.clazz=clazz;
+  this.factory=this;
   config=c;
-  if (factory == null) {
-    this.factory=this;
-  }
   configure(broadcasterLifeCyclePolicy);
 }
