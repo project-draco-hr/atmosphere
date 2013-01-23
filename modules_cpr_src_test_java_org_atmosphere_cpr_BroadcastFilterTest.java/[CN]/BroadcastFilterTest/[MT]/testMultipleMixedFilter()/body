@@ -8,5 +8,5 @@
   broadcaster.getBroadcasterConfig().addFilter(new PerRequestFilter("3"));
   broadcaster.getBroadcasterConfig().addFilter(new PerRequestFilter("4"));
   broadcaster.broadcast("0").get();
-  assertEquals(atmosphereHandler.value.get().toString(),"01234");
+  assertEquals(atmosphereHandler.value.get().toString(),"012341234");
 }
