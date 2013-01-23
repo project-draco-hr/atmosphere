@@ -1,0 +1,25 @@
+{
+  final CountDownLatch latch=new CountDownLatch(100);
+  broadcaster.addBroadcasterListener(new BroadcasterListener(){
+    @Override public void onPostCreate(    Broadcaster b){
+    }
+    @Override public void onComplete(    Broadcaster b){
+      latch.countDown();
+    }
+    @Override public void onPreDestroy(    Broadcaster b){
+    }
+  }
+).broadcast("e-1");
+  broadcaster.removeAtmosphereResource(ar);
+  ExecutorService s=Executors.newCachedThreadPool();
+  for (int i=0; i < 99; i++) {
+    s.submit(new Runnable(){
+      @Override public void run(){
+        broadcaster.broadcast("e");
+      }
+    }
+);
+  }
+  latch.await(10,TimeUnit.SECONDS);
+  assertEquals(100,eventCacheBroadcasterCache.messages().get(ar.uuid()).getQueue().size());
+}

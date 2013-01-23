@@ -1,0 +1,15 @@
+{
+  long now=System.nanoTime();
+synchronized (messages) {
+    Set<String> inactiveClients=new HashSet<String>();
+    for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {
+      if (now - entry.getValue() > clientIdleTime) {
+        inactiveClients.add(entry.getKey());
+      }
+    }
+    for (    String clientId : inactiveClients) {
+      activeClients.remove(clientId);
+      messages.remove(clientId);
+    }
+  }
+}

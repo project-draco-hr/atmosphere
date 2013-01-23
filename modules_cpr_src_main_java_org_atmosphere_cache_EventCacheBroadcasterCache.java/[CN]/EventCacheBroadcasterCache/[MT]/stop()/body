@@ -1,0 +1,7 @@
+{
+  if (scheduledFuture != null) {
+    scheduledFuture.cancel(false);
+    scheduledFuture=null;
+  }
+  taskScheduler.shutdown();
+}

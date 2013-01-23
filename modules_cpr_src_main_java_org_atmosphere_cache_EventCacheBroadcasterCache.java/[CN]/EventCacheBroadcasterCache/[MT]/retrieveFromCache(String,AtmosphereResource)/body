@@ -1,0 +1,21 @@
+{
+  String clientId=r.uuid();
+  long now=System.nanoTime();
+  List<Object> result=new ArrayList<Object>();
+  ClientQueue clientQueue;
+synchronized (messages) {
+    activeClients.put(clientId,now);
+    clientQueue=messages.remove(clientId);
+  }
+  List<CacheMessage> clientMessages;
+  if (clientQueue == null) {
+    clientMessages=Collections.emptyList();
+  }
+ else {
+    clientMessages=clientQueue.getQueue();
+  }
+  for (  CacheMessage cacheMessage : clientMessages) {
+    result.add(cacheMessage.getMessage());
+  }
+  return result;
+}

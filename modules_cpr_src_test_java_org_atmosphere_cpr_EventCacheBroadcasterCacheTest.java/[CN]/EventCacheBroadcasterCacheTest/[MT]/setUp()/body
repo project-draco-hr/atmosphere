@@ -1,0 +1,10 @@
+{
+  AtmosphereConfig config=new AtmosphereFramework().getAtmosphereConfig();
+  DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
+  broadcaster=factory.get(DefaultBroadcaster.class,"test");
+  eventCacheBroadcasterCache=new EventCacheBroadcasterCache();
+  broadcaster.getBroadcasterConfig().setBroadcasterCache(eventCacheBroadcasterCache);
+  atmosphereHandler=new AR();
+  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.create(),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  broadcaster.addAtmosphereResource(ar);
+}

@@ -1,0 +1,7 @@
+{
+  Set<String> ids=new HashSet<String>(activeClients.keySet());
+  for (  AtmosphereResource resource : resources) {
+    ids.remove(resource.uuid());
+  }
+  return ids;
+}

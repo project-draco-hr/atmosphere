@@ -1,0 +1,5 @@
+{
+  if (!hasMessage(clientId,message.getId())) {
+    addMessage(clientId,message);
+  }
+}
