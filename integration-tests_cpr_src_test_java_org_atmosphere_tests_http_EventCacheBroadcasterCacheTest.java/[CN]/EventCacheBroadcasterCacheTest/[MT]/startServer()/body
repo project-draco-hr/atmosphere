@@ -1,0 +1,10 @@
+{
+  int port=BaseTest.TestHelper.getEnvVariable("ATMOSPHERE_HTTP_PORT",findFreePort());
+  urlTarget="http://127.0.0.1:" + port;
+  server=new Server(port);
+  root=new Context(server,"/",Context.SESSIONS);
+  atmoServlet=new AtmosphereServlet();
+  configureCometSupport();
+  root.addServlet(new ServletHolder(atmoServlet),ROOT);
+  server.start();
+}
