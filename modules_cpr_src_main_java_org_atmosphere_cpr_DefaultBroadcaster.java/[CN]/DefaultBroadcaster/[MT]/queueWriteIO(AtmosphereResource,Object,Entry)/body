@@ -1,3 +1,8 @@
 {
-  asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage));
+  if (r.isResumed() || r.isCancelled()) {
+    trackBroadcastMessage(r,cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER ? finalMsg : entry.originalMessage);
+  }
+ else {
+    asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage));
+  }
 }
