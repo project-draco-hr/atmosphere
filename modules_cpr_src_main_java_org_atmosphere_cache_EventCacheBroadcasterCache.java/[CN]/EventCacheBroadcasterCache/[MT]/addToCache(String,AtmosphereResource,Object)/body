@@ -1,6 +1,6 @@
 {
   if (logger.isDebugEnabled()) {
-    logger.debug("Adding for AtmosphereResource {} cached messages {}",r != null ? r.uuid() : "",e);
+    logger.debug("Adding for AtmosphereResource {} cached messages {}",r != null ? r.uuid() : "null",e);
   }
   long now=System.nanoTime();
   String messageId=UUID.randomUUID().toString();
