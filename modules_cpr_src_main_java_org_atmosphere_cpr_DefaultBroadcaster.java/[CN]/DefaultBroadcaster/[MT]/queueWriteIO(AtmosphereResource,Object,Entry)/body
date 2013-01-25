@@ -1,6 +1,13 @@
 {
-  if (r.isResumed() || r.isCancelled()) {
-    trackBroadcastMessage(r,cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER ? finalMsg : entry.originalMessage);
+  if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
+synchronized (r) {
+      if (r.isResumed() || r.isCancelled()) {
+        trackBroadcastMessage(r,cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER ? finalMsg : entry.originalMessage);
+      }
+ else {
+        asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage));
+      }
+    }
   }
  else {
     asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage));
