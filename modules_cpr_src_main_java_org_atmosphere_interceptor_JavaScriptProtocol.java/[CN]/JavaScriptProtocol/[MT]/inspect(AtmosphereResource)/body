@@ -1,0 +1,23 @@
+{
+  String uuid=r.getRequest().getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
+  String handshakeUUID=r.getRequest().getHeader(HeaderConfig.X_ATMO_PROTOCOL);
+  if (uuid != null && uuid.equals("0") && handshakeUUID != null) {
+    r.getRequest().header(HeaderConfig.X_ATMO_PROTOCOL,null);
+    if (r.transport() == AtmosphereResource.TRANSPORT.STREAMING) {
+      try {
+        r.getResponse().write(AtmosphereResourceImpl.createStreamingPadding(FrameworkConfig.ATMOSPHERE_PADDING)).flushBuffer();
+      }
+ catch (      IOException e) {
+      }
+      r.padding("none");
+    }
+    r.getResponse().write(r.uuid() + wsDelimiter + System.currentTimeMillis());
+    if (r.transport() == AtmosphereResource.TRANSPORT.WEBSOCKET || r.transport() == AtmosphereResource.TRANSPORT.STREAMING || r.transport() == AtmosphereResource.TRANSPORT.SSE) {
+      return Action.CONTINUE;
+    }
+ else {
+      return Action.CANCELLED;
+    }
+  }
+  return Action.CONTINUE;
+}
