@@ -1,0 +1,22 @@
+{
+  String servletClass=framework().getAtmosphereConfig().getInitParameter(SERVLET_CLASS);
+  String mapping=framework().getAtmosphereConfig().getInitParameter(MAPPING);
+  String filterClass=framework().getAtmosphereConfig().getInitParameter(FILTER_CLASS);
+  String filterName=framework().getAtmosphereConfig().getInitParameter(FILTER_NAME);
+  if (servletClass != null) {
+    logger.info("Installed Servlet/Meteor {} mapped to {}",servletClass,mapping == null ? "/*" : mapping);
+  }
+  if (filterClass != null) {
+    logger.info("Installed Filter/Meteor {} mapped to /*",filterClass,mapping);
+  }
+  if (servletClass != null || filterClass != null) {
+    ReflectorServletProcessor r=new ReflectorServletProcessor();
+    r.setServletClassName(servletClass);
+    r.addFilterClassName(filterClass,filterName);
+    if (mapping == null) {
+      mapping="/*";
+      BroadcasterFactory.getDefault().remove("/*");
+    }
+    framework.addAtmosphereHandler(mapping,r).initAtmosphereHandler(sc);
+  }
+}

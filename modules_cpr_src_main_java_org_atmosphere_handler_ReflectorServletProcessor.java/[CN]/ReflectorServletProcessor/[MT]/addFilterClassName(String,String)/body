@@ -1,0 +1,4 @@
+{
+  if (filterClass == null || filterName == null)   return;
+  filtersClassAndNames.put(filterClass,filterName);
+}
