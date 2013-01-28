@@ -1,0 +1,3 @@
+{
+  this(delegate,delegateMapping,Arrays.asList(filters));
+}
