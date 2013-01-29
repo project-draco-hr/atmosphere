@@ -19,7 +19,7 @@ synchronized (messages) {
   }
   if (logger.isDebugEnabled()) {
     logger.debug("Retrieved for AtmosphereResource {} cached messages {}",r.uuid(),result);
-    logger.debug("Retrieved for AtmosphereResource {} cached size {}",r.uuid(),result.size());
+    logger.debug("Available cached message {}",messages);
   }
   return result;
 }
