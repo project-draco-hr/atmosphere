@@ -13,7 +13,7 @@ synchronized (messages) {
       }
     }
  else {
-      String clientId=r.transport() == AtmosphereResource.TRANSPORT.WEBSOCKET ? (String)r.getRequest().getAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID) : r.uuid();
+      String clientId=uuid(r);
       activeClients.put(clientId,now);
       if (isAtmosphereResourceValid(r)) {
         Broadcaster broadcaster=getBroadCaster(broadcasterId);

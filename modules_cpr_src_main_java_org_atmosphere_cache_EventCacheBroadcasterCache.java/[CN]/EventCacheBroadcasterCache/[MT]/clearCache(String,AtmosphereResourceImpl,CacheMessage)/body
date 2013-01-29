@@ -1,5 +1,5 @@
 {
-  String clientId=r.uuid();
+  String clientId=uuid(r);
   ClientQueue clientQueue;
 synchronized (messages) {
     clientQueue=messages.get(clientId);
