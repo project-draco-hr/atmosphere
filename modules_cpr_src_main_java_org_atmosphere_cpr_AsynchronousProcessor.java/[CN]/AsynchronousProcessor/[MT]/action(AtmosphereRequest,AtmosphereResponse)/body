@@ -29,7 +29,7 @@
   config.getBroadcasterFactory().add(handlerWrapper.broadcaster,handlerWrapper.broadcaster.getID());
   Broadcaster b=handlerWrapper.broadcaster;
   if (b.isDestroyed()) {
-    BroadcasterFactory f=BroadcasterFactory.getDefault();
+    BroadcasterFactory f=config.getBroadcasterFactory();
 synchronized (f) {
       f.remove(b,b.getID());
       try {

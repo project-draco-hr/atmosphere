@@ -23,7 +23,7 @@
       logger.trace("If you are using Tomcat 7.0.22 and lower, your most probably hitting http://is.gd/NqicFT");
       logger.trace("",t);
       removeAtmosphereResource(r,false);
-      BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+      config.getBroadcasterFactory().removeAllAtmosphereResource(r);
       event.setCancelled(true);
       event.setThrowable(t);
       r.setIsInScope(false);

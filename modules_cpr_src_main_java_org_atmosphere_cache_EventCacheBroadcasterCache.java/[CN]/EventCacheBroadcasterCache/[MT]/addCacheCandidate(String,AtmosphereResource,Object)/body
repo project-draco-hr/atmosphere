@@ -16,7 +16,7 @@ synchronized (messages) {
       String clientId=uuid(r);
       activeClients.put(clientId,now);
       if (isAtmosphereResourceValid(r)) {
-        Broadcaster broadcaster=getBroadCaster(broadcasterId);
+        Broadcaster broadcaster=getBroadCaster(r.getAtmosphereConfig(),broadcasterId);
         List<AtmosphereResource> resources=new ArrayList<AtmosphereResource>(broadcaster.getAtmosphereResources());
         Set<String> disconnectedClients=getDisconnectedClients(resources);
         for (        String disconnectedId : disconnectedClients) {

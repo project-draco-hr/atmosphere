@@ -20,7 +20,7 @@ synchronized (r) {
     }
  else {
       removeAtmosphereResource(r);
-      BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+      config.getBroadcasterFactory().removeAllAtmosphereResource(r);
     }
   }
   return finalMsg;

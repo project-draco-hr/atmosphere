@@ -1,19 +1,2 @@
 {
-  logDuplicateFilter(e);
-  if (filters.contains(e))   return false;
-  if (e instanceof BroadcastFilterLifecycle) {
-    ((BroadcastFilterLifecycle)e).init(config);
-  }
-  if (init && ClusterBroadcastFilter.class.isAssignableFrom(e.getClass())) {
-    Broadcaster b=BroadcasterFactory.getDefault().lookup(name,false);
-    if (b != null) {
-synchronized (e) {
-        ClusterBroadcastFilter.class.cast(e).setBroadcaster(b);
-      }
-    }
-  }
-  if (e instanceof PerRequestBroadcastFilter) {
-    perRequestFilters.add((PerRequestBroadcastFilter)e);
-  }
-  return filters.offer(e);
 }

@@ -1,8 +1,8 @@
 {
   this.atmosphereHandler=atmosphereHandler;
   try {
-    if (BroadcasterFactory.getDefault() != null) {
-      this.broadcaster=BroadcasterFactory.getDefault().lookup(mapping,true);
+    if (broadcasterFactory != null) {
+      this.broadcaster=broadcasterFactory.lookup(mapping,true);
     }
  else {
       this.mapping=mapping;

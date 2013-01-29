@@ -4,8 +4,8 @@
   notifyDestroyListener();
   try {
     logger.trace("Broadcaster {} is being destroyed and cannot be re-used",getID());
-    if (BroadcasterFactory.getDefault() != null) {
-      BroadcasterFactory.getDefault().remove(this,this.getID());
+    if (config.getBroadcasterFactory() != null) {
+      config.getBroadcasterFactory().remove(this,this.getID());
     }
     if (currentLifecycleTask != null) {
       currentLifecycleTask.cancel(true);

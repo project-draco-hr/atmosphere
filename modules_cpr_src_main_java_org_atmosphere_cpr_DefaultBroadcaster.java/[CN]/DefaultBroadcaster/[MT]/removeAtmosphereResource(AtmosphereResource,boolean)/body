@@ -18,7 +18,7 @@
       releaseExternalResources();
     }
  else     if (scope == SCOPE.REQUEST || lifeCyclePolicy.getLifeCyclePolicy() == EMPTY_DESTROY) {
-      BroadcasterFactory.getDefault().remove(this,name);
+      config.getBroadcasterFactory().remove(this,name);
       destroy();
     }
   }

@@ -77,7 +77,7 @@
       logger.warn("Neither TrackMessageSizeInterceptor or TrackMessageSizeFilter are installed." + " atmosphere.js may receive glued and incomplete message.");
     }
     logger.info("HttpSession supported: {}",config.isSupportSession());
-    logger.info("Using BroadcasterFactory: {}",BroadcasterFactory.getDefault().getClass().getName());
+    logger.info("Using BroadcasterFactory: {}",broadcasterFactory.getClass().getName());
     logger.info("Using WebSocketProcessor: {}",webSocketProcessorClassName);
     logger.info("Using Broadcaster: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
