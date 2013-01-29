@@ -15,7 +15,7 @@ synchronized (req) {
           return cancelledAction;
         }
       }
-      logger.debug("Cancelling the connection for request {}",req);
+      logger.debug("Cancelling the connection for AtmosphereResource {}",r);
       r=(AtmosphereResourceImpl)req.resource();
       if (r != null) {
         r.getAtmosphereResourceEvent().setCancelled(true);
@@ -33,7 +33,7 @@ synchronized (req) {
       }
     }
  catch (    Throwable ex) {
-      logger.debug("failed to cancel resource: " + r,ex);
+      logger.debug("failed to cancel resource: {}",r,ex);
     }
  finally {
       config.framework().notify(Action.TYPE.CANCELLED,req,res);
