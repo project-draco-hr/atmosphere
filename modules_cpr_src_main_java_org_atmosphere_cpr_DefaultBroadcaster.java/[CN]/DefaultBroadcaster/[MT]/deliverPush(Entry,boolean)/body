@@ -57,6 +57,10 @@ synchronized (resources) {
     entryDone(entry.future);
     return;
   }
+  BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
+  if (EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+    entry.cache=EventCacheBroadcasterCache.class.cast(broadcasterCache).addCacheCandidate(getID(),null,entry.originalMessage);
+  }
   try {
     if (entry.multipleAtmoResources == null) {
       for (      AtmosphereResource r : resources) {

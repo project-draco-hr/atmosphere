@@ -6,6 +6,10 @@
   r.getRequest().setAttribute(getID(),token.future);
   try {
     event.setMessage(token.msg);
+    BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
+    if (EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+      EventCacheBroadcasterCache.class.cast(broadcasterCache).clearCache(getID(),r,token.cache);
+    }
     if (!isAtmosphereResourceValid(r)) {
       removeAtmosphereResource(r);
       lostCandidate=true;
@@ -35,7 +39,7 @@
     }
     entryDone(token.future);
     if (lostCandidate) {
-      cacheLostMessage(r,token);
+      cacheLostMessage(r,token,true);
     }
     token.destroy();
   }

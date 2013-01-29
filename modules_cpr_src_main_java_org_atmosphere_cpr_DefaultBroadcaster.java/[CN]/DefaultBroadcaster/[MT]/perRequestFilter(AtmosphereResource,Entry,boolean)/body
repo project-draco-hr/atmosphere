@@ -22,10 +22,6 @@ synchronized (r) {
       removeAtmosphereResource(r);
       BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
     }
-    if (cache && cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
-      msg.message=finalMsg;
-      trackBroadcastMessage(r,msg);
-    }
   }
   return finalMsg;
 }
