@@ -34,6 +34,9 @@ synchronized (concurrentSuspendBroadcast) {
       if (isAtmosphereResourceValid(r)) {
         resources.add(r);
       }
+ else {
+        logger.debug("Unable to add AtmosphereResource {}",r.uuid());
+      }
     }
   }
   finally {

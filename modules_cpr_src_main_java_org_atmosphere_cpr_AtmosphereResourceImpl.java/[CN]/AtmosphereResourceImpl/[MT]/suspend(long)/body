@@ -4,6 +4,7 @@
     throw new IllegalStateException("Cannot suspend a " + "response longer than the session timeout. Increase the value of session-timeout in web.xml");
   }
   if (req.getAttribute(DefaultBroadcaster.CACHED) != null && (transport().equals(TRANSPORT.LONG_POLLING) || transport().equals(TRANSPORT.JSONP))) {
+    logger.debug("Not suspendeding {}",uuid());
     req.removeAttribute(DefaultBroadcaster.CACHED);
     return this;
   }
