@@ -38,7 +38,7 @@ catch (      ExecutionException e) {
       event.getResource().resume();
     }
   }
-,BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"suspend"));
+,BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"cache"));
   AsyncHttpClient c=new AsyncHttpClient();
   try {
     final AtomicReference<Response> response=new AtomicReference<Response>();
