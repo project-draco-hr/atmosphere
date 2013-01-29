@@ -1,17 +1,3 @@
 {
-  final String broadcastKey=new BroadcasterKey(playerType,gameType).asString();
-  final Broadcaster broadcaster=broadcasterFactory.lookup(broadcastKey,false);
-  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(broadcaster).entity("").addListener(new AtmosphereResourceEventListener(){
-    @Override public void onSuspend(    AtmosphereResourceEvent event){
-    }
-    @Override public void onResume(    AtmosphereResourceEvent event){
-    }
-    @Override public void onDisconnect(    AtmosphereResourceEvent event){
-    }
-    @Override public void onBroadcast(    AtmosphereResourceEvent event){
-    }
-    @Override public void onThrowable(    AtmosphereResourceEvent event){
-    }
-  }
-).build();
+  return new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(topic).outputComments(true).addListener(new EventsLogger()).build();
 }
