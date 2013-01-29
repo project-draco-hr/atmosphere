@@ -1,2 +1,20 @@
 {
+  this.framework=framework;
+  this.webSocketProtocol=framework.getWebSocketProtocol();
+  String s=framework.getAtmosphereConfig().getInitParameter(RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
+  if (s != null && Boolean.valueOf(s)) {
+    destroyable=true;
+  }
+ else {
+    destroyable=false;
+  }
+  s=framework.getAtmosphereConfig().getInitParameter(WEBSOCKET_PROTOCOL_EXECUTION);
+  if (s != null && Boolean.valueOf(s)) {
+    executeAsync=true;
+  }
+ else {
+    executeAsync=false;
+  }
+  asyncExecutor=Executors.newCachedThreadPool();
+  voidExecutor=VoidExecutorService.VOID;
 }
