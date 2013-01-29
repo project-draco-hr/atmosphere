@@ -2,7 +2,10 @@
   if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
 synchronized (r) {
       if (r.isResumed() || r.isCancelled()) {
-        trackBroadcastMessage(r,entry);
+        BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
+        if (!EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+          trackBroadcastMessage(r,entry);
+        }
       }
  else {
         asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage,entry.cache));

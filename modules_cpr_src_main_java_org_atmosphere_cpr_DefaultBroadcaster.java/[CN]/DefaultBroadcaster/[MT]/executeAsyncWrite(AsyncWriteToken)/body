@@ -3,13 +3,13 @@
   boolean lostCandidate=false;
   final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
-  r.getRequest().setAttribute(getID(),token.future);
   try {
     event.setMessage(token.msg);
     BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
     if (EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
       EventCacheBroadcasterCache.class.cast(broadcasterCache).clearCache(getID(),r,token.cache);
     }
+    r.getRequest().setAttribute(getID(),token.future);
     if (!isAtmosphereResourceValid(r)) {
       removeAtmosphereResource(r);
       lostCandidate=true;
