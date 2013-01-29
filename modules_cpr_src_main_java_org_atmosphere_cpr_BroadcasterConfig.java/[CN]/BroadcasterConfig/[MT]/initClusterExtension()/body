@@ -1,2 +1,17 @@
 {
+  for (  BroadcastFilter mf : filters) {
+    if (ClusterBroadcastFilter.class.isAssignableFrom(mf.getClass())) {
+      try {
+        Broadcaster b=config.getBroadcasterFactory().lookup(name,false);
+        if (b != null) {
+synchronized (mf) {
+            ClusterBroadcastFilter.class.cast(mf).setBroadcaster(b);
+          }
+        }
+      }
+ catch (      Throwable t) {
+        logger.error("",t);
+      }
+    }
+  }
 }
