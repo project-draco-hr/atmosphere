@@ -1,7 +1,7 @@
 {
   CometEvent event=(CometEvent)req.getAttribute(COMET_EVENT);
   if (event == null) {
-    throw new IllegalStateException(unableToDetectComet());
+    throw unableToDetectComet;
   }
   Action action=null;
   if (event.getEventType() == EventType.BEGIN) {
