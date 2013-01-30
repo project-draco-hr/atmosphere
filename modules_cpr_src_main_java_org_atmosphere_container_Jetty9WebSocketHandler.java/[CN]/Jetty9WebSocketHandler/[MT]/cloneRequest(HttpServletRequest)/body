@@ -1,9 +1,10 @@
 {
   try {
-    AtmosphereRequest r=(AtmosphereRequest)HttpServletRequestWrapper.class.cast(request).getRequest();
+    AtmosphereRequest r=AtmosphereRequest.wrap(request);
     return AtmosphereRequest.cloneRequest(r,false,framework.getAtmosphereConfig().isSupportSession(),false);
   }
  catch (  Exception ex) {
+    logger.error("",ex);
     throw new RuntimeException("Invalid WebSocket Request");
   }
 }

@@ -1,3 +1,8 @@
 {
-  webSocketConnection.close();
+  try {
+    webSocketConnection.close();
+  }
+ catch (  IOException e) {
+    logger.trace("Close error",e);
+  }
 }
