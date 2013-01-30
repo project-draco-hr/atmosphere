@@ -1,0 +1,3 @@
+{
+  return wMap.get(w);
+}
