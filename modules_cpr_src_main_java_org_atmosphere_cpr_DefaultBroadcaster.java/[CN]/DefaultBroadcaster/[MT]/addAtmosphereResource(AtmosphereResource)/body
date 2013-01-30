@@ -33,7 +33,7 @@ synchronized (concurrentSuspendBroadcast) {
       }
       checkCachedAndPush(r,r.getAtmosphereResourceEvent());
       if (isAtmosphereResourceValid(r)) {
-        logger.debug("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
+        logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
         resources.add(r);
       }
  else {
