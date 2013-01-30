@@ -210,7 +210,7 @@
             logger.warn("",e);
           }
           framework.addAtmosphereHandler(a.path(),handler,l);
-          framework.setBroadcasterCacheClassName(HeaderBroadcasterCache.class.getName());
+          framework.setBroadcasterCacheClassName(EventCacheBroadcasterCache.class.getName());
         }
  catch (        Throwable e) {
           logger.warn("",e);
