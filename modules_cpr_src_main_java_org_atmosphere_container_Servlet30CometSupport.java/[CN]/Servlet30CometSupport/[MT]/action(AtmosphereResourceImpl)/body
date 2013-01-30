@@ -6,7 +6,12 @@
       asyncContext=(AsyncContext)actionEvent.getRequest().getSession().getAttribute("org.atmosphere.container.asyncContext");
     }
     if (asyncContext != null && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
-      asyncContext.complete();
+      try {
+        asyncContext.complete();
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace("Already resumed!",ex);
+      }
     }
   }
  else {
