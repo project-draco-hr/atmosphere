@@ -23,5 +23,12 @@ synchronized (r) {
       config.getBroadcasterFactory().removeAllAtmosphereResource(r);
     }
   }
+  BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
+  if (!EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+    if (cache && cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
+      msg.message=finalMsg;
+      trackBroadcastMessage(r,msg);
+    }
+  }
   return finalMsg;
 }
