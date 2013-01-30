@@ -34,7 +34,7 @@ synchronized (token.resource) {
  else {
             if (token != null) {
               logger.warn("This message {} will be lost, adding it to the BroadcasterCache",token.msg);
-              cacheLostMessage(token.resource,token);
+              cacheLostMessage(token.resource,token,true);
             }
             logger.debug("Failed to execute a write operation for Broadcaster {}",getID(),ex);
           }
