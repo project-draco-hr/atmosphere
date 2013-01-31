@@ -1,3 +1,3 @@
 {
-  return "{\"text\":\"" + message.author + "\",\"author\":\""+ message.message+ "\",\"time\":\"1359643109651\"}";
+  return new Response(message.author,message.message);
 }

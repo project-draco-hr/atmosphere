@@ -2,10 +2,10 @@
   AtmosphereRequest request=r.getRequest();
   ContainerResponse cr=null;
   cr=(ContainerResponse)request.getAttribute(FrameworkConfig.CONTAINER_RESPONSE);
-  boolean ok=r.isCancelled() || r.isResumed();
-  if (cr == null || ok) {
-    logger.debug("Resumed or Cancelled AtmosphereResource {} for message {}",r.uuid(),r);
-    if (!ok) {
+  boolean isCancelled=r.getAtmosphereResourceEvent().isCancelled();
+  if (cr == null || isCancelled) {
+    logger.debug("Retrieving HttpServletRequest {} with ContainerResponse {}",request,cr);
+    if (!isCancelled) {
       logger.debug("Unexpected state. ContainerResponse cannot be null or already committed. The connection hasn't been suspended yet");
     }
  else {
