@@ -20,6 +20,11 @@
     res.setHeader("Upgrade","websocket");
     res.setHeader("Connection","upgrade");
     res.setHeader("Sec-WebSocket-Accept",getWebSocketAccept(key));
+    String origin=req.getHeader("Origin");
+    if (!verifyOrigin(origin)) {
+      res.sendError(HttpServletResponse.SC_FORBIDDEN);
+      return Action.CANCELLED;
+    }
     if (subProtocol != null) {
       res.setHeader("Sec-WebSocket-Protocol",subProtocol);
     }
