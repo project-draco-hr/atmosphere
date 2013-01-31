@@ -1,5 +1,5 @@
 {
-  long now=System.nanoTime();
+  long now=System.currentTimeMillis();
 synchronized (messages) {
     Set<String> inactiveClients=new HashSet<String>();
     for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {

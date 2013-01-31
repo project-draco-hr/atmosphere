@@ -1,6 +1,6 @@
 {
   String clientId=r.uuid();
-  long now=System.nanoTime();
+  long now=System.currentTimeMillis();
   List<Object> result=new ArrayList<Object>();
   ClientQueue clientQueue;
 synchronized (messages) {
