@@ -1,6 +1,6 @@
 {
   BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-  if (force || EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+  if (!force || EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
     return;
   }
   try {
