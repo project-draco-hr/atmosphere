@@ -3,7 +3,7 @@
     if (r.isResumed() || r.isCancelled()) {
       BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
       if (!EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
-        trackBroadcastMessage(r,cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER ? finalMsg : entry.originalMessage);
+        trackBroadcastMessage(r,entry);
       }
     }
  else {
