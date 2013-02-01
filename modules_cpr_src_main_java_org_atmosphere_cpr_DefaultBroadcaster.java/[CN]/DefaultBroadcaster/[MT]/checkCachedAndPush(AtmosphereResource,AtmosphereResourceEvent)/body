@@ -16,6 +16,7 @@ synchronized (r) {
       }
  catch (      Throwable t) {
         logger.error("Unable to write cached message {} for {}",e.getMessage(),r.uuid());
+        logger.error("",t);
         for (        Object o : cacheMessages) {
           bc.getBroadcasterCache().addToCache(getID(),r,o);
         }
