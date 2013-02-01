@@ -27,18 +27,16 @@
       logger.debug("Duplicate resource {}",r.uuid());
       return this;
     }
-synchronized (concurrentSuspendBroadcast) {
-      if (resources.isEmpty()) {
-        config.getBroadcasterFactory().add(this,name);
-      }
-      boolean wasResumed=checkCachedAndPush(r,r.getAtmosphereResourceEvent());
-      if (!wasResumed && isAtmosphereResourceValid(r)) {
-        logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
-        resources.add(r);
-      }
- else       if (!wasResumed) {
-        logger.debug("Unable to add AtmosphereResource {}",r.uuid());
-      }
+    if (resources.isEmpty()) {
+      config.getBroadcasterFactory().add(this,name);
+    }
+    boolean wasResumed=checkCachedAndPush(r,r.getAtmosphereResourceEvent());
+    if (!wasResumed && isAtmosphereResourceValid(r)) {
+      logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
+      resources.add(r);
+    }
+ else     if (!wasResumed) {
+      logger.debug("Unable to add AtmosphereResource {}",r.uuid());
     }
   }
   finally {
