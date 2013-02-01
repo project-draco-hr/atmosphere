@@ -18,17 +18,18 @@ switch (r.transport()) {
 case JSONP:
 case AJAX:
 case LONG_POLLING:
+        return true;
 case SSE:
-        break;
+      break;
 default :
-      try {
-        r.getResponse().flushBuffer();
-      }
- catch (      IOException ioe) {
-        logger.trace("",ioe);
-        AsynchronousProcessor.destroyResource(r);
-      }
-    break;
+    try {
+      r.getResponse().flushBuffer();
+    }
+ catch (    IOException ioe) {
+      logger.trace("",ioe);
+      AsynchronousProcessor.destroyResource(r);
+    }
+  break;
 }
 }
 }
