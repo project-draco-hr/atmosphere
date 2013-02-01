@@ -1,0 +1,19 @@
+{
+  String origin=req.getHeader("Origin");
+  if (origin == null) {
+    return false;
+  }
+  try {
+    URI requestUri=new URI(req.getRequestURL().toString());
+    URI originUri=new URI(origin);
+    if (requestUri.getScheme() != null && originUri.getScheme() != null && requestUri.getScheme().equals(originUri.getScheme())) {
+      if (requestUri.getAuthority() != null && originUri.getAuthority() != null && requestUri.getAuthority().equals(originUri.getAuthority())) {
+        return true;
+      }
+    }
+  }
+ catch (  URISyntaxException e) {
+    logger.error("Unable to verify request origin",e);
+  }
+  return false;
+}
