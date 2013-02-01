@@ -1,4 +1,8 @@
 {
+  if (!isSuspended()) {
+    logger.warn("AtmosphereResource {} not suspend, cannot resume it.",uuid());
+    return this;
+  }
   try {
     if (!isResumed && isInScope) {
       action.type(Action.TYPE.RESUME);
