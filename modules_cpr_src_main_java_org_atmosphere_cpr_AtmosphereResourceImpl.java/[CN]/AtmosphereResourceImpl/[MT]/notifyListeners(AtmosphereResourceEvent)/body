@@ -8,7 +8,9 @@
   Action oldAction=action;
   try {
     if (event.isCancelled()) {
-      onDisconnect(event);
+      if (!disconnected.getAndSet(true)) {
+        onDisconnect(event);
+      }
     }
  else     if (event.isResuming() || event.isResumedOnTimeout()) {
       onResume(event);

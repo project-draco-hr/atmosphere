@@ -22,6 +22,7 @@ catch (      ClassNotFoundException e) {
   logger.info("Installing Default AtmosphereInterceptor");
   s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   if (s == null) {
+    interceptors.addFirst(newAInterceptor(OnDisconnectInterceptor.class));
     interceptors.addFirst(newAInterceptor(JavaScriptProtocol.class));
     interceptors.addFirst(newAInterceptor(JSONPAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(SSEAtmosphereInterceptor.class));
