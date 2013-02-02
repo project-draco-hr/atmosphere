@@ -6,7 +6,7 @@
   try {
     if (isUsingStream) {
       try {
-        OutputStream o=writeUsingOriginalResponse ? _r().getOutputStream() : getOutputStream();
+        OutputStream o=writeUsingOriginalResponse && isNotNoOps() ? _r().getOutputStream() : getOutputStream();
         o.write(data.getBytes(getCharacterEncoding()));
       }
  catch (      java.lang.IllegalStateException ex) {
@@ -14,7 +14,7 @@
       }
     }
  else {
-      PrintWriter w=writeUsingOriginalResponse ? _r().getWriter() : getWriter();
+      PrintWriter w=writeUsingOriginalResponse && isNotNoOps() ? _r().getWriter() : getWriter();
       w.write(data);
     }
   }
