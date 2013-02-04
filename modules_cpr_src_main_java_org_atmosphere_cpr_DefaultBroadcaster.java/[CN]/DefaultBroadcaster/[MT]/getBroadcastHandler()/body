@@ -11,6 +11,10 @@
       }
  catch (      InterruptedException ex) {
         logger.trace("{} got interrupted",Thread.currentThread().getName());
+        logger.trace("",ex);
+        if (!bc.getExecutorService().isShutdown()) {
+          bc.getExecutorService().submit(this);
+        }
         return;
       }
       try {

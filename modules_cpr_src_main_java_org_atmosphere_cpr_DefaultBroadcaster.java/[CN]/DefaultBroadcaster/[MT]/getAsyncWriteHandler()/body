@@ -13,6 +13,11 @@
         }
       }
  catch (      InterruptedException ex) {
+        logger.trace("{} got interrupted",Thread.currentThread().getName());
+        logger.trace("",ex);
+        if (!bc.getAsyncWriteService().isShutdown()) {
+          bc.getAsyncWriteService().submit(this);
+        }
         return;
       }
 synchronized (token.resource) {
