@@ -1,8 +1,20 @@
 {
-  try {
-    r.getAtmosphereHandler().onStateChange(e);
+  if (writeTimeoutInSecond != -1) {
+    WriteOperation w=new WriteOperation(r,e);
+    bc.getScheduledExecutorService().schedule(w,writeTimeoutInSecond,TimeUnit.MILLISECONDS);
+    try {
+      w.call();
+    }
+ catch (    Exception ex) {
+      logger.warn("",ex);
+    }
   }
- catch (  Throwable t) {
-    onException(t,r);
+ else {
+    try {
+      r.getAtmosphereHandler().onStateChange(e);
+    }
+ catch (    Throwable t) {
+      onException(t,r);
+    }
   }
 }
