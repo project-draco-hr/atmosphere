@@ -37,7 +37,7 @@ synchronized (req) {
       }
     }
  catch (    Throwable ex) {
-      logger.debug("failed to cancel resource: {}",r.uuid(),ex);
+      logger.debug("failed to cancel resource: {}",r == null ? "" : r.uuid(),ex);
     }
  finally {
       config.framework().notify(Action.TYPE.CANCELLED,req,res);
