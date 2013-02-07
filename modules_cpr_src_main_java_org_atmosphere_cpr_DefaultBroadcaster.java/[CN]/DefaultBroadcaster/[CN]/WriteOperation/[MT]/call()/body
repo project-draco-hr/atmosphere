@@ -6,8 +6,11 @@
  catch (    Throwable t) {
       onException(t,r);
     }
+ finally {
+      executed.set(true);
+    }
   }
- else   if (!completed.get()) {
+ else   if (!executed.get()) {
     onException(new IOException("Unable to write after " + writeTimeoutInSecond),r);
     AtmosphereResourceImpl.class.cast(r).cancel();
   }

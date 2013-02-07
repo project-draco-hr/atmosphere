@@ -1,0 +1,6 @@
+{
+  config=new AtmosphereFramework().addInitParameter("org.atmosphere.cpr.Broadcaster.writeTimeout","2000").init().getAtmosphereConfig();
+  DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
+  config.framework().setBroadcasterFactory(factory);
+  broadcaster=factory.get(DefaultBroadcaster.class,"test");
+}

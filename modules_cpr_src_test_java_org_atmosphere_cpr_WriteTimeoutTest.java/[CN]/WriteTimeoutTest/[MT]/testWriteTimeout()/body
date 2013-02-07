@@ -1,0 +1,17 @@
+{
+  final CountDownLatch latch=new CountDownLatch(1);
+  atmosphereHandler=new AR(latch);
+  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.create(),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  broadcaster.addAtmosphereResource(ar);
+  final AtomicReference<Throwable> t=new AtomicReference<Throwable>();
+  ar.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onThrowable(    AtmosphereResourceEvent event){
+      latch.countDown();
+      t.set(event.throwable());
+    }
+  }
+);
+  broadcaster.broadcast("foo",ar).get();
+  assertNotNull(t.get());
+  assertEquals(t.get().getMessage(),"Unable to write after 2000");
+}
