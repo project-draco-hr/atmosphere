@@ -5,4 +5,5 @@
  catch (  IOException e) {
     logger.trace("",e);
   }
+  lastWrite=System.currentTimeMillis();
 }
