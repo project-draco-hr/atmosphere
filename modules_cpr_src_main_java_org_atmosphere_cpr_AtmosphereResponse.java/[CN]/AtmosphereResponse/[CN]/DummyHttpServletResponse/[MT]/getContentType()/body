@@ -1,4 +1,0 @@
-{
-  logger.trace("Unsupported");
-  return "text/plain";
-}

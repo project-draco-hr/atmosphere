@@ -1,6 +1,11 @@
 {
   try {
-    response.flushBuffer();
+    if (asyncIOWriter == null) {
+      response.flushBuffer();
+    }
+ else {
+      asyncIOWriter.flush();
+    }
   }
  catch (  IOException ex) {
     handleException(ex);
