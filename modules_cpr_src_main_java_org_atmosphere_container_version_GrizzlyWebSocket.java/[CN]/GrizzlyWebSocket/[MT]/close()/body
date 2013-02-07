@@ -1,3 +1,4 @@
 {
+  logger.trace("WebSocket.close()");
   webSocket.close();
 }
