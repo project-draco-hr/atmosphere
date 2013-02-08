@@ -1,4 +1,5 @@
 {
+  logger.trace("WebSocket.write() for {}",resource() != null ? resource().uuid() : "");
   webSocket.send(s);
   return this;
 }
