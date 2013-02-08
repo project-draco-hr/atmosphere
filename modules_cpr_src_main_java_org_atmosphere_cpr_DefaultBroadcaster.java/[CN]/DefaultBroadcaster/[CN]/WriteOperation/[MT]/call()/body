@@ -1,9 +1,11 @@
 {
   if (!completed.getAndSet(true)) {
     invokeOnStateChange(r,e);
+    logger.debug("Cancelling Write timeout {} for {}",writeTimeoutInSecond,r.uuid());
     executed.set(true);
   }
  else   if (!executed.get()) {
+    logger.debug("Honoring Write timeout {} for {}",writeTimeoutInSecond,r.uuid());
     onException(new IOException("Unable to write after " + writeTimeoutInSecond),r);
     AtmosphereResourceImpl.class.cast(r).cancel();
   }
