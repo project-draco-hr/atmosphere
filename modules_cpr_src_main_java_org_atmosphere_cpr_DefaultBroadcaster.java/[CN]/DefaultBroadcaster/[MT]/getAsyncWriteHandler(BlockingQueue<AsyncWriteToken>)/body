@@ -5,7 +5,6 @@
       try {
         token=asyncWriteQueue.poll(5,TimeUnit.SECONDS);
         if (token == null) {
-          if (!destroyed.get())           bc.getAsyncWriteService().submit(this);
           return;
         }
         if (outOfOrderBroadcastSupported.get()) {

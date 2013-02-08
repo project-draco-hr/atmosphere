@@ -2,15 +2,12 @@
   killReactiveThreads();
   int threads=outOfOrderBroadcastSupported.get() ? reactiveThreadsCount() : 1;
   notifierFuture=new Future<?>[threads];
-  asyncWriteFuture=new Future<?>[threads];
   if (outOfOrderBroadcastSupported.get()) {
     for (int i=0; i < threads; i++) {
       notifierFuture[i]=bc.getExecutorService().submit(getBroadcastHandler());
-      asyncWriteFuture[i]=bc.getAsyncWriteService().submit(getAsyncWriteHandler());
     }
   }
  else {
     notifierFuture[0]=bc.getExecutorService().submit(getBroadcastHandler());
-    asyncWriteFuture[0]=bc.getAsyncWriteService().submit(getAsyncWriteHandler());
   }
 }

@@ -20,7 +20,6 @@
     resources.clear();
     broadcastOnResume.clear();
     messages.clear();
-    asyncWriteQueue.clear();
     delayedBroadcast.clear();
     broadcasterListeners.clear();
   }

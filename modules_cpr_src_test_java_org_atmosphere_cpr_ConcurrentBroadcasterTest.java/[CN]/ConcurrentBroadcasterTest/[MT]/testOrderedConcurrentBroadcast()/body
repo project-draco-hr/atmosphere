@@ -1,0 +1,20 @@
+{
+  final CountDownLatch latch=new CountDownLatch(1000);
+  broadcaster.addBroadcasterListener(new BroadcasterListener(){
+    @Override public void onPostCreate(    Broadcaster b){
+    }
+    @Override public void onComplete(    Broadcaster b){
+      latch.countDown();
+    }
+    @Override public void onPreDestroy(    Broadcaster b){
+    }
+  }
+);
+  StringBuffer b=new StringBuffer();
+  for (int i=0; i < 1000; i++) {
+    b.append("message-" + i);
+    broadcaster.broadcast("message-" + i);
+  }
+  latch.await(10,TimeUnit.SECONDS);
+  assertEquals(atmosphereHandler.value.get().toString(),b.toString());
+}

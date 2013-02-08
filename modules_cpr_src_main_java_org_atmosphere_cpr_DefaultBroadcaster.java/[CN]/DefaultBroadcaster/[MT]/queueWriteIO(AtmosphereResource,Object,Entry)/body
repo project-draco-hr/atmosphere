@@ -5,12 +5,14 @@
       if (!EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
         trackBroadcastMessage(r,entry);
       }
-    }
- else {
-      asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage,entry.cache));
+      return;
     }
   }
- else {
-    asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage,entry.cache));
+  BlockingQueue<AsyncWriteToken> queue=writeQueues.get(r.uuid());
+  if (queue == null) {
+    queue=new LinkedBlockingQueue<AsyncWriteToken>();
+    writeQueues.put(r.uuid(),queue);
+    bc.getAsyncWriteService().submit(getAsyncWriteHandler(queue));
   }
+  queue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage,entry.cache));
 }
