@@ -8,6 +8,9 @@
     r.notifyListeners(event);
     r.removeEventListeners();
   }
+  if (notifyAndCache) {
+    cacheLostMessage(r,(AsyncWriteToken)r.getRequest(false).getAttribute(ASYNC_TOKEN),notifyAndCache);
+  }
   if (bc != null && bc.getAsyncWriteService() != null) {
     bc.getAsyncWriteService().execute(new Runnable(){
       @Override public void run(){
@@ -24,8 +27,5 @@
   }
  else {
     r.resume();
-  }
-  if (notifyAndCache) {
-    cacheLostMessage(r,(AsyncWriteToken)r.getRequest(false).getAttribute(ASYNC_TOKEN));
   }
 }
