@@ -1,6 +1,6 @@
 {
   if (writeTimeoutInSecond != -1) {
-    logger.debug("Registering write timeout {} for {}",writeTimeoutInSecond,r.uuid());
+    logger.trace("Registering Write timeout {} for {}",writeTimeoutInSecond,r.uuid());
     WriteOperation w=new WriteOperation(r,e);
     bc.getScheduledExecutorService().schedule(w,writeTimeoutInSecond,TimeUnit.MILLISECONDS);
     try {
