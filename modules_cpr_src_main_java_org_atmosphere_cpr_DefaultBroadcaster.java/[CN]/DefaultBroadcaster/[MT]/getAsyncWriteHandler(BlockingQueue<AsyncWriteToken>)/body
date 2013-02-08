@@ -5,6 +5,7 @@
       try {
         token=asyncWriteQueue.poll(5,TimeUnit.SECONDS);
         if (token == null) {
+          writeQueues.remove(token.resource.uuid());
           return;
         }
         if (outOfOrderBroadcastSupported.get()) {
