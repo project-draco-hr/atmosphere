@@ -3,6 +3,7 @@
     logger.debug(DESTROYED,getID(),"removeAtmosphereResource(AtmosphereResource r)");
     return this;
   }
+  writeQueues.remove(r.uuid());
   if (executeDone) {
     AtmosphereResourceImpl aImpl=AtmosphereResourceImpl.class.cast(r);
     BroadcasterFuture f=(BroadcasterFuture)aImpl.getRequest(false).getAttribute(getID());
