@@ -1,9 +1,6 @@
 {
-  AtmosphereConfig config=new AtmosphereFramework().getAtmosphereConfig();
+  AtmosphereConfig config=new AtmosphereFramework().addInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS,"true").getAtmosphereConfig();
   DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
   config.framework().setBroadcasterFactory(factory);
-  broadcaster=factory.get(DefaultBroadcaster.class,"test");
-  atmosphereHandler=new AR();
-  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.create(),mock(BlockingIOCometSupport.class),atmosphereHandler);
-  broadcaster.addAtmosphereResource(ar);
+  broadcaster=(DefaultBroadcaster)factory.get(DefaultBroadcaster.class,"test");
 }

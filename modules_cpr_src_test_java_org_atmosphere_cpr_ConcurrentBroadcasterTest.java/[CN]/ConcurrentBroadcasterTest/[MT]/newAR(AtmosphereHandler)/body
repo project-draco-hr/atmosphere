@@ -1,0 +1,3 @@
+{
+  return new AtmosphereResourceImpl(broadcaster.getBroadcasterConfig().getAtmosphereConfig(),broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),a);
+}
