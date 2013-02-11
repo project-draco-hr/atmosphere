@@ -4,7 +4,7 @@
       response.flushBuffer();
     }
  else {
-      asyncIOWriter.flush();
+      asyncIOWriter.flush(this);
     }
   }
  catch (  IOException ex) {
