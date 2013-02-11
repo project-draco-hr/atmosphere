@@ -1,6 +1,6 @@
 {
   logger.info("{}: running test: testEventCacheBroadcasterCache",getClass().getSimpleName());
-  atmoServlet.framework().setBroadcasterCacheClassName(EventCacheBroadcasterCache.class.getName());
+  atmoServlet.framework().setBroadcasterCacheClassName(UUIDBroadcasterCache.class.getName());
   final CountDownLatch suspendLatch=new CountDownLatch(1);
   final CountDownLatch latch=new CountDownLatch(1);
   final CountDownLatch missedBroadcastCount=new CountDownLatch(101);

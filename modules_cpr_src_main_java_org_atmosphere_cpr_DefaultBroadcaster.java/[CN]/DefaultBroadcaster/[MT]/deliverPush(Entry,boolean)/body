@@ -58,8 +58,8 @@ synchronized (resources) {
     return;
   }
   BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-  if (EventCacheBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
-    entry.cache=EventCacheBroadcasterCache.class.cast(broadcasterCache).addCacheCandidate(getID(),null,entry.originalMessage);
+  if (UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+    entry.cache=UUIDBroadcasterCache.class.cast(broadcasterCache).addCacheCandidate(getID(),null,entry.originalMessage);
   }
   try {
     if (entry.multipleAtmoResources == null) {
