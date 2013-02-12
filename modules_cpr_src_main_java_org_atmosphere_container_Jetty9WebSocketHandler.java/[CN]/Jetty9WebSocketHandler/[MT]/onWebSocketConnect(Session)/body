@@ -1,6 +1,6 @@
 {
   logger.trace("WebSocket.onOpen.");
-  webSocket=new Jetty9WebSocket(webSocketConnection,framework.getAtmosphereConfig());
+  webSocket=new Jetty9WebSocket(session,framework.getAtmosphereConfig());
   try {
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
   }
