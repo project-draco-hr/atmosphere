@@ -79,6 +79,6 @@
 ;
   }
  else {
-    return _r().getOutputStream();
+    return _r().getOutputStream() != null ? _r().getOutputStream() : new ByteArrayServletOutputStream();
   }
 }

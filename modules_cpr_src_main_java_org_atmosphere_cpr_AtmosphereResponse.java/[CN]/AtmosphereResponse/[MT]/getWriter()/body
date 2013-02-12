@@ -88,6 +88,6 @@
 ;
   }
  else {
-    return _r().getWriter();
+    return _r().getWriter() != null ? _r().getWriter() : new PrintWriter(new StringWriter());
   }
 }
