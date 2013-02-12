@@ -1,4 +1,7 @@
 {
+  if (Proxy.class.isAssignableFrom(response.getClass())) {
+    writeUsingOriginalResponse=false;
+  }
   boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
   try {
     if (isUsingStream) {
