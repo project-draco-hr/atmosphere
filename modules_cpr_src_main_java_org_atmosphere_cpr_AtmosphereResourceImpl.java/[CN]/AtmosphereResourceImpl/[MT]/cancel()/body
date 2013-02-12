@@ -1,5 +1,6 @@
 {
   if (!isCancelled.getAndSet(true)) {
+    logger.trace("Cancelling {}",uuid);
     action.type(Action.TYPE.RESUME);
     asyncSupport.action(this);
     if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
