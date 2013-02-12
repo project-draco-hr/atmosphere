@@ -23,7 +23,8 @@
   }
   BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
   cache=!UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass()) && cache;
-  if (force || (cache && cacheStrategy == STRATEGY.AFTER_FILTER)) {
+  boolean after=cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER;
+  if (force || (cache && after)) {
     msg.message=finalMsg;
     trackBroadcastMessage(r != null ? (r.uuid().equals("-1") ? null : r) : r,msg);
   }
