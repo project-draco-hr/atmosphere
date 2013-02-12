@@ -31,7 +31,7 @@
       return;
     }
     r.getRequest().setAttribute(ASYNC_TOKEN,token);
-    invokeOnStateChange(r,event);
+    prepareInvokeOnStateChange(r,event);
   }
   finally {
     if (notifyListeners) {

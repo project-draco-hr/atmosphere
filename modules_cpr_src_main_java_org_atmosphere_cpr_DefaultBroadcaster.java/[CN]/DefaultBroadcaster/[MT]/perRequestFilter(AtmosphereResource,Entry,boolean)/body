@@ -1,32 +1,3 @@
 {
-  if (r == null) {
-    logger.trace("Null AtmosphereResource passed inside a Set");
-    return msg.message;
-  }
-  Object finalMsg=msg.message;
-  if (AtmosphereResourceImpl.class.isAssignableFrom(r.getClass())) {
-    if (isAtmosphereResourceValid(r)) {
-      if (bc.hasPerRequestFilters()) {
-        BroadcastAction a=bc.filter(r,msg.message,msg.originalMessage);
-        if (a.action() == BroadcastAction.ACTION.ABORT) {
-          return null;
-        }
-        if (a.message() != msg.originalMessage) {
-          finalMsg=a.message();
-        }
-      }
-    }
- else {
-      removeAtmosphereResource(r);
-      config.getBroadcasterFactory().removeAllAtmosphereResource(r);
-    }
-  }
-  BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-  if (!UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
-    if (cache && cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
-      msg.message=finalMsg;
-      trackBroadcastMessage(r,msg);
-    }
-  }
-  return finalMsg;
+  return perRequestFilter(r,msg,cache,false);
 }

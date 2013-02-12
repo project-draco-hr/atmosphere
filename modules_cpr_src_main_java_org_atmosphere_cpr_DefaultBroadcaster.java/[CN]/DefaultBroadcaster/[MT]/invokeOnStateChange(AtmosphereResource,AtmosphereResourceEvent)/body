@@ -1,21 +1,8 @@
 {
-  if (writeTimeoutInSecond != -1) {
-    logger.trace("Registering Write timeout {} for {}",writeTimeoutInSecond,r.uuid());
-    WriteOperation w=new WriteOperation(r,e);
-    bc.getScheduledExecutorService().schedule(w,writeTimeoutInSecond,TimeUnit.MILLISECONDS);
-    try {
-      w.call();
-    }
- catch (    Exception ex) {
-      logger.warn("",ex);
-    }
+  try {
+    r.getAtmosphereHandler().onStateChange(e);
   }
- else {
-    try {
-      r.getAtmosphereHandler().onStateChange(e);
-    }
- catch (    Throwable t) {
-      onException(t,r);
-    }
+ catch (  Throwable t) {
+    onException(t,r);
   }
 }

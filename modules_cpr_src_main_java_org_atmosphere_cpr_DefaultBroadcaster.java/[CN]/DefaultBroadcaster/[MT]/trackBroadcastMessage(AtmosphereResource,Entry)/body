@@ -1,8 +1,8 @@
 {
   if (destroyed.get() || bc.getBroadcasterCache() == null)   return;
-  Object msg=cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER ? entry.message : entry.originalMessage;
+  Object msg=(cacheStrategy == STRATEGY.AFTER_FILTER) ? entry.message : entry.originalMessage;
   try {
-    bc.getBroadcasterCache().addToCache(getID(),r,new BroadcasterCache.Message(String.valueOf(entry.future.hashCode()),msg));
+    bc.getBroadcasterCache().addToCache(getID(),r,new Message(String.valueOf(entry.future.hashCode()),msg));
   }
  catch (  Throwable t) {
     logger.warn("Unable to track messages {}",msg,t);
