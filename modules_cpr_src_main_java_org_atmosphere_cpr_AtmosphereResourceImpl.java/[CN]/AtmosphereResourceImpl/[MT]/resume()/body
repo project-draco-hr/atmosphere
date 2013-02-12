@@ -4,9 +4,8 @@
     return this;
   }
   try {
-    if (!isResumed && isInScope) {
+    if (!isResumed.getAndSet(true) && isInScope) {
       action.type(Action.TYPE.RESUME);
-      isResumed=true;
       Broadcaster b=getBroadcaster(false);
       if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
         ((DefaultBroadcaster)b).broadcastOnResume(this);

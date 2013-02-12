@@ -1,24 +1,17 @@
 {
-  action.type(Action.TYPE.RESUME);
-  if (isCancelled.getAndSet(true))   return;
-  if (asyncSupport instanceof AsynchronousProcessor) {
-    try {
-      AsynchronousProcessor.class.cast(asyncSupport).resumed(req,response);
+  if (!isCancelled.getAndSet(true)) {
+    action.type(Action.TYPE.RESUME);
+    asyncSupport.action(this);
+    if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
+      AtmosphereResponse.class.cast(response).close();
+      AtmosphereResponse.class.cast(response).destroy();
     }
- catch (    ServletException e) {
-      logger.trace("",e);
+    if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
+      AtmosphereRequest.class.cast(req).destroy();
     }
+    if (broadcaster != null) {
+      broadcaster.removeAtmosphereResource(this);
+    }
+    event.destroy();
   }
-  asyncSupport.action(this);
-  if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
-    AtmosphereResponse.class.cast(response).close();
-    AtmosphereResponse.class.cast(response).destroy();
-  }
-  if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
-    AtmosphereRequest.class.cast(req).destroy();
-  }
-  if (broadcaster != null) {
-    broadcaster.removeAtmosphereResource(this);
-  }
-  event.destroy();
 }
