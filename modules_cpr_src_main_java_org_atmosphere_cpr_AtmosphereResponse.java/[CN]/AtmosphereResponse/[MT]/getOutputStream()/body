@@ -79,6 +79,10 @@
 ;
   }
  else {
-    return _r().getOutputStream() != null ? _r().getOutputStream() : new ByteArrayServletOutputStream();
+    return _r().getOutputStream() != null ? _r().getOutputStream() : new ServletOutputStream(){
+      @Override public void write(      int b) throws IOException {
+      }
+    }
+;
   }
 }
