@@ -20,4 +20,5 @@
   if (s != null) {
     writeTimeoutInSecond=Integer.valueOf(s);
   }
+  noOpsResource=AtmosphereResourceFactory.getDefault().create(config,"-1");
 }

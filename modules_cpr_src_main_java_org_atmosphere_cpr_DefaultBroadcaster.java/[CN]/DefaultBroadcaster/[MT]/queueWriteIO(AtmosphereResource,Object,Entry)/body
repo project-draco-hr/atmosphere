@@ -8,11 +8,21 @@
       return;
     }
   }
-  BlockingQueue<AsyncWriteToken> queue=writeQueues.get(r.uuid());
-  if (queue == null) {
-    queue=new LinkedBlockingQueue<AsyncWriteToken>();
-    writeQueues.put(r.uuid(),queue);
-    bc.getAsyncWriteService().submit(getAsyncWriteHandler(queue));
+  AsyncWriteToken w=new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage,entry.cache);
+  if (!outOfOrderBroadcastSupported.get()) {
+    WriteQueue writeQueue=writeQueues.get(r.uuid());
+    if (writeQueue == null) {
+      writeQueue=new WriteQueue();
+      writeQueues.put(r.uuid(),writeQueue);
+    }
+    writeQueue.queue.put(w);
+synchronized (writeQueue) {
+      if (!writeQueue.monitored.getAndSet(true)) {
+        bc.getAsyncWriteService().submit(getAsyncWriteHandler(writeQueue));
+      }
+    }
   }
-  queue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage,entry.cache));
+ else {
+    uniqueWriteQueue.queue.offer(w);
+  }
 }

@@ -3,13 +3,21 @@
     public void run(){
       AsyncWriteToken token=null;
       try {
-        token=asyncWriteQueue.poll(5,TimeUnit.SECONDS);
-        if (token == null) {
-          writeQueues.remove(token.resource.uuid());
-          return;
+        token=writeQueue.queue.poll(5,TimeUnit.SECONDS);
+        if (token == null && !outOfOrderBroadcastSupported.get()) {
+synchronized (writeQueue) {
+            if (writeQueue.queue.size() == 0) {
+              writeQueue.monitored.set(false);
+              writeQueues.remove(token.resource.uuid());
+              return;
+            }
+          }
         }
-        if (outOfOrderBroadcastSupported.get()) {
+        if (token == null || outOfOrderBroadcastSupported.get()) {
           bc.getAsyncWriteService().submit(this);
+          if (token == null) {
+            return;
+          }
         }
       }
  catch (      InterruptedException ex) {

@@ -56,13 +56,7 @@ synchronized (resources) {
     if (r == null && cacheStrategy == STRATEGY.AFTER_FILTER) {
       AtmosphereResponse response=AtmosphereResponse.newInstance();
       response.setHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID,"-1");
-      r=AtmosphereResourceFactory.getDefault().create(config,this,AtmosphereRequest.create(),response,config.framework().getAsyncSupport(),new AbstractReflectorAtmosphereHandler(){
-        @Override public void onRequest(        AtmosphereResource resource) throws IOException {
-        }
-        @Override public void destroy(){
-        }
-      }
-);
+      r=noOpsResource;
     }
     perRequestFilter(r,entry,true,true);
     entryDone(entry.future);
