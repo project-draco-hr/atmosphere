@@ -1,11 +1,10 @@
 {
   String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
-  if (Boolean.parseBoolean(s)) {
+  if (s == null || Boolean.parseBoolean(s)) {
     shared=true;
     handleExecutors=false;
     isExecutorShared=true;
     isAsyncExecutorShared=true;
-    logger.info("ExecutorServices will be shared amongts Broadcasters");
   }
   if (config.properties().get("executorService") == null) {
     int numberOfMessageProcessingThread=-1;

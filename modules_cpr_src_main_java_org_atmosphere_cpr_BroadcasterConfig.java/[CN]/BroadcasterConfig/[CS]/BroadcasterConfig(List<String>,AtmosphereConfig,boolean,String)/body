@@ -7,4 +7,5 @@
   configureBroadcasterCache();
   this.name=name;
   this.handleExecutors=handleExecutors;
+  logger.info("Using SHARED ExecutorServices for Asynchronous message delivery and write operation {} for Broadcaster {}",isExecutorShared,name);
 }
