@@ -1,6 +1,0 @@
-{
-  AtmosphereRequest req=r.getRequest();
-  if (req.getMethod().equalsIgnoreCase("POST")) {
-    r.getBroadcaster().broadcast(req.getReader().readLine().trim());
-  }
-}
