@@ -1,5 +1,0 @@
-{
-  asyncExecutor.shutdown();
-  voidExecutor.shutdown();
-  scheduler.shutdown();
-}
