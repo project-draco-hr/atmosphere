@@ -1,0 +1,18 @@
+{
+  if (config.properties().get("scheduler") == null) {
+    ScheduledExecutorService scheduler=Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors(),new ThreadFactory(){
+      private final AtomicInteger count=new AtomicInteger();
+      @Override public Thread newThread(      final Runnable runnable){
+        Thread t=new Thread(runnable,"Atmosphere-Scheduler-" + count.getAndIncrement());
+        t.setDaemon(true);
+        return t;
+      }
+    }
+);
+    config.properties().put("scheduler",scheduler);
+    return scheduler;
+  }
+ else {
+    return (ScheduledExecutorService)config.properties().get("scheduler");
+  }
+}

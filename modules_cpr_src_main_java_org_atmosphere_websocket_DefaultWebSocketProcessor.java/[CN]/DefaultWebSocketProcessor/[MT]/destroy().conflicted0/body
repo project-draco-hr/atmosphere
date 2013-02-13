@@ -1,0 +1,8 @@
+{
+  if (asyncExecutor != null) {
+    asyncExecutor.shutdown();
+  }
+  if (scheduler != null) {
+    scheduler.shutdown();
+  }
+}

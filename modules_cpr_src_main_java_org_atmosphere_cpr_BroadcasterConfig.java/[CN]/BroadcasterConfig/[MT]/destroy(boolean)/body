@@ -9,12 +9,6 @@
   if ((force || !isAsyncExecutorShared) && asyncWriteService != null) {
     asyncWriteService.shutdownNow();
   }
-  if ((force || !isExecutorShared) && defaultExecutorService != null) {
-    defaultExecutorService.shutdownNow();
-  }
-  if ((force || !isAsyncExecutorShared) && defaultAsyncWriteService != null) {
-    defaultAsyncWriteService.shutdownNow();
-  }
   if (scheduler != null) {
     scheduler.shutdownNow();
   }

@@ -15,6 +15,16 @@
  else {
     executeAsync=false;
   }
-  asyncExecutor=Executors.newCachedThreadPool();
-  voidExecutor=VoidExecutorService.VOID;
+  s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
+  if (s == null && !Boolean.valueOf(s)) {
+    shared=true;
+  }
+  AtmosphereConfig config=framework.getAtmosphereConfig();
+  if (executeAsync) {
+    asyncExecutor=ExecutorsFactory.getAsyncOperationExecutor(config,"WebSocket");
+  }
+ else {
+    asyncExecutor=VoidExecutorService.VOID;
+  }
+  scheduler=ExecutorsFactory.getScheduler(config);
 }

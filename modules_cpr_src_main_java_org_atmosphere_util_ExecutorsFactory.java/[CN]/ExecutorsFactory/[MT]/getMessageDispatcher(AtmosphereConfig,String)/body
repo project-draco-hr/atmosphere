@@ -1,0 +1,48 @@
+{
+  String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
+  final AtomicBoolean shared=new AtomicBoolean();
+  boolean isExecutorShared=false;
+  if (s == null || Boolean.parseBoolean(s)) {
+    shared.set(true);
+    isExecutorShared=true;
+  }
+  if (config.properties().get("executorService") == null) {
+    int numberOfMessageProcessingThread=-1;
+    s=config.getInitParameter(ApplicationConfig.BROADCASTER_MESSAGE_PROCESSING_THREADPOOL_MAXSIZE);
+    if (s != null) {
+      numberOfMessageProcessingThread=Integer.parseInt(s);
+    }
+    if (isExecutorShared && numberOfMessageProcessingThread == 1) {
+      logger.warn("Not enough numberOfMessageProcessingThread for a shareable thread pool {}, " + "Setting it to a newCachedThreadPool",numberOfMessageProcessingThread);
+      numberOfMessageProcessingThread=-1;
+    }
+    ExecutorService messageService;
+    if (numberOfMessageProcessingThread == -1) {
+      messageService=Executors.newCachedThreadPool(new ThreadFactory(){
+        private final AtomicInteger count=new AtomicInteger();
+        @Override public Thread newThread(        final Runnable runnable){
+          Thread t=new Thread(runnable,(shared.get() ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
+          t.setDaemon(true);
+          return t;
+        }
+      }
+);
+    }
+ else {
+      messageService=Executors.newFixedThreadPool(numberOfMessageProcessingThread,new ThreadFactory(){
+        private final AtomicInteger count=new AtomicInteger();
+        @Override public Thread newThread(        final Runnable runnable){
+          Thread t=new Thread(runnable,(shared.get() ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
+          t.setDaemon(true);
+          return t;
+        }
+      }
+);
+    }
+    config.properties().put("executorService",messageService);
+    return messageService;
+  }
+ else {
+    return (ExecutorService)config.properties().get("executorService");
+  }
+}

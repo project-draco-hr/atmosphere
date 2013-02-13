@@ -3,8 +3,7 @@
   for (  final AtmosphereRequest r : list) {
     if (r != null) {
       boolean b=r.dispatchRequestAsynchronously();
-      ExecutorService s=(executeAsync || b) ? asyncExecutor : voidExecutor;
-      s.execute(new Runnable(){
+      asyncExecutor.execute(new Runnable(){
         @Override public void run(){
           AtmosphereResponse w=new AtmosphereResponse(webSocket,r,destroyable);
           try {
