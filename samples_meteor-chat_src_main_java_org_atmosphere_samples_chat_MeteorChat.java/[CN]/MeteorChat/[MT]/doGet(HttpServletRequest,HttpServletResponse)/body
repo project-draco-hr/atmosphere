@@ -1,4 +1,3 @@
 {
-  Meteor m=Meteor.build(req).addListener(new AtmosphereResourceEventListenerAdapter());
-  m.resumeOnBroadcast(m.transport() == LONG_POLLING ? true : false).suspend(-1);
+  Meteor.build(req).addListener(new AtmosphereResourceEventListenerAdapter());
 }
