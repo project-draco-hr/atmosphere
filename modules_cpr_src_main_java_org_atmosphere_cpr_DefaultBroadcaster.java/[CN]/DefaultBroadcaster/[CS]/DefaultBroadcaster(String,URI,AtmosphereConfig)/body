@@ -21,4 +21,5 @@
     writeTimeoutInSecond=Integer.valueOf(s);
   }
   noOpsResource=AtmosphereResourceFactory.getDefault().create(config,"-1");
+  uuidCache=UUIDBroadcasterCache.class.isAssignableFrom(bc.getBroadcasterCache().getClass());
 }
