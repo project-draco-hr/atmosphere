@@ -1,4 +1,4 @@
 {
   notifyBroadcastListener();
-  f.done();
+  if (f != null)   f.done();
 }
