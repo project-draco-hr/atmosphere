@@ -1,0 +1,5 @@
+{
+  this.author=author;
+  this.text=text;
+  this.time=new Date().getTime();
+}
