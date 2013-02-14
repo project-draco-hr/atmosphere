@@ -1,0 +1,6 @@
+{
+  broadcaster.removeAtmosphereResource(ar);
+  broadcaster.broadcast("e1").get();
+  broadcaster.broadcast("e2").get();
+  assertEquals(1,eventCacheBroadcasterCache.messages().size());
+}
