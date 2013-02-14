@@ -1,6 +1,6 @@
 {
   if (!force && !handleExecutors)   return;
-  if (broadcasterCache != null) {
+  if ((force || !shared) && broadcasterCache != null) {
     broadcasterCache.stop();
   }
   if ((force || !isExecutorShared) && executorService != null) {
