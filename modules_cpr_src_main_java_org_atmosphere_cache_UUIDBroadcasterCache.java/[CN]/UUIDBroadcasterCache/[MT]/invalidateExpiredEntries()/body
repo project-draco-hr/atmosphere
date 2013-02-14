@@ -4,6 +4,7 @@ synchronized (messages) {
     Set<String> inactiveClients=new HashSet<String>();
     for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {
       if (now - entry.getValue() > clientIdleTime) {
+        logger.debug("Invalidate client {}",entry.getKey());
         inactiveClients.add(entry.getKey());
       }
     }
