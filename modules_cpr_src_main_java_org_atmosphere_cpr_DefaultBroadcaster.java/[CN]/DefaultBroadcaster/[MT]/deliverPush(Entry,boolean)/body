@@ -56,7 +56,13 @@ synchronized (resources) {
     if (r == null) {
       r=noOpsResource;
     }
-    perRequestFilter(r,entry,true,true);
+    if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
+      logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
+      perRequestFilter(r,entry,true);
+    }
+ else {
+      trackBroadcastMessage(r != null ? (r.uuid().equals("-1") ? null : r) : r,entry);
+    }
     entryDone(entry.future);
     return;
   }
