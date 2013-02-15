@@ -1,7 +1,5 @@
 {
-  String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
-  if (s == null || Boolean.parseBoolean(s)) {
-    shared=true;
+  if (shared) {
     handleExecutors=false;
     isExecutorShared=true;
     isAsyncExecutorShared=true;

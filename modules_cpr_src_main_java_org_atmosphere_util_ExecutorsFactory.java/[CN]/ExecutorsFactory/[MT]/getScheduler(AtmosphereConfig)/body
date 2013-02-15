@@ -1,5 +1,6 @@
 {
-  if (config.properties().get("scheduler") == null) {
+  final boolean shared=config.framework().isShareExecutorServices();
+  if (!shared || config.properties().get("scheduler") == null) {
     ScheduledExecutorService scheduler=Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors(),new ThreadFactory(){
       private final AtomicInteger count=new AtomicInteger();
       @Override public Thread newThread(      final Runnable runnable){
@@ -9,7 +10,9 @@
       }
     }
 );
-    config.properties().put("scheduler",scheduler);
+    if (shared) {
+      config.properties().put("scheduler",scheduler);
+    }
     return scheduler;
   }
  else {

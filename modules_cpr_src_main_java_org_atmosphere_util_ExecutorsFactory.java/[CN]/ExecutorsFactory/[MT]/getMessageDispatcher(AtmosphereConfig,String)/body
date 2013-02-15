@@ -1,14 +1,9 @@
 {
-  String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
-  final AtomicBoolean shared=new AtomicBoolean();
-  boolean isExecutorShared=false;
-  if (s == null || Boolean.parseBoolean(s)) {
-    shared.set(true);
-    isExecutorShared=true;
-  }
-  if (config.properties().get("executorService") == null) {
+  final boolean shared=config.framework().isShareExecutorServices();
+  boolean isExecutorShared=shared ? true : false;
+  if (!shared || config.properties().get("executorService") == null) {
     int numberOfMessageProcessingThread=-1;
-    s=config.getInitParameter(ApplicationConfig.BROADCASTER_MESSAGE_PROCESSING_THREADPOOL_MAXSIZE);
+    String s=config.getInitParameter(ApplicationConfig.BROADCASTER_MESSAGE_PROCESSING_THREADPOOL_MAXSIZE);
     if (s != null) {
       numberOfMessageProcessingThread=Integer.parseInt(s);
     }
@@ -21,7 +16,7 @@
       messageService=Executors.newCachedThreadPool(new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,(shared.get() ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }
@@ -32,14 +27,16 @@
       messageService=Executors.newFixedThreadPool(numberOfMessageProcessingThread,new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,(shared.get() ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }
       }
 );
     }
-    config.properties().put("executorService",messageService);
+    if (shared) {
+      config.properties().put("executorService",messageService);
+    }
     return messageService;
   }
  else {

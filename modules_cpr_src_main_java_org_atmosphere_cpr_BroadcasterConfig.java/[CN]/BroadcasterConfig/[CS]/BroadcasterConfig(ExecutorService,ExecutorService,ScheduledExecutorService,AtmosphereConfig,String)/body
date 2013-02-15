@@ -5,5 +5,5 @@
   this.config=config;
   this.name=name;
   this.handleExecutors=true;
-  printShared();
+  this.shared=config.framework().isShareExecutorServices();
 }

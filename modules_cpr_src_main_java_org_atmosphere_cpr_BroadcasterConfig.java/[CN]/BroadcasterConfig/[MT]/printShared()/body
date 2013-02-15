@@ -1,5 +1,0 @@
-{
-  if (shared) {
-    logger.info("Using shared ExecutorServices amongst all Atmosphere components: Broadcaster {}",name);
-  }
-}
