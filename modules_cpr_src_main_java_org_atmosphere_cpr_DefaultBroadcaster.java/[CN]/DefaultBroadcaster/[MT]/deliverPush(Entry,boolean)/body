@@ -58,7 +58,7 @@ synchronized (resources) {
     }
     if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
       logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
-      perRequestFilter(r,entry,true);
+      perRequestFilter(r,entry,true,true);
     }
  else {
       trackBroadcastMessage(r != null ? (r.uuid().equals("-1") ? null : r) : r,entry);
