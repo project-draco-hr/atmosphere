@@ -11,7 +11,7 @@
   if (!outOfOrderBroadcastSupported.get()) {
     WriteQueue writeQueue=writeQueues.get(r.uuid());
     if (writeQueue == null) {
-      writeQueue=new WriteQueue();
+      writeQueue=new WriteQueue(r.uuid());
       writeQueues.put(r.uuid(),writeQueue);
     }
     writeQueue.queue.put(w);

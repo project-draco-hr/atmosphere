@@ -16,7 +16,7 @@
       messageService=Executors.newCachedThreadPool(new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-DispatchOp-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }
@@ -27,7 +27,7 @@
       messageService=Executors.newFixedThreadPool(numberOfMessageProcessingThread,new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-dispatch-" + count.getAndIncrement());
+          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-DispatchOp-" + count.getAndIncrement());
           t.setDaemon(true);
           return t;
         }

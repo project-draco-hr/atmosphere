@@ -3,6 +3,7 @@
   int threads=outOfOrderBroadcastSupported.get() ? reactiveThreadsCount() : 1;
   notifierFuture=new Future<?>[threads];
   if (outOfOrderBroadcastSupported.get()) {
+    asyncWriteFuture=new Future<?>[threads];
     for (int i=0; i < threads; i++) {
       notifierFuture[i]=bc.getExecutorService().submit(getBroadcastHandler());
     }
@@ -10,4 +11,5 @@
  else {
     notifierFuture[0]=bc.getExecutorService().submit(getBroadcastHandler());
   }
+  dispatchThread.set(threads);
 }

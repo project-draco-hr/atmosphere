@@ -1,0 +1,4 @@
+{
+  this.cacheStrategy=cacheStrategy;
+  return this;
+}
