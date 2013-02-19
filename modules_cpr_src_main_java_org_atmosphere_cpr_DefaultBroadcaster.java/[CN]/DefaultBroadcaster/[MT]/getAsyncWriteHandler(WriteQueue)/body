@@ -4,7 +4,7 @@
       while (!isDestroyed() && !outOfOrderBroadcastSupported.get()) {
         AsyncWriteToken token=null;
         try {
-          token=writeQueue.queue.poll(waitTime,TimeUnit.SECONDS);
+          token=writeQueue.queue.poll(waitTime,TimeUnit.MILLISECONDS);
           if (token == null) {
 synchronized (writeQueue) {
               if (writeQueue.queue.size() == 0) {

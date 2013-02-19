@@ -4,7 +4,7 @@
       while (!isDestroyed() && !outOfOrderBroadcastSupported.get()) {
         Entry msg=null;
         try {
-          msg=messages.poll(waitTime,TimeUnit.SECONDS);
+          msg=messages.poll(waitTime,TimeUnit.MILLISECONDS);
           if (msg == null) {
             dispatchThread.decrementAndGet();
             return;
