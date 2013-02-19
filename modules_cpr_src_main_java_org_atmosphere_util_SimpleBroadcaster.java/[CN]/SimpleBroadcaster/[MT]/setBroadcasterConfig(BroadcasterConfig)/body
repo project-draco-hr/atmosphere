@@ -1,4 +1,4 @@
 {
   this.bc=bc;
-  bc.setExecutorService(null,false).setAsyncWriteService(null,false);
+  bc.setExecutorService(null,false).setAsyncWriteService(null,false).setScheduledExecutorService(ExecutorsFactory.getScheduler(config));
 }
