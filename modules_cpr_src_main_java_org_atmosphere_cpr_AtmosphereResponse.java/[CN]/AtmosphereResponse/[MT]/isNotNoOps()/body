@@ -1,3 +1,0 @@
-{
-  return !DummyHttpServletResponse.class.isAssignableFrom(response.getClass());
-}
