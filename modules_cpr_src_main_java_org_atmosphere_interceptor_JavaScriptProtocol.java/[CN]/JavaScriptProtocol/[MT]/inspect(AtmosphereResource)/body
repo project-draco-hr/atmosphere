@@ -7,6 +7,12 @@
       r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
         @Override public void onSuspend(        AtmosphereResourceEvent event){
           r.getResponse().write(r.uuid() + wsDelimiter + System.currentTimeMillis());
+          try {
+            r.getResponse().flushBuffer();
+          }
+ catch (          IOException e) {
+            logger.trace("",e);
+          }
         }
       }
 );
