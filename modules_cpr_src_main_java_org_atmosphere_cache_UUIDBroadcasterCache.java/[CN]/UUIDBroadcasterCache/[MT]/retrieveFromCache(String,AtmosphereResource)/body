@@ -1,5 +1,5 @@
 {
-  String clientId=r.uuid();
+  String clientId=uuid(r);
   long now=System.currentTimeMillis();
   List<Object> result=new ArrayList<Object>();
   ClientQueue clientQueue;
