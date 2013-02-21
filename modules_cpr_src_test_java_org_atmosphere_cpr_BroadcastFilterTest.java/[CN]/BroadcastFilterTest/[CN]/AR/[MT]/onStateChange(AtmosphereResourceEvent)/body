@@ -1,8 +1,3 @@
 {
-  if (e.getMessage() instanceof List) {
-    value.get().append(((List)e.getMessage()).get(0));
-  }
- else {
-    value.get().append(e.getMessage());
-  }
+  value.get().append(e.getMessage());
 }
