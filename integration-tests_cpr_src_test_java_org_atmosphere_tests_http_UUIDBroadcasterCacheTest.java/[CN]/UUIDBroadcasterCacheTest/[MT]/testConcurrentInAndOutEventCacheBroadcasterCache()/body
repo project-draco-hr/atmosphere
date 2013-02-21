@@ -2,6 +2,7 @@
   logger.info("{}: running test: testEventCacheBroadcasterCache",getClass().getSimpleName());
   atmoServlet.framework().setBroadcasterCacheClassName(UUIDBroadcasterCache.class.getName());
   final CountDownLatch suspendLatch=new CountDownLatch(1);
+  final CountDownLatch resumedLatch=new CountDownLatch(1);
   final CountDownLatch latch=new CountDownLatch(1);
   final CountDownLatch missedBroadcastCount=new CountDownLatch(101);
   atmoServlet.framework().addAtmosphereHandler(ROOT,new AbstractHttpAtmosphereHandler(){
@@ -12,8 +13,11 @@
           @Override public void onSuspend(          AtmosphereResourceEvent event){
             suspendLatch.countDown();
           }
+          @Override public void onResume(          AtmosphereResourceEvent event){
+            resumedLatch.countDown();
+          }
         }
-).suspend();
+).suspend(-1);
         return;
       }
       event.getBroadcaster().broadcast("message-" + count.getAndIncrement());
@@ -57,12 +61,18 @@
     }
 );
     try {
-      suspendLatch.await(20,TimeUnit.SECONDS);
+      suspendLatch.await(30,TimeUnit.SECONDS);
     }
  catch (    InterruptedException e) {
       fail(e.getMessage());
     }
     c.prepareGet(urlTarget).execute().get();
+    try {
+      resumedLatch.await(30,TimeUnit.SECONDS);
+    }
+ catch (    InterruptedException e) {
+      fail(e.getMessage());
+    }
     for (int i=0; i < 100; i++) {
       c.prepareGet(urlTarget).execute();
     }

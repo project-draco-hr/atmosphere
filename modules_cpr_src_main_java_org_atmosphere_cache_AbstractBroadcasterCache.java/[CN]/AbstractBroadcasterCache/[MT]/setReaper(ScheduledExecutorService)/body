@@ -1,4 +1,7 @@
 {
+  if (this.reaper != null) {
+    this.reaper.shutdown();
+  }
   this.reaper=reaper;
   return this;
 }

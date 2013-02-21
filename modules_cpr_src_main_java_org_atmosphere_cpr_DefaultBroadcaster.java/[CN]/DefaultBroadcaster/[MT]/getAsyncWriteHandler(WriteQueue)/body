@@ -1,55 +1,47 @@
 {
   return new Runnable(){
     public void run(){
-      AsyncWriteToken token=null;
-      try {
-        token=writeQueue.queue.poll(5,TimeUnit.SECONDS);
-        if (token == null && !outOfOrderBroadcastSupported.get()) {
+      while (!isDestroyed() && !outOfOrderBroadcastSupported.get()) {
+        AsyncWriteToken token=null;
+        try {
+          token=writeQueue.queue.poll(waitTime,TimeUnit.MILLISECONDS);
+          if (token == null) {
 synchronized (writeQueue) {
-            if (writeQueue.queue.size() == 0) {
-              writeQueue.monitored.set(false);
-              writeQueues.remove(token.resource.uuid());
-              return;
+              if (writeQueue.queue.size() == 0) {
+                writeQueue.monitored.set(false);
+                writeQueues.remove(writeQueue.uuid);
+                return;
+              }
             }
           }
         }
-        if (token == null || outOfOrderBroadcastSupported.get()) {
-          bc.getAsyncWriteService().submit(this);
-          if (token == null) {
+ catch (        InterruptedException ex) {
+          logger.trace("{} got interrupted for Broadcaster {}",Thread.currentThread().getName(),getID());
+          logger.trace("",ex);
+          return;
+        }
+ finally {
+          if (!bc.getAsyncWriteService().isShutdown() && token == null && outOfOrderBroadcastSupported.get()) {
+            bc.getAsyncWriteService().submit(this);
             return;
           }
         }
-      }
- catch (      InterruptedException ex) {
-        logger.trace("{} got interrupted for Broadcaster {}",Thread.currentThread().getName(),getID());
-        logger.trace("",ex);
-        if (!bc.getAsyncWriteService().isShutdown()) {
-          bc.getAsyncWriteService().submit(this);
-        }
-        return;
-      }
 synchronized (token.resource) {
-        try {
           try {
             executeAsyncWrite(token);
           }
-  finally {
-            if (!outOfOrderBroadcastSupported.get()) {
-              bc.getAsyncWriteService().submit(this);
+ catch (          Throwable ex) {
+            if (!started.get() || destroyed.get()) {
+              logger.trace("Failed to execute a write operation. Broadcaster is destroyed or not yet started for Broadcaster {}",getID(),ex);
+              return;
             }
-          }
-        }
- catch (        Throwable ex) {
-          if (!started.get() || destroyed.get()) {
-            logger.trace("Failed to execute a write operation. Broadcaster is destroyed or not yet started for Broadcaster {}",getID(),ex);
-            return;
-          }
  else {
-            if (token != null) {
-              logger.warn("This message {} will be lost for AtmosphereResource {}, adding it to the BroadcasterCache",token.originalMessage,token.resource != null ? token.resource.uuid() : "null");
-              cacheLostMessage(token.resource,token,true);
+              if (token != null) {
+                logger.warn("This message {} will be lost for AtmosphereResource {}, adding it to the BroadcasterCache",token.originalMessage,token.resource != null ? token.resource.uuid() : "null");
+                cacheLostMessage(token.resource,token,true);
+              }
+              logger.debug("Failed to execute a write operation for Broadcaster {}",getID(),ex);
             }
-            logger.debug("Failed to execute a write operation for Broadcaster {}",getID(),ex);
           }
         }
       }

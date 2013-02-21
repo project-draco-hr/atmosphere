@@ -56,12 +56,18 @@ synchronized (resources) {
     if (r == null) {
       r=noOpsResource;
     }
-    perRequestFilter(r,entry,true,true);
+    if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
+      logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
+      perRequestFilter(r,entry,true,true);
+    }
+ else {
+      trackBroadcastMessage(r != null ? (r.uuid().equals("-1") ? null : r) : r,entry);
+    }
     entryDone(entry.future);
     return;
   }
   BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-  if (UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+  if (uuidCache) {
     entry.cache=UUIDBroadcasterCache.class.cast(broadcasterCache).addCacheCandidate(getID(),null,entry.originalMessage);
   }
   try {

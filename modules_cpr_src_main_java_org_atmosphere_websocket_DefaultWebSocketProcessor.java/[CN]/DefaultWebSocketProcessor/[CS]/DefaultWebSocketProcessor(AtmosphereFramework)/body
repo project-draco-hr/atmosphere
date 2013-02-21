@@ -15,6 +15,12 @@
  else {
     executeAsync=false;
   }
-  asyncExecutor=Executors.newCachedThreadPool();
-  voidExecutor=VoidExecutorService.VOID;
+  AtmosphereConfig config=framework.getAtmosphereConfig();
+  if (executeAsync) {
+    asyncExecutor=ExecutorsFactory.getAsyncOperationExecutor(config,"WebSocket");
+  }
+ else {
+    asyncExecutor=VoidExecutorService.VOID;
+  }
+  scheduler=ExecutorsFactory.getScheduler(config);
 }

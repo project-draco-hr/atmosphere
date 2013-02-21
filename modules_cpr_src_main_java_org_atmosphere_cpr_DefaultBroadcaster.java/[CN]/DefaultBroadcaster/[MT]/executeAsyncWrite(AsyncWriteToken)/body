@@ -6,7 +6,7 @@
   try {
     event.setMessage(token.msg);
     BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-    if (UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+    if (uuidCache) {
       UUIDBroadcasterCache.class.cast(broadcasterCache).clearCache(getID(),r,token.cache);
     }
     if (!isAtmosphereResourceValid(r)) {

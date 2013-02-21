@@ -1,5 +1,5 @@
 {
-  this.resumeOnBroadcast=resumeOnBroadcast;
+  this.resumeOnBroadcast.set(resumeOnBroadcast);
   req.setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,resumeOnBroadcast);
   return this;
 }

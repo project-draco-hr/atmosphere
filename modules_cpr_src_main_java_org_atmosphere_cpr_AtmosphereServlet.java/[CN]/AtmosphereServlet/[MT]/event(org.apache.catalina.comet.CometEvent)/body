@@ -19,7 +19,25 @@ synchronized (framework.asyncSupport) {
   }
   framework.doCometSupport(AtmosphereRequest.wrap(req),AtmosphereResponse.wrap(res));
   String transport=cometEvent.getHttpServletRequest().getParameter(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
-  if (transport != null && transport.equalsIgnoreCase(HeaderConfig.WEBSOCKET_TRANSPORT)) {
+  boolean webSocketSupported=(transport != null && transport.equalsIgnoreCase(HeaderConfig.WEBSOCKET_TRANSPORT));
+  if (!webSocketSupported) {
+    try {
+      Enumeration<String> connection=req.getHeaders("Connection");
+      if (connection != null && connection.hasMoreElements()) {
+        String[] e=connection.nextElement().toString().split(",");
+        for (        String upgrade : e) {
+          if (upgrade.trim().equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
+            webSocketSupported=true;
+            break;
+          }
+        }
+      }
+    }
+ catch (    Exception ex) {
+      logger.trace("",ex);
+    }
+  }
+  if (webSocketSupported) {
     cometEvent.close();
   }
 }

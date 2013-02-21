@@ -1,6 +1,5 @@
 {
-  BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-  if (!force && UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+  if (!force && uuidCache) {
     return;
   }
   try {

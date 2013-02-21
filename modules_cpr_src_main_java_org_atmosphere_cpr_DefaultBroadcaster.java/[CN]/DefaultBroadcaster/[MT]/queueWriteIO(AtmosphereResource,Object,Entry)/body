@@ -1,8 +1,7 @@
 {
   if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
     if (r.isResumed() || r.isCancelled()) {
-      BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-      if (!UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+      if (!uuidCache) {
         trackBroadcastMessage(r,entry);
       }
       return;
@@ -12,7 +11,7 @@
   if (!outOfOrderBroadcastSupported.get()) {
     WriteQueue writeQueue=writeQueues.get(r.uuid());
     if (writeQueue == null) {
-      writeQueue=new WriteQueue();
+      writeQueue=new WriteQueue(r.uuid());
       writeQueues.put(r.uuid(),writeQueue);
     }
     writeQueue.queue.put(w);

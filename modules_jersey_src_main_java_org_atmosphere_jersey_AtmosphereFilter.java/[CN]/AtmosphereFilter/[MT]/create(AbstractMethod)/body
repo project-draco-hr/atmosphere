@@ -40,7 +40,7 @@
     int suspendTimeout=am.getAnnotation(Asynchronous.class).period();
     Class[] broadcastFilter=am.getAnnotation(Asynchronous.class).broadcastFilter();
     boolean wait=am.getAnnotation(Asynchronous.class).waitForResource();
-    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,broadcastFilter,am.getAnnotation(Asynchronous.class).header(),am.getAnnotation(Asynchronous.class).writeEntity());
+    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,broadcastFilter,am.getAnnotation(Asynchronous.class).header(),am.getAnnotation(Asynchronous.class).writeEntity(),am.getAnnotation(Asynchronous.class).contentType());
     f.setListeners(am.getAnnotation(Asynchronous.class).eventListeners());
     list.addFirst(f);
   }

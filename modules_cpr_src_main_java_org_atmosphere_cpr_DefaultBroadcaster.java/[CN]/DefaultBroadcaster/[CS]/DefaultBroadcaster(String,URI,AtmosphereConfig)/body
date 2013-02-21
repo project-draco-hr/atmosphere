@@ -16,9 +16,14 @@
   if (s != null) {
     outOfOrderBroadcastSupported.set(Boolean.valueOf(s));
   }
+  s=config.getInitParameter(BROADCASTER_WAIT_TIME);
+  if (s != null) {
+    waitTime=Integer.valueOf(s);
+  }
   s=config.getInitParameter(ApplicationConfig.WRITE_TIMEOUT);
   if (s != null) {
     writeTimeoutInSecond=Integer.valueOf(s);
   }
   noOpsResource=AtmosphereResourceFactory.getDefault().create(config,"-1");
+  uuidCache=UUIDBroadcasterCache.class.isAssignableFrom(bc.getBroadcasterCache().getClass());
 }
