@@ -1,0 +1,6 @@
+{
+  factory.lookup("/atmosphere@atmosphere.com",true);
+  factory.lookup("/atmosphere@atmosphere.com",true);
+  factory.lookup("/atmosphere",true);
+  assertEquals(factory.lookupAll().size(),2);
+}
