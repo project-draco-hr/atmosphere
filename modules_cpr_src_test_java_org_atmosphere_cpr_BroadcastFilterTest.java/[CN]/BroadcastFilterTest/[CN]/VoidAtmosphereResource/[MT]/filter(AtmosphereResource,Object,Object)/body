@@ -1,0 +1,8 @@
+{
+  if (r.uuid().equals(VOID_ATMOSPHERE_RESOURCE_UUID)) {
+    return new BroadcastAction(BroadcastAction.ACTION.CONTINUE,originalMessage);
+  }
+ else {
+    return new BroadcastAction(BroadcastAction.ACTION.CONTINUE,"error");
+  }
+}
