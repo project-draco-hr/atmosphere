@@ -43,7 +43,7 @@ default :
     }
  catch (    IOException ioe) {
       logger.trace("",ioe);
-      AsynchronousProcessor.destroyResource(r);
+      AtmosphereResourceImpl.class.cast(r)._destroy();
     }
   break;
 }
