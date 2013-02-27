@@ -8,7 +8,7 @@
     }
   }
 );
-  AsynchronousProcessor.class.cast(ar.getAtmosphereConfig().framework().getAsyncSupport()).cancelled(ar.getRequest(),ar.getResponse());
+  AsynchronousProcessor.class.cast(ar.getAtmosphereConfig().framework().getAsyncSupport()).timedout(ar.getRequest(),ar.getResponse());
   assertEquals(broadcaster.getAtmosphereResources().size(),0);
   assertEquals(two.getAtmosphereResources().size(),0);
 }
