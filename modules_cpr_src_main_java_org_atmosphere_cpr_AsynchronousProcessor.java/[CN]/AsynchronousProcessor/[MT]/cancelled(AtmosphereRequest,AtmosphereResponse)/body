@@ -56,7 +56,7 @@ synchronized (req) {
       }
  finally {
         if (r != null) {
-          destroyResource(r);
+          r._destroy();
         }
       }
     }

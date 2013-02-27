@@ -60,7 +60,7 @@
         }
       }
       if (r != null) {
-        destroyResource(r);
+        r._destroy();
       }
     }
   }
