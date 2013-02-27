@@ -18,6 +18,9 @@
     if (r != null && r.isCancelled()) {
       return cancelledAction;
     }
+    if (r == null) {
+      logger.debug("AtmosphereResource was null, failed to timeout AtmosphereRequest {}",request);
+    }
     if (r != null && r.getAtmosphereResourceEvent().isSuspended()) {
       r.getAtmosphereResourceEvent().setIsResumedOnTimeout(true);
       Broadcaster b=r.getBroadcaster();

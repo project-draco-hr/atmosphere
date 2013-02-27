@@ -35,6 +35,9 @@ synchronized (req) {
           }
         }
       }
+ else {
+        logger.debug("AtmosphereResource was null, failed to cancel AtmosphereRequest {}",req);
+      }
     }
  catch (    Throwable ex) {
       logger.debug("failed to cancel resource: {}",r == null ? "" : r.uuid(),ex);
