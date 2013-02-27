@@ -33,7 +33,17 @@
     boolean wasResumed=checkCachedAndPush(r,r.getAtmosphereResourceEvent());
     if (!wasResumed && isAtmosphereResourceValid(r)) {
       logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
-      resources.add(r);
+      String parentUUID=(String)r.getRequest().getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
+      if (parentUUID != null && !parentUUID.equals(r.uuid())) {
+        logger.warn("You are trying to add an AtmosphereResource {} for a WebSocket message. The original AtmosphereResource " + " {} will be added instead.",r.uuid(),parentUUID);
+        AtmosphereResource p=AtmosphereResourceFactory.getDefault().find(parentUUID);
+        if (p != null && !resources.contains(p)) {
+          resources.add(p);
+        }
+      }
+ else {
+        resources.add(r);
+      }
     }
  else     if (!wasResumed) {
       logger.debug("Unable to add AtmosphereResource {}",r.uuid());
