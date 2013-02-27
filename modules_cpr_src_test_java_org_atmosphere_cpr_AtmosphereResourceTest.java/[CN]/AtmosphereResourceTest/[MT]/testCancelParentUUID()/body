@@ -27,7 +27,7 @@
   new Thread(){
     public void run(){
       try {
-        framework.doCometSupport(parentRequest,AtmosphereResponse.create());
+        framework.doCometSupport(parentRequest,AtmosphereResponse.newInstance());
       }
  catch (      IOException e) {
         e.printStackTrace();
@@ -42,7 +42,7 @@ catch (      ServletException e) {
   Map<String,Object> m=new HashMap<String,Object>();
   m.put(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,parentRequest.resource().uuid());
   AtmosphereRequest request=new AtmosphereRequest.Builder().attributes(m).pathInfo("/a").build();
-  framework.doCometSupport(request,AtmosphereResponse.create());
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
   AtmosphereResource r=parentRequest.resource();
   Broadcaster b=r.getBroadcaster();
   assertEquals(b.getAtmosphereResources().size(),1);
