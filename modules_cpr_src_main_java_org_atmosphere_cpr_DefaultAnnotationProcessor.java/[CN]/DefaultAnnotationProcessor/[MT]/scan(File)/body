@@ -97,9 +97,15 @@
       }
  else       if (WebSocketHandlerService.class.equals(annotation)) {
         try {
-          framework.initWebSocket();
           Class<WebSocketHandler> s=(Class<WebSocketHandler>)cl.loadClass(className);
           WebSocketHandlerService m=s.getAnnotation(WebSocketHandlerService.class);
+          framework.addAtmosphereHandler(m.path(),new AbstractReflectorAtmosphereHandler(){
+            @Override public void onRequest(            AtmosphereResource resource) throws IOException {
+            }
+            @Override public void destroy(){
+            }
+          }
+).initWebSocket();
           WebSocketProcessor p=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
           p.registerWebSocketHandler(m.path(),s.newInstance());
           framework.setDefaultBroadcasterClassName(m.broadcaster().getName());

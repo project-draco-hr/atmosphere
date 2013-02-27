@@ -8,10 +8,8 @@
   request.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,r.uuid());
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
-  if (handlers.size() == 0) {
-    dispatch(webSocket,request,response);
-  }
- else {
+  dispatch(webSocket,request,response);
+  if (handlers.size() != 0) {
     WebSocketHandler handler=mapper.map(request,handlers);
     if (handler == null) {
       logger.debug("No WebSocketHandler maps request for {} with mapping {}",request.getRequestURI(),handlers);
