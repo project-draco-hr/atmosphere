@@ -7,7 +7,6 @@
     }
   }
   if (!found) {
-    c.configure(config);
     interceptors.addLast(c);
     logger.info("Installed AtmosphereInterceptor {}. ",c);
   }

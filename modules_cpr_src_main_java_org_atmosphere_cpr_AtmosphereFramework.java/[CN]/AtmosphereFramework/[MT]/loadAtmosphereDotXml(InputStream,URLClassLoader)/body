@@ -58,7 +58,6 @@
         for (        String a : atmoHandler.getAtmosphereInterceptorClasses()) {
           try {
             AtmosphereInterceptor ai=(AtmosphereInterceptor)c.loadClass(a).newInstance();
-            ai.configure(config);
             l.add(ai);
           }
  catch (          Throwable e) {

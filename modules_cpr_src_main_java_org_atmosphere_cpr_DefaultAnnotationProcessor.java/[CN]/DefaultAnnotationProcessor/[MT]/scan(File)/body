@@ -28,7 +28,6 @@
           for (          Class i : interceptors) {
             try {
               AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
-              ai.configure(framework.getAtmosphereConfig());
               l.add(ai);
             }
  catch (            Throwable e) {
@@ -75,7 +74,6 @@
           for (          Class i : interceptors) {
             try {
               AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
-              ai.configure(framework.getAtmosphereConfig());
               l.add(ai);
             }
  catch (            Throwable e) {
@@ -124,7 +122,6 @@
  else       if (AtmosphereInterceptorService.class.equals(annotation)) {
         try {
           AtmosphereInterceptor a=(AtmosphereInterceptor)loadClass(className).newInstance();
-          a.configure(framework.getAtmosphereConfig());
           framework.interceptor(a);
         }
  catch (        Throwable e) {
@@ -181,7 +178,6 @@
           for (          Class i : interceptors) {
             try {
               AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
-              ai.configure(framework.getAtmosphereConfig());
               l.add(ai);
             }
  catch (            Throwable e) {
@@ -208,7 +204,6 @@
               }
             }
 ;
-            ai.configure(framework.getAtmosphereConfig());
             l.add(ai);
           }
  catch (          Throwable e) {

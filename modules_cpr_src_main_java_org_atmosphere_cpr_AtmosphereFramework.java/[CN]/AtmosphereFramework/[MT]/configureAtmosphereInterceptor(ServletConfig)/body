@@ -30,4 +30,5 @@ catch (      ClassNotFoundException e) {
     interceptors.addFirst(newAInterceptor(DefaultHeadersInterceptor.class));
     logger.info("Set org.atmosphere.cpr.AtmosphereInterceptor.disableDefaults in your xml to disable them.",interceptors);
   }
+  initInterceptors();
 }
