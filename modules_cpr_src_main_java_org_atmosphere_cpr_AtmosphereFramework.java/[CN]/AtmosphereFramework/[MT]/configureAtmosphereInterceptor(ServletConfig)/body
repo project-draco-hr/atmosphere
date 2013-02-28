@@ -5,7 +5,6 @@
     for (    String a : list) {
       try {
         AtmosphereInterceptor ai=(AtmosphereInterceptor)Thread.currentThread().getContextClassLoader().loadClass(a.trim()).newInstance();
-        ai.configure(config);
         interceptor(ai);
       }
  catch (      InstantiationException e) {
