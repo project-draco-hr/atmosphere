@@ -1,0 +1,8 @@
+{
+  if (Proxy.class.isAssignableFrom(response.getClass())) {
+    return this;
+  }
+ else {
+    return super.getResponse();
+  }
+}
