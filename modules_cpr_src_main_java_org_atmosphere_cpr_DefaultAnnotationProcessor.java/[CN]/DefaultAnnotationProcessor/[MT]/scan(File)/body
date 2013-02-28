@@ -1,5 +1,4 @@
 {
-  final ClassLoader cl=Thread.currentThread().getContextClassLoader();
   final AnnotationDetector.TypeReporter reporter=new AnnotationDetector.TypeReporter(){
     @SuppressWarnings("unchecked") @Override public Class<? extends Annotation>[] annotations(){
       return new Class[]{AtmosphereHandlerService.class,BroadcasterCacheService.class,BroadcasterFilterService.class,BroadcasterFactoryService.class,BroadcasterService.class,MeteorService.class,WebSocketHandlerService.class,WebSocketProtocolService.class,AtmosphereInterceptorService.class,BroadcasterListenerService.class,AsyncSupportService.class,AsyncSupportListenerService.class,WebSocketProcessorService.class,BroadcasterCacheInspectorService.class,ManagedService.class,EndpoinMapperService.class,ManagedAtmosphereHandlerService.class};
@@ -8,7 +7,7 @@
       logger.info("Found Annotation in {} being scanned: {}",className,annotation);
       if (AtmosphereHandlerService.class.equals(annotation)) {
         try {
-          AtmosphereHandler handler=(AtmosphereHandler)cl.loadClass(className).newInstance();
+          AtmosphereHandler handler=(AtmosphereHandler)loadClass(className).newInstance();
           AtmosphereHandlerService a=handler.getClass().getAnnotation(AtmosphereHandlerService.class);
           framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
           Class<? extends BroadcastFilter>[] bf=a.broadcastFilters();
@@ -49,7 +48,7 @@
       }
  else       if (BroadcasterCacheInspectorService.class.equals(annotation)) {
         try {
-          framework.addBroadcasterCacheInjector((BroadcasterCacheInspector)cl.loadClass(className).newInstance());
+          framework.addBroadcasterCacheInjector((BroadcasterCacheInspector)loadClass(className).newInstance());
         }
  catch (        Throwable e) {
           logger.warn("",e);
@@ -59,7 +58,7 @@
         try {
           ReflectorServletProcessor r=new ReflectorServletProcessor();
           r.setServletClassName(className);
-          Class<Servlet> s=(Class<Servlet>)cl.loadClass(className);
+          Class<Servlet> s=(Class<Servlet>)loadClass(className);
           MeteorService m=s.getAnnotation(MeteorService.class);
           String mapping=m.path();
           framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
@@ -97,7 +96,7 @@
       }
  else       if (WebSocketHandlerService.class.equals(annotation)) {
         try {
-          Class<WebSocketHandler> s=(Class<WebSocketHandler>)cl.loadClass(className);
+          Class<WebSocketHandler> s=(Class<WebSocketHandler>)loadClass(className);
           WebSocketHandlerService m=s.getAnnotation(WebSocketHandlerService.class);
           framework.addAtmosphereHandler(m.path(),new AbstractReflectorAtmosphereHandler(){
             @Override public void onRequest(            AtmosphereResource resource) throws IOException {
@@ -124,7 +123,7 @@
       }
  else       if (AtmosphereInterceptorService.class.equals(annotation)) {
         try {
-          AtmosphereInterceptor a=(AtmosphereInterceptor)cl.loadClass(className).newInstance();
+          AtmosphereInterceptor a=(AtmosphereInterceptor)loadClass(className).newInstance();
           a.configure(framework.getAtmosphereConfig());
           framework.interceptor(a);
         }
@@ -142,7 +141,7 @@
       }
  else       if (AsyncSupportListenerService.class.equals(annotation)) {
         try {
-          framework.asyncSupportListener((AsyncSupportListener)cl.loadClass(className).newInstance());
+          framework.asyncSupportListener((AsyncSupportListener)loadClass(className).newInstance());
         }
  catch (        Throwable e) {
           logger.warn("",e);
@@ -150,7 +149,7 @@
       }
  else       if (BroadcasterFactoryService.class.equals(annotation)) {
         try {
-          Class<BroadcasterFactory> bf=(Class<BroadcasterFactory>)cl.loadClass(className);
+          Class<BroadcasterFactory> bf=(Class<BroadcasterFactory>)loadClass(className);
           framework.setBroadcasterFactory(bf.newInstance());
         }
  catch (        Throwable e) {
@@ -159,7 +158,7 @@
       }
  else       if (BroadcasterListenerService.class.equals(annotation)) {
         try {
-          framework.addBroadcasterListener((BroadcasterListener)cl.loadClass(className).newInstance());
+          framework.addBroadcasterListener((BroadcasterListener)loadClass(className).newInstance());
         }
  catch (        Throwable e) {
           logger.warn("",e);
@@ -175,7 +174,7 @@
       }
  else       if (ManagedService.class.equals(annotation)) {
         try {
-          AtmosphereHandler handler=(AtmosphereHandler)cl.loadClass(className).newInstance();
+          AtmosphereHandler handler=(AtmosphereHandler)loadClass(className).newInstance();
           ManagedService a=handler.getClass().getAnnotation(ManagedService.class);
           Class<? extends AtmosphereInterceptor>[] interceptors=new Class[]{AtmosphereResourceLifecycleInterceptor.class,BroadcastOnPostAtmosphereInterceptor.class,TrackMessageSizeInterceptor.class,HeartbeatInterceptor.class};
           List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
@@ -224,7 +223,7 @@
       }
  else       if (EndpoinMapperService.class.equals(annotation)) {
         try {
-          framework.endPointMapper((EndpointMapper<?>)cl.loadClass(className).newInstance());
+          framework.endPointMapper((EndpointMapper<?>)loadClass(className).newInstance());
         }
  catch (        Throwable e) {
           logger.warn("",e);
@@ -232,9 +231,9 @@
       }
  else       if (ManagedAtmosphereHandlerService.class.equals(annotation)) {
         try {
-          Object handler=cl.loadClass(className).newInstance();
+          Object handler=loadClass(className).newInstance();
           ManagedAtmosphereHandlerService a=handler.getClass().getAnnotation(ManagedAtmosphereHandlerService.class);
-          Object c=cl.loadClass(className).newInstance();
+          Object c=loadClass(className).newInstance();
           ManagedAtmosphereHandler w=new ManagedAtmosphereHandler(c);
           List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
           framework.addAtmosphereHandler(a.path(),w,l);
