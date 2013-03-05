@@ -2,7 +2,15 @@
   r.set(resource);
   resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
     @Override public void onSuspend(    AtmosphereResourceEvent event){
-      event.getResource().getBroadcaster().broadcast("message");
+      try {
+        event.getResource().getBroadcaster().broadcast("message").get();
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+catch (      ExecutionException e) {
+        e.printStackTrace();
+      }
     }
   }
 ).suspend();
