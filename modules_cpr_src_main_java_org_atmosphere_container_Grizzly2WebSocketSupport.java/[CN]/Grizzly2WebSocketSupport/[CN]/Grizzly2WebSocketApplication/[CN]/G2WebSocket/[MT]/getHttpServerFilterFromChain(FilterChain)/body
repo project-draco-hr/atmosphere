@@ -1,0 +1,10 @@
+{
+  Iterator<Filter> filterIterator=filterChain.iterator();
+  while (filterIterator.hasNext()) {
+    Filter candidate=filterIterator.next();
+    if (candidate instanceof HttpServerFilter) {
+      return (HttpServerFilter)candidate;
+    }
+  }
+  return null;
+}
