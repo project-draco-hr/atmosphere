@@ -1,0 +1,4 @@
+{
+  locales.add(locale);
+  return this;
+}

@@ -1,7 +1,10 @@
 {
-  String s=config.getInitParameter(ApplicationConfig.MESSAGE_DELIMITER);
+  String s=config.getInitParameter(MESSAGE_DELIMITER);
   if (s != null) {
-    end=s.getBytes();
-    endString=s;
+    messageDelimiter(s);
+  }
+  s=config.getInitParameter(EXCLUDED_CONTENT_TYPES);
+  if (s != null) {
+    excludedContentTypes.addAll(Arrays.asList(s.split(",")));
   }
 }

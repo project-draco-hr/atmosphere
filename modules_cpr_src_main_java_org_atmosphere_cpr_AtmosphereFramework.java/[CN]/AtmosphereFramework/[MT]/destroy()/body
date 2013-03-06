@@ -6,7 +6,7 @@
     AtmosphereHandlerWrapper handlerWrapper=entry.getValue();
     handlerWrapper.atmosphereHandler.destroy();
   }
-  BroadcasterFactory factory=BroadcasterFactory.getDefault();
+  BroadcasterFactory factory=broadcasterFactory;
   if (factory != null) {
     factory.destroy();
     BroadcasterFactory.factory=null;

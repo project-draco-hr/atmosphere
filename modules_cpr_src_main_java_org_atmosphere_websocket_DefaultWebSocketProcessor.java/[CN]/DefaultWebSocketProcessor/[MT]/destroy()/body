@@ -1,5 +1,9 @@
 {
-  asyncExecutor.shutdown();
-  voidExecutor.shutdown();
-  scheduler.shutdown();
+  boolean shared=framework.isShareExecutorServices();
+  if (asyncExecutor != null && !shared) {
+    asyncExecutor.shutdown();
+  }
+  if (scheduler != null && !shared) {
+    scheduler.shutdown();
+  }
 }

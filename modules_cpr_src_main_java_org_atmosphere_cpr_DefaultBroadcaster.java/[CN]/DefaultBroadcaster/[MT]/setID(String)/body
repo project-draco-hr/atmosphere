@@ -2,15 +2,16 @@
   if (id == null) {
     id=getClass().getSimpleName() + "/" + UUID.randomUUID();
   }
-  if (BroadcasterFactory.getDefault() == null)   return;
-  Broadcaster b=BroadcasterFactory.getDefault().lookup(this.getClass(),id);
+  if (config.getBroadcasterFactory() == null)   return;
+  Broadcaster b=config.getBroadcasterFactory().lookup(this.getClass(),id);
   if (b != null && b.getScope() == SCOPE.REQUEST) {
     throw new IllegalStateException("Broadcaster ID already assigned to SCOPE.REQUEST. Cannot change the id");
   }
  else   if (b != null) {
     return;
   }
-  BroadcasterFactory.getDefault().remove(this,name);
+  config.getBroadcasterFactory().remove(this,name);
   this.name=id;
-  BroadcasterFactory.getDefault().add(this,name);
+  config.getBroadcasterFactory().add(this,name);
+  bc.broadcasterID(name);
 }

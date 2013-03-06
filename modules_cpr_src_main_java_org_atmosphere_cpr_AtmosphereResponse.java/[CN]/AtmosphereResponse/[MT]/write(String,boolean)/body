@@ -1,4 +1,7 @@
 {
+  if (Proxy.class.isAssignableFrom(response.getClass())) {
+    writeUsingOriginalResponse=false;
+  }
   boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
   try {
     if (isUsingStream) {
@@ -15,8 +18,8 @@
       w.write(data);
     }
   }
- catch (  IOException e) {
-    logger.trace("",e);
+ catch (  Exception ex) {
+    handleException(ex);
   }
   return this;
 }

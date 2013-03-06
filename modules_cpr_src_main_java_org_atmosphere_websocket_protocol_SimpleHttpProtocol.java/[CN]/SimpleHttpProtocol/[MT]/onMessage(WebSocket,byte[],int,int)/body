@@ -1,3 +1,15 @@
 {
-  return onMessage(webSocket,new String(d,offset,length));
+  AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
+  if (resource == null) {
+    logger.trace("The WebSocket has been closed before the message was processed.");
+    return null;
+  }
+  String pathInfo=resource.getRequest().getPathInfo();
+  String requestURI=resource.getRequest().getRequestURI();
+  Map<String,Object> m=new HashMap<String,Object>();
+  m.put(FrameworkConfig.WEBSOCKET_SUBPROTOCOL,FrameworkConfig.SIMPLE_HTTP_OVER_WEBSOCKET);
+  m.putAll(resource.getRequest().attributes());
+  List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
+  list.add(new AtmosphereRequest.Builder().request(resource.getRequest()).method(methodType).contentType(contentType).body(d,offset,length).attributes(m).pathInfo(pathInfo).requestURI(requestURI).destroyable(destroyable).headers(resource.getRequest().headersMap()).session(resource.session()).build());
+  return list;
 }

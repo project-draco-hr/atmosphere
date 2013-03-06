@@ -1,8 +1,11 @@
 {
+  if (!isSuspended()) {
+    logger.warn("AtmosphereResource {} not suspend, cannot resume it.",uuid());
+    return this;
+  }
   try {
-    if (!isResumed && isInScope) {
+    if (!isResumed.getAndSet(true) && isInScope) {
       action.type(Action.TYPE.RESUME);
-      isResumed=true;
       Broadcaster b=getBroadcaster(false);
       if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
         ((DefaultBroadcaster)b).broadcastOnResume(this);
@@ -21,8 +24,8 @@
         logger.debug("Broadcaster's scope is set to request, destroying it {}",b.getID());
         b.destroy();
       }
-      if (BroadcasterFactory.getDefault() != null) {
-        BroadcasterFactory.getDefault().removeAllAtmosphereResource(this);
+      if (config.getBroadcasterFactory() != null) {
+        config.getBroadcasterFactory().removeAllAtmosphereResource(this);
       }
       try {
         req.setAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT,Boolean.FALSE);
@@ -44,10 +47,10 @@
       if (req.getAttribute(PRE_SUSPEND) == null) {
         asyncSupport.action(this);
       }
-      response.closeStreamOrWriter();
     }
  else {
       logger.debug("Cannot resume an already resumed/cancelled request {}",this);
+      return this;
     }
   }
  catch (  Throwable t) {

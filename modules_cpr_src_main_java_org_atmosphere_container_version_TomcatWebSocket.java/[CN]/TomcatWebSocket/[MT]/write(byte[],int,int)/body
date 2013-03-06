@@ -1,3 +1,5 @@
 {
+  logger.trace("WebSocket.write() for {}",resource() != null ? resource().uuid() : "");
   outbound.writeBinaryMessage(ByteBuffer.wrap(b,offset,length));
+  return this;
 }

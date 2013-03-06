@@ -1,0 +1,4 @@
+{
+  this.delegateToNativeResponse=delegateToNativeResponse;
+  return this;
+}

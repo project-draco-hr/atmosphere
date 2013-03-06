@@ -4,15 +4,24 @@ synchronized (req) {
     AtmosphereResourceImpl r=null;
     try {
       if (trackActiveRequest) {
-        long l=(Long)req.getAttribute(MAX_INACTIVE);
-        if (l == -1) {
-          return timedoutAction;
+        try {
+          long l=(Long)req.getAttribute(MAX_INACTIVE);
+          if (l == -1) {
+            return timedoutAction;
+          }
+          req.setAttribute(MAX_INACTIVE,(long)-1);
         }
-        req.setAttribute(MAX_INACTIVE,(long)-1);
+ catch (        NullPointerException ex) {
+          return cancelledAction;
+        }
       }
-      logger.debug("Cancelling the connection for request {}",req);
       r=(AtmosphereResourceImpl)req.resource();
       if (r != null) {
+        logger.debug("Cancelling the connection for AtmosphereResource {}",r.uuid());
+        if (r.isCancelled()) {
+          logger.trace("{} is already cancelled",r.uuid());
+          return cancelledAction;
+        }
         r.getAtmosphereResourceEvent().setCancelled(true);
         invokeAtmosphereHandler(r);
         try {
@@ -26,9 +35,12 @@ synchronized (req) {
           }
         }
       }
+ else {
+        logger.debug("AtmosphereResource was null, failed to cancel AtmosphereRequest {}",req);
+      }
     }
  catch (    Throwable ex) {
-      logger.debug("failed to cancel resource: " + r,ex);
+      logger.debug("failed to cancel resource: {}",r == null ? "" : r.uuid(),ex);
     }
  finally {
       config.framework().notify(Action.TYPE.CANCELLED,req,res);
@@ -40,11 +52,11 @@ synchronized (req) {
         }
       }
  catch (      Throwable t) {
-        logger.trace("cancel",t);
+        logger.debug("cancel",t);
       }
  finally {
         if (r != null) {
-          destroyResource(r);
+          r._destroy();
         }
       }
     }

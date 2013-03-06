@@ -6,16 +6,18 @@
   try {
     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
       AtmosphereHandler atmosphereHandler=(AtmosphereHandler)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
+      if (atmosphereHandler != null) {
 synchronized (r) {
-        try {
-          atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
-        }
-  finally {
-          Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
-          if (m != null) {
-            m.destroy();
+          try {
+            atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
           }
-          req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  finally {
+            Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
+            if (m != null) {
+              m.destroy();
+            }
+            req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+          }
         }
       }
     }

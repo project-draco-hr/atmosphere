@@ -1,0 +1,12 @@
+{
+  for (  AtmosphereInterceptor i : interceptors) {
+    i.configure(config);
+  }
+  for (  AtmosphereHandlerWrapper w : atmosphereHandlers.values()) {
+    if (w.interceptors != null) {
+      for (      AtmosphereInterceptor i : w.interceptors) {
+        i.configure(config);
+      }
+    }
+  }
+}

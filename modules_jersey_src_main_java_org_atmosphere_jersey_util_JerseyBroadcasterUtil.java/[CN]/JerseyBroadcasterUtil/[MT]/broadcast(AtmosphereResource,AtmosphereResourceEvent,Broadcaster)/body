@@ -2,19 +2,12 @@
   AtmosphereRequest request=r.getRequest();
   ContainerResponse cr=null;
   cr=(ContainerResponse)request.getAttribute(FrameworkConfig.CONTAINER_RESPONSE);
-  boolean isCancelled=r.getAtmosphereResourceEvent().isCancelled();
-  if (cr == null || isCancelled) {
-    logger.debug("Retrieving HttpServletRequest {} with ContainerResponse {}",request,cr);
-    if (!isCancelled) {
-      logger.debug("Unexpected state. ContainerResponse cannot be null or already committed. The connection hasn't been suspended yet");
-    }
- else {
-      logger.debug("ContainerResponse already resumed or cancelled. Ignoring");
-    }
+  if (cr == null || r.isCancelled()) {
+    logger.debug("Unexpected state. ContainerResponse has been resumed or cancelled Caching message {} for {}",e.getMessage(),r.uuid());
     if (DefaultBroadcaster.class.isAssignableFrom(broadcaster.getClass())) {
-      DefaultBroadcaster.class.cast(broadcaster).cacheLostMessage(r);
+      DefaultBroadcaster.class.cast(broadcaster).cacheLostMessage(r,true);
     }
-    AsynchronousProcessor.destroyResource(r);
+    AtmosphereResourceImpl.class.cast(r)._destroy();
     return;
   }
 synchronized (cr) {
@@ -50,12 +43,12 @@ synchronized (cr) {
           cr.setResponse(Response.ok(msg).build());
           cr.getHttpHeaders().add(HttpHeaders.CONTENT_TYPE,m);
           cr.write();
-          try {
-            cr.getOutputStream().flush();
-          }
- catch (          IOException ex) {
-            logger.trace("",ex);
-          }
+        }
+        try {
+          cr.getOutputStream().flush();
+        }
+ catch (        IOException ex) {
+          logger.trace("",ex);
         }
       }
  else {
@@ -75,8 +68,15 @@ synchronized (cr) {
       }
     }
  catch (    Throwable t) {
+      boolean notifyAndCache=true;
+      for (      StackTraceElement element : t.getStackTrace()) {
+        if (element.getClassName().equals("java.io.BufferedWriter") && element.getMethodName().equals("flush")) {
+          logger.trace("Workaround issue https://github.com/Atmosphere/atmosphere/issues/710");
+          notifyAndCache=false;
+        }
+      }
       if (DefaultBroadcaster.class.isAssignableFrom(broadcaster.getClass())) {
-        DefaultBroadcaster.class.cast(broadcaster).onException(t,r);
+        DefaultBroadcaster.class.cast(broadcaster).onException(t,r,notifyAndCache);
       }
  else {
         onException(t,r);
@@ -94,6 +94,7 @@ synchronized (cr) {
             ((ConcurrentHashMap<String,AtmosphereResource>)request.getAttribute(AtmosphereFilter.RESUME_CANDIDATES)).remove(uuid);
           }
         }
+        r.getRequest().setAttribute(FrameworkConfig.CONTAINER_RESPONSE,null);
         r.resume();
       }
     }

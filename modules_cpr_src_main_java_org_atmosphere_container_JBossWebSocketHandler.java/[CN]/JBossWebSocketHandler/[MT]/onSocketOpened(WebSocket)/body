@@ -1,0 +1,6 @@
+{
+  logger.trace("WebSocket.onSocketOpened.");
+  AtmosphereRequest r=AtmosphereRequest.wrap(socket.getServletRequest());
+  org.atmosphere.websocket.WebSocket webSocket=new JBossWebSocket(socket,config);
+  webSocketProcessor.open(webSocket,r,AtmosphereResponse.newInstance(config,r,webSocket));
+}

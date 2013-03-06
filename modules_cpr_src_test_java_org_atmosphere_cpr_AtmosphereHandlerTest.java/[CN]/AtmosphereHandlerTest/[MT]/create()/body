@@ -1,0 +1,34 @@
+{
+  framework=new AtmosphereFramework();
+  framework.setAsyncSupport(new AsynchronousProcessor(framework.getAtmosphereConfig()){
+    @Override public Action service(    AtmosphereRequest req,    AtmosphereResponse res) throws IOException, ServletException {
+      return suspended(req,res);
+    }
+    public void action(    AtmosphereResourceImpl r){
+      try {
+        resumed(r.getRequest(),r.getResponse());
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+      }
+catch (      ServletException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+).init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return null;
+    }
+  }
+);
+}

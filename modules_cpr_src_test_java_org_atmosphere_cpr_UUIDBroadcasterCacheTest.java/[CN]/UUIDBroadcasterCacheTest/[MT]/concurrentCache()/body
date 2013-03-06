@@ -1,0 +1,26 @@
+{
+  final CountDownLatch latch=new CountDownLatch(101);
+  broadcaster.addBroadcasterListener(new BroadcasterListener(){
+    @Override public void onPostCreate(    Broadcaster b){
+    }
+    @Override public void onComplete(    Broadcaster b){
+      latch.countDown();
+    }
+    @Override public void onPreDestroy(    Broadcaster b){
+    }
+  }
+).broadcast("e-1").get();
+  broadcaster.removeAtmosphereResource(ar);
+  ExecutorService s=Executors.newCachedThreadPool();
+  final AtomicInteger y=new AtomicInteger();
+  for (int i=0; i < 100; i++) {
+    s.submit(new Runnable(){
+      @Override public void run(){
+        broadcaster.broadcast("e" + y.getAndIncrement());
+      }
+    }
+);
+  }
+  latch.await(10,TimeUnit.SECONDS);
+  assertEquals(eventCacheBroadcasterCache.messages().get(ar.uuid()).getQueue().size(),100);
+}

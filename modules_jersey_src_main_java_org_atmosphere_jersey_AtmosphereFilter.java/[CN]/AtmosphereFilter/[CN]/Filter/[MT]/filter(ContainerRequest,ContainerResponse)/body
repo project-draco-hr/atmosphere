@@ -54,10 +54,15 @@ throw new WebApplicationException(new IllegalStateException("Must specify transp
 }
 String subProtocol=(String)servletReq.getAttribute(FrameworkConfig.WEBSOCKET_SUBPROTOCOL);
 final boolean waitForResource=waitFor == -1 ? true : false;
-final Broadcaster bcaster=BroadcasterFactory.getDefault().lookup(broadcasterName,true);
-if (!transport.startsWith(POLLING_TRANSPORT) && subProtocol == null) {
+Broadcaster newBroadcaster;
+synchronized (broadcasterName.intern()) {
+newBroadcaster=config.getBroadcasterFactory().lookup(broadcasterName,true);
+newBroadcaster.setBroadcasterLifeCyclePolicy(BroadcasterLifeCyclePolicy.EMPTY_DESTROY);
+}
+final Broadcaster bcaster=newBroadcaster;
+if (!waitForResource || (!transport.startsWith(POLLING_TRANSPORT) && subProtocol == null)) {
 boolean outputJunk=transport.equalsIgnoreCase(STREAMING_TRANSPORT);
-final boolean resumeOnBroadcast=resumeOnBroadcast(false);
+final boolean resumeOnBroadcast=transport.equals(JSONP_TRANSPORT) || transport.equals(LONG_POLLING_TRANSPORT);
 if (listeners != null) {
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
@@ -79,7 +84,8 @@ if (waitForResource) {
 bcaster.awaitAndBroadcast(entity,30,TimeUnit.SECONDS);
 }
  else {
-bcaster.broadcast(entity);
+bcaster.broadcastOnResume(entity);
+event.getResource().resume();
 }
 }
 }
@@ -163,7 +169,7 @@ c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(BROADCASTER_
  catch (Throwable e) {
 throw new IllegalStateException(e.getMessage());
 }
-broadcaster=BroadcasterFactory.getDefault().lookup(c,topic,true);
+broadcaster=config.getBroadcasterFactory().lookup(c,topic,true);
 }
 suspend(resumeOnBroadcast,timeout,request,response,broadcaster,r,scope,writeEntity);
 break;
@@ -208,7 +214,7 @@ c=(Class<Broadcaster>)Class.forName((String)servletReq.getAttribute(BROADCASTER_
  catch (Throwable e) {
 throw new IllegalStateException(e.getMessage());
 }
-r.setBroadcaster(BroadcasterFactory.getDefault().lookup(c,topic,true));
+r.setBroadcaster(config.getBroadcasterFactory().lookup(c,topic,true));
 }
 broadcast(response,r,timeout);
 if (!writeEntity) {

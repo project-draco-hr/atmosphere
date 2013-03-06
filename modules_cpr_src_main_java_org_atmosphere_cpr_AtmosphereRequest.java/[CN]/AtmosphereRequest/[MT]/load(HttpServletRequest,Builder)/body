@@ -16,4 +16,8 @@
     b.queryStrings.put(s,request.getParameterValues(s));
   }
   b.queryString=request.getQueryString();
+  Enumeration<Locale> l=request.getLocales();
+  while (l.hasMoreElements()) {
+    b.locale(l.nextElement());
+  }
 }

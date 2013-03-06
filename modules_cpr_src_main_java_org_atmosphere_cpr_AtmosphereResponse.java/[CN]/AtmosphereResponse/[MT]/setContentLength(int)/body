@@ -1,4 +1,5 @@
 {
+  headers.put("Content-Length",String.valueOf(len));
   if (!delegateToNativeResponse) {
     contentLength=len;
   }

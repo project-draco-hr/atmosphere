@@ -1,0 +1,6 @@
+{
+  String s=config.getInitParameter(ApplicationConfig.MESSAGE_DELIMITER);
+  if (s != null) {
+    wsDelimiter=s;
+  }
+}

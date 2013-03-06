@@ -1,0 +1,4 @@
+List<String> list
+AtmosphereConfig config
+boolean handleExecutors
+String name

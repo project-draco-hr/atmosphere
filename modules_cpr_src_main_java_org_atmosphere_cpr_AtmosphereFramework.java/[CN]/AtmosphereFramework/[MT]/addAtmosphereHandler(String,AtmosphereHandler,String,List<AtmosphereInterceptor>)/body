@@ -2,7 +2,7 @@
   if (!mapping.startsWith("/")) {
     mapping="/" + mapping;
   }
-  AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(h,mapping);
+  AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(broadcasterFactory,h,mapping);
   w.broadcaster.setID(broadcasterId);
   w.interceptors=l;
   addMapping(mapping,w);

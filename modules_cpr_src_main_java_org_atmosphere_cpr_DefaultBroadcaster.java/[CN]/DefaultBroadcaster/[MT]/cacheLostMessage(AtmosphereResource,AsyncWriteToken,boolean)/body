@@ -1,0 +1,16 @@
+{
+  if (!force && uuidCache) {
+    return;
+  }
+  try {
+    if (token != null && token.originalMessage != null) {
+      Object m=cacheStrategy.equals(STRATEGY.BEFORE_FILTER) ? token.originalMessage : token.msg;
+      bc.getBroadcasterCache().addToCache(getID(),r,new Message(String.valueOf(token.future.hashCode()),m));
+      logger.trace("Lost message cached {}",m);
+    }
+  }
+ catch (  Throwable t2) {
+    logger.error("Unable to cache message {} for AtmosphereResource {}",token.originalMessage,r != null ? r.uuid() : "");
+    logger.error("Unable to cache message",t2);
+  }
+}

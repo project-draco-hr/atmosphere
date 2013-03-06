@@ -1,15 +1,32 @@
 {
   retrieveTrackedBroadcast(r,e);
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(e.getMessage(),1,broadcasterListeners,this);
   if (e.getMessage() instanceof List && !((List)e.getMessage()).isEmpty()) {
-    List<Object> filteredMessage=new ArrayList<Object>();
-    for (    Object o : ((List)e.getMessage())) {
-      filteredMessage.add(perRequestFilter(r,new Entry(o,r,f,o),false));
+    logger.debug("Sending cached message {} to {}",e.getMessage(),r.uuid());
+    List<Object> cacheMessages=(List)e.getMessage();
+    BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(e.getMessage(),1,this);
+    if (cacheStrategy.equals(STRATEGY.BEFORE_FILTER)) {
+      LinkedList<Object> filteredMessage=new LinkedList<Object>();
+      for (      Object o : cacheMessages) {
+        filteredMessage.addLast(perRequestFilter(r,new Entry(o,r,f,o),false));
+      }
+      e.setMessage(filteredMessage);
     }
-    e.setMessage(filteredMessage);
+ else {
+      e.setMessage(cacheMessages);
+    }
     r.getRequest().setAttribute(CACHED,"true");
 synchronized (r) {
-      invokeOnStateChange(r,e);
+      try {
+        prepareInvokeOnStateChange(r,e);
+      }
+ catch (      Throwable t) {
+        logger.error("Unable to write cached message {} for {}",e.getMessage(),r.uuid());
+        logger.error("",t);
+        for (        Object o : cacheMessages) {
+          bc.getBroadcasterCache().addToCache(getID(),r,new Message(o));
+        }
+        return true;
+      }
       for (      AtmosphereResourceEventListener l : AtmosphereResourceImpl.class.cast(r).atmosphereResourceEventListener()) {
         l.onBroadcast(e);
       }
@@ -17,18 +34,20 @@ switch (r.transport()) {
 case JSONP:
 case AJAX:
 case LONG_POLLING:
+        return true;
 case SSE:
-        break;
+      break;
 default :
-      try {
-        r.getResponse().flushBuffer();
-      }
- catch (      IOException ioe) {
-        logger.trace("",ioe);
-        AsynchronousProcessor.destroyResource(r);
-      }
-    break;
+    try {
+      r.getResponse().flushBuffer();
+    }
+ catch (    IOException ioe) {
+      logger.trace("",ioe);
+      AtmosphereResourceImpl.class.cast(r)._destroy();
+    }
+  break;
 }
 }
 }
+return false;
 }

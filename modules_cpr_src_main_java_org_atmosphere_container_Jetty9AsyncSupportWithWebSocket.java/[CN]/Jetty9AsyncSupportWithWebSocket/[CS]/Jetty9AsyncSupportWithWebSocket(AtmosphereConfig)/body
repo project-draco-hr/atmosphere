@@ -3,7 +3,7 @@
   String bs=config.getInitParameter(ApplicationConfig.WEBSOCKET_BUFFER_SIZE);
   WebSocketPolicy policy=new WebSocketPolicy(WebSocketBehavior.SERVER);
   if (bs != null) {
-    policy.setBufferSize(Integer.parseInt(bs));
+    policy.setInputBufferSize(Integer.parseInt(bs));
   }
   String max=config.getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME);
   if (max != null) {
@@ -11,22 +11,27 @@
   }
   max=config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE);
   if (max != null) {
-    policy.setMaxTextMessageSize(Integer.parseInt(max));
+    policy.setMaxMessageSize(Integer.parseInt(max));
   }
   max=config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE);
   if (max != null) {
-    policy.setMaxBinaryMessageSize(Integer.parseInt(max));
+    policy.setMaxMessageSize(Integer.parseInt(max));
   }
   final WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config.framework());
-  webSocketFactory=new WebSocketServerFactory(policy);
-  webSocketFactory.setCreator(new WebSocketCreator(){
-    @Override public Object createWebSocket(    UpgradeRequest upgradeRequest,    UpgradeResponse upgradeResponse){
-      ServletWebSocketRequest r=ServletWebSocketRequest.class.cast(upgradeRequest);
-      r.getExtensions().clear();
-      return new Jetty9WebSocketHandler(upgradeRequest,config.framework(),webSocketProcessor);
+  webSocketFactory=new WebSocketServerFactory(policy){
+    @Override public boolean acceptWebSocket(    final HttpServletRequest request,    HttpServletResponse response) throws IOException {
+      setCreator(new WebSocketCreator(){
+        @Override public Object createWebSocket(        UpgradeRequest upgradeRequest,        UpgradeResponse upgradeResponse){
+          ServletWebSocketRequest r=ServletWebSocketRequest.class.cast(upgradeRequest);
+          r.getExtensions().clear();
+          return new Jetty9WebSocketHandler(request,config.framework(),webSocketProcessor);
+        }
+      }
+);
+      return super.acceptWebSocket(request,response);
     }
   }
-);
+;
   try {
     webSocketFactory.start();
   }

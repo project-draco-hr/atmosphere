@@ -1,0 +1,21 @@
+{
+  AtmosphereRequest request=resource.getRequest();
+  String method=request.getMethod();
+  Broadcaster b=resource.getBroadcaster();
+  if (method.equalsIgnoreCase("get")) {
+    invoke(onGetMethod,resource);
+  }
+ else   if (method.equalsIgnoreCase("post")) {
+    invoke(onPostMethod,resource);
+  }
+ else   if (method.equalsIgnoreCase("delete")) {
+    invoke(onDeleteMethod,resource);
+  }
+ else   if (method.equalsIgnoreCase("put")) {
+    invoke(onPutMethod,resource);
+  }
+  if (b.equals(resource.getBroadcaster())) {
+    b.removeAtmosphereResource(resource);
+    resource.getBroadcaster().addAtmosphereResource(resource);
+  }
+}

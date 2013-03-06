@@ -1,14 +1,14 @@
 {
   if (destroyed.get()) {
-    throw new IllegalStateException("This Broadcaster has been destroyed and cannot be used");
+    return futureDone(msg);
   }
   subset.retainAll(resources);
   start();
   Object newMsg=filter(msg);
   if (newMsg == null) {
-    return null;
+    return futureDone(msg);
   }
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,subset.size(),broadcasterListeners,this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,subset.size(),this);
   messages.offer(new Entry(newMsg,subset,f,msg));
   return f;
 }

@@ -1,0 +1,21 @@
+{
+  AtmosphereRequest request=r.getRequest();
+  String s=request.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
+  String uuid=request.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
+  if (s != null && uuid != null && s.equalsIgnoreCase(HeaderConfig.DISCONNECT)) {
+    logger.debug("AtmosphereResource {} disconnected",uuid);
+    AtmosphereResource ss=AtmosphereResourceFactory.getDefault().find(uuid);
+    if (ss != null) {
+      ss.notifyListeners(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(r),true,false));
+      try {
+        ss.getRequest().setAttribute(AtmosphereResourceImpl.PRE_SUSPEND,"");
+        AtmosphereResourceImpl.class.cast(ss).cancel();
+      }
+ catch (      IOException e) {
+        logger.trace("",e);
+      }
+    }
+    return Action.CANCELLED;
+  }
+  return Action.CONTINUE;
+}

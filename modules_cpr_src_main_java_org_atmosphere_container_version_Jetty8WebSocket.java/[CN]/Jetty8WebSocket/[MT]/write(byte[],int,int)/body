@@ -1,3 +1,5 @@
 {
+  logger.trace("WebSocket.write() for {}",resource() != null ? resource().uuid() : "");
   connection.sendMessage(b,offset,length);
+  return this;
 }

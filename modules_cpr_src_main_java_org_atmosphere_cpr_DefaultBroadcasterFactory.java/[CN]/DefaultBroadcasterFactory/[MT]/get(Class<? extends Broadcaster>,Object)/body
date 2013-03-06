@@ -5,8 +5,5 @@
   if (c == null) {
     throw new NullPointerException("Class is null");
   }
-  if (store.containsKey(id)) {
-    throw new IllegalStateException("Broadcaster already existing " + id + ". Use BroadcasterFactory.lookup instead");
-  }
-  return lookup(c,id,true);
+  return lookup(c,id,true,true);
 }

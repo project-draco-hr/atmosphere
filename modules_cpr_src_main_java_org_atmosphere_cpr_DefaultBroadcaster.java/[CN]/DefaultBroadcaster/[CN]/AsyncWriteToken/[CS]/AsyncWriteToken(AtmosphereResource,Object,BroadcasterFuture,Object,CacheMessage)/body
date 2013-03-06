@@ -1,0 +1,7 @@
+{
+  this.resource=resource;
+  this.msg=msg;
+  this.future=future;
+  this.originalMessage=originalMessage;
+  this.cache=cache;
+}

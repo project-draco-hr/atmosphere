@@ -1,44 +1,88 @@
 {
-  if (!delegateToNativeResponse || forceAsyncIOWriter) {
+  if (forceAsyncIOWriter || !delegateToNativeResponse) {
     return new ServletOutputStream(){
       @Override public void write(      int i) throws java.io.IOException {
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
-        asyncIOWriter.write(AtmosphereResponse.this,new byte[]{(byte)i});
-        forceAsyncIOWriter=b;
+        try {
+          asyncIOWriter.write(AtmosphereResponse.this,new byte[]{(byte)i});
+        }
+ catch (        IOException e) {
+          handleException(e);
+          throw e;
+        }
+ finally {
+          forceAsyncIOWriter=b;
+        }
       }
       @Override public void write(      byte[] bytes) throws java.io.IOException {
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
-        asyncIOWriter.write(AtmosphereResponse.this,bytes);
-        forceAsyncIOWriter=b;
+        try {
+          asyncIOWriter.write(AtmosphereResponse.this,bytes);
+        }
+ catch (        IOException e) {
+          handleException(e);
+          throw e;
+        }
+ finally {
+          forceAsyncIOWriter=b;
+        }
       }
       @Override public void write(      byte[] bytes,      int start,      int offset) throws java.io.IOException {
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
-        asyncIOWriter.write(AtmosphereResponse.this,bytes,start,offset);
-        forceAsyncIOWriter=b;
+        try {
+          asyncIOWriter.write(AtmosphereResponse.this,bytes,start,offset);
+        }
+ catch (        IOException e) {
+          handleException(e);
+          throw e;
+        }
+ finally {
+          forceAsyncIOWriter=b;
+        }
       }
       @Override public void flush() throws IOException {
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
-        asyncIOWriter.flush(AtmosphereResponse.this);
-        forceAsyncIOWriter=b;
+        try {
+          asyncIOWriter.flush(AtmosphereResponse.this);
+        }
+ catch (        IOException e) {
+          handleException(e);
+          throw e;
+        }
+ finally {
+          forceAsyncIOWriter=b;
+        }
       }
       @Override public void close() throws java.io.IOException {
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
-        asyncIOWriter.close(AtmosphereResponse.this);
-        forceAsyncIOWriter=b;
+        try {
+          asyncIOWriter.close(AtmosphereResponse.this);
+        }
+ catch (        IOException e) {
+          handleException(e);
+          throw e;
+        }
+ finally {
+          forceAsyncIOWriter=b;
+        }
       }
     }
 ;
   }
  else {
-    return _r().getOutputStream();
+    return _r().getOutputStream() != null ? _r().getOutputStream() : new ServletOutputStream(){
+      @Override public void write(      int b) throws IOException {
+      }
+    }
+;
   }
 }

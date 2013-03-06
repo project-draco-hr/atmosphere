@@ -5,7 +5,12 @@
       CometEvent event=(CometEvent)resource.getRequest().getAttribute(COMET_EVENT);
       if (event == null)       return;
       if (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
-        event.close();
+        try {
+          event.close();
+        }
+ catch (        IllegalStateException ex) {
+          logger.trace("event.close",ex);
+        }
       }
     }
  catch (    IOException ex) {

@@ -1,5 +1,5 @@
 {
   logger.trace("onException()",t);
   r.notifyListeners(new AtmosphereResourceEventImpl((AtmosphereResourceImpl)r,true,false));
-  AsynchronousProcessor.destroyResource(r);
+  AtmosphereResourceImpl.class.cast(r)._destroy();
 }

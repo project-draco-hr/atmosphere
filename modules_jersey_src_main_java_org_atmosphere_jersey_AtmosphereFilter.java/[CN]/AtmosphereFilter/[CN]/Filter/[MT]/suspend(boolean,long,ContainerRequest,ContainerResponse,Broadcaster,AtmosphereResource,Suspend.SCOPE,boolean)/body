@@ -15,16 +15,6 @@
   if (bc == null && localScope != Suspend.SCOPE.REQUEST) {
     bc=r.getBroadcaster();
   }
-  if (sessionSupported && localScope != Suspend.SCOPE.REQUEST && servletReq.getSession().getAttribute(SUSPENDED_RESOURCE) != null) {
-    AtmosphereResource cached=(AtmosphereResource)servletReq.getSession().getAttribute(SUSPENDED_RESOURCE);
-    bc=cached.getBroadcaster();
-    try {
-      bc.removeAtmosphereResource(cached);
-    }
- catch (    IllegalStateException ex) {
-      logger.trace(ex.getMessage(),ex);
-    }
-  }
   if (response.getEntity() instanceof Broadcastable) {
     Broadcastable b=(Broadcastable)response.getEntity();
     bc=b.getBroadcaster();

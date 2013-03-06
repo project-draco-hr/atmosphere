@@ -9,6 +9,9 @@
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           response.write(padding,true);
         }
+        @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
+          response.write(padding,true);
+        }
       }
 );
     }

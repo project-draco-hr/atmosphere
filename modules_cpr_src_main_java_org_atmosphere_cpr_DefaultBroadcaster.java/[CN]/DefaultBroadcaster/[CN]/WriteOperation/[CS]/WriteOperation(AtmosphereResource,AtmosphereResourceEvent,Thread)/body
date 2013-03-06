@@ -1,0 +1,5 @@
+{
+  this.r=r;
+  this.e=e;
+  this.ioThread=ioThread;
+}

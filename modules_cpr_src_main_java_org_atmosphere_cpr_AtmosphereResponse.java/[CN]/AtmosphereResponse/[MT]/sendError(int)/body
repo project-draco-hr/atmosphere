@@ -1,5 +1,5 @@
 {
-  if (!delegateToNativeResponse || forceAsyncIOWriter) {
+  if (forceAsyncIOWriter || !delegateToNativeResponse) {
     setStatus(sc);
     boolean b=forceAsyncIOWriter;
     forceAsyncIOWriter=false;

@@ -1,0 +1,12 @@
+{
+  this.config=config;
+  this.name=name;
+  this.shared=config.framework().isShareExecutorServices();
+  if (handleExecutors) {
+    configExecutors();
+  }
+  configureBroadcasterFilter(list);
+  configureBroadcasterCache();
+  configureSharedCacheExecutor();
+  this.handleExecutors=handleExecutors;
+}

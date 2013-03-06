@@ -1,0 +1,6 @@
+{
+  String s=sc.getInitParameter(ApplicationConfig.ANNOTATION_PROCESSOR);
+  if (s != null) {
+    annotationProcessorClassName=s;
+  }
+}

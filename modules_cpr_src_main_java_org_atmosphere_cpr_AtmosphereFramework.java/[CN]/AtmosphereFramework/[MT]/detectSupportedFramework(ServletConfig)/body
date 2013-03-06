@@ -31,7 +31,14 @@
   for (  BroadcasterListener b : broadcasterListeners) {
     broadcasterFactory.addBroadcasterListener(b);
   }
-  Broadcaster b=BroadcasterFactory.getDefault().get(bc,mapping);
+  Broadcaster b;
+  try {
+    b=broadcasterFactory.get(bc,mapping);
+  }
+ catch (  IllegalStateException ex) {
+    logger.warn("Two Broadcaster's named {}. Renaming the second one to {}",mapping,sc.getServletName() + mapping);
+    b=broadcasterFactory.get(bc,sc.getServletName() + mapping);
+  }
   addAtmosphereHandler(mapping,rsp,b);
   return true;
 }

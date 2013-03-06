@@ -3,10 +3,10 @@
     Collection<Broadcaster> c=BroadcasterFactory.getDefault().lookupAll();
     final Map<String,String> m=new HashMap<String,String>();
     List<Broadcaster> l=new ArrayList<Broadcaster>();
-    logger.debug("Map {}",path);
+    logger.trace("Map {}",path);
     UriTemplate t=new UriTemplate(path);
     for (    Broadcaster b : c) {
-      logger.debug("Trying to map {} to {}",t,b.getID());
+      logger.trace("Trying to map {} to {}",t,b.getID());
       if (t.match(b.getID(),m)) {
         l.add(b);
       }

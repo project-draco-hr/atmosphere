@@ -1,3 +1,27 @@
 {
-  asyncWriteQueue.put(new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage));
+  if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
+    if (r.isResumed() || r.isCancelled()) {
+      if (!uuidCache) {
+        trackBroadcastMessage(r,entry);
+      }
+      return;
+    }
+  }
+  AsyncWriteToken w=new AsyncWriteToken(r,finalMsg,entry.future,entry.originalMessage,entry.cache);
+  if (!outOfOrderBroadcastSupported.get()) {
+    WriteQueue writeQueue=writeQueues.get(r.uuid());
+    if (writeQueue == null) {
+      writeQueue=new WriteQueue(r.uuid());
+      writeQueues.put(r.uuid(),writeQueue);
+    }
+    writeQueue.queue.put(w);
+synchronized (writeQueue) {
+      if (!writeQueue.monitored.getAndSet(true)) {
+        bc.getAsyncWriteService().submit(getAsyncWriteHandler(writeQueue));
+      }
+    }
+  }
+ else {
+    uniqueWriteQueue.queue.offer(w);
+  }
 }

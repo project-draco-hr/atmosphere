@@ -1,0 +1,12 @@
+{
+  int port=findFreePort();
+  urlTarget="http://127.0.0.1:" + port + "/invoke";
+  server=new org.eclipse.jetty.server.Server(port);
+  ServletContextHandler context=new ServletContextHandler(ServletContextHandler.SESSIONS);
+  context.setContextPath("/");
+  server.setHandler(context);
+  atmoServlet=new AtmosphereServlet();
+  configureCometSupport();
+  context.addServlet(new org.eclipse.jetty.servlet.ServletHolder(atmoServlet),"/");
+  server.start();
+}

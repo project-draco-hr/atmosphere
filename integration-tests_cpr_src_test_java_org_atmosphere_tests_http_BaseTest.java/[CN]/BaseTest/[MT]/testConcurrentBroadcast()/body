@@ -24,7 +24,7 @@
       }
     }
     public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
-      if (event.isResuming()) {
+      if (event.isResuming() || event.isCancelled()) {
         return;
       }
       PrintWriter writer=event.getResource().getResponse().getWriter();
@@ -63,6 +63,7 @@
     fail(e.getMessage());
   }
  finally {
+    BroadcasterFactory.getDefault().lookup(DefaultBroadcaster.class,"suspend").destroy();
     c.close();
   }
 }

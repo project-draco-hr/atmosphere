@@ -1,6 +1,6 @@
 {
-  if (!force && shared)   return;
-  if (broadcasterCache != null) {
+  if (!force && !handleExecutors)   return;
+  if ((force || !shared) && broadcasterCache != null) {
     broadcasterCache.stop();
   }
   if ((force || !isExecutorShared) && executorService != null) {
@@ -9,13 +9,7 @@
   if ((force || !isAsyncExecutorShared) && asyncWriteService != null) {
     asyncWriteService.shutdownNow();
   }
-  if ((force || !isExecutorShared) && defaultExecutorService != null) {
-    defaultExecutorService.shutdownNow();
-  }
-  if ((force || !isAsyncExecutorShared) && defaultAsyncWriteService != null) {
-    defaultAsyncWriteService.shutdownNow();
-  }
-  if (scheduler != null) {
+  if ((force || !shared) && scheduler != null) {
     scheduler.shutdownNow();
   }
   for (  BroadcastFilter f : filters) {

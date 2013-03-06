@@ -3,12 +3,13 @@
     logger.debug(DESTROYED,getID(),"removeAtmosphereResource(AtmosphereResource r)");
     return this;
   }
+  writeQueues.remove(r.uuid());
   if (executeDone) {
     AtmosphereResourceImpl aImpl=AtmosphereResourceImpl.class.cast(r);
     BroadcasterFuture f=(BroadcasterFuture)aImpl.getRequest(false).getAttribute(getID());
     if (f != null && !f.isDone() && !f.isCancelled()) {
       aImpl.getRequest(false).removeAttribute(getID());
-      f.done();
+      entryDone(f);
     }
   }
   resources.remove(r);
@@ -18,7 +19,7 @@
       releaseExternalResources();
     }
  else     if (scope == SCOPE.REQUEST || lifeCyclePolicy.getLifeCyclePolicy() == EMPTY_DESTROY) {
-      BroadcasterFactory.getDefault().remove(this,name);
+      config.getBroadcasterFactory().remove(this,name);
       destroy();
     }
   }

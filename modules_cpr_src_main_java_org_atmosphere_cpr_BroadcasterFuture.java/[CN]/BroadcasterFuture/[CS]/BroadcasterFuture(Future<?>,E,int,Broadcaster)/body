@@ -1,0 +1,11 @@
+{
+  this.msg=msg;
+  this.innerFuture=innerFuture;
+  this.broadcaster=b;
+  if (innerFuture == null) {
+    latch=new CountDownLatch(latchCount);
+  }
+ else {
+    latch=null;
+  }
+}

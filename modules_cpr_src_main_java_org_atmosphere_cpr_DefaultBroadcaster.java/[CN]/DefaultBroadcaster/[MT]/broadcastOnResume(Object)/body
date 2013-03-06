@@ -1,12 +1,12 @@
 {
   if (destroyed.get()) {
     logger.debug(DESTROYED,getID(),"broadcastOnResume(T msg)");
-    return (new BroadcasterFuture<Object>(msg,broadcasterListeners,this)).done();
+    return futureDone(msg);
   }
   start();
   Object newMsg=filter(msg);
-  if (newMsg == null)   return (new BroadcasterFuture<Object>(msg,broadcasterListeners,this)).done();
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,resources.size(),broadcasterListeners,this);
+  if (newMsg == null)   return futureDone(msg);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,resources.size(),this);
   broadcastOnResume.offer(new Entry(newMsg,null,f,msg));
   return f;
 }

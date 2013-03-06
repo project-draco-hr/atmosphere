@@ -40,7 +40,7 @@
         broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
         BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
       }
-      b=BroadcasterFactory.getDefault().lookup(atmoHandler.getContextRoot(),true);
+      b=broadcasterFactory.lookup(atmoHandler.getContextRoot(),true);
       AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler,b);
       addMapping(atmoHandler.getContextRoot(),wrapper);
       String bc=atmoHandler.getBroadcasterCache();
@@ -58,7 +58,6 @@
         for (        String a : atmoHandler.getAtmosphereInterceptorClasses()) {
           try {
             AtmosphereInterceptor ai=(AtmosphereInterceptor)c.loadClass(a).newInstance();
-            ai.configure(config);
             l.add(ai);
           }
  catch (          Throwable e) {

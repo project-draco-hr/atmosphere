@@ -1,0 +1,21 @@
+{
+  config=new AtmosphereFramework().addInitParameter("org.atmosphere.cpr.Broadcaster.writeTimeout","2000").addInitParameter("com.sun.jersey.config.property.packages","org.atmosphere.jersey").addInitParameter("org.atmosphere.useStream","true").addInitParameter("org.atmosphere.disableOnStateEvent","true").init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return Collections.enumeration(new ArrayList<String>());
+    }
+  }
+).getAtmosphereConfig();
+  DefaultBroadcasterFactory factory=new F(J.class,"NEVER",config);
+  config.framework().setBroadcasterFactory(factory);
+  broadcaster=(J)factory.get("test");
+  atmosphereHandler=new ReflectorServletProcessor(new ServletContainer());
+}

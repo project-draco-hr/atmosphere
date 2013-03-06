@@ -1,7 +1,9 @@
 {
-  f.countDown();
-  for (  BroadcasterListener l : broadcasterListeners) {
-    l.onComplete(b);
-  }
   b.removeBroadcasterListener(this);
+  f.countDown();
+  if (f.isDone()) {
+    for (    BroadcasterListener l : broadcasterListeners) {
+      l.onComplete(b);
+    }
+  }
 }

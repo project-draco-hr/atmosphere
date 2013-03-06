@@ -1,4 +1,4 @@
 {
-  AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(mock(AtmosphereConfig.class),mock(Broadcaster.class),AtmosphereResponse.create().request(AtmosphereRequest.create()),mock(AsyncSupport.class),mock(AtmosphereHandler.class));
+  AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(mock(AtmosphereConfig.class),mock(Broadcaster.class),AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class));
   assertNotNull(r);
 }

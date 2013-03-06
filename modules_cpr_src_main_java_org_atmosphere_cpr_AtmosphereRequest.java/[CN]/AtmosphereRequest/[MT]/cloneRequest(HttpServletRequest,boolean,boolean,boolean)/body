@@ -1,6 +1,11 @@
 {
   Builder b;
   HttpServletRequest r;
+  Cookie[] cs=request.getCookies();
+  Set<Cookie> hs=new HashSet();
+  for (  Cookie c : cs) {
+    hs.add(c);
+  }
   boolean isWrapped=false;
   if (AtmosphereRequest.class.isAssignableFrom(request.getClass())) {
     b=AtmosphereRequest.class.cast(request).b;
@@ -10,7 +15,7 @@
     b=new Builder();
     b.request(request);
   }
-  b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).destroyable(isDestroyable).session(copySession ? new FakeHttpSession(request.getSession(true)) : null);
+  b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).remoteAddr(request.getRemoteAddr()).remoteHost(request.getRemoteHost()).remotePort(request.getRemotePort()).destroyable(isDestroyable).cookies(hs).session(copySession ? new FakeHttpSession(request.getSession(true)) : null);
   if (loadInMemory) {
     r=new NoOpsRequest();
     if (isWrapped) {
@@ -21,11 +26,5 @@
     }
     b.request(r);
   }
-  Cookie[] cs=request.getCookies();
-  Set<Cookie> hs=new HashSet();
-  for (  Cookie c : cs) {
-    hs.add(c);
-  }
-  b.cookies(hs);
   return isWrapped ? AtmosphereRequest.class.cast(request) : b.build();
 }

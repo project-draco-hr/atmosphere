@@ -1,4 +1,0 @@
-Future<?> innerFuture
-E msg
-CopyOnWriteArrayList<BroadcasterListener> listeners
-Broadcaster b

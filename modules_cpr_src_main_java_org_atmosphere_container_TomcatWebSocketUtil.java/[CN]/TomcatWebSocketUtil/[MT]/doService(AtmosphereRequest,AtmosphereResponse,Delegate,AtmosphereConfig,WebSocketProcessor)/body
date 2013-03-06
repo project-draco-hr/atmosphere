@@ -17,6 +17,11 @@
     if (key == null) {
       return delegate.doService(req,res);
     }
+    String requireSameOrigin=config.getInitParameter(ApplicationConfig.WEBSOCKET_REQUIRE_SAME_ORIGIN);
+    if (Boolean.valueOf(requireSameOrigin) && !verifyOrigin(req)) {
+      res.sendError(HttpServletResponse.SC_FORBIDDEN,"Origin header does not match expected value");
+      return new Action(Action.TYPE.CANCELLED);
+    }
     res.setHeader("Upgrade","websocket");
     res.setHeader("Connection","upgrade");
     res.setHeader("Sec-WebSocket-Accept",getWebSocketAccept(key));

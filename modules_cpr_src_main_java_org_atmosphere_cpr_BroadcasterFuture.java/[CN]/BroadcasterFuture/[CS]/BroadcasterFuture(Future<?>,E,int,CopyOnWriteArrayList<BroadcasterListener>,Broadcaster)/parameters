@@ -1,5 +1,0 @@
-Future<?> innerFuture
-E msg
-int latchCount
-CopyOnWriteArrayList<BroadcasterListener> listeners
-Broadcaster b

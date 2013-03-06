@@ -1,3 +1,4 @@
 {
   blockingConnection.write(s);
+  return this;
 }

@@ -1,0 +1,6 @@
+{
+  broadcaster.removeAtmosphereResource(ar);
+  broadcaster.getBroadcasterConfig().addFilter(new VoidAtmosphereResource("1"));
+  String s=(String)broadcaster.broadcast("0").get();
+  assertEquals(s,"01");
+}

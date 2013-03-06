@@ -1,0 +1,7 @@
+{
+  messages.offer(e);
+  if (dispatchThread.get() == 0) {
+    dispatchThread.incrementAndGet();
+    getBroadcasterConfig().getExecutorService().submit(getBroadcastHandler());
+  }
+}

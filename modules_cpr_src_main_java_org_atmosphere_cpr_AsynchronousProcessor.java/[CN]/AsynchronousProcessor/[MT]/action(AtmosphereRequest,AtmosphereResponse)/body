@@ -18,9 +18,18 @@
   }
   req.setAttribute(FrameworkConfig.SUPPORT_SESSION,supportSession());
   AtmosphereHandlerWrapper handlerWrapper=mapper.map(req,config.handlers());
+  if (handlerWrapper == null) {
+    logger.debug("No AtmosphereHandler maps request for {} with mapping {}",req.getPathInfo(),config.handlers());
+    throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + req.getPathInfo());
+  }
+  if (config.getBroadcasterFactory() == null) {
+    logger.error("Atmosphere is misconfigured and will not work. BroadcasterFactory is null");
+    return Action.CANCELLED;
+  }
+  config.getBroadcasterFactory().add(handlerWrapper.broadcaster,handlerWrapper.broadcaster.getID());
   Broadcaster b=handlerWrapper.broadcaster;
   if (b.isDestroyed()) {
-    BroadcasterFactory f=BroadcasterFactory.getDefault();
+    BroadcasterFactory f=config.getBroadcasterFactory();
 synchronized (f) {
       f.remove(b,b.getID());
       try {
@@ -68,5 +77,7 @@ synchronized (f) {
     req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     aliveRequests.put(req,resource);
   }
-  return resource.action();
+  Action action=resource.action();
+  logger.trace("Action for {} was {}",req.resource() != null ? req.resource().uuid() : "null",action);
+  return action;
 }

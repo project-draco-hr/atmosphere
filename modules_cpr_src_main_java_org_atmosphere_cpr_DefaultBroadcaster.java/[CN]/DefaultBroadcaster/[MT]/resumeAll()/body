@@ -7,6 +7,9 @@ synchronized (resources) {
  catch (      Throwable t) {
         logger.trace("resumeAll",t);
       }
+ finally {
+        removeAtmosphereResource(r);
+      }
     }
   }
 }

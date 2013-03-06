@@ -1,0 +1,5 @@
+{
+  factory.lookup("/atmosphere",true);
+  factory.lookup("/atmosphere",true);
+  assertEquals(factory.lookupAll().size(),1);
+}

@@ -1,8 +1,0 @@
-{
-  Broadcaster broadcaster=BroadcasterFactory.getDefault().lookup(JerseyBroadcaster.class,topic,true);
-  logger.info("thread: {} PUBLISH to '{}' from {}: {}",new Object[]{Thread.currentThread().getName(),broadcaster.getID(),from,message});
-  if (service == null) {
-    throw new AssertionError();
-  }
-  return new Broadcastable(new JSONObject().put("from",from).put("msg",message),"",broadcaster);
-}

@@ -1,6 +1,6 @@
 {
   logger.trace("onMessage {} ",w);
   if (webSocketProcessor != null) {
-    webSocketProcessor.invokeWebSocketProtocol(webSocket,text);
+    webSocketProcessor.invokeWebSocketProtocol(w(w),text);
   }
 }

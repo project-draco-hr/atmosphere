@@ -1,4 +1,0 @@
-{
-  logger.trace("Unsupported");
-  return "ISO-8859-1";
-}

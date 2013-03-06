@@ -1,22 +1,26 @@
 {
   super.onConnect(w);
-  webSocket=new GrizzlyWebSocket(w,config);
+  org.atmosphere.websocket.WebSocket webSocket=new GrizzlyWebSocket(w,config);
   if (!DefaultWebSocket.class.isAssignableFrom(w.getClass())) {
     throw new IllegalStateException();
   }
   DefaultWebSocket dws=DefaultWebSocket.class.cast(w);
+  wMap.put(w,webSocket);
   try {
     AtmosphereRequest r=AtmosphereRequest.wrap(dws.getRequest());
+    AtmosphereResponse response=AtmosphereResponse.newInstance(config,r,webSocket);
+    config.framework().configureRequestResponse(r,response);
     try {
-      if (r.getPathInfo().startsWith(r.getContextPath())) {
-        r.servletPath(r.getPathInfo().substring(r.getContextPath().length()));
-        r.pathInfo(null);
+      if (r.getPathInfo() == null) {
+        String uri=r.getRequestURI();
+        String pathInfo=uri.substring(uri.indexOf(r.getServletPath()) + r.getServletPath().length());
+        r.pathInfo(pathInfo);
       }
     }
  catch (    Exception e) {
       logger.trace("",e);
     }
-    webSocketProcessor.open(webSocket,r);
+    webSocketProcessor.open(webSocket,r,response);
   }
  catch (  Exception e) {
     logger.warn("failed to connect to web socket",e);

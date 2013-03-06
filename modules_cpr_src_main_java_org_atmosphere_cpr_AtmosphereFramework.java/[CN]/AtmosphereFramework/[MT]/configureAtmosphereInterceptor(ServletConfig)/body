@@ -5,7 +5,6 @@
     for (    String a : list) {
       try {
         AtmosphereInterceptor ai=(AtmosphereInterceptor)Thread.currentThread().getContextClassLoader().loadClass(a.trim()).newInstance();
-        ai.configure(config);
         interceptor(ai);
       }
  catch (      InstantiationException e) {
@@ -22,11 +21,14 @@ catch (      ClassNotFoundException e) {
   logger.info("Installing Default AtmosphereInterceptor");
   s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   if (s == null) {
+    interceptors.addFirst(newAInterceptor(OnDisconnectInterceptor.class));
+    interceptors.addFirst(newAInterceptor(JavaScriptProtocol.class));
     interceptors.addFirst(newAInterceptor(JSONPAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(SSEAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(AndroidAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(StreamingAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(DefaultHeadersInterceptor.class));
+    logger.info("Set org.atmosphere.cpr.AtmosphereInterceptor.disableDefaults in your xml to disable them.",interceptors);
   }
-  logger.info("Set org.atmosphere.cpr.AtmosphereInterceptor.disableDefaults in your xml to disable them.");
+  initInterceptors();
 }

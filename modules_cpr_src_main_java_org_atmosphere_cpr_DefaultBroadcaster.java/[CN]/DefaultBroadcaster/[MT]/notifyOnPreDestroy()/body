@@ -3,8 +3,13 @@
     try {
       l.onPreDestroy(this);
     }
- catch (    Exception ex) {
+ catch (    RuntimeException ex) {
+      if (BroadcasterListener.BroadcastListenerException.class.isAssignableFrom(ex.getClass())) {
+        logger.trace("onPreDestroy",ex);
+        return true;
+      }
       logger.warn("onPreDestroy",ex);
     }
   }
+  return false;
 }

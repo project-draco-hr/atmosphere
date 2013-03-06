@@ -1,5 +1,5 @@
 {
-  reaper.scheduleAtFixedRate(new Runnable(){
+  scheduledFuture=reaper.scheduleAtFixedRate(new Runnable(){
     public void run(){
       readWriteLock.writeLock().lock();
       try {
@@ -20,5 +20,5 @@
       }
     }
   }
-,0,invalidateCacheInterval,TimeUnit.MINUTES);
+,0,invalidateCacheInterval,TimeUnit.MILLISECONDS);
 }

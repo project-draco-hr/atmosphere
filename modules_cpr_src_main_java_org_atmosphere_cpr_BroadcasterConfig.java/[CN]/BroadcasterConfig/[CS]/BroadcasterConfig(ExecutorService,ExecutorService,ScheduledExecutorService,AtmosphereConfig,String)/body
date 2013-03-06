@@ -1,0 +1,9 @@
+{
+  this.executorService=executorService;
+  this.scheduler=scheduler;
+  this.asyncWriteService=asyncWriteService;
+  this.config=config;
+  this.name=name;
+  this.handleExecutors=true;
+  this.shared=config.framework().isShareExecutorServices();
+}

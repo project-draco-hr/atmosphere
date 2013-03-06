@@ -1,0 +1,25 @@
+{
+  final AtomicReference<AtmosphereResource> r=new AtomicReference<AtmosphereResource>();
+  final AtomicReference<String> q=new AtomicReference<String>();
+  framework.addAtmosphereHandler("/*",new AtmosphereHandler(){
+    @Override public void onRequest(    AtmosphereResource resource) throws IOException {
+      r.set(resource);
+      q.set(resource.getRequest().getQueryString());
+      resource.getBroadcaster().addAtmosphereResource(resource);
+    }
+    @Override public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
+    }
+    @Override public void destroy(){
+    }
+  }
+);
+  Map<String,String[]> queryStrings=new HashMap<String,String[]>();
+  queryStrings.put("a",new String[]{"b"});
+  queryStrings.put("b",new String[]{"d"});
+  queryStrings.put("c",new String[]{"f"});
+  AtmosphereRequest request=new AtmosphereRequest.Builder().queryStrings(queryStrings).pathInfo("/a").build();
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  r.get().getBroadcaster().broadcast("yo").get();
+  assertNotNull(q.get());
+  assertEquals(q.get(),"b=d&c=f&a=b");
+}

@@ -1,4 +1,5 @@
 {
+  if (isInit)   return this;
   try {
     ServletContextHolder.register(this);
     ServletConfig scFacade=new ServletConfig(){
@@ -29,6 +30,7 @@
 ;
     this.servletConfig=scFacade;
     asyncSupportListener(new AsyncSupportListenerAdapter());
+    installAnnotationProcessor(scFacade);
     autoConfigureService(scFacade.getServletContext());
     patchContainer();
     doInitParams(scFacade);
@@ -36,13 +38,14 @@
     configureBroadcaster();
     loadConfiguration(scFacade);
     initWebSocket();
+    initEndpointMapper();
     autoDetectContainer();
     configureWebDotXmlAtmosphereHandler(sc);
     asyncSupport.init(scFacade);
     initAtmosphereHandler(scFacade);
     configureAtmosphereInterceptor(sc);
     if (broadcasterCacheClassName == null) {
-      logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. " + "It is recommended to configure the HeaderBroadcasterCache.");
+      logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. " + "It is recommended to configure the {}",UUIDBroadcasterCache.class.getName());
     }
  else {
       logger.info("Using BroadcasterCache: {}",broadcasterCacheClassName);
@@ -50,35 +53,20 @@
     if (sc.getServletContext() != null) {
       sc.getServletContext().setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
     }
-    boolean found=false;
-    for (    AtmosphereInterceptor i : interceptors) {
-      if (i.getClass().isAssignableFrom(TrackMessageSizeInterceptor.class)) {
-        found=true;
-        break;
-      }
-    }
-    for (    Entry<String,AtmosphereHandlerWrapper> e : atmosphereHandlers.entrySet()) {
-      for (      AtmosphereInterceptor i : e.getValue().interceptors) {
-        if (i.getClass().isAssignableFrom(TrackMessageSizeInterceptor.class)) {
-          found=true;
-          break;
-        }
-      }
-    }
     for (    String i : broadcasterFilters) {
-      if (i.equals(TrackMessageSizeFilter.class.getName())) {
-        found=true;
-        break;
-      }
+      logger.info("Using BroadcastFilter: {}",i);
     }
-    if (!found) {
-      logger.warn("Neither TrackMessageSizeInterceptor or TrackMessageSizeFilter are installed." + " atmosphere.js may receive glued and incomplete message.");
+    String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
+    if (s != null) {
+      sharedThreadPools=Boolean.parseBoolean(s);
     }
+    logger.info("Shared ExecutorService supported: {}",sharedThreadPools);
     logger.info("HttpSession supported: {}",config.isSupportSession());
-    logger.info("Using BroadcasterFactory: {}",BroadcasterFactory.getDefault().getClass().getName());
+    logger.info("Using BroadcasterFactory: {}",broadcasterFactory.getClass().getName());
     logger.info("Using WebSocketProcessor: {}",webSocketProcessorClassName);
     logger.info("Using Broadcaster: {}",broadcasterClassName);
     logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
+    logger.info("\n\n\tFor Commercial Support, visit \n\t{} " + "or send an email to {}\n","http://www.async-io.org/","support@async-io.org");
   }
  catch (  Throwable t) {
     logger.error("Failed to initialize Atmosphere Framework",t);
@@ -87,5 +75,6 @@
     }
     throw new ServletException(t);
   }
+  isInit=true;
   return this;
 }

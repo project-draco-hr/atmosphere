@@ -13,7 +13,7 @@
   }
   if (am.isAnnotationPresent(Broadcast.class)) {
     int delay=am.getAnnotation(Broadcast.class).delay();
-    Class[] broadcastFilter=am.getAnnotation(Broadcast.class).value();
+    Class[] broadcastFilter=am.getAnnotation(Broadcast.class).filters();
     if (am.getAnnotation(Broadcast.class).resumeOnBroadcast()) {
       f=new Filter(Action.RESUME_ON_BROADCAST,delay,0,Suspend.SCOPE.APPLICATION,broadcastFilter,null,am.getAnnotation(Broadcast.class).writeEntity());
     }
@@ -40,7 +40,7 @@
     int suspendTimeout=am.getAnnotation(Asynchronous.class).period();
     Class[] broadcastFilter=am.getAnnotation(Asynchronous.class).broadcastFilter();
     boolean wait=am.getAnnotation(Asynchronous.class).waitForResource();
-    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,broadcastFilter,am.getAnnotation(Asynchronous.class).header(),am.getAnnotation(Asynchronous.class).writeEntity());
+    f=new Filter(Action.ASYNCHRONOUS,suspendTimeout,wait ? -1 : 0,null,broadcastFilter,am.getAnnotation(Asynchronous.class).header(),am.getAnnotation(Asynchronous.class).writeEntity(),am.getAnnotation(Asynchronous.class).contentType());
     f.setListeners(am.getAnnotation(Asynchronous.class).eventListeners());
     list.addFirst(f);
   }

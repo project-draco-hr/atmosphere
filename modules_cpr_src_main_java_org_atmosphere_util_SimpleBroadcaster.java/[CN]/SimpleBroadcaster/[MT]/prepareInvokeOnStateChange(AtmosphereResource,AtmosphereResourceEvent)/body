@@ -1,0 +1,6 @@
+{
+  if (writeTimeoutInSecond != -1) {
+    logger.warn("{} not supported with this broadcaster.",ApplicationConfig.WRITE_TIMEOUT);
+  }
+  invokeOnStateChange(r,e);
+}

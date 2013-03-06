@@ -1,0 +1,4 @@
+{
+  logger.trace("WebSocket.onBynaryStream");
+  webSocketProcessor.invokeWebSocketProtocol(webSocket,is);
+}

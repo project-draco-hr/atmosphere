@@ -1,0 +1,12 @@
+{
+  try {
+    e.getBroadcaster().broadcast("test").get();
+    e.getBroadcaster().destroy();
+  }
+ catch (  InterruptedException e1) {
+    e1.printStackTrace();
+  }
+catch (  ExecutionException e1) {
+    e1.printStackTrace();
+  }
+}

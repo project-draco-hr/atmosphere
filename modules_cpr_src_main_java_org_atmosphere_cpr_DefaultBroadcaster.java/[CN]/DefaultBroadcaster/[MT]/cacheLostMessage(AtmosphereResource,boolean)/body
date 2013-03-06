@@ -1,0 +1,3 @@
+{
+  cacheLostMessage(r,(AsyncWriteToken)AtmosphereResourceImpl.class.cast(r).getRequest(false).getAttribute(ASYNC_TOKEN),force);
+}

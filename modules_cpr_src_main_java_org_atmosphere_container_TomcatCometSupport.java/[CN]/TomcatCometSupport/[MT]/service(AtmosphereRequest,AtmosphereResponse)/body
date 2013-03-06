@@ -17,13 +17,17 @@
         req.setAttribute(SUSPENDED,true);
       }
  catch (      UnsupportedOperationException ex) {
+        logger.trace("Warning: CometEvent.setTimeout not supported on this Tomcat instance. " + " [The Tomcat native connector does not support timeouts on asynchronous I/O.]");
       }
-    }
- else     if (action.type() == Action.TYPE.RESUME) {
-      event.close();
+      req.setAttribute(SUSPENDED,true);
     }
  else {
-      event.close();
+      try {
+        event.close();
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace("event.close",ex);
+      }
     }
   }
  else   if (event.getEventType() == EventType.READ) {
@@ -33,22 +37,45 @@
       req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
-    event.close();
+    try {
+      event.close();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("event.close",ex);
+    }
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.TIMEOUT) {
     action=timedout(req,res);
-    event.close();
+    try {
+      event.close();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("event.close",ex);
+    }
   }
  else   if (event.getEventType() == EventType.ERROR) {
-    event.close();
+    try {
+      event.close();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("event.close",ex);
+    }
   }
  else   if (event.getEventType() == EventType.END) {
-    if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
+    if (req.resource() != null && req.resource().isResumed()) {
+      AtmosphereResourceImpl.class.cast(req.resource()).cancel();
+    }
+ else     if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
       req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
  else {
-      event.close();
+      try {
+        event.close();
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace("event.close",ex);
+      }
     }
   }
   return action;

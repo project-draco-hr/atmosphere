@@ -3,23 +3,27 @@
   boolean lostCandidate=false;
   final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
-  r.getRequest().setAttribute(getID(),token.future);
   try {
     event.setMessage(token.msg);
+    BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
+    if (uuidCache) {
+      UUIDBroadcasterCache.class.cast(broadcasterCache).clearCache(getID(),r,token.cache);
+    }
     if (!isAtmosphereResourceValid(r)) {
       removeAtmosphereResource(r);
       lostCandidate=true;
       return;
     }
     try {
+      r.getRequest().setAttribute(getID(),token.future);
       r.getRequest().setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     }
  catch (    Throwable t) {
-      logger.warn("Invalid AtmosphereResource state {}. The connection has been remotely" + " closed and will be added to the configured BroadcasterCache for later retrieval",event);
+      logger.warn("Invalid AtmosphereResource state {}. The connection has been remotely" + " closed and message {} will be added to the configured BroadcasterCache for later retrieval",r.uuid(),event.getMessage());
       logger.trace("If you are using Tomcat 7.0.22 and lower, your most probably hitting http://is.gd/NqicFT");
       logger.trace("",t);
       removeAtmosphereResource(r,false);
-      BroadcasterFactory.getDefault().removeAllAtmosphereResource(r);
+      config.getBroadcasterFactory().removeAllAtmosphereResource(r);
       event.setCancelled(true);
       event.setThrowable(t);
       r.setIsInScope(false);
@@ -27,17 +31,15 @@
       return;
     }
     r.getRequest().setAttribute(ASYNC_TOKEN,token);
-    invokeOnStateChange(r,event);
+    prepareInvokeOnStateChange(r,event);
   }
   finally {
     if (notifyListeners) {
       r.notifyListeners();
     }
-    if (token.future != null) {
-      token.future.done();
-    }
+    entryDone(token.future);
     if (lostCandidate) {
-      cacheLostMessage(r,token);
+      cacheLostMessage(r,token,true);
     }
     token.destroy();
   }

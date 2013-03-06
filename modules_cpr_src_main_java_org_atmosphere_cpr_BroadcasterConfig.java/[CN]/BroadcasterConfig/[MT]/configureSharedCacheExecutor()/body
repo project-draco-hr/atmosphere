@@ -1,0 +1,9 @@
+{
+  if (!shared)   return;
+  if (AbstractBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+    AbstractBroadcasterCache.class.cast(broadcasterCache).setReaper(scheduler);
+  }
+ else   if (UUIDBroadcasterCache.class.isAssignableFrom(broadcasterCache.getClass())) {
+    UUIDBroadcasterCache.class.cast(broadcasterCache).setExecutorService(scheduler);
+  }
+}
