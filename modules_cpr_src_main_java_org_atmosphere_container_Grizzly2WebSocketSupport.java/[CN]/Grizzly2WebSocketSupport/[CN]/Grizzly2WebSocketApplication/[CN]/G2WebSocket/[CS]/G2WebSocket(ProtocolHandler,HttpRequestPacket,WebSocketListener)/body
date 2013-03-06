@@ -2,7 +2,7 @@
   super(protocolHandler,request,listeners);
   Request req=Request.create();
   Response res=req.getResponse();
-  req.initialize(request,protocolHandler.getFilterChainContext(),null);
+  req.initialize(request,protocolHandler.getFilterChainContext(),getHttpServerFilterFromChain(protocolHandler.getFilterChainContext().getFilterChain()));
   res.initialize(req,request.getResponse(),protocolHandler.getFilterChainContext(),null,null);
   servletRequest=HttpServletRequestImpl.create();
   servletResponse=HttpServletResponseImpl.create();
