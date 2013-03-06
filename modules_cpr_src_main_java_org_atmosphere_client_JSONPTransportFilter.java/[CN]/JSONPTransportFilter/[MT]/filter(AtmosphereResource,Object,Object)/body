@@ -1,4 +1,0 @@
-{
-  logger.warn(getClass().getName() + " is deprecated and not required anymore");
-  return new BroadcastAction(message);
-}
