@@ -2,7 +2,7 @@
   URL url=sc.getServletContext().getResource("/WEB-INF/lib/");
   URLClassLoader urlC=new URLClassLoader(new URL[]{url},Thread.currentThread().getContextClassLoader());
   loadServlet(sc,urlC);
-  if (filters.isEmpty()) {
+  if (!filters.isEmpty()) {
     loadFilterInstances(sc);
   }
  else {
