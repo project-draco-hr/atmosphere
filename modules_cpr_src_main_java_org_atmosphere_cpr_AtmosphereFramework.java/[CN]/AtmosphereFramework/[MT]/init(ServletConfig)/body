@@ -30,6 +30,7 @@
 ;
     this.servletConfig=scFacade;
     asyncSupportListener(new AsyncSupportListenerAdapter());
+    configureScanningPackage(sc);
     installAnnotationProcessor(scFacade);
     autoConfigureService(scFacade.getServletContext());
     patchContainer();
