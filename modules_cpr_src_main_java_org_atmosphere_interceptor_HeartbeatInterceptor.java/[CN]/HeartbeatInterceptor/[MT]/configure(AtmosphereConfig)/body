@@ -3,4 +3,5 @@
   if (s != null) {
     heartbeatFrequencyInSeconds=Integer.valueOf(s);
   }
+  heartBeat=ExecutorsFactory.getScheduler(config);
 }
