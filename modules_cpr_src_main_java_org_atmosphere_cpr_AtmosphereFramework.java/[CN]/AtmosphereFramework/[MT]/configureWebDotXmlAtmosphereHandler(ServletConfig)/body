@@ -5,7 +5,7 @@
     try {
       String mapping=sc.getInitParameter(ATMOSPHERE_HANDLER_MAPPING);
       if (mapping == null) {
-        mapping="/*";
+        mapping=ROOT;
       }
       addAtmosphereHandler(mapping,(AtmosphereHandler)cl.loadClass(s).newInstance());
     }

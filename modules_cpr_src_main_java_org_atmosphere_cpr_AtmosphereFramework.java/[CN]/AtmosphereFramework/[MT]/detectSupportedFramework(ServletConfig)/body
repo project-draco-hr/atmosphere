@@ -27,7 +27,10 @@
   initParams.put(DISABLE_ONSTATE_EVENT,"true");
   String mapping=sc.getInitParameter(PROPERTY_SERVLET_MAPPING);
   if (mapping == null) {
-    mapping="/*";
+    mapping=sc.getInitParameter(ATMOSPHERE_HANDLER_MAPPING);
+    if (mapping == null) {
+      mapping=ROOT;
+    }
   }
   Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
   broadcasterFactory.destroy();
