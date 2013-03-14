@@ -20,7 +20,7 @@
         return Collections.enumeration(initParams.values());
       }
     }
-);
+,false);
   }
  catch (  ServletException e) {
     logger.error("",e);
