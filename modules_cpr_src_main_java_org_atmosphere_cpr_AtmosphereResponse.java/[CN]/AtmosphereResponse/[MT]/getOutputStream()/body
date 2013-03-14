@@ -2,6 +2,7 @@
   if (forceAsyncIOWriter || !delegateToNativeResponse) {
     return new ServletOutputStream(){
       @Override public void write(      int i) throws java.io.IOException {
+        if (asyncIOWriter == null)         return;
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
@@ -17,6 +18,7 @@
         }
       }
       @Override public void write(      byte[] bytes) throws java.io.IOException {
+        if (asyncIOWriter == null)         return;
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
@@ -32,6 +34,7 @@
         }
       }
       @Override public void write(      byte[] bytes,      int start,      int offset) throws java.io.IOException {
+        if (asyncIOWriter == null)         return;
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
@@ -47,6 +50,7 @@
         }
       }
       @Override public void flush() throws IOException {
+        if (asyncIOWriter == null)         return;
         writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
@@ -62,6 +66,7 @@
         }
       }
       @Override public void close() throws java.io.IOException {
+        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
         try {

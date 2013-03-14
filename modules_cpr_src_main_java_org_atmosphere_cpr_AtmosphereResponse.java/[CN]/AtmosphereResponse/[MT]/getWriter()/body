@@ -2,6 +2,7 @@
   if (forceAsyncIOWriter || !delegateToNativeResponse) {
     return new PrintWriter(getOutputStream()){
       @Override public void write(      char[] chars,      int offset,      int lenght){
+        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
           writeStatusAndHeaders();
@@ -16,6 +17,7 @@
         }
       }
       @Override public void write(      char[] chars){
+        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
           writeStatusAndHeaders();
@@ -30,6 +32,7 @@
         }
       }
       @Override public void write(      String s,      int offset,      int lenght){
+        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
           writeStatusAndHeaders();
@@ -44,6 +47,7 @@
         }
       }
       @Override public void write(      String s){
+        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
           writeStatusAndHeaders();
@@ -58,6 +62,7 @@
         }
       }
       @Override public void flush(){
+        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
           writeStatusAndHeaders();
@@ -72,6 +77,7 @@
         }
       }
       @Override public void close(){
+        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
         try {
