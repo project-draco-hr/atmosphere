@@ -1,0 +1,4 @@
+{
+  methods.put(method,m);
+  return this;
+}

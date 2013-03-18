@@ -7,8 +7,7 @@
       @Override public ServletContext getServletContext(){
         return (ServletContext)Proxy.newProxyInstance(getClass().getClassLoader(),new Class[]{ServletContext.class},new InvocationHandler(){
           @Override public Object invoke(          Object proxy,          Method method,          Object[] args) throws Throwable {
-            logger.trace("Method {} not supported",method.getName());
-            return null;
+            return ServletProxyFactory.getDefault().proxy(proxy,method,args);
           }
         }
 );

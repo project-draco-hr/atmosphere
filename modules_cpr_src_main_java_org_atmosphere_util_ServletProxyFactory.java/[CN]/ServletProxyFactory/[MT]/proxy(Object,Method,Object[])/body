@@ -1,0 +1,9 @@
+{
+  MethodHandler m=methods.get(method.getName());
+  if (m != null) {
+    logger.trace("Method {} handled by MethodHandler {}",method.getName(),m);
+    return m.handle(clazz,method,methodObjects);
+  }
+  logger.trace("Method {} not supported",method.getName());
+  return null;
+}

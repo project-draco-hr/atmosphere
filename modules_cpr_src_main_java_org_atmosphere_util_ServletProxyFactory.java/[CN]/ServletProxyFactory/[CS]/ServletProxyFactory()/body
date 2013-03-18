@@ -1,0 +1,3 @@
+{
+  addMethodHandler("encodeURL",voidMethodHandler).addMethodHandler("encodeRedirectURL",voidMethodHandler);
+}
