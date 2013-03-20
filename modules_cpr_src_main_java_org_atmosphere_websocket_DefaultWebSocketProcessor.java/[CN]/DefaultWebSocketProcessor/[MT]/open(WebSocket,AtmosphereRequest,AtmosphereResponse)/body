@@ -15,8 +15,8 @@
       logger.debug("No WebSocketHandler maps request for {} with mapping {}",request.getRequestURI(),handlers);
       throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + request.getRequestURI());
     }
-    handler.onOpen(webSocket);
     webSocket.webSocketHandler(handler).resource().suspend(-1);
+    handler.onOpen(webSocket);
   }
   request.removeAttribute(INJECTED_ATMOSPHERE_RESOURCE);
   if (webSocket.resource() != null) {
