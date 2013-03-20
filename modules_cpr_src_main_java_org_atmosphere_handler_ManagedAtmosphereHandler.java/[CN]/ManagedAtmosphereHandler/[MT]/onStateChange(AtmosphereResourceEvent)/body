@@ -11,5 +11,8 @@
     if (m != null) {
       event.getResource().getResponse().write(m.toString());
     }
+ else     if (onMessageMethod == null) {
+      event.getResource().getResponse().write((String)event.getMessage());
+    }
   }
 }
