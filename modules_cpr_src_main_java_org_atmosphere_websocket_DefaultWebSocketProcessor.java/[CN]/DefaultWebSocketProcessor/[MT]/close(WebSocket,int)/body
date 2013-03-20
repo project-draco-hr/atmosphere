@@ -12,6 +12,9 @@
     try {
       webSocketProtocol.onClose(webSocket);
       if (resource != null && resource.isInScope()) {
+        if (webSocketHandler != null) {
+          webSocketHandler.onClose(webSocket);
+        }
         AsynchronousProcessor.AsynchronousProcessorHook h=(AsynchronousProcessor.AsynchronousProcessorHook)r.getAttribute(ASYNCHRONOUS_HOOK);
         if (!resource.isCancelled()) {
           if (h != null) {
@@ -25,9 +28,6 @@
  else           if (webSocketHandler == null) {
             logger.warn("AsynchronousProcessor.AsynchronousProcessorHook was null");
           }
-        }
-        if (webSocketHandler != null) {
-          webSocketHandler.onClose(webSocket);
         }
         resource.setIsInScope(false);
         try {
