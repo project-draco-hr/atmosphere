@@ -1,0 +1,19 @@
+{
+  try {
+    if (broadcasterFactoryClassName != null) {
+      broadcasterFactory=(BroadcasterFactory)Thread.currentThread().getContextClassLoader().loadClass(broadcasterFactoryClassName).newInstance();
+    }
+    if (broadcasterFactory == null) {
+      Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
+      broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
+    }
+    for (    BroadcasterListener b : broadcasterListeners) {
+      broadcasterFactory.addBroadcasterListener(b);
+    }
+    BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
+    InjectorProvider.getInjector().inject(broadcasterFactory);
+  }
+ catch (  Exception ex) {
+    logger.error("Unable to configure Broadcaster/Factory/Cache",ex);
+  }
+}

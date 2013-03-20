@@ -43,6 +43,7 @@
     asyncSupportListener(new AsyncSupportListenerAdapter());
     configureScanningPackage(scFacade);
     installAnnotationProcessor(scFacade);
+    configureBroadcasterFactory();
     autoConfigureService(scFacade.getServletContext());
     patchContainer();
     configureBroadcaster();
