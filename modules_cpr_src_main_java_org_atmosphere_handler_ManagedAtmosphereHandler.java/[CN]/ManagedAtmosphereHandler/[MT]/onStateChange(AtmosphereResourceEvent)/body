@@ -23,7 +23,7 @@
       resumeOnBroadcast=Boolean.class.cast(o);
     }
   }
-  if (resumeOnBroadcast != null && resumeOnBroadcast) {
+  if (resumeOnBroadcast != null && resumeOnBroadcast && r.isSuspended()) {
     r.resume();
   }
 }
