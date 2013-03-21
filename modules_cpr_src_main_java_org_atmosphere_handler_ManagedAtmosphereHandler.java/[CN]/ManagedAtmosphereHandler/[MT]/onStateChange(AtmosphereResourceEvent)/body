@@ -9,10 +9,10 @@
  else {
     Object m=invoke(onMessageMethod,event.getMessage().toString());
     if (m != null) {
-      event.getResource().getResponse().write(m.toString());
+      super.onStateChange(event.setMessage(m));
     }
  else     if (onMessageMethod == null) {
-      event.getResource().getResponse().write((String)event.getMessage());
+      super.onStateChange(event);
     }
   }
   AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(event.getResource());
