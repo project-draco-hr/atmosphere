@@ -26,7 +26,7 @@ catch (      ClassNotFoundException e) {
     interceptors.addFirst(newAInterceptor(JSONPAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(SSEAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(AndroidAtmosphereInterceptor.class));
-    interceptors.addFirst(newAInterceptor(StreamingAtmosphereInterceptor.class));
+    interceptors.addFirst(newAInterceptor(PaddingAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(DefaultHeadersInterceptor.class));
     logger.info("Set org.atmosphere.cpr.AtmosphereInterceptor.disableDefaults in your xml to disable them.",interceptors);
   }
