@@ -18,8 +18,8 @@ synchronized (messages) {
     result.add(cacheMessage.getMessage());
   }
   if (logger.isDebugEnabled()) {
-    logger.debug("Retrieved for AtmosphereResource {} cached messages {}",r.uuid(),result);
-    logger.debug("Available cached message {}",messages);
+    logger.trace("Retrieved for AtmosphereResource {} cached messages {}",r.uuid(),result);
+    logger.trace("Available cached message {}",messages);
   }
   return result;
 }
