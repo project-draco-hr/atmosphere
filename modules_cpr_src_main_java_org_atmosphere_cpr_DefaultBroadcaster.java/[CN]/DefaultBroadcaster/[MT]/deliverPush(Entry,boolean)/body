@@ -48,7 +48,7 @@ synchronized (resources) {
   }
   entry.message=finalMsg;
   if (resources.isEmpty()) {
-    logger.debug("Broadcaster {} doesn't have any associated resource. " + "Message will be cached in the configured BroadcasterCache {}",getID(),entry.message);
+    logger.trace("Broadcaster {} doesn't have any associated resource. " + "Message will be cached in the configured BroadcasterCache {}",getID(),entry.message);
     AtmosphereResource r=null;
     if (entry.multipleAtmoResources != null && AtmosphereResource.class.isAssignableFrom(entry.multipleAtmoResources.getClass())) {
       r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
@@ -57,7 +57,9 @@ synchronized (resources) {
       r=noOpsResource;
     }
     if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
-      logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
+      if (bc.hasPerRequestFilters()) {
+        logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
+      }
       perRequestFilter(r,entry,true,true);
     }
  else {
