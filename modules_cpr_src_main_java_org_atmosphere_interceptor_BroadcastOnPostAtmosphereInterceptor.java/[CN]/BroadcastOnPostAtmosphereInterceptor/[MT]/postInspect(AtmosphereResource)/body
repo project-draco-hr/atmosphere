@@ -30,6 +30,10 @@
       }
     }
     if (stringBuilder.length() > 0) {
+      AtmosphereResource sr=AtmosphereResourceFactory.getDefault().find(r.uuid());
+      if (sr != null) {
+        r=sr;
+      }
       r.getBroadcaster().broadcast(stringBuilder.toString());
     }
  else {
