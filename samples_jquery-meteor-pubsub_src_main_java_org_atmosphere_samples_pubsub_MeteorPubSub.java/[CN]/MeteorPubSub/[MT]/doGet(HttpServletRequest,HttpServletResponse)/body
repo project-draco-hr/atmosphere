@@ -4,5 +4,5 @@
   res.setContentType("text/html;charset=ISO-8859-1");
   Broadcaster b=lookupBroadcaster(req.getPathInfo());
   m.setBroadcaster(b);
-  m.suspend(-1);
+  m.resumeOnBroadcast(true).suspend(-1);
 }
