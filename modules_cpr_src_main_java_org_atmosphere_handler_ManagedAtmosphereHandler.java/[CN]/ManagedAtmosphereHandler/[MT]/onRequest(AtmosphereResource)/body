@@ -1,7 +1,6 @@
 {
   AtmosphereRequest request=resource.getRequest();
   String method=request.getMethod();
-  Broadcaster b=resource.getBroadcaster();
   if (method.equalsIgnoreCase("get")) {
     invoke(onGetMethod,resource);
   }
@@ -13,9 +12,5 @@
   }
  else   if (method.equalsIgnoreCase("put")) {
     invoke(onPutMethod,resource);
-  }
-  if (b.equals(resource.getBroadcaster()) && resource.isSuspended()) {
-    b.removeAtmosphereResource(resource);
-    resource.getBroadcaster().addAtmosphereResource(resource);
   }
 }
