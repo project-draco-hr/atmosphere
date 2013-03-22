@@ -229,6 +229,9 @@
           }
           @Override public void postInspect(          AtmosphereResource r){
           }
+          @Override public String toString(){
+            return "Managed Event Listeners";
+          }
         }
 ;
         l.add(ai);
