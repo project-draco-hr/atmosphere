@@ -3,10 +3,13 @@
   String handshakeUUID=r.getRequest().getHeader(HeaderConfig.X_ATMO_PROTOCOL);
   if (uuid != null && uuid.equals("0") && handshakeUUID != null) {
     r.getRequest().header(HeaderConfig.X_ATMO_PROTOCOL,null);
-    if (r.transport() == AtmosphereResource.TRANSPORT.STREAMING) {
-      r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-        @Override public void onSuspend(        AtmosphereResourceEvent event){
-          r.getResponse().write(r.uuid() + wsDelimiter + System.currentTimeMillis());
+    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      @Override public void onSuspend(      AtmosphereResourceEvent event){
+        r.getResponse().write(r.uuid() + wsDelimiter + System.currentTimeMillis());
+        if (r.transport() == AtmosphereResource.TRANSPORT.LONG_POLLING || r.transport() == AtmosphereResource.TRANSPORT.JSONP) {
+          r.resume();
+        }
+ else {
           try {
             r.getResponse().flushBuffer();
           }
@@ -15,17 +18,8 @@
           }
         }
       }
+    }
 );
-    }
- else {
-      r.getResponse().write(r.uuid() + wsDelimiter + System.currentTimeMillis());
-    }
-    if (r.transport() == AtmosphereResource.TRANSPORT.WEBSOCKET || r.transport() == AtmosphereResource.TRANSPORT.STREAMING || r.transport() == AtmosphereResource.TRANSPORT.SSE) {
-      return Action.CONTINUE;
-    }
- else {
-      return Action.CANCELLED;
-    }
   }
   return Action.CONTINUE;
 }

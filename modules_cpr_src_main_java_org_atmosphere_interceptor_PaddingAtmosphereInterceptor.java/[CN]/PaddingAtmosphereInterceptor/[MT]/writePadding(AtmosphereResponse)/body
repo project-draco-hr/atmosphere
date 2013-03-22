@@ -5,13 +5,5 @@
     request.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.STREAMING_TRANSPORT);
     response.setContentType("text/plain");
   }
-  try {
-    response.write(padding,true);
-    if (response.resource().transport().equals(TRANSPORT.STREAMING)) {
-      response.flushBuffer();
-    }
-  }
- catch (  IOException e) {
-    logger.debug("",e);
-  }
+  response.write(padding,true);
 }
