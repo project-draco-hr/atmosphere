@@ -1,4 +1,3 @@
 {
-  Broadcaster b=lookupBroadcaster(r.getRequest().getPathInfo());
-  r.setBroadcaster(b);
+  r.setBroadcaster(lookupBroadcaster(r.getRequest().getPathInfo()));
 }
