@@ -1,7 +1,8 @@
 {
+  final AtomicBoolean init=new AtomicBoolean(true);
   return new Runnable(){
     public void run(){
-      while (!isDestroyed() && !outOfOrderBroadcastSupported.get()) {
+      while (init.getAndSet(false) || (!isDestroyed() && !outOfOrderBroadcastSupported.get())) {
         AsyncWriteToken token=null;
         try {
           token=writeQueue.queue.poll(waitTime,TimeUnit.MILLISECONDS);
@@ -21,9 +22,9 @@ synchronized (writeQueue) {
           return;
         }
  finally {
-          if (!bc.getAsyncWriteService().isShutdown() && token == null && outOfOrderBroadcastSupported.get()) {
+          if (!bc.getAsyncWriteService().isShutdown() && outOfOrderBroadcastSupported.get()) {
+            init.set(true);
             bc.getAsyncWriteService().submit(this);
-            return;
           }
         }
 synchronized (token.resource) {
