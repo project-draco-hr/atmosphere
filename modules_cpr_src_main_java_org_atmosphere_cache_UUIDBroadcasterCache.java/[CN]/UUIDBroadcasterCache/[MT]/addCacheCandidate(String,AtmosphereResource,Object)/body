@@ -1,9 +1,7 @@
 {
   if (logger.isTraceEnabled()) {
-synchronized (messages) {
-      logger.trace("Adding for AtmosphereResource {} cached messages {}",r != null ? r.uuid() : "null",e);
-      logger.trace("Active clients {}",activeClients());
-    }
+    logger.trace("Adding for AtmosphereResource {} cached messages {}",r != null ? r.uuid() : "null",e);
+    logger.trace("Active clients {}",activeClients());
   }
   long now=System.currentTimeMillis();
   String messageId=UUID.randomUUID().toString();
