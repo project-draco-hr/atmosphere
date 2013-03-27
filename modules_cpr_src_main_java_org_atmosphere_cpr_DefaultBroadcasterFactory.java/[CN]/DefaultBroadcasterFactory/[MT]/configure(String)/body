@@ -1,8 +1,16 @@
 {
   int maxIdleTime=5 * 60 * 1000;
-  String idleTime=config.getInitParameter(ApplicationConfig.BROADCASTER_LIFECYCLE_POLICY_IDLETIME);
-  if (idleTime != null) {
-    maxIdleTime=Integer.parseInt(idleTime);
+  String s=config.getInitParameter(ApplicationConfig.BROADCASTER_LIFECYCLE_POLICY_IDLETIME);
+  if (s != null) {
+    maxIdleTime=Integer.parseInt(s);
+  }
+  s=config.getInitParameter(BROADCASTER_POLICY);
+  if (s != null) {
+    defaultPolicy=s.equalsIgnoreCase(Broadcaster.POLICY.REJECT.name()) ? Broadcaster.POLICY.REJECT : Broadcaster.POLICY.FIFO;
+  }
+  s=config.getInitParameter(BROADCASTER_POLICY_TIMEOUT);
+  if (s != null) {
+    defaultPolicyInteger=Integer.valueOf(s);
   }
   if (EMPTY.name().equalsIgnoreCase(broadcasterLifeCyclePolicy)) {
     policy=new BroadcasterLifeCyclePolicy.Builder().policy(EMPTY).build();
