@@ -3,13 +3,24 @@
   String handshakeUUID=r.getRequest().getHeader(HeaderConfig.X_ATMO_PROTOCOL);
   if (uuid != null && uuid.equals("0") && handshakeUUID != null) {
     r.getRequest().header(HeaderConfig.X_ATMO_PROTOCOL,null);
-    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-      @Override public void onSuspend(      AtmosphereResourceEvent event){
-        r.getResponse().write(r.uuid() + wsDelimiter + System.currentTimeMillis());
-        if (r.transport() == AtmosphereResource.TRANSPORT.LONG_POLLING || r.transport() == AtmosphereResource.TRANSPORT.JSONP) {
-          r.resume();
+    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis());
+    boolean track=false;
+    if (r.getBroadcaster().getBroadcasterConfig().hasFilters()) {
+      for (      BroadcastFilter bf : r.getBroadcaster().getBroadcasterConfig().filters()) {
+        if (TrackMessageSizeFilter.class.isAssignableFrom(bf.getClass())) {
+          track=true;
+          break;
         }
- else {
+      }
+    }
+    final AtomicReference<String> protocolMessage=new AtomicReference<String>(message.toString());
+    if (track) {
+      protocolMessage.set((String)f.filter(r,protocolMessage.get(),protocolMessage.get()).message());
+    }
+    if (r.transport() == AtmosphereResource.TRANSPORT.STREAMING) {
+      r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+        @Override public void onSuspend(        AtmosphereResourceEvent event){
+          r.getResponse().write(protocolMessage.get());
           try {
             r.getResponse().flushBuffer();
           }
@@ -18,8 +29,17 @@
           }
         }
       }
-    }
 );
+    }
+ else {
+      r.getResponse().write(protocolMessage.get());
+    }
+    if (r.transport() == AtmosphereResource.TRANSPORT.WEBSOCKET || r.transport() == AtmosphereResource.TRANSPORT.STREAMING || r.transport() == AtmosphereResource.TRANSPORT.SSE) {
+      return Action.CONTINUE;
+    }
+ else {
+      return Action.CANCELLED;
+    }
   }
   return Action.CONTINUE;
 }
