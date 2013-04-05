@@ -1,0 +1,4 @@
+{
+  session.getBasicRemote().sendBinary(ByteBuffer.wrap(data,offset,length));
+  return this;
+}

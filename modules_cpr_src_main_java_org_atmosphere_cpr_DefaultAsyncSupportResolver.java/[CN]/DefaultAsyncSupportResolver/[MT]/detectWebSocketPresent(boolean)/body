@@ -1,4 +1,8 @@
 {
+  if (testClassExists(JSR356_WEBSOCKET)) {
+    logger.info("JSR356 WebSocket detected. Underlying WebServer will install {}",JSR356Endpoint.class.getName());
+    return Collections.emptyList();
+  }
   if (useNativeIfPossible) {
     return detectServlet3WebSocketPresent();
   }

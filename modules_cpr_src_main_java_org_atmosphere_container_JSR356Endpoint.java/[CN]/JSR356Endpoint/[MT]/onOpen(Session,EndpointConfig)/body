@@ -1,0 +1,24 @@
+{
+  webSocket=new JSR356WebSocket(session,framework.getAtmosphereConfig());
+  try {
+    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toURL().toExternalForm()).queryString(session.getQueryString()).build();
+    webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
+  }
+ catch (  Throwable e) {
+    logger.trace("",e);
+  }
+  session.addMessageHandler(new MessageHandler.Whole<String>(){
+    @Override public void onMessage(    String s){
+      webSocketProcessor.invokeWebSocketProtocol(webSocket,s);
+    }
+  }
+);
+  session.addMessageHandler(new MessageHandler.Whole<ByteBuffer>(){
+    @Override public void onMessage(    ByteBuffer bb){
+      byte[] b=new byte[bb.limit()];
+      bb.get(b);
+      webSocketProcessor.invokeWebSocketProtocol(webSocket,b,0,b.length);
+    }
+  }
+);
+}

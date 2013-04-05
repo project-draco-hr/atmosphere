@@ -1,0 +1,2 @@
+javax.websocket.Session session
+javax.websocket.CloseReason closeCode

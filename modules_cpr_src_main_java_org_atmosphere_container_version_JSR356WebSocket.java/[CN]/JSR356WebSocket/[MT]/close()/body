@@ -1,0 +1,9 @@
+{
+  logger.trace("WebSocket.close() for AtmosphereResource {}",resource() != null ? resource().uuid() : "null");
+  try {
+    session.close();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

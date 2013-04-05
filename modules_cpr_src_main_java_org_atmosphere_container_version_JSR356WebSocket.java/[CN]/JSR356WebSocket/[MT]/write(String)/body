@@ -1,0 +1,4 @@
+{
+  session.getBasicRemote().sendText(s);
+  return this;
+}

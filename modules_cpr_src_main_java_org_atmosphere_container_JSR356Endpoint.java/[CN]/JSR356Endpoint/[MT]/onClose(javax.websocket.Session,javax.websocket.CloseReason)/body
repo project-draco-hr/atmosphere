@@ -1,0 +1,4 @@
+{
+  request.destroy();
+  webSocketProcessor.close(webSocket,closeCode.getCloseCode().getCode());
+}

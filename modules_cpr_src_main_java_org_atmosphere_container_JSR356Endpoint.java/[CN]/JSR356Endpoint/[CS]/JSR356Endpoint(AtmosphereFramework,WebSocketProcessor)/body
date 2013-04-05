@@ -1,0 +1,14 @@
+{
+  this.framework=framework;
+  this.webSocketProcessor=webSocketProcessor;
+  String s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME);
+  if (s != null) {
+    webSocketWriteTimeout=Integer.valueOf(1);
+  }
+ else {
+    webSocketWriteTimeout=-1;
+  }
+  s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_BUFFER_SIZE);
+  if (s != null) {
+  }
+}

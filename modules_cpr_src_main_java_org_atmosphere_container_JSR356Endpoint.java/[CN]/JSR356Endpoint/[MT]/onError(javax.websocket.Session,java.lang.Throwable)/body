@@ -1,0 +1,4 @@
+{
+  logger.error("",t);
+  webSocketProcessor.notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent<Throwable>(t,WebSocketEventListener.WebSocketEvent.TYPE.EXCEPTION,webSocket));
+}
