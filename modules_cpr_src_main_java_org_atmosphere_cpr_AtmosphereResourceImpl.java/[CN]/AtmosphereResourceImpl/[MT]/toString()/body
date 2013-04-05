@@ -1,3 +1,8 @@
 {
-  return "AtmosphereResourceImpl{" + "\n uuid=" + uuid + ",\n transport="+ transport()+ ",\n action="+ action+ ",\n isResumed="+ isResumed()+ ",\n isCancelled="+ isCancelled()+ ",\n isSuspended="+ isSuspended()+ ",\n broadcaster="+ broadcaster.getID()+ ",\n isInScope="+ isInScope+ ",\n listeners="+ listeners+ '}';
+  try {
+    return "AtmosphereResourceImpl{" + "\n uuid=" + uuid + ",\n transport="+ transport()+ ",\n action="+ action+ ",\n isResumed="+ isResumed()+ ",\n isCancelled="+ isCancelled()+ ",\n isSuspended="+ isSuspended()+ ",\n broadcaster="+ broadcaster.getID()+ ",\n isInScope="+ isInScope+ ",\n listeners="+ listeners+ '}';
+  }
+ catch (  NullPointerException ex) {
+    return "AtmosphereResourceImpl{" + uuid + "}";
+  }
 }

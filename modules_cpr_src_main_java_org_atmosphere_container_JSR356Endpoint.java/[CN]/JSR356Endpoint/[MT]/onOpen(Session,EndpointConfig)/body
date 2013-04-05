@@ -1,7 +1,11 @@
 {
   webSocket=new JSR356WebSocket(session,framework.getAtmosphereConfig());
+  String matchAll="";
+  Map<String,String> headers=new HashMap<String,String>();
+  headers.put("Connection","Upgrade");
+  headers.put("Upgrade","websocket");
   try {
-    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toString()).queryString(session.getQueryString()).build();
+    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toString()).headers(headers).contextPath(framework.getServletContext().getContextPath()).pathInfo(matchAll).queryString(session.getQueryString()).build();
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
   }
  catch (  Throwable e) {

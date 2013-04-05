@@ -30,7 +30,7 @@
           p=p.substring(0,p.lastIndexOf("/"));
         }
       }
-      if (handler == null) {
+      if (handler == null && req.getContextPath().length() < path.length()) {
         path=path.substring(req.getContextPath().length());
         handler=map(path,handlers);
       }
