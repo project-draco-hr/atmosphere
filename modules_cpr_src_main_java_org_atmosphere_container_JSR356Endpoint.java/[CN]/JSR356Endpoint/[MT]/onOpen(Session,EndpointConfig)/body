@@ -1,7 +1,7 @@
 {
   webSocket=new JSR356WebSocket(session,framework.getAtmosphereConfig());
   try {
-    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toURL().toExternalForm()).queryString(session.getQueryString()).build();
+    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toString()).queryString(session.getQueryString()).build();
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
   }
  catch (  Throwable e) {
