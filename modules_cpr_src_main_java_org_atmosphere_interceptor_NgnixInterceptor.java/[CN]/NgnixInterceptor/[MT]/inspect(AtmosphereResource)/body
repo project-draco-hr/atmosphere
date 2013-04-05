@@ -1,0 +1,8 @@
+{
+  try {
+    r.getResponse().addHeader("X-Accel-Buffering","No");
+  }
+ catch (  Throwable t) {
+  }
+  return Action.CONTINUE;
+}
