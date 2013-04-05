@@ -3,14 +3,21 @@
     throw new IllegalArgumentException("AtmosphereResource can't be null");
   }
   List<Object> result=new ArrayList<Object>();
-  HttpSession session=r.session();
-  if (session == null) {
-    logger.error(ERROR_MESSAGE);
-    return result;
+  try {
+    HttpSession session=r.session();
+    if (session == null) {
+      logger.error(ERROR_MESSAGE);
+      return result;
+    }
+    String cacheHeaderTimeStr=(String)session.getAttribute(broadcasterId);
+    if (cacheHeaderTimeStr == null)     return result;
+    Long cacheHeaderTime=Long.valueOf(cacheHeaderTimeStr);
+    if (cacheHeaderTime == null)     return result;
+    return get(cacheHeaderTime);
   }
-  String cacheHeaderTimeStr=(String)session.getAttribute(broadcasterId);
-  if (cacheHeaderTimeStr == null)   return result;
-  Long cacheHeaderTime=Long.valueOf(cacheHeaderTimeStr);
-  if (cacheHeaderTime == null)   return result;
-  return get(cacheHeaderTime);
+ catch (  IllegalStateException ex) {
+    logger.trace("",ex);
+    logger.warn("The Session has been invalidated. Unable to retrieve cached messages");
+    return Collections.emptyList();
+  }
 }
