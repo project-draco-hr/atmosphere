@@ -47,27 +47,29 @@ synchronized (resources) {
     return;
   }
   entry.message=finalMsg;
+  if (resources.isEmpty()) {
 synchronized (resources) {
-    if (resources.isEmpty()) {
-      logger.trace("Broadcaster {} doesn't have any associated resource. " + "Message will be cached in the configured BroadcasterCache {}",getID(),entry.message);
-      AtmosphereResource r=null;
-      if (entry.multipleAtmoResources != null && AtmosphereResource.class.isAssignableFrom(entry.multipleAtmoResources.getClass())) {
-        r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
-      }
-      if (r == null) {
-        r=noOpsResource;
-      }
-      if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
-        if (bc.hasPerRequestFilters()) {
-          logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
+      if (resources.isEmpty()) {
+        logger.trace("Broadcaster {} doesn't have any associated resource. " + "Message will be cached in the configured BroadcasterCache {}",getID(),entry.message);
+        AtmosphereResource r=null;
+        if (entry.multipleAtmoResources != null && AtmosphereResource.class.isAssignableFrom(entry.multipleAtmoResources.getClass())) {
+          r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
         }
-        perRequestFilter(r,entry,true,true);
-      }
+        if (r == null) {
+          r=noOpsResource;
+        }
+        if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
+          if (bc.hasPerRequestFilters()) {
+            logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
+          }
+          perRequestFilter(r,entry,true,true);
+        }
  else {
-        trackBroadcastMessage(r != null ? (r.uuid().equals("-1") ? null : r) : r,entry);
+          trackBroadcastMessage(r != null ? (r.uuid().equals("-1") ? null : r) : r,entry);
+        }
+        entryDone(entry.future);
+        return;
       }
-      entryDone(entry.future);
-      return;
     }
   }
   BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
