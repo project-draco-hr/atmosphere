@@ -48,29 +48,16 @@ synchronized (resources) {
   }
   entry.message=finalMsg;
   if (resources.isEmpty()) {
+    boolean continueProcessing=true;
+    if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
 synchronized (resources) {
-      if (resources.isEmpty()) {
-        logger.trace("Broadcaster {} doesn't have any associated resource. " + "Message will be cached in the configured BroadcasterCache {}",getID(),entry.message);
-        AtmosphereResource r=null;
-        if (entry.multipleAtmoResources != null && AtmosphereResource.class.isAssignableFrom(entry.multipleAtmoResources.getClass())) {
-          r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
-        }
-        if (r == null) {
-          r=noOpsResource;
-        }
-        if (cacheStrategy == BroadcasterCache.STRATEGY.AFTER_FILTER) {
-          if (bc.hasPerRequestFilters()) {
-            logger.debug("Invoking BroadcastFilter with dummy AtmosphereResource {}",r.uuid());
-          }
-          perRequestFilter(r,entry,true,true);
-        }
- else {
-          trackBroadcastMessage(r != null ? (r.uuid().equals("-1") ? null : r) : r,entry);
-        }
-        entryDone(entry.future);
-        return;
+        continueProcessing=invokeFiltersAndCache(entry);
       }
     }
+ else {
+      continueProcessing=invokeFiltersAndCache(entry);
+    }
+    if (!continueProcessing)     return;
   }
   BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
   if (uuidCache) {

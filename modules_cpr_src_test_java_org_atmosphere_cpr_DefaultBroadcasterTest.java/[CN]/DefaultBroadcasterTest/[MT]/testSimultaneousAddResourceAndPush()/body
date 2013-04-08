@@ -37,9 +37,8 @@ catch (      ExecutionException ex) {
     }
   }
 ;
-  int remainingTest=1;
+  int remainingTest=10;
   ExecutorService newFixedThreadPool=Executors.newFixedThreadPool(2);
-  int iterations=0;
   while (remainingTest > 0) {
     remainingTest--;
     Future<?> pollFuture=newFixedThreadPool.submit(pollRunnable);

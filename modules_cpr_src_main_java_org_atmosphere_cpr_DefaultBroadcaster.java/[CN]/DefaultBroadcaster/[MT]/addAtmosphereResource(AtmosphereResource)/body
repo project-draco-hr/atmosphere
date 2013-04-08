@@ -27,7 +27,7 @@
       logger.debug("Duplicate resource {}",r.uuid());
       return this;
     }
-    if (!BroadcasterConfig.DefaultBroadcasterCache.class.isAssignableFrom(bc.getBroadcasterCache().getClass())) {
+    if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
 synchronized (resources) {
         cacheAndSuspend(r);
       }

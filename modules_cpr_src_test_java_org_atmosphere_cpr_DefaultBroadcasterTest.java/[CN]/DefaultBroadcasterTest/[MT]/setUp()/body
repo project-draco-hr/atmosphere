@@ -2,7 +2,7 @@
   AtmosphereFramework framework=new AtmosphereFramework();
   framework.addInitParameter(ApplicationConfig.BROADCASTER_CACHE_STRATEGY,"beforeFilter");
   AtmosphereConfig config=framework.getAtmosphereConfig();
-  DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(SimpleBroadcaster.class,"NEVER",config);
+  DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(B.class,"NEVER",config);
   broadcaster=factory.get("test");
   config.framework().setBroadcasterFactory(factory);
 }

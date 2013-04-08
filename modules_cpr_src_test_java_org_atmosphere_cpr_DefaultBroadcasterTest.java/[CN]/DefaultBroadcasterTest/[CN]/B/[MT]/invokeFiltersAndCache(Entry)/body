@@ -1,0 +1,10 @@
+{
+  System.out.println("========> invokeFiltersAndCache");
+  try {
+    Thread.sleep(100);
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  return super.invokeFiltersAndCache(entry);
+}
