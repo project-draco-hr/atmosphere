@@ -27,29 +27,31 @@
       logger.debug("Duplicate resource {}",r.uuid());
       return this;
     }
-    if (resources.isEmpty()) {
-      config.getBroadcasterFactory().add(this,name);
-    }
-    boolean wasResumed=checkCachedAndPush(r,r.getAtmosphereResourceEvent());
-    if (!wasResumed && isAtmosphereResourceValid(r)) {
-      logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
-      String parentUUID=(String)r.getRequest().getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
-      Boolean backwardCompatible=Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
-      if (!backwardCompatible && parentUUID != null) {
-        AtmosphereResource p=AtmosphereResourceFactory.getDefault().find(parentUUID);
-        if (p != null && !resources.contains(p)) {
-          resources.add(p);
+synchronized (resources) {
+      if (resources.isEmpty()) {
+        config.getBroadcasterFactory().add(this,name);
+      }
+      boolean wasResumed=checkCachedAndPush(r,r.getAtmosphereResourceEvent());
+      if (!wasResumed && isAtmosphereResourceValid(r)) {
+        logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
+        String parentUUID=(String)r.getRequest().getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
+        Boolean backwardCompatible=Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
+        if (!backwardCompatible && parentUUID != null) {
+          AtmosphereResource p=AtmosphereResourceFactory.getDefault().find(parentUUID);
+          if (p != null && !resources.contains(p)) {
+            resources.add(p);
+          }
+ else           if (p == null) {
+            resources.add(r);
+          }
         }
- else         if (p == null) {
+ else {
           resources.add(r);
         }
       }
- else {
-        resources.add(r);
+ else       if (!wasResumed) {
+        logger.debug("Unable to add AtmosphereResource {}",r.uuid());
       }
-    }
- else     if (!wasResumed) {
-      logger.debug("Unable to add AtmosphereResource {}",r.uuid());
     }
   }
   finally {
