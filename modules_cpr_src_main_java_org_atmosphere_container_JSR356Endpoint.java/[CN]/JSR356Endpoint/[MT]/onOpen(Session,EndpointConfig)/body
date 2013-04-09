@@ -1,6 +1,5 @@
 {
   webSocket=new JSR356WebSocket(session,framework.getAtmosphereConfig());
-  String matchAll="";
   Map<String,String> headers=new HashMap<String,String>();
   headers.put("Connection","Upgrade");
   headers.put("Upgrade","websocket");
