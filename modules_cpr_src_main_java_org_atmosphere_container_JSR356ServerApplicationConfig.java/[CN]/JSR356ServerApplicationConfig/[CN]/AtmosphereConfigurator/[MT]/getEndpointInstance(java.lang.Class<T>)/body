@@ -1,0 +1,10 @@
+{
+  if (JSR356Endpoint.class.isAssignableFrom(endpointClass)) {
+    AtmosphereConfig config=BroadcasterFactory.getDefault().lookup("/*",true).getBroadcasterConfig().getAtmosphereConfig();
+    AtmosphereFramework f=config.framework();
+    return (T)new JSR356Endpoint(f,WebSocketProcessorFactory.getDefault().getWebSocketProcessor(f));
+  }
+ else {
+    return super.getEndpointInstance(endpointClass);
+  }
+}
