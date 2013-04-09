@@ -8,9 +8,10 @@
     pathInfo.append(e.getValue());
   }
   try {
-    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toString()).headers(headers).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo.toString()).queryString(session.getQueryString()).build();
+    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toString()).headers(headers).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo.toString()).build().queryString(session.getQueryString());
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
+    framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
   }
  catch (  Throwable e) {
     try {
