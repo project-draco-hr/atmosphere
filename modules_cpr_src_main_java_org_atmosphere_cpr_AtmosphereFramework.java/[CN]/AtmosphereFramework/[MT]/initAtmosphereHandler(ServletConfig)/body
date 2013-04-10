@@ -13,6 +13,9 @@
     addAtmosphereHandler(ROOT,new AbstractReflectorAtmosphereHandler(){
       @Override public void onRequest(      AtmosphereResource r) throws IOException {
         logger.debug("No AtmosphereHandler defined.");
+        if (!r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
+          r.getResponse().sendError(501,X_ATMOSPHERE_ERROR);
+        }
       }
       @Override public void destroy(){
       }
