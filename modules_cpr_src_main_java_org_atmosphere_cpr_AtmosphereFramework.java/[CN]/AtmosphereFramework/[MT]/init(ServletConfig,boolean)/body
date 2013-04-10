@@ -41,6 +41,7 @@
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
     asyncSupportListener(new AsyncSupportListenerAdapter());
+    configureBroadcasterFactory();
     configureScanningPackage(scFacade);
     installAnnotationProcessor(scFacade);
     autoConfigureService(scFacade.getServletContext());
