@@ -8,8 +8,8 @@
   servletResponse=HttpServletResponseImpl.create();
   try {
     WebappContext context=(WebappContext)config.getServletContext();
-    servletRequest.initialize(req,context);
-    servletResponse.initialize(res);
+    servletRequest.initialize(req,servletResponse,context);
+    servletResponse.initialize(res,servletRequest);
     mapRequest(context,request,servletRequest);
   }
  catch (  IOException e) {

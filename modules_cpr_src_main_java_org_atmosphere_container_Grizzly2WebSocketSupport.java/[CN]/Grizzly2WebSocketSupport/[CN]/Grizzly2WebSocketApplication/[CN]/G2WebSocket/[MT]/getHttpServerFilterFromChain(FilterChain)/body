@@ -1,7 +1,5 @@
 {
-  Iterator<Filter> filterIterator=filterChain.iterator();
-  while (filterIterator.hasNext()) {
-    Filter candidate=filterIterator.next();
+  for (  Object candidate : filterChain) {
     if (candidate instanceof HttpServerFilter) {
       return (HttpServerFilter)candidate;
     }
