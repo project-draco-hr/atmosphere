@@ -1,3 +1,0 @@
-{
-  return new G2WebSocket(handler,requestPacket,listeners);
-}

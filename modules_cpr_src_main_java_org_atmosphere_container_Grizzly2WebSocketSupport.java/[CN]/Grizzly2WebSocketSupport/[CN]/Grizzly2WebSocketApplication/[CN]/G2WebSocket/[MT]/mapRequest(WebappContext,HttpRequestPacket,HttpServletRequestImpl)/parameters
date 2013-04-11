@@ -1,3 +1,0 @@
-WebappContext ctx
-HttpRequestPacket request
-HttpServletRequestImpl servletRequest

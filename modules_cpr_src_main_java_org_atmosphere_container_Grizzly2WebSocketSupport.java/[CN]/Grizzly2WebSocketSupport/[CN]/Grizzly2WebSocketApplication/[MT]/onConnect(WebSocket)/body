@@ -1,14 +1,14 @@
 {
   super.onConnect(socket);
   LOGGER.trace("onConnect {} ",socket);
-  if (!G2WebSocket.class.isAssignableFrom(socket.getClass())) {
+  if (!DefaultWebSocket.class.isAssignableFrom(socket.getClass())) {
     throw new IllegalStateException();
   }
-  G2WebSocket g2WebSocket=G2WebSocket.class.cast(socket);
+  DefaultWebSocket g2WebSocket=DefaultWebSocket.class.cast(socket);
   try {
-    AtmosphereRequest r=AtmosphereRequest.wrap(g2WebSocket.getRequest());
+    AtmosphereRequest r=AtmosphereRequest.wrap(g2WebSocket.getUpgradeRequest());
     org.atmosphere.websocket.WebSocket webSocket=new Grizzly2WebSocket(g2WebSocket,config);
-    g2WebSocket.getRequest().setAttribute("grizzly.webSocket",webSocket);
+    g2WebSocket.getUpgradeRequest().setAttribute("grizzly.webSocket",webSocket);
     webSocketProcessor.open(webSocket,r,AtmosphereResponse.newInstance(config,r,webSocket));
   }
  catch (  Exception e) {

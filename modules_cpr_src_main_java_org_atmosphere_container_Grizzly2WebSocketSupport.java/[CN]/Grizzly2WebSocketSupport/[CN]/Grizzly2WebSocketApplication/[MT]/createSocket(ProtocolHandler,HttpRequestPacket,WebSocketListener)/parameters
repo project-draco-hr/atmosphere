@@ -1,3 +1,0 @@
-ProtocolHandler handler
-HttpRequestPacket requestPacket
-WebSocketListener listeners

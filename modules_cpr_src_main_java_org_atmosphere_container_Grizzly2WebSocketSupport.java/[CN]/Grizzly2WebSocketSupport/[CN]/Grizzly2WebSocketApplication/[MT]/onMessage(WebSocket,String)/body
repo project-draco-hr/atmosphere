@@ -1,8 +1,8 @@
 {
   super.onMessage(socket,text);
   LOGGER.trace("onMessage(String) {} ",socket);
-  G2WebSocket g2w=G2WebSocket.class.cast(socket);
-  org.atmosphere.websocket.WebSocket webSocket=(org.atmosphere.websocket.WebSocket)g2w.getRequest().getAttribute("grizzly.webSocket");
+  DefaultWebSocket g2w=DefaultWebSocket.class.cast(socket);
+  org.atmosphere.websocket.WebSocket webSocket=(org.atmosphere.websocket.WebSocket)g2w.getUpgradeRequest().getAttribute("grizzly.webSocket");
   if (webSocket != null) {
     webSocketProcessor.invokeWebSocketProtocol(webSocket,text);
   }
