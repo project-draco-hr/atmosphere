@@ -1,0 +1,17 @@
+{
+  SessionTimeoutSupport.restoreTimeout(req);
+  if (trackActiveRequest) {
+    try {
+      long l=(Long)req.getAttribute(MAX_INACTIVE);
+      if (l == -1) {
+        return false;
+      }
+      req.setAttribute(MAX_INACTIVE,(long)-1);
+    }
+ catch (    Throwable ex) {
+      logger.trace("Request already recycled",req);
+      return false;
+    }
+  }
+  return true;
+}

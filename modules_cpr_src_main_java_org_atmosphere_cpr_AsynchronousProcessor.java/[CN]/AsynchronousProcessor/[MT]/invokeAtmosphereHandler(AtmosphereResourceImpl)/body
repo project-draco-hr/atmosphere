@@ -1,5 +1,8 @@
 {
-  if (!r.isInScope())   return;
+  if (!r.isInScope()) {
+    logger.trace("AtmosphereResource out of scope {}",r.uuid());
+    return;
+  }
   AtmosphereRequest req=r.getRequest(false);
   String disableOnEvent=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.DISABLE_ONSTATE_EVENT);
   r.getAtmosphereResourceEvent().setMessage(r.writeOnTimeout());
@@ -7,17 +10,15 @@
     if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
       AtmosphereHandler atmosphereHandler=(AtmosphereHandler)req.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER);
       if (atmosphereHandler != null) {
-synchronized (r) {
-          try {
-            atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
-          }
+        try {
+          atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
+        }
   finally {
-            Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
-            if (m != null) {
-              m.destroy();
-            }
-            req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+          Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
+          if (m != null) {
+            m.destroy();
           }
+          req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
         }
       }
     }

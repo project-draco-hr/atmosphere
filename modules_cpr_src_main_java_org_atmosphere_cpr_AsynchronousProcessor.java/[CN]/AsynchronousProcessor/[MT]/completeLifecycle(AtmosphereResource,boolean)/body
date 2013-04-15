@@ -1,0 +1,57 @@
+{
+  if (r != null) {
+    logger.debug("Finishing lifecycle for AtmosphereResource {}",r.uuid());
+    final AtmosphereResourceImpl impl=AtmosphereResourceImpl.class.cast(r);
+synchronized (impl) {
+      try {
+        if (impl.isCancelled()) {
+          logger.trace("{} is already cancelled",impl.uuid());
+          return false;
+        }
+        if (cancelled) {
+          impl.getAtmosphereResourceEvent().setCancelled(true);
+        }
+ else {
+          impl.getAtmosphereResourceEvent().setIsResumedOnTimeout(true);
+          Broadcaster b=r.getBroadcaster();
+          if (b instanceof DefaultBroadcaster) {
+            ((DefaultBroadcaster)b).broadcastOnResume(r);
+          }
+          impl.getAtmosphereResourceEvent().setIsResumedOnTimeout(impl.resumeOnBroadcast());
+        }
+        invokeAtmosphereHandler(impl);
+        try {
+          impl.getResponse().getOutputStream().close();
+        }
+ catch (        Throwable t) {
+          try {
+            impl.getResponse().getWriter().close();
+          }
+ catch (          Throwable t2) {
+          }
+        }
+      }
+ catch (      Throwable ex) {
+        logger.trace("Failed to cancel resource: {}",impl.uuid(),ex);
+      }
+ finally {
+        try {
+          impl.notifyListeners();
+          impl.setIsInScope(false);
+          impl.cancel();
+        }
+ catch (        Throwable t) {
+          logger.trace("completeLifecycle",t);
+        }
+ finally {
+          impl._destroy();
+        }
+      }
+    }
+    return true;
+  }
+ else {
+    logger.debug("AtmosphereResource was null, failed to cancel AtmosphereRequest {}");
+    return false;
+  }
+}

@@ -1,2 +1,2 @@
-AtmosphereRequest request
-AtmosphereResponse response
+AtmosphereRequest req
+AtmosphereResponse res
