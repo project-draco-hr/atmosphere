@@ -5,6 +5,7 @@
   }
   try {
     if (!isResumed.getAndSet(true) && isInScope) {
+      logger.trace("AtmosphereResource {} is resuming",uuid());
       action.type(Action.TYPE.RESUME);
       Broadcaster b=getBroadcaster(false);
       if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
