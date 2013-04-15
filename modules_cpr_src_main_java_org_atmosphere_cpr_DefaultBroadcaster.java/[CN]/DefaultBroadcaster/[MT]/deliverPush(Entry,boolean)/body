@@ -64,6 +64,11 @@ synchronized (resources) {
     entry.cache=UUIDBroadcasterCache.class.cast(broadcasterCache).addCacheCandidate(getID(),null,entry.originalMessage);
   }
   try {
+    if (logger.isTraceEnabled()) {
+      for (      AtmosphereResource r : resources) {
+        logger.trace("AtmosphereResources available for {}",r.uuid());
+      }
+    }
     if (entry.multipleAtmoResources == null) {
       for (      AtmosphereResource r : resources) {
         finalMsg=perRequestFilter(r,entry,true);

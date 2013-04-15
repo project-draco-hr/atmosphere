@@ -1,5 +1,6 @@
 {
   try {
+    logger.trace("{} is broadcasting to {}",name,r.uuid());
     r.getAtmosphereHandler().onStateChange(e);
   }
  catch (  Throwable t) {
