@@ -16,6 +16,7 @@
     }
   }
  else {
+    logger.warn("Request is not longer valid {}",r.uuid());
     removeAtmosphereResource(r);
     config.getBroadcasterFactory().removeAllAtmosphereResource(r);
   }
