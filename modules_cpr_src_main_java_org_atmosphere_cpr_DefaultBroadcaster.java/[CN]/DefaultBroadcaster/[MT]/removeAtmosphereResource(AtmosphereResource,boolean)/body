@@ -3,7 +3,12 @@
     logger.debug(DESTROYED,getID(),"removeAtmosphereResource(AtmosphereResource r)");
     return this;
   }
-  logger.trace("Removing AtmosphereResource {}",r.uuid());
+  boolean removed;
+synchronized (resources) {
+    removed=resources.remove(r);
+  }
+  if (!removed)   return this;
+  logger.trace("Removing AtmosphereResource {} for Broadcaster {}",r.uuid(),name);
   writeQueues.remove(r.uuid());
   if (executeDone) {
     AtmosphereResourceImpl aImpl=AtmosphereResourceImpl.class.cast(r);
@@ -13,7 +18,6 @@
       entryDone(f);
     }
   }
-  resources.remove(r);
   if (resources.isEmpty()) {
     notifyEmptyListener();
     if (scope != SCOPE.REQUEST && lifeCyclePolicy.getLifeCyclePolicy() == EMPTY) {
