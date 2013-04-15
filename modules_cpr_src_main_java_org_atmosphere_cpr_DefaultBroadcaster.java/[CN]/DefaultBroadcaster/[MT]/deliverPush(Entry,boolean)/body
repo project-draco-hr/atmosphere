@@ -42,7 +42,7 @@ synchronized (resources) {
   Object prevM=entry.originalMessage;
   entry.originalMessage=(entry.originalMessage != entry.message ? callable(entry.originalMessage) : finalMsg);
   if (entry.originalMessage == null) {
-    logger.debug("Broascast message was null {}",prevM);
+    logger.trace("Broadcast message was null {}",prevM);
     entryDone(entry.future);
     return;
   }

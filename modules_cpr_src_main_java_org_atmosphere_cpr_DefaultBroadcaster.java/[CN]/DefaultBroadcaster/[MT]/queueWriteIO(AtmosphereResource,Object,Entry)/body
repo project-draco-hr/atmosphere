@@ -1,6 +1,7 @@
 {
   if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
     if (r.isResumed() || r.isCancelled()) {
+      logger.trace("AtmosphereResource {} has been resumed or cancelled, unable to Broadcast message {}",r.uuid(),finalMsg);
       if (!uuidCache) {
         trackBroadcastMessage(r,entry);
       }
