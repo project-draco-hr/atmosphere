@@ -1,0 +1,9 @@
+{
+  Object m=invoke(onMessageMethod,message);
+  if (m != null) {
+    super.onStateChange(event.setMessage(m));
+  }
+ else   if (onMessageMethod == null) {
+    super.onStateChange(event);
+  }
+}
