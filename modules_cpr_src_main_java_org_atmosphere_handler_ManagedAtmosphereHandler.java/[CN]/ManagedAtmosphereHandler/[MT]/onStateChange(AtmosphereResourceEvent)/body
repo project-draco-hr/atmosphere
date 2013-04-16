@@ -1,4 +1,16 @@
 {
+  AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(event.getResource());
+  Boolean resumeOnBroadcast=r.resumeOnBroadcast();
+  if (!resumeOnBroadcast) {
+    Object o=r.getRequest(false).getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
+    if (o != null && Boolean.class.isAssignableFrom(o.getClass())) {
+      resumeOnBroadcast=Boolean.class.cast(o);
+    }
+  }
+  if (resumeOnBroadcast) {
+    r.resumeOnBroadcast(false);
+    r.getRequest(false).setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,"false");
+  }
   AtmosphereResource resource=event.getResource();
   if (event.isCancelled()) {
     invoke(onDisconnectMethod,resource);
@@ -17,15 +29,7 @@
       invoke(event,m.toString());
     }
   }
-  AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(event.getResource());
-  Boolean resumeOnBroadcast=r.resumeOnBroadcast();
-  if (!resumeOnBroadcast) {
-    Object o=r.getRequest(false).getAttribute(ApplicationConfig.RESUME_ON_BROADCAST);
-    if (o != null && Boolean.class.isAssignableFrom(o.getClass())) {
-      resumeOnBroadcast=Boolean.class.cast(o);
-    }
-  }
-  if (resumeOnBroadcast != null && resumeOnBroadcast && r.isSuspended()) {
+  if (resumeOnBroadcast && r.isSuspended()) {
     r.resume();
   }
 }
