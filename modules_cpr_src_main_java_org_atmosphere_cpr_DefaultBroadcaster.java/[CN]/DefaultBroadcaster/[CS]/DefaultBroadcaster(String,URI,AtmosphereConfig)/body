@@ -26,4 +26,5 @@
   }
   noOpsResource=AtmosphereResourceFactory.getDefault().create(config,"-1");
   uuidCache=UUIDBroadcasterCache.class.isAssignableFrom(bc.getBroadcasterCache().getClass());
+  logger.info("{} support Out Of Order Broadcast: {}",name,outOfOrderBroadcastSupported.get());
 }

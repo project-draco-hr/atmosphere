@@ -1,12 +1,11 @@
 {
-  final AtomicBoolean init=new AtomicBoolean(true);
   return new Runnable(){
     public void run(){
-      while (init.getAndSet(false) || (!isDestroyed() && !outOfOrderBroadcastSupported.get())) {
+      while (!isDestroyed()) {
         AsyncWriteToken token=null;
         try {
           token=writeQueue.queue.poll(waitTime,TimeUnit.MILLISECONDS);
-          if (token == null) {
+          if (token == null && !outOfOrderBroadcastSupported.get()) {
 synchronized (writeQueue) {
               if (writeQueue.queue.size() == 0) {
                 writeQueue.monitored.set(false);
@@ -14,6 +13,9 @@ synchronized (writeQueue) {
                 return;
               }
             }
+          }
+ else           if (token == null) {
+            return;
           }
         }
  catch (        InterruptedException ex) {
@@ -23,7 +25,6 @@ synchronized (writeQueue) {
         }
  finally {
           if (!bc.getAsyncWriteService().isShutdown() && outOfOrderBroadcastSupported.get()) {
-            init.set(true);
             bc.getAsyncWriteService().submit(this);
           }
         }
@@ -43,6 +44,11 @@ synchronized (token.resource) {
                 cacheLostMessage(token.resource,token,true);
               }
               logger.debug("Failed to execute a write operation for Broadcaster {}",getID(),ex);
+            }
+          }
+ finally {
+            if (!bc.getAsyncWriteService().isShutdown() && outOfOrderBroadcastSupported.get()) {
+              return;
             }
           }
         }

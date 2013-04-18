@@ -1,8 +1,7 @@
 {
-  final AtomicBoolean init=new AtomicBoolean(true);
   return new Runnable(){
     public void run(){
-      while (init.getAndSet(false) || (!isDestroyed() && !outOfOrderBroadcastSupported.get())) {
+      while (!isDestroyed()) {
         Entry msg=null;
         try {
           msg=messages.poll(waitTime,TimeUnit.MILLISECONDS);
@@ -18,7 +17,6 @@
         }
  finally {
           if (outOfOrderBroadcastSupported.get()) {
-            init.set(true);
             bc.getExecutorService().submit(this);
           }
         }
@@ -34,6 +32,11 @@
  else {
             logger.warn("This message {} will be lost",msg);
             logger.debug("Failed to submit broadcast handler runnable to for Broadcaster {}",getID(),ex);
+          }
+        }
+ finally {
+          if (outOfOrderBroadcastSupported.get()) {
+            return;
           }
         }
       }
