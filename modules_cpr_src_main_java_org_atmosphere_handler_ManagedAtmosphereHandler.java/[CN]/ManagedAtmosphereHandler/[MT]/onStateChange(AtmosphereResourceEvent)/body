@@ -9,7 +9,7 @@
   }
   if (resumeOnBroadcast) {
     r.resumeOnBroadcast(false);
-    r.getRequest(false).setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,"false");
+    r.getRequest(false).setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,false);
   }
   AtmosphereResource resource=event.getResource();
   if (event.isCancelled()) {
