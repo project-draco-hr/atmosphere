@@ -1,5 +1,4 @@
 {
   this.broadcaster=broadcaster;
-  broadcaster.addAtmosphereResource(this);
   return this;
 }
