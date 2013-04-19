@@ -1,4 +1,3 @@
 {
-  bc.setBroadcasterCache(new BroadcasterConfig.DefaultBroadcasterCache());
   setScope(SCOPE.APPLICATION);
 }
