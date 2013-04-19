@@ -1,4 +1,5 @@
 {
+  if (queryString == null)   return this;
   String qs=queryString;
   if (qs.isEmpty()) {
     qs=b.queryString;
