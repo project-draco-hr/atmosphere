@@ -1,8 +1,7 @@
 {
   framework=new AtmosphereFramework();
   framework.setDefaultBroadcasterClassName(SimpleBroadcaster.class.getName());
-  String name=new File("./target/").getAbsolutePath();
-  framework.setHandlersPath(name);
+  framework.addAnnotationPackage(ManagedGet.class);
   framework.setAsyncSupport(new AsynchronousProcessor(framework.getAtmosphereConfig()){
     @Override public Action service(    AtmosphereRequest req,    AtmosphereResponse res) throws IOException, ServletException {
       return suspended(req,res);

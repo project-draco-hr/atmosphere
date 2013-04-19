@@ -1,12 +1,11 @@
 {
-  if (!force && uuidCache) {
+  if (!force) {
     return;
   }
   try {
     if (token != null && token.originalMessage != null) {
-      Object m=cacheStrategy.equals(STRATEGY.BEFORE_FILTER) ? token.originalMessage : token.msg;
-      bc.getBroadcasterCache().addToCache(getID(),r,new Message(String.valueOf(token.future.hashCode()),m));
-      logger.trace("Lost message cached {}",m);
+      bc.getBroadcasterCache().addToCache(getID(),r,new BroadcastMessage(String.valueOf(token.future.hashCode()),token.originalMessage));
+      logger.trace("Lost message cached {}",token.originalMessage);
     }
   }
  catch (  Throwable t2) {

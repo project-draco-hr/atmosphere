@@ -1,17 +1,18 @@
 {
   final CountDownLatch latch=new CountDownLatch(1);
   broadcaster.getBroadcasterConfig().setBroadcasterCache(new AbstractBroadcasterCache(){
-    @Override public void addToCache(    String id,    AtmosphereResource r,    Message e){
-      put(e,System.nanoTime());
+    @Override public CacheMessage addToCache(    String id,    AtmosphereResource r,    BroadcastMessage e){
+      CacheMessage c=put(e,System.nanoTime());
       cachedMessage.set(messages);
       latch.countDown();
+      return c;
     }
     @Override public List<Object> retrieveFromCache(    String id,    AtmosphereResource r){
       return Collections.<Object>emptyList();
     }
   }
 ).getBroadcasterCache().inspector(new BroadcasterCacheInspector(){
-    @Override public boolean inspect(    BroadcasterCache.Message message){
+    @Override public boolean inspect(    BroadcastMessage message){
       return false;
     }
   }

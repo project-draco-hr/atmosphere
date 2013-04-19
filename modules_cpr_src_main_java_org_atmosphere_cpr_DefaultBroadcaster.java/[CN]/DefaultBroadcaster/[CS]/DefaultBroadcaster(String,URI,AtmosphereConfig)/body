@@ -5,12 +5,7 @@
   bc=createBroadcasterConfig(config);
   String s=config.getInitParameter(ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
   if (s != null) {
-    if (s.equalsIgnoreCase("afterFilter")) {
-      cacheStrategy=STRATEGY.AFTER_FILTER;
-    }
- else     if (s.equalsIgnoreCase("beforeFilter")) {
-      cacheStrategy=STRATEGY.BEFORE_FILTER;
-    }
+    logger.warn("{} is no longer supported. Use BroadcastInterceptor instead. By default the original message will be cached.",ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
   }
   s=config.getInitParameter(OUT_OF_ORDER_BROADCAST);
   if (s != null) {
@@ -25,6 +20,5 @@
     writeTimeoutInSecond=Integer.valueOf(s);
   }
   noOpsResource=AtmosphereResourceFactory.getDefault().create(config,"-1");
-  uuidCache=UUIDBroadcasterCache.class.isAssignableFrom(bc.getBroadcasterCache().getClass());
   logger.info("{} support Out Of Order Broadcast: {}",name,outOfOrderBroadcastSupported.get());
 }

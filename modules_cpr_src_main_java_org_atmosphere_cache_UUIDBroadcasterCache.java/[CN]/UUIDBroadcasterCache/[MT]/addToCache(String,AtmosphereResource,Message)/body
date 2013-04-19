@@ -1,4 +1,0 @@
-{
-  if (!inspect(e))   return;
-  addCacheCandidate(broadcasterId,r,e.message);
-}

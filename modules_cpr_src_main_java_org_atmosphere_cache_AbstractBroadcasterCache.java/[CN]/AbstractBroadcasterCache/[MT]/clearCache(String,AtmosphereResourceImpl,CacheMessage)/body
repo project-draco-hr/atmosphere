@@ -1,0 +1,6 @@
+{
+  if (cache != null) {
+    messages.remove(cache);
+    messagesIds.remove(cache.getId());
+  }
+}

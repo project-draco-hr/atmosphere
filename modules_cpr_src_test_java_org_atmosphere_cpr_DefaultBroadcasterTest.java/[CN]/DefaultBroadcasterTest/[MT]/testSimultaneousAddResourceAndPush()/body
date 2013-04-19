@@ -1,9 +1,10 @@
 {
-  final Map<String,BroadcasterCache.Message> cache=new HashMap<String,BroadcasterCache.Message>();
+  final Map<String,BroadcastMessage> cache=new HashMap<String,BroadcastMessage>();
   broadcaster.getBroadcasterConfig().setBroadcasterCache(new AbstractBroadcasterCache(){
-    @Override public void addToCache(    String id,    AtmosphereResource r,    BroadcasterCache.Message e){
-      put(e,System.nanoTime());
+    @Override public CacheMessage addToCache(    String id,    AtmosphereResource r,    BroadcastMessage e){
+      CacheMessage c=put(e,System.nanoTime());
       cache.put(id,e);
+      return c;
     }
     @Override public List<Object> retrieveFromCache(    String id,    AtmosphereResource r){
       ArrayList<Object> cacheContents=new ArrayList<Object>();

@@ -47,21 +47,20 @@ synchronized (resources) {
     return;
   }
   entry.message=finalMsg;
+  entry.cache=bc.getBroadcasterCache().addToCache(getID(),null,new BroadcastMessage(entry.originalMessage));
   if (resources.isEmpty()) {
-    boolean continueProcessing=true;
-    if (!bc.getBroadcasterCache().getClass().equals(BroadcasterConfig.DefaultBroadcasterCache.class.getName())) {
-synchronized (resources) {
-        continueProcessing=invokeFiltersAndCache(entry);
+    if (resources.isEmpty()) {
+      logger.trace("Broadcaster {} doesn't have any associated resource. " + "Message will be cached in the configured BroadcasterCache {}",getID(),entry.message);
+      AtmosphereResource r=null;
+      if (entry.multipleAtmoResources != null && AtmosphereResource.class.isAssignableFrom(entry.multipleAtmoResources.getClass())) {
+        r=AtmosphereResource.class.cast(entry.multipleAtmoResources);
       }
+      if (r == null) {
+        r=noOpsResource;
+      }
+      entryDone(entry.future);
+      return;
     }
- else {
-      continueProcessing=invokeFiltersAndCache(entry);
-    }
-    if (!continueProcessing)     return;
-  }
-  BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-  if (uuidCache) {
-    entry.cache=UUIDBroadcasterCache.class.cast(broadcasterCache).addCacheCandidate(getID(),null,entry.originalMessage);
   }
   try {
     if (logger.isTraceEnabled()) {
@@ -71,44 +70,38 @@ synchronized (resources) {
     }
     if (entry.multipleAtmoResources == null) {
       for (      AtmosphereResource r : resources) {
-        finalMsg=perRequestFilter(r,entry,true);
-        if (finalMsg == null) {
+        perRequestFilter(r,entry,true);
+        if (entry.message == null) {
           logger.debug("Skipping broadcast delivery resource {} ",r);
           continue;
         }
         if (entry.writeLocally) {
-          queueWriteIO(r,finalMsg,entry);
+          queueWriteIO(r,entry);
         }
       }
     }
  else     if (entry.multipleAtmoResources instanceof AtmosphereResource) {
-      finalMsg=perRequestFilter((AtmosphereResource)entry.multipleAtmoResources,entry,true);
-      if (finalMsg == null) {
+      perRequestFilter((AtmosphereResource)entry.multipleAtmoResources,entry,true);
+      if (entry.message == null) {
         logger.debug("Skipping broadcast delivery resource {} ",entry.multipleAtmoResources);
         return;
       }
       if (entry.writeLocally) {
-        queueWriteIO((AtmosphereResource)entry.multipleAtmoResources,finalMsg,entry);
+        queueWriteIO((AtmosphereResource)entry.multipleAtmoResources,entry);
       }
     }
  else     if (entry.multipleAtmoResources instanceof Set) {
       Set<AtmosphereResource> sub=(Set<AtmosphereResource>)entry.multipleAtmoResources;
       if (sub.size() != 0) {
         for (        AtmosphereResource r : sub) {
-          finalMsg=perRequestFilter(r,entry,true);
-          if (finalMsg == null) {
+          perRequestFilter(r,entry,true);
+          if (entry.message == null) {
             logger.debug("Skipping broadcast delivery resource {} ",r);
             continue;
           }
           if (entry.writeLocally) {
-            queueWriteIO(r,finalMsg,entry);
+            queueWriteIO(r,entry);
           }
-        }
-      }
- else {
-        if (cacheStrategy == STRATEGY.AFTER_FILTER) {
-          entry.message=finalMsg;
-          trackBroadcastMessage(null,entry);
         }
       }
     }

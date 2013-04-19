@@ -1,0 +1,12 @@
+{
+  Object o=config.properties().get("shared");
+  if (o != null) {
+    isShared=Boolean.parseBoolean(o.toString());
+  }
+  if (isShared) {
+    reaper=ExecutorsFactory.getScheduler(config);
+  }
+ else {
+    reaper=Executors.newSingleThreadScheduledExecutor();
+  }
+}

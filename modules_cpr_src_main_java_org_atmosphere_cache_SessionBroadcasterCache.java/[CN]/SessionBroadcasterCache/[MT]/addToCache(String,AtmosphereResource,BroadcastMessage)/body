@@ -1,0 +1,18 @@
+{
+  long now=System.nanoTime();
+  CacheMessage cacheMessage=put(message,now);
+  if (r == null)   return cacheMessage;
+  try {
+    HttpSession session=r.session();
+    if (session == null) {
+      logger.error(ERROR_MESSAGE);
+      return cacheMessage;
+    }
+    session.setAttribute(broadcasterId,String.valueOf(now));
+  }
+ catch (  IllegalStateException ex) {
+    logger.trace("",ex);
+    logger.warn("The Session has been invalidated. Message will be loat.");
+  }
+  return cacheMessage;
+}

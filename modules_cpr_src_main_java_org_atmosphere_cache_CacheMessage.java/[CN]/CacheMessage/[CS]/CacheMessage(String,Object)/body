@@ -1,0 +1,5 @@
+{
+  this.id=id;
+  this.message=message;
+  this.createTime=System.nanoTime();
+}

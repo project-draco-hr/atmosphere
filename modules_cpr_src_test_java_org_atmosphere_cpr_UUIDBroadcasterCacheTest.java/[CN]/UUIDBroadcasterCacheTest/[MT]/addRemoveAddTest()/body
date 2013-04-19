@@ -2,8 +2,8 @@
   broadcaster.broadcast("e1").get();
   broadcaster.removeAtmosphereResource(ar);
   broadcaster.broadcast("e2").get();
-  assertEquals(1,eventCacheBroadcasterCache.messages().size());
+  assertEquals(1,broadcasterCache.messages().size());
   broadcaster.addAtmosphereResource(ar);
   broadcaster.broadcast("e3").get();
-  assertEquals(0,eventCacheBroadcasterCache.messages().size());
+  assertEquals(0,broadcasterCache.messages().get(ar.uuid()).getQueue().size());
 }

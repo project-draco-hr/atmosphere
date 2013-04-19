@@ -1,4 +1,7 @@
 {
+  if (message == null) {
+    return;
+  }
   String clientId=uuid(r);
   ClientQueue clientQueue;
 synchronized (messages) {

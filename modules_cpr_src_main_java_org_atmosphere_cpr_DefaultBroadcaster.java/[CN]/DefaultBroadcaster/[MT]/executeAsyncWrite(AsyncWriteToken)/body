@@ -5,10 +5,7 @@
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
   try {
     event.setMessage(token.msg);
-    BroadcasterCache broadcasterCache=bc.getBroadcasterCache();
-    if (uuidCache) {
-      UUIDBroadcasterCache.class.cast(broadcasterCache).clearCache(getID(),r,token.cache);
-    }
+    bc.getBroadcasterCache().clearCache(getID(),r,token.cache);
     if (!isAtmosphereResourceValid(r)) {
       logger.trace("AtmosphereResource {} state is invalid for Broadcaster {}",r.uuid(),name);
       removeAtmosphereResource(r);
