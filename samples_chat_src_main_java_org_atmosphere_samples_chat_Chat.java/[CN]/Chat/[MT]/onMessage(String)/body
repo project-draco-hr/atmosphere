@@ -1,3 +1,0 @@
-{
-  return mapper.writeValueAsString(mapper.readValue(message,Data.class));
-}
