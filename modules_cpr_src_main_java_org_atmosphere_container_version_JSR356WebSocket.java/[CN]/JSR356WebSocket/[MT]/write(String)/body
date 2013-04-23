@@ -1,4 +1,9 @@
 {
-  session.getBasicRemote().sendText(s);
+  try {
+    session.getBasicRemote().sendText(s);
+  }
+ catch (  NullPointerException e) {
+    patchGlassFish(e);
+  }
   return this;
 }

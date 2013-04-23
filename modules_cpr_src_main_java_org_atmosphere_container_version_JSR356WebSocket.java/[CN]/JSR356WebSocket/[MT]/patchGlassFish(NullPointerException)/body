@@ -1,0 +1,4 @@
+{
+  logger.trace("",e);
+  WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config().framework()).close(this,1002);
+}
