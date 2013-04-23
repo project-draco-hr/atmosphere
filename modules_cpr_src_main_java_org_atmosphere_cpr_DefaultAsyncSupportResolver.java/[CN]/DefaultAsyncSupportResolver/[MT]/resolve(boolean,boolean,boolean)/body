@@ -10,7 +10,12 @@
     if (s != null) {
       use30=Boolean.valueOf(s);
     }
-    l=detectWebSocketPresent(use30);
+    if (use30) {
+      l=detectServlet3WebSocketPresent();
+    }
+ else {
+      l=detectWebSocketPresent(useNativeIfPossible);
+    }
     if (l.isEmpty()) {
       return resolve(useNativeIfPossible,defaultToBlocking);
     }
