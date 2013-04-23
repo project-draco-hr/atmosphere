@@ -1,4 +1,5 @@
 {
+  isCancelled.set(true);
   resource=null;
   message=null;
   return this;
