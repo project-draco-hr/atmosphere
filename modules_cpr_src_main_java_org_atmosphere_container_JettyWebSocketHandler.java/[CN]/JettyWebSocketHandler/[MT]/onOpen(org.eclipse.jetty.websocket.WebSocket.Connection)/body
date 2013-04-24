@@ -1,5 +1,5 @@
 {
-  logger.trace("WebSocket.onOpen.");
+  logger.trace("WebSocket.onOpen {}",connection);
   try {
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
   }

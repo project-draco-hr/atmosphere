@@ -1,4 +1,9 @@
 {
-  request.destroy();
-  webSocketProcessor.close(webSocket,closeCode);
+  logger.trace("onClose {}:{}",closeCode,s);
+  try {
+    webSocketProcessor.close(webSocket,closeCode);
+  }
+  finally {
+    request.destroy();
+  }
 }

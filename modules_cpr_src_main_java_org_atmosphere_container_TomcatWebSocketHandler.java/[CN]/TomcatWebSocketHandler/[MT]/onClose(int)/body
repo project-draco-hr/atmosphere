@@ -1,5 +1,10 @@
 {
-  request.destroy();
   if (webSocketProcessor == null)   return;
-  webSocketProcessor.close(webSocket,closeCode);
+  logger.trace("onClose {}",closeCode);
+  try {
+    webSocketProcessor.close(webSocket,closeCode);
+  }
+  finally {
+    request.destroy();
+  }
 }
