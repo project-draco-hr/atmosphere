@@ -11,6 +11,7 @@
         }
  catch (        IOException e) {
           handleException(e);
+          throw new RuntimeException(e);
         }
  finally {
           forceAsyncIOWriter=b;
@@ -26,6 +27,7 @@
         }
  catch (        IOException e) {
           handleException(e);
+          throw new RuntimeException(e);
         }
  finally {
           forceAsyncIOWriter=b;
@@ -41,6 +43,7 @@
         }
  catch (        IOException e) {
           handleException(e);
+          throw new RuntimeException(e);
         }
  finally {
           forceAsyncIOWriter=b;
@@ -56,6 +59,7 @@
         }
  catch (        IOException e) {
           handleException(e);
+          throw new RuntimeException(e);
         }
  finally {
           forceAsyncIOWriter=b;
