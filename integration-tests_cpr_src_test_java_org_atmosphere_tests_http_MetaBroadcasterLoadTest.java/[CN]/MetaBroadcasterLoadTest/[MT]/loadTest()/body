@@ -3,7 +3,7 @@
   final int run=1000;
   Thread[] threads=new Thread[10];
   final CountDownLatch latch=new CountDownLatch(run);
-  BroadcasterListener l=new BroadcasterListener(){
+  BroadcasterListener l=new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
     }
     @Override public void onComplete(    Broadcaster b){
