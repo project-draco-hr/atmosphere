@@ -6,6 +6,7 @@
   boolean removed;
 synchronized (resources) {
     removed=resources.remove(r);
+    notifyOnRemoveAtmosphereResourceListener(r);
   }
   if (!removed)   return this;
   logger.trace("Removing AtmosphereResource {} for Broadcaster {}",r.uuid(),name);

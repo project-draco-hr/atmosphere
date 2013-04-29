@@ -11,7 +11,7 @@
     broadcaster.addAtmosphereResource(newAR(a));
   }
   final CountDownLatch latch=new CountDownLatch(count * client);
-  broadcaster.addBroadcasterListener(new BroadcasterListener(){
+  broadcaster.addBroadcasterListener(new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
     }
     @Override public void onComplete(    Broadcaster b){

@@ -1,0 +1,10 @@
+{
+  for (  BroadcasterListener b : broadcasterListeners) {
+    try {
+      b.onRemoveAtmosphereResource(this,r);
+    }
+ catch (    Exception ex) {
+      logger.warn("",ex);
+    }
+  }
+}

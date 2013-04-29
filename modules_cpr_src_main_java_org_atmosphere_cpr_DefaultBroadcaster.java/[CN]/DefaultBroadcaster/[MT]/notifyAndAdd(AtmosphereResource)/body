@@ -1,0 +1,4 @@
+{
+  resources.add(r);
+  notifyOnAddAtmosphereResourceListener(r);
+}

@@ -1,6 +1,6 @@
 {
   final AtomicReference<Boolean> complete=new AtomicReference<Boolean>(false);
-  BroadcasterListener l=new BroadcasterListener(){
+  BroadcasterListener l=new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
     }
     @Override public void onComplete(    Broadcaster b){

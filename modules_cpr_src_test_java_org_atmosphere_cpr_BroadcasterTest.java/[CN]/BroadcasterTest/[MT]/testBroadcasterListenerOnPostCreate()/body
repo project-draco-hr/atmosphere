@@ -1,6 +1,6 @@
 {
   final AtomicReference<Boolean> create=new AtomicReference<Boolean>();
-  BroadcasterListener l=new BroadcasterListener(){
+  BroadcasterListener l=new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
       create.set(Boolean.TRUE);
     }

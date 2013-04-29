@@ -1,0 +1,7 @@
+{
+  super.removeBroadcasterListener(l);
+  for (  Broadcaster b : store.values()) {
+    b.removeBroadcasterListener(l);
+  }
+  return this;
+}

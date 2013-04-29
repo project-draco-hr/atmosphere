@@ -10,17 +10,17 @@
     if (!backwardCompatible && parentUUID != null) {
       AtmosphereResource p=AtmosphereResourceFactory.getDefault().find(parentUUID);
       if (p != null && !resources.contains(p)) {
-        resources.add(p);
+        notifyAndAdd(p);
       }
  else       if (p == null) {
-        resources.add(r);
+        notifyAndAdd(r);
       }
     }
  else {
-      resources.add(r);
+      notifyAndAdd(r);
     }
   }
  else   if (!wasResumed) {
-    logger.debug("Unable to add AtmosphereResource {}",r.uuid());
+    logger.debug("Unable to add AtmosphereResource {} to {}",r.uuid(),name);
   }
 }
