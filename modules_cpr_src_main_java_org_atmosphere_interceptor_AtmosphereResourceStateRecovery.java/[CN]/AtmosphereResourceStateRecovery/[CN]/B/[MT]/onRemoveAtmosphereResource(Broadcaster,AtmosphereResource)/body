@@ -1,0 +1,6 @@
+{
+  BroadcasterTracker t=states.get(r.uuid());
+  if (!r.isCancelled() && t != null) {
+    t.remove(b);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  recovery.configure(config);
+  recovery.inspect(r);
+  r.suspend();
+  r.getBroadcaster().removeAtmosphereResource(r);
+  assertEquals(recovery.states().get(r.uuid()).ids().size(),0);
+}

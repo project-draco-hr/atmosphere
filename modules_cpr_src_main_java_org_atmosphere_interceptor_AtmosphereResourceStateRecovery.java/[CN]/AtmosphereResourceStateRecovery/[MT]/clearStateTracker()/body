@@ -1,0 +1,14 @@
+{
+  stateTracker.scheduleAtFixedRate(new Runnable(){
+    @Override public void run(){
+      long now=System.currentTimeMillis();
+      for (      Map.Entry<String,BroadcasterTracker> t : states.entrySet()) {
+        if (now - t.getValue().lastTick() > timeout) {
+          logger.trace("AtmosphereResource {} state destroyed.",t.getKey());
+          states.remove(t.getKey());
+        }
+      }
+    }
+  }
+,timeout,timeout,TimeUnit.NANOSECONDS);
+}

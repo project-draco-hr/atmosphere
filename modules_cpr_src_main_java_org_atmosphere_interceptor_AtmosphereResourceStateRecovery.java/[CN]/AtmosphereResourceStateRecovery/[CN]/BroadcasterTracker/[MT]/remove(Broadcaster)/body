@@ -1,0 +1,4 @@
+{
+  broadcasterIds.remove(b.getID());
+  return this;
+}

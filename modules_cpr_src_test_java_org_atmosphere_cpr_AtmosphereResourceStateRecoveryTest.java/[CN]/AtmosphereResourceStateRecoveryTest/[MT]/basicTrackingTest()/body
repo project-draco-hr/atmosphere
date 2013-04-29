@@ -1,0 +1,6 @@
+{
+  recovery.configure(config);
+  recovery.inspect(r);
+  r.suspend();
+  assertEquals(recovery.states().size(),1);
+}

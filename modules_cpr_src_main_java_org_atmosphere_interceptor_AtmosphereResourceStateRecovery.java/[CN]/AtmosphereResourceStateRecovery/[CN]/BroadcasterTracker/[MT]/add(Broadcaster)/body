@@ -1,0 +1,4 @@
+{
+  broadcasterIds.add(b.getID());
+  return this;
+}

@@ -1,0 +1,9 @@
+{
+  BroadcasterTracker tracker=states.get(r.uuid());
+  if (tracker == null) {
+    tracker=new BroadcasterTracker();
+    states.put(r.uuid(),tracker);
+    logger.trace("AtmosphereResource {} state now tracked",r.uuid());
+  }
+  return tracker;
+}

@@ -1,0 +1,13 @@
+{
+  recovery.configure(config);
+  recovery.inspect(r);
+  config.getBroadcasterFactory().lookup("/1",true).addAtmosphereResource(r);
+  config.getBroadcasterFactory().lookup("/2",true).addAtmosphereResource(r);
+  config.getBroadcasterFactory().lookup("/3",true).addAtmosphereResource(r);
+  config.getBroadcasterFactory().lookup("/4",true).addAtmosphereResource(r);
+  r.suspend();
+  r.getBroadcaster().removeAtmosphereResource(r);
+  r.suspend();
+  assertEquals(recovery.states().size(),1);
+  assertEquals(recovery.states().get(r.uuid()).ids().size(),4);
+}

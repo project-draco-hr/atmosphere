@@ -1,0 +1,10 @@
+{
+  factory=config.getBroadcasterFactory();
+  factory.addBroadcasterListener(new B());
+  stateTracker=ExecutorsFactory.getScheduler(config);
+  String s=config.getInitParameter(STATE_RECOVERY_TIMEOUT);
+  if (s != null) {
+    timeout=Long.parseLong(s);
+  }
+  clearStateTracker();
+}

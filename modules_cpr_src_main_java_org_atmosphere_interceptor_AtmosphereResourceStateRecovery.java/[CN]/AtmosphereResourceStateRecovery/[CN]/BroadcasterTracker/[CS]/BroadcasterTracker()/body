@@ -1,0 +1,4 @@
+{
+  this.broadcasterIds=new LinkedList<String>();
+  tick=System.currentTimeMillis();
+}
