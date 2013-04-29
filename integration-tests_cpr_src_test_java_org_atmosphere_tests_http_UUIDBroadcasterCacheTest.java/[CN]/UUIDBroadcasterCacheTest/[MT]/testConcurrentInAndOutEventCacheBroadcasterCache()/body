@@ -39,7 +39,7 @@
       event.getResource().resume();
     }
   }
-,BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"cache").addBroadcasterListener(new BroadcasterListener(){
+,BroadcasterFactory.getDefault().get(DefaultBroadcaster.class,"cache").addBroadcasterListener(new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
     }
     @Override public void onComplete(    Broadcaster b){
