@@ -6,4 +6,10 @@
     response.setContentType("text/plain");
   }
   response.write(padding,true);
+  try {
+    response.flushBuffer();
+  }
+ catch (  IOException e) {
+    logger.trace("",e);
+  }
 }

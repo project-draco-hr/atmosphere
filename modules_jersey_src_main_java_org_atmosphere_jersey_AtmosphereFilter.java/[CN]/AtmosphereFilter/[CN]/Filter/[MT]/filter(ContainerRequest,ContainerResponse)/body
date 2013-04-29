@@ -42,7 +42,7 @@ if (transport == null) {
 transport=HeaderConfig.LONG_POLLING_TRANSPORT;
 }
 if (broadcasterName == null) {
-StringBuffer s=new StringBuffer();
+StringBuilder s=new StringBuilder();
 Enumeration<String> e=servletReq.getHeaderNames();
 String t;
 while (e.hasMoreElements()) {
