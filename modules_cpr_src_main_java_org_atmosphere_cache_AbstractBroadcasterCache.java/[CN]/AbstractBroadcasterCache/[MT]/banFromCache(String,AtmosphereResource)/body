@@ -1,0 +1,8 @@
+{
+  List<String> list=bannedResources.get(broadcasterId);
+  if (list == null) {
+    list=new ArrayList<String>();
+  }
+  list.add(r.uuid());
+  bannedResources.put(broadcasterId,list);
+}

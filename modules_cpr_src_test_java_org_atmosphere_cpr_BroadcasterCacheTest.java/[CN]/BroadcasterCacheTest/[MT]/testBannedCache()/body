@@ -1,0 +1,10 @@
+{
+  BroadcasterCache cache=new UUIDBroadcasterCache();
+  AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(broadcaster.getBroadcasterConfig().getAtmosphereConfig(),"1234567");
+  cache.banFromCache(broadcaster.getID(),r);
+  broadcaster.getBroadcasterConfig().setBroadcasterCache(cache);
+  broadcaster.removeAtmosphereResource(r);
+  broadcaster.broadcast("foo").get();
+  assertNotNull(cache.retrieveFromCache(broadcaster.getID(),r));
+  assertEquals(cache.retrieveFromCache(broadcaster.getID(),r).isEmpty(),true);
+}

@@ -1,5 +1,11 @@
 {
   String clientId=uuid(r);
+  if (!bannedResources.isEmpty()) {
+    List<String> list=bannedResources.get(broadcasterId);
+    if (list != null && list.contains(r.uuid())) {
+      return emptyList;
+    }
+  }
   long now=System.currentTimeMillis();
   List<Object> result=new ArrayList<Object>();
   ClientQueue clientQueue;
