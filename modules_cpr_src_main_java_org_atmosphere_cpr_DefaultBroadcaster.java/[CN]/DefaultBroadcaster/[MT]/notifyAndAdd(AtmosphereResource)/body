@@ -1,4 +1,6 @@
 {
+  boolean b=bc.getBroadcasterCache().includeInCache(getID(),r);
+  if (b)   logger.debug("Excluded from {} : {}",getID(),r.uuid());
   resources.add(r);
   notifyOnAddAtmosphereResourceListener(r);
 }

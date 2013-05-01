@@ -1,0 +1,10 @@
+{
+  UUIDBroadcasterCache cache=new UUIDBroadcasterCache();
+  SimpleBroadcaster b=BroadcasterFactory.getDefault().lookup(SimpleBroadcaster.class,"uuidTest",true);
+  b.getBroadcasterConfig().setBroadcasterCache(cache);
+  b.removeAtmosphereResource(ar);
+  ar.suspend();
+  b.removeAtmosphereResource(ar);
+  b.broadcast("raide").get();
+  assertEquals(cache.messages().isEmpty(),true);
+}

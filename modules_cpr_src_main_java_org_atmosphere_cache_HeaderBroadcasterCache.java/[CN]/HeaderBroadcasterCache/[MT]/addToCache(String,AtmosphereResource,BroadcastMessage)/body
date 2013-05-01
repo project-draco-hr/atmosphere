@@ -1,4 +1,10 @@
 {
+  if (r != null && !bannedResources.isEmpty()) {
+    List<String> list=bannedResources.get(broadcasterId);
+    if (list != null && list.contains(r.uuid())) {
+      return null;
+    }
+  }
   long now=System.nanoTime();
   CacheMessage cacheMessage=put(e,now);
   if (r != null) {

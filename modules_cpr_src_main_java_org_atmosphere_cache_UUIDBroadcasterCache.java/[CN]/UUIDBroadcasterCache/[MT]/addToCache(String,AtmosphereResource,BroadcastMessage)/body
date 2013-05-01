@@ -1,4 +1,10 @@
 {
+  if (r != null && !bannedResources.isEmpty()) {
+    List<String> list=bannedResources.get(broadcasterId);
+    if (list != null && list.contains(r.uuid())) {
+      return null;
+    }
+  }
   Object e=message.message;
   if (logger.isTraceEnabled()) {
     logger.trace("Adding for AtmosphereResource {} cached messages {}",r != null ? r.uuid() : "null",e);

@@ -2,7 +2,7 @@
   if (!isCancelled.getAndSet(true)) {
     logger.trace("Cancelling {}",uuid);
     action.type(Action.TYPE.RESUME);
-    asyncSupport.action(this);
+    if (asyncSupport != null)     asyncSupport.action(this);
     if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
       AtmosphereResponse.class.cast(response).close();
       AtmosphereResponse.class.cast(response).destroy();
