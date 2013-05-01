@@ -1,4 +1,4 @@
-Class<? extends Broadcaster> c
+Class<T> c
 Object id
 boolean createIfNull
 boolean unique

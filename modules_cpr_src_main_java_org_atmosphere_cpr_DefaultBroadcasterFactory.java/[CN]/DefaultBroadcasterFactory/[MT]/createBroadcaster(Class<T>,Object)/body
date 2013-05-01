@@ -1,6 +1,6 @@
 {
   try {
-    Broadcaster b=c.getConstructor(String.class,AtmosphereConfig.class).newInstance(id.toString(),config);
+    T b=c.getConstructor(String.class,AtmosphereConfig.class).newInstance(id.toString(),config);
     InjectorProvider.getInjector().inject(b);
     b.setSuspendPolicy(defaultPolicyInteger,defaultPolicy);
     if (b.getBroadcasterConfig() == null) {
