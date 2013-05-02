@@ -1,0 +1,7 @@
+{
+  broadcasterFilters.add(f.getClass().getName());
+  for (  Broadcaster b : config.getBroadcasterFactory().lookupAll()) {
+    b.getBroadcasterConfig().addFilter(f);
+  }
+  return this;
+}

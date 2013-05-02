@@ -12,7 +12,7 @@
           framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
           Class<? extends BroadcastFilter>[] bf=a.broadcastFilters();
           for (          Class<? extends BroadcastFilter> b : bf) {
-            framework.broadcasterFilters().add(b.getName());
+            addBroadcastFilter(b.getName());
           }
           for (          String s : a.properties()) {
             String[] nv=s.split("=");
@@ -64,7 +64,7 @@
           framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
           Class<? extends BroadcastFilter>[] bf=m.broadcastFilters();
           for (          Class<? extends BroadcastFilter> b : bf) {
-            framework.broadcasterFilters().add(b.getName());
+            addBroadcastFilter(b.getName());
           }
           for (          String i : m.atmosphereConfig()) {
             String[] nv=i.split("=");
@@ -88,7 +88,12 @@
         }
       }
  else       if (BroadcasterFilterService.class.equals(annotation)) {
-        framework.broadcasterFilters().add(className);
+        try {
+          addBroadcastFilter(className);
+        }
+ catch (        Exception e) {
+          logger.warn("",e);
+        }
       }
  else       if (BroadcasterService.class.equals(annotation)) {
         framework.setDefaultBroadcasterClassName(className);
@@ -109,7 +114,7 @@
           framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
           Class<? extends BroadcastFilter>[] bf=m.broadcastFilters();
           for (          Class<? extends BroadcastFilter> b : bf) {
-            framework.broadcasterFilters().add(b.getName());
+            addBroadcastFilter(b.getName());
           }
           Class<? extends BroadcasterCache> e=m.broadcasterCache();
           if (e != null)           framework.setBroadcasterCacheClassName(e.getName());
@@ -196,6 +201,9 @@
           logger.warn("",e);
         }
       }
+    }
+    void addBroadcastFilter(    String f) throws Exception {
+      framework.broadcasterFilters((BroadcastFilter)loadClass(f).newInstance());
     }
     void managed(    AtmosphereHandler handler,    Class<? extends Annotation> annotation){
       ManagedService a=handler.getClass().getAnnotation(ManagedService.class);
