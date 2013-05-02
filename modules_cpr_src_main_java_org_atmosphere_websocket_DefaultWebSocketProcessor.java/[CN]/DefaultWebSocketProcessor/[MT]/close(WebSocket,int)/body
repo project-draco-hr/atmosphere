@@ -29,14 +29,16 @@
             logger.warn("AsynchronousProcessor.AsynchronousProcessorHook was null");
           }
         }
-        resource.setIsInScope(false);
-        try {
-          resource.cancel();
+        if (resource.isInScope()) {
+          resource.setIsInScope(false);
+          try {
+            resource.cancel();
+          }
+ catch (          IOException e) {
+            logger.trace("",e);
+          }
+          AtmosphereResourceImpl.class.cast(resource)._destroy();
         }
- catch (        IOException e) {
-          logger.trace("",e);
-        }
-        AtmosphereResourceImpl.class.cast(resource)._destroy();
       }
     }
   finally {
