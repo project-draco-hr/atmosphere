@@ -1,0 +1,7 @@
+{
+  this.isCancelled.set(isCancelled);
+  this.isResumedOnTimeout.set(isResumedOnTimeout);
+  this.resource=resource;
+  this.throwable=throwable;
+  this.isClosedByClient.set(isClosedByClient);
+}
