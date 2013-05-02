@@ -1,4 +1,5 @@
 {
+  if (disableSuspendEvent)   return;
   for (  AtmosphereResourceEventListener r : listeners) {
     r.onPreSuspend(e);
   }

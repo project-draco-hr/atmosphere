@@ -1,0 +1,4 @@
+{
+  this.disableSuspendEvent=disableSuspendEvent;
+  return this;
+}
