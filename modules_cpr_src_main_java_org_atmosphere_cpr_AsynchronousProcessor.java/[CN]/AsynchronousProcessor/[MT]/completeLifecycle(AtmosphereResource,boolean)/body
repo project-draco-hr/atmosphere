@@ -17,7 +17,6 @@ synchronized (impl) {
           if (b instanceof DefaultBroadcaster) {
             ((DefaultBroadcaster)b).broadcastOnResume(r);
           }
-          impl.getAtmosphereResourceEvent().setIsResumedOnTimeout(impl.resumeOnBroadcast());
         }
         invokeAtmosphereHandler(impl);
         try {
