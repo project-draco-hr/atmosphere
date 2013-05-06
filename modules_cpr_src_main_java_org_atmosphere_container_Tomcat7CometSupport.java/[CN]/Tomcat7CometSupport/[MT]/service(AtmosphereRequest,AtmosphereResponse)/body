@@ -3,6 +3,7 @@
   if (event == null) {
     throw unableToDetectComet;
   }
+  logger.trace("event {} with request {}",event,req);
   Action action=null;
   if (event.getEventType() == EventType.BEGIN) {
     action=suspended(req,res);
