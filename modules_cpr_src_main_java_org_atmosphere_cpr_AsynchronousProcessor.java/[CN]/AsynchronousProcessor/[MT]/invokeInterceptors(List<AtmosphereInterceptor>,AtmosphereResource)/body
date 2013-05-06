@@ -2,7 +2,18 @@
   Action a=Action.CONTINUE;
   for (  AtmosphereInterceptor arc : c) {
     a=arc.inspect(r);
-    if (a == null || a.type() != Action.TYPE.CONTINUE) {
+    if (a == null) {
+      a=Action.CANCELLED;
+    }
+    boolean skip=a.type() == Action.TYPE.SKIP_ATMOSPHEREHANDLER;
+    if (skip) {
+      logger.debug("AtmosphereInterceptor {} asked to skip the AtmosphereHandler",arc);
+      r.getRequest().setAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name(),Boolean.TRUE);
+    }
+ else     if (r.getRequest().getAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name()) == null) {
+      r.getRequest().setAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
+    }
+    if (a.type() != Action.TYPE.CONTINUE) {
       logger.trace("Interceptor {} interrupted the dispatch with {}",arc,a);
       return a;
     }

@@ -57,19 +57,22 @@ synchronized (f) {
   req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
   Action a=invokeInterceptors(config.framework().interceptors(),resource);
-  if (a == null || a.type() != Action.TYPE.CONTINUE) {
+  if (a.type() != Action.TYPE.CONTINUE) {
     return a;
   }
   a=invokeInterceptors(handlerWrapper.interceptors,resource);
-  if (a == null || a.type() != Action.TYPE.CONTINUE) {
+  if (a.type() != Action.TYPE.CONTINUE) {
     return a;
   }
-  try {
-    handlerWrapper.atmosphereHandler.onRequest(resource);
-  }
- catch (  IOException t) {
-    resource.onThrowable(t);
-    throw t;
+  boolean skipAtmosphereHandler=(Boolean)resource.getRequest().getAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name());
+  if (!skipAtmosphereHandler) {
+    try {
+      handlerWrapper.atmosphereHandler.onRequest(resource);
+    }
+ catch (    IOException t) {
+      resource.onThrowable(t);
+      throw t;
+    }
   }
   postInterceptors(handlerWrapper.interceptors,resource);
   postInterceptors(config.framework().interceptors(),resource);
@@ -77,7 +80,7 @@ synchronized (f) {
     req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     aliveRequests.put(req,resource);
   }
-  Action action=resource.action();
+  Action action=skipAtmosphereHandler ? Action.CANCELLED : resource.action();
   logger.trace("Action for {} was {}",req.resource() != null ? req.resource().uuid() : "null",action);
   return action;
 }
