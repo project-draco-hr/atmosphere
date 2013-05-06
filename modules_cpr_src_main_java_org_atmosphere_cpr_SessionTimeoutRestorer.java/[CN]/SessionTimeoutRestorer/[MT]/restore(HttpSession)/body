@@ -1,4 +1,5 @@
 {
   int count=requestCount.decrementAndGet();
+  logger.trace("requestCount <= {}",requestCount);
   if (count == 0)   refreshTimeout(session);
 }
