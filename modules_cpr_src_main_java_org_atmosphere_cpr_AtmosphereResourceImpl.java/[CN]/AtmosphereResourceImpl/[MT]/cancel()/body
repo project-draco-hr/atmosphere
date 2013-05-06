@@ -1,6 +1,9 @@
 {
   if (!isCancelled.getAndSet(true)) {
     logger.trace("Cancelling {}",uuid);
+    if (action.type() == Action.TYPE.SUSPEND) {
+      SessionTimeoutSupport.restoreTimeout(req);
+    }
     action.type(Action.TYPE.RESUME);
     if (asyncSupport != null)     asyncSupport.action(this);
     if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
