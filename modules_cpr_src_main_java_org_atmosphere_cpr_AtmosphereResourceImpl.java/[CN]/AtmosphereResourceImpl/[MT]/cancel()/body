@@ -1,7 +1,7 @@
 {
   if (!isCancelled.getAndSet(true)) {
     logger.trace("Cancelling {}",uuid);
-    if (action.type() == Action.TYPE.SUSPEND) {
+    if (action.type() == Action.TYPE.CANCELLED) {
       SessionTimeoutSupport.restoreTimeout(req);
     }
     action.type(Action.TYPE.RESUME);

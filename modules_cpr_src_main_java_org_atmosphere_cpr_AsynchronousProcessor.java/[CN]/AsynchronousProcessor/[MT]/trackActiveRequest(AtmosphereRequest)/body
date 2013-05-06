@@ -1,5 +1,4 @@
 {
-  SessionTimeoutSupport.restoreTimeout(req);
   if (trackActiveRequest) {
     try {
       long l=(Long)req.getAttribute(MAX_INACTIVE);

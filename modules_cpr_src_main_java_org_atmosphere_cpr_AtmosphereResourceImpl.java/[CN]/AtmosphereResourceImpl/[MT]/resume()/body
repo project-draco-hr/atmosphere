@@ -50,7 +50,7 @@
       }
     }
  else {
-      logger.debug("Cannot resume an already resumed/cancelled request {}",this);
+      logger.trace("Cannot resume an already resumed/cancelled request {}",this);
       return this;
     }
   }
