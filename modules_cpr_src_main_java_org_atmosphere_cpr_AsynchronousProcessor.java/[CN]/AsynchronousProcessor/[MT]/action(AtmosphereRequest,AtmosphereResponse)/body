@@ -55,6 +55,7 @@ synchronized (f) {
   }
   req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
+  req.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
   Action a=invokeInterceptors(config.framework().interceptors(),resource);
   if (a.type() != Action.TYPE.CONTINUE) {
     return a;
@@ -63,7 +64,7 @@ synchronized (f) {
   if (a.type() != Action.TYPE.CONTINUE) {
     return a;
   }
-  boolean skipAtmosphereHandler=(Boolean)resource.getRequest().getAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name());
+  boolean skipAtmosphereHandler=req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
   if (!skipAtmosphereHandler) {
     try {
       handlerWrapper.atmosphereHandler.onRequest(resource);

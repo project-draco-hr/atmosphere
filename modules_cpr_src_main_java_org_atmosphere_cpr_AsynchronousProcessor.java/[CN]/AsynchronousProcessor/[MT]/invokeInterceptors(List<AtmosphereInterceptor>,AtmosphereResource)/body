@@ -5,13 +5,10 @@
     if (a == null) {
       a=Action.CANCELLED;
     }
-    boolean skip=a.type() == Action.TYPE.SKIP_ATMOSPHEREHANDLER;
+    boolean skip=a.type() == SKIP_ATMOSPHEREHANDLER;
     if (skip) {
       logger.debug("AtmosphereInterceptor {} asked to skip the AtmosphereHandler",arc);
-      r.getRequest().setAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name(),Boolean.TRUE);
-    }
- else     if (r.getRequest().getAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name()) == null) {
-      r.getRequest().setAttribute(Action.TYPE.SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
+      r.getRequest().setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.TRUE);
     }
     if (a.type() != Action.TYPE.CONTINUE) {
       logger.trace("Interceptor {} interrupted the dispatch with {}",arc,a);
