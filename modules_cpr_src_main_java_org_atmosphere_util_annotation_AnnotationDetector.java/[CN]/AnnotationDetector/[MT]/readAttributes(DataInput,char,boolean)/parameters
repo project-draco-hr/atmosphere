@@ -1,0 +1,3 @@
+DataInput di
+char reporterType
+boolean skipReporting

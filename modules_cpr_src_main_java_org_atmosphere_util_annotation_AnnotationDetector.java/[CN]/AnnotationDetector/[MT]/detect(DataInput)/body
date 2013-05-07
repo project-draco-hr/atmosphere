@@ -1,0 +1,11 @@
+{
+  readVersion(di);
+  readConstantPoolEntries(di);
+  readAccessFlags(di);
+  readThisClass(di);
+  readSuperClass(di);
+  readInterfaces(di);
+  readFields(di);
+  readMethods(di);
+  readAttributes(di,'T',typeReporter == null);
+}

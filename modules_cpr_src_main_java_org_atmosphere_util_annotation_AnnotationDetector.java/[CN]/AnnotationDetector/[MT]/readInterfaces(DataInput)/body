@@ -1,0 +1,4 @@
+{
+  final int count=di.readUnsignedShort();
+  di.skipBytes(count * 2);
+}

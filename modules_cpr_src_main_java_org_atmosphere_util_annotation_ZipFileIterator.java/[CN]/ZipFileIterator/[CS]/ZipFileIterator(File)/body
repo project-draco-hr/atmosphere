@@ -1,0 +1,4 @@
+{
+  zipFile=new ZipFile(file);
+  entries=zipFile.entries();
+}

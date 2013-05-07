@@ -1,0 +1,47 @@
+{
+  final ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
+  final Set<File> files=new HashSet<File>();
+  for (  final String packageName : packageNames) {
+    String internalPackageName=packageName.replace('.','/');
+    if (!internalPackageName.endsWith("/")) {
+      internalPackageName=internalPackageName.concat("/");
+    }
+    final Enumeration<URL> resourceEnum=classLoader.getResources(internalPackageName);
+    while (resourceEnum.hasMoreElements()) {
+      final URL url=resourceEnum.nextElement();
+      final boolean isVfs="vfs".equals(url.getProtocol());
+      if ("file".equals(url.getProtocol()) || isVfs) {
+        final File dir=toFile(url);
+        if (dir.isDirectory()) {
+          files.add(dir);
+          if (DEBUG)           print("Add directory: '%s'",dir);
+        }
+ else         if (isVfs) {
+          String jarPath=dir.getPath();
+          final int idx=jarPath.indexOf(".jar");
+          if (idx > -1) {
+            jarPath=jarPath.substring(0,idx + 4);
+            final File jarFile=new File(jarPath);
+            if (jarFile.isFile()) {
+              files.add(jarFile);
+              if (DEBUG)               print("Add jar file from VFS: '%s'",jarFile);
+            }
+          }
+        }
+      }
+ else {
+        final File jarFile=toFile(((JarURLConnection)url.openConnection()).getJarFileURL());
+        if (jarFile.isFile()) {
+          files.add(jarFile);
+          if (DEBUG)           print("Add jar file: '%s'",jarFile);
+        }
+ else {
+          throw new AssertionError("Not a File: " + jarFile);
+        }
+      }
+    }
+  }
+  if (!files.isEmpty()) {
+    detect(files.toArray(new File[files.size()]));
+  }
+}

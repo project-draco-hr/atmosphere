@@ -1,0 +1,9 @@
+{
+  final int count=di.readUnsignedShort();
+  constantPool=new Object[count];
+  for (int i=1; i < count; ++i) {
+    if (readConstantPoolEntry(di,i)) {
+      ++i;
+    }
+  }
+}

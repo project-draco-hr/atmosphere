@@ -1,0 +1,3 @@
+{
+  return buffer[pointer++] & 0xff;
+}

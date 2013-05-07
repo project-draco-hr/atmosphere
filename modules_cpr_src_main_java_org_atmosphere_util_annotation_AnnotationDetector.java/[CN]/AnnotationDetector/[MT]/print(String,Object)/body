@@ -1,0 +1,23 @@
+{
+  if (DEBUG) {
+    final String logMessage;
+    if (args.length == 0) {
+      logMessage=message;
+    }
+ else {
+      for (int i=0; i < args.length; ++i) {
+        if (args[i] == null) {
+          continue;
+        }
+        if (args[i].getClass().isArray()) {
+          args[i]=Arrays.toString((Object[])args[i]);
+        }
+ else         if (args[i] == Class.class) {
+          args[i]=((Class<?>)args[i]).getName();
+        }
+      }
+      logMessage=String.format(message,args);
+    }
+    System.out.println(logMessage);
+  }
+}

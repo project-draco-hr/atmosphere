@@ -1,0 +1,4 @@
+{
+  addReverse(filesOrDirectories);
+  rootCount=stack.size();
+}

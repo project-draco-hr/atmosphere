@@ -1,0 +1,4 @@
+{
+  typeName=resolveUtf8(di);
+  if (DEBUG)   print("read type '%s'",typeName);
+}

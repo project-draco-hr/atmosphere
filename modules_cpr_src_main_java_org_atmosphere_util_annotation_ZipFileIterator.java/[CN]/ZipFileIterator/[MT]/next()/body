@@ -1,0 +1,14 @@
+{
+  while (entries.hasMoreElements()) {
+    current=entries.nextElement();
+    if (!current.isDirectory()) {
+      return zipFile.getInputStream(current);
+    }
+  }
+  try {
+    zipFile.close();
+  }
+ catch (  IOException ex) {
+  }
+  return null;
+}

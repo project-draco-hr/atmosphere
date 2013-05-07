@@ -1,0 +1,25 @@
+{
+  final int count=di.readUnsignedShort();
+  if (DEBUG)   print("annotation count (%s) = %d",reporterType,count);
+  for (int i=0; i < count; ++i) {
+    final String rawTypeName=readAnnotation(di);
+    final Class<? extends Annotation> type=annotations.get(rawTypeName);
+    if (type == null) {
+      continue;
+    }
+    final String externalTypeName=typeName.replace('/','.');
+switch (reporterType) {
+case 'T':
+      typeReporter.reportTypeAnnotation(type,externalTypeName);
+    break;
+case 'F':
+  fieldReporter.reportFieldAnnotation(type,externalTypeName,memberName);
+break;
+case 'M':
+methodReporter.reportMethodAnnotation(type,externalTypeName,memberName);
+break;
+default :
+throw new AssertionError("reporterType=" + reporterType);
+}
+}
+}

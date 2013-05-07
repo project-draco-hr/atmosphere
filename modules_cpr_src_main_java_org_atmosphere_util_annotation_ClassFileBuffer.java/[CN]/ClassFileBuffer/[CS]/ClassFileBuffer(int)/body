@@ -1,0 +1,6 @@
+{
+  if (initialCapacity < 1) {
+    throw new IllegalArgumentException("initialCapacity < 1: " + initialCapacity);
+  }
+  this.buffer=new byte[initialCapacity];
+}

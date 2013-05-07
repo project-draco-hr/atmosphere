@@ -1,0 +1,15 @@
+{
+  final String rawTypeName=resolveUtf8(di);
+  final int count=di.readUnsignedShort();
+  if (DEBUG)   print("annotation elements count: %d",count);
+  for (int i=0; i < count; ++i) {
+    if (DEBUG) {
+      print("element '%s'",resolveUtf8(di));
+    }
+ else {
+      di.skipBytes(2);
+    }
+    readAnnotationElementValue(di);
+  }
+  return rawTypeName;
+}

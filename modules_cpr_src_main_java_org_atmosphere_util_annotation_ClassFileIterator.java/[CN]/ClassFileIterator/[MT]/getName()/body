@@ -1,0 +1,3 @@
+{
+  return zipIterator == null ? fileIterator.getFile().getPath() : zipIterator.getEntry().getName();
+}

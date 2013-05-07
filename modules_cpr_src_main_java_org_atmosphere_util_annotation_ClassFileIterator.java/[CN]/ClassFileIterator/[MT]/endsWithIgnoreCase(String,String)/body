@@ -1,0 +1,4 @@
+{
+  final int n=suffix.length();
+  return value.regionMatches(true,value.length() - n,suffix,0,n);
+}

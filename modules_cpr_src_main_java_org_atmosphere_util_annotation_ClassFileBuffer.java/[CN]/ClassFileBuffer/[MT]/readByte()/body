@@ -1,0 +1,6 @@
+{
+  if (pointer >= size) {
+    throw new EOFException();
+  }
+  return buffer[pointer++];
+}

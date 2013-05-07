@@ -1,0 +1,32 @@
+{
+  final int tag=di.readUnsignedByte();
+switch (tag) {
+case CP_UTF8:
+    constantPool[index]=di.readUTF();
+  return false;
+case CP_INTEGER:
+di.skipBytes(4);
+return false;
+case CP_FLOAT:
+di.skipBytes(4);
+return false;
+case CP_LONG:
+di.skipBytes(8);
+return true;
+case CP_DOUBLE:
+di.skipBytes(8);
+return true;
+case CP_CLASS:
+case CP_STRING:
+constantPool[index]=di.readUnsignedShort();
+return false;
+case CP_REF_FIELD:
+case CP_REF_METHOD:
+case CP_REF_INTERFACE:
+case CP_NAME_AND_TYPE:
+di.skipBytes(4);
+return false;
+default :
+throw new ClassFormatError("Unkown tag value for constant pool entry: " + tag);
+}
+}

@@ -1,0 +1,3 @@
+{
+  return buffer.size() > 4 && buffer.readInt() == 0xCAFEBABE;
+}

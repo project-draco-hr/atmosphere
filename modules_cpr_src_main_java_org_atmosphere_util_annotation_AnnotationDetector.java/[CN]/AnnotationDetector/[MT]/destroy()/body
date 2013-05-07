@@ -1,0 +1,5 @@
+{
+  annotations.clear();
+  constantPool=null;
+  cpBuffer.destroy();
+}

@@ -1,0 +1,4 @@
+{
+  seek(pointer + n);
+  return n;
+}

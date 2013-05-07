@@ -1,0 +1,13 @@
+{
+  pointer=0;
+  size=0;
+  int n;
+  do {
+    n=in.read(buffer,size,buffer.length - size);
+    if (n > 0) {
+      size+=n;
+    }
+    resizeIfNeeded();
+  }
+ while (n >= 0);
+}

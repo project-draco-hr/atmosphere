@@ -1,0 +1,19 @@
+{
+  if (stack.isEmpty()) {
+    current=null;
+    return null;
+  }
+ else {
+    current=stack.removeLast();
+    if (current.isDirectory()) {
+      if (stack.size() < rootCount) {
+        rootCount=stack.size();
+      }
+      addReverse(current.listFiles());
+      return next();
+    }
+ else {
+      return current;
+    }
+  }
+}

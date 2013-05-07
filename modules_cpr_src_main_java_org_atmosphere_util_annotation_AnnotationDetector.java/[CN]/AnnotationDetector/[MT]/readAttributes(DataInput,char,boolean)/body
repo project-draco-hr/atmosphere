@@ -1,0 +1,15 @@
+{
+  final int count=di.readUnsignedShort();
+  if (DEBUG)   print("attribute count (%s) = %d",reporterType,count);
+  for (int i=0; i < count; ++i) {
+    final String name=resolveUtf8(di);
+    final int length=di.readInt();
+    if (!skipReporting && ("RuntimeVisibleAnnotations".equals(name) || "RuntimeInvisibleAnnotations".equals(name))) {
+      readAnnotations(di,reporterType);
+    }
+ else {
+      if (DEBUG)       print("skip attribute %s",name);
+      di.skipBytes(length);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  if (position < 0) {
+    throw new IllegalArgumentException("position < 0: " + position);
+  }
+  if (position > size) {
+    throw new EOFException();
+  }
+  this.pointer=position;
+}

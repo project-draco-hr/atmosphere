@@ -1,0 +1,19 @@
+{
+  final Class<? extends Annotation>[] a=reporter.annotations();
+  annotations=new HashMap<String,Class<? extends Annotation>>(a.length);
+  for (int i=0; i < a.length; ++i) {
+    annotations.put("L" + a[i].getName().replace('.','/') + ";",a[i]);
+  }
+  if (reporter instanceof TypeReporter) {
+    typeReporter=(TypeReporter)reporter;
+  }
+  if (reporter instanceof FieldReporter) {
+    fieldReporter=(FieldReporter)reporter;
+  }
+  if (reporter instanceof MethodReporter) {
+    methodReporter=(MethodReporter)reporter;
+  }
+  if (typeReporter == null && fieldReporter == null && methodReporter == null) {
+    throw new AssertionError("No reporter defined");
+  }
+}

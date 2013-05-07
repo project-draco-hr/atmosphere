@@ -1,0 +1,8 @@
+{
+  if (DEBUG) {
+    print("Java Class version %2$d.%1$d",di.readUnsignedShort(),di.readUnsignedShort());
+  }
+ else {
+    di.skipBytes(4);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (pointer + 4 > size) {
+    throw new EOFException();
+  }
+  return (read() << 24) + (read() << 16) + (read() << 8)+ read();
+}

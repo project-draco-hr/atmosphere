@@ -1,0 +1,21 @@
+{
+  InputStream stream;
+  while ((stream=iterator.next()) != null) {
+    try {
+      cpBuffer.readFrom(stream);
+      if (hasCafebabe(cpBuffer)) {
+        detect(cpBuffer);
+      }
+    }
+ catch (    Throwable t) {
+      if (!iterator.isFile()) {
+        stream.close();
+      }
+    }
+ finally {
+      if (iterator.isFile()) {
+        stream.close();
+      }
+    }
+  }
+}

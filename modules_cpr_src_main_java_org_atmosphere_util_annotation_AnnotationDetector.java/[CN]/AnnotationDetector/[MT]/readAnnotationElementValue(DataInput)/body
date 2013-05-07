@@ -1,0 +1,34 @@
+{
+  final int tag=di.readUnsignedByte();
+  if (DEBUG)   print("tag='%c'",(char)tag);
+switch (tag) {
+case BYTE:
+case CHAR:
+case DOUBLE:
+case FLOAT:
+case INT:
+case LONG:
+case SHORT:
+case BOOLEAN:
+case STRING:
+    di.skipBytes(2);
+  break;
+case ENUM:
+di.skipBytes(4);
+break;
+case CLASS:
+di.skipBytes(2);
+break;
+case ANNOTATION:
+readAnnotation(di);
+break;
+case ARRAY:
+final int count=di.readUnsignedShort();
+for (int i=0; i < count; ++i) {
+readAnnotationElementValue(di);
+}
+break;
+default :
+throw new ClassFormatError("Not a valid annotation element type tag: 0x" + Integer.toHexString(tag));
+}
+}

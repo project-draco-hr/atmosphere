@@ -1,0 +1,7 @@
+{
+  if (size >= buffer.length) {
+    final byte[] newBuffer=new byte[buffer.length * 2];
+    System.arraycopy(buffer,0,newBuffer,0,buffer.length);
+    buffer=newBuffer;
+  }
+}
