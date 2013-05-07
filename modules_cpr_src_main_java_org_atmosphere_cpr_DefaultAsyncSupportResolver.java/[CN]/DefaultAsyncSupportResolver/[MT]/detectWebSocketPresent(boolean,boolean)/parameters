@@ -1,3 +1,2 @@
 boolean useNativeIfPossible
-boolean defaultToBlocking
 boolean useServlet30Async

@@ -12,4 +12,8 @@
   if (s != null) {
     webSocketProcessorClassName=s;
   }
+  s=config.getInitParameter(ApplicationConfig.WEBSOCKET_SUPPORT_SERVLET3);
+  if (s != null) {
+    useServlet30=Boolean.parseBoolean(s);
+  }
 }

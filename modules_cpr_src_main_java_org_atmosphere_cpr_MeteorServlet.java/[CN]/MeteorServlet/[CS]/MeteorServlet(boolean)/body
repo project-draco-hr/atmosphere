@@ -1,3 +1,3 @@
 {
-  super(isFilter,false);
+  this(isFilter,false);
 }

@@ -1,3 +1,0 @@
-{
-  framework.doCometSupport(AtmosphereRequest.wrap(req),AtmosphereResponse.wrap(res));
-}

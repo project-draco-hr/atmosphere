@@ -1,5 +1,0 @@
-{
-  super.init(sc);
-  framework.setUseNativeImplementation(false);
-  framework.init(sc);
-}

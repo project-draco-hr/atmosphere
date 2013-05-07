@@ -1,0 +1,5 @@
+{
+  super.init(sc);
+  glassfishWebSocketHandler=new GlassFishWebSocketHandler(config);
+  WebSocketEngine.getEngine().register(glassfishWebSocketHandler);
+}
