@@ -1,0 +1,3 @@
+{
+  assertEquals(BroadcasterFactory.getDefault().get("test").getClass().getName(),B.class.getName());
+}

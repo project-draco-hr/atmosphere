@@ -1,4 +1,6 @@
 {
   broadcasterClassName=bccn;
+  broadcasterFactory=null;
+  configureBroadcasterFactory();
   return this;
 }
