@@ -2,5 +2,8 @@
   broadcasterClassName=bccn;
   broadcasterFactory=null;
   configureBroadcasterFactory();
+  for (  AtmosphereHandlerWrapper w : atmosphereHandlers.values()) {
+    w.broadcaster=broadcasterFactory.lookup(w.broadcaster.getID(),true);
+  }
   return this;
 }
