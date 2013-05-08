@@ -1,5 +1,6 @@
 {
   AsyncSupport cs=null;
+  useServlet30Async=testClassExists(SERVLET_30);
   if (!defaultToBlocking) {
     List<Class<? extends AsyncSupport>> l=detectWebSocketPresent(useNativeIfPossible,useServlet30Async);
     if (!l.isEmpty()) {
