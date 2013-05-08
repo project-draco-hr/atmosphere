@@ -1,9 +1,5 @@
 {
-  if (isInit) {
-    broadcasterFactory.addBroadcasterListener(b);
-  }
- else {
-    broadcasterListeners.add(b);
-  }
+  broadcasterFactory.addBroadcasterListener(b);
+  broadcasterListeners.add(b);
   return this;
 }
