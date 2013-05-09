@@ -1,0 +1,3 @@
+{
+  httpRequest.request(urlBuildingStrategy.buildURL(focusPoint));
+}

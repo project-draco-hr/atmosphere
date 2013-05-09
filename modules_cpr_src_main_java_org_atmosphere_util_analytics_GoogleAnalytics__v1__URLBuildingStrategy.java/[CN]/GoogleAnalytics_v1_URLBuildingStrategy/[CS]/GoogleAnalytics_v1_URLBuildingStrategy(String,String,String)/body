@@ -1,0 +1,4 @@
+{
+  this.googleAnalyticsTrackingCode=googleAnalyticsTrackingCode;
+  this.appFocusPoint=new FocusPoint(appVersion,new FocusPoint(appName));
+}

@@ -1,0 +1,8 @@
+{
+  FocusPoint parentFocuPoint=focusPoint.getParentFocusPoint();
+  if (parentFocuPoint != null) {
+    getContentURI(contentURIBuffer,parentFocuPoint);
+  }
+  contentURIBuffer.append(URI_SEPARATOR);
+  contentURIBuffer.append(encode(focusPoint.getName()));
+}

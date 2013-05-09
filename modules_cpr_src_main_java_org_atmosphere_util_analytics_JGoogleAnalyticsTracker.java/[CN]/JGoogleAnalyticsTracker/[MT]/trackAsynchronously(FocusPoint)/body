@@ -1,0 +1,4 @@
+{
+  logMessage("JGoogleAnalytics: Tracking Asynchronously focusPoint=" + focusPoint.getContentTitle());
+  new TrackingThread(focusPoint).start();
+}

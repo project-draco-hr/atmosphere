@@ -1,0 +1,23 @@
+{
+  int cookie=random.nextInt();
+  int randomValue=random.nextInt(2147483647) - 1;
+  long now=new Date().getTime();
+  focusPoint.setParentTrackPoint(appFocusPoint);
+  StringBuffer url=new StringBuffer(TRACKING_URL_Prefix);
+  url.append("?utmwv=1");
+  url.append("&utmn=" + random.nextInt());
+  url.append("&utmcs=UTF-8");
+  url.append("&utmsr=1440x900");
+  url.append("&utmsc=32-bit");
+  url.append("&utmul=en-us");
+  url.append("&utmje=1");
+  url.append("&utmfl=9.0%20%20r28");
+  url.append("&utmcr=1");
+  url.append("&utmdt=" + focusPoint.getContentTitle());
+  url.append("&utmhn=" + hostName);
+  url.append("&utmr=" + refererURL);
+  url.append("&utmp=" + focusPoint.getContentURI());
+  url.append("&utmac=" + googleAnalyticsTrackingCode);
+  url.append("&utmcc=__utma%3D'" + cookie + "."+ randomValue+ "."+ now+ "."+ now+ "."+ now+ ".2%3B%2B__utmb%3D"+ cookie+ "%3B%2B__utmc%3D"+ cookie+ "%3B%2B__utmz%3D"+ cookie+ "."+ now+ ".2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D"+ cookie);
+  return url.toString();
+}

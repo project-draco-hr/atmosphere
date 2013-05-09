@@ -1,0 +1,5 @@
+{
+  StringBuffer contentURIBuffer=new StringBuffer();
+  getContentURI(contentURIBuffer,this);
+  return contentURIBuffer.toString();
+}

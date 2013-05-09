@@ -1,0 +1,5 @@
+{
+  StringBuffer titleBuffer=new StringBuffer();
+  getContentTitle(titleBuffer,this);
+  return titleBuffer.toString();
+}

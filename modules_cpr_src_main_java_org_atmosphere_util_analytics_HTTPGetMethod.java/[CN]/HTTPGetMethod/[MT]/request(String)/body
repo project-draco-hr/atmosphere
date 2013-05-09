@@ -1,0 +1,20 @@
+{
+  try {
+    URL url=new URL(urlString);
+    HttpURLConnection urlConnection=openURLConnection(url);
+    urlConnection.setInstanceFollowRedirects(true);
+    urlConnection.setRequestMethod(GET_METHOD_NAME);
+    urlConnection.setRequestProperty("User-agent",uaName + " (" + osString+ ")");
+    urlConnection.connect();
+    int responseCode=getResponseCode(urlConnection);
+    if (responseCode != HttpURLConnection.HTTP_OK) {
+      logError("JGoogleAnalytics: Error tracking, url=" + urlString);
+    }
+ else {
+      logMessage(SUCCESS_MESSAGE);
+    }
+  }
+ catch (  Exception e) {
+    logError(e.getMessage());
+  }
+}

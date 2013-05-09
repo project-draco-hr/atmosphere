@@ -1,0 +1,3 @@
+{
+  this.urlBuildingStrategy=new GoogleAnalytics_v1_URLBuildingStrategy(appName,appVersion,googleAnalyticsTrackingCode);
+}

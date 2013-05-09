@@ -1,0 +1,13 @@
+{
+  if (uaName == null) {
+    uaName="Java/" + System.getProperty("java.version");
+    osString=System.getProperty("os.arch");
+    if (osString == null || osString.length() < 1) {
+      osString="";
+    }
+ else {
+      osString+="; ";
+      osString+=System.getProperty("os.name") + " " + System.getProperty("os.version");
+    }
+  }
+}

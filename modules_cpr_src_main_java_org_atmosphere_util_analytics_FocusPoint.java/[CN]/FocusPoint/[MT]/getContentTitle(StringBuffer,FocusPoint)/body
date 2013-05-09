@@ -1,0 +1,8 @@
+{
+  FocusPoint parentFocusPoint=focusPoint.getParentFocusPoint();
+  if (parentFocusPoint != null) {
+    getContentTitle(titleBuffer,parentFocusPoint);
+    titleBuffer.append(TITLE_SEPARATOR);
+  }
+  titleBuffer.append(encode(focusPoint.getName()));
+}
