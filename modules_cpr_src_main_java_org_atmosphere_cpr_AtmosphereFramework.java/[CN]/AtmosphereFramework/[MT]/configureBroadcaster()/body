@@ -1,8 +1,5 @@
 {
   try {
-    if (isBroadcasterSpecified == false) {
-      broadcasterClassName=lookupDefaultBroadcasterType(broadcasterClassName);
-    }
     Iterator<Entry<String,AtmosphereHandlerWrapper>> i=atmosphereHandlers.entrySet().iterator();
     AtmosphereHandlerWrapper w;
     Entry<String,AtmosphereHandlerWrapper> e;

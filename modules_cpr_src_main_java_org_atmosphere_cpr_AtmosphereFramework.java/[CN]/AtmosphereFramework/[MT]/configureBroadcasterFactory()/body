@@ -1,5 +1,8 @@
 {
   try {
+    if (isBroadcasterSpecified == false) {
+      broadcasterClassName=lookupDefaultBroadcasterType(broadcasterClassName);
+    }
     if (broadcasterFactoryClassName != null) {
       broadcasterFactory=(BroadcasterFactory)Thread.currentThread().getContextClassLoader().loadClass(broadcasterFactoryClassName).newInstance();
     }
