@@ -1,5 +1,6 @@
 {
   if (isInit)   return this;
+  pingVersion();
   try {
     ServletContextHolder.register(this);
     ServletConfig scFacade;
