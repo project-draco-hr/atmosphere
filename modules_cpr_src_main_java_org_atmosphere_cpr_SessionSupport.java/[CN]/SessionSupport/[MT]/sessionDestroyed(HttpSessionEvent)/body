@@ -1,0 +1,16 @@
+{
+  logger.info("Session destroyed");
+  try {
+    HttpSession s=se.getSession();
+    for (    Broadcaster b : BroadcasterFactory.getDefault().lookupAll()) {
+      for (      AtmosphereResource r : b.getAtmosphereResources()) {
+        if (r.session().getId().equals(s.getId())) {
+          AtmosphereResourceImpl.class.cast(r).session(null);
+        }
+      }
+    }
+  }
+ catch (  Throwable t) {
+    logger.warn("",t);
+  }
+}
