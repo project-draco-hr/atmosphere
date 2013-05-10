@@ -1,6 +1,6 @@
 {
   final String container=getServletContext().getServerInfo();
-  new Thread(){
+  Thread t=new Thread(){
     public void run(){
       try {
         HttpURLConnection urlConnection=(HttpURLConnection)URI.create("http://async-io.org/version.html").toURL().openConnection();
@@ -41,5 +41,7 @@
       }
     }
   }
-.start();
+;
+  t.setDaemon(true);
+  t.start();
 }
