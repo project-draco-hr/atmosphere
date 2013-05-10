@@ -1,13 +1,13 @@
 {
   if (r == null) {
     logger.trace("Null AtmosphereResource passed inside a Set");
-    return;
+    return false;
   }
   if (isAtmosphereResourceValid(r)) {
     if (bc.hasPerRequestFilters()) {
       BroadcastAction a=bc.filter(r,msg.message,msg.originalMessage);
       if (a.action() == BroadcastAction.ACTION.ABORT) {
-        return;
+        return false;
       }
       msg.message=a.message();
     }
@@ -16,5 +16,7 @@
     logger.warn("Request is not longer valid {}",r.uuid());
     removeAtmosphereResource(r);
     config.getBroadcasterFactory().removeAllAtmosphereResource(r);
+    return false;
   }
+  return true;
 }

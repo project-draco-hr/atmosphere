@@ -1,0 +1,8 @@
+{
+  broadcaster.getBroadcasterConfig().addFilter(new SlipFilter(true));
+  broadcaster.getBroadcasterConfig().addFilter(new Filter("1"));
+  broadcaster.getBroadcasterConfig().addFilter(new SlipFilter(false));
+  broadcaster.getBroadcasterConfig().addFilter(new DoNohingFilter("b"));
+  broadcaster.broadcast("0").get();
+  assertEquals(atmosphereHandler.value.get().toString(),"0-filter-perFilter");
+}

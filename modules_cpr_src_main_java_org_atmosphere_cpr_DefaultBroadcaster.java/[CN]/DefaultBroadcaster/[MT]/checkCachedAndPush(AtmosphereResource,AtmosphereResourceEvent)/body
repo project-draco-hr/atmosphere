@@ -13,7 +13,9 @@
         continue;
       }
       entry=new Entry(newMessage,r,f,o);
-      perRequestFilter(r,entry,false);
+      if (!perRequestFilter(r,entry,false)) {
+        return false;
+      }
       if (entry.message != null) {
         filteredMessage.addLast(newMessage);
       }
