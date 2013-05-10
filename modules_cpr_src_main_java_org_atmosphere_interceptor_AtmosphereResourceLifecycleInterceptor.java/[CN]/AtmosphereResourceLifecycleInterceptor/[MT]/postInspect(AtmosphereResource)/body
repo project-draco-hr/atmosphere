@@ -1,4 +1,5 @@
 {
+  if (r.transport().equals(AtmosphereResource.TRANSPORT.UNDEFINED))   return;
   if (!AtmosphereResourceImpl.class.cast(r).action().equals(Action.CANCELLED) && r.getRequest().getMethod().equalsIgnoreCase(method)) {
     r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
       @Override public void onBroadcast(      AtmosphereResourceEvent event){
