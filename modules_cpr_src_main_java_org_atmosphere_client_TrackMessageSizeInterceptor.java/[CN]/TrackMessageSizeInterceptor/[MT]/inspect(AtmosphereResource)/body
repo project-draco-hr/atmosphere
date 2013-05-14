@@ -1,4 +1,5 @@
 {
+  if (AtmosphereResource.TRANSPORT.UNDEFINED == r.transport())   return Action.CONTINUE;
   final AtmosphereResponse response=r.getResponse();
   super.inspect(r);
   AsyncIOWriter writer=response.getAsyncIOWriter();
