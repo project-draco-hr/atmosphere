@@ -28,8 +28,6 @@
  else           if (webSocketHandler == null) {
             logger.warn("AsynchronousProcessor.AsynchronousProcessorHook was null");
           }
-        }
-        if (resource.isInScope()) {
           resource.setIsInScope(false);
           try {
             resource.cancel();
@@ -37,8 +35,8 @@
  catch (          IOException e) {
             logger.trace("",e);
           }
-          AtmosphereResourceImpl.class.cast(resource)._destroy();
         }
+        AtmosphereResourceImpl.class.cast(resource)._destroy();
       }
     }
   finally {
