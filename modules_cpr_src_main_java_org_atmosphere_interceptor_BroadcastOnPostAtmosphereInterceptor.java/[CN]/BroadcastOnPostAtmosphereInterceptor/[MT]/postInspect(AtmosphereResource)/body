@@ -3,9 +3,20 @@
     StringBuilder stringBuilder=new StringBuilder();
     BufferedReader bufferedReader=null;
     try {
-      InputStream inputStream=r.getRequest().getInputStream();
-      if (inputStream != null) {
-        bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+      try {
+        InputStream inputStream=r.getRequest().getInputStream();
+        if (inputStream != null) {
+          bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+        }
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace("",ex);
+        Reader reader=r.getRequest().getReader();
+        if (reader != null) {
+          bufferedReader=new BufferedReader(reader);
+        }
+      }
+      if (bufferedReader != null) {
         char[] charBuffer=new char[8192];
         int bytesRead=-1;
         while ((bytesRead=bufferedReader.read(charBuffer)) > 0) {
@@ -30,10 +41,6 @@
       }
     }
     if (stringBuilder.length() > 0) {
-      AtmosphereResource sr=AtmosphereResourceFactory.getDefault().find(r.uuid());
-      if (sr != null) {
-        r=sr;
-      }
       r.getBroadcaster().broadcast(stringBuilder.toString());
     }
  else {
