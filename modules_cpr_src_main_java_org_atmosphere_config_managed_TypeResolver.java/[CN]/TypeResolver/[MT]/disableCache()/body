@@ -1,0 +1,4 @@
+{
+  typeVariableCache.clear();
+  cacheEnabled=false;
+}

@@ -1,0 +1,3 @@
+{
+  return resolveArguments(resolveGenericType(initialType,targetType),initialType);
+}

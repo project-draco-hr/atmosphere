@@ -1,0 +1,13 @@
+{
+  for (  Type type : types) {
+    if (type instanceof ParameterizedType) {
+      ParameterizedType parameterizedType=(ParameterizedType)type;
+      buildTypeVariableMap(parameterizedType,map);
+      Type rawType=parameterizedType.getRawType();
+      if (rawType instanceof Class)       buildTypeVariableMap(((Class<?>)rawType).getGenericInterfaces(),map);
+    }
+ else     if (type instanceof Class) {
+      buildTypeVariableMap(((Class<?>)type).getGenericInterfaces(),map);
+    }
+  }
+}

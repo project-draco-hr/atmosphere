@@ -1,0 +1,10 @@
+{
+  for (  Encoder d : encoders) {
+    Class<?>[] typeArguments=TypeResolver.resolveArguments(d.getClass(),Encoder.class);
+    if (instanceType != null && typeArguments.length > 0 && typeArguments[0].equals(instanceType.getClass())) {
+      logger.trace("{} is trying to encode {}",d,instanceType);
+      instanceType=d.encode(instanceType);
+    }
+  }
+  return instanceType;
+}

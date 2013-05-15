@@ -1,0 +1,6 @@
+{
+  Class<?>[] arguments=resolveArguments(genericType,targetType);
+  if (arguments == null)   return Unknown.class;
+  if (arguments.length != 1)   throw new IllegalArgumentException("Expected 1 type argument on generic type " + targetType.getName() + " but found "+ arguments.length);
+  return arguments[0];
+}

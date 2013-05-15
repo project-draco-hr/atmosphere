@@ -1,0 +1,13 @@
+{
+  Class<?> rawType;
+  if (initialType instanceof ParameterizedType)   rawType=(Class<?>)((ParameterizedType)initialType).getRawType();
+ else   rawType=(Class<?>)initialType;
+  if (targetType.equals(rawType))   return initialType;
+  Type result;
+  if (targetType.isInterface()) {
+    for (    Type superInterface : rawType.getGenericInterfaces())     if (superInterface != null && !superInterface.equals(Object.class))     if ((result=resolveGenericType(superInterface,targetType)) != null)     return result;
+  }
+  Type superType=rawType.getGenericSuperclass();
+  if (superType != null && !superType.equals(Object.class))   if ((result=resolveGenericType(superType,targetType)) != null)   return result;
+  return null;
+}

@@ -1,0 +1,10 @@
+{
+  for (  Decoder d : decoders) {
+    Class<?>[] typeArguments=TypeResolver.resolveArguments(d.getClass(),Decoder.class);
+    if (instanceType != null && typeArguments.length > 0 && typeArguments[0].equals(instanceType.getClass())) {
+      logger.trace("{} is trying to decode {}",d,instanceType);
+      instanceType=d.decode(instanceType);
+    }
+  }
+  return instanceType;
+}

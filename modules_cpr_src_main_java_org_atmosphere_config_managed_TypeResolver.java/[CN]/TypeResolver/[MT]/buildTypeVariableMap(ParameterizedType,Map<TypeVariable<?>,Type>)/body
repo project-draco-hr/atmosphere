@@ -1,0 +1,25 @@
+{
+  if (type.getRawType() instanceof Class) {
+    TypeVariable<?>[] typeVariables=((Class<?>)type.getRawType()).getTypeParameters();
+    Type[] typeArguments=type.getActualTypeArguments();
+    for (int i=0; i < typeArguments.length; i++) {
+      TypeVariable<?> variable=typeVariables[i];
+      Type typeArgument=typeArguments[i];
+      if (typeArgument instanceof Class) {
+        typeVariableMap.put(variable,typeArgument);
+      }
+ else       if (typeArgument instanceof GenericArrayType) {
+        typeVariableMap.put(variable,typeArgument);
+      }
+ else       if (typeArgument instanceof ParameterizedType) {
+        typeVariableMap.put(variable,typeArgument);
+      }
+ else       if (typeArgument instanceof TypeVariable) {
+        TypeVariable<?> typeVariableArgument=(TypeVariable<?>)typeArgument;
+        Type resolvedType=typeVariableMap.get(typeVariableArgument);
+        if (resolvedType == null)         resolvedType=resolveBound(typeVariableArgument);
+        typeVariableMap.put(variable,resolvedType);
+      }
+    }
+  }
+}

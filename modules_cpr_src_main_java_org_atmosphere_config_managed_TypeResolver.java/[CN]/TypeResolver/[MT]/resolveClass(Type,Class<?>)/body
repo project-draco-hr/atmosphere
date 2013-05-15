@@ -1,0 +1,19 @@
+{
+  if (genericType instanceof Class) {
+    return (Class<?>)genericType;
+  }
+ else   if (genericType instanceof ParameterizedType) {
+    return resolveClass(((ParameterizedType)genericType).getRawType(),targetType);
+  }
+ else   if (genericType instanceof GenericArrayType) {
+    GenericArrayType arrayType=(GenericArrayType)genericType;
+    Class<?> compoment=resolveClass(arrayType.getGenericComponentType(),targetType);
+    return Array.newInstance(compoment,0).getClass();
+  }
+ else   if (genericType instanceof TypeVariable) {
+    TypeVariable<?> variable=(TypeVariable<?>)genericType;
+    genericType=getTypeVariableMap(targetType).get(variable);
+    genericType=genericType == null ? resolveBound(variable) : resolveClass(genericType,targetType);
+  }
+  return genericType instanceof Class ? (Class<?>)genericType : Unknown.class;
+}

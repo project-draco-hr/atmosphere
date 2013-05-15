@@ -1,0 +1,6 @@
+{
+  if (m != null) {
+    return Invoker.invokeMethod(encoders,decoders,o,object,m);
+  }
+  return null;
+}

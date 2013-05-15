@@ -1,0 +1,18 @@
+{
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/h").method("GET").build();
+  AtmosphereResponse response=AtmosphereResponse.newInstance();
+  final AtomicReference<String> ref=new AtomicReference();
+  response.asyncIOWriter(new AsyncIOWriterAdapter(){
+    @Override public AsyncIOWriter write(    AtmosphereResponse r,    String data) throws IOException {
+      ref.set(data);
+      return this;
+    }
+  }
+);
+  framework.doCometSupport(request,response);
+  assertNotNull(r.get());
+  r.get().resume();
+  assertNotNull(message.get());
+  assertEquals(message.get(),"message");
+  assertEquals(ref.get(),"message-yo!");
+}

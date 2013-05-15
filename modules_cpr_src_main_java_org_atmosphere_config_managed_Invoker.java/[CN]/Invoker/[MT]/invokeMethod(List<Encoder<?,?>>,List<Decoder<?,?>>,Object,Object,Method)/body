@@ -1,0 +1,26 @@
+{
+  boolean hasMatch=false;
+  instanceType=matchDecoder(instanceType,decoders);
+  Object decodedObject=matchDecoder(instanceType,decoders);
+  if (instanceType == null) {
+    logger.trace("No Encoder matching {}",instanceType);
+  }
+  decodedObject=decodedObject == null ? instanceType : decodedObject;
+  logger.trace("{} .on {}",method.getName(),decodedObject);
+  Object objectToEncode=null;
+  try {
+    objectToEncode=method.invoke(objectToInvoke,new Object[]{decodedObject});
+    hasMatch=true;
+  }
+ catch (  Throwable e) {
+    logger.trace("{} is trying to invoke {}",method.getName(),instanceType);
+  }
+  if (!hasMatch) {
+    logger.trace("No Method's Arguments {} matching {}",method.getName(),instanceType);
+  }
+  Object encodedObject=matchEncoder(objectToEncode,encoders);
+  if (encodedObject == null) {
+    logger.trace("No Encoder matching {}",objectToEncode);
+  }
+  return encodedObject == null ? objectToEncode : encodedObject;
+}

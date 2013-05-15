@@ -1,0 +1,5 @@
+List<Encoder<?,?>> encoders
+List<Decoder<?,?>> decoders
+Object instanceType
+Object objectToInvoke
+Method method
