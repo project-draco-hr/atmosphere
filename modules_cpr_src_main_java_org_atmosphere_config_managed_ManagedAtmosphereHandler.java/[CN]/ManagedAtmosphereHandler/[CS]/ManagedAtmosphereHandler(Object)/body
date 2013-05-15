@@ -7,6 +7,8 @@
   this.onPostMethod=populate(c,Post.class);
   this.onPutMethod=populate(c,Put.class);
   this.onDeleteMethod=populate(c,Delete.class);
+  this.onSuspendMethod=populate(c,Suspend.class);
+  this.onResumeMethod=populate(c,Resume.class);
   if (onMessageMethod != null) {
     populateEncoders(onMessageMethod.getAnnotation(Message.class).encoders());
     populateDecoder(onMessageMethod.getAnnotation(Message.class).decoders());
