@@ -1,0 +1,4 @@
+{
+  logger.info("{} just send {}",message.getAuthor(),message.getMessage());
+  return message;
+}
