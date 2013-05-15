@@ -1,0 +1,34 @@
+{
+  String path;
+  String pathInfo=null;
+  try {
+    pathInfo=request.getPathInfo();
+  }
+ catch (  IllegalStateException ex) {
+  }
+  if (pathInfo != null) {
+    path=request.getServletPath() + pathInfo;
+  }
+ else {
+    path=request.getServletPath();
+  }
+  if (path == null || path.isEmpty()) {
+    path="/";
+  }
+  if (AnnotatedProxy.class.isAssignableFrom(w.atmosphereHandler.getClass()) && config.handlers().get(path) == null) {
+    AnnotatedProxy ap=AnnotatedProxy.class.cast(w.atmosphereHandler);
+    if (ap.target().getClass().getAnnotation(ManagedService.class) != null) {
+      String targetPath=ap.target().getClass().getAnnotation(ManagedService.class).path();
+      if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
+        try {
+          config.framework().addAtmosphereHandler(path,w.atmosphereHandler.getClass().getConstructor(Object.class).newInstance(ap.target().getClass().newInstance()),w.interceptors);
+          return config.handlers().get(path);
+        }
+ catch (        Throwable e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+  return w;
+}

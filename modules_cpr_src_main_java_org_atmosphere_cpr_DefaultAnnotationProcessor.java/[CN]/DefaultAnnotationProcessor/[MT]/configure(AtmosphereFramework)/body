@@ -208,7 +208,7 @@
     void managed(    AtmosphereHandler handler,    Class<? extends Annotation> annotation){
       ManagedService a=handler.getClass().getAnnotation(ManagedService.class);
       if (a == null) {
-        a=ManagedAtmosphereHandler.class.cast(handler).object().getClass().getAnnotation(ManagedService.class);
+        a=ManagedAtmosphereHandler.class.cast(handler).target().getClass().getAnnotation(ManagedService.class);
       }
       framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
       Class<?>[] interceptors=a.interceptors();

@@ -16,11 +16,7 @@
     HttpSession session=req.getSession(true);
   }
   req.setAttribute(FrameworkConfig.SUPPORT_SESSION,supportSession());
-  AtmosphereHandlerWrapper handlerWrapper=mapper.map(req,config.handlers());
-  if (handlerWrapper == null) {
-    logger.debug("No AtmosphereHandler maps request for {} with mapping {}",req.getPathInfo(),config.handlers());
-    throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + req.getPathInfo());
-  }
+  AtmosphereHandlerWrapper handlerWrapper=map(req);
   if (config.getBroadcasterFactory() == null) {
     logger.error("Atmosphere is misconfigured and will not work. BroadcasterFactory is null");
     return Action.CANCELLED;
