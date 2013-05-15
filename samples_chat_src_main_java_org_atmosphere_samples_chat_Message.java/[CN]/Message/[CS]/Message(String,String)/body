@@ -1,0 +1,5 @@
+{
+  this.author=author;
+  this.message=message;
+  this.time=new Date().getTime();
+}
