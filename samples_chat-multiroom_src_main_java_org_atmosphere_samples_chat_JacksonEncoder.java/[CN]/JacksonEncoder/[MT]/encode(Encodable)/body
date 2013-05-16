@@ -1,0 +1,8 @@
+{
+  try {
+    return mapper.writeValueAsBytes(m);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (!users.contains(message.getAuthor())) {
+    users.add(message.getAuthor());
+    return new Message(message.getAuthor()," entered room " + chatroomName);
+  }
+  logger.info("{} just send {}",message.getAuthor(),message.getMessage());
+  return message;
+}

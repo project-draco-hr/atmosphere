@@ -1,0 +1,7 @@
+{
+  logger.info("Browser {} connected.",r.uuid());
+  if (chatroomName == null) {
+    chatroomName=r.getBroadcaster().getID();
+  }
+  return new RoomsState(r.getAtmosphereConfig().getBroadcasterFactory());
+}
