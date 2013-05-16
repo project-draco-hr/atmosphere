@@ -1,5 +1,0 @@
-{
-  check();
-  resource.getResponse().getOutputStream().write(o);
-  return this;
-}
