@@ -1,0 +1,8 @@
+{
+  instanceCount=0;
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/singleton/atmospherehandler/yes").method("GET").build();
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  assertEquals(instanceCount,0);
+  assertNotNull(r.get());
+  assertEquals(r.get(),"/singleton/atmospherehandler/yes");
+}
