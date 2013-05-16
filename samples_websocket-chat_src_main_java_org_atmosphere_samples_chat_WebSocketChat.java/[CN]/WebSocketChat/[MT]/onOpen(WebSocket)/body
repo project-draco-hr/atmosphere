@@ -1,3 +1,14 @@
 {
   webSocket.resource().setBroadcaster(BroadcasterFactory.getDefault().lookup("/chat",true));
+  webSocket.resource().addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onDisconnect(    AtmosphereResourceEvent event){
+      if (event.isCancelled()) {
+        logger.info("Browser {} unexpectedly disconnected",event.getResource().uuid());
+      }
+ else       if (event.isClosedByClient()) {
+        logger.info("Browser {} closed the connection",event.getResource().uuid());
+      }
+    }
+  }
+);
 }
