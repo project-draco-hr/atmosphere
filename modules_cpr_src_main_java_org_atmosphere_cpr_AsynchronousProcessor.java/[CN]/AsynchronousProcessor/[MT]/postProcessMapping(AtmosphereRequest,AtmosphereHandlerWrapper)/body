@@ -1,4 +1,5 @@
 {
+  if (!wildcardMapping)   return w;
   String path;
   String pathInfo=null;
   try {
@@ -15,14 +16,30 @@
   if (path == null || path.isEmpty()) {
     path="/";
   }
-  if (config.handlers().get(path) == null) {
-    if (AnnotatedProxy.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
-      AnnotatedProxy ap=AnnotatedProxy.class.cast(w.atmosphereHandler);
-      if (ap.target().getClass().getAnnotation(ManagedService.class) != null) {
-        String targetPath=ap.target().getClass().getAnnotation(ManagedService.class).path();
+synchronized (config.handlers()) {
+    if (config.handlers().get(path) == null) {
+      if (AnnotatedProxy.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
+        AnnotatedProxy ap=AnnotatedProxy.class.cast(w.atmosphereHandler);
+        if (ap.target().getClass().getAnnotation(ManagedService.class) != null) {
+          String targetPath=ap.target().getClass().getAnnotation(ManagedService.class).path();
+          if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
+            try {
+synchronized (config.handlers()) {
+                config.framework().addAtmosphereHandler(path,w.atmosphereHandler.getClass().getConstructor(Object.class).newInstance(ap.target().getClass().newInstance()),w.interceptors);
+              }
+              return config.handlers().get(path);
+            }
+ catch (            Throwable e) {
+              logger.warn("Unable to create AtmosphereHandler",e);
+            }
+          }
+        }
+      }
+      if (w.atmosphereHandler.getClass().getAnnotation(AtmosphereHandlerService.class) != null) {
+        String targetPath=w.atmosphereHandler.getClass().getAnnotation(AtmosphereHandlerService.class).path();
         if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
           try {
-            config.framework().addAtmosphereHandler(path,w.atmosphereHandler.getClass().getConstructor(Object.class).newInstance(ap.target().getClass().newInstance()),w.interceptors);
+            config.framework().addAtmosphereHandler(path,w.atmosphereHandler.getClass().newInstance());
             return config.handlers().get(path);
           }
  catch (          Throwable e) {
@@ -30,32 +47,21 @@
           }
         }
       }
-    }
-    if (w.atmosphereHandler.getClass().getAnnotation(AtmosphereHandlerService.class) != null) {
-      String targetPath=w.atmosphereHandler.getClass().getAnnotation(AtmosphereHandlerService.class).path();
-      if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
-        try {
-          config.framework().addAtmosphereHandler(path,w.atmosphereHandler.getClass().newInstance());
-          return config.handlers().get(path);
-        }
- catch (        Throwable e) {
-          logger.warn("Unable to create AtmosphereHandler",e);
-        }
-      }
-    }
-    if (ReflectorServletProcessor.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
-      Servlet s=ReflectorServletProcessor.class.cast(w.atmosphereHandler).getServlet();
-      if (s.getClass().getAnnotation(MeteorService.class) != null) {
-        String targetPath=s.getClass().getAnnotation(MeteorService.class).path();
-        if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
-          try {
-            ReflectorServletProcessor r=new ReflectorServletProcessor();
-            r.setServlet(s.getClass().newInstance());
-            config.framework().addAtmosphereHandler(path,r);
-            return config.handlers().get(path);
-          }
- catch (          Throwable e) {
-            logger.warn("Unable to create AtmosphereHandler",e);
+      if (ReflectorServletProcessor.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
+        Servlet s=ReflectorServletProcessor.class.cast(w.atmosphereHandler).getServlet();
+        if (s.getClass().getAnnotation(MeteorService.class) != null) {
+          String targetPath=s.getClass().getAnnotation(MeteorService.class).path();
+          if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
+            try {
+              ReflectorServletProcessor r=new ReflectorServletProcessor();
+              r.setServlet(s.getClass().newInstance());
+              r.init(config.getServletConfig());
+              config.framework().addAtmosphereHandler(path,r);
+              return config.handlers().get(path);
+            }
+ catch (            Throwable e) {
+              logger.warn("Unable to create AtmosphereHandler",e);
+            }
           }
         }
       }
