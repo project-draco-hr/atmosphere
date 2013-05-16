@@ -15,7 +15,7 @@
     }
     public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
       if (event.isSuspended()) {
-        event.write(event.getMessage().toString().getBytes());
+        event.getResource().write(event.getMessage().toString().getBytes());
       }
     }
   }
