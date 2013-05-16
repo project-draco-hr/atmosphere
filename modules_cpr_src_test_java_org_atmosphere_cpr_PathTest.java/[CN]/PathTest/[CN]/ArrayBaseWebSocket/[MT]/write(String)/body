@@ -1,4 +1,0 @@
-{
-  outputStream.write(s.getBytes());
-  return this;
-}

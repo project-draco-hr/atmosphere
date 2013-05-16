@@ -1,4 +1,0 @@
-{
-  super(framework.getAtmosphereConfig());
-  this.outputStream=outputStream;
-}

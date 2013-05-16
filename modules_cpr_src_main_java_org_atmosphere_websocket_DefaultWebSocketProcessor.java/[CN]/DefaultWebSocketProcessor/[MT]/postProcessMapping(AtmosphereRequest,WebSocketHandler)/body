@@ -22,7 +22,13 @@ synchronized (handlers) {
         String targetPath=w.getClass().getAnnotation(WebSocketHandlerService.class).path();
         if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
           try {
-            registerWebSocketHandler(path,w.getClass().newInstance());
+            boolean singleton=w.getClass().getAnnotation(Singleton.class) != null;
+            if (!singleton) {
+              registerWebSocketHandler(path,w.getClass().newInstance());
+            }
+ else {
+              registerWebSocketHandler(path,w);
+            }
             return handlers.get(path);
           }
  catch (          Throwable e) {

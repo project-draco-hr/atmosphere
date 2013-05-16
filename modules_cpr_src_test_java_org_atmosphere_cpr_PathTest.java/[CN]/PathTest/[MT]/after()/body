@@ -1,4 +1,0 @@
-{
-  r.set(null);
-  framework.destroy();
-}

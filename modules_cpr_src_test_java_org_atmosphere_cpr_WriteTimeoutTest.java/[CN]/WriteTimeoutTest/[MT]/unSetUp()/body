@@ -1,3 +1,4 @@
 {
   broadcaster.destroy();
+  BroadcasterFactory.getDefault().destroy();
 }
