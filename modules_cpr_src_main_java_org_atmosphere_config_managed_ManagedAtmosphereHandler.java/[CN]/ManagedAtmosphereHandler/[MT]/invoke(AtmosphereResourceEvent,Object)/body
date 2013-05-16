@@ -1,6 +1,9 @@
 {
   Object m=message(onMessageMethod,message);
   if (m != null) {
+    if (byte[].class.isAssignableFrom(m.getClass())) {
+      m=new String((byte[])m,event.getResource().getResponse().getCharacterEncoding());
+    }
     super.onStateChange(event.setMessage(m));
   }
  else   if (onMessageMethod == null) {

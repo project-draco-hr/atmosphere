@@ -1,11 +1,11 @@
 {
   AtmosphereRequest request=resource.getRequest();
   String method=request.getMethod();
-  if (onSuspendMethod != null) {
+  if (onReadyMethod != null) {
     resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
       @Override public void onSuspend(      AtmosphereResourceEvent event){
-        invoke(onSuspendMethod,event.getResource());
-        resource.removeEventListener(this);
+        processReady(event.getResource());
+        event.getResource().removeEventListener(this);
       }
     }
 );

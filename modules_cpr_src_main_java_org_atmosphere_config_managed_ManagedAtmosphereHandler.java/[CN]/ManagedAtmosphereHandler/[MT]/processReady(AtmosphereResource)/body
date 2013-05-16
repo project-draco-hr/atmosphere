@@ -1,0 +1,23 @@
+{
+  Object o=message(onReadyMethod,r);
+switch (onReadyMethod.getAnnotation(Ready.class).value()) {
+case RESOURCE:
+    if (o != null) {
+      if (String.class.isAssignableFrom(o.getClass())) {
+        r.write(o.toString());
+      }
+ else       if (byte[].class.isAssignableFrom(o.getClass())) {
+        r.write((byte[])o);
+      }
+    }
+  break;
+case BROADCASTER:
+r.getBroadcaster().broadcast(o);
+break;
+case ALL:
+for (Broadcaster b : r.getAtmosphereConfig().getBroadcasterFactory().lookupAll()) {
+b.broadcast(o);
+}
+break;
+}
+}
