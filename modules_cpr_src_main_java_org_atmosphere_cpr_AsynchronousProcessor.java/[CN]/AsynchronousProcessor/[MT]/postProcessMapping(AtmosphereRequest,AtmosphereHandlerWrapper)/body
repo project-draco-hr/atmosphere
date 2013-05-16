@@ -16,7 +16,6 @@
   if (path == null || path.isEmpty()) {
     path="/";
   }
-  System.out.println("\n\n\n\n=======>" + config.handlers().size());
 synchronized (config.handlers()) {
     if (config.handlers().get(path) == null) {
       if (AnnotatedProxy.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
