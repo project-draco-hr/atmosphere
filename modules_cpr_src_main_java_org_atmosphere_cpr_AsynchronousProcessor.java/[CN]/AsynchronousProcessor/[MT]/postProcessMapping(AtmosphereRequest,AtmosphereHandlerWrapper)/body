@@ -16,6 +16,7 @@
   if (path == null || path.isEmpty()) {
     path="/";
   }
+  config.getBroadcasterFactory().remove(w.broadcaster.getID());
 synchronized (config.handlers()) {
     if (config.handlers().get(path) == null) {
       if (AnnotatedProxy.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
