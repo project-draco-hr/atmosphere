@@ -209,7 +209,13 @@
       List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
       for (      Class i : interceptors) {
         try {
-          AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
+          AtmosphereInterceptor ai;
+          if (ManagedServiceInterceptor.class.isAssignableFrom(i)) {
+            ai=new ManagedServiceInterceptor(ManagedAtmosphereHandler.class.cast(handler));
+          }
+ else {
+            ai=(AtmosphereInterceptor)i.newInstance();
+          }
           l.add(ai);
         }
  catch (        Throwable e) {

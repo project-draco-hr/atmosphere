@@ -19,12 +19,16 @@
     invoke(onTimeoutMethod,resource);
   }
  else {
-    Object m=event.getMessage();
-    if (DirectWrite.class.isAssignableFrom(m.getClass())) {
-      super.onStateChange(event.setMessage(DirectWrite.class.cast(m).objectToWrite));
-      return;
+    Object msg=event.getMessage();
+    Object o;
+    for (    Method m : onRuntimeMethod) {
+      o=Invoker.encode(encoders.get(m),msg);
+      if (o != null) {
+        event.setMessage(o);
+        break;
+      }
     }
-    invoke(event);
+    super.onStateChange(event);
   }
   if (resumeOnBroadcast && r.isSuspended()) {
     r.resume();
