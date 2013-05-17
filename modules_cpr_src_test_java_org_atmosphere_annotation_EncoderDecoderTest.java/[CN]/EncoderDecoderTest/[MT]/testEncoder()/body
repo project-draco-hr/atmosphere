@@ -11,6 +11,7 @@
 );
   framework.doCometSupport(request,response);
   assertNotNull(r.get());
+  latch.get().await(5,TimeUnit.SECONDS);
   r.get().resume();
   assertNotNull(message.get());
   assertEquals(message.get(),"message");

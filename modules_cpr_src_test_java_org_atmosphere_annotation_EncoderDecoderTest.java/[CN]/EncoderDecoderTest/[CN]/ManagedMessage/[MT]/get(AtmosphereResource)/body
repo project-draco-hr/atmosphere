@@ -2,13 +2,14 @@
   r.set(resource);
   resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
     @Override public void onSuspend(    AtmosphereResourceEvent event){
+      AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/f").method("POST").body("message").build();
       try {
-        event.getResource().getBroadcaster().broadcast("message").get();
+        event.getResource().getAtmosphereConfig().framework().doCometSupport(request,AtmosphereResponse.newInstance());
       }
- catch (      InterruptedException e) {
+ catch (      IOException e) {
         e.printStackTrace();
       }
-catch (      ExecutionException e) {
+catch (      ServletException e) {
         e.printStackTrace();
       }
     }

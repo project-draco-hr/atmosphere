@@ -33,4 +33,5 @@ catch (      ServletException e) {
     }
   }
 );
+  latch.set(new CountDownLatch(1));
 }
