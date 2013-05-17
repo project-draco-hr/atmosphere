@@ -1,0 +1,14 @@
+{
+  for (  Method m : onRuntimeMethod) {
+    List<Decoder<?,?>> l=new CopyOnWriteArrayList<Decoder<?,?>>();
+    for (    Class<? extends Decoder> s : m.getAnnotation(Message.class).decoders()) {
+      try {
+        l.add(s.newInstance());
+      }
+ catch (      Exception e) {
+        logger.error("Unable to load encoder {}",s);
+      }
+    }
+    decoders.put(m,l);
+  }
+}

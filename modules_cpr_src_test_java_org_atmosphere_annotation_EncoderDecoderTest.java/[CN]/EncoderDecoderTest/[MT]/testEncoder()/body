@@ -3,8 +3,8 @@
   AtmosphereResponse response=AtmosphereResponse.newInstance();
   final AtomicReference<String> ref=new AtomicReference();
   response.asyncIOWriter(new AsyncIOWriterAdapter(){
-    @Override public AsyncIOWriter write(    AtmosphereResponse r,    String data) throws IOException {
-      ref.set(data);
+    @Override public AsyncIOWriter write(    AtmosphereResponse r,    byte[] data) throws IOException {
+      ref.set(new String(data));
       return this;
     }
   }

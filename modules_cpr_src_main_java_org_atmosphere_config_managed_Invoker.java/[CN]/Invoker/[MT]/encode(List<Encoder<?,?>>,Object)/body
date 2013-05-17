@@ -1,0 +1,7 @@
+{
+  Object encodedObject=matchEncoder(objectToEncode,encoders);
+  if (encodedObject == null) {
+    logger.trace("No Encoder matching {}",objectToEncode);
+  }
+  return encodedObject;
+}

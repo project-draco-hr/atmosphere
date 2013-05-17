@@ -1,0 +1,18 @@
+{
+  try {
+    for (    Method m : onRuntimeMethod) {
+      Object decoded=Invoker.decode(decoders.get(m),o);
+      if (decoded == null) {
+        decoded=o;
+      }
+      Object objectToEncode=Invoker.invokeMethod(m,object,decoded);
+      if (objectToEncode != null) {
+        return Invoker.encode(encoders.get(m),objectToEncode);
+      }
+    }
+  }
+ catch (  Throwable t) {
+    logger.error("",t);
+  }
+  return null;
+}

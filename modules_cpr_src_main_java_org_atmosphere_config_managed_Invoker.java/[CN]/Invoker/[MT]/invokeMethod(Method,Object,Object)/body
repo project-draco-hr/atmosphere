@@ -1,0 +1,24 @@
+{
+  Object objectToEncode=null;
+  boolean hasMatch=true;
+  try {
+    objectToEncode=method.invoke(objectToInvoke,new Object[]{decodedObject});
+    hasMatch=true;
+  }
+ catch (  IllegalAccessException e) {
+    logger.trace("",e);
+  }
+catch (  InvocationTargetException e) {
+    logger.trace("",e);
+  }
+catch (  java.lang.IllegalArgumentException e) {
+    logger.trace("",e);
+  }
+catch (  Throwable e) {
+    logger.error("",e);
+  }
+  if (!hasMatch) {
+    logger.trace("No Method's Arguments {} matching {}",method.getName(),objectToInvoke);
+  }
+  return objectToEncode;
+}

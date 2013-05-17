@@ -12,11 +12,11 @@ case RESOURCE:
     }
   break;
 case BROADCASTER:
-r.getBroadcaster().broadcast(o);
+r.getBroadcaster().broadcast(new DirectWrite(o));
 break;
 case ALL:
 for (Broadcaster b : r.getAtmosphereConfig().getBroadcasterFactory().lookupAll()) {
-b.broadcast(o);
+b.broadcast(new DirectWrite(o));
 }
 break;
 }

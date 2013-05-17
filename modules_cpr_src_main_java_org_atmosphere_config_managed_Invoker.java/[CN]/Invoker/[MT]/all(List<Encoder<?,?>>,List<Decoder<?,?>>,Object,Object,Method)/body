@@ -1,0 +1,14 @@
+{
+  Object decodedObject=decode(decoders,instanceType);
+  if (instanceType == null) {
+    logger.trace("No Encoder matching {}",instanceType);
+  }
+  decodedObject=decodedObject == null ? instanceType : decodedObject;
+  logger.trace("{} .on {}",method.getName(),decodedObject);
+  Object objectToEncode=invokeMethod(method,objectToInvoke,decodedObject);
+  Object encodedObject=null;
+  if (objectToEncode != null) {
+    encodedObject=encode(encoders,objectToEncode);
+  }
+  return encodedObject == null ? objectToEncode : encodedObject;
+}

@@ -20,7 +20,11 @@
   }
  else {
     Object m=event.getMessage();
-    invoke(event,m);
+    if (DirectWrite.class.isAssignableFrom(m.getClass())) {
+      super.onStateChange(event.setMessage(DirectWrite.class.cast(m).objectToWrite));
+      return;
+    }
+    invoke(event);
   }
   if (resumeOnBroadcast && r.isSuspended()) {
     r.resume();

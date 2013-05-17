@@ -1,0 +1,7 @@
+{
+  Object decodedObject=matchDecoder(instanceType,decoders);
+  if (instanceType == null) {
+    logger.trace("No Encoder matching {}",instanceType);
+  }
+  return decodedObject;
+}

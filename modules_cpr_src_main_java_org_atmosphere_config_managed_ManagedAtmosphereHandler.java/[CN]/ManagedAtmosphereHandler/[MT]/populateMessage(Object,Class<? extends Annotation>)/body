@@ -1,0 +1,9 @@
+{
+  ArrayList<Method> methods=new ArrayList<Method>();
+  for (  Method m : c.getClass().getMethods()) {
+    if (m.isAnnotationPresent(annotation)) {
+      methods.add(m);
+    }
+  }
+  return methods;
+}

@@ -1,6 +1,6 @@
 {
   this.object=c;
-  this.onMessageMethod=populate(c,Message.class);
+  this.onRuntimeMethod=populateMessage(c,Message.class);
   this.onDisconnectMethod=populate(c,Disconnect.class);
   this.onTimeoutMethod=populate(c,Resume.class);
   this.onGetMethod=populate(c,Get.class);
@@ -9,8 +9,8 @@
   this.onDeleteMethod=populate(c,Delete.class);
   this.onReadyMethod=populate(c,Ready.class);
   this.onResumeMethod=populate(c,Resume.class);
-  if (onMessageMethod != null) {
-    populateEncoders(onMessageMethod.getAnnotation(Message.class).encoders());
-    populateDecoder(onMessageMethod.getAnnotation(Message.class).decoders());
+  if (onRuntimeMethod.size() > 0) {
+    populateEncoders();
+    populateDecoders();
   }
 }
