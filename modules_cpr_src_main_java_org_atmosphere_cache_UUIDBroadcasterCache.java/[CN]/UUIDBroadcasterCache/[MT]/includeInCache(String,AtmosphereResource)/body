@@ -1,13 +1,11 @@
 {
-synchronized (r) {
-    boolean b=false;
-    List<String> list=bannedResources.get(broadcasterId);
-    if (list != null) {
-      b=list.remove(r.uuid());
-      if (list.isEmpty()) {
-        bannedResources.remove(broadcasterId);
-      }
+  boolean b=false;
+  List<String> list=bannedResources.get(broadcasterId);
+  if (list != null) {
+    b=list.remove(r.uuid());
+    if (list.isEmpty()) {
+      bannedResources.remove(broadcasterId);
     }
-    return b;
   }
+  return b;
 }
