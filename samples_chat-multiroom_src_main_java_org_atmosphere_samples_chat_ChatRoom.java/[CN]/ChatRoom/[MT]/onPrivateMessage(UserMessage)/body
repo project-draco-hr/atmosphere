@@ -1,0 +1,10 @@
+{
+  String userUUID=users.get(user.getUser());
+  if (userUUID != null) {
+    AtmosphereResource r=AtmosphereResourceFactory.getDefault().find(userUUID);
+    if (r != null) {
+      ChatProtocol m=new ChatProtocol(user.getUser()," sent you a private message: " + user.getMessage().split(":")[1]);
+      factory.lookup(mappedPath).broadcast(m,r);
+    }
+  }
+}

@@ -1,0 +1,4 @@
+String author
+String message
+Collection<String> users
+Collection<Broadcaster> rooms

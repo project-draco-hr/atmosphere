@@ -1,8 +1,0 @@
-{
-  try {
-    return mapper.readValue(s,Message.class);
-  }
- catch (  IOException e) {
-    throw new RuntimeException(e);
-  }
-}

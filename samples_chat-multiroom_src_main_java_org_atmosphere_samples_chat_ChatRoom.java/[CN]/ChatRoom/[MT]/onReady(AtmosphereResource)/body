@@ -1,7 +1,9 @@
 {
   logger.info("Browser {} connected.",r.uuid());
   if (chatroomName == null) {
-    chatroomName=r.getBroadcaster().getID();
+    mappedPath=r.getBroadcaster().getID();
+    chatroomName=mappedPath.split("/")[2];
+    factory=r.getAtmosphereConfig().getBroadcasterFactory();
   }
-  return new RoomsState(r.getAtmosphereConfig().getBroadcasterFactory());
+  return new ChatProtocol(users.keySet(),factory.lookupAll());
 }

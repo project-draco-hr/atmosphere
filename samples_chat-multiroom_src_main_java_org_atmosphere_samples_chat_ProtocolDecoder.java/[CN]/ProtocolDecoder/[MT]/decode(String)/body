@@ -1,6 +1,6 @@
 {
   try {
-    return mapper.writeValueAsString(m);
+    return mapper.readValue(s,ChatProtocol.class);
   }
  catch (  IOException e) {
     throw new RuntimeException(e);

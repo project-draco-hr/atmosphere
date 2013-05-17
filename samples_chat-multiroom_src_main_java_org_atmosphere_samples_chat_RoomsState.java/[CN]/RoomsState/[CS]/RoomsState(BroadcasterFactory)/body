@@ -1,5 +1,0 @@
-{
-  for (  Broadcaster b : factory.lookupAll()) {
-    rooms.add(b.getID().toString());
-  }
-}
