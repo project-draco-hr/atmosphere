@@ -1,5 +1,4 @@
 {
-  if (!wildcardMapping)   return w;
   String path;
   String pathInfo=null;
   try {
@@ -29,22 +28,24 @@ synchronized (config.handlers()) {
                 boolean singleton=ap.target().getClass().getAnnotation(Singleton.class) != null;
                 if (!singleton) {
                   ManagedAtmosphereHandler h=(ManagedAtmosphereHandler)w.atmosphereHandler.getClass().getConstructor(Object.class).newInstance(ap.target().getClass().newInstance());
-                  config.framework().addAtmosphereHandler(path,h,w.interceptors);
-                  ManagedServiceInterceptor m=null;
+                  AnnotationServiceInterceptor m=null;
                   for (                  AtmosphereInterceptor i : w.interceptors) {
-                    if (ManagedServiceInterceptor.class.isAssignableFrom(i.getClass())) {
-                      m=ManagedServiceInterceptor.class.cast(i);
+                    if (AnnotationServiceInterceptor.class.isAssignableFrom(i.getClass())) {
+                      m=AnnotationServiceInterceptor.class.cast(i);
                       break;
                     }
                   }
-                  w.interceptors.remove(m);
-                  w.interceptors.add(new ManagedServiceInterceptor(h));
+                  List<AtmosphereInterceptor> interceptors=new ArrayList<AtmosphereInterceptor>();
+                  interceptors.addAll(w.interceptors);
+                  interceptors.remove(m);
+                  interceptors.add(new AnnotationServiceInterceptor(h));
+                  config.framework().addAtmosphereHandler(path,h,interceptors);
                 }
  else {
                   config.framework().addAtmosphereHandler(path,w.atmosphereHandler);
                 }
               }
-              return config.handlers().get(path);
+              request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
             }
  catch (            Throwable e) {
               logger.warn("Unable to create AtmosphereHandler",e);
@@ -63,7 +64,7 @@ synchronized (config.handlers()) {
  else {
               config.framework().addAtmosphereHandler(path,w.atmosphereHandler);
             }
-            return config.handlers().get(path);
+            request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
           }
  catch (          Throwable e) {
             logger.warn("Unable to create AtmosphereHandler",e);
@@ -86,7 +87,7 @@ synchronized (config.handlers()) {
  else {
                 config.framework().addAtmosphereHandler(path,w.atmosphereHandler);
               }
-              return config.handlers().get(path);
+              request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
             }
  catch (            Throwable e) {
               logger.warn("Unable to create AtmosphereHandler",e);
@@ -96,5 +97,4 @@ synchronized (config.handlers()) {
       }
     }
   }
-  return w;
 }

@@ -1,0 +1,7 @@
+{
+  for (  String w : framework.getAtmosphereConfig().handlers().keySet()) {
+    if (w.contains("{") && w.contains("}")) {
+      wildcardMapping=true;
+    }
+  }
+}

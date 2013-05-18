@@ -1,0 +1,36 @@
+{
+  config.getBroadcasterFactory().add(handlerWrapper.broadcaster,handlerWrapper.broadcaster.getID());
+  Broadcaster b=handlerWrapper.broadcaster;
+  if (b.isDestroyed()) {
+    BroadcasterFactory f=config.getBroadcasterFactory();
+synchronized (f) {
+      f.remove(b,b.getID());
+      try {
+        handlerWrapper.broadcaster=f.get(b.getID());
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace("",ex);
+        handlerWrapper.broadcaster=f.lookup(b.getID(),true);
+      }
+    }
+  }
+  if (resource == null) {
+    resource=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
+  }
+  if (resource == null) {
+    resource=(AtmosphereResourceImpl)AtmosphereResourceFactory.getDefault().create(config,handlerWrapper.broadcaster,res,this,handlerWrapper.atmosphereHandler);
+  }
+ else {
+    try {
+      resource.getBroadcaster();
+    }
+ catch (    IllegalStateException ex) {
+      resource.setBroadcaster(handlerWrapper.broadcaster);
+    }
+    resource.atmosphereHandler(handlerWrapper.atmosphereHandler);
+  }
+  req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
+  req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER,handlerWrapper);
+  req.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
+  return resource;
+}

@@ -210,8 +210,8 @@
       for (      Class i : interceptors) {
         try {
           AtmosphereInterceptor ai;
-          if (ManagedServiceInterceptor.class.isAssignableFrom(i)) {
-            ai=new ManagedServiceInterceptor(ManagedAtmosphereHandler.class.cast(handler));
+          if (AnnotationServiceInterceptor.class.isAssignableFrom(i)) {
+            ai=new AnnotationServiceInterceptor(ManagedAtmosphereHandler.class.cast(handler));
           }
  else {
             ai=(AtmosphereInterceptor)i.newInstance();

@@ -21,37 +21,7 @@
     logger.error("Atmosphere is misconfigured and will not work. BroadcasterFactory is null");
     return Action.CANCELLED;
   }
-  config.getBroadcasterFactory().add(handlerWrapper.broadcaster,handlerWrapper.broadcaster.getID());
-  Broadcaster b=handlerWrapper.broadcaster;
-  if (b.isDestroyed()) {
-    BroadcasterFactory f=config.getBroadcasterFactory();
-synchronized (f) {
-      f.remove(b,b.getID());
-      try {
-        handlerWrapper.broadcaster=f.get(b.getID());
-      }
- catch (      IllegalStateException ex) {
-        logger.trace("",ex);
-        handlerWrapper.broadcaster=f.lookup(b.getID(),true);
-      }
-    }
-  }
-  AtmosphereResourceImpl resource=(AtmosphereResourceImpl)req.getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
-  if (resource == null) {
-    resource=(AtmosphereResourceImpl)AtmosphereResourceFactory.getDefault().create(config,handlerWrapper.broadcaster,res,this,handlerWrapper.atmosphereHandler);
-  }
- else {
-    try {
-      resource.getBroadcaster();
-    }
- catch (    IllegalStateException ex) {
-      resource.setBroadcaster(handlerWrapper.broadcaster);
-    }
-    resource.atmosphereHandler(handlerWrapper.atmosphereHandler);
-  }
-  req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
-  req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER,handlerWrapper.atmosphereHandler);
-  req.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
+  AtmosphereResourceImpl resource=configureWorkflow(null,handlerWrapper,req,res);
   Action a=invokeInterceptors(config.framework().interceptors(),resource);
   if (a.type() != Action.TYPE.CONTINUE) {
     return a;
@@ -59,6 +29,11 @@ synchronized (f) {
   a=invokeInterceptors(handlerWrapper.interceptors,resource);
   if (a.type() != Action.TYPE.CONTINUE) {
     return a;
+  }
+  if (req.getAttribute(FrameworkConfig.NEW_MAPPING) != null) {
+    req.removeAttribute(FrameworkConfig.NEW_MAPPING);
+    handlerWrapper=config.handlers().get(path(req));
+    resource=configureWorkflow(resource,handlerWrapper,req,res);
   }
   boolean skipAtmosphereHandler=req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
   if (!skipAtmosphereHandler) {

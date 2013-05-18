@@ -31,5 +31,4 @@
     }
 ,0,1,TimeUnit.SECONDS);
   }
-  optimizeMapping();
 }

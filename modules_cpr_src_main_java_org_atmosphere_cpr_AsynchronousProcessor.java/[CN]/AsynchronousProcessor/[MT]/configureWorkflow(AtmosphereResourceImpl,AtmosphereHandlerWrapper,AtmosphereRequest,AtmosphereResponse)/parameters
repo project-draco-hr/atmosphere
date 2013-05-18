@@ -1,0 +1,4 @@
+AtmosphereResourceImpl resource
+AtmosphereHandlerWrapper handlerWrapper
+AtmosphereRequest req
+AtmosphereResponse res

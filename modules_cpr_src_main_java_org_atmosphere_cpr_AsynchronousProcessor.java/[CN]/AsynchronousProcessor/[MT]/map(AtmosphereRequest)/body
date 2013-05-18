@@ -5,5 +5,5 @@
     throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + req.getRequestURI());
   }
   config.getBroadcasterFactory().add(atmosphereHandlerWrapper.broadcaster,atmosphereHandlerWrapper.broadcaster.getID());
-  return postProcessMapping(req,atmosphereHandlerWrapper);
+  return atmosphereHandlerWrapper;
 }

@@ -23,4 +23,5 @@
     asyncExecutor=VoidExecutorService.VOID;
   }
   scheduler=ExecutorsFactory.getScheduler(config);
+  optimizeMapping();
 }

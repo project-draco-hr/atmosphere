@@ -14,7 +14,7 @@
       }
     }
  else {
-      logger.warn("{} received an empty body",ManagedServiceInterceptor.class.getSimpleName());
+      logger.warn("{} received an empty body",AnnotationServiceInterceptor.class.getSimpleName());
     }
   }
 }
