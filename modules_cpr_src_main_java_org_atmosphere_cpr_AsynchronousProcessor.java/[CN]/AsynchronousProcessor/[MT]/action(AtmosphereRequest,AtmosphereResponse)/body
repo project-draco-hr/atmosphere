@@ -34,6 +34,7 @@
     req.removeAttribute(FrameworkConfig.NEW_MAPPING);
     handlerWrapper=config.handlers().get(path(req));
     resource=configureWorkflow(resource,handlerWrapper,req,res);
+    resource.setBroadcaster(handlerWrapper.broadcaster);
   }
   boolean skipAtmosphereHandler=req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
   if (!skipAtmosphereHandler) {
