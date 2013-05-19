@@ -1,7 +1,7 @@
 {
   AtmosphereResourceImpl r=(AtmosphereResourceImpl)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
   if (r == null)   return Action.CANCELLED;
-  AtmosphereHandler atmosphereHandler=(AtmosphereHandler)request.getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER);
+  AtmosphereHandler atmosphereHandler=r.getAtmosphereHandler();
   AtmosphereResourceEvent event=r.getAtmosphereResourceEvent();
   if (event != null && event.isResuming() && !event.isCancelled()) {
 synchronized (r) {
