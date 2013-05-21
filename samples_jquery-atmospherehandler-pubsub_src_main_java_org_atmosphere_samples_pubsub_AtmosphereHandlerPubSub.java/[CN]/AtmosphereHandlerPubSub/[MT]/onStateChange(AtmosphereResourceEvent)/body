@@ -1,0 +1,11 @@
+{
+  if (event.isSuspended()) {
+    String message=event.getMessage() == null ? null : event.getMessage().toString();
+    if (message != null && message.indexOf("message") != -1) {
+      event.getResource().write(message.substring("message=".length()));
+    }
+ else {
+      event.getResource().write("=error=");
+    }
+  }
+}

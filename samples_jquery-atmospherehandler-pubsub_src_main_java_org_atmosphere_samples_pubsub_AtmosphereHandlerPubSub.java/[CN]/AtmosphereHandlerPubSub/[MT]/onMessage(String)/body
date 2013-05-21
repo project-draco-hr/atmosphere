@@ -1,8 +1,0 @@
-{
-  if (message != null && message.indexOf("message") != -1) {
-    return (message.substring("message=".length()));
-  }
- else {
-    return "=error=";
-  }
-}
