@@ -4,7 +4,12 @@
     AtmosphereResource r=AtmosphereResourceFactory.getDefault().find(userUUID);
     if (r != null) {
       ChatProtocol m=new ChatProtocol(user.getUser()," sent you a private message: " + user.getMessage().split(":")[1]);
-      factory.lookup(mappedPath).broadcast(m,r);
+      if (!user.getUser().equalsIgnoreCase("all")) {
+        factory.lookup(mappedPath).broadcast(m,r);
+      }
+ else {
+        MetaBroadcaster.getDefault().broadcastTo("/*",m);
+      }
     }
   }
 }
