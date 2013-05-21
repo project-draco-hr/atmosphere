@@ -5,6 +5,10 @@
     request.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.STREAMING_TRANSPORT);
     response.setContentType("text/plain");
   }
+ else   if (response.resource().transport().equals(TRANSPORT.SSE)) {
+    request.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.SSE_TRANSPORT);
+    response.setContentType("text/event-stream");
+  }
   response.write(padding,true);
   try {
     response.flushBuffer();
