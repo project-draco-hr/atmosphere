@@ -9,5 +9,5 @@
   }
   message.setUsers(users.keySet());
   logger.info("{} just send {}",message.getAuthor(),message.getMessage());
-  return message;
+  return new ChatProtocol(message.getAuthor(),message.getMessage(),users.keySet(),factory.lookupAll());
 }
