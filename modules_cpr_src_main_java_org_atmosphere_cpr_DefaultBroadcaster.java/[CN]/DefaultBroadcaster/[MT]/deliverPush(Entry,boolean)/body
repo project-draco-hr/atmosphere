@@ -27,7 +27,8 @@
   if (finalMsg == null) {
     logger.error("Callable exception. Please catch all exception from you callable. Message {} will be lost and all AtmosphereResource " + "associated with this Broadcaster resumed.",entry.message);
     entryDone(entry.future);
-    if (entry.type != Entry.TYPE.RESOURCE) {
+switch (entry.type) {
+case ALL:
 synchronized (resources) {
         for (        AtmosphereResource r : resources) {
           if (r.transport().equals(AtmosphereResource.TRANSPORT.JSONP) || r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING))           try {
@@ -38,50 +39,56 @@ synchronized (resources) {
           }
         }
       }
-    }
- else {
-      entry.resource.resume();
-    }
-    return;
-  }
-  Object prevM=entry.originalMessage;
-  entry.originalMessage=(entry.originalMessage != entry.message ? callable(entry.originalMessage) : finalMsg);
-  if (entry.originalMessage == null) {
-    logger.trace("Broadcast message was null {}",prevM);
-    entryDone(entry.future);
-    return;
-  }
-  entry.message=finalMsg;
-  AtmosphereResource cache=entry.type != Entry.TYPE.RESOURCE ? null : entry.resource;
-  entry.cache=bc.getBroadcasterCache().addToCache(getID(),cache,new BroadcastMessage(entry.originalMessage));
-  if (resources.isEmpty()) {
-    entryDone(entry.future);
-    return;
-  }
-  try {
-    if (logger.isTraceEnabled()) {
-      for (      AtmosphereResource r : resources) {
-        logger.trace("AtmosphereResource {} available for {}",r.uuid(),entry.message);
-      }
-    }
-switch (entry.type) {
-case ALL:
-      for (      AtmosphereResource r : resources) {
-        boolean deliverMessage=perRequestFilter(r,entry,true);
-        if (!deliverMessage || entry.message == null) {
-          logger.debug("Skipping broadcast delivery resource {} ",r);
-          continue;
-        }
-        if (entry.writeLocally) {
-          queueWriteIO(r,entry);
-        }
-      }
     break;
 case RESOURCE:
-  boolean deliverMessage=perRequestFilter(entry.resource,entry,true);
+  entry.resource.resume();
+break;
+case SET:
+for (AtmosphereResource r : entry.resources) {
+r.resume();
+}
+break;
+}
+return;
+}
+Object prevM=entry.originalMessage;
+entry.originalMessage=(entry.originalMessage != entry.message ? callable(entry.originalMessage) : finalMsg);
+if (entry.originalMessage == null) {
+logger.trace("Broadcast message was null {}",prevM);
+entryDone(entry.future);
+return;
+}
+entry.message=finalMsg;
+AtmosphereResource cache=entry.type != Entry.TYPE.RESOURCE ? null : entry.resource;
+entry.cache=bc.getBroadcasterCache().addToCache(getID(),cache,new BroadcastMessage(entry.originalMessage));
+if (resources.isEmpty()) {
+entryDone(entry.future);
+return;
+}
+try {
+if (logger.isTraceEnabled()) {
+for (AtmosphereResource r : resources) {
+logger.trace("AtmosphereResource {} available for {}",r.uuid(),entry.message);
+}
+}
+switch (entry.type) {
+case ALL:
+for (AtmosphereResource r : resources) {
+boolean deliverMessage=perRequestFilter(r,entry,true);
 if (!deliverMessage || entry.message == null) {
-  logger.debug("Skipping broadcast delivery resource {} ",entry.resource);
-  return;
+logger.debug("Skipping broadcast delivery resource {} ",r);
+continue;
+}
+if (entry.writeLocally) {
+queueWriteIO(r,entry);
+}
+}
+break;
+case RESOURCE:
+boolean deliverMessage=perRequestFilter(entry.resource,entry,true);
+if (!deliverMessage || entry.message == null) {
+logger.debug("Skipping broadcast delivery resource {} ",entry.resource);
+return;
 }
 if (entry.writeLocally) {
 queueWriteIO(entry.resource,entry);
