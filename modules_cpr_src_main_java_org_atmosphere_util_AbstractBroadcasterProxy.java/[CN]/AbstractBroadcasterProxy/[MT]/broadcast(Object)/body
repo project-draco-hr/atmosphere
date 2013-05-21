@@ -9,7 +9,7 @@
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,this);
   try {
     outgoingBroadcast(msg);
-    push(new Entry(newMsg,null,f,false));
+    push(new Entry(newMsg,f,false));
   }
   finally {
     futureDone(f);

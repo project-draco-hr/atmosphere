@@ -8,6 +8,6 @@
   if (newMsg == null)   return null;
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,this);
   entryDone(f);
-  push(new Entry(newMsg,null,f,msg));
+  push(new Entry(newMsg,f,msg));
   return f;
 }

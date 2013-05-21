@@ -1,4 +1,4 @@
 Object message
-Object multipleAtmoResources
+Set<AtmosphereResource> resources
 BroadcasterFuture<?> future
 Object originalMessage

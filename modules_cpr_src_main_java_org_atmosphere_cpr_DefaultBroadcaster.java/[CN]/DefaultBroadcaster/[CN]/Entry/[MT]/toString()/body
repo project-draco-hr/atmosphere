@@ -1,3 +1,0 @@
-{
-  return "Entry{" + "message=" + message + ", multipleAtmoResources="+ multipleAtmoResources+ ", future="+ future+ '}';
-}

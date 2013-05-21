@@ -1,7 +1,9 @@
 {
   this.message=message;
-  this.multipleAtmoResources=multipleAtmoResources;
   this.future=future;
   this.writeLocally=true;
   this.originalMessage=originalMessage;
+  this.type=TYPE.RESOURCE;
+  this.resource=r;
+  this.resources=null;
 }

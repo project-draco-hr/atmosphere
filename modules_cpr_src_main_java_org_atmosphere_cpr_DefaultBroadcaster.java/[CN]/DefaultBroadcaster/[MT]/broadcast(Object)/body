@@ -8,6 +8,6 @@
   if (newMsg == null)   return futureDone(msg);
   int callee=resources.size() == 0 ? 1 : resources.size();
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,callee,this);
-  dispatchMessages(new Entry(newMsg,null,f,msg));
+  dispatchMessages(new Entry(newMsg,f,msg));
   return f;
 }

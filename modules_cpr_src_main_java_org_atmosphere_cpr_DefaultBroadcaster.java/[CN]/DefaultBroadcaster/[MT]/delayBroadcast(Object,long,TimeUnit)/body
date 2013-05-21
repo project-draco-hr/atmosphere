@@ -7,7 +7,7 @@
   final Object msg=filter(o);
   if (msg == null)   return null;
   final BroadcasterFuture<Object> future=new BroadcasterFuture<Object>(msg,this);
-  final Entry e=new Entry(msg,null,future,o);
+  final Entry e=new Entry(msg,future,o);
   Future<Object> f;
   if (delay > 0) {
     f=bc.getScheduledExecutorService().schedule(new Callable<Object>(){
@@ -18,7 +18,7 @@
             Object r=Callable.class.cast(o).call();
             final Object msg=filter(r);
             if (msg != null) {
-              Entry entry=new Entry(msg,null,future,r);
+              Entry entry=new Entry(msg,future,r);
               push(entry);
             }
             return msg;
@@ -28,7 +28,7 @@
           }
         }
         final Object msg=filter(o);
-        final Entry e=new Entry(msg,null,future,o);
+        final Entry e=new Entry(msg,future,o);
         push(e);
         return msg;
       }

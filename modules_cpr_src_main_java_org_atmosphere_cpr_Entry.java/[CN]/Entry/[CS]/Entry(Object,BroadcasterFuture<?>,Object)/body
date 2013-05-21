@@ -1,0 +1,9 @@
+{
+  this.message=message;
+  this.future=future;
+  this.writeLocally=true;
+  this.originalMessage=originalMessage;
+  this.type=TYPE.ALL;
+  this.resource=null;
+  this.resources=null;
+}

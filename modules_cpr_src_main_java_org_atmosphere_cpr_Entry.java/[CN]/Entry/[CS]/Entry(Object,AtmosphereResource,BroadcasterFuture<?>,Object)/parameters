@@ -1,0 +1,4 @@
+Object message
+AtmosphereResource r
+BroadcasterFuture<?> future
+Object originalMessage

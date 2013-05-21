@@ -1,0 +1,3 @@
+{
+  return "Entry{" + "message=" + message + ", type="+ type+ ", future="+ future+ '}';
+}
