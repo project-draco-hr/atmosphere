@@ -1,3 +1,2 @@
 {
-  r.setBroadcaster(lookupBroadcaster(r.getRequest().getPathInfo()));
 }

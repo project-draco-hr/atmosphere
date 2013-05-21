@@ -1,0 +1,4 @@
+{
+  mapAnnotatedService(r.getRequest(),(AtmosphereHandlerWrapper)r.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER));
+  return Action.CONTINUE;
+}

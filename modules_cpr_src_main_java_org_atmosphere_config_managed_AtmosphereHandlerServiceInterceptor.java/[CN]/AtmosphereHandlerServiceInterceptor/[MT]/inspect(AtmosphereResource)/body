@@ -1,0 +1,41 @@
+{
+  AtmosphereRequest request=r.getRequest();
+  AtmosphereHandlerWrapper w=(AtmosphereHandlerWrapper)r.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER);
+  String path;
+  String pathInfo=null;
+  try {
+    pathInfo=request.getPathInfo();
+  }
+ catch (  IllegalStateException ex) {
+  }
+  if (pathInfo != null) {
+    path=request.getServletPath() + pathInfo;
+  }
+ else {
+    path=request.getServletPath();
+  }
+  if (path == null || path.isEmpty()) {
+    path="/";
+  }
+  config.getBroadcasterFactory().remove(w.broadcaster.getID());
+synchronized (config.handlers()) {
+    if (config.handlers().get(path) == null) {
+      if (w.atmosphereHandler.getClass().getAnnotation(AtmosphereHandlerService.class) != null) {
+        try {
+          boolean singleton=w.atmosphereHandler.getClass().getAnnotation(Singleton.class) != null;
+          if (!singleton) {
+            config.framework().addAtmosphereHandler(path,w.atmosphereHandler.getClass().newInstance(),w.interceptors);
+          }
+ else {
+            config.framework().addAtmosphereHandler(path,w.atmosphereHandler,w.interceptors);
+          }
+          request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
+        }
+ catch (        Throwable e) {
+          logger.warn("Unable to create AtmosphereHandler",e);
+        }
+      }
+    }
+  }
+  return Action.CONTINUE;
+}
