@@ -1,6 +1,9 @@
 {
   BroadcasterTracker t=states.get(r.uuid());
-  if (!r.isCancelled() && t != null) {
+  if (t != null && !r.isCancelled() && !r.isResumed()) {
     t.remove(b);
+  }
+ else {
+    logger.trace("Keeping the state of {} with broadcaster {}",r.uuid(),b.getID());
   }
 }
