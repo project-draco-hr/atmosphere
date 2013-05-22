@@ -1,4 +1,7 @@
 {
   response.write(s);
+  if (resumeOnBroadcast()) {
+    resume();
+  }
   return this;
 }
