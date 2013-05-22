@@ -2,6 +2,7 @@
   if (!r.transport().equals(AtmosphereResource.TRANSPORT.POLLING) && !r.transport().equals(AtmosphereResource.TRANSPORT.AJAX)) {
     r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
       @Override public void onPreSuspend(      AtmosphereResourceEvent e){
+        r.removeEventListener(this);
         BroadcasterTracker tracker=track(r).tick();
         for (        String broadcasterID : tracker.ids()) {
           Broadcaster b=factory.lookup(broadcasterID,false);
@@ -13,7 +14,6 @@
             logger.trace("Broadcaster {} is no longer available",broadcasterID);
           }
         }
-        r.removeEventListener(this);
       }
     }
 );

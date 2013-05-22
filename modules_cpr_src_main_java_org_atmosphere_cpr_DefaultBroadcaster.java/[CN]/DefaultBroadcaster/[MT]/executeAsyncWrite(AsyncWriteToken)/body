@@ -7,7 +7,7 @@
     event.setMessage(token.msg);
     bc.getBroadcasterCache().clearCache(getID(),r,token.cache);
     if (!isAtmosphereResourceValid(r)) {
-      logger.trace("AtmosphereResource {} state is invalid for Broadcaster {}",r.uuid(),name);
+      logger.trace("AtmosphereResource {} state is invalid for Broadcaster {}. ",r.uuid(),name);
       removeAtmosphereResource(r);
       lostCandidate=true;
       return;
