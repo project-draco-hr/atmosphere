@@ -1,12 +1,7 @@
 {
   final AtmosphereResponse response=r.getResponse();
   if (r.transport().equals(TRANSPORT.STREAMING) || r.transport().equals(TRANSPORT.LONG_POLLING)) {
-    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-      @Override public void onPreSuspend(      AtmosphereResourceEvent event){
-        writePadding(response);
-      }
-    }
-);
+    r.addEventListener(new ForcePreSuspend(response));
     super.inspect(r);
     AsyncIOWriter writer=response.getAsyncIOWriter();
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {

@@ -1,6 +1,10 @@
 {
-  if (disableSuspendEvent)   return;
   for (  AtmosphereResourceEventListener r : listeners) {
+    if (disableSuspend) {
+      if (!AllowInterceptor.class.isAssignableFrom(r.getClass())) {
+        continue;
+      }
+    }
     r.onPreSuspend(e);
   }
 }
