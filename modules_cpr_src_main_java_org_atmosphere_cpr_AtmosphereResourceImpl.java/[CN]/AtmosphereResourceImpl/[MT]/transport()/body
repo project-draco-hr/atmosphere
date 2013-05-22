@@ -1,30 +1,3 @@
 {
-  if (req == null)   return TRANSPORT.UNDEFINED;
-  String s=req.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
-  if (s == null)   return TRANSPORT.UNDEFINED;
-  s=s.replace("-","_").toUpperCase();
-  if (TRANSPORT.POLLING.name().equals(s)) {
-    return TRANSPORT.POLLING;
-  }
- else   if (TRANSPORT.LONG_POLLING.name().equals(s)) {
-    return TRANSPORT.LONG_POLLING;
-  }
- else   if (TRANSPORT.STREAMING.name().equals(s)) {
-    return TRANSPORT.STREAMING;
-  }
- else   if (TRANSPORT.JSONP.name().equals(s)) {
-    return TRANSPORT.JSONP;
-  }
- else   if (TRANSPORT.WEBSOCKET.name().equals(s)) {
-    return TRANSPORT.WEBSOCKET;
-  }
- else   if (TRANSPORT.SSE.name().equals(s)) {
-    return TRANSPORT.SSE;
-  }
- else   if (TRANSPORT.AJAX.name().equals(s)) {
-    return TRANSPORT.AJAX;
-  }
- else {
-    return TRANSPORT.UNDEFINED;
-  }
+  return transport;
 }

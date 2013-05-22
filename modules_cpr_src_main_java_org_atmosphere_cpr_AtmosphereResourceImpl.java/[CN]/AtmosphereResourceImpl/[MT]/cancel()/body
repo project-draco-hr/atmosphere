@@ -11,8 +11,8 @@
     if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
       AtmosphereRequest.class.cast(req).destroy();
     }
-    if (broadcaster != null) {
-      broadcaster.removeAtmosphereResource(this);
+    if (config.getBroadcasterFactory().getDefault() != null) {
+      config.getBroadcasterFactory().getDefault().removeAllAtmosphereResource(this);
     }
     event.destroy();
   }

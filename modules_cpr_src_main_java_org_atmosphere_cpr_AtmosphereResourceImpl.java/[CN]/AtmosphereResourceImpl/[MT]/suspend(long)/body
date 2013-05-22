@@ -7,6 +7,7 @@
     resumeOnBroadcast.set(true);
   }
   onPreSuspend(event);
+  if (event.isSuspended() || disableSuspend)   return this;
   if (!event.isResumedOnTimeout()) {
     Enumeration<String> connection=req.getHeaders("Connection");
     if (connection == null) {

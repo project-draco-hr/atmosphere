@@ -1,8 +1,24 @@
 {
   if (!r.transport().equals(AtmosphereResource.TRANSPORT.POLLING) && !r.transport().equals(AtmosphereResource.TRANSPORT.AJAX)) {
     r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      final List<Object> cachedMessages=Collections.synchronizedList(new LinkedList<Object>());
       @Override public void onPreSuspend(      AtmosphereResourceEvent e){
         r.removeEventListener(this);
+        AtmosphereHandler original=r.getAtmosphereHandler();
+        if (r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING)) {
+          AtmosphereResourceImpl.class.cast(r).atmosphereHandler(new AtmosphereHandlerAdapter(){
+            @Override public void onStateChange(            AtmosphereResourceEvent event) throws IOException {
+              logger.trace("Quering message {} for resource {}",event.getMessage(),r.uuid());
+              if (List.class.isAssignableFrom(event.getMessage().getClass())) {
+                cachedMessages.addAll(List.class.cast(event.getMessage()));
+              }
+ else {
+                cachedMessages.add(event.getMessage());
+              }
+            }
+          }
+);
+        }
         BroadcasterTracker tracker=track(r).tick();
         for (        String broadcasterID : tracker.ids()) {
           Broadcaster b=factory.lookup(broadcasterID,false);
@@ -12,6 +28,15 @@
           }
  else {
             logger.trace("Broadcaster {} is no longer available",broadcasterID);
+          }
+        }
+        if (cachedMessages.size() > 0 && r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING)) {
+          AtmosphereResourceImpl.class.cast(r).atmosphereHandler(original).disableSuspend(true);
+          try {
+            r.getAtmosphereHandler().onStateChange(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(r),false,false,null).setMessage(cachedMessages));
+          }
+ catch (          IOException e1) {
+            logger.error("Unable to write aggregated cache for {}",r.uuid(),e1);
           }
         }
       }

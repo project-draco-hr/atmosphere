@@ -1,0 +1,38 @@
+{
+  final AtomicReference<Object> ref=new AtomicReference<Object>();
+  AtmosphereResourceImpl r=(AtmosphereResourceImpl)AtmosphereResourceFactory.getDefault().create(config,"1234567");
+  r.setBroadcaster(config.getBroadcasterFactory().lookup("/1",true));
+  recovery.configure(config);
+  recovery.inspect(r);
+  config.getBroadcasterFactory().lookup("/1",true).getBroadcasterConfig().setBroadcasterCache(new UUIDBroadcasterCache());
+  config.getBroadcasterFactory().lookup("/2",true).getBroadcasterConfig().setBroadcasterCache(new UUIDBroadcasterCache());
+  config.getBroadcasterFactory().lookup("/3",true).getBroadcasterConfig().setBroadcasterCache(new UUIDBroadcasterCache());
+  config.getBroadcasterFactory().lookup("/4",true).getBroadcasterConfig().setBroadcasterCache(new UUIDBroadcasterCache());
+  config.getBroadcasterFactory().lookup("/1",true).addAtmosphereResource(r);
+  config.getBroadcasterFactory().lookup("/2",true).addAtmosphereResource(r);
+  config.getBroadcasterFactory().lookup("/3",true).addAtmosphereResource(r);
+  config.getBroadcasterFactory().lookup("/4",true).addAtmosphereResource(r);
+  r.suspend();
+  MetaBroadcaster.getDefault().broadcastTo("/1","Initialize Cache").get();
+  r.close();
+  AtmosphereResourceImpl r2=(AtmosphereResourceImpl)AtmosphereResourceFactory.getDefault().create(config,"1234567");
+  r2.setBroadcaster(config.getBroadcasterFactory().lookup("/*",true));
+  config.getBroadcasterFactory().lookup("/1",true).broadcast(("1")).get();
+  config.getBroadcasterFactory().lookup("/2",true).broadcast(("2")).get();
+  config.getBroadcasterFactory().lookup("/3",true).broadcast(("3")).get();
+  config.getBroadcasterFactory().lookup("/4",true).broadcast(("4")).get();
+  recovery.inspect(r2);
+  r2.transport(AtmosphereResource.TRANSPORT.LONG_POLLING).atmosphereHandler(new AtmosphereHandlerAdapter(){
+    @Override public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
+      ref.set(event.getMessage());
+    }
+  }
+).suspend();
+  assertTrue(List.class.isAssignableFrom(ref.get().getClass()));
+  assertEquals(List.class.cast(ref.get()).size(),4);
+  StringBuilder b=new StringBuilder();
+  for (  Object o : List.class.cast(ref.get())) {
+    b.append(o.toString());
+  }
+  assertEquals(b.toString(),"1234");
+}
