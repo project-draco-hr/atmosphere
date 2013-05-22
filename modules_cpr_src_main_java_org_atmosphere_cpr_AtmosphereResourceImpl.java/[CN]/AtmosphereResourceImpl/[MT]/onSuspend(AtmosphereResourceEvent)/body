@@ -1,6 +1,6 @@
 {
   for (  AtmosphereResourceEventListener r : listeners) {
-    if (disableSuspend) {
+    if (disableSuspendEvent) {
       if (!AllowInterceptor.class.isAssignableFrom(r.getClass())) {
         continue;
       }

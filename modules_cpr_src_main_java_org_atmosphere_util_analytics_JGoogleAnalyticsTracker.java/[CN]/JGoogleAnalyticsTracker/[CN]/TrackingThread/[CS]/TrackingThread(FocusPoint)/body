@@ -1,4 +1,0 @@
-{
-  this.focusPoint=focusPoint;
-  this.setPriority(Thread.MIN_PRIORITY);
-}

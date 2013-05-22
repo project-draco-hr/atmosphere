@@ -1,4 +1,5 @@
 {
+  logger.trace("Adding {}",b.getID());
   broadcasterIds.add(b.getID());
   return this;
 }

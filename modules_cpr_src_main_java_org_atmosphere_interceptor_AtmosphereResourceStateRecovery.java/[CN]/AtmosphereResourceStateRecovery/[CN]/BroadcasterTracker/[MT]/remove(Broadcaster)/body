@@ -1,4 +1,5 @@
 {
+  logger.trace("Removing {}",b.getID());
   broadcasterIds.remove(b.getID());
   return this;
 }

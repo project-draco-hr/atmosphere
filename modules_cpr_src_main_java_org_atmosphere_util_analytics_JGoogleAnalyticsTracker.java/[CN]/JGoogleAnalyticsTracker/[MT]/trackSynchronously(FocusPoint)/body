@@ -1,4 +1,3 @@
 {
-  logMessage("JGoogleAnalytics: Tracking synchronously focusPoint=" + focusPoint.getContentTitle());
   httpRequest.request(urlBuildingStrategy.buildURL(focusPoint));
 }
