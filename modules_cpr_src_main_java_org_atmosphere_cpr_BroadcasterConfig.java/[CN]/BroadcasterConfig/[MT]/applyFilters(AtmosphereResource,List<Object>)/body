@@ -1,0 +1,20 @@
+{
+  LinkedList<Object> filteredMessage=new LinkedList<Object>();
+  BroadcastFilter.BroadcastAction a;
+  for (  Object o : cacheMessages) {
+    a=filter(o);
+    if (a.action() == BroadcastFilter.BroadcastAction.ACTION.ABORT)     return Collections.<Object>emptyList();
+    if (a.action() == BroadcastAction.ACTION.SKIP) {
+      filteredMessage.add(a.message());
+      return filteredMessage;
+    }
+    a=filter(r,a.message(),a.originalMessage());
+    if (a.action() == BroadcastFilter.BroadcastAction.ACTION.ABORT)     return Collections.<Object>emptyList();
+    if (a.action() == BroadcastAction.ACTION.SKIP) {
+      filteredMessage.add(a.message());
+      return filteredMessage;
+    }
+    filteredMessage.add(a.message());
+  }
+  return filteredMessage;
+}
