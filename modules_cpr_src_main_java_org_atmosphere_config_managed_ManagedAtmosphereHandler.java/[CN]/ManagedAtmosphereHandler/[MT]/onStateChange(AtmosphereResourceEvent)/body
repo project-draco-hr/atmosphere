@@ -12,7 +12,7 @@
     r.getRequest(false).setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,false);
   }
   AtmosphereResource resource=event.getResource();
-  if (event.isCancelled()) {
+  if (event.isCancelled() || event.isClosedByClient()) {
     invoke(onDisconnectMethod,resource);
   }
  else   if (event.isResumedOnTimeout() || event.isResuming()) {
