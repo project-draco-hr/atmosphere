@@ -1,9 +1,0 @@
-{
-  for (  Filter f : filters) {
-    FilterConfigImpl fc=new FilterConfigImpl(sc);
-    fc.setFilter(f);
-    fc.setFilterName(f.getClass().getSimpleName());
-    filterChain.addFilter(fc);
-    logger.info("Installing Filter {}",f.getClass().getSimpleName());
-  }
-}
