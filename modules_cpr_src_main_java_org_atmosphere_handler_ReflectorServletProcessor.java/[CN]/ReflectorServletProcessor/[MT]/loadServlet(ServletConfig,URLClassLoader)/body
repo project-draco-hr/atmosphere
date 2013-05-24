@@ -1,0 +1,13 @@
+{
+  if (servletClassName != null && servlet == null) {
+    try {
+      servlet=(Servlet)urlC.loadClass(servletClassName).newInstance();
+    }
+ catch (    NullPointerException ex) {
+      servlet=(Servlet)Thread.currentThread().getContextClassLoader().loadClass(servletClassName).newInstance();
+    }
+    InjectorProvider.getInjector().inject(servlet);
+  }
+  logger.info("Installing Servlet {}",servletClassName);
+  filterChain.setServlet(sc,servlet);
+}

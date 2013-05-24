@@ -1,38 +1,11 @@
 {
   URL url=sc.getServletContext().getResource("/WEB-INF/lib/");
   URLClassLoader urlC=new URLClassLoader(new URL[]{url},Thread.currentThread().getContextClassLoader());
-  if (getServletClassName() != null && servlet == null) {
-    try {
-      servlet=(Servlet)urlC.loadClass(getServletClassName()).newInstance();
-    }
- catch (    NullPointerException ex) {
-      servlet=(Servlet)Thread.currentThread().getContextClassLoader().loadClass(servletClassName).newInstance();
-    }
-    InjectorProvider.getInjector().inject(servlet);
+  loadServlet(sc,urlC);
+  if (!filters.isEmpty()) {
+    loadFilterInstances(sc);
   }
-  logger.info("Installing Servlet {}",servletClassName);
-  filterChain.setServlet(sc,servlet);
-  Filter f;
-  for (  String fClass : filtersClass) {
-    try {
-      f=(Filter)urlC.loadClass(fClass).newInstance();
-    }
- catch (    NullPointerException ex) {
-      f=(Filter)Thread.currentThread().getContextClassLoader().loadClass(fClass).newInstance();
-    }
-    FilterConfigImpl fc=new FilterConfigImpl(sc);
-    fc.setFilter(f);
-    InjectorProvider.getInjector().inject(f);
-    if (filterName == null) {
-      if (sc.getInitParameter(APPLICATION_NAME) != null) {
-        filterName=sc.getInitParameter(APPLICATION_NAME);
-      }
  else {
-        filterName=f.getClass().getSimpleName();
-      }
-    }
-    fc.setFilterName(filterName);
-    filterChain.addFilter(fc);
-    logger.info("Installing Filter {}",filterName);
+    loadFilterClasses(sc,urlC);
   }
 }
