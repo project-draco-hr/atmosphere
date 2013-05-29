@@ -1,0 +1,10 @@
+{
+  for (  Map.Entry<Class<? extends Annotation>,Set<Class<?>>> entry : annotations.entrySet()) {
+    for (    Class<?> clazz : entry.getValue()) {
+      if (clazz.getPackage().getName().startsWith(packageName)) {
+        AnnotationHandler.handleAnnotation(framework,entry.getKey(),clazz);
+      }
+    }
+  }
+  return this;
+}

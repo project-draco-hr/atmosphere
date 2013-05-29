@@ -1,0 +1,12 @@
+{
+  if (alreadyScanned) {
+    return this;
+  }
+  alreadyScanned=true;
+  for (  Map.Entry<Class<? extends Annotation>,Set<Class<?>>> entry : annotations.entrySet()) {
+    for (    Class<?> clazz : entry.getValue()) {
+      AnnotationHandler.handleAnnotation(framework,entry.getKey(),clazz);
+    }
+  }
+  return this;
+}

@@ -1,4 +1,4 @@
 {
-  detector.detect(rootDir);
+  delegate.scan(rootDir);
   return this;
 }

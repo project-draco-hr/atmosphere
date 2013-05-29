@@ -1,0 +1,20 @@
+{
+  final AnnotationDetector.TypeReporter reporter=new AnnotationDetector.TypeReporter(){
+    @SuppressWarnings("unchecked") @Override public Class<? extends Annotation>[] annotations(){
+      return new Class[]{AtmosphereHandlerService.class,BroadcasterCacheService.class,BroadcasterFilterService.class,BroadcasterFactoryService.class,BroadcasterService.class,MeteorService.class,WebSocketHandlerService.class,WebSocketProtocolService.class,AtmosphereInterceptorService.class,BroadcasterListenerService.class,AsyncSupportService.class,AsyncSupportListenerService.class,WebSocketProcessorService.class,BroadcasterCacheInspectorService.class,ManagedService.class,EndpoinMapperService.class};
+    }
+    @Override public void reportTypeAnnotation(    Class<? extends Annotation> annotation,    String className){
+      logger.info("Found Annotation in {} being scanned: {}",className,annotation);
+      try {
+        final Class<?> discoveredClass=loadClass(className);
+        AnnotationHandler.handleAnnotation(framework,annotation,discoveredClass);
+      }
+ catch (      Exception e) {
+        logger.warn("Could not load discovered class",e);
+      }
+    }
+  }
+;
+  detector=new AnnotationDetector(reporter);
+  return this;
+}

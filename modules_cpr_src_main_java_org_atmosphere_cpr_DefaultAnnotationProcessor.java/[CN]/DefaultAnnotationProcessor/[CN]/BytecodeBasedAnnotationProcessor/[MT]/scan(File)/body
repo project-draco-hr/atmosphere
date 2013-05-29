@@ -1,0 +1,4 @@
+{
+  detector.detect(rootDir);
+  return this;
+}

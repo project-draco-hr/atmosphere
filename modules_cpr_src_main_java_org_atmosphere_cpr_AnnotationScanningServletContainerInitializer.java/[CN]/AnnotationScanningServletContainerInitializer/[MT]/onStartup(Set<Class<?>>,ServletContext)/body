@@ -1,0 +1,13 @@
+{
+  final Map<Class<? extends Annotation>,Set<Class<?>>> classesByAnnotation=new HashMap<Class<? extends Annotation>,Set<Class<?>>>();
+  for (  final Class<?> clazz : classes) {
+    for (    Annotation annotation : clazz.getAnnotations()) {
+      Set<Class<?>> classSet=classesByAnnotation.get(annotation.annotationType());
+      if (classSet == null) {
+        classesByAnnotation.put(annotation.annotationType(),classSet=new HashSet<Class<?>>());
+      }
+      classSet.add(clazz);
+    }
+  }
+  servletContext.setAttribute(ANNOTATION_ATTRIBUTE,Collections.unmodifiableMap(classesByAnnotation));
+}

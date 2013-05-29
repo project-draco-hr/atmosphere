@@ -1,3 +1,5 @@
 {
-  detector.destroy();
+  if (delegate != null) {
+    delegate.destroy();
+  }
 }

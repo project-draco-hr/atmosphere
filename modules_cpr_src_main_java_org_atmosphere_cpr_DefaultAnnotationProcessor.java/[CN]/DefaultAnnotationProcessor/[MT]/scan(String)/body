@@ -1,5 +1,4 @@
 {
-  logger.trace("Scanning @Service annotations in {}",packageName);
-  detector.detect(packageName);
+  delegate.scan(packageName);
   return this;
 }
