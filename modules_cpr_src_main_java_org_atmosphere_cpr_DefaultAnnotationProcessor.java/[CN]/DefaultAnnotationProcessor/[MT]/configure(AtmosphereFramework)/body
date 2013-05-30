@@ -1,14 +1,6 @@
 {
   ServletContext sc=framework.getServletContext();
-  Map<Class<? extends Annotation>,Set<Class<?>>> annotations=null;
-  if (sc.getMajorVersion() > 2) {
-    try {
-      annotations=(Map<Class<? extends Annotation>,Set<Class<?>>>)sc.getAttribute(AnnotationScanningServletContainerInitializer.ANNOTATION_ATTRIBUTE);
-    }
- catch (    Exception ex) {
-      logger.trace("",ex);
-    }
-  }
+  Map<Class<? extends Annotation>,Set<Class<?>>> annotations=(Map<Class<? extends Annotation>,Set<Class<?>>>)sc.getAttribute(ANNOTATION_ATTRIBUTE);
   if (annotations == null) {
     delegate=new BytecodeBasedAnnotationProcessor();
   }

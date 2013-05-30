@@ -9,5 +9,5 @@
       classSet.add(clazz);
     }
   }
-  servletContext.setAttribute(ANNOTATION_ATTRIBUTE,Collections.unmodifiableMap(classesByAnnotation));
+  servletContext.setAttribute(DefaultAnnotationProcessor.ANNOTATION_ATTRIBUTE,Collections.unmodifiableMap(classesByAnnotation));
 }
