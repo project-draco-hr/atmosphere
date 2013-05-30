@@ -14,7 +14,7 @@
       @Override public void onRequest(      AtmosphereResource r) throws IOException {
         logger.debug("No AtmosphereHandler defined.");
         if (!r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
-          r.getResponse().sendError(501,X_ATMOSPHERE_ERROR);
+          WebSocket.notSupported(r.getRequest(),r.getResponse());
         }
       }
       @Override public void destroy(){

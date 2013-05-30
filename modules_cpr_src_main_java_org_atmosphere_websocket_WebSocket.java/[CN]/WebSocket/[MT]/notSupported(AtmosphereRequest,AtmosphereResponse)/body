@@ -1,0 +1,5 @@
+{
+  response.addHeader(X_ATMOSPHERE_ERROR,WebSocket.NOT_SUPPORTED);
+  response.sendError(501,WebSocket.NOT_SUPPORTED);
+  logger.trace("{} for request {}",WebSocket.NOT_SUPPORTED,request);
+}
