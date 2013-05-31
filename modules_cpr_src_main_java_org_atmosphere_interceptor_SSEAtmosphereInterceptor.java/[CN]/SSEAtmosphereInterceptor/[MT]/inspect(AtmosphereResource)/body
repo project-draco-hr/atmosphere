@@ -2,29 +2,36 @@
   final AtmosphereResponse response=r.getResponse();
   if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
     super.inspect(r);
-    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-      @Override public void onPreSuspend(      AtmosphereResourceEvent event){
-        writePadding(response);
-      }
-    }
-);
+    r.addEventListener(new P(response));
     AsyncIOWriter writer=response.getAsyncIOWriter();
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {
       AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
-        private void padding(){
+        private boolean padding(){
           if (!r.isSuspended()) {
-            writePadding(response);
-            r.getRequest().setAttribute("paddingWritten","true");
+            return writePadding(response);
           }
+          return false;
         }
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          padding();
-          if (!Arrays.equals(data,padding)) {
+          boolean noPadding=padding();
+          if (!noPadding) {
             response.write("data:",true);
           }
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          response.write("\n\n".getBytes(),true);
+          if (r.isSuspended()) {
+            response.write(END,true);
+          }
+          String ua=r.getRequest().getHeader("User-Agent");
+          if (ua != null && ua.contains("MSIE")) {
+            try {
+              response.flushBuffer();
+            }
+ catch (            IOException e) {
+              e.printStackTrace();
+            }
+            r.resume();
+          }
         }
       }
 );
