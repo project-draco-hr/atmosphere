@@ -10,16 +10,5 @@
       }
     }
   }
-  boolean injectCacheHeaders=(Boolean)servletReq.getAttribute(NO_CACHE_HEADERS);
-  boolean enableAccessControl=(Boolean)servletReq.getAttribute(DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER);
-  if (injectCacheHeaders) {
-    b=b.header(EXPIRES,"-1");
-    b=b.header(CACHE_CONTROL,"no-store, no-cache, must-revalidate");
-    b=b.header(PRAGMA,"no-cache");
-  }
-  if (enableAccessControl) {
-    b=b.header(ACCESS_CONTROL_ALLOW_ORIGIN,servletReq.getHeader("Origin") == null ? "*" : servletReq.getHeader("Origin"));
-    b=b.header(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
-  }
   return b;
 }
