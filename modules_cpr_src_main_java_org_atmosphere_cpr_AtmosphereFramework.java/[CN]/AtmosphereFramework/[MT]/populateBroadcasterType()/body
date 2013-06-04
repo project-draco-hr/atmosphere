@@ -4,4 +4,5 @@
   broadcasterTypes.add(REDIS_BROADCASTER);
   broadcasterTypes.add(JGROUPS_BROADCASTER);
   broadcasterTypes.add(JMS_BROADCASTER);
+  broadcasterTypes.add(RMI_BROADCASTER);
 }
