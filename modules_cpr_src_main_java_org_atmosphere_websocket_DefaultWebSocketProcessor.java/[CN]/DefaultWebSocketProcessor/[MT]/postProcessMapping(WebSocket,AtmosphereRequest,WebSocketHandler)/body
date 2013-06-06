@@ -29,6 +29,7 @@ synchronized (handlers) {
  else {
               registerWebSocketHandler(path,w);
             }
+            webSocket.resource().setBroadcaster(framework.getBroadcasterFactory().lookup(path,true));
             return handlers.get(path);
           }
  catch (          Throwable e) {
