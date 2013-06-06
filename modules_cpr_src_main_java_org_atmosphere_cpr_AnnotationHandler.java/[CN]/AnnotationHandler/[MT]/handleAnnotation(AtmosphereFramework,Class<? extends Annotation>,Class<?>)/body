@@ -117,6 +117,17 @@
       }
       Class<? extends BroadcasterCache> e=m.broadcasterCache();
       if (e != null)       framework.setBroadcasterCacheClassName(e.getName());
+      Class<?>[] interceptors=m.interceptors();
+      List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+      for (      Class i : interceptors) {
+        try {
+          AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
+          l.add(ai);
+        }
+ catch (        Throwable e2) {
+          logger.warn("",e2);
+        }
+      }
       WebSocketProcessor p=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
       p.registerWebSocketHandler(m.path(),s.newInstance());
     }
