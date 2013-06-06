@@ -1,4 +1,6 @@
 {
-  broadcasterListeners.add(b);
+  if (!broadcasterListeners.contains(b)) {
+    broadcasterListeners.add(b);
+  }
   return this;
 }
