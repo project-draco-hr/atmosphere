@@ -5,4 +5,5 @@
   broadcasterTypes.add(JGROUPS_BROADCASTER);
   broadcasterTypes.add(JMS_BROADCASTER);
   broadcasterTypes.add(RMI_BROADCASTER);
+  broadcasterTypes.add(RABBITMQ_BROADCASTER);
 }
