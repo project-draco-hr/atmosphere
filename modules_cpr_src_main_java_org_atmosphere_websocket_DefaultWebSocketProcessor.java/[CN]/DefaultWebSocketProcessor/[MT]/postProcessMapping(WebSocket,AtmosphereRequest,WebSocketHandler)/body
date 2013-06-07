@@ -29,8 +29,7 @@ synchronized (handlers) {
  else {
               registerWebSocketHandler(path,w);
             }
-            webSocket.resource().setBroadcaster(framework.getBroadcasterFactory().lookup(path,true));
-            return handlers.get(path);
+            w=handlers.get(path);
           }
  catch (          Throwable e) {
             logger.warn("Unable to create WebSocketHandler",e);
@@ -39,5 +38,6 @@ synchronized (handlers) {
       }
     }
   }
+  webSocket.resource().setBroadcaster(framework.getBroadcasterFactory().lookup(path,true));
   return w;
 }
