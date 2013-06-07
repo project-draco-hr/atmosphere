@@ -1,4 +1,0 @@
-{
-  logger.debug("Suspending request: {}",resource.getRequest());
-  resource.suspend(-1);
-}

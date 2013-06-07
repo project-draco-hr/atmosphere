@@ -6,6 +6,7 @@
     AtmosphereHandlerWrapper handlerWrapper=entry.getValue();
     handlerWrapper.atmosphereHandler.destroy();
   }
+  config.destroy();
   BroadcasterFactory factory=broadcasterFactory;
   if (factory != null) {
     factory.destroy();

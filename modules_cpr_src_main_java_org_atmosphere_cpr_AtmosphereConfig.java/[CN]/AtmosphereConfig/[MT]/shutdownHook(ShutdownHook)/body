@@ -1,0 +1,4 @@
+{
+  shutdownHooks.add(s);
+  return this;
+}

@@ -1,0 +1,10 @@
+{
+  for (  ShutdownHook h : shutdownHooks) {
+    try {
+      h.shutdown();
+    }
+ catch (    Exception ex) {
+      logger.warn("",ex);
+    }
+  }
+}
