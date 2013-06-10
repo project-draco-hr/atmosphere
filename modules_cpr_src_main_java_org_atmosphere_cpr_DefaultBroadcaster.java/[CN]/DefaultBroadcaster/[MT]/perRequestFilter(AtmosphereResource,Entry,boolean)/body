@@ -1,3 +1,0 @@
-{
-  return perRequestFilter(r,msg,cache,false);
-}

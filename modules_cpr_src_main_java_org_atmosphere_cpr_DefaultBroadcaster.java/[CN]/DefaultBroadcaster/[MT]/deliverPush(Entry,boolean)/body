@@ -74,7 +74,7 @@ logger.trace("AtmosphereResource {} available for {}",r.uuid(),entry.message);
 switch (entry.type) {
 case ALL:
 for (AtmosphereResource r : resources) {
-boolean deliverMessage=perRequestFilter(r,entry,true);
+boolean deliverMessage=perRequestFilter(r,entry);
 if (!deliverMessage || entry.message == null) {
 logger.debug("Skipping broadcast delivery resource {} ",r);
 continue;
@@ -85,7 +85,7 @@ queueWriteIO(r,entry);
 }
 break;
 case RESOURCE:
-boolean deliverMessage=perRequestFilter(entry.resource,entry,true);
+boolean deliverMessage=perRequestFilter(entry.resource,entry);
 if (!deliverMessage || entry.message == null) {
 logger.debug("Skipping broadcast delivery resource {} ",entry.resource);
 return;
@@ -96,7 +96,7 @@ queueWriteIO(entry.resource,entry);
 break;
 case SET:
 for (AtmosphereResource r : entry.resources) {
-deliverMessage=perRequestFilter(r,entry,true);
+deliverMessage=perRequestFilter(r,entry);
 if (!deliverMessage || entry.message == null) {
 logger.debug("Skipping broadcast delivery resource {} ",r);
 continue;

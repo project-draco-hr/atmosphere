@@ -1,4 +1,8 @@
 {
+  if (!isAtmosphereResourceValid(r)) {
+    logger.debug("Unable to add AtmosphereResource {}",r.uuid());
+    return;
+  }
   if (resources.isEmpty()) {
     config.getBroadcasterFactory().add(this,name);
   }
