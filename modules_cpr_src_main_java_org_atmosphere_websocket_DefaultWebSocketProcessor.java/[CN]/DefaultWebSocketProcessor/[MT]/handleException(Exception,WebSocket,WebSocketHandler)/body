@@ -1,4 +1,5 @@
 {
+  logger.error("",ex);
   AtmosphereResource r=webSocket.resource();
   webSocketHandler.onError(webSocket,new WebSocketException(ex,new AtmosphereResponse.Builder().request(r != null ? r.getRequest() : null).status(500).statusMessage("Server Error").build()));
 }
