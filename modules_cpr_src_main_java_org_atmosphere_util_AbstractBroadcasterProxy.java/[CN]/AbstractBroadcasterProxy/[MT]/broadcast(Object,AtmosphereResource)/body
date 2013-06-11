@@ -4,12 +4,9 @@
     return null;
   }
   start();
-  Object newMsg=filter(msg);
-  if (newMsg == null)   return null;
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(msg,this);
   try {
     outgoingBroadcast(msg);
-    push(new Entry(newMsg,r,f,false));
   }
   finally {
     futureDone(f);
