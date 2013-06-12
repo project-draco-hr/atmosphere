@@ -4,8 +4,12 @@
   }
   if (resource() != null) {
     HttpSession session=AtmosphereResourceImpl.class.cast(resource()).session;
-    if (session != null) {
-      return session;
+    try {
+      if (session != null && (session.isNew() || true)) {
+        return session;
+      }
+    }
+ catch (    IllegalStateException e) {
     }
   }
   try {
