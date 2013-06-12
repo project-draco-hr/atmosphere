@@ -5,7 +5,8 @@
   if (resource() != null) {
     HttpSession session=AtmosphereResourceImpl.class.cast(resource()).session;
     try {
-      if (session != null && (session.isNew() || true)) {
+      if (session != null) {
+        session.isNew();
         return session;
       }
     }
