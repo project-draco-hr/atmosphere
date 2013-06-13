@@ -2,6 +2,7 @@
   if (stream == null) {
     return;
   }
+  logger.info("Found Atmosphere Configuration under {}",atmosphereDotXmlPath);
   AtmosphereConfigReader.getInstance().parse(config,stream);
   AtmosphereHandler handler=null;
   for (  AtmosphereHandlerConfig atmoHandler : config.getAtmosphereHandlerConfig()) {
