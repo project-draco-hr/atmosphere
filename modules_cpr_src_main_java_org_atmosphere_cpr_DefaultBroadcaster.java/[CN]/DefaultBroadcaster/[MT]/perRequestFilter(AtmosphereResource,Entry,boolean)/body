@@ -13,10 +13,10 @@
     }
   }
  else {
-    logger.warn("Request is not longer valid {}",r.uuid());
-    removeAtmosphereResource(r);
-    config.getBroadcasterFactory().removeAllAtmosphereResource(r);
-    bc.getBroadcasterCache().addToCache(getID(),r,new BroadcastMessage(msg.originalMessage));
+    logger.warn("Request is no longer valid {}, Message {} will be cached",r.uuid(),msg.originalMessage);
+    if (cache) {
+      bc.getBroadcasterCache().addToCache(getID(),r,new BroadcastMessage(msg.originalMessage));
+    }
     return false;
   }
   return true;

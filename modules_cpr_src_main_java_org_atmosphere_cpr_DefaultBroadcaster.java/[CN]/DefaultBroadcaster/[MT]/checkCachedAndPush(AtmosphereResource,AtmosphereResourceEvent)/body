@@ -14,8 +14,8 @@
         continue;
       }
       entry=new Entry(newMessage,r,f,o);
-      if (!perRequestFilter(r,entry)) {
-        return false;
+      if (!perRequestFilter(r,entry,true)) {
+        continue;
       }
       if (entry.message != null) {
         filteredMessage.addLast(newMessage);

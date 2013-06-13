@@ -74,9 +74,9 @@ logger.trace("AtmosphereResource {} available for {}",r.uuid(),entry.message);
 switch (entry.type) {
 case ALL:
 for (AtmosphereResource r : resources) {
-boolean deliverMessage=perRequestFilter(r,entry);
+boolean deliverMessage=perRequestFilter(r,entry,false);
 if (!deliverMessage || entry.message == null) {
-logger.debug("Skipping broadcast delivery resource {} ",r);
+logger.debug("Skipping broadcast delivery resource {} ",r.uuid());
 continue;
 }
 if (entry.writeLocally) {
@@ -85,9 +85,9 @@ queueWriteIO(r,entry);
 }
 break;
 case RESOURCE:
-boolean deliverMessage=perRequestFilter(entry.resource,entry);
+boolean deliverMessage=perRequestFilter(entry.resource,entry,false);
 if (!deliverMessage || entry.message == null) {
-logger.debug("Skipping broadcast delivery resource {} ",entry.resource);
+logger.debug("Skipping broadcast delivery resource {} ",entry.resource.uuid());
 return;
 }
 if (entry.writeLocally) {
@@ -96,9 +96,9 @@ queueWriteIO(entry.resource,entry);
 break;
 case SET:
 for (AtmosphereResource r : entry.resources) {
-deliverMessage=perRequestFilter(r,entry);
+deliverMessage=perRequestFilter(r,entry,false);
 if (!deliverMessage || entry.message == null) {
-logger.debug("Skipping broadcast delivery resource {} ",r);
+logger.debug("Skipping broadcast delivery resource {} ",r.uuid());
 continue;
 }
 if (entry.writeLocally) {
