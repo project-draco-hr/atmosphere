@@ -5,7 +5,10 @@
   }
   start();
   Object newMsg=filter(msg);
-  if (newMsg == null)   return futureDone(msg);
+  if (newMsg == null) {
+    logger.debug("Broadcast Interrupted {}",msg);
+    return futureDone(msg);
+  }
   int callee=resources.size() == 0 ? 1 : resources.size();
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,callee,this);
   dispatchMessages(new Entry(newMsg,f,msg));
