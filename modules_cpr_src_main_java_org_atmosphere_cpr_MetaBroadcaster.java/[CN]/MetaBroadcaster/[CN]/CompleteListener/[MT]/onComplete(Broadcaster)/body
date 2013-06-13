@@ -3,7 +3,12 @@
   f.countDown();
   if (f.isDone()) {
     for (    BroadcasterListener l : broadcasterListeners) {
-      l.onComplete(b);
+      try {
+        l.onComplete(b);
+      }
+ catch (      Exception ex) {
+        logger.warn("",ex);
+      }
     }
   }
 }
