@@ -1,6 +1,7 @@
 {
   AtmosphereRequest request=r.getRequest();
   AtmosphereHandlerWrapper w=(AtmosphereHandlerWrapper)r.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER);
+  Broadcaster b=w.broadcaster;
   String path;
   String pathInfo=null;
   try {
@@ -17,7 +18,9 @@
   if (path == null || path.isEmpty()) {
     path="/";
   }
-  config.getBroadcasterFactory().remove(w.broadcaster.getID());
+  if (b.getID().contains("{")) {
+    config.getBroadcasterFactory().remove(b.getID());
+  }
 synchronized (config.handlers()) {
     if (config.handlers().get(path) == null) {
       if (w.atmosphereHandler.getClass().getAnnotation(AtmosphereHandlerService.class) != null) {
