@@ -1,2 +1,3 @@
 {
+  p=AsynchronousProcessor.class.cast(config.framework().getAsyncSupport());
 }

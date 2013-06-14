@@ -6,18 +6,9 @@
     logger.debug("AtmosphereResource {} disconnected",uuid);
     AtmosphereResource ss=AtmosphereResourceFactory.getDefault().find(uuid);
     if (ss != null) {
-      ss.notifyListeners(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(ss),false,false,true,null));
-      try {
-        try {
-          ss.getRequest().setAttribute(AtmosphereResourceImpl.PRE_SUSPEND,"");
-        }
-  finally {
-          AtmosphereResourceImpl.class.cast(ss).cancel();
-        }
-      }
- catch (      Throwable e) {
-        logger.trace("",e);
-      }
+      AtmosphereResourceEventImpl.class.cast(r.getAtmosphereResourceEvent()).isClosedByClient(true);
+      ss.getRequest().setAttribute(ASYNCHRONOUS_HOOK,null);
+      p.completeLifecycle(r,false);
     }
     return Action.CANCELLED;
   }

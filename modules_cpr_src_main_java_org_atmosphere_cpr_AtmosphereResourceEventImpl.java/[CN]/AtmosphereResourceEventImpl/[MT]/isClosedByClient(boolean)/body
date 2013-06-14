@@ -1,0 +1,4 @@
+{
+  this.isClosedByClient.set(isClosedByClient);
+  return this;
+}
