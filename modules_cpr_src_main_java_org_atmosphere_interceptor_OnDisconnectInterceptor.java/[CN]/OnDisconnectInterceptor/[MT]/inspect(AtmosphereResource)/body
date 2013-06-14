@@ -8,7 +8,7 @@
     if (ss != null) {
       AtmosphereResourceEventImpl.class.cast(r.getAtmosphereResourceEvent()).isClosedByClient(true);
       ss.getRequest().setAttribute(ASYNCHRONOUS_HOOK,null);
-      p.completeLifecycle(r,false);
+      p.completeLifecycle(ss,false);
     }
     return Action.CANCELLED;
   }
