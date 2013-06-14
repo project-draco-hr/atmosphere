@@ -1,14 +1,16 @@
 {
   try {
     removeEventListeners();
-    try {
-      getBroadcaster(false).removeAtmosphereResource(this);
-    }
- catch (    IllegalStateException ex) {
-      logger.trace(ex.getMessage(),ex);
-    }
-    if (config.getBroadcasterFactory().getDefault() != null) {
-      config.getBroadcasterFactory().getDefault().removeAllAtmosphereResource(this);
+    if (!isCancelled.get()) {
+      try {
+        getBroadcaster(false).removeAtmosphereResource(this);
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace(ex.getMessage(),ex);
+      }
+      if (config.getBroadcasterFactory().getDefault() != null) {
+        config.getBroadcasterFactory().getDefault().removeAllAtmosphereResource(this);
+      }
     }
   }
  catch (  Throwable t) {
