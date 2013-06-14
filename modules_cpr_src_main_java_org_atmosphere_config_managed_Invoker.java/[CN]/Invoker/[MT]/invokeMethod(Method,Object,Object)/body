@@ -1,6 +1,6 @@
 {
   Object objectToEncode=null;
-  boolean hasMatch=true;
+  boolean hasMatch=false;
   try {
     objectToEncode=method.invoke(objectToInvoke,new Object[]{decodedObject});
     hasMatch=true;
