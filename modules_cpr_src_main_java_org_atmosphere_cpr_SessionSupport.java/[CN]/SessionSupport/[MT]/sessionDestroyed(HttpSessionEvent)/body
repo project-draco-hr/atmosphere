@@ -1,5 +1,5 @@
 {
-  logger.info("Session destroyed");
+  logger.trace("Session destroyed");
   try {
     HttpSession s=se.getSession();
     for (    Broadcaster b : BroadcasterFactory.getDefault().lookupAll()) {
