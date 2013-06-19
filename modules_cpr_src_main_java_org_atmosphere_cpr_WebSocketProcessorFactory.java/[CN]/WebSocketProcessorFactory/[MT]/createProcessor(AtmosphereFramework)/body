@@ -1,0 +1,20 @@
+{
+  WebSocketProcessor processor=null;
+  String webSocketProcessorName=framework.getWebSocketProcessorClassName();
+  if (!webSocketProcessorName.equalsIgnoreCase(DefaultWebSocketProcessor.class.getName())) {
+    try {
+      processor=(WebSocketProcessor)Thread.currentThread().getContextClassLoader().loadClass(webSocketProcessorName).newInstance();
+    }
+ catch (    Exception ex) {
+      try {
+        processor=(WebSocketProcessor)getClass().getClassLoader().loadClass(webSocketProcessorName).newInstance();
+      }
+ catch (      Exception ex2) {
+      }
+    }
+  }
+  if (processor == null) {
+    processor=new DefaultWebSocketProcessor(framework);
+  }
+  return processor;
+}

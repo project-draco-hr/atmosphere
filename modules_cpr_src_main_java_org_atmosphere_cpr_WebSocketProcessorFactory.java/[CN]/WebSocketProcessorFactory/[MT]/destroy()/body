@@ -1,6 +1,6 @@
 {
-  if (webSocketprocessor != null) {
-    webSocketprocessor.destroy();
-    webSocketprocessor=null;
+  for (  WebSocketProcessor processor : processors.values()) {
+    processor.destroy();
   }
+  processors.clear();
 }

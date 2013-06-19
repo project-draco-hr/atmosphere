@@ -1,25 +1,8 @@
 {
-  if (webSocketprocessor == null) {
-    this.framework=framework;
-    String webSocketProcessorName=framework.getWebSocketProcessorClassName();
-    if (!webSocketProcessorName.equalsIgnoreCase(DefaultWebSocketProcessor.class.getName())) {
-      try {
-        webSocketprocessor=(WebSocketProcessor)Thread.currentThread().getContextClassLoader().loadClass(webSocketProcessorName).newInstance();
-      }
- catch (      Exception ex) {
-        try {
-          webSocketprocessor=(WebSocketProcessor)getClass().getClassLoader().loadClass(webSocketProcessorName).newInstance();
-        }
- catch (        Exception ex2) {
-        }
-      }
-    }
-    if (webSocketprocessor == null) {
-      webSocketprocessor=new DefaultWebSocketProcessor(framework);
-    }
+  WebSocketProcessor processor=processors.get(framework);
+  if (processor == null) {
+    processor=createProcessor(framework);
+    processors.put(framework,processor);
   }
-  if (!this.framework.equals(framework)) {
-    webSocketprocessor=new DefaultWebSocketProcessor(framework);
-  }
-  return webSocketprocessor;
+  return processor;
 }
