@@ -25,7 +25,6 @@
       return false;
     }
     e.setMessage(filteredMessage);
-    r.getRequest().setAttribute(CACHED,"true");
 synchronized (r) {
       try {
         prepareInvokeOnStateChange(r,e);
@@ -42,6 +41,7 @@ synchronized (r) {
         l.onBroadcast(e);
       }
 switch (r.transport()) {
+case UNDEFINED:
 case JSONP:
 case AJAX:
 case LONG_POLLING:
