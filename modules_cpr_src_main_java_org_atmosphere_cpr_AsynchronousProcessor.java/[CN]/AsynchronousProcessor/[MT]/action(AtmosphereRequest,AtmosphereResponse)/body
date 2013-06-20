@@ -59,6 +59,6 @@
   if (supportSession() && action.type().equals(Action.TYPE.SUSPEND)) {
     SessionTimeoutSupport.setupTimeout(req.getSession());
   }
-  logger.trace("Action for {} was {}",req.resource() != null ? req.resource().uuid() : "null",action);
+  logger.trace("Action for {} was {} with transport " + req.getHeader(X_ATMOSPHERE_TRANSPORT),req.resource() != null ? req.resource().uuid() : "null",action);
   return action;
 }
