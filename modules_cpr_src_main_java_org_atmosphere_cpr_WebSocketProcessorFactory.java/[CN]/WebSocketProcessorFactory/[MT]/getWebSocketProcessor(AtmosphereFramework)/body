@@ -1,8 +1,10 @@
 {
   WebSocketProcessor processor=processors.get(framework);
   if (processor == null) {
-    processor=createProcessor(framework);
-    processors.put(framework,processor);
+synchronized (framework) {
+      processor=createProcessor(framework);
+      processors.put(framework,processor);
+    }
   }
   return processor;
 }
