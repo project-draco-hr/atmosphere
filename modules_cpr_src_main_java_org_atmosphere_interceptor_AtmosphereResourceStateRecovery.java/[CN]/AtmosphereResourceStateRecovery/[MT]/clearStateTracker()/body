@@ -10,5 +10,5 @@
       }
     }
   }
-,timeout,timeout,TimeUnit.NANOSECONDS);
+,timeout,timeout,TimeUnit.MILLISECONDS);
 }
