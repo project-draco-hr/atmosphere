@@ -25,6 +25,7 @@
       return false;
     }
     e.setMessage(filteredMessage);
+    r.getRequest().setAttribute(CACHED,"true");
 synchronized (r) {
       try {
         prepareInvokeOnStateChange(r,e);
