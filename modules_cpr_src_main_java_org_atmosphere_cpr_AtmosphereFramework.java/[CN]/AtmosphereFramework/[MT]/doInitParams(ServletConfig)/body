@@ -80,4 +80,8 @@
   if (s != null) {
     mappingRegex=s;
   }
+  s=sc.getInitParameter(FrameworkConfig.JERSEY_SCANNING_PACKAGE);
+  if (s != null) {
+    packages.add(s);
+  }
 }
