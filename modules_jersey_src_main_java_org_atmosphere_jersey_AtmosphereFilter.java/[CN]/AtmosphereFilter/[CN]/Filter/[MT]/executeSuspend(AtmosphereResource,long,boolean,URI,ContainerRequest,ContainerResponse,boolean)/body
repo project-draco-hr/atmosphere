@@ -45,6 +45,18 @@
         b=b.header(HttpHeaders.LOCATION,location);
       }
 synchronized (response) {
+        AtmosphereResourceEventListenerAdapter a=(AtmosphereResourceEventListenerAdapter)servletReq.getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL);
+        if (a != null) {
+          try {
+            a.onSuspend(r.getAtmosphereResourceEvent());
+          }
+ catch (          Exception ex) {
+            logger.debug("AtmosphereFilter error",ex);
+          }
+ finally {
+            servletReq.removeAttribute(CALLBACK_JAVASCRIPT_PROTOCOL);
+          }
+        }
         response.setResponse(b.entity(entity).build());
         response.write();
       }

@@ -18,7 +18,7 @@
       protocolMessage.set((String)f.filter(r,protocolMessage.get(),protocolMessage.get()).message());
     }
     if (r.transport() != AtmosphereResource.TRANSPORT.LONG_POLLING && r.transport() != AtmosphereResource.TRANSPORT.JSONP) {
-      r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      AtmosphereResourceEventListenerAdapter a=new AtmosphereResourceEventListenerAdapter(){
         @Override public void onSuspend(        AtmosphereResourceEvent event){
           r.getResponse().write(protocolMessage.get());
           try {
@@ -29,7 +29,9 @@
           }
         }
       }
-);
+;
+      r.getRequest().setAttribute(CALLBACK_JAVASCRIPT_PROTOCOL,a);
+      r.addEventListener(a);
     }
  else {
       r.getResponse().write(protocolMessage.get());
