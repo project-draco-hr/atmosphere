@@ -6,7 +6,7 @@
       framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
       Class<? extends BroadcastFilter>[] bf=a.broadcastFilters();
       for (      Class<? extends BroadcastFilter> b : bf) {
-        framework.broadcasterFilters((BroadcastFilter)b.newInstance());
+        framework.broadcasterFilters(b.newInstance());
       }
       for (      String s : a.atmosphereConfig()) {
         String[] nv=s.split("=");
@@ -62,7 +62,7 @@
       framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
       Class<? extends BroadcastFilter>[] bf=m.broadcastFilters();
       for (      Class<? extends BroadcastFilter> b : bf) {
-        framework.broadcasterFilters((BroadcastFilter)b.newInstance());
+        framework.broadcasterFilters(b.newInstance());
       }
       for (      String i : m.atmosphereConfig()) {
         String[] nv=i.split("=");
@@ -113,7 +113,7 @@
       framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
       Class<? extends BroadcastFilter>[] bf=m.broadcastFilters();
       for (      Class<? extends BroadcastFilter> b : bf) {
-        framework.broadcasterFilters((BroadcastFilter)b.newInstance());
+        framework.broadcasterFilters(b.newInstance());
       }
       Class<? extends BroadcasterCache> e=m.broadcasterCache();
       if (e != null)       framework.setBroadcasterCacheClassName(e.getName());
@@ -243,6 +243,10 @@
           logger.warn("",e);
         }
       }
+      Class<? extends BroadcastFilter>[] bf=a.broadcastFilters();
+      for (      Class<? extends BroadcastFilter> b : bf) {
+        framework.broadcasterFilters(b.newInstance());
+      }
       framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
       framework.addAtmosphereHandler(a.path(),handler,l);
     }
@@ -284,6 +288,10 @@
  catch (        Throwable e) {
           logger.warn("",e);
         }
+      }
+      Class<? extends BroadcastFilter>[] bf=a.broadcastFilters();
+      for (      Class<? extends BroadcastFilter> b : bf) {
+        framework.broadcasterFilters(b.newInstance());
       }
       Object c=aClass.newInstance();
       Class<?>[] interceptors=a.interceptors();
