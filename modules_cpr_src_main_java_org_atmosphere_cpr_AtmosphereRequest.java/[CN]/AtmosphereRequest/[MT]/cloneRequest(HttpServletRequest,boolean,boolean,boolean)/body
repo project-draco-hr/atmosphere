@@ -15,7 +15,7 @@
     b=new Builder();
     b.request(request);
   }
-  b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).remoteAddr(request.getRemoteAddr()).remoteHost(request.getRemoteHost()).remotePort(request.getRemotePort()).destroyable(isDestroyable).cookies(hs).session(copySession ? new FakeHttpSession(request.getSession(true)) : null).principal(request.getUserPrincipal());
+  b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).remoteAddr(request.getRemoteAddr()).remoteHost(request.getRemoteHost()).remotePort(request.getRemotePort()).destroyable(isDestroyable).cookies(hs).session(copySession ? new FakeHttpSession(request.getSession(true)) : null).principal(request.getUserPrincipal()).authType(request.getAuthType());
   if (loadInMemory) {
     r=new NoOpsRequest();
     if (isWrapped) {
