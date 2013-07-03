@@ -44,6 +44,11 @@
     }
     isSessionSupportSpecified=true;
   }
+  s=sc.getInitParameter(PROPERTY_THROW_EXCEPTION_ON_CLONED_REQUEST);
+  if (s != null) {
+    config.setThrowExceptionOnCloned(Boolean.valueOf(s));
+    isThrowExceptionOnClonedRequestSpecified=true;
+  }
   s=sc.getInitParameter(DISABLE_ONSTATE_EVENT);
   if (s != null) {
     initParams.put(DISABLE_ONSTATE_EVENT,s);

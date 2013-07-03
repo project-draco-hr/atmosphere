@@ -1,3 +1,5 @@
 {
-  throw new ServletException();
+  if (Boolean.parseBoolean(getAttribute(FrameworkConfig.THROW_EXCEPTION_ON_CLONED_REQUEST).toString()) == true) {
+    throw new ServletException();
+  }
 }
