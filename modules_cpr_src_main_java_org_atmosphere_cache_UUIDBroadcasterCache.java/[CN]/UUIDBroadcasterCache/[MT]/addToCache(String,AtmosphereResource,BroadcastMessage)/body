@@ -23,17 +23,7 @@ synchronized (messages) {
  else {
       String clientId=uuid(r);
       activeClients.put(clientId,now);
-      if (isAtmosphereResourceValid(r)) {
-        Broadcaster broadcaster=getBroadCaster(r.getAtmosphereConfig(),broadcasterId);
-        List<AtmosphereResource> resources=new ArrayList<AtmosphereResource>(broadcaster.getAtmosphereResources());
-        Set<String> disconnectedClients=getDisconnectedClients(resources);
-        for (        String disconnectedId : disconnectedClients) {
-          addMessageIfNotExists(disconnectedId,cacheMessage);
-        }
-      }
- else {
-        addMessageIfNotExists(clientId,cacheMessage);
-      }
+      addMessageIfNotExists(clientId,cacheMessage);
     }
   }
   return cacheMessage;

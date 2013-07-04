@@ -1,3 +1,0 @@
-{
-  return !r.isResumed() && !r.isCancelled() && AtmosphereResourceImpl.class.cast(r).isInScope();
-}

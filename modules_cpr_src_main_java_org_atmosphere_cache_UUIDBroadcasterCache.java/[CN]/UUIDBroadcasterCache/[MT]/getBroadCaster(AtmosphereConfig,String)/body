@@ -1,5 +1,0 @@
-{
-  BroadcasterFactory factory=config.getBroadcasterFactory();
-  Broadcaster broadcaster=factory.lookup(broadcasterId,false);
-  return broadcaster;
-}
