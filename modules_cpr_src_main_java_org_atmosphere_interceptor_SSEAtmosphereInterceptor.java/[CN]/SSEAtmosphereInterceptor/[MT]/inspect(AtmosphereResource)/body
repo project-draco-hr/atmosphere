@@ -14,12 +14,12 @@
         }
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           boolean noPadding=padding();
-          if (!noPadding) {
+          if (!noPadding || r.getRequest().getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL) != null) {
             response.write("data:",true);
           }
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          if (r.isSuspended()) {
+          if (r.isSuspended() || r.getRequest().getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL) != null) {
             response.write(END,true);
           }
           String ua=r.getRequest().getHeader("User-Agent");
