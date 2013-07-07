@@ -1,0 +1,24 @@
+{
+  if (r.getRequest().attributes().containsKey("subject") == false) {
+    try {
+      Subject currentUser=null;
+      if (r.transport().equals(TRANSPORT.WEBSOCKET)) {
+        WebEnvironment env=WebUtils.getRequiredWebEnvironment(r.getAtmosphereConfig().getServletContext());
+        currentUser=new WebSubject.Builder(env.getSecurityManager(),r.getRequest(),r.getResponse()).buildWebSubject();
+      }
+ else {
+        currentUser=SecurityUtils.getSubject();
+      }
+      if (currentUser != null) {
+        r.getRequest().setAttribute("subject",currentUser);
+      }
+    }
+ catch (    UnavailableSecurityManagerException ex) {
+      logger.info("Shiro Web Security : {}",ex.getMessage());
+    }
+catch (    java.lang.IllegalStateException ex) {
+      logger.info("Shiro Web Environment : {}",ex.getMessage());
+    }
+  }
+  return Action.CONTINUE;
+}
