@@ -1,5 +1,5 @@
 {
-  if (r.getRequest().attributes().containsKey("subject") == false) {
+  if (r.getRequest().attributes().containsKey(FrameworkConfig.SECURITY_SUBJECT) == false) {
     try {
       Subject currentUser=null;
       if (r.transport().equals(TRANSPORT.WEBSOCKET)) {
@@ -10,7 +10,7 @@
         currentUser=SecurityUtils.getSubject();
       }
       if (currentUser != null) {
-        r.getRequest().setAttribute("subject",currentUser);
+        r.getRequest().setAttribute(FrameworkConfig.SECURITY_SUBJECT,currentUser);
       }
     }
  catch (    UnavailableSecurityManagerException ex) {
