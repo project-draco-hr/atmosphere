@@ -3,6 +3,7 @@
   if (event == null) {
     throw unableToDetectComet;
   }
+  logger.trace("Event Type {} for {}",event.getType(),req.getQueryString());
   Action action=null;
   if (event.getType() == HttpEvent.EventType.BEGIN) {
     action=suspended(req,res);
@@ -27,20 +28,9 @@
     }
   }
  else   if (event.getType() == HttpEvent.EventType.READ) {
+    logger.debug("Receiving bytes, unable to process them.");
   }
- else   if (event.getType() == HttpEvent.EventType.EOF) {
-    if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
-      req.setAttribute(SUSPENDED,null);
-      action=cancelled(req,res);
-    }
- else {
-      event.close();
-    }
-  }
- else   if (event.getType() == HttpEvent.EventType.ERROR) {
-    event.close();
-  }
- else   if (event.getType() == HttpEvent.EventType.END) {
+ else   if (event.getType() == HttpEvent.EventType.EOF || event.getType() == HttpEvent.EventType.ERROR || event.getType() == HttpEvent.EventType.END) {
     if (req.getAttribute(SUSPENDED) != null && closeConnectionOnInputStream) {
       req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
