@@ -1,9 +1,3 @@
 {
-  List<String> list=bannedResources.get(broadcasterId);
-  if (list == null) {
-    list=new ArrayList<String>();
-  }
-  logger.debug("Resource {} is excluded from Broadcasters ",r.uuid(),list);
-  list.add(r.uuid());
-  bannedResources.put(broadcasterId,list);
+  activeClients.remove(r.uuid());
 }

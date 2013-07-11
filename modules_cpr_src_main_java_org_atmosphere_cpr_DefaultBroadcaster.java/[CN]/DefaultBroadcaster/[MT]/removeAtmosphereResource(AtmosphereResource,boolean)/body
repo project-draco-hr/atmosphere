@@ -11,9 +11,6 @@ synchronized (resources) {
         logger.trace("Excluded from {} : {}",getID(),r.uuid());
         bc.getBroadcasterCache().excludeFromCache(getID(),r);
       }
- else {
-        bc.getBroadcasterCache().includeInCache(getID(),r);
-      }
       notifyOnRemoveAtmosphereResourceListener(r);
     }
   }

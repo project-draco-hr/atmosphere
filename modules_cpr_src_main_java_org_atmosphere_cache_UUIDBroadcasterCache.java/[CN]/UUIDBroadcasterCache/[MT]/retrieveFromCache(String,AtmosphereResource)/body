@@ -1,12 +1,5 @@
 {
   String clientId=uuid(r);
-  if (!bannedResources.isEmpty()) {
-    List<String> list=bannedResources.get(broadcasterId);
-    if (list != null && list.contains(r.uuid())) {
-      logger.trace("Resource {} is not allowed to retrieve message with broadcaster ",r.uuid(),broadcasterId);
-      return emptyList;
-    }
-  }
   long now=System.currentTimeMillis();
   List<Object> result=new ArrayList<Object>();
   ClientQueue clientQueue;
