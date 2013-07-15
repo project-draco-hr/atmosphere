@@ -1,0 +1,10 @@
+{
+  for (  Class i : interceptors) {
+    try {
+      framework.interceptor((AtmosphereInterceptor)i.newInstance());
+    }
+ catch (    Throwable e) {
+      logger.warn("",e);
+    }
+  }
+}
