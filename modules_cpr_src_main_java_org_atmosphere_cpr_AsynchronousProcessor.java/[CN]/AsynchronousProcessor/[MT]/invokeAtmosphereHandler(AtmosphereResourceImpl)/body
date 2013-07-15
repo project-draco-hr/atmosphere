@@ -18,7 +18,6 @@
           if (m != null) {
             m.destroy();
           }
-          req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
         }
       }
     }
