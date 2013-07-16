@@ -1,0 +1,11 @@
+{
+  HashMap<String,String> m=new HashMap<String,String>();
+  m.put(HeaderConfig.X_ATMOSPHERE_TRACKMESSAGESIZE,"true");
+  AtmosphereRequest req=new AtmosphereRequest.Builder().headers(m).build();
+  for (int i=0; i < 10; i++) {
+    broadcaster.addAtmosphereResource(new AtmosphereResourceImpl(ar.getAtmosphereConfig(),broadcaster,req,AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),new AR()));
+  }
+  broadcaster.getBroadcasterConfig().addFilter(new TrackMessageSizeFilter());
+  broadcaster.broadcast("0").get();
+  assertEquals(atmosphereHandler.value.get().toString(),"1|0");
+}

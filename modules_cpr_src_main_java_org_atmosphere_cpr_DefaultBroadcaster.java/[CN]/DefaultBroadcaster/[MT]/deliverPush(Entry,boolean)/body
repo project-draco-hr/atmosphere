@@ -71,16 +71,19 @@ for (AtmosphereResource r : resources) {
 logger.trace("AtmosphereResource {} available for {}",r.uuid(),entry.message);
 }
 }
+boolean hasFilters=bc.hasPerRequestFilters();
+Object beforeProcessingMessage=entry.message;
 switch (entry.type) {
 case ALL:
 for (AtmosphereResource r : resources) {
+entry.message=beforeProcessingMessage;
 boolean deliverMessage=perRequestFilter(r,entry,false);
 if (!deliverMessage || entry.message == null) {
 logger.debug("Skipping broadcast delivery resource {} ",r.uuid());
 continue;
 }
 if (entry.writeLocally) {
-queueWriteIO(r,entry);
+queueWriteIO(r,hasFilters ? new Entry(r,entry) : entry);
 }
 }
 break;
@@ -96,13 +99,14 @@ queueWriteIO(entry.resource,entry);
 break;
 case SET:
 for (AtmosphereResource r : entry.resources) {
+entry.message=beforeProcessingMessage;
 deliverMessage=perRequestFilter(r,entry,false);
 if (!deliverMessage || entry.message == null) {
 logger.debug("Skipping broadcast delivery resource {} ",r.uuid());
 continue;
 }
 if (entry.writeLocally) {
-queueWriteIO(r,entry);
+queueWriteIO(r,hasFilters ? new Entry(r,entry) : entry);
 }
 }
 break;
