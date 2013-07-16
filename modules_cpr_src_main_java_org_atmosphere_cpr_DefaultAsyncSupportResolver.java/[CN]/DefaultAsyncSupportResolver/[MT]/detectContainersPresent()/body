@@ -12,7 +12,6 @@
       if (testClassExists(GRIZZLY))       add(GrizzlyCometSupport.class);
       if (testClassExists(GRIZZLY2))       add(Grizzly2CometSupport.class);
       if (testClassExists(NETTY))       add(NettyCometSupport.class);
-      if (testClassExists(JBOSS_AS7_WEBSOCKET))       add(JBossWebSocketSupport.class);
     }
   }
 ;
