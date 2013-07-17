@@ -1,5 +1,0 @@
-{
-  AtmosphereResource r=webSocket.resource();
-  Broadcaster b=lookupBroadcaster(r.getRequest().getPathInfo());
-  r.setBroadcaster(b).addEventListener(new WebSocketEventListenerAdapter());
-}
