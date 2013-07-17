@@ -1,0 +1,9 @@
+{
+  if (r != null) {
+    r.getBroadcaster().broadcast(o);
+  }
+ else {
+    logger.debug("No AtmosphereResource Associated with this WebSocket.");
+  }
+  return this;
+}

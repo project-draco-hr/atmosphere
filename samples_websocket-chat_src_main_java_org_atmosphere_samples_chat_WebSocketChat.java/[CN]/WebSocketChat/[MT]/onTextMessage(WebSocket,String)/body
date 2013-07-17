@@ -1,5 +1,3 @@
 {
-  AtmosphereResource r=webSocket.resource();
-  Broadcaster b=r.getBroadcaster();
-  b.broadcast(mapper.writeValueAsString(mapper.readValue(message,Data.class)));
+  webSocket.broadcast(mapper.writeValueAsString(mapper.readValue(message,Data.class)));
 }

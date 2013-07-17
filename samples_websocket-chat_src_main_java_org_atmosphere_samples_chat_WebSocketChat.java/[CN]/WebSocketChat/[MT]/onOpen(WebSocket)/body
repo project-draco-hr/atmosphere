@@ -1,5 +1,4 @@
 {
-  webSocket.resource().setBroadcaster(BroadcasterFactory.getDefault().lookup("/chat",true));
   webSocket.resource().addEventListener(new AtmosphereResourceEventListenerAdapter(){
     @Override public void onDisconnect(    AtmosphereResourceEvent event){
       if (event.isCancelled()) {
