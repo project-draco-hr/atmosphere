@@ -1,7 +1,8 @@
 {
   logger.trace("WebSocket closed with {}",closeCode);
   WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
-  notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent("",CLOSE,webSocket));
+  closeCode=closeCode(closeCode);
+  notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(closeCode,CLOSE,webSocket));
   AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
   if (resource == null) {
     logger.warn("Unable to retrieve AtmosphereResource for {}",webSocket);
@@ -17,9 +18,6 @@
         }
         AsynchronousProcessor.AsynchronousProcessorHook h=(AsynchronousProcessor.AsynchronousProcessorHook)r.getAttribute(ASYNCHRONOUS_HOOK);
         if (!resource.isCancelled() && h != null) {
-          if (closeCode == 1000 && framework.getAsyncSupport().getContainerName().contains("Tomcat")) {
-            closeCode=1005;
-          }
           if (closeCode == 1005) {
             h.closed();
           }

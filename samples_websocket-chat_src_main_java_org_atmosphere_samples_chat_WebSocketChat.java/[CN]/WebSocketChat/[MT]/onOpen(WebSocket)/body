@@ -1,5 +1,5 @@
 {
-  webSocket.resource().addEventListener(new AtmosphereResourceEventListenerAdapter(){
+  webSocket.resource().addEventListener(new WebSocketEventListenerAdapter(){
     @Override public void onDisconnect(    AtmosphereResourceEvent event){
       if (event.isCancelled()) {
         logger.info("Browser {} unexpectedly disconnected",event.getResource().uuid());
