@@ -1,0 +1,20 @@
+{
+  List<Object> cachedMessages=new LinkedList<Object>();
+  for (  String broadcasterID : tracker.ids()) {
+    Broadcaster b=factory.lookup(broadcasterID,false);
+    BroadcasterCache cache;
+    if (force || (b != null && !b.getID().equalsIgnoreCase(r.getBroadcaster().getID()))) {
+      cache=b.getBroadcasterConfig().getBroadcasterCache();
+      List<Object> t=cache.retrieveFromCache(b.getID(),r);
+      cachedMessages=b.getBroadcasterConfig().applyFilters(r,cachedMessages);
+      if (t.size() > 0) {
+        logger.trace("Found Cached Messages For AtmosphereResource {} with Broadcaster {}",r.uuid(),broadcasterID);
+        cachedMessages.addAll(t);
+      }
+    }
+ else {
+      logger.trace("Broadcaster {} is no longer available",broadcasterID);
+    }
+  }
+  return cachedMessages;
+}
