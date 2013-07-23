@@ -1,0 +1,4 @@
+{
+  this(type,-1L);
+  this.immutable=immutable;
+}

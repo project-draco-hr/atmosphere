@@ -1,4 +1,7 @@
 {
+  if (immutable) {
+    throw new IllegalStateException("immutable");
+  }
   this.type=type;
   return this;
 }
