@@ -8,9 +8,6 @@
  else {
       asyncContext.setTimeout(Integer.MAX_VALUE);
     }
-    req.setAttribute("org.atmosphere.container.asyncContext",asyncContext);
-    if (supportSession()) {
-      req.getSession().setAttribute("org.atmosphere.container.asyncContext",asyncContext);
-    }
+    req.setAttribute(FrameworkConfig.ASYNC_CONTEXT,asyncContext);
   }
 }

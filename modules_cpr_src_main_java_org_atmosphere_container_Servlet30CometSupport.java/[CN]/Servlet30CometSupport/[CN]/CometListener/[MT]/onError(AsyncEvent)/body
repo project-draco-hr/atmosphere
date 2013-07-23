@@ -1,5 +1,5 @@
 {
-  logger.debug("onError(): event: {}",event.getAsyncContext().getResponse());
+  logger.trace("onError(): event: {}",event.getAsyncContext().getResponse());
   if (p == null) {
     logger.error("Invalid state - CometListener");
     return;
@@ -8,6 +8,6 @@
     p.cancelled((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
   }
  catch (  Throwable ex) {
-    logger.debug("failed cancelling comet response: " + event.getAsyncContext().getResponse(),ex);
+    logger.warn("failed cancelling comet response: " + event.getAsyncContext().getResponse(),ex);
   }
 }

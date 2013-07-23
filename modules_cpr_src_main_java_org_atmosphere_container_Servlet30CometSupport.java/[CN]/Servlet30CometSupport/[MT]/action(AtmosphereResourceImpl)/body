@@ -1,10 +1,7 @@
 {
   super.action(actionEvent);
   if (actionEvent.action().type() == Action.TYPE.RESUME && actionEvent.isInScope()) {
-    AsyncContext asyncContext=(AsyncContext)actionEvent.getRequest().getAttribute("org.atmosphere.container.asyncContext");
-    if (asyncContext == null && supportSession()) {
-      asyncContext=(AsyncContext)actionEvent.getRequest().getSession().getAttribute("org.atmosphere.container.asyncContext");
-    }
+    AsyncContext asyncContext=(AsyncContext)actionEvent.getRequest().getAttribute(FrameworkConfig.ASYNC_CONTEXT);
     if (asyncContext != null && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
       try {
         asyncContext.complete();
@@ -14,9 +11,7 @@
       }
     }
   }
- else {
-    if (!actionEvent.isInScope()) {
-      logger.trace("Already resumed or cancelled: event: {}",actionEvent);
-    }
+ else   if (!actionEvent.isInScope()) {
+    logger.trace("Already resumed or cancelled: event: {}",actionEvent);
   }
 }

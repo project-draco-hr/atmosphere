@@ -1,5 +1,5 @@
 {
-  logger.debug("onTimeout(): event: {}",event.getAsyncContext().getRequest());
+  logger.trace("onTimeout(): event: {}",event.getAsyncContext().getRequest());
   if (p == null) {
     logger.error("Invalid state - CometListener");
     return;
@@ -8,6 +8,6 @@
     p.timedout((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
   }
  catch (  ServletException ex) {
-    logger.debug("onTimeout(): failed timing out comet response: " + event.getAsyncContext().getResponse(),ex);
+    logger.warn("onTimeout(): failed timing out comet response: " + event.getAsyncContext().getResponse(),ex);
   }
 }
