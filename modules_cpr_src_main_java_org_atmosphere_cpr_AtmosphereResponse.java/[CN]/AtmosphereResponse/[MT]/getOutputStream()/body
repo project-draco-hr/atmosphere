@@ -2,11 +2,11 @@
   if (forceAsyncIOWriter || !delegateToNativeResponse) {
     return new ServletOutputStream(){
       @Override public void write(      int i) throws java.io.IOException {
-        validAsyncIOWriter();
-        writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
-        forceAsyncIOWriter=false;
         try {
+          validAsyncIOWriter();
+          writeStatusAndHeaders();
+          forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new byte[]{(byte)i});
         }
  catch (        IOException e) {
@@ -18,11 +18,11 @@
         }
       }
       @Override public void write(      byte[] bytes) throws java.io.IOException {
-        validAsyncIOWriter();
-        writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
-        forceAsyncIOWriter=false;
         try {
+          validAsyncIOWriter();
+          writeStatusAndHeaders();
+          forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,bytes);
         }
  catch (        IOException e) {
@@ -34,11 +34,11 @@
         }
       }
       @Override public void write(      byte[] bytes,      int start,      int offset) throws java.io.IOException {
-        validAsyncIOWriter();
-        writeStatusAndHeaders();
         boolean b=forceAsyncIOWriter;
-        forceAsyncIOWriter=false;
         try {
+          validAsyncIOWriter();
+          writeStatusAndHeaders();
+          forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,bytes,start,offset);
         }
  catch (        IOException e) {
