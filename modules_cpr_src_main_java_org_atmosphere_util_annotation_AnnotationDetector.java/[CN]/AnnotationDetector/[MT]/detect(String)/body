@@ -9,7 +9,7 @@
     final Enumeration<URL> resourceEnum=classLoader.getResources(internalPackageName);
     while (resourceEnum.hasMoreElements()) {
       final URL url=resourceEnum.nextElement();
-      final boolean isVfs="vfs".equals(url.getProtocol());
+      final boolean isVfs=("vfs".equals(url.getProtocol()) || "vfsfile".equals(url.getProtocol()));
       if ("file".equals(url.getProtocol()) || isVfs) {
         final File dir=toFile(url);
         if (dir.isDirectory()) {
