@@ -1,3 +1,14 @@
 {
-  super(delegate,delegateMapping,filters);
+  this(false);
+  if (delegate == null || delegateMapping == null) {
+    throw new IllegalArgumentException("Delegate Servlet is undefined");
+  }
+  this.delegate=delegate;
+  this.delegateMapping=delegateMapping;
+  if (filters == null) {
+    this.filters=Collections.emptyList();
+  }
+ else {
+    this.filters=filters;
+  }
 }

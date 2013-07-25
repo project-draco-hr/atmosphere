@@ -1,3 +1,3 @@
 {
-  super(delegate,delegateMapping,Arrays.asList(filters));
+  this(delegate,delegateMapping,Arrays.asList(filters));
 }
