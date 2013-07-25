@@ -2,9 +2,9 @@
   if (forceAsyncIOWriter || !delegateToNativeResponse) {
     return new PrintWriter(getOutputStream()){
       @Override public void write(      char[] chars,      int offset,      int lenght){
-        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
+          validAsyncIOWriter();
           writeStatusAndHeaders();
           forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new String(chars,offset,lenght));
@@ -18,9 +18,9 @@
         }
       }
       @Override public void write(      char[] chars){
-        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
+          validAsyncIOWriter();
           writeStatusAndHeaders();
           forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new String(chars));
@@ -34,9 +34,9 @@
         }
       }
       @Override public void write(      String s,      int offset,      int lenght){
-        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
+          validAsyncIOWriter();
           writeStatusAndHeaders();
           forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,new String(s.substring(offset,lenght)));
@@ -50,9 +50,9 @@
         }
       }
       @Override public void write(      String s){
-        if (asyncIOWriter == null)         return;
         boolean b=forceAsyncIOWriter;
         try {
+          validAsyncIOWriter();
           writeStatusAndHeaders();
           forceAsyncIOWriter=false;
           asyncIOWriter.write(AtmosphereResponse.this,s);
@@ -66,7 +66,7 @@
         }
       }
       @Override public void flush(){
-        if (asyncIOWriter == null)         return;
+        if (!validFlushOrClose())         return;
         boolean b=forceAsyncIOWriter;
         try {
           writeStatusAndHeaders();
@@ -81,7 +81,7 @@
         }
       }
       @Override public void close(){
-        if (asyncIOWriter == null)         return;
+        if (!validFlushOrClose())         return;
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
         try {

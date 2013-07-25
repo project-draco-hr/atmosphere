@@ -1,0 +1,7 @@
+{
+  if (asyncIOWriter == null) {
+    logger.trace("AtmosphereResponse for {} has been closed",uuid);
+    return false;
+  }
+  return true;
+}

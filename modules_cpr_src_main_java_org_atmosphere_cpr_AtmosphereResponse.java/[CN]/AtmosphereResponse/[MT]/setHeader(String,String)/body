@@ -3,4 +3,7 @@
   if (delegateToNativeResponse) {
     _r().setHeader(name,value);
   }
+  if (name.equalsIgnoreCase(HeaderConfig.X_ATMOSPHERE_TRACKING_ID)) {
+    uuid=value;
+  }
 }
