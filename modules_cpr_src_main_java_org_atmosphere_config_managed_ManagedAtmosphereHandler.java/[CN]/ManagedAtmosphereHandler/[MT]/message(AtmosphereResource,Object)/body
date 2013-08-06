@@ -5,7 +5,13 @@
       if (decoded == null) {
         decoded=o;
       }
-      Object objectToEncode=Invoker.invokeMethod(m,object,decoded);
+      Object objectToEncode=null;
+      if (m.getParameterTypes().length == 2) {
+        objectToEncode=Invoker.invokeMethod(m,object,resource,decoded);
+      }
+ else {
+        objectToEncode=Invoker.invokeMethod(m,object,decoded);
+      }
       if (objectToEncode != null) {
         return Invoker.encode(encoders.get(m),objectToEncode);
       }
