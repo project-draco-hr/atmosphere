@@ -2,9 +2,8 @@
   if (Proxy.class.isAssignableFrom(response.getClass())) {
     writeUsingOriginalResponse=false;
   }
-  boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
   try {
-    if (isUsingStream) {
+    if (isUsingStream()) {
       try {
         OutputStream o=writeUsingOriginalResponse ? _r().getOutputStream() : getOutputStream();
         o.write(data.getBytes(getCharacterEncoding()));

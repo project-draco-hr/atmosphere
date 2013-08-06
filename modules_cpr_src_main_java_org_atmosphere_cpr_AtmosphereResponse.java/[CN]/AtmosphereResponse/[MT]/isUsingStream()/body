@@ -1,0 +1,9 @@
+{
+  Object s=request().getAttribute(PROPERTY_USE_STREAM);
+  if (s == null) {
+    return true;
+  }
+ else {
+    return (Boolean)request().getAttribute(PROPERTY_USE_STREAM);
+  }
+}

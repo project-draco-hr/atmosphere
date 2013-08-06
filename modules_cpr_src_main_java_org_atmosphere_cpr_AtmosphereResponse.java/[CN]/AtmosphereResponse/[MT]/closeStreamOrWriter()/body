@@ -1,8 +1,7 @@
 {
   if (resource() != null && resource().transport() != AtmosphereResource.TRANSPORT.WEBSOCKET) {
     try {
-      boolean isUsingStream=(Boolean)request().getAttribute(PROPERTY_USE_STREAM);
-      if (isUsingStream) {
+      if (isUsingStream()) {
         try {
           getOutputStream().close();
         }
