@@ -1,5 +1,5 @@
 {
-  Object o=message(msg);
+  Object o=message(resource,msg);
   if (o != null) {
     return o;
   }

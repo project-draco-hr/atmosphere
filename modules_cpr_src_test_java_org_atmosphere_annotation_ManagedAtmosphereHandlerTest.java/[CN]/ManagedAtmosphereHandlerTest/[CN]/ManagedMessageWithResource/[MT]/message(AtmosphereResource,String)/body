@@ -1,0 +1,4 @@
+{
+  message.set(m);
+  assertSame(resource,r.get());
+}
