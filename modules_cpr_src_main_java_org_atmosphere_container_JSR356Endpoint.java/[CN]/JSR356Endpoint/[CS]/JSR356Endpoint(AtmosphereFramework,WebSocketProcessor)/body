@@ -3,7 +3,7 @@
   this.webSocketProcessor=webSocketProcessor;
   String s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME);
   if (s != null) {
-    webSocketWriteTimeout=Integer.valueOf(1);
+    webSocketWriteTimeout=Integer.valueOf(s);
   }
  else {
     webSocketWriteTimeout=-1;
