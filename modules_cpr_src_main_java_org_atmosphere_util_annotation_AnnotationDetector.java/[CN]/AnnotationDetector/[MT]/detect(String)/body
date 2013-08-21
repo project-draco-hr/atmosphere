@@ -6,7 +6,10 @@
     if (!internalPackageName.endsWith("/")) {
       internalPackageName=internalPackageName.concat("/");
     }
-    final Enumeration<URL> resourceEnum=classLoader.getResources(internalPackageName);
+    Enumeration<URL> resourceEnum=classLoader.getResources(internalPackageName);
+    if (!resourceEnum.hasMoreElements()) {
+      resourceEnum=this.getClass().getClassLoader().getResources(internalPackageName);
+    }
     while (resourceEnum.hasMoreElements()) {
       final URL url=resourceEnum.nextElement();
       final boolean isVfs=("vfs".equals(url.getProtocol()) || "vfsfile".equals(url.getProtocol()));
