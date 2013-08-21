@@ -79,7 +79,7 @@ for (AtmosphereResource r : resources) {
 entry.message=beforeProcessingMessage;
 boolean deliverMessage=perRequestFilter(r,entry,false);
 if (!deliverMessage || entry.message == null) {
-logger.debug("Skipping broadcast delivery resource {} ",r.uuid());
+logger.debug("Skipping broadcast delivery {} for resource {} ",entry.message,r.uuid());
 continue;
 }
 if (entry.writeLocally) {
@@ -90,7 +90,7 @@ break;
 case RESOURCE:
 boolean deliverMessage=perRequestFilter(entry.resource,entry,false);
 if (!deliverMessage || entry.message == null) {
-logger.debug("Skipping broadcast delivery resource {} ",entry.resource.uuid());
+logger.debug("Skipping broadcast delivery {} for resource {} ",entry.message,r.uuid());
 return;
 }
 if (entry.writeLocally) {
@@ -102,7 +102,7 @@ for (AtmosphereResource r : entry.resources) {
 entry.message=beforeProcessingMessage;
 deliverMessage=perRequestFilter(r,entry,false);
 if (!deliverMessage || entry.message == null) {
-logger.debug("Skipping broadcast delivery resource {} ",r.uuid());
+logger.debug("Skipping broadcast delivery {} for resource {} ",entry.message,r.uuid());
 continue;
 }
 if (entry.writeLocally) {
