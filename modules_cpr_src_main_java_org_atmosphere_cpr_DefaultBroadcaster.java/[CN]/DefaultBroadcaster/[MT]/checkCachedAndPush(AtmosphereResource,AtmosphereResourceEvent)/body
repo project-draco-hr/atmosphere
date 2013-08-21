@@ -14,7 +14,7 @@
         continue;
       }
       entry=new Entry(newMessage,r,f,o);
-      if (!perRequestFilter(r,entry,true)) {
+      if (!perRequestFilter(r,entry)) {
         continue;
       }
       if (entry.message != null) {

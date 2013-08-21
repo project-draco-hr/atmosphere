@@ -1,0 +1,14 @@
+{
+  if (r == null) {
+    logger.trace("Null AtmosphereResource passed inside a Set");
+    return false;
+  }
+  if (bc.hasPerRequestFilters()) {
+    BroadcastAction a=bc.filter(r,msg.message,msg.originalMessage);
+    if (a.action() == BroadcastAction.ACTION.ABORT) {
+      return false;
+    }
+    msg.message=a.message();
+  }
+  return true;
+}
