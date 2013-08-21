@@ -3,6 +3,8 @@
   boolean lostCandidate=false;
   final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
+  final boolean willBeResumed=r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING) || r.transport().equals(AtmosphereResource.TRANSPORT.JSONP);
+  List<AtmosphereResourceEventListener> listeners=willBeResumed ? new ArrayList() : EMPTY_LISTENERS;
   try {
     event.setMessage(token.msg);
     if (!isAtmosphereResourceValid(r)) {
@@ -27,13 +29,23 @@
       lostCandidate=true;
       return;
     }
+    if (willBeResumed && !r.atmosphereResourceEventListener().isEmpty()) {
+      listeners.addAll(r.atmosphereResourceEventListener());
+    }
     r.getRequest().setAttribute(ASYNC_TOKEN,token);
     prepareInvokeOnStateChange(r,event);
     r.getRequest().setAttribute(FrameworkConfig.MESSAGE_WRITTEN,"true");
   }
   finally {
     if (notifyListeners) {
-      r.notifyListeners();
+      if (willBeResumed) {
+        for (        AtmosphereResourceEventListener e : listeners) {
+          e.onBroadcast(event);
+        }
+      }
+ else {
+        r.notifyListeners();
+      }
     }
     entryDone(token.future);
     if (lostCandidate) {
