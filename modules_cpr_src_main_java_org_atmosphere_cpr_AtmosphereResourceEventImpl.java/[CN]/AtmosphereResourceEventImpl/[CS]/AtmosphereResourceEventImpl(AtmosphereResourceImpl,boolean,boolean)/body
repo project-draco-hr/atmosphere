@@ -3,4 +3,5 @@
   this.isResumedOnTimeout.set(isResumedOnTimeout);
   this.resource=resource;
   this.throwable=null;
+  uuid=resource.uuid();
 }
