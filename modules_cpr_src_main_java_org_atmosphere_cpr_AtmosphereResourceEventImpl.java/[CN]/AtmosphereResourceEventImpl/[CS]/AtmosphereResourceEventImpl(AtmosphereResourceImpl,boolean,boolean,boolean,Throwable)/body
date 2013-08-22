@@ -4,5 +4,4 @@
   this.resource=resource;
   this.throwable=throwable;
   this.isClosedByClient.set(isClosedByClient);
-  uuid=resource.uuid();
 }

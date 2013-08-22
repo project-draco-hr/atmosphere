@@ -1,5 +1,4 @@
 {
   this.resource=resource;
-  uuid=resource.uuid();
   this.throwable=null;
 }
