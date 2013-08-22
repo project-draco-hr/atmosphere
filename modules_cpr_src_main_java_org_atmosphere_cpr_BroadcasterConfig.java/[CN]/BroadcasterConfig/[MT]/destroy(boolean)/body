@@ -1,5 +1,6 @@
 {
   if (!force && !handleExecutors)   return;
+  broadcasterCache.cleanup();
   if ((force || !shared) && broadcasterCache != null) {
     broadcasterCache.stop();
   }
