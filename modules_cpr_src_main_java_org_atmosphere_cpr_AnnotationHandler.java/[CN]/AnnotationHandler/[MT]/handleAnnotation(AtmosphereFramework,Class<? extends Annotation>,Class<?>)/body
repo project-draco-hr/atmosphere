@@ -28,6 +28,7 @@
         IntrospectionUtils.addProperty(handler,nv[0],nv[1]);
       }
       framework.addAtmosphereHandler(a.path(),handler,l);
+      framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
     }
  catch (    Throwable e) {
       logger.warn("",e);
