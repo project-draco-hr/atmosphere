@@ -8,7 +8,7 @@
   if (newMsg == null) {
     return futureDone(msg);
   }
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,subset.size(),this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,subset.size());
   dispatchMessages(new Entry(newMsg,subset,f,msg));
   return f;
 }

@@ -6,7 +6,7 @@
   start();
   final Object msg=filter(o);
   if (msg == null)   return null;
-  final BroadcasterFuture<Object> future=new BroadcasterFuture<Object>(msg,this);
+  final BroadcasterFuture<Object> future=new BroadcasterFuture<Object>(msg);
   final Entry e=new Entry(msg,future,o);
   Future<Object> f;
   if (delay > 0) {
@@ -34,7 +34,7 @@
       }
     }
 ,delay,t);
-    e.future=new BroadcasterFuture<Object>(f,msg,this);
+    e.future=new BroadcasterFuture<Object>(f,msg);
   }
   delayedBroadcast.offer(e);
   return future;

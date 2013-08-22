@@ -10,7 +10,7 @@
   if (newMsg == null) {
     return null;
   }
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,sub.size(),this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,sub.size());
   dispatchMessages(new Entry(newMsg,sub,f,msg));
   return f;
 }

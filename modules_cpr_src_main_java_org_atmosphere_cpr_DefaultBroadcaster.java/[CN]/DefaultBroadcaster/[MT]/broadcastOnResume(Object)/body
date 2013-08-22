@@ -6,7 +6,7 @@
   start();
   Object newMsg=filter(msg);
   if (newMsg == null)   return futureDone(msg);
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,resources.size(),this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,resources.size());
   broadcastOnResume.offer(new Entry(newMsg,f,msg));
   return f;
 }

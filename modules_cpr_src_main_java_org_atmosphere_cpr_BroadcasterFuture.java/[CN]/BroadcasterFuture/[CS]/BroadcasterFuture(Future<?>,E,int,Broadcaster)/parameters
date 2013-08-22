@@ -1,4 +1,0 @@
-Future<?> innerFuture
-E msg
-int latchCount
-Broadcaster b

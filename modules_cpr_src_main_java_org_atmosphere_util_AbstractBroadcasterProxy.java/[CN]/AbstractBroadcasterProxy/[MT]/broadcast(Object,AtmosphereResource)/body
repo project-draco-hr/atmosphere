@@ -4,7 +4,7 @@
     return null;
   }
   start();
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(msg,this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(msg);
   try {
     outgoingBroadcast(msg);
   }

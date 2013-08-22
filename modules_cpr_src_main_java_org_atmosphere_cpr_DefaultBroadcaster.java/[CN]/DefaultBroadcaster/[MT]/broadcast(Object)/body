@@ -10,7 +10,7 @@
     return futureDone(msg);
   }
   int callee=resources.size() == 0 ? 1 : resources.size();
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,callee,this);
+  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,callee);
   dispatchMessages(new Entry(newMsg,f,msg));
   return f;
 }

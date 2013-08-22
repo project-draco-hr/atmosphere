@@ -1,0 +1,3 @@
+{
+  this(innerFuture,msg,1);
+}
