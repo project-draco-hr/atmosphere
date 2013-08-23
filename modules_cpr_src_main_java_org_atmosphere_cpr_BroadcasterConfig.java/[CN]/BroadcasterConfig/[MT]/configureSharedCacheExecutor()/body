@@ -1,5 +1,4 @@
 {
   if (!shared)   return;
   config.properties().put("shared","true");
-  broadcasterCache.configure(this);
 }
