@@ -9,6 +9,7 @@
         broadcasterCache=(BroadcasterCache)getClass().getClassLoader().loadClass(className).newInstance();
       }
       InjectorProvider.getInjector().inject(broadcasterCache);
+      broadcasterCache.configure(this);
     }
     for (    BroadcasterCacheInspector b : config.framework().inspectors()) {
       broadcasterCache.inspector(b);

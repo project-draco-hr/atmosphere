@@ -1,10 +1,10 @@
 {
-  Object o=config.properties().get("shared");
+  Object o=config.getAtmosphereConfig().properties().get("shared");
   if (o != null) {
     isShared=Boolean.parseBoolean(o.toString());
   }
   if (isShared) {
-    reaper=ExecutorsFactory.getScheduler(config);
+    reaper=ExecutorsFactory.getScheduler(config.getAtmosphereConfig());
   }
  else {
     reaper=Executors.newSingleThreadScheduledExecutor();
