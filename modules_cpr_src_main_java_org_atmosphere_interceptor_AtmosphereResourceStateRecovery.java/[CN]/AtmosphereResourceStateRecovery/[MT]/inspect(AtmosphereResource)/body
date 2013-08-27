@@ -30,6 +30,9 @@
  else             if (b == null) {
               logger.trace("Broadcaster {} is no longer available for {}",broadcasterID,r);
             }
+ else {
+              logger.trace("AtmosphereResource {} already associated with {}",r.uuid(),broadcasterID);
+            }
           }
           final List<Object> cachedMessages=retrieveCache(r,tracker,true);
           logger.trace("message size " + cachedMessages.size());
