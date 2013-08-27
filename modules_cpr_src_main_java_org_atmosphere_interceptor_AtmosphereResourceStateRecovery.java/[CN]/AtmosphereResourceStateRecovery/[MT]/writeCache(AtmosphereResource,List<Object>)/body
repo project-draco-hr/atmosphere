@@ -4,6 +4,6 @@
     r.getAtmosphereHandler().onStateChange(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(r),false,false,null).setMessage(cachedMessages));
   }
  catch (  IOException e) {
-    logger.warn("Unable to recover from state recovery",e);
+    logger.warn("Unable to recover from state recovery {}",r.uuid(),e);
   }
 }
