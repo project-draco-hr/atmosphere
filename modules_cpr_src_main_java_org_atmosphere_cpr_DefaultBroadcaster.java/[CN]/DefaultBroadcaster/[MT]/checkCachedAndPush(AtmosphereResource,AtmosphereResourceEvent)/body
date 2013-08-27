@@ -25,15 +25,15 @@
       return false;
     }
     e.setMessage(filteredMessage);
-    r.getRequest().setAttribute(CACHED,"true");
 synchronized (r) {
       try {
+        r.getRequest().setAttribute(CACHED,"true");
         prepareInvokeOnStateChange(r,e);
       }
  catch (      Throwable t) {
         logger.error("Unable to write cached message {} for {}",e.getMessage(),r.uuid());
         logger.error("",t);
-        for (        Object o : (List)e.getMessage()) {
+        for (        Object o : cacheMessages) {
           bc.getBroadcasterCache().addToCache(getID(),r,new BroadcastMessage(o));
         }
         return true;
