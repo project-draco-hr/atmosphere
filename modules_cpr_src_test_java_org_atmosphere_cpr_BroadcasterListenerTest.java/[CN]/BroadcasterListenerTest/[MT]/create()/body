@@ -17,5 +17,5 @@ catch (      ServletException e) {
       }
     }
   }
-).addBroadcasterListener(new L()).addAtmosphereHandler("/*",new AR()).init();
+).addBroadcasterListener(new L());
 }

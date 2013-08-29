@@ -1,0 +1,18 @@
+{
+  try {
+    e.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      @Override public void onBroadcast(      AtmosphereResourceEvent event){
+        count.incrementAndGet();
+      }
+    }
+).suspend();
+    e.getBroadcaster().broadcast("test").get();
+    e.getBroadcaster().destroy();
+  }
+ catch (  InterruptedException e1) {
+    e1.printStackTrace();
+  }
+catch (  ExecutionException e1) {
+    e1.printStackTrace();
+  }
+}

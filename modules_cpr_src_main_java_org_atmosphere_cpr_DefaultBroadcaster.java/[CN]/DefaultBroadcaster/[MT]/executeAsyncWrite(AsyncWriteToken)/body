@@ -45,6 +45,7 @@
   finally {
     if (notifyListeners) {
       if (willBeResumed) {
+        event.setMessage(token.msg);
         for (        AtmosphereResourceEventListener e : listeners) {
           e.onBroadcast(event);
         }

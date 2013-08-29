@@ -1,4 +1,4 @@
 {
-  r.set(null);
+  BAR.count.set(0);
   framework.destroy();
 }

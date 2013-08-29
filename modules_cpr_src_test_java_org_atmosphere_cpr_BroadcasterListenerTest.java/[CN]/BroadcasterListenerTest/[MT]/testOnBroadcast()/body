@@ -1,8 +1,6 @@
 {
-  framework.addAtmosphereHandler("/*",new AR()).init();
+  framework.addAtmosphereHandler("/*",new BAR()).init();
   AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").method("GET").build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
-  assertTrue(completed.get());
-  assertTrue(postCreated.get());
-  assertTrue(preDssrtoyed.get());
+  assertEquals(BAR.count.get(),1);
 }

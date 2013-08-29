@@ -1,0 +1,26 @@
+{
+  try {
+    e.suspend();
+    e.getBroadcaster().broadcast("test1").get();
+    e.resume();
+    ((AtmosphereResourceImpl)e).reset();
+    e.getBroadcaster().broadcast("test2").get();
+    e.getBroadcaster().broadcast("test3").get();
+    e.getBroadcaster().broadcast("test4").get();
+    e.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      @Override public void onBroadcast(      AtmosphereResourceEvent event){
+        if (List.class.isAssignableFrom(event.getMessage().getClass())) {
+          count.set(List.class.cast(event.getMessage()).size());
+        }
+      }
+    }
+).suspend();
+    e.getBroadcaster().destroy();
+  }
+ catch (  InterruptedException e1) {
+    e1.printStackTrace();
+  }
+catch (  ExecutionException e1) {
+    e1.printStackTrace();
+  }
+}
