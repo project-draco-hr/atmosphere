@@ -25,6 +25,12 @@
       return false;
     }
     e.setMessage(filteredMessage);
+    final boolean willBeResumed=r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING) || r.transport().equals(AtmosphereResource.TRANSPORT.JSONP);
+    List<AtmosphereResourceEventListener> listeners=willBeResumed ? new ArrayList() : EMPTY_LISTENERS;
+    AtmosphereResourceImpl rImpl=AtmosphereResourceImpl.class.cast(r);
+    if (willBeResumed && !rImpl.atmosphereResourceEventListener().isEmpty()) {
+      listeners.addAll(rImpl.atmosphereResourceEventListener());
+    }
 synchronized (r) {
       try {
         r.getRequest().setAttribute(CACHED,"true");
@@ -38,7 +44,7 @@ synchronized (r) {
         }
         return true;
       }
-      for (      AtmosphereResourceEventListener l : AtmosphereResourceImpl.class.cast(r).atmosphereResourceEventListener()) {
+      for (      AtmosphereResourceEventListener l : willBeResumed ? listeners : AtmosphereResourceImpl.class.cast(r).atmosphereResourceEventListener()) {
         l.onBroadcast(e);
       }
 switch (r.transport()) {
