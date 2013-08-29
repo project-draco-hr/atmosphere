@@ -1,3 +1,3 @@
 {
-  return b.queryString != "" ? b.queryString : isNotNoOps() ? b.request.getQueryString() : "";
+  return b.queryString != "" ? b.queryString : isNotNoOps() ? b.request.getQueryString() : toQs();
 }
