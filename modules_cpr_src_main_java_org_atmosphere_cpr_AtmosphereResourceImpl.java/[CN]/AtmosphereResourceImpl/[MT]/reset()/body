@@ -1,0 +1,8 @@
+{
+  isResumed.set(false);
+  isCancelled.set(false);
+  isInScope.set(true);
+  isSuspendEvent.set(false);
+  listeners.clear();
+  action.type(Action.TYPE.CREATED);
+}
