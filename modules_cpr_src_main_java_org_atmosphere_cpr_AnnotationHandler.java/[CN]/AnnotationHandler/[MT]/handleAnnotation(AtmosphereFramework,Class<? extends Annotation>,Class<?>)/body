@@ -262,11 +262,11 @@
         }
       }
       if (!a.servlet().isEmpty()) {
-        ReflectorServletProcessor r=new ReflectorServletProcessor();
+        final ReflectorServletProcessor r=new ReflectorServletProcessor();
         r.setServletClassName(a.servlet());
         String mapping=a.path();
         Class<?>[] interceptors=a.interceptors();
-        List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+        LinkedList<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
         for (        Class i : interceptors) {
           try {
             AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
@@ -276,7 +276,34 @@
             logger.warn("",e);
           }
         }
-        framework.addAtmosphereHandler(mapping,r,l);
+        if (!a.dispatch()) {
+          AtmosphereHandler proxy=new AtmosphereServletProcessor(){
+            private String method="GET";
+            @Override public void onRequest(            AtmosphereResource resource) throws IOException {
+              if (!resource.getRequest().getMethod().equalsIgnoreCase(method)) {
+                r.onRequest(resource);
+              }
+            }
+            @Override public void onStateChange(            AtmosphereResourceEvent event) throws IOException {
+              r.onStateChange(event);
+            }
+            @Override public void destroy(){
+              r.destroy();
+            }
+            @Override public void init(            ServletConfig sc) throws ServletException {
+              String s=sc.getInitParameter(ATMOSPHERERESOURCE_INTERCEPTOR_METHOD);
+              if (s != null) {
+                method=s;
+              }
+              r.init(sc);
+            }
+          }
+;
+          framework.addAtmosphereHandler(mapping,proxy,l);
+        }
+ else {
+          framework.addAtmosphereHandler(mapping,r,l);
+        }
       }
  else {
         interceptors(a.interceptors(),framework);
