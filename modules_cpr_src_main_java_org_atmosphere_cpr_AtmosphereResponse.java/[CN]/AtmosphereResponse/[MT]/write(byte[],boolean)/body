@@ -1,4 +1,8 @@
 {
+  if (data == null) {
+    logger.error("Cannot write null value for {}",resource());
+    return this;
+  }
   if (Proxy.class.isAssignableFrom(response.getClass())) {
     writeUsingOriginalResponse=false;
   }
