@@ -3,16 +3,16 @@
   if (webSocketProcessor != null) {
     if (frame instanceof TextFrame) {
       logger.trace("WebSocket.onReceivedFrame (TextFrame)");
-      webSocketProcessor.invokeWebSocketProtocol(new JBossWebSocket(socket,config),((TextFrame)frame).getText());
+      webSocketProcessor.invokeWebSocketProtocol(webSocket,((TextFrame)frame).getText());
     }
  else     if (frame instanceof BinaryFrame) {
       logger.trace("WebSocket.onReceivedFrame (BinaryFrame)");
       BinaryFrame binaryFrame=(BinaryFrame)frame;
-      webSocketProcessor.invokeWebSocketProtocol(new JBossWebSocket(socket,config),binaryFrame.getByteArray(),0,binaryFrame.getByteArray().length);
+      webSocketProcessor.invokeWebSocketProtocol(webSocket,binaryFrame.getByteArray(),0,binaryFrame.getByteArray().length);
     }
  else     if (frame instanceof CloseFrame) {
       logger.trace("WebSocket.onReceivedFrame (CloseFrame)");
-      webSocketProcessor.close(new JBossWebSocket(socket,config),0);
+      webSocketProcessor.close(webSocket,0);
     }
  else {
       logger.trace("WebSocket.onReceivedFrame skipping: " + frame);
