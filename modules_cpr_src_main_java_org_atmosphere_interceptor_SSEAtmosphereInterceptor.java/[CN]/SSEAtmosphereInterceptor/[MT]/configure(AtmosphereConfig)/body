@@ -1,0 +1,6 @@
+{
+  String s=config.getInitParameter(ApplicationConfig.SSE_DEFAULT_CONTENTTYPE);
+  if (s != null) {
+    contentType=s;
+  }
+}
