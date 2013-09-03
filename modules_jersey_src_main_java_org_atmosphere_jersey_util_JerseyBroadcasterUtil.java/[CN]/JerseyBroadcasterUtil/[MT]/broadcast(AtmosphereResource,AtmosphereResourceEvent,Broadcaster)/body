@@ -75,10 +75,12 @@ synchronized (cr) {
  catch (    Throwable t) {
       boolean notifyAndCache=true;
       logger.trace("Unexpected exception for AtmosphereResource {} and Broadcaster {}",r.uuid(),broadcaster.getID());
-      for (      StackTraceElement element : t.getStackTrace()) {
-        if (element.getClassName().equals("java.io.BufferedWriter") && element.getMethodName().equals("flush")) {
-          logger.trace("Workaround issue https://github.com/Atmosphere/atmosphere/issues/710");
-          notifyAndCache=false;
+      if (isJetty(r)) {
+        for (        StackTraceElement element : t.getStackTrace()) {
+          if (element.getClassName().equals("java.io.BufferedWriter") && element.getMethodName().equals("flush")) {
+            logger.trace("Workaround issue https://github.com/Atmosphere/atmosphere/issues/710");
+            notifyAndCache=false;
+          }
         }
       }
       if (DefaultBroadcaster.class.isAssignableFrom(broadcaster.getClass())) {

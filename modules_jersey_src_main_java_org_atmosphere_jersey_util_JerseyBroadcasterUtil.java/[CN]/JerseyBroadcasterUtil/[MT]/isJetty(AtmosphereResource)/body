@@ -1,0 +1,7 @@
+{
+  final String container=r.getAtmosphereConfig().getServletContext().getServerInfo();
+  if (container != null && container.toLowerCase().indexOf("jetty") != -1) {
+    return true;
+  }
+  return false;
+}
