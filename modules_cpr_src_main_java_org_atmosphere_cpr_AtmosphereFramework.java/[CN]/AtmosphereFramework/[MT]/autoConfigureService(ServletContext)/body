@@ -11,7 +11,7 @@
         annotationProcessor.scan(s);
       }
     }
- else {
+    if (!annnotationFound) {
       if (path != null) {
         annotationProcessor.scan(new File(path));
       }
