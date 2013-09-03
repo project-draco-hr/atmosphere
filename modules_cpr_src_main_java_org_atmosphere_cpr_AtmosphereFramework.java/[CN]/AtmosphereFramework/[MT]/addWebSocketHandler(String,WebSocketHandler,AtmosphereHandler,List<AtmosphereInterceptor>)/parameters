@@ -1,0 +1,4 @@
+String path
+WebSocketHandler handler
+AtmosphereHandler h
+List<AtmosphereInterceptor> l

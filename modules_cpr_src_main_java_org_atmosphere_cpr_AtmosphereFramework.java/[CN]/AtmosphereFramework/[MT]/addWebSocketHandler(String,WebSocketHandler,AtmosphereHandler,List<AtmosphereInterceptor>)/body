@@ -1,0 +1,5 @@
+{
+  WebSocketProcessorFactory.getDefault().getWebSocketProcessor(this).registerWebSocketHandler(path,handler);
+  addAtmosphereHandler(path,h,l);
+  return this;
+}

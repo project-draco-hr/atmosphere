@@ -1,0 +1,4 @@
+{
+  addWebSocketHandler("/*",handler);
+  return this;
+}

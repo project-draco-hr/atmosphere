@@ -1,0 +1,4 @@
+{
+  addWebSocketHandler(path,handler,REFLECTOR_ATMOSPHEREHANDLER,Collections.EMPTY_LIST);
+  return this;
+}
