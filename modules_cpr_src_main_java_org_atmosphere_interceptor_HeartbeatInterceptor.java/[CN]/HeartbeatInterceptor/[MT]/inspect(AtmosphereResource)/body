@@ -24,7 +24,7 @@
  catch (                Throwable t) {
                   logger.trace("{}",r.uuid(),t);
                   try {
-                    r.close();
+                    AtmosphereResourceImpl.class.cast(r).close();
                   }
  catch (                  IOException e) {
                   }

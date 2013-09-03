@@ -1,0 +1,4 @@
+{
+  isClosedByApplication.set(b);
+  return this;
+}

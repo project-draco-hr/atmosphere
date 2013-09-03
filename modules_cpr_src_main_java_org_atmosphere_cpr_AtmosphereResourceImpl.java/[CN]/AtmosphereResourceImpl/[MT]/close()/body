@@ -1,3 +1,5 @@
 {
   cancel();
+  event.setCloseByApplication(true);
+  notifyListeners();
 }

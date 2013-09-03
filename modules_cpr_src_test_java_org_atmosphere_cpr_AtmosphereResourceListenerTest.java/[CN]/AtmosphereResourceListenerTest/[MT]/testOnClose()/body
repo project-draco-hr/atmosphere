@@ -1,0 +1,43 @@
+{
+  framework.addAtmosphereHandler("/a",new AbstractReflectorAtmosphereHandler(){
+    @Override public void onRequest(    AtmosphereResource resource) throws IOException {
+    }
+    @Override public void destroy(){
+    }
+  }
+);
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").build();
+  final AtomicReference<Boolean> closed=new AtomicReference<Boolean>();
+  final AtmosphereResourceEventListener listener=new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onClose(    AtmosphereResourceEvent event){
+      closed.set(true);
+    }
+  }
+;
+  framework.interceptor(new AtmosphereInterceptor(){
+    @Override public void configure(    AtmosphereConfig config){
+    }
+    @Override public Action inspect(    AtmosphereResource r){
+      r.addEventListener(listener).suspend();
+      try {
+        r.getBroadcaster().broadcast("void").get();
+      }
+ catch (      InterruptedException e) {
+      }
+catch (      ExecutionException e) {
+      }
+      return Action.CONTINUE;
+    }
+    @Override public void postInspect(    AtmosphereResource r){
+      try {
+        r.close();
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+);
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  assertTrue(closed.get());
+}

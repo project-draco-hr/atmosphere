@@ -30,6 +30,8 @@
     }
     @Override public void onThrowable(    AtmosphereResourceEvent event){
     }
+    @Override public void onClose(    AtmosphereResourceEvent event){
+    }
   }
 ;
   framework.interceptor(new AtmosphereInterceptor(){

@@ -1,0 +1,5 @@
+{
+  for (  AtmosphereResourceEventListener r : listeners) {
+    r.onClose(e);
+  }
+}
