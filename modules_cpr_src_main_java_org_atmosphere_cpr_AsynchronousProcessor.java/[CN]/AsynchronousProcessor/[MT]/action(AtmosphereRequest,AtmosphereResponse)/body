@@ -13,7 +13,7 @@
     res.request(req);
   }
   if (supportSession()) {
-    HttpSession session=req.getSession(true);
+    req.getSession(true);
   }
   req.setAttribute(FrameworkConfig.SUPPORT_SESSION,supportSession());
   AtmosphereHandlerWrapper handlerWrapper=map(req);
@@ -52,7 +52,7 @@
   }
   postInterceptors(handlerWrapper.interceptors,resource);
   postInterceptors(config.framework().interceptors(),resource);
-  if (trackActiveRequest && resource.getAtmosphereResourceEvent().isSuspended() && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
+  if (trackActiveRequest && resource.isSuspended() && req.getAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION) == null) {
     req.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
     aliveRequests.put(req,resource);
   }
