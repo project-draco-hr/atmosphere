@@ -183,14 +183,8 @@ response.write();
 throw new WebApplicationException(ex);
 }
 }
-boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
-if (sessionSupported) {
-r=(AtmosphereResource)servletReq.getSession().getAttribute(SUSPENDED_RESOURCE);
-}
- else {
 String path=response.getContainerRequest().getPath();
 r=resumeCandidates.remove(path.substring(path.lastIndexOf("/") + 1));
-}
 if (r != null) {
 resume(r);
 }
