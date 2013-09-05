@@ -1,13 +1,6 @@
 {
   final String container=getServletContext().getServerInfo();
-  boolean ok=false;
-  try {
-    Class.forName("org.testng.Assert");
-  }
- catch (  ClassNotFoundException e) {
-    ok=true;
-  }
-  if (ok) {
+  if (allowAllClassesScan) {
     Thread t=new Thread(){
       public void run(){
         try {

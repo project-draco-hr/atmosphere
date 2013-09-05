@@ -1,0 +1,3 @@
+{
+  framework.setDefaultBroadcasterClassName(discoveredClass.getName());
+}

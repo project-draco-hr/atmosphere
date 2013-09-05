@@ -3,10 +3,15 @@
     return this;
   }
   alreadyScanned=true;
+  Set<Class<?>> atmosphereAnnotatedClasses=annotations.get(AtmosphereAnnotation.class);
+  boolean handleAtmosphereAnnotation=handleAtmosphereAnnotation(atmosphereAnnotatedClasses);
   for (  Map.Entry<Class<? extends Annotation>,Set<Class<?>>> entry : annotations.entrySet()) {
     for (    Class<?> clazz : entry.getValue()) {
-      AnnotationHandler.handleAnnotation(framework,entry.getKey(),clazz);
+      handler.handleAnnotation(framework,entry.getKey(),clazz);
     }
+  }
+  if (handleAtmosphereAnnotation) {
+    scanForCustomAnnotation(atmosphereAnnotatedClasses);
   }
   return this;
 }

@@ -1,0 +1,90 @@
+{
+  try {
+    Class<?> aClass=discoveredClass;
+    AtmosphereService a=aClass.getAnnotation(AtmosphereService.class);
+    atmosphereConfig(a.atmosphereConfig(),framework);
+    framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
+    filters(a.broadcastFilters(),framework);
+    final Class<? extends AtmosphereResourceEventListener>[] listeners=a.listeners();
+    if (listeners.length > 0) {
+      try {
+        AtmosphereInterceptor ai=new AtmosphereInterceptor(){
+          @Override public void configure(          AtmosphereConfig config){
+          }
+          @Override public Action inspect(          AtmosphereResource r){
+            for (            Class<? extends AtmosphereResourceEventListener> l : listeners) {
+              try {
+                r.addEventListener(l.newInstance());
+              }
+ catch (              Throwable e) {
+                logger.warn("",e);
+              }
+            }
+            return Action.CONTINUE;
+          }
+          @Override public void postInspect(          AtmosphereResource r){
+          }
+          @Override public String toString(){
+            return "@Atmosphere Managed Event Listeners";
+          }
+        }
+;
+        framework.interceptor(ai);
+      }
+ catch (      Throwable e) {
+        logger.warn("",e);
+      }
+    }
+    if (!a.servlet().isEmpty()) {
+      final ReflectorServletProcessor r=new ReflectorServletProcessor();
+      r.setServletClassName(a.servlet());
+      String mapping=a.path();
+      Class<?>[] interceptors=a.interceptors();
+      LinkedList<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
+      for (      Class i : interceptors) {
+        try {
+          AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
+          l.add(ai);
+        }
+ catch (        Throwable e) {
+          logger.warn("",e);
+        }
+      }
+      if (!a.dispatch()) {
+        AtmosphereHandler proxy=new AtmosphereServletProcessor(){
+          private String method="GET";
+          @Override public void onRequest(          AtmosphereResource resource) throws IOException {
+            if (!resource.getRequest().getMethod().equalsIgnoreCase(method)) {
+              r.onRequest(resource);
+            }
+          }
+          @Override public void onStateChange(          AtmosphereResourceEvent event) throws IOException {
+            r.onStateChange(event);
+          }
+          @Override public void destroy(){
+            r.destroy();
+          }
+          @Override public void init(          ServletConfig sc) throws ServletException {
+            String s=sc.getInitParameter(ATMOSPHERERESOURCE_INTERCEPTOR_METHOD);
+            if (s != null) {
+              method=s;
+            }
+            r.init(sc);
+          }
+        }
+;
+        framework.addAtmosphereHandler(mapping,proxy,l);
+      }
+ else {
+        framework.addAtmosphereHandler(mapping,r,l);
+      }
+    }
+ else {
+      interceptors(a.interceptors(),framework);
+    }
+    framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

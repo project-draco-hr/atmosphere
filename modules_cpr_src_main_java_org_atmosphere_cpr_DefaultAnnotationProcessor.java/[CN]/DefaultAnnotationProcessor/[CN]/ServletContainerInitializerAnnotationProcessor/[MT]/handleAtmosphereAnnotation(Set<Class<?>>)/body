@@ -1,0 +1,16 @@
+{
+  boolean scanForCustomizedAnnotation=false;
+  if (atmosphereAnnotatedClasses != null) {
+    for (    Class<?> clazz : atmosphereAnnotatedClasses) {
+      handler.handleProcessor(clazz);
+      if (atmosphereAnnotatedClasses.size() > AnnotationScanningServletContainerInitializer.class.getAnnotation(HandlesTypes.class).value().length) {
+        scanForCustomizedAnnotation=true;
+      }
+    }
+    annotations.remove(AtmosphereAnnotation.class);
+  }
+ else {
+    logger.error("No @AtmosphereService annotation found. Annotation won't work.");
+  }
+  return scanForCustomizedAnnotation;
+}

@@ -11,7 +11,7 @@
         annotationProcessor.scan(s);
       }
     }
-    if (!annnotationFound) {
+    if (!annotationFound) {
       if (path != null) {
         annotationProcessor.scan(new File(path));
       }
@@ -30,6 +30,10 @@
           }
         }
       }
+    }
+    if (!annotationFound && allowAllClassesScan) {
+      logger.debug("Scanning all classes on the classpath");
+      annotationProcessor.scanAll();
     }
   }
  catch (  Throwable e) {

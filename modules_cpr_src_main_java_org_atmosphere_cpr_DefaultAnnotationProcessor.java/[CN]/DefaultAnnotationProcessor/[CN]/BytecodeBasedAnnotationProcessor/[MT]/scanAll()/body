@@ -1,0 +1,4 @@
+{
+  detector.detect();
+  return this;
+}

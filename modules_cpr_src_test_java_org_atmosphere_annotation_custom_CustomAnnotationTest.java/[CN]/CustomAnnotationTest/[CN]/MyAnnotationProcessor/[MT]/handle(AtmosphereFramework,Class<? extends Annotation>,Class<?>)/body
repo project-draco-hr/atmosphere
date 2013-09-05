@@ -1,0 +1,12 @@
+{
+  MyAnnotation a=discoveredClass.getAnnotation(MyAnnotation.class);
+  try {
+    framework.addAtmosphereHandler(a.value(),(AtmosphereHandler)discoveredClass.newInstance());
+  }
+ catch (  InstantiationException e) {
+    e.printStackTrace();
+  }
+catch (  IllegalAccessException e) {
+    e.printStackTrace();
+  }
+}

@@ -1,0 +1,4 @@
+{
+  Collection<Class<? extends Annotation>> c=annotations.keySet();
+  return c.toArray(new Class[0]);
+}

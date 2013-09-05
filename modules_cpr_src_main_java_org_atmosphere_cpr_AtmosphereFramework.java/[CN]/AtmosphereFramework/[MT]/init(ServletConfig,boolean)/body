@@ -22,10 +22,12 @@
         public Enumeration<String> getInitParameterNames(){
           if (!done.getAndSet(true)) {
             Enumeration en=sc.getInitParameterNames();
-            while (en.hasMoreElements()) {
-              String name=(String)en.nextElement();
-              if (!initParams.containsKey(name)) {
-                initParams.put(name,sc.getInitParameter(name));
+            if (en != null) {
+              while (en.hasMoreElements()) {
+                String name=(String)en.nextElement();
+                if (!initParams.containsKey(name)) {
+                  initParams.put(name,sc.getInitParameter(name));
+                }
               }
             }
           }
@@ -38,9 +40,11 @@
       scFacade=sc;
     }
     this.servletConfig=scFacade;
+    preventOOM();
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
     asyncSupportListener(new AsyncSupportListenerAdapter());
+    configureAnnotationPackages();
     configureBroadcasterFactory();
     configureScanningPackage(scFacade);
     installAnnotationProcessor(scFacade);

@@ -1,0 +1,12 @@
+{
+  String s=config.getInitParameter(ApplicationConfig.SCAN_CLASSPATH);
+  if (s != null) {
+    allowAllClassesScan=Boolean.parseBoolean(s);
+  }
+  try {
+    Class.forName("org.testng.Assert");
+  }
+ catch (  ClassNotFoundException e) {
+    allowAllClassesScan=false;
+  }
+}

@@ -1,0 +1,3 @@
+{
+  logger.info("Custom annotation {} discovered. Starting the Chat Sample",annotation.getName());
+}

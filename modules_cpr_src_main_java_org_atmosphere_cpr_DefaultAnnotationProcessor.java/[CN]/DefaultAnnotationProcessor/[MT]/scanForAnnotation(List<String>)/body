@@ -1,0 +1,20 @@
+{
+  AnnotationDetector detector=new AnnotationDetector(atmosphereReporter);
+  try {
+    if (packages.size() > 0) {
+      for (      String p : packages) {
+        logger.trace("Package {} scanned for @AtmosphereAnnotation",p);
+        detector.detect(p);
+      }
+    }
+ else {
+      detector.detect();
+    }
+  }
+ catch (  IOException e) {
+    logger.warn("Unable to scan annotation",e);
+  }
+ finally {
+    detector.destroy();
+  }
+}

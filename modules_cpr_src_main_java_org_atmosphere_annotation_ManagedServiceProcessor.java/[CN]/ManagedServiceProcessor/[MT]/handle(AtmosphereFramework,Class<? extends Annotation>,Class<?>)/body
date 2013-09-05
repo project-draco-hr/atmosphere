@@ -1,0 +1,62 @@
+{
+  try {
+    Class<?> aClass=discoveredClass;
+    ManagedService a=aClass.getAnnotation(ManagedService.class);
+    List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+    atmosphereConfig(a.atmosphereConfig(),framework);
+    framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
+    filters(a.broadcastFilters(),framework);
+    final Class<? extends AtmosphereResourceEventListener>[] listeners=a.listeners();
+    if (listeners.length > 0) {
+      try {
+        AtmosphereInterceptor ai=new AtmosphereInterceptor(){
+          @Override public void configure(          AtmosphereConfig config){
+          }
+          @Override public Action inspect(          AtmosphereResource r){
+            for (            Class<? extends AtmosphereResourceEventListener> l : listeners) {
+              try {
+                r.addEventListener(l.newInstance());
+              }
+ catch (              Throwable e) {
+                logger.warn("",e);
+              }
+            }
+            return Action.CONTINUE;
+          }
+          @Override public void postInspect(          AtmosphereResource r){
+          }
+          @Override public String toString(){
+            return "@ManagedService Event Listeners";
+          }
+        }
+;
+        l.add(ai);
+      }
+ catch (      Throwable e) {
+        logger.warn("",e);
+      }
+    }
+    Object c=aClass.newInstance();
+    AtmosphereHandler handler=new ManagedAtmosphereHandler(c);
+    Class<?>[] interceptors=a.interceptors();
+    for (    Class i : interceptors) {
+      try {
+        AtmosphereInterceptor ai;
+        if (AnnotationServiceInterceptor.class.isAssignableFrom(i)) {
+          ai=new AnnotationServiceInterceptor(ManagedAtmosphereHandler.class.cast(handler));
+        }
+ else {
+          ai=(AtmosphereInterceptor)i.newInstance();
+        }
+        l.add(ai);
+      }
+ catch (      Throwable e) {
+        logger.warn("",e);
+      }
+    }
+    framework.addAtmosphereHandler(a.path(),handler,l);
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

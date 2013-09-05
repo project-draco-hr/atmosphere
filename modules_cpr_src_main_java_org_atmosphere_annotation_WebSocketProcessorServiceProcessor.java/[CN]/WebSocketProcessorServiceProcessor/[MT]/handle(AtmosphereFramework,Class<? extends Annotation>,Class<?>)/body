@@ -1,0 +1,8 @@
+{
+  try {
+    framework.setWebsocketProcessorClassName(discoveredClass.getName());
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

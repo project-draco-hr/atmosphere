@@ -1,6 +1,6 @@
 {
   this.lifeCyclePolicy=lifeCyclePolicy;
-  logger.debug("{} new lifecycle policy: {}",name,lifeCyclePolicy.getLifeCyclePolicy().name());
+  logger.trace("{} new lifecycle policy: {}",name,lifeCyclePolicy.getLifeCyclePolicy().name());
   if (currentLifecycleTask != null) {
     currentLifecycleTask.cancel(false);
   }

@@ -1,5 +1,7 @@
 {
   if (delegate != null) {
     delegate.destroy();
+    handler.destroy();
+    delegate=null;
   }
 }

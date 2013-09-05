@@ -1,0 +1,9 @@
+{
+  try {
+    AtmosphereInterceptor a=(AtmosphereInterceptor)discoveredClass.newInstance();
+    framework.interceptor(a);
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

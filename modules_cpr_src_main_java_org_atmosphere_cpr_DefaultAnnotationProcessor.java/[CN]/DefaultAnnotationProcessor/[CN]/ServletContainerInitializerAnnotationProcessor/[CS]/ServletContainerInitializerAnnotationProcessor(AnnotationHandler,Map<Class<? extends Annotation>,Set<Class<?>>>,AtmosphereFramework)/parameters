@@ -1,0 +1,3 @@
+AnnotationHandler handler
+Map<Class<? extends Annotation>,Set<Class<?>>> annotations
+AtmosphereFramework framework

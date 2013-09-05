@@ -1,0 +1,4 @@
+{
+  annotationPackages.addLast(p.getPackage().getName());
+  return this;
+}

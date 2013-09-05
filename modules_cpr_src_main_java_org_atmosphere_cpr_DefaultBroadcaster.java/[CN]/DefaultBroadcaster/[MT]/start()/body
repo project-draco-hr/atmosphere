@@ -2,7 +2,6 @@
   if (!started.getAndSet(true)) {
     bc.getBroadcasterCache().start();
     setID(name);
-    logger.debug("{} lifecycle policy: {}",name,lifeCyclePolicy.getLifeCyclePolicy().name());
     if (notifierFuture == null && asyncWriteFuture == null) {
       spawnReactor();
     }

@@ -11,5 +11,5 @@
       }
     }
   }
-  servletContext.setAttribute(DefaultAnnotationProcessor.ANNOTATION_ATTRIBUTE,Collections.unmodifiableMap(classesByAnnotation));
+  servletContext.setAttribute(DefaultAnnotationProcessor.ANNOTATION_ATTRIBUTE,classesByAnnotation);
 }
