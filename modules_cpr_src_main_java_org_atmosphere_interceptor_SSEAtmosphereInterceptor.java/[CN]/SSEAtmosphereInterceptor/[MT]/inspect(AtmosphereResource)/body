@@ -19,7 +19,7 @@
           }
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          if (r.isSuspended() || r.getRequest().getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL) != null) {
+          if (r.isSuspended() || r.getRequest().getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL) != null || r.getRequest().getAttribute(CONTAINER_RESPONSE) != null) {
             response.write(END,true);
           }
           String ua=r.getRequest().getHeader("User-Agent");
