@@ -1,5 +1,6 @@
 {
   Map<String,String> headers=new HashMap<String,String>();
+  StringBuilder q=new StringBuilder();
   try {
     String qs=request.getQueryString();
     if (qs != null && !qs.isEmpty()) {
@@ -12,6 +13,9 @@
             request.contentType(s.length > 1 ? s[1] : "");
           }
         }
+        if (!s[0].toLowerCase().startsWith("x-atmosphere") && !s[0].equalsIgnoreCase("x-cache-date") && !s[0].equalsIgnoreCase("Content-Type")&& !s[0].equalsIgnoreCase("_")) {
+          q.append(s[0]).append("=").append(s.length > 1 ? s[1] : "").append("&");
+        }
         headers.put(s[0],s.length > 1 ? s[1] : "");
       }
     }
@@ -19,6 +23,8 @@
  catch (  Exception ex) {
     logger.error("Unable to parse query string",ex);
   }
+  if (q.length() > 0)   q.deleteCharAt(q.length() - 1);
+  request.queryString(q.toString());
   logger.trace("Query String translated to headers {}",headers);
   return headers;
 }
