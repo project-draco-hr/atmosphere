@@ -8,6 +8,5 @@
     allowAllClassesScan=false;
   }
  catch (  ClassNotFoundException e) {
-    e.printStackTrace();
   }
 }
