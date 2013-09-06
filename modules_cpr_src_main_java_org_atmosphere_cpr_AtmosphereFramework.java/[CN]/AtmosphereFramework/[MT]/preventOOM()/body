@@ -5,8 +5,9 @@
   }
   try {
     Class.forName("org.testng.Assert");
+    allowAllClassesScan=false;
   }
  catch (  ClassNotFoundException e) {
-    allowAllClassesScan=false;
+    e.printStackTrace();
   }
 }
