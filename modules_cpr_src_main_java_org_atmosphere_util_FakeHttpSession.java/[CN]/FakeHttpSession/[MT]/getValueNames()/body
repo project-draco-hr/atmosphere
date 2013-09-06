@@ -1,3 +1,4 @@
 {
+  if (!valid)   throw new IllegalStateException();
   return (String[])Collections.list(attributes.keys()).toArray();
 }
