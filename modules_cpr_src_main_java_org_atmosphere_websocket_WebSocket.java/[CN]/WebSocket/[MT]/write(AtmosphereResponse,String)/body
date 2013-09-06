@@ -1,5 +1,9 @@
 {
   firstWrite.set(true);
+  if (data == null) {
+    logger.error("Cannot write null value for {}",resource());
+    return this;
+  }
   if (!isOpen())   throw new IOException("Connection remotely closed");
   logger.trace("WebSocket.write()");
   boolean transform=filters.size() > 0 && r.getStatus() < 400;
