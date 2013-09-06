@@ -4,7 +4,10 @@
   this.webSocketProcessor=webSocketProcessor;
   String s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME);
   if (s != null) {
-    logger.warn("{} is not supported by Tomcat. Put a time out in server.xml instead.");
+    webSocketWriteTimeout=Integer.valueOf(s);
+  }
+ else {
+    webSocketWriteTimeout=-1;
   }
   s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_BUFFER_SIZE);
   if (s != null) {
