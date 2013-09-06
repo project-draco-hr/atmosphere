@@ -1,4 +1,4 @@
 {
-  if (!valid)   throw new IllegalStateException();
-  valid=false;
+  if (!valid.get())   throw new IllegalStateException();
+  valid.set(false);
 }

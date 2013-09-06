@@ -1,4 +1,4 @@
 {
-  if (!valid)   throw new IllegalStateException();
+  if (!valid.get())   throw new IllegalStateException();
   return attributes.get(name);
 }
