@@ -9,21 +9,50 @@
   if (max != null) {
     policy.setIdleTimeout(Integer.parseInt(max));
   }
-  max=config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE);
-  if (max != null) {
-    policy.setMaxMessageSize(Integer.parseInt(max));
+  String serverInfo=config.getServletConfig().getServletContext().getServerInfo();
+  boolean isJetty91=false;
+  if (serverInfo != null && serverInfo.indexOf("9.1") != -1) {
+    isJetty91=true;
   }
-  max=config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE);
-  if (max != null) {
-    policy.setMaxMessageSize(Integer.parseInt(max));
+  max=config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE);
+  ;
+  try {
+    if (max != null) {
+      Method m;
+      if (isJetty91) {
+        m=policy.getClass().getMethod("setMaxTextMessageSize",new Class[]{int.class});
+      }
+ else {
+        m=policy.getClass().getMethod("setMaxMessageSize",new Class[]{int.class});
+      }
+      m.invoke(policy,Integer.parseInt(max));
+    }
+    max=config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE);
+    if (max != null) {
+      Method m;
+      if (isJetty91) {
+        m=policy.getClass().getMethod("setMaxBinaryMessageSize",new Class[]{int.class});
+      }
+ else {
+        m=policy.getClass().getMethod("setMaxMessageSize",new Class[]{int.class});
+      }
+      m.invoke(policy,Integer.parseInt(max));
+    }
+  }
+ catch (  Exception ex) {
+    logger.warn("",ex);
   }
   final WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config.framework());
   webSocketFactory=new WebSocketServerFactory(policy){
     @Override public boolean acceptWebSocket(    final HttpServletRequest request,    HttpServletResponse response) throws IOException {
       setCreator(new WebSocketCreator(){
-        @Override public Object createWebSocket(        UpgradeRequest upgradeRequest,        UpgradeResponse upgradeResponse){
+        public Object createWebSocket(        UpgradeRequest upgradeRequest,        UpgradeResponse upgradeResponse){
           ServletWebSocketRequest r=ServletWebSocketRequest.class.cast(upgradeRequest);
           r.getExtensions().clear();
+          return new Jetty9WebSocketHandler(request,config.framework(),webSocketProcessor);
+        }
+        public Object createWebSocket(        ServletUpgradeRequest req,        ServletUpgradeResponse resp){
+          req.getExtensions().clear();
           return new Jetty9WebSocketHandler(request,config.framework(),webSocketProcessor);
         }
       }

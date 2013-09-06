@@ -3,7 +3,7 @@
   try {
     webSocketConnection.close();
   }
- catch (  IOException e) {
+ catch (  Throwable e) {
     logger.trace("Close error",e);
   }
 }
