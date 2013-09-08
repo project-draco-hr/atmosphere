@@ -1,4 +1,4 @@
 {
-  resource.suspend();
   r.set(resource);
+  resource.suspend();
 }
