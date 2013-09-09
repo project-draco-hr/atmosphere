@@ -18,6 +18,10 @@
     if (a.path().contains("{")) {
       l.add(new AtmosphereHandlerServiceInterceptor());
     }
+    AtmosphereInterceptor aa=listeners(a.listeners(),framework);
+    if (aa != null) {
+      l.add(aa);
+    }
     framework.sessionSupport(a.supportSession());
     AtmosphereHandler handler=(AtmosphereHandler)discoveredClass.newInstance();
     for (    String s : a.properties()) {

@@ -13,6 +13,10 @@
     framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
     filters(m.broadcastFilters(),framework);
     interceptors(m.interceptors(),framework);
+    AtmosphereInterceptor aa=listeners(m.listeners(),framework);
+    if (aa != null) {
+      framework.interceptor(aa);
+    }
     WebSocketProcessor p=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
     p.registerWebSocketHandler(m.path(),s.newInstance());
   }

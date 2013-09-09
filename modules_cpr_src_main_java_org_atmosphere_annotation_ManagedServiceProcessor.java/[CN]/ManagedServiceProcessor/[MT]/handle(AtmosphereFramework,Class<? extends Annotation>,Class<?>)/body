@@ -6,35 +6,9 @@
     atmosphereConfig(a.atmosphereConfig(),framework);
     framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
     filters(a.broadcastFilters(),framework);
-    final Class<? extends AtmosphereResourceEventListener>[] listeners=a.listeners();
-    if (listeners.length > 0) {
-      try {
-        AtmosphereInterceptor ai=new AtmosphereInterceptor(){
-          @Override public void configure(          AtmosphereConfig config){
-          }
-          @Override public Action inspect(          AtmosphereResource r){
-            for (            Class<? extends AtmosphereResourceEventListener> l : listeners) {
-              try {
-                r.addEventListener(l.newInstance());
-              }
- catch (              Throwable e) {
-                logger.warn("",e);
-              }
-            }
-            return Action.CONTINUE;
-          }
-          @Override public void postInspect(          AtmosphereResource r){
-          }
-          @Override public String toString(){
-            return "@ManagedService Event Listeners";
-          }
-        }
-;
-        l.add(ai);
-      }
- catch (      Throwable e) {
-        logger.warn("",e);
-      }
+    AtmosphereInterceptor aa=listeners(a.listeners(),framework);
+    if (aa != null) {
+      l.add(aa);
     }
     Object c=aClass.newInstance();
     AtmosphereHandler handler=new ManagedAtmosphereHandler(c);

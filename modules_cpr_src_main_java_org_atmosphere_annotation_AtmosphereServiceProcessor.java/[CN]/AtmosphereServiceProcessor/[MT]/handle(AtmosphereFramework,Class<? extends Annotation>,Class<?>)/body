@@ -5,42 +5,16 @@
     atmosphereConfig(a.atmosphereConfig(),framework);
     framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
     filters(a.broadcastFilters(),framework);
-    final Class<? extends AtmosphereResourceEventListener>[] listeners=a.listeners();
-    if (listeners.length > 0) {
-      try {
-        AtmosphereInterceptor ai=new AtmosphereInterceptor(){
-          @Override public void configure(          AtmosphereConfig config){
-          }
-          @Override public Action inspect(          AtmosphereResource r){
-            for (            Class<? extends AtmosphereResourceEventListener> l : listeners) {
-              try {
-                r.addEventListener(l.newInstance());
-              }
- catch (              Throwable e) {
-                logger.warn("",e);
-              }
-            }
-            return Action.CONTINUE;
-          }
-          @Override public void postInspect(          AtmosphereResource r){
-          }
-          @Override public String toString(){
-            return "@Atmosphere Managed Event Listeners";
-          }
-        }
-;
-        framework.interceptor(ai);
-      }
- catch (      Throwable e) {
-        logger.warn("",e);
-      }
+    LinkedList<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
+    AtmosphereInterceptor aa=listeners(a.listeners(),framework);
+    if (aa != null) {
+      l.add(aa);
     }
     if (!a.servlet().isEmpty()) {
       final ReflectorServletProcessor r=new ReflectorServletProcessor();
       r.setServletClassName(a.servlet());
       String mapping=a.path();
       Class<?>[] interceptors=a.interceptors();
-      LinkedList<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
       for (      Class i : interceptors) {
         try {
           AtmosphereInterceptor ai=(AtmosphereInterceptor)i.newInstance();
