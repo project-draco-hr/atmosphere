@@ -3,6 +3,7 @@
     r.getResponse().addHeader("X-Accel-Buffering","No");
   }
  catch (  Throwable t) {
+    logger.trace("",t);
   }
   return Action.CONTINUE;
 }

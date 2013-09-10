@@ -1,0 +1,17 @@
+{
+  framework.addAtmosphereHandler("/*",handler);
+  framework.interceptor(new AtmosphereInterceptorAdapter(){
+    @Override public Action inspect(    AtmosphereResource r){
+      return Action.CREATED;
+    }
+    @Override public PRIORITY priority(){
+      return InvokationOrder.FIRST_BEFORE_DEFAULT;
+    }
+    @Override public String toString(){
+      return "XXX";
+    }
+  }
+);
+  assertEquals(Action.CREATED,processor.service(mock(AtmosphereRequest.class),AtmosphereResponse.newInstance()));
+  assertEquals(framework.interceptors().getFirst().toString(),"XXX");
+}

@@ -1,0 +1,3 @@
+{
+  return "CORS Interceptor Support";
+}

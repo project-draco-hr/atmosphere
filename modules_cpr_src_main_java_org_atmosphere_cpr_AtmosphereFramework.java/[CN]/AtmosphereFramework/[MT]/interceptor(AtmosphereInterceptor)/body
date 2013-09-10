@@ -7,8 +7,9 @@
     }
   }
   if (!found) {
-    interceptors.addLast(c);
-    logger.info("Installed AtmosphereInterceptor {}. ",c);
+    InvokationOrder.PRIORITY p=InvokationOrder.class.isAssignableFrom(c.getClass()) ? InvokationOrder.class.cast(c).priority() : InvokationOrder.AFTER_DEFAULT;
+    positionInterceptor(p,c);
+    logger.info("Installed AtmosphereInterceptor {} with priority {} ",c,p.name());
   }
   return this;
 }

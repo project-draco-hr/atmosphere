@@ -28,7 +28,7 @@ catch (      ClassNotFoundException e) {
     interceptors.addFirst(newAInterceptor(AndroidAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(PaddingAtmosphereInterceptor.class));
     interceptors.addFirst(newAInterceptor(DefaultHeadersInterceptor.class));
-    logger.info("Set org.atmosphere.cpr.AtmosphereInterceptor.disableDefaults in your xml to disable them.",interceptors);
+    logger.info("Set {} to disable them.",ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR,interceptors);
   }
   initInterceptors();
 }

@@ -1,0 +1,35 @@
+{
+  framework.addAtmosphereHandler("/*",handler);
+  framework.interceptor(new AtmosphereInterceptorAdapter(){
+    @Override public Action inspect(    AtmosphereResource r){
+      return Action.CREATED;
+    }
+    @Override public PRIORITY priority(){
+      return InvokationOrder.FIRST_BEFORE_DEFAULT;
+    }
+    @Override public String toString(){
+      return "XXX";
+    }
+  }
+);
+  Exception exception=null;
+  try {
+    framework.interceptor(new AtmosphereInterceptorAdapter(){
+      @Override public Action inspect(      AtmosphereResource r){
+        return Action.CREATED;
+      }
+      @Override public PRIORITY priority(){
+        return InvokationOrder.FIRST_BEFORE_DEFAULT;
+      }
+      @Override public String toString(){
+        return "XXX";
+      }
+    }
+);
+    fail();
+  }
+ catch (  Exception ex) {
+    exception=ex;
+  }
+  assertEquals(IllegalStateException.class,exception.getClass());
+}
