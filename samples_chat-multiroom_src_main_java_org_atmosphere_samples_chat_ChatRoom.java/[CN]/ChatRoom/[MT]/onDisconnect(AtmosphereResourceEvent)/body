@@ -1,9 +1,0 @@
-{
-  if (event.isCancelled()) {
-    users.values().remove(event.getResource().uuid());
-    logger.info("Browser {} unexpectedly disconnected",event.getResource().uuid());
-  }
- else   if (event.isClosedByClient()) {
-    logger.info("Browser {} closed the connection",event.getResource().uuid());
-  }
-}

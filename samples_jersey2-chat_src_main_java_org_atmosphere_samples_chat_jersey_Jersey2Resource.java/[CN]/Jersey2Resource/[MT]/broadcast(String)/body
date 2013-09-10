@@ -1,3 +1,0 @@
-{
-  BroadcasterFactory.getDefault().lookup("/chat").broadcast(message);
-}

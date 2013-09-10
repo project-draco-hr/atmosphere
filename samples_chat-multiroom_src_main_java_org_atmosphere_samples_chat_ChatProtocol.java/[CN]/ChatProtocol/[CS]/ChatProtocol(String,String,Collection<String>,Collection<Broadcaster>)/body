@@ -1,7 +1,0 @@
-{
-  this(author,message);
-  this.users.addAll(users);
-  for (  Broadcaster b : rooms) {
-    this.rooms.add(b.getID().toString());
-  }
-}

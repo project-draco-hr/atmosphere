@@ -1,3 +1,0 @@
-{
-  logger.info("Browser {} connected.",r.uuid());
-}

@@ -1,3 +1,0 @@
-{
-  return sc.getResourceAsStream("/javascript/" + ps.getPath());
-}

@@ -1,5 +1,0 @@
-{
-  String author=message.substring(message.indexOf(":") + 2,message.indexOf(",") - 1);
-  String chat=message.substring(message.lastIndexOf(":") + 2,message.length() - 2);
-  response.getWriter().write(new Data(author,chat).toString());
-}

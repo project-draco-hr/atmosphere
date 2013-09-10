@@ -1,3 +1,0 @@
-{
-  logger.debug("onDisconnect(): " + event.getResource().getRequest().getRemoteAddr() + ":"+ event.getResource().getRequest().getRemotePort());
-}

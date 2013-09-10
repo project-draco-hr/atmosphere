@@ -1,6 +1,0 @@
-{
-  if (!isSet.getAndSet(true)) {
-    logger.info("This is just an example that demonstrate " + "how a Broadcaster can be customized using atmosphere.xml or by " + "defining it inside web.xml");
-  }
-  super.invokeOnStateChange(r,e);
-}

@@ -1,3 +1,0 @@
-{
-  return BroadcasterFactory.getDefault().lookup(JerseyBroadcaster.class,topic);
-}

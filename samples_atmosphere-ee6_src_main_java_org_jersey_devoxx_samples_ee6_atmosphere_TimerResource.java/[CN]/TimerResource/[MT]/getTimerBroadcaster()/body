@@ -1,3 +1,0 @@
-{
-  return bf.lookup(JerseyBroadcaster.class,"timer",true);
-}

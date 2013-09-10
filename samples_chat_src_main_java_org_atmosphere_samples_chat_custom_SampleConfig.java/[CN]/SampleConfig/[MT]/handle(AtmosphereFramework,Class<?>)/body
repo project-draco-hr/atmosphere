@@ -1,3 +1,0 @@
-{
-  logger.info("Custom annotation {} discovered. Starting the Chat Sample",annotatedClass.getAnnotation(Config.class));
-}

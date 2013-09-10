@@ -1,7 +1,0 @@
-{
-  if (started.tryAcquire()) {
-    tb=getTimerBroadcaster();
-    t=ts.createIntervalTimer(1000,1000,new TimerConfig("timer",false));
-    stopped.release();
-  }
-}

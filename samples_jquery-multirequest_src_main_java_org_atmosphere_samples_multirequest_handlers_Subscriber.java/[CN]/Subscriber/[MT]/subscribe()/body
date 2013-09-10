@@ -1,5 +1,0 @@
-{
-  LOG.debug("OnSubscribe to topic");
-  SuspendResponse<String> sr=new SuspendResponse.SuspendResponseBuilder<String>().broadcaster(topic).outputComments(true).addListener(new EventsLogger()).build();
-  return sr;
-}

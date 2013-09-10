@@ -1,4 +1,0 @@
-{
-  logger.info("{}: {}",getClass().getName(),new Date());
-  tb.broadcast(new Date().toString() + "\n");
-}

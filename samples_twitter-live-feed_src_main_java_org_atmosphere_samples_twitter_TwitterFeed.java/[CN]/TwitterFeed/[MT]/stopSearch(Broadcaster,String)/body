@@ -1,8 +1,0 @@
-{
-  feed.resumeAll();
-  if (futures.get(tagid) != null) {
-    futures.get(tagid).cancel(true);
-  }
-  logger.info("Stopping real time update for {}",tagid);
-  return "DONE";
-}

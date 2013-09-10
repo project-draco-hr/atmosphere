@@ -1,6 +1,0 @@
-{
-  Broadcaster broadcaster=getBroadcaster(topic);
-  if (broadcaster != null) {
-    broadcaster.broadcast(message);
-  }
-}

@@ -1,3 +1,0 @@
-{
-  webSocket.broadcast(message.substring("message=".length()));
-}

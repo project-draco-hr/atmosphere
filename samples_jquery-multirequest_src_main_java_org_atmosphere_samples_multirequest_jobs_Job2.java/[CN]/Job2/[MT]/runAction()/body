@@ -1,4 +1,0 @@
-{
-  String message="Message from Job2";
-  sendMessages("job2",message);
-}
