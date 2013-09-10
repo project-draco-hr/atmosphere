@@ -1,5 +1,0 @@
-{
-  atmoServlet.framework().destroy();
-  server.stop();
-  server=null;
-}

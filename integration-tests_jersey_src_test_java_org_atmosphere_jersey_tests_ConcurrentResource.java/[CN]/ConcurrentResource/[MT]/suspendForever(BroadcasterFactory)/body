@@ -1,5 +1,0 @@
-{
-  Broadcaster b=f.get(UUID.randomUUID().toString());
-  b.setBroadcasterLifeCyclePolicy(new BroadcasterLifeCyclePolicy.Builder().policy(IDLE_RESUME).idleTime(30,TimeUnit.SECONDS).build());
-  return new Broadcastable(b);
-}

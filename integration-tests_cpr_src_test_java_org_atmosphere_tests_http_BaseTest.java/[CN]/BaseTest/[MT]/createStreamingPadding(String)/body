@@ -1,4 +1,0 @@
-{
-  StringBuilder s=new StringBuilder("");
-  return s.toString();
-}

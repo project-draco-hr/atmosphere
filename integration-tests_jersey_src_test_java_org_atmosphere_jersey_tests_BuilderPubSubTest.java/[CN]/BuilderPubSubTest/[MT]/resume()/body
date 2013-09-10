@@ -1,4 +1,0 @@
-{
-  broadcaster.broadcast("resume").get();
-  return "resumed";
-}

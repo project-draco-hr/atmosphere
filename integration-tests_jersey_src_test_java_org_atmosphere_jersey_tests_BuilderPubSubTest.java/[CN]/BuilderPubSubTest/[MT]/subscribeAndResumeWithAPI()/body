@@ -1,4 +1,0 @@
-{
-  SuspendResponse<String> r=new SuspendResponse.SuspendResponseBuilder<String>().outputComments(false).resumeOnBroadcast(true).build();
-  return r;
-}

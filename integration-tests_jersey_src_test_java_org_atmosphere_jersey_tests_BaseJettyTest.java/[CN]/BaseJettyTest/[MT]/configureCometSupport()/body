@@ -1,3 +1,0 @@
-{
-  atmoServlet.framework().setAsyncSupport(new org.atmosphere.container.JettyCometSupport(atmoServlet.framework().getAtmosphereConfig()));
-}

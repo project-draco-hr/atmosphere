@@ -1,4 +1,0 @@
-{
-  SuspendResponse<String> r=new SuspendResponse.SuspendResponseBuilder<String>().entity("resume").broadcaster(broadcaster).outputComments(false).resumeOnBroadcast(true).period(5,TimeUnit.SECONDS).build();
-  return r;
-}

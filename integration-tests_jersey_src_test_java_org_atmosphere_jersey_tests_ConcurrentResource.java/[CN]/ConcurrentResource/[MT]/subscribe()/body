@@ -1,3 +1,0 @@
-{
-  return new Broadcastable(BroadcasterFactory.getDefault().get(UUID.randomUUID().toString()));
-}

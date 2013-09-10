@@ -1,6 +1,0 @@
-{
-  server=new Server(port);
-  root=new Context(server,"/",Context.SESSIONS);
-  root.addServlet(new ServletHolder(atmoServlet),ROOT);
-  server.start();
-}

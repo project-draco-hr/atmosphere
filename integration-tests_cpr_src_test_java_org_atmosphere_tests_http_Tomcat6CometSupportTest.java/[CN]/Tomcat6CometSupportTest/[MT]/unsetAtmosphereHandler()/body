@@ -1,8 +1,0 @@
-{
-  try {
-    embedded.stop();
-  }
- catch (  LifecycleException ignored) {
-    logger.info("server stop failed",ignored);
-  }
-}

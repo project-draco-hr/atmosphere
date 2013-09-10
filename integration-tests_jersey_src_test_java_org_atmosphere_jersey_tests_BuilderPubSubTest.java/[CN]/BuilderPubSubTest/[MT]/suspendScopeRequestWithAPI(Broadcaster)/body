@@ -1,5 +1,0 @@
-{
-  SuspendResponse<String> r=new SuspendResponse.SuspendResponseBuilder<String>().entity("bar").broadcaster(broadcaster).scope(Suspend.SCOPE.REQUEST).outputComments(false).resumeOnBroadcast(true).period(5,TimeUnit.SECONDS).build();
-  b.broadcast("foo").get();
-  return r;
-}

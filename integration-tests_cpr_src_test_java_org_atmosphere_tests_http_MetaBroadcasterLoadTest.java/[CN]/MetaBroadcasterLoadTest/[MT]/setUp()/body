@@ -1,4 +1,0 @@
-{
-  config=new AtmosphereFramework().getAtmosphereConfig();
-  factory=new FFT(config);
-}

@@ -1,6 +1,0 @@
-{
-  logger.info("broadcaster: {}",broadcaster);
-  logger.info("factory: {}",broadcasterFactory);
-  logger.info("resource: {}",resource);
-  return "perrequest";
-}
