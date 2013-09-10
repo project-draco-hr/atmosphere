@@ -1,0 +1,8 @@
+{
+  try {
+    framework.asyncSupportListener((AsyncSupportListener)annotatedClass.newInstance());
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

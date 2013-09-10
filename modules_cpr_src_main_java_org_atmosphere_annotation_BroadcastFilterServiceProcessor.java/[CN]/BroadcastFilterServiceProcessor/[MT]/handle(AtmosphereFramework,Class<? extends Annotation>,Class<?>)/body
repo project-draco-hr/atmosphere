@@ -1,8 +1,0 @@
-{
-  try {
-    framework.broadcasterFilters((BroadcastFilter)discoveredClass.newInstance());
-  }
- catch (  Exception e) {
-    logger.warn("",e);
-  }
-}

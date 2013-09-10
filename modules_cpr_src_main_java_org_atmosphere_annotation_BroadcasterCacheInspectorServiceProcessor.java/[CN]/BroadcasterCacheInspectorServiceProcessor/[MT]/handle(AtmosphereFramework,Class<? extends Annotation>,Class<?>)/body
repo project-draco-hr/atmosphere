@@ -1,8 +1,0 @@
-{
-  try {
-    framework.addBroadcasterCacheInjector((BroadcasterCacheInspector)discoveredClass.newInstance());
-  }
- catch (  Throwable e) {
-    logger.warn("",e);
-  }
-}

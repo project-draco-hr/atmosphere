@@ -1,8 +1,0 @@
-{
-  try {
-    framework.endPointMapper((EndpointMapper<?>)discoveredClass.newInstance());
-  }
- catch (  Throwable e) {
-    logger.warn("",e);
-  }
-}

@@ -1,0 +1,8 @@
+{
+  try {
+    framework.setAsyncSupport(new DefaultAsyncSupportResolver(framework.getAtmosphereConfig()).newCometSupport(annotatedClass.getName()));
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

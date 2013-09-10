@@ -1,0 +1,10 @@
+{
+  try {
+    Class<BroadcasterFactory> bf=(Class<BroadcasterFactory>)annotatedClass;
+    framework.setBroadcasterFactory(bf.newInstance());
+    framework.configureBroadcasterFactory();
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

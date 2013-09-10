@@ -1,8 +1,0 @@
-{
-  try {
-    framework.addBroadcasterListener((BroadcasterListener)discoveredClass.newInstance());
-  }
- catch (  Throwable e) {
-    logger.warn("",e);
-  }
-}
