@@ -21,13 +21,9 @@ catch (      ClassNotFoundException e) {
   logger.info("Installing Default AtmosphereInterceptor");
   s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   if (s == null) {
-    interceptors.addFirst(newAInterceptor(OnDisconnectInterceptor.class));
-    interceptors.addFirst(newAInterceptor(JavaScriptProtocol.class));
-    interceptors.addFirst(newAInterceptor(JSONPAtmosphereInterceptor.class));
-    interceptors.addFirst(newAInterceptor(SSEAtmosphereInterceptor.class));
-    interceptors.addFirst(newAInterceptor(AndroidAtmosphereInterceptor.class));
-    interceptors.addFirst(newAInterceptor(PaddingAtmosphereInterceptor.class));
-    interceptors.addFirst(newAInterceptor(DefaultHeadersInterceptor.class));
+    for (    Class<? extends AtmosphereInterceptor> a : defaultInterceptors) {
+      interceptors.addFirst(newAInterceptor(a));
+    }
     logger.info("Set {} to disable them.",ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR,interceptors);
   }
   initInterceptors();
