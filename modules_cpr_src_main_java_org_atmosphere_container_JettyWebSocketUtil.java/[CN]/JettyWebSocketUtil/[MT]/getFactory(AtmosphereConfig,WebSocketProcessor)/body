@@ -1,4 +1,9 @@
 {
+  final AtomicBoolean useBuildInSession=new AtomicBoolean(false);
+  String s=config.getInitParameter(ApplicationConfig.BUILT_IN_SESSION);
+  if (s != null) {
+    useBuildInSession.set(Boolean.valueOf(s));
+  }
   WebSocketFactory webSocketFactory=new WebSocketFactory(new WebSocketFactory.Acceptor(){
     public boolean checkOrigin(    HttpServletRequest request,    String origin){
       logger.trace("WebSocket-checkOrigin request {} with origin {}",request.getRequestURI(),origin);
@@ -11,7 +16,7 @@
       if (s != null && Boolean.valueOf(s)) {
         isDestroyable=true;
       }
-      return new JettyWebSocketHandler(AtmosphereRequest.cloneRequest(request,false,config.isSupportSession(),isDestroyable),config.framework(),webSocketProcessor);
+      return new JettyWebSocketHandler(AtmosphereRequest.cloneRequest(request,false,useBuildInSession.get(),isDestroyable),config.framework(),webSocketProcessor);
     }
   }
 );

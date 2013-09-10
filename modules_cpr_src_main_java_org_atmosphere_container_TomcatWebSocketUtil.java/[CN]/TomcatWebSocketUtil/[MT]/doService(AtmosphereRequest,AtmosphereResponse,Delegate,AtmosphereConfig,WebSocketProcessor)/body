@@ -1,5 +1,10 @@
 {
   if (req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null) {
+    boolean useBuildInSession=true;
+    String s=config.getInitParameter(ApplicationConfig.BUILT_IN_SESSION);
+    if (s != null) {
+      useBuildInSession=Boolean.valueOf(s);
+    }
     String key;
     String subProtocol=null;
     if (!headerContainsToken(req,"Upgrade","websocket")) {
@@ -31,11 +36,11 @@
     while (hsr instanceof HttpServletRequestWrapper)     hsr=(HttpServletRequest)((HttpServletRequestWrapper)hsr).getRequest();
     RequestFacade facade=(RequestFacade)hsr;
     boolean isDestroyable=false;
-    String s=config.getInitParameter(ApplicationConfig.RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
+    s=config.getInitParameter(ApplicationConfig.RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
     if (s != null && Boolean.valueOf(s)) {
       isDestroyable=true;
     }
-    StreamInbound inbound=new TomcatWebSocketHandler(AtmosphereRequest.cloneRequest(req,true,config.isSupportSession(),isDestroyable),config.framework(),webSocketProcessor);
+    StreamInbound inbound=new TomcatWebSocketHandler(AtmosphereRequest.cloneRequest(req,true,useBuildInSession,isDestroyable),config.framework(),webSocketProcessor);
     facade.doUpgrade(inbound);
     return new Action(Action.TYPE.CREATED);
   }
