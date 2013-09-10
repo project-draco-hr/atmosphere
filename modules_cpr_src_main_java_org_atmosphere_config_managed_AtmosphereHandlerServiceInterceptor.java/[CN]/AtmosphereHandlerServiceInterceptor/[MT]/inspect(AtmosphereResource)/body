@@ -1,4 +1,5 @@
 {
+  if (!wildcardMapping)   return Action.CONTINUE;
   AtmosphereRequest request=r.getRequest();
   AtmosphereHandlerWrapper w=(AtmosphereHandlerWrapper)r.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER);
   Broadcaster b=w.broadcaster;

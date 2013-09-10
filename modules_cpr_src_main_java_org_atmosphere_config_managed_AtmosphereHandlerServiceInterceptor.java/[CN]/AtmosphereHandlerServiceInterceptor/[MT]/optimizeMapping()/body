@@ -2,6 +2,7 @@
   for (  String w : config.handlers().keySet()) {
     if (w.contains("{") && w.contains("}")) {
       wildcardMapping=true;
+      break;
     }
   }
 }
