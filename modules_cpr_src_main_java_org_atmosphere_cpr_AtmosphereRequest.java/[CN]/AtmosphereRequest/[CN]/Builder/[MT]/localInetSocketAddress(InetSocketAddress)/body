@@ -1,0 +1,4 @@
+{
+  this.lazyLocal=new LazyComputation(localAddr);
+  return this;
+}
