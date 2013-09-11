@@ -7,9 +7,6 @@
         detector.detect(p);
       }
     }
- else {
-      detector.detect();
-    }
   }
  catch (  IOException e) {
     logger.warn("Unable to scan annotation",e);
