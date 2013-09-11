@@ -21,18 +21,18 @@
         }
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           String callbackName=callbackName();
-          String contentType=contentType();
-          response.write(callbackName + "({\"message\" : ");
-          if (contentType != null && !contentType.contains("json")) {
-            response.write("\"",true);
+          response.write(callbackName + "({\"message\" : \"");
+        }
+        @Override public byte[] transformPayload(        AtmosphereResponse response,        byte[] responseDraft,        byte[] data) throws IOException {
+          if (Arrays.binarySearch(responseDraft,(byte)0x22) != -1) {
+            String charEncoding=response.getCharacterEncoding() == null ? "UTF-8" : response.getCharacterEncoding();
+            String s=new String(responseDraft,charEncoding);
+            return s.replace("\"","\\\"").getBytes(charEncoding);
           }
+          return responseDraft;
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          String contentType=contentType();
-          if (contentType != null && !contentType.contains("json")) {
-            response.write("\"",true);
-          }
-          response.write("});",true);
+          response.write("\"});",true);
         }
       }
 );
