@@ -1,4 +1,5 @@
 {
+  List<String> packages=f.customAnnotationPackages();
   AnnotationDetector detector=new AnnotationDetector(atmosphereReporter);
   try {
     if (packages.size() > 0) {
@@ -6,6 +7,10 @@
         logger.trace("Package {} scanned for @AtmosphereAnnotation",p);
         detector.detect(p);
       }
+    }
+    String path=f.getHandlersPath();
+    if (path != null) {
+      detector.detect(new File(path));
     }
   }
  catch (  IOException e) {

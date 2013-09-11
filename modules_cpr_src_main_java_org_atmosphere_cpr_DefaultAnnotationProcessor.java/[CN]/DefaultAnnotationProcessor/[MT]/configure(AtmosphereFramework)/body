@@ -12,7 +12,7 @@
   }
   logger.info("AnnotationProcessor {} being used",delegate.getClass());
   if (scanForAtmosphereAnnotation) {
-    scanForAnnotation(framework.customAnnotation());
+    scanForAnnotation(framework);
   }
   delegate.configure(framework);
   return this;
