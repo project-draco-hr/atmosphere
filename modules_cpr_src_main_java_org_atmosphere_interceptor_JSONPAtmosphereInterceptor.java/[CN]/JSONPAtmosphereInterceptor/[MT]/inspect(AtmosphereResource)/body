@@ -27,7 +27,7 @@
           if (Arrays.binarySearch(responseDraft,(byte)0x22) != -1) {
             String charEncoding=response.getCharacterEncoding() == null ? "UTF-8" : response.getCharacterEncoding();
             String s=new String(responseDraft,charEncoding);
-            return s.replace("\"","\\\"").getBytes(charEncoding);
+            return s.replaceAll("(['\"\\/])","\\\\$1").replaceAll("\b","\\\\b").replaceAll("\n","\\\\n").replaceAll("\t","\\\\t").replaceAll("\f","\\\\f").replaceAll("\r","\\\\r").getBytes(charEncoding);
           }
           return responseDraft;
         }
