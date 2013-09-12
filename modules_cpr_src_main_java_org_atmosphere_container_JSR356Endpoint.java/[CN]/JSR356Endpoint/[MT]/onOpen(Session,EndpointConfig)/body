@@ -1,4 +1,16 @@
 {
+  if (!webSocketProcessor.handshake(request)) {
+    try {
+      session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT,"Handshake not accepted."));
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
+    return;
+  }
+  if (maxBinaryBufferSize != -1)   session.setMaxBinaryMessageBufferSize(maxBinaryBufferSize);
+  if (webSocketWriteTimeout != -1)   session.setMaxIdleTimeout(webSocketWriteTimeout);
+  if (maxTextBufferSize != -1)   session.setMaxTextMessageBufferSize(maxTextBufferSize);
   webSocket=new JSR356WebSocket(session,framework.getAtmosphereConfig());
   Map<String,String> headers=new HashMap<String,String>();
   headers.put("Sec-WebSocket-Version","13");

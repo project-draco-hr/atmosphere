@@ -11,7 +11,18 @@
  else {
     webSocketWriteTimeout=-1;
   }
-  s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_BUFFER_SIZE);
+  s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE);
   if (s != null) {
+    maxBinaryBufferSize=Integer.valueOf(s);
+  }
+ else {
+    maxBinaryBufferSize=-1;
+  }
+  s=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE);
+  if (s != null) {
+    maxTextBufferSize=Integer.valueOf(s);
+  }
+ else {
+    maxTextBufferSize=-1;
   }
 }

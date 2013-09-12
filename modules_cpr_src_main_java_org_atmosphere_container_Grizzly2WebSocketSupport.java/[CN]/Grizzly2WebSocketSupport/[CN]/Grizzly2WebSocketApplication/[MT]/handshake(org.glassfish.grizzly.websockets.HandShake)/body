@@ -1,0 +1,5 @@
+{
+  if (!webSocketProcessor.handshake(null)) {
+    throw new org.glassfish.grizzly.websockets.HandshakeException("WebSocket not accepted");
+  }
+}

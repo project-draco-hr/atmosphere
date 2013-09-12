@@ -1,0 +1,6 @@
+{
+  if (request != null) {
+    logger.trace("Processing request {}",request);
+  }
+  return true;
+}

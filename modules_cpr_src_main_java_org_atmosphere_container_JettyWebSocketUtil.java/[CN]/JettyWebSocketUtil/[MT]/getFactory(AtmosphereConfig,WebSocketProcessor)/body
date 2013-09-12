@@ -16,6 +16,9 @@
       if (s != null && Boolean.valueOf(s)) {
         isDestroyable=true;
       }
+      if (!webSocketProcessor.handshake(request)) {
+        throw new IllegalStateException();
+      }
       return new JettyWebSocketHandler(AtmosphereRequest.cloneRequest(request,false,useBuildInSession.get(),isDestroyable),config.framework(),webSocketProcessor);
     }
   }

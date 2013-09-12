@@ -1,0 +1,7 @@
+{
+  if (!webSocketProcessor.handshake(null)) {
+    protocolHandler.close(0x00,"");
+    throw new IllegalStateException();
+  }
+  return super.createWebSocket(protocolHandler,listeners);
+}

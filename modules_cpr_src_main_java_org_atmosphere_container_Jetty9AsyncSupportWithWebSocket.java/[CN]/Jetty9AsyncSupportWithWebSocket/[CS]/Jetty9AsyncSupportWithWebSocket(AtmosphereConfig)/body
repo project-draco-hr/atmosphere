@@ -44,15 +44,33 @@
   }
   final WebSocketProcessor webSocketProcessor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config.framework());
   webSocketFactory=new WebSocketServerFactory(policy){
-    @Override public boolean acceptWebSocket(    final HttpServletRequest request,    HttpServletResponse response) throws IOException {
+    @Override public boolean acceptWebSocket(    final HttpServletRequest request,    final HttpServletResponse response) throws IOException {
       setCreator(new WebSocketCreator(){
         public Object createWebSocket(        UpgradeRequest upgradeRequest,        UpgradeResponse upgradeResponse){
           ServletWebSocketRequest r=ServletWebSocketRequest.class.cast(upgradeRequest);
           r.getExtensions().clear();
+          if (!webSocketProcessor.handshake(request)) {
+            try {
+              response.sendError(HttpServletResponse.SC_FORBIDDEN,"WebSocket requests rejected.");
+            }
+ catch (            IOException e) {
+              logger.trace("",e);
+            }
+            return null;
+          }
           return new Jetty9WebSocketHandler(request,config.framework(),webSocketProcessor);
         }
         public Object createWebSocket(        ServletUpgradeRequest req,        ServletUpgradeResponse resp){
           req.getExtensions().clear();
+          if (!webSocketProcessor.handshake(request)) {
+            try {
+              response.sendError(HttpServletResponse.SC_FORBIDDEN,"WebSocket requests rejected.");
+            }
+ catch (            IOException e) {
+              logger.trace("",e);
+            }
+            return null;
+          }
           return new Jetty9WebSocketHandler(request,config.framework(),webSocketProcessor);
         }
       }
