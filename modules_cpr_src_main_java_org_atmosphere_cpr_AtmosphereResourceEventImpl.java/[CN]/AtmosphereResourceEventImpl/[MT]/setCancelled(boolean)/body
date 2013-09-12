@@ -1,6 +1,7 @@
 {
-  check();
-  resource.action().type(Action.TYPE.CANCELLED);
-  this.isCancelled.set(isCancelled);
+  if (check()) {
+    resource.action().type(Action.TYPE.CANCELLED);
+    this.isCancelled.set(isCancelled);
+  }
   return this;
 }
