@@ -1,4 +1,12 @@
 {
   logger.trace("WebSocket.close()");
   close();
+  try {
+    bb.clear();
+    cb.clear();
+    buffer.close(r);
+  }
+ catch (  Exception ex) {
+    logger.trace("",ex);
+  }
 }
