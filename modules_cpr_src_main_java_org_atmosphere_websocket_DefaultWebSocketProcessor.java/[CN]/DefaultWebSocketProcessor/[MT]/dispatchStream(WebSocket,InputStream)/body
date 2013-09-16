@@ -1,9 +1,10 @@
 {
   int read=0;
+  ByteBuffer bb=webSocket.bb;
   while (read > -1) {
     bb.position(bb.position() + read);
     if (bb.remaining() == 0) {
-      resizeByteBuffer();
+      resizeByteBuffer(webSocket);
     }
     read=is.read(bb.array(),bb.position(),bb.remaining());
   }

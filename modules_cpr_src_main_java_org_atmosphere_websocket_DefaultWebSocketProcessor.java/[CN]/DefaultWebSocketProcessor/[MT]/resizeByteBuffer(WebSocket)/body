@@ -1,5 +1,6 @@
 {
   int maxSize=getByteBufferMaxSize();
+  ByteBuffer bb=webSocket.bb;
   if (bb.limit() >= maxSize) {
     throw new IOException("Message Buffer too small");
   }
@@ -10,5 +11,5 @@
   ByteBuffer newBuffer=ByteBuffer.allocate((int)newSize);
   bb.rewind();
   newBuffer.put(bb);
-  bb=newBuffer;
+  webSocket.bb=newBuffer;
 }
