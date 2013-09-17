@@ -25,9 +25,15 @@
           if (idx > -1) {
             jarPath=jarPath.substring(0,idx + 4);
             final File jarFile=new File(jarPath);
-            if (jarFile.isFile()) {
+            if (jarFile.isFile() && jarFile.exists()) {
               files.add(jarFile);
               if (DEBUG)               print("Add jar file from VFS: '%s'",jarFile);
+            }
+ else {
+              List<org.jboss.vfs.VirtualFile> vfs=org.jboss.vfs.VFS.getChild(dir.getPath()).getChildren();
+              for (              org.jboss.vfs.VirtualFile f : vfs) {
+                files.add(f.getPhysicalFile());
+              }
             }
           }
         }

@@ -13,6 +13,7 @@
       detector.detect(new File(path));
     }
     if (!coreAnnotationsFound.get()) {
+      logger.warn("Unable to detect annotations. Application may to deploy.");
       for (      Class a : coreAnnotations) {
         try {
           handler.handleProcessor(loadClass(getClass(),a.getName()));
