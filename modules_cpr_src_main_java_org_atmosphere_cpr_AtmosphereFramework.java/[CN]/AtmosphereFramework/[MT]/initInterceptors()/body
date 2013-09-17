@@ -1,6 +1,7 @@
 {
   for (  AtmosphereInterceptor i : interceptors) {
     i.configure(config);
+    InjectorProvider.getInjector().inject(i);
   }
   for (  AtmosphereHandlerWrapper w : atmosphereHandlers.values()) {
     List<AtmosphereInterceptor> remove=new ArrayList<AtmosphereInterceptor>();
@@ -12,6 +13,7 @@
           remove.add(i);
         }
         i.configure(config);
+        InjectorProvider.getInjector().inject(i);
       }
       for (      AtmosphereInterceptor i : remove) {
         w.interceptors.remove(i);
