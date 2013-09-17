@@ -1,3 +1,3 @@
 {
-  return r.transport() == AtmosphereResource.TRANSPORT.WEBSOCKET ? (String)r.getRequest().getAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID) : r.uuid();
+  return r.transport() == AtmosphereResource.TRANSPORT.WEBSOCKET ? (String)AtmosphereResourceImpl.class.cast(r).getRequest(false).getAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID) : r.uuid();
 }
