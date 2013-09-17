@@ -1,8 +1,15 @@
 {
-  CountDownLatch latch=new CountDownLatch(1);
+  final CountDownLatch latch=new CountDownLatch(1);
   req.setAttribute(LATCH,latch);
   boolean ok=true;
   try {
+    AtmosphereResource resource=req.resource();
+    resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      @Override public void onResume(      AtmosphereResourceEvent event){
+        latch.countDown();
+      }
+    }
+);
     if (action.timeout() != -1) {
       ok=latch.await(action.timeout(),TimeUnit.MILLISECONDS);
     }
