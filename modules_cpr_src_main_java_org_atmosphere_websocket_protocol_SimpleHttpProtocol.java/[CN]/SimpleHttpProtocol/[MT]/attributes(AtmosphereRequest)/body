@@ -1,0 +1,20 @@
+{
+  Map<String,Object> m=new HashMap<String,Object>();
+  m.put(FrameworkConfig.WEBSOCKET_SUBPROTOCOL,FrameworkConfig.SIMPLE_HTTP_OVER_WEBSOCKET);
+  Integer hint=(Integer)request.getAttribute(FrameworkConfig.HINT_ATTRIBUTES_SIZE);
+  try {
+    if (hint != null && hint != request.attributes().size()) {
+      Map<String,Object> copy=(HashMap<String,Object>)HashMap.class.cast(request.attributes()).clone();
+      m.putAll(copy);
+    }
+ else {
+      m.putAll(request.attributes());
+    }
+  }
+ catch (  ConcurrentModificationException ex) {
+    logger.trace("",ex);
+    Map<String,Object> copy=(HashMap<String,Object>)HashMap.class.cast(request.attributes()).clone();
+    m.putAll(copy);
+  }
+  return m;
+}
