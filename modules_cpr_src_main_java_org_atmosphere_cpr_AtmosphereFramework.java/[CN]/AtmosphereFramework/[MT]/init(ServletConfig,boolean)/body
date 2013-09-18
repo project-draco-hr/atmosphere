@@ -61,29 +61,17 @@
     initAtmosphereHandler(scFacade);
     configureAtmosphereInterceptor(scFacade);
     analytics();
-    if (broadcasterCacheClassName == null) {
-      logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. " + "It is recommended to configure the {}",UUIDBroadcasterCache.class.getName());
-    }
- else {
-      logger.info("Using BroadcasterCache: {}",broadcasterCacheClassName);
-    }
     if (sc.getServletContext() != null) {
       sc.getServletContext().setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
-    }
-    for (    String i : broadcasterFilters) {
-      logger.info("Using BroadcastFilter: {}",i);
     }
     String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
     if (s != null) {
       sharedThreadPools=Boolean.parseBoolean(s);
     }
-    logger.info("Shared ExecutorService supported: {}",sharedThreadPools);
-    logger.info("HttpSession supported: {}",config.isSupportSession());
-    logger.info("Using BroadcasterFactory: {}",broadcasterFactory.getClass().getName());
-    logger.info("Using WebSocketProcessor: {}",webSocketProcessorClassName);
-    logger.info("Using Broadcaster: {}",broadcasterClassName);
-    logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
-    logger.info("\n\n\tFor Atmosphere Framework Commercial Support, visit \n\t{} " + "or send an email to {}\n","http://www.async-io.org/","support@async-io.org");
+    for (    String i : broadcasterFilters) {
+      logger.info("Using BroadcastFilter: {}",i);
+    }
+    info();
   }
  catch (  Throwable t) {
     logger.error("Failed to initialize Atmosphere Framework",t);

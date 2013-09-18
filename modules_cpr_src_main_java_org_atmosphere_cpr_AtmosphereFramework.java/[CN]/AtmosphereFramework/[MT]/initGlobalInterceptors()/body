@@ -1,0 +1,6 @@
+{
+  for (  AtmosphereInterceptor i : interceptors) {
+    InjectorProvider.getInjector().inject(i);
+    i.configure(config);
+  }
+}

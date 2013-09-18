@@ -1,0 +1,16 @@
+{
+  if (broadcasterCacheClassName == null) {
+    logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. " + "It is recommended to configure the {}",UUIDBroadcasterCache.class.getName());
+  }
+ else {
+    logger.info("Using BroadcasterCache: {}",broadcasterCacheClassName);
+  }
+  logger.info("Shared ExecutorService supported: {}",sharedThreadPools);
+  logger.info("HttpSession supported: {}",config.isSupportSession());
+  logger.info("Using BroadcasterFactory: {}",broadcasterFactory.getClass().getName());
+  logger.info("Using WebSocketProcessor: {}",webSocketProcessorClassName);
+  logger.info("Using Broadcaster: {}",broadcasterClassName);
+  logger.info("Atmosphere is using async support: {} running under container: {}",getAsyncSupport().getClass().getName(),asyncSupport.getContainerName());
+  logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
+  logger.info("\n\n\tFor Atmosphere Framework Commercial Support, visit \n\t{} " + "or send an email to {}\n","http://www.async-io.org/","support@async-io.org");
+}
