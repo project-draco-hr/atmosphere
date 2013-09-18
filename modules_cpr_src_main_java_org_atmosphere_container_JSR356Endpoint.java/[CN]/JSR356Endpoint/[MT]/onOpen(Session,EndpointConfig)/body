@@ -16,12 +16,35 @@
   headers.put("Sec-WebSocket-Version","13");
   headers.put("Connection","Upgrade");
   headers.put("Upgrade","websocket");
-  StringBuffer pathInfo=new StringBuffer("/");
-  for (  Map.Entry<String,String> e : session.getPathParameters().entrySet()) {
-    pathInfo.append(e.getValue());
+  String pathInfo="";
+  StringBuffer p=new StringBuffer("/");
+  try {
+    ;
+    boolean append=true;
+    for (    Map.Entry<String,String> e : session.getPathParameters().entrySet()) {
+      if (append && !e.getKey().equalsIgnoreCase("{path}")) {
+        append=false;
+      }
+      if (append) {
+        p.append(e.getValue()).append("/");
+      }
+ else {
+        p.insert(0,e.getValue()).insert(0,"/");
+      }
+    }
+    if (p.length() > 0) {
+      p.deleteCharAt(p.length() - 1);
+    }
+    pathInfo=p.toString();
+    if (!pathInfo.equals(servletContext) && pathInfo.length() > servletContext.length()) {
+      pathInfo=p.toString().substring(servletContext.length());
+    }
+  }
+ catch (  Exception ex) {
+    logger.warn("Unexpected path decoding",ex);
   }
   try {
-    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toASCIIString()).requestURL(session.getRequestURI().toASCIIString()).headers(headers).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo.toString()).build().queryString(session.getQueryString());
+    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toASCIIString()).requestURL(session.getRequestURI().toASCIIString()).headers(headers).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).build().queryString(session.getQueryString());
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
