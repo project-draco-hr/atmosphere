@@ -1,9 +1,9 @@
 {
-  Object s=request().getAttribute(PROPERTY_USE_STREAM);
-  if (s == null) {
-    return true;
+  if (atmosphereRequest != null) {
+    Object s=atmosphereRequest.getAttribute(PROPERTY_USE_STREAM);
+    if (s != null) {
+      usingStream.set((Boolean)s);
+    }
   }
- else {
-    return (Boolean)request().getAttribute(PROPERTY_USE_STREAM);
-  }
+  return usingStream.get();
 }
