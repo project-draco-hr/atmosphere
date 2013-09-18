@@ -25,7 +25,7 @@
   }
   Object finalMsg=callable(entry.message);
   if (finalMsg == null) {
-    logger.error("Callable exception. Please catch all exception from you callable. Message {} will be lost and all AtmosphereResource " + "associated with this Broadcaster resumed.",entry.message);
+    logger.error("Callable exception. Please catch all exceptions from your callable. Message {} will be lost and all AtmosphereResource " + "associated with this Broadcaster resumed.",entry.message);
     entryDone(entry.future);
 switch (entry.type) {
 case ALL:
@@ -54,7 +54,7 @@ return;
 Object prevM=entry.originalMessage;
 entry.originalMessage=(entry.originalMessage != entry.message ? callable(entry.originalMessage) : finalMsg);
 if (entry.originalMessage == null) {
-logger.trace("Broadcast message was null {}",prevM);
+logger.trace("Broadcasted message was null {}",prevM);
 entryDone(entry.future);
 return;
 }

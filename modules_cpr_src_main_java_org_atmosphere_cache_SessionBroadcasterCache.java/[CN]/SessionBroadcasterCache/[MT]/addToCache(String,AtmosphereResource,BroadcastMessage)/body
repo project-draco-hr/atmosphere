@@ -12,7 +12,7 @@
   }
  catch (  IllegalStateException ex) {
     logger.trace("",ex);
-    logger.warn("The Session has been invalidated. Message will be loat.");
+    logger.warn("The Session has been invalidated. Message will be lost.");
   }
   return cacheMessage;
 }

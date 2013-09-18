@@ -1,7 +1,7 @@
 {
   String s=config.getInitParameter(ApplicationConfig.SHARED);
   if (s != null && s.equalsIgnoreCase("true")) {
-    logger.warn("Factory shared, will not be destroyed. That can possibly cause memory leaks if" + "Broadcaster where created. Make sure you destroy them manually.");
+    logger.warn("Factory shared, will not be destroyed. This can possibly cause memory leaks if" + "Broadcasters were created. Make sure you destroy them manually.");
     return;
   }
   Enumeration<Broadcaster> e=store.elements();

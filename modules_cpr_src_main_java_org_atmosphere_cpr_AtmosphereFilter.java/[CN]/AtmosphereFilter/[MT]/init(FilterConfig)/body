@@ -1,16 +1,16 @@
 {
   logger.info("AtmosphereServlet running as a Filter");
   as.init(new ServletConfig(){
-    public String getServletName(){
+    @Override public String getServletName(){
       return filterConfig.getFilterName();
     }
-    public ServletContext getServletContext(){
+    @Override public ServletContext getServletContext(){
       return filterConfig.getServletContext();
     }
-    public String getInitParameter(    String name){
+    @Override public String getInitParameter(    String name){
       return filterConfig.getInitParameter(name);
     }
-    public Enumeration<String> getInitParameterNames(){
+    @Override public Enumeration<String> getInitParameterNames(){
       return filterConfig.getInitParameterNames();
     }
   }

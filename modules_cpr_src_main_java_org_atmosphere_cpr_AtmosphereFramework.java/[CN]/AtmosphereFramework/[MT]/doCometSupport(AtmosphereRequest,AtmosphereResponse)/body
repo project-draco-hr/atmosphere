@@ -7,7 +7,7 @@
  catch (  IllegalStateException ex) {
     if (ex.getMessage() != null && (ex.getMessage().startsWith("Tomcat failed") || ex.getMessage().startsWith("JBoss failed"))) {
       if (!isFilter) {
-        logger.warn("Failed using comet support: {}, error: {} Is the Nio or Apr Connector enabled?",asyncSupport.getClass().getName(),ex.getMessage());
+        logger.warn("Failed using comet support: {}, error: {} Is the NIO or APR Connector enabled?",asyncSupport.getClass().getName(),ex.getMessage());
       }
       logger.error("If you have more than one Connector enabled, make sure they both use the same protocol, " + "e.g NIO/APR or HTTP for all. If not, {} will be used and cannot be changed.",BlockingIOCometSupport.class.getName());
       logger.trace(ex.getMessage(),ex);

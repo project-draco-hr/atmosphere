@@ -13,7 +13,7 @@
       m.clear();
     }
     if (l.isEmpty()) {
-      logger.warn("No Broadcaster match {}. Message {} WILL BE LOST. Make sure you cache it or make sure the Broadcaster exists before.",path,message);
+      logger.warn("No Broadcaster matches {}. Message {} WILL BE LOST. Make sure you cache it or make sure the Broadcaster exists before.",path,message);
       return E;
     }
     MetaBroadcasterFuture f=new MetaBroadcasterFuture(l);

@@ -2,7 +2,7 @@
 synchronized (id) {
     logger.trace("About to create {}",id);
     if (unique && store.get(id) != null) {
-      throw new IllegalStateException("Broadcaster already existing " + id + ". Use BroadcasterFactory.lookup instead");
+      throw new IllegalStateException("Broadcaster already exists " + id + ". Use BroadcasterFactory.lookup instead");
     }
     T b=(T)store.get(id);
     logger.trace("Looking in the store using {} returned {}",id,b);

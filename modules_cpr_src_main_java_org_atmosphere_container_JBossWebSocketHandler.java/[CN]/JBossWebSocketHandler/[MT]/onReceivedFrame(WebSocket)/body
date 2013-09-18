@@ -19,6 +19,6 @@
     }
   }
  else {
-    logger.trace("WebSocket.onReceivedFrame but no atmosphere processor in request, skipping: " + frame);
+    logger.trace("WebSocket.onReceivedFrame but no atmosphere processor in request, skipping: {}",frame);
   }
 }

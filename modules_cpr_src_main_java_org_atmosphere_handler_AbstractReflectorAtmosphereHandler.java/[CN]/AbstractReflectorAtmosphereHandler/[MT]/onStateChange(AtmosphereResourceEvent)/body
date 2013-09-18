@@ -18,7 +18,7 @@
       }
     }
  catch (    Throwable ex) {
-      logger.warn("Serializer exception: message: " + message,ex);
+      logger.warn("Serializer exception: message: {}",message,ex);
       throw new IOException(ex);
     }
   }
