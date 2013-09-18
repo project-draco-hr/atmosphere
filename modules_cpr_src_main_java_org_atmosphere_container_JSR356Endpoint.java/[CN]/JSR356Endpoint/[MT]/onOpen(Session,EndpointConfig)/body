@@ -19,7 +19,6 @@
   String pathInfo="";
   StringBuffer p=new StringBuffer("/");
   try {
-    ;
     boolean append=true;
     for (    Map.Entry<String,String> e : session.getPathParameters().entrySet()) {
       if (append && !e.getKey().equalsIgnoreCase("{path}")) {
@@ -32,7 +31,7 @@
         p.insert(0,e.getValue()).insert(0,"/");
       }
     }
-    if (p.length() > 0) {
+    if (p.length() > 1) {
       p.deleteCharAt(p.length() - 1);
     }
     pathInfo=p.toString();
