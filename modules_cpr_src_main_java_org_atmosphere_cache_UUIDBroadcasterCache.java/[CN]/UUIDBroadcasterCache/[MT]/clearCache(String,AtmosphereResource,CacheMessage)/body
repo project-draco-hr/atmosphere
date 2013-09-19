@@ -1,5 +1,7 @@
 {
   if (message == null) {
+    AtmosphereResourceEvent e=r.getAtmosphereResourceEvent();
+    logger.trace("Cached message is null for {}, but event was {}",r.uuid(),e == null ? "null" : e.getMessage());
     return;
   }
   String clientId=uuid(r);
