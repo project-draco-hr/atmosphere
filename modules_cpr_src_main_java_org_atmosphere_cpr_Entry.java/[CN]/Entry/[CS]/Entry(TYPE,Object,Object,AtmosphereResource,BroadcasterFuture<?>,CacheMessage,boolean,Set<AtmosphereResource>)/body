@@ -1,0 +1,10 @@
+{
+  this.message=message;
+  this.future=future;
+  this.writeLocally=writeLocally;
+  this.originalMessage=originalMessage;
+  this.type=type;
+  this.resource=r;
+  this.cache=cache;
+  this.resources=resources;
+}

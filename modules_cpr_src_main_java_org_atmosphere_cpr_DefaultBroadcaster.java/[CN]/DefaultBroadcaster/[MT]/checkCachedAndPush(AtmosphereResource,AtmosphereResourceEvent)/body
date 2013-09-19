@@ -19,7 +19,7 @@
         continue;
       }
       if (entry.message != null) {
-        filteredMessage.addLast(newMessage);
+        filteredMessage.addLast(entry.message);
       }
     }
     if (filteredMessage.size() == 0) {

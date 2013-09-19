@@ -1,9 +1,3 @@
 {
-  this.message=message;
-  this.future=future;
-  this.writeLocally=true;
-  this.originalMessage=originalMessage;
-  this.type=TYPE.RESOURCE;
-  this.resource=r;
-  this.resources=null;
+  this(TYPE.RESOURCE,originalMessage,message,r,future,null,true,null);
 }

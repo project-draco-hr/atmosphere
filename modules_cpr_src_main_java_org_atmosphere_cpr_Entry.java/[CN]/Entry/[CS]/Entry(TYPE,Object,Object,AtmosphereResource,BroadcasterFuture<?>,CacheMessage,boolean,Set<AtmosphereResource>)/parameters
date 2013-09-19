@@ -1,0 +1,8 @@
+TYPE type
+Object originalMessage
+Object message
+AtmosphereResource r
+BroadcasterFuture<?> future
+CacheMessage cache
+boolean writeLocally
+Set<AtmosphereResource> resources
