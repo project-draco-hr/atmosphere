@@ -10,13 +10,13 @@
     if (aa != null) {
       l.add(aa);
     }
-    Object c=aClass.newInstance();
+    Object c=framework.newClassInstance(aClass);
     AtmosphereHandler handler=new ManagedAtmosphereHandler(c);
     l.add(new ManagedServiceInterceptor(ManagedAtmosphereHandler.class.cast(handler)));
     Class<?>[] interceptors=a.interceptors();
     for (    Class i : interceptors) {
       try {
-        l.add((AtmosphereInterceptor)i.newInstance());
+        l.add((AtmosphereInterceptor)framework.newClassInstance(i));
       }
  catch (      Throwable e) {
         logger.warn("",e);

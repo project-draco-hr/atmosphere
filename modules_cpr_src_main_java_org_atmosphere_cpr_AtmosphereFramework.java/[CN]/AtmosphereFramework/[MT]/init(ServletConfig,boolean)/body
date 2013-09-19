@@ -44,6 +44,7 @@
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
     asyncSupportListener(new AsyncSupportListenerAdapter());
+    configureClassInstantiator();
     configureAnnotationPackages();
     configureBroadcasterFactory();
     configureScanningPackage(scFacade);

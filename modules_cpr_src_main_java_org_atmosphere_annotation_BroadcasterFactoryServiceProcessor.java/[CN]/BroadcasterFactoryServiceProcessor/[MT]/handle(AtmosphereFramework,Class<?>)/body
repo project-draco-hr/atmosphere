@@ -1,7 +1,7 @@
 {
   try {
     Class<BroadcasterFactory> bf=(Class<BroadcasterFactory>)annotatedClass;
-    framework.setBroadcasterFactory(bf.newInstance());
+    framework.setBroadcasterFactory(framework.newClassInstance(bf));
     framework.configureBroadcasterFactory();
   }
  catch (  Throwable e) {

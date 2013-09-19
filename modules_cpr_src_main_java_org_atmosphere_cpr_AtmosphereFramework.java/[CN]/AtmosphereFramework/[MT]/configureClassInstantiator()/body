@@ -1,0 +1,13 @@
+{
+  String s=config.getInitParameter(ApplicationConfig.CUSTOM_CLASS_INSTANTIATOR);
+  if (s != null) {
+    ClassLoader cl=Thread.currentThread().getContextClassLoader();
+    try {
+      AtmosphereClassInstantiator aci=(AtmosphereClassInstantiator)cl.loadClass(s).newInstance();
+      if (aci != null)       atmosphereClassInstantiator(aci);
+    }
+ catch (    Exception ex) {
+      logger.warn("Unable to load AtmosphereClassInstantiator instance",ex);
+    }
+  }
+}

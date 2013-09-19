@@ -9,7 +9,7 @@
     try {
       if (!atmoHandler.getClassName().startsWith("@")) {
         if (!ReflectorServletProcessor.class.getName().equals(atmoHandler.getClassName())) {
-          handler=(AtmosphereHandler)c.loadClass(atmoHandler.getClassName()).newInstance();
+          handler=(AtmosphereHandler)newClassInstance(c.loadClass(atmoHandler.getClassName()));
         }
  else {
           handler=new ReflectorServletProcessor();
@@ -65,7 +65,7 @@
         if (atmoHandler.getAtmosphereInterceptorClasses() != null) {
           for (          String a : atmoHandler.getAtmosphereInterceptorClasses()) {
             try {
-              AtmosphereInterceptor ai=(AtmosphereInterceptor)c.loadClass(a).newInstance();
+              AtmosphereInterceptor ai=(AtmosphereInterceptor)newClassInstance(c.loadClass(a));
               l.add(ai);
             }
  catch (            Throwable e) {

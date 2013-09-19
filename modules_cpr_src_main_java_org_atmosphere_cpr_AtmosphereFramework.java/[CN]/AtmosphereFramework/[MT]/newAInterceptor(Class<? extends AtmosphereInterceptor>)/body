@@ -1,7 +1,7 @@
 {
   AtmosphereInterceptor ai=null;
   try {
-    ai=(AtmosphereInterceptor)getClass().getClassLoader().loadClass(a.getName()).newInstance();
+    ai=(AtmosphereInterceptor)newClassInstance(getClass().getClassLoader().loadClass(a.getName()));
     logger.info("\t{} : {}",a.getName(),ai);
   }
  catch (  Exception ex) {

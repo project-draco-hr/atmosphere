@@ -1,7 +1,7 @@
 {
   for (  Class i : interceptors) {
     try {
-      framework.interceptor((AtmosphereInterceptor)i.newInstance());
+      framework.interceptor((AtmosphereInterceptor)framework.newClassInstance(i));
     }
  catch (    Throwable e) {
       logger.warn("",e);
