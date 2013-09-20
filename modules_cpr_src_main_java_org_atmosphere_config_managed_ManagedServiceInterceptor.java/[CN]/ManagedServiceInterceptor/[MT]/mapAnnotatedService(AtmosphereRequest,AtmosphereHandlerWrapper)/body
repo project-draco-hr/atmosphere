@@ -30,7 +30,7 @@ synchronized (config.handlers()) {
             try {
               boolean singleton=ap.target().getClass().getAnnotation(Singleton.class) != null;
               if (!singleton) {
-                ManagedAtmosphereHandler h=(ManagedAtmosphereHandler)w.atmosphereHandler.getClass().getConstructor(Object.class).newInstance(ap.target().getClass().newInstance());
+                ManagedAtmosphereHandler h=(ManagedAtmosphereHandler)w.atmosphereHandler.getClass().getConstructor(Object.class).newInstance(config.framework().newClassInstance(ap.target().getClass()));
                 w.interceptors.set(0,new ManagedServiceInterceptor(h));
                 config.framework().addAtmosphereHandler(path,h,w.interceptors);
               }
