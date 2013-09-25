@@ -13,9 +13,9 @@
   if (maxTextBufferSize != -1)   session.setMaxTextMessageBufferSize(maxTextBufferSize);
   webSocket=new JSR356WebSocket(session,framework.getAtmosphereConfig());
   Map<String,String> headers=new HashMap<String,String>();
-  headers.put("Sec-WebSocket-Version","13");
-  headers.put("Connection","Upgrade");
-  headers.put("Upgrade","websocket");
+  for (  Map.Entry<String,List<String>> e : handshakeRequest.getHeaders().entrySet()) {
+    headers.put(e.getKey(),e.getValue().size() > 0 ? e.getValue().get(0) : "");
+  }
   String pathInfo="";
   StringBuffer p=new StringBuffer("/");
   try {
@@ -43,7 +43,7 @@
     logger.warn("Unexpected path decoding",ex);
   }
   try {
-    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toASCIIString()).requestURL(session.getRequestURI().toASCIIString()).headers(headers).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).build().queryString(session.getQueryString());
+    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toASCIIString()).requestURL(session.getRequestURI().toASCIIString()).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).userPrincipal(session.getUserPrincipal()).build().queryString(session.getQueryString());
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");

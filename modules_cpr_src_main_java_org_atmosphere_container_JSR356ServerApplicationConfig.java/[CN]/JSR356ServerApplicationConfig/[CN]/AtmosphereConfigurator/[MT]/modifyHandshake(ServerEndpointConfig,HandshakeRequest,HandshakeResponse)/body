@@ -1,0 +1,4 @@
+{
+  endPoint.get().handshakeRequest(request);
+  endPoint.set(null);
+}
