@@ -1,0 +1,8 @@
+{
+  if (Utils.webSocketEnabled(req)) {
+    return suspended(req,res);
+  }
+ else {
+    return super.service(req,res);
+  }
+}

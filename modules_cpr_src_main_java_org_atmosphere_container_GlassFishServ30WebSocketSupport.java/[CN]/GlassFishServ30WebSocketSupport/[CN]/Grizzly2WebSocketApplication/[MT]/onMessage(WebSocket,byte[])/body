@@ -1,0 +1,9 @@
+{
+  super.onMessage(socket,bytes);
+  LOGGER.trace("onMessage(byte[]) {} ",socket);
+  DefaultWebSocket g2w=DefaultWebSocket.class.cast(socket);
+  org.atmosphere.websocket.WebSocket webSocket=(org.atmosphere.websocket.WebSocket)g2w.getUpgradeRequest().getAttribute("grizzly.webSocket");
+  if (webSocket != null) {
+    webSocketProcessor.invokeWebSocketProtocol(webSocket,bytes,0,bytes.length);
+  }
+}
