@@ -1,0 +1,13 @@
+{
+  if (!Utils.webSocketEnabled(request)) {
+    return super.service(request,response);
+  }
+ else {
+    boolean webSocketNotSupported=request.getAttribute(WebSocket.WEBSOCKET_SUSPEND) == null;
+    if (webSocketNotSupported) {
+      WebSocket.notSupported(request,response);
+      return Action.CANCELLED;
+    }
+    return suspended(request,response);
+  }
+}
