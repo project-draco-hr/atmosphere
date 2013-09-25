@@ -3,7 +3,7 @@
   try {
     session.close();
   }
- catch (  IOException e) {
+ catch (  Exception e) {
     logger.trace("",e);
   }
 }
