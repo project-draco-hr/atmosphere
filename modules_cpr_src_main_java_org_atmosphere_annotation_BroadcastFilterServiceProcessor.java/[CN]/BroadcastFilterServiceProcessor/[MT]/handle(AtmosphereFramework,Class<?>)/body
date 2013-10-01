@@ -1,6 +1,6 @@
 {
   try {
-    framework.broadcasterFilters((BroadcastFilter)annotatedClass.newInstance());
+    framework.broadcasterFilters((BroadcastFilter)framework.newClassInstance(annotatedClass));
   }
  catch (  Exception e) {
     logger.warn("",e);

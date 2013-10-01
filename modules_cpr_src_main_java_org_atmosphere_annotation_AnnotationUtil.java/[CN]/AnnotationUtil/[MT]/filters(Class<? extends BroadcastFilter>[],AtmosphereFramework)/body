@@ -1,5 +1,5 @@
 {
   for (  Class<? extends BroadcastFilter> b : bf) {
-    framework.broadcasterFilters(b.newInstance());
+    framework.broadcasterFilters(framework.newClassInstance(b));
   }
 }

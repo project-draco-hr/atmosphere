@@ -4,7 +4,7 @@
       broadcasterClassName=lookupDefaultBroadcasterType(broadcasterClassName);
     }
     if (broadcasterFactoryClassName != null) {
-      broadcasterFactory=(BroadcasterFactory)Thread.currentThread().getContextClassLoader().loadClass(broadcasterFactoryClassName).newInstance();
+      broadcasterFactory=(BroadcasterFactory)newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(broadcasterFactoryClassName));
     }
     if (broadcasterFactory == null) {
       Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);

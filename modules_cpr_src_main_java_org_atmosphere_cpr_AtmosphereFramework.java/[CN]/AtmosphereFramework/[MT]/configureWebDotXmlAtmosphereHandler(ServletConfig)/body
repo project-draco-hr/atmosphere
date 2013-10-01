@@ -7,7 +7,7 @@
       if (mapping == null) {
         mapping=ROOT;
       }
-      addAtmosphereHandler(mapping,(AtmosphereHandler)cl.loadClass(s).newInstance());
+      addAtmosphereHandler(mapping,(AtmosphereHandler)newClassInstance(cl.loadClass(s)));
     }
  catch (    Exception ex) {
       logger.warn("Unable to load WebSocketHandle instance",ex);

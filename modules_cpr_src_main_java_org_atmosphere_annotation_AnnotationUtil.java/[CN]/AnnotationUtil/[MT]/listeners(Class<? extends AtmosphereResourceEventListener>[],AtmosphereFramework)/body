@@ -6,7 +6,7 @@
           if (!r.isSuspended()) {
             for (            Class<? extends AtmosphereResourceEventListener> l : listeners) {
               try {
-                r.addEventListener(l.newInstance());
+                r.addEventListener(framework.newClassInstance(l));
               }
  catch (              Throwable e) {
                 logger.warn("",e);

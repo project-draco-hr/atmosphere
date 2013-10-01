@@ -1,0 +1,3 @@
+{
+  return atmosphereClassInstantiatorClassName.newClassInstance(this,classToInstantiate);
+}
