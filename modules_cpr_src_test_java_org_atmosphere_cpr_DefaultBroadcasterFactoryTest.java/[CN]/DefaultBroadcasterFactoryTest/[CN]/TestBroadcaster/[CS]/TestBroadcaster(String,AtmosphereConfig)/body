@@ -1,4 +1,0 @@
-{
-  super(name,config);
-  instance.incrementAndGet();
-}

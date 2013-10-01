@@ -1,0 +1,3 @@
+{
+  return initialize(name,URI.create("http://localhost"),config);
+}

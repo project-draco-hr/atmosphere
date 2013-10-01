@@ -1,10 +1,10 @@
 {
   Filter f;
   try {
-    f=(Filter)urlC.loadClass(fClass).newInstance();
+    f=(Filter)config.framework().newClassInstance(urlC.loadClass(fClass));
   }
  catch (  NullPointerException ex) {
-    f=(Filter)Thread.currentThread().getContextClassLoader().loadClass(fClass).newInstance();
+    f=(Filter)config.framework().newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(fClass));
   }
   return f;
 }

@@ -5,7 +5,6 @@
   if (path.endsWith("/")) {
     path=path + mappingRegex;
   }
-  InjectorProvider.getInjector().inject(w.atmosphereHandler);
   atmosphereHandlers.put(path,w);
   return this;
 }

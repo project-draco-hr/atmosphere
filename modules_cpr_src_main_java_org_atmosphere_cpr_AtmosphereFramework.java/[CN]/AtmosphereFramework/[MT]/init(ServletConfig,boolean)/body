@@ -1,7 +1,6 @@
 {
   if (isInit)   return this;
   try {
-    ServletContextHolder.register(this);
     ServletConfig scFacade;
     if (wrap) {
       scFacade=new ServletConfig(){
@@ -44,7 +43,7 @@
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
     asyncSupportListener(new AsyncSupportListenerAdapter());
-    configureClassInstantiator();
+    configureObjectFactory();
     configureAnnotationPackages();
     configureBroadcasterFactory();
     configureScanningPackage(scFacade);

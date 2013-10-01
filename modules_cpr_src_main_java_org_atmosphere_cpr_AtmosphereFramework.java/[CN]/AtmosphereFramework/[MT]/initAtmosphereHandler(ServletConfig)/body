@@ -5,7 +5,7 @@
     w=h.getValue();
     a=w.atmosphereHandler;
     if (a instanceof AtmosphereServletProcessor) {
-      ((AtmosphereServletProcessor)a).init(sc);
+      ((AtmosphereServletProcessor)a).init(config);
     }
   }
   if (atmosphereHandlers.size() == 0 && !SimpleHttpProtocol.class.isAssignableFrom(webSocketProtocol.getClass())) {

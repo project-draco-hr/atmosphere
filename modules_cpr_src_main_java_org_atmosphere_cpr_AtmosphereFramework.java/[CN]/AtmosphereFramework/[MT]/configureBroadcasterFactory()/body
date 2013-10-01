@@ -14,7 +14,6 @@
       broadcasterFactory.addBroadcasterListener(b);
     }
     BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
-    InjectorProvider.getInjector().inject(broadcasterFactory);
   }
  catch (  Exception ex) {
     logger.error("Unable to configure Broadcaster/Factory/Cache",ex);

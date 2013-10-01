@@ -10,7 +10,6 @@
         Class<?> clazz=classloader.loadClass(className);
         if (WebSocketProtocol.class.isAssignableFrom(clazz)) {
           webSocketProtocol=(WebSocketProtocol)newClassInstance(clazz);
-          InjectorProvider.getInjector().inject(webSocketProtocol);
           logger.info("Installed WebSocketProtocol {}",webSocketProtocol);
         }
       }

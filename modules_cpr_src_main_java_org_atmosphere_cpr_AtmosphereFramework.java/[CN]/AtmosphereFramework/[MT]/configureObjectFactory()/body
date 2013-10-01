@@ -1,0 +1,17 @@
+{
+  if (!DefaultAtmosphereObjectFactory.class.isAssignableFrom(objectFactory.getClass())) {
+    logger.trace("ObjectFactory already set to {}",objectFactory);
+    return;
+  }
+  String s=config.getInitParameter(ApplicationConfig.OBJECT_FACTORY);
+  if (s != null) {
+    ClassLoader cl=Thread.currentThread().getContextClassLoader();
+    try {
+      AtmosphereObjectFactory aci=(AtmosphereObjectFactory)cl.loadClass(s).newInstance();
+      if (aci != null)       objectFactory(aci);
+    }
+ catch (    Exception ex) {
+      logger.warn("Unable to load AtmosphereClassInstantiator instance",ex);
+    }
+  }
+}

@@ -1,8 +1,6 @@
 {
   try {
-    Class<?> clazz=getClass().getClassLoader().loadClass(WEB_SOCKET_HANDLER);
-    Constructor<?> ctor=clazz.getDeclaredConstructor(new Class[]{AtmosphereConfig.class});
-    return HttpEventServlet.class.cast(ctor.newInstance(config));
+    return new JBossWebSocketHandler(config);
   }
  catch (  Exception e) {
     logger.error("Cannot instantiate JBossWebSocketHandler. Websocket events will not be handled.",e);

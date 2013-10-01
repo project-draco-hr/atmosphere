@@ -8,13 +8,11 @@
  catch (      ClassNotFoundException ex) {
         broadcasterCache=(BroadcasterCache)config.framework().newClassInstance(getClass().getClassLoader().loadClass(className));
       }
-      InjectorProvider.getInjector().inject(broadcasterCache);
       configureSharedCacheExecutor();
       broadcasterCache.configure(this);
     }
     for (    BroadcasterCacheInspector b : config.framework().inspectors()) {
       broadcasterCache.inspector(b);
-      InjectorProvider.getInjector().inject(b);
     }
   }
  catch (  InstantiationException e) {

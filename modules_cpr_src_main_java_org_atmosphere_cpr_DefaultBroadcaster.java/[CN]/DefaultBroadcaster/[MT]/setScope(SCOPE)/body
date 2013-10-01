@@ -13,8 +13,7 @@ synchronized (resources) {
       for (      AtmosphereResource resource : resources) {
         Broadcaster b=config.getBroadcasterFactory().get(getClass(),getClass().getSimpleName() + "/" + UUID.randomUUID());
         if (DefaultBroadcaster.class.isAssignableFrom(this.getClass())) {
-          BroadcasterCache cache=bc.getBroadcasterCache().getClass().newInstance();
-          InjectorProvider.getInjector().inject(cache);
+          BroadcasterCache cache=config.framework().newClassInstance(bc.getBroadcasterCache().getClass());
           b.getBroadcasterConfig().setBroadcasterCache(cache);
         }
         resource.setBroadcaster(b);

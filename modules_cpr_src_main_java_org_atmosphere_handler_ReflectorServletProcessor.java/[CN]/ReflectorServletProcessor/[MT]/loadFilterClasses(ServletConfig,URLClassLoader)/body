@@ -3,7 +3,6 @@
     String fClass=fClassAndName.getKey();
     String filterName=fClassAndName.getValue();
     Filter f=loadFilter(urlC,fClass);
-    InjectorProvider.getInjector().inject(f);
     if (filterName == null) {
       if (sc.getInitParameter(APPLICATION_NAME) != null) {
         filterName=sc.getInitParameter(APPLICATION_NAME);

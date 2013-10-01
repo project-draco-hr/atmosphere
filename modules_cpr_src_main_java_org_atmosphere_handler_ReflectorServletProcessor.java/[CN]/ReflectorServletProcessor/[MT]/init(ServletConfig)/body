@@ -1,9 +1,0 @@
-{
-  try {
-    loadWebApplication(sc);
-  }
- catch (  Exception ex) {
-    throw new ServletException(ex);
-  }
-  wrapper.init(sc);
-}

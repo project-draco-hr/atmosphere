@@ -11,7 +11,7 @@
       l.add(aa);
     }
     Object c=framework.newClassInstance(aClass);
-    AtmosphereHandler handler=new ManagedAtmosphereHandler(c);
+    AtmosphereHandler handler=new ManagedAtmosphereHandler().configure(framework.getAtmosphereConfig(),c);
     l.add(new ManagedServiceInterceptor(ManagedAtmosphereHandler.class.cast(handler)));
     Class<?>[] interceptors=a.interceptors();
     for (    Class i : interceptors) {

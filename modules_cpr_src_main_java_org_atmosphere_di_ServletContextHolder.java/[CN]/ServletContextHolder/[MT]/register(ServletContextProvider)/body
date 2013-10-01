@@ -1,3 +1,0 @@
-{
-  PROVIDER.set(new WeakReference<ServletContextProvider>(provider));
-}

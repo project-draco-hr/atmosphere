@@ -3,7 +3,7 @@
     List<Decoder<?,?>> l=new CopyOnWriteArrayList<Decoder<?,?>>();
     for (    Class<? extends Decoder> s : m.getAnnotation(Message.class).decoders()) {
       try {
-        l.add(s.newInstance());
+        l.add(config.framework().newClassInstance(s));
       }
  catch (      Exception e) {
         logger.error("Unable to load encoder {}",s);

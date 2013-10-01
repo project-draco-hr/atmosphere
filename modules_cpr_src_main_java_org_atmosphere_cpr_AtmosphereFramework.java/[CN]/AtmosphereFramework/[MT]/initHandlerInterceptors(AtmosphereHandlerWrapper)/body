@@ -7,7 +7,6 @@
         positionInterceptor(p,i);
         remove.add(i);
       }
-      InjectorProvider.getInjector().inject(i);
       i.configure(config);
     }
     for (    AtmosphereInterceptor i : remove) {

@@ -38,12 +38,12 @@
           @Override public void destroy(){
             r.destroy();
           }
-          @Override public void init(          ServletConfig sc) throws ServletException {
-            String s=sc.getInitParameter(ATMOSPHERERESOURCE_INTERCEPTOR_METHOD);
+          @Override public void init(          AtmosphereConfig config) throws ServletException {
+            String s=config.getInitParameter(ATMOSPHERERESOURCE_INTERCEPTOR_METHOD);
             if (s != null) {
               method=s;
             }
-            r.init(sc);
+            r.init(config);
           }
         }
 ;

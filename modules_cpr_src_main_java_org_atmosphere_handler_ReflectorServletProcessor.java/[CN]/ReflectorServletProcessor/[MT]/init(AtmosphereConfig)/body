@@ -1,0 +1,10 @@
+{
+  this.config=config;
+  try {
+    loadWebApplication(config.getServletConfig());
+  }
+ catch (  Exception ex) {
+    throw new ServletException(ex);
+  }
+  wrapper.init(config.getServletConfig());
+}

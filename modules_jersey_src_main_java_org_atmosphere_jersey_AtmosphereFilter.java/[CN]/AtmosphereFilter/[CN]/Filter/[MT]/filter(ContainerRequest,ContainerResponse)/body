@@ -66,7 +66,6 @@ if (listeners != null) {
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
 AtmosphereResourceEventListener el=listener.newInstance();
-InjectorProvider.getInjector().inject(el);
 r.addEventListener(el);
 }
  catch (Throwable t) {
@@ -151,7 +150,6 @@ if (listeners != null) {
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
 AtmosphereResourceEventListener el=listener.newInstance();
-InjectorProvider.getInjector().inject(el);
 r.addEventListener(el);
 }
  catch (Throwable t) {

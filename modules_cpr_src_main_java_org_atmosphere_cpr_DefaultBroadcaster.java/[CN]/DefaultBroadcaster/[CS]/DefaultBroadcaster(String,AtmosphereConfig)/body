@@ -1,3 +1,0 @@
-{
-  this(name,URI.create("http://localhost"),config);
-}

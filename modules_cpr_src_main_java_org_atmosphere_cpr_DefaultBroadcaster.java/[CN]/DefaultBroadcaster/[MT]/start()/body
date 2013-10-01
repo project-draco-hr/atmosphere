@@ -1,4 +1,7 @@
 {
+  if (!initialized.get()) {
+    logger.warn("Broadcaster {} not initialized",getID());
+  }
   if (!started.getAndSet(true)) {
     bc.getBroadcasterCache().start();
     setID(name);

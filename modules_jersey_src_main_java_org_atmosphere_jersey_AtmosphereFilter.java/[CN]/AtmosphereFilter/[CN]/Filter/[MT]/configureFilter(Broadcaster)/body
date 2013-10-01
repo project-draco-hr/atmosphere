@@ -13,7 +13,6 @@
     for (    Class<BroadcastFilter> filter : filters) {
       try {
         f=filter.newInstance();
-        InjectorProvider.getInjector().inject(f);
       }
  catch (      Throwable t) {
         logger.warn("Invalid @BroadcastFilter: " + filter,t);

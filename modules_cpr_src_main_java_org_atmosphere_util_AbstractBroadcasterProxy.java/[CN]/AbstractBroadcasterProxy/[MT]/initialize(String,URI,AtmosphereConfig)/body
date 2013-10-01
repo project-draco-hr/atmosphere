@@ -1,0 +1,3 @@
+{
+  return super.initialize(id,uri,config);
+}

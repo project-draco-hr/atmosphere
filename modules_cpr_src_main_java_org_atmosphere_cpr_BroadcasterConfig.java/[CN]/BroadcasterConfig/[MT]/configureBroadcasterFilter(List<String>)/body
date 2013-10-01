@@ -2,7 +2,7 @@
   for (  String broadcastFilter : list) {
     BroadcastFilter bf=null;
     try {
-      bf=BroadcastFilter.class.cast(Thread.currentThread().getContextClassLoader().loadClass(broadcastFilter).newInstance());
+      bf=BroadcastFilter.class.cast(config.framework().newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(broadcastFilter)));
     }
  catch (    InstantiationException e) {
       logger.warn("Error trying to instantiate BroadcastFilter: {}",broadcastFilter,e);
@@ -12,7 +12,7 @@ catch (    IllegalAccessException e) {
     }
 catch (    ClassNotFoundException e) {
       try {
-        bf=BroadcastFilter.class.cast(BroadcastFilter.class.getClassLoader().loadClass(broadcastFilter).newInstance());
+        bf=BroadcastFilter.class.cast(config.framework().newClassInstance(BroadcastFilter.class.getClassLoader().loadClass(broadcastFilter)));
       }
  catch (      InstantiationException e1) {
       }
@@ -23,7 +23,6 @@ catch (      ClassNotFoundException e1) {
       }
     }
     if (bf != null) {
-      InjectorProvider.getInjector().inject(bf);
       addFilter(bf);
     }
   }
