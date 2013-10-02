@@ -1,0 +1,44 @@
+{
+  StringBuffer buf=new StringBuffer();
+  buf.append(c.getName());
+  buf.append("=");
+  int newVersion=c.getVersion();
+  maybeQuote(buf,c.getValue());
+  if (newVersion == 1) {
+    buf.append("; Version=1");
+    if (c.getComment() != null) {
+      buf.append("; Comment=");
+      maybeQuote(buf,c.getComment());
+    }
+  }
+  if (c.getDomain() != null) {
+    buf.append("; Domain=");
+    maybeQuote(buf,c.getDomain());
+  }
+  if (c.getMaxAge() >= 0) {
+    if (newVersion > 0) {
+      buf.append("; Max-Age=");
+      buf.append(c.getMaxAge());
+    }
+    if (newVersion == 0) {
+      buf.append("; Expires=");
+      if (c.getMaxAge() == 0) {
+        buf.append(ancientDate);
+      }
+ else {
+        OLD_COOKIE_FORMAT.get().format(new Date(System.currentTimeMillis() + c.getMaxAge() * 1000L),buf,new FieldPosition(0));
+      }
+    }
+  }
+  if (c.getPath() != null) {
+    buf.append("; Path=");
+    maybeQuote(buf,c.getPath());
+  }
+  if (c.getSecure()) {
+    buf.append("; Secure");
+  }
+  if (c.isHttpOnly()) {
+    buf.append("; HttpOnly");
+  }
+  return buf.toString();
+}
