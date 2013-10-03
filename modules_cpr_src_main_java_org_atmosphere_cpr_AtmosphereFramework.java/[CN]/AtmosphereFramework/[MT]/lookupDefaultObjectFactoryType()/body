@@ -1,0 +1,12 @@
+{
+  for (  String b : objectFactoryType) {
+    try {
+      Class<?> c=Class.forName(b);
+      return (AtmosphereObjectFactory)c.newInstance();
+    }
+ catch (    Exception e) {
+      logger.trace("",e);
+    }
+  }
+  return objectFactory;
+}

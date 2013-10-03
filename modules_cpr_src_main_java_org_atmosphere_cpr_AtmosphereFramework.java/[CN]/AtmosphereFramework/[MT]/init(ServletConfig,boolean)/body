@@ -1,5 +1,8 @@
 {
   if (isInit)   return this;
+  readSystemProperties();
+  populateBroadcasterType();
+  populateObjectFactoryType();
   try {
     ServletConfig scFacade;
     if (wrap) {
@@ -42,6 +45,7 @@
     preventOOM();
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
+    objectFactory=lookupDefaultObjectFactoryType();
     asyncSupportListener(new AsyncSupportListenerAdapter());
     configureObjectFactory();
     configureAnnotationPackages();
@@ -67,9 +71,6 @@
     String s=config.getInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS);
     if (s != null) {
       sharedThreadPools=Boolean.parseBoolean(s);
-    }
-    for (    String i : broadcasterFilters) {
-      logger.info("Using BroadcastFilter: {}",i);
     }
     info();
   }

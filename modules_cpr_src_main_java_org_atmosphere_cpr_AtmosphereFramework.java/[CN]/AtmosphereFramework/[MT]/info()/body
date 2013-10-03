@@ -1,4 +1,7 @@
 {
+  for (  String i : broadcasterFilters) {
+    logger.info("Using BroadcastFilter: {}",i);
+  }
   if (broadcasterCacheClassName == null || DefaultBroadcasterCache.class.getName().equals(broadcasterCacheClassName)) {
     logger.warn("No BroadcasterCache configured. Broadcasted message between client reconnection will be LOST. " + "It is recommended to configure the {}",UUIDBroadcasterCache.class.getName());
   }
@@ -14,5 +17,6 @@
   logger.info("Using Broadcaster: {}",broadcasterClassName);
   logger.info("Atmosphere is using async support: {} running under container: {}",getAsyncSupport().getClass().getName(),asyncSupport.getContainerName());
   logger.info("Atmosphere Framework {} started.",Version.getRawVersion());
+  logger.info("Atmosphere is using {} for dependency injection and object creation",objectFactory);
   logger.info("\n\n\tFor Atmosphere Framework Commercial Support, visit \n\t{} " + "or send an email to {}\n","http://www.async-io.org/","support@async-io.org");
 }

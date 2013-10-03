@@ -1,0 +1,5 @@
+{
+  objectFactoryType.add(CDI_INJECTOR);
+  objectFactoryType.add(SPRING_INJECTOR);
+  objectFactoryType.add(GUICE_INJECTOR);
+}
