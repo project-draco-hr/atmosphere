@@ -1,9 +1,0 @@
-{
-  String s=sc.getInitParameter(ApplicationConfig.ANNOTATION_PACKAGE);
-  if (s != null) {
-    String[] list=s.split(",");
-    for (    String a : list) {
-      packages.add(a);
-    }
-  }
-}

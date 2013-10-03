@@ -1,0 +1,8 @@
+{
+  if (packageName != null) {
+    String[] list=packageName.split(",");
+    for (    String a : list) {
+      packages.add(a);
+    }
+  }
+}
