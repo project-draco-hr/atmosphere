@@ -1,4 +1,5 @@
 {
+  String packageName=sc.getInitParameter(value);
   if (packageName != null) {
     String[] list=packageName.split(",");
     for (    String a : list) {

@@ -1,2 +1,2 @@
 ServletConfig sc
-String packageName
+String value
