@@ -1,8 +1,9 @@
 {
   final AtmosphereResponse response=r.getResponse();
-  String uuid=r.getRequest().getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
+  final AtmosphereRequest request=r.getRequest();
+  String uuid=request.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
   boolean padding=r.transport().equals(TRANSPORT.STREAMING) || r.transport().equals(TRANSPORT.LONG_POLLING);
-  if (uuid != null && !uuid.equals("0") && r.transport().equals(TRANSPORT.WEBSOCKET)) {
+  if (uuid != null && !uuid.equals("0") && r.transport().equals(TRANSPORT.WEBSOCKET) && request.getAttribute(INJECTED_ATMOSPHERE_RESOURCE) != null) {
     padding=true;
   }
   if (padding) {
@@ -14,7 +15,7 @@
         private void padding(){
           if (!r.isSuspended()) {
             writePadding(response);
-            r.getRequest().setAttribute("paddingWritten","true");
+            request.setAttribute("paddingWritten","true");
           }
         }
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
