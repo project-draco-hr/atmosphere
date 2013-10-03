@@ -1,6 +1,11 @@
 {
   framework=new AtmosphereFramework();
-  framework.setAsyncSupport(new BlockingIOCometSupport(framework.getAtmosphereConfig()));
+  framework.setAsyncSupport(new AsynchronousProcessor(framework.getAtmosphereConfig()){
+    @Override public Action service(    AtmosphereRequest req,    AtmosphereResponse res) throws IOException, ServletException {
+      return action(req,res);
+    }
+  }
+);
   framework.addInitParameter(RECYCLE_ATMOSPHERE_REQUEST_RESPONSE,"false");
   framework.init(new ServletConfig(){
     @Override public String getServletName(){
