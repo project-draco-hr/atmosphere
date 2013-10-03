@@ -1,7 +1,7 @@
 {
   if (m != null) {
     try {
-      return m.invoke(object,o == null ? new Object[]{} : new Object[]{o});
+      return m.invoke(proxiedInstance,o == null ? new Object[]{} : new Object[]{o});
     }
  catch (    IllegalAccessException e) {
       logger.debug("",e);

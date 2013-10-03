@@ -1,5 +1,5 @@
 {
-  this.object=c;
+  this.proxiedInstance=c;
   this.onRuntimeMethod=populateMessage(c,Message.class);
   this.onDisconnectMethod=populate(c,Disconnect.class);
   this.onTimeoutMethod=populate(c,Resume.class);

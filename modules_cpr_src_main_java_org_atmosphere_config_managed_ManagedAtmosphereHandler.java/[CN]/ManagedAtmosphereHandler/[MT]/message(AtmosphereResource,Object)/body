@@ -7,10 +7,10 @@
       }
       Object objectToEncode=null;
       if (m.getParameterTypes().length == 2) {
-        objectToEncode=Invoker.invokeMethod(m,object,resource,decoded);
+        objectToEncode=Invoker.invokeMethod(m,proxiedInstance,resource,decoded);
       }
  else {
-        objectToEncode=Invoker.invokeMethod(m,object,decoded);
+        objectToEncode=Invoker.invokeMethod(m,proxiedInstance,decoded);
       }
       if (objectToEncode != null) {
         return Invoker.encode(encoders.get(m),objectToEncode);

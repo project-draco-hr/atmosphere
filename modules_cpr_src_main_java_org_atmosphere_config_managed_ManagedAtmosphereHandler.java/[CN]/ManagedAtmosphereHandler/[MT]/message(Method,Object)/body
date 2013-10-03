@@ -1,6 +1,6 @@
 {
   if (m != null) {
-    return Invoker.all(encoders.get(m),EMPTY,o,object,m);
+    return Invoker.all(encoders.get(m),EMPTY,o,proxiedInstance,m);
   }
   return null;
 }

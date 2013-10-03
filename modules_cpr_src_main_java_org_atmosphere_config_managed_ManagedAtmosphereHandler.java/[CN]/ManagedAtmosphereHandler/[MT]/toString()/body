@@ -1,3 +1,3 @@
 {
-  return "ManagedAtmosphereHandler proxy for " + object.getClass().getName();
+  return "ManagedAtmosphereHandler proxy for " + proxiedInstance.getClass().getName();
 }
