@@ -13,16 +13,7 @@
       detector.detect(new File(path));
     }
     if (!coreAnnotationsFound.get()) {
-      logger.warn("Unable to detect annotations. Application may fail to deploy.");
-      f.annotationScanned(true);
-      for (      Class a : coreAnnotations) {
-        try {
-          handler.handleProcessor(loadClass(getClass(),a.getName()));
-        }
- catch (        Exception e) {
-          logger.trace("",e);
-        }
-      }
+      fallbackToManualAnnotatedClasses(getClass(),f,handler);
     }
   }
  catch (  IOException e) {

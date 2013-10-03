@@ -1,0 +1,12 @@
+{
+  logger.warn("Unable to detect annotations. Application may fail to deploy.");
+  f.annotationScanned(true);
+  for (  Class a : coreAnnotations) {
+    try {
+      handler.handleProcessor(loadClass(mainClass,a.getName()));
+    }
+ catch (    Exception e) {
+      logger.trace("",e);
+    }
+  }
+}
