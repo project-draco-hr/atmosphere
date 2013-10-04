@@ -1,7 +1,4 @@
 {
-  if (!loggedMsg.getAndSet(true)) {
-    logger.debug("Atmosphere detected WebSocket: {}",webSocket.getClass().getName());
-  }
   if (framework.getAtmosphereConfig().handlers().size() == 0) {
     framework.addAtmosphereHandler("/*",AtmosphereFramework.REFLECTOR_ATMOSPHEREHANDLER);
   }
