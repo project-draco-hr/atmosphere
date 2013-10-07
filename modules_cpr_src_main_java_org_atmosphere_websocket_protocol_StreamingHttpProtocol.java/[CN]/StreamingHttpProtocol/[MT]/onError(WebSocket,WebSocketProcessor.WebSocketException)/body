@@ -1,0 +1,3 @@
+{
+  logger.warn(t.getMessage() + " Status {} Message {}",t.response().getStatus(),t.response().getStatusMessage());
+}

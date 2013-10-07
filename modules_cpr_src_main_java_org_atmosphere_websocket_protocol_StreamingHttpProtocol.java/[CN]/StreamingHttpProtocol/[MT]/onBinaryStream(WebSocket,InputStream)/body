@@ -6,6 +6,6 @@
   }
   AtmosphereRequest request=resource.getRequest();
   List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
-  list.add(constructRequest(resource,request.getPathInfo(),request.getRequestURI(),methodType,contentType,destroyable).body(d,offset,length).build());
+  list.add(constructRequest(resource,request.getPathInfo(),request.getRequestURI(),methodType,contentType,destroyable).inputStream(stream).build());
   return list;
 }

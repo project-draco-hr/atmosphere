@@ -16,8 +16,7 @@
       d=d.substring(bodyBeginIndex + delimiterLength);
     }
   }
-  Map<String,Object> m=attributes(request);
   List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
-  list.add(new AtmosphereRequest.Builder().request(request).method(methodType).contentType(contentType).body(d).attributes(m).pathInfo(pathInfo).requestURI(requestURI).destroyable(destroyable).headers(request.headersMap()).session(resource.session()).build());
+  list.add(constructRequest(resource,pathInfo,requestURI,methodType,contentType,destroyable).body(d).build());
   return list;
 }

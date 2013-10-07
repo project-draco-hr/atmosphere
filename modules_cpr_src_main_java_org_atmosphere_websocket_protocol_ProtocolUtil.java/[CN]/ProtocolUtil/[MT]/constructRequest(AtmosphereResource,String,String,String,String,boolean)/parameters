@@ -1,0 +1,6 @@
+AtmosphereResource resource
+String pathInfo
+String requestURI
+String methodType
+String contentType
+boolean destroyable

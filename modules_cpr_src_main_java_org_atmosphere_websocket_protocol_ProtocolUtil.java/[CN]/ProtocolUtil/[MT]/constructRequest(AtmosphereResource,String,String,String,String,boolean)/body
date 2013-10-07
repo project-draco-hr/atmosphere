@@ -1,0 +1,6 @@
+{
+  AtmosphereRequest request=resource.getRequest();
+  Map<String,Object> m=attributes(request);
+  AtmosphereRequest.Builder b=(new AtmosphereRequest.Builder().request(request).method(methodType).contentType(contentType).attributes(m).pathInfo(pathInfo).requestURI(requestURI).destroyable(destroyable).headers(request.headersMap()).session(resource.session()));
+  return b;
+}

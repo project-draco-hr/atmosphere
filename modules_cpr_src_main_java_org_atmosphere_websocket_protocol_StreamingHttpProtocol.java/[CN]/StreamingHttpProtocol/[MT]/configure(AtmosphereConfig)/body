@@ -1,0 +1,24 @@
+{
+  String contentType=config.getInitParameter(ApplicationConfig.WEBSOCKET_CONTENT_TYPE);
+  if (contentType == null) {
+    contentType="text/plain";
+  }
+  this.contentType=contentType;
+  String methodType=config.getInitParameter(ApplicationConfig.WEBSOCKET_METHOD);
+  if (methodType == null) {
+    methodType="POST";
+  }
+  this.methodType=methodType;
+  String delimiter=config.getInitParameter(ApplicationConfig.WEBSOCKET_PATH_DELIMITER);
+  if (delimiter == null) {
+    delimiter="@@";
+  }
+  this.delimiter=delimiter;
+  String s=config.getInitParameter(ApplicationConfig.RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
+  if (s != null && Boolean.valueOf(s)) {
+    destroyable=true;
+  }
+ else {
+    destroyable=false;
+  }
+}
