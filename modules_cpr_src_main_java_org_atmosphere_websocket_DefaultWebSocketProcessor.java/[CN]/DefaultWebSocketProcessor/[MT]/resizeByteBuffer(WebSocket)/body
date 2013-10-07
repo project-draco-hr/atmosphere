@@ -2,7 +2,7 @@
   int maxSize=getByteBufferMaxSize();
   ByteBuffer bb=webSocket.bb;
   if (bb.limit() >= maxSize) {
-    throw new IOException("Message Buffer too small");
+    throw new IOException("Message Buffer too small. Use " + StreamingHttpProtocol.class.getName() + " when streaming over websocket.");
   }
   long newSize=bb.limit() * 2;
   if (newSize > maxSize) {
