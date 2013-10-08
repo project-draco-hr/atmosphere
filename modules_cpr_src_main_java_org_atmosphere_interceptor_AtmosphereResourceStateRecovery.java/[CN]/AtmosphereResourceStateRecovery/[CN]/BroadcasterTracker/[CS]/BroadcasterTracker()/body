@@ -1,4 +1,4 @@
 {
-  this.broadcasterIds=new LinkedList<String>();
+  this.broadcasterIds=new ConcurrentLinkedQueue<String>();
   tick=System.currentTimeMillis();
 }
