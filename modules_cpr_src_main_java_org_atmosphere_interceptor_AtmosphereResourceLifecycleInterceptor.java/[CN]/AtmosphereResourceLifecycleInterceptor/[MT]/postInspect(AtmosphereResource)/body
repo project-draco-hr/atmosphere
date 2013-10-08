@@ -1,25 +1,2 @@
 {
-  if (r.transport().equals(AtmosphereResource.TRANSPORT.UNDEFINED))   return;
-  if (!AtmosphereResourceImpl.class.cast(r).action().equals(Action.CANCELLED) && r.getRequest().getMethod().equalsIgnoreCase(method)) {
-    logger.trace("Marking AtmosphereResource {} for suspend operation",r.uuid());
-    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
-      @Override public void onBroadcast(      AtmosphereResourceEvent event){
-switch (r.transport()) {
-case JSONP:
-case AJAX:
-case LONG_POLLING:
-          break;
-default :
-        try {
-          r.getResponse().flushBuffer();
-        }
- catch (        IOException e) {
-          logger.trace("",e);
-        }
-      break;
-  }
-}
-}
-).suspend();
-}
 }

@@ -3,4 +3,8 @@
   if (s != null) {
     method=s;
   }
+  s=config.getInitParameter(ATMOSPHERERESOURCE_INTERCEPTOR_TIMEOUT);
+  if (s != null) {
+    timeoutInSeconds=Integer.valueOf(s);
+  }
 }
