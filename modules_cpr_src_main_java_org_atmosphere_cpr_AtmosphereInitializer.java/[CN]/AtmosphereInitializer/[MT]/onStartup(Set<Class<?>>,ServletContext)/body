@@ -3,12 +3,10 @@
   framework=(AtmosphereFramework)c.getAttribute(AtmosphereFramework.class.getName());
   if (framework == null) {
     framework=new AtmosphereFramework(false,true);
-    try {
-      framework.init(c);
-      c.setAttribute(AtmosphereFramework.class.getName(),framework);
+    DefaultAsyncSupportResolver resolver=new DefaultAsyncSupportResolver(framework.getAtmosphereConfig());
+    if (resolver.testClassExists(DefaultAsyncSupportResolver.JSR356_WEBSOCKET)) {
+      framework.setAsyncSupport(new JSR356AsyncSupport(framework.getAtmosphereConfig()));
     }
- catch (    ServletException ex) {
-      throw new RuntimeException(ex);
-    }
+    c.setAttribute(AtmosphereFramework.class.getName(),framework);
   }
 }

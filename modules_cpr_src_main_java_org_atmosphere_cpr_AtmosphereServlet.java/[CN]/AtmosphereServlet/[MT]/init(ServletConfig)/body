@@ -3,6 +3,6 @@
   super.init(sc);
   if (framework == null) {
     framework=new AtmosphereFramework(isFilter,autoDetectHandlers);
-    framework.init(sc);
   }
+  framework.init(sc);
 }
