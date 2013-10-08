@@ -1,4 +1,6 @@
 {
+  if (isDestroyed)   return this;
+  isDestroyed=true;
   if (asyncSupport != null && AsynchronousProcessor.class.isAssignableFrom(asyncSupport.getClass())) {
     ((AsynchronousProcessor)asyncSupport).shutdown();
   }

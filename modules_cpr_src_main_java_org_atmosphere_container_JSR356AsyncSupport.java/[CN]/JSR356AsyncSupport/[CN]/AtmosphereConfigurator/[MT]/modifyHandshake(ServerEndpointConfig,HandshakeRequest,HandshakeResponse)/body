@@ -1,4 +1,9 @@
 {
-  endPoint.get().handshakeRequest(request);
-  endPoint.set(null);
+  if (endPoint.get() == null) {
+    hRequest.set(request);
+  }
+ else {
+    endPoint.get().handshakeRequest(request);
+    endPoint.set(null);
+  }
 }

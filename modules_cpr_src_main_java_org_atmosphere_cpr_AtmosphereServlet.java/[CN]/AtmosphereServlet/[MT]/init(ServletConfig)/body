@@ -1,4 +1,8 @@
 {
+  framework=(AtmosphereFramework)sc.getServletContext().getAttribute(AtmosphereFramework.class.getName());
   super.init(sc);
-  framework.init(sc);
+  if (framework == null) {
+    framework=new AtmosphereFramework(isFilter,autoDetectHandlers);
+    framework.init(sc);
+  }
 }

@@ -1,0 +1,14 @@
+{
+  ServerContainer container=(ServerContainer)c.getAttribute(ServerContainer.class.getName());
+  if (container != null && framework == null) {
+    logger.trace("Initializing AtmosphereFramework");
+    framework=new AtmosphereFramework(false,true);
+    try {
+      framework.init(c);
+      c.setAttribute(AtmosphereFramework.class.getName(),framework);
+    }
+ catch (    ServletException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+}
