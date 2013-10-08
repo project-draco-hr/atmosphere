@@ -35,15 +35,22 @@
       p.deleteCharAt(p.length() - 1);
     }
     pathInfo=p.toString();
-    if (!pathInfo.equals(servletContext) && pathInfo.length() > servletContext.length()) {
-      pathInfo=p.toString().substring(servletContext.length());
+    if (!pathInfo.equals(servletPath) && pathInfo.length() > servletPath.length()) {
+      pathInfo=p.toString().substring(servletPath.length());
+    }
+ else     if (pathInfo.equals(servletPath)) {
+      pathInfo=null;
     }
   }
  catch (  Exception ex) {
     logger.warn("Unexpected path decoding",ex);
   }
   try {
-    request=new AtmosphereRequest.Builder().requestURI(session.getRequestURI().toASCIIString()).requestURL(session.getRequestURI().toASCIIString()).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).userPrincipal(session.getUserPrincipal()).build().queryString(session.getQueryString());
+    String requestUri=session.getRequestURI().toASCIIString();
+    if (requestUri.contains("?")) {
+      requestUri=requestUri.substring(0,requestUri.indexOf("?"));
+    }
+    request=new AtmosphereRequest.Builder().requestURI(requestUri).requestURL(requestUri).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).servletPath(servletPath).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).userPrincipal(session.getUserPrincipal()).build().queryString(session.getQueryString());
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
