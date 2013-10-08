@@ -1,6 +1,7 @@
 {
   BroadcasterTracker t=states.get(r.uuid());
-  if (t != null && (r.getAtmosphereResourceEvent().isClosedByClient() || !r.isResumed())) {
+  AtmosphereResourceEvent e=r.getAtmosphereResourceEvent();
+  if (t != null && (e.isClosedByClient() || !r.isResumed() && !e.isResumedOnTimeout())) {
     t.remove(b);
   }
  else {
