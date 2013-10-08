@@ -1,4 +1,4 @@
 {
-  framework.setBroadcasterFactory(new MyBroadcasterFactory());
   super.init(config);
+  framework.setBroadcasterFactory(new MyBroadcasterFactory());
 }
