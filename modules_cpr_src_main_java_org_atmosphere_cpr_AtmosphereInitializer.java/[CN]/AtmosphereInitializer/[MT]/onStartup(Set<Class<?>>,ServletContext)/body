@@ -1,7 +1,7 @@
 {
-  Object container=c.getAttribute("javax.websocket.server.ServerContainer");
-  if (container != null && framework == null) {
-    logger.trace("Initializing AtmosphereFramework");
+  logger.trace("Initializing AtmosphereFramework");
+  framework=(AtmosphereFramework)c.getAttribute(AtmosphereFramework.class.getName());
+  if (framework == null) {
     framework=new AtmosphereFramework(false,true);
     try {
       framework.init(c);
