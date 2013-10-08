@@ -4,6 +4,6 @@
   }
  catch (  final Exception e) {
     logger.error("failed to create comet support class: {}, error: {}",targetClass,e.getMessage());
-    throw new IllegalArgumentException("Comet support class " + targetClass.getCanonicalName() + " has bad signature.",e);
+    throw new IllegalArgumentException("Unable to create" + targetClass,e);
   }
 }
