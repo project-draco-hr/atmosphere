@@ -21,7 +21,7 @@ synchronized (id) {
         nb=createBroadcaster(c,id);
         store.put(id,nb);
       }
-      if (nb == null) {
+      if (nb == null && logger.isTraceEnabled()) {
         logger.trace("Added Broadcaster {} . Factory size: {}",id,store.size());
       }
       b=(T)nb;
