@@ -29,10 +29,12 @@
     if (a != null) {
       notify(a.type(),req,res);
     }
-    if (req != null && a != null && a.type() != Action.TYPE.SUSPEND) {
-      req.destroy();
-      res.destroy();
-      notify(Action.TYPE.DESTROYED,req,res);
+    if (!externalizeDestroy) {
+      if (req != null && a != null && a.type() != Action.TYPE.SUSPEND) {
+        req.destroy();
+        res.destroy();
+        notify(Action.TYPE.DESTROYED,req,res);
+      }
     }
   }
   return a;

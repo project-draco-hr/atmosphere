@@ -1,0 +1,4 @@
+{
+  this.externalizeDestroy=externalizeDestroy;
+  return this;
+}
