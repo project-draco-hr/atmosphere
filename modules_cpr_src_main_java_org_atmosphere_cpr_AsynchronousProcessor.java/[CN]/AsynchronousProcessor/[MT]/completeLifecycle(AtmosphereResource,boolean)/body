@@ -22,16 +22,6 @@ synchronized (impl) {
           }
         }
         invokeAtmosphereHandler(impl);
-        try {
-          impl.getResponse().getOutputStream().close();
-        }
- catch (        Throwable t) {
-          try {
-            impl.getResponse().getWriter().close();
-          }
- catch (          Throwable t2) {
-          }
-        }
       }
  catch (      Throwable ex) {
         logger.trace("Failed to cancel resource: {}",impl.uuid(),ex);
@@ -40,6 +30,16 @@ synchronized (impl) {
         try {
           impl.notifyListeners();
           impl.setIsInScope(false);
+          try {
+            impl.getResponse().getOutputStream().close();
+          }
+ catch (          Throwable t) {
+            try {
+              impl.getResponse().getWriter().close();
+            }
+ catch (            Throwable t2) {
+            }
+          }
           impl.cancel();
         }
  catch (        Throwable t) {
