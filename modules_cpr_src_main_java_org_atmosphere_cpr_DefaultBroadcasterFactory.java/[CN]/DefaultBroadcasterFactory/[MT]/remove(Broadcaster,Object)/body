@@ -1,6 +1,6 @@
 {
   boolean removed=store.remove(id,b);
-  if (removed) {
+  if (removed && logger.isDebugEnabled()) {
     logger.debug("Removing Broadcaster {} factory size now {} ",id,store.size());
   }
   return removed;
