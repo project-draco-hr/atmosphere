@@ -1,10 +1,3 @@
 {
-  Object o=message(resource,msg);
-  if (o != null) {
-    return o;
-  }
- else   if (onRuntimeMethod.size() == 0) {
-    return msg;
-  }
-  return o;
+  return message(resource,msg);
 }
