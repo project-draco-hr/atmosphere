@@ -2,7 +2,7 @@
   if (list == null)   return;
   for (  final AtmosphereRequest r : list) {
     if (r != null) {
-      boolean b=r.dispatchRequestAsynchronously();
+      r.dispatchRequestAsynchronously();
       asyncExecutor.execute(new Runnable(){
         @Override public void run(){
           AtmosphereResponse w=new AtmosphereResponse(webSocket,r,destroyable);
