@@ -1,3 +1,6 @@
 {
+  if (framework == null) {
+    framework=newAtmosphereFramework();
+  }
   return framework;
 }

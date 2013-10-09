@@ -1,0 +1,10 @@
+{
+  if (framework == null) {
+    framework=(AtmosphereFramework)sc.getServletContext().getAttribute(AtmosphereFramework.class.getName());
+    if (framework == null) {
+      framework=newAtmosphereFramework();
+    }
+  }
+  framework.init(sc);
+  return this;
+}
