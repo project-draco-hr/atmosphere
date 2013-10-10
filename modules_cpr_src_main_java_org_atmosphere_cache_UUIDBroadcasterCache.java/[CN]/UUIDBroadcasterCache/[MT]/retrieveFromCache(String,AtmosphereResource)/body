@@ -3,10 +3,8 @@
   long now=System.currentTimeMillis();
   List<Object> result=new ArrayList<Object>();
   ClientQueue clientQueue;
-synchronized (messages) {
-    activeClients.put(clientId,now);
-    clientQueue=messages.remove(clientId);
-  }
+  activeClients.put(clientId,now);
+  clientQueue=messages.remove(clientId);
   List<CacheMessage> clientMessages;
   if (clientQueue == null) {
     clientMessages=Collections.emptyList();
@@ -18,10 +16,8 @@ synchronized (messages) {
     result.add(cacheMessage.getMessage());
   }
   if (logger.isTraceEnabled()) {
-synchronized (messages) {
-      logger.trace("Retrieved for AtmosphereResource {} cached messages {}",r.uuid(),result);
-      logger.trace("Available cached message {}",messages);
-    }
+    logger.trace("Retrieved for AtmosphereResource {} cached messages {}",r.uuid(),result);
+    logger.trace("Available cached message {}",messages);
   }
   return result;
 }

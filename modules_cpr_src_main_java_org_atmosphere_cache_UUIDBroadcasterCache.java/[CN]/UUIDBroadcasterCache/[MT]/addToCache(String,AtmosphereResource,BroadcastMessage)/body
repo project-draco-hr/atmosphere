@@ -7,17 +7,15 @@
   long now=System.currentTimeMillis();
   String messageId=UUID.randomUUID().toString();
   CacheMessage cacheMessage=new CacheMessage(messageId,e);
-synchronized (messages) {
-    if (r == null) {
-      for (      Map.Entry<String,Long> entry : activeClients.entrySet()) {
-        addMessageIfNotExists(entry.getKey(),cacheMessage);
-      }
+  if (r == null) {
+    for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {
+      addMessageIfNotExists(entry.getKey(),cacheMessage);
     }
+  }
  else {
-      String clientId=uuid(r);
-      activeClients.put(clientId,now);
-      addMessageIfNotExists(clientId,cacheMessage);
-    }
+    String clientId=uuid(r);
+    activeClients.put(clientId,now);
+    addMessageIfNotExists(clientId,cacheMessage);
   }
   return cacheMessage;
 }

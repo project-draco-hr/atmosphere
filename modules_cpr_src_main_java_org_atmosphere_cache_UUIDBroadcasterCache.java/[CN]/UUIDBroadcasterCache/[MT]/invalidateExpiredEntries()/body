@@ -1,16 +1,14 @@
 {
   long now=System.currentTimeMillis();
-synchronized (messages) {
-    Set<String> inactiveClients=new HashSet<String>();
-    for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {
-      if (now - entry.getValue() > clientIdleTime) {
-        logger.trace("Invalidate client {}",entry.getKey());
-        inactiveClients.add(entry.getKey());
-      }
+  Set<String> inactiveClients=new HashSet<String>();
+  for (  Map.Entry<String,Long> entry : activeClients.entrySet()) {
+    if (now - entry.getValue() > clientIdleTime) {
+      logger.debug("Invalidate client {}",entry.getKey());
+      inactiveClients.add(entry.getKey());
     }
-    for (    String clientId : inactiveClients) {
-      activeClients.remove(clientId);
-      messages.remove(clientId);
-    }
+  }
+  for (  String clientId : inactiveClients) {
+    activeClients.remove(clientId);
+    messages.remove(clientId);
   }
 }
