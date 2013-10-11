@@ -1,0 +1,16 @@
+{
+  recovery.configure(config);
+  recovery.inspect(r);
+  final AtomicBoolean resumed=new AtomicBoolean();
+  final CountDownLatch latch=new CountDownLatch(1);
+  r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onResume(    AtmosphereResourceEvent event){
+      resumed.set(true);
+    }
+  }
+).suspend();
+  latch.await(2,TimeUnit.SECONDS);
+  r.resume();
+  assertTrue(resumed.get());
+  assertEquals(recovery.states().size(),1);
+}
