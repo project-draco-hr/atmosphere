@@ -3,5 +3,6 @@
   if (t == null) {
     t=track(r);
   }
+  logger.trace("Starting tracking the state of {} with broadcaster {}",r.uuid(),b.getID());
   t.add(b);
 }
