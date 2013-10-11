@@ -1,4 +1,5 @@
 {
+  recovery.states().clear();
   recovery.configure(config);
   recovery.inspect(r);
   r.suspend();

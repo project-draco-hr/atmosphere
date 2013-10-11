@@ -1,8 +1,11 @@
 {
   BroadcasterTracker t=states.get(r.uuid());
   AtmosphereResourceEvent e=r.getAtmosphereResourceEvent();
-  if (t != null && (e.isClosedByClient() || !r.isResumed() && !e.isResumedOnTimeout())) {
-    t.remove(b);
+  if (e.isClosedByClient() || !r.isResumed() && !e.isResumedOnTimeout()) {
+    logger.trace("Deleting the state of {} with broadcaster {}",r.uuid(),b.getID());
+    if (t != null) {
+      t.remove(b);
+    }
   }
  else {
     onAddAtmosphereResource(b,r);
