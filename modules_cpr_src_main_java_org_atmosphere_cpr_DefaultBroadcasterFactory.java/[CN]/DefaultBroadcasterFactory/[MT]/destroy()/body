@@ -19,6 +19,7 @@
       logger.debug("Destroy",t);
     }
   }
+  broadcasterListeners.clear();
   store.clear();
   factory=null;
 }
