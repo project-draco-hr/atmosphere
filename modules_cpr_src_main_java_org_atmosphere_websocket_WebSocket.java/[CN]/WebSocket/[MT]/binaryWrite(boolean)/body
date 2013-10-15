@@ -1,0 +1,4 @@
+{
+  this.binaryWrite=binaryWrite;
+  return this;
+}
