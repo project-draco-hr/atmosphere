@@ -37,7 +37,7 @@ synchronized (handlers) {
         }
       }
     }
+    webSocket.resource().setBroadcaster(framework.getBroadcasterFactory().lookup(path,true));
   }
-  webSocket.resource().setBroadcaster(framework.getBroadcasterFactory().lookup(path,true));
   return w;
 }
