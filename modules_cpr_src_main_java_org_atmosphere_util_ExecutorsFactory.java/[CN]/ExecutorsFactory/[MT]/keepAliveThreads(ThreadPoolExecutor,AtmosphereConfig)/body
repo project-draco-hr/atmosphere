@@ -1,0 +1,8 @@
+{
+  int keepAlive=DEFAULT_KEEP_ALIVE;
+  String s=config.getInitParameter(ApplicationConfig.EXECUTORFACTORY_KEEP_ALIVE);
+  if (s != null) {
+    keepAlive=Integer.parseInt(s);
+  }
+  e.setKeepAliveTime(keepAlive,TimeUnit.SECONDS);
+}

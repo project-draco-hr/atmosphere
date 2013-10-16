@@ -2,7 +2,7 @@
   final boolean shared=config.framework().isShareExecutorServices();
   boolean isAsyncExecutorShared=shared ? true : false;
   if (!shared || config.properties().get("asyncWriteService") == null) {
-    int numberOfAsyncThread=-1;
+    int numberOfAsyncThread=DEFAULT_ASYNC_THREAD;
     String s=config.getInitParameter(ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
     if (s != null) {
       numberOfAsyncThread=Integer.parseInt(s);
@@ -11,9 +11,9 @@
       logger.warn("Not enough numberOfAsyncThread for a shareable thread pool {}, " + "Setting it to a newCachedThreadPool",numberOfAsyncThread);
       numberOfAsyncThread=-1;
     }
-    ExecutorService asyncWriteService;
+    ThreadPoolExecutor asyncWriteService;
     if (numberOfAsyncThread == -1) {
-      asyncWriteService=Executors.newCachedThreadPool(new ThreadFactory(){
+      asyncWriteService=(ThreadPoolExecutor)Executors.newCachedThreadPool(new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
           Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-AsyncOp-" + count.getAndIncrement());
@@ -24,7 +24,7 @@
 );
     }
  else {
-      asyncWriteService=Executors.newFixedThreadPool(numberOfAsyncThread,new ThreadFactory(){
+      asyncWriteService=(ThreadPoolExecutor)Executors.newFixedThreadPool(numberOfAsyncThread,new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
         @Override public Thread newThread(        final Runnable runnable){
           Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-AsyncOp-" + count.getAndIncrement());
@@ -34,6 +34,7 @@
       }
 );
     }
+    keepAliveThreads(asyncWriteService,config);
     if (shared) {
       config.properties().put("asyncWriteService",asyncWriteService);
     }
