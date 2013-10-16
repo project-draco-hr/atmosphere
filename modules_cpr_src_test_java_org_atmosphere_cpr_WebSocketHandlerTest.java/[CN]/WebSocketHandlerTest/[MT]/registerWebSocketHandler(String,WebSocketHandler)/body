@@ -1,0 +1,3 @@
+{
+  WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework).registerWebSocketHandler(path,new WebSocketProcessor.WebSocketHandlerProxy(framework.getBroadcasterFactory().lookup("/*",true).getClass(),w));
+}

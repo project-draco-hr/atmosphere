@@ -2,8 +2,8 @@
   ByteArrayOutputStream b=new ByteArrayOutputStream();
   final WebSocket w=new ArrayBaseWebSocket(b);
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
-  processor.registerWebSocketHandler("/a",new EchoHandler());
-  processor.registerWebSocketHandler("/b",new EchoHandler(){
+  registerWebSocketHandler("/a",new EchoHandler());
+  registerWebSocketHandler("/b",new EchoHandler(){
     @Override public void onTextMessage(    WebSocket webSocket,    String data) throws IOException {
       webSocket.write("2" + data);
     }

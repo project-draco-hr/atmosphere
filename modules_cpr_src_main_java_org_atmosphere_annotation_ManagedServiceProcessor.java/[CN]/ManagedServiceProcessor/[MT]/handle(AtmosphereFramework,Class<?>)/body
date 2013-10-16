@@ -4,7 +4,6 @@
     ManagedService a=aClass.getAnnotation(ManagedService.class);
     List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
     atmosphereConfig(a.atmosphereConfig(),framework);
-    framework.setDefaultBroadcasterClassName(a.broadcaster().getName());
     filters(a.broadcastFilters(),framework);
     AtmosphereInterceptor aa=listeners(a.listeners(),framework);
     if (aa != null) {
@@ -22,7 +21,7 @@
         logger.warn("",e);
       }
     }
-    framework.addAtmosphereHandler(a.path(),handler,l);
+    framework.addAtmosphereHandler(a.path(),handler,framework.getBroadcasterFactory().lookup(a.broadcaster(),true),l);
   }
  catch (  Throwable e) {
     logger.warn("",e);
