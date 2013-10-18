@@ -1,6 +1,6 @@
 {
   if (framework.getAtmosphereConfig().handlers().size() == 0) {
-    framework.addAtmosphereHandler("/*",AtmosphereFramework.REFLECTOR_ATMOSPHEREHANDLER);
+    framework.addAtmosphereHandler("/*",REFLECTOR_ATMOSPHEREHANDLER);
   }
   request.headers(configureHeader(request)).setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(framework.getAtmosphereConfig(),response,framework.getAsyncSupport());
@@ -9,7 +9,7 @@
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
   dispatch(webSocket,request,response);
-  if (handlers.size() != 0) {
+  if (handlers.size() != 0 && REFLECTOR_ATMOSPHEREHANDLER.equals(r.getAtmosphereHandler())) {
     WebSocketHandlerProxy handler=mapper.map(request,handlers);
     if (handler == null) {
       logger.debug("No WebSocketHandler maps request for {} with mapping {}",request.getRequestURI(),handlers);
