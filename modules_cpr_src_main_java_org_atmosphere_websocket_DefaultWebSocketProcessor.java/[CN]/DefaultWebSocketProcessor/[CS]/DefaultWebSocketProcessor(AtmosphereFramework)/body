@@ -15,6 +15,11 @@
  else {
     executeAsync=false;
   }
+  s=framework.getAtmosphereConfig().getInitParameter(IN_MEMORY_STREAMING_BUFFER_SIZE);
+  if (s != null) {
+    byteBufferMaxSize=Integer.valueOf(s);
+    charBufferMaxSize=byteBufferMaxSize;
+  }
   AtmosphereConfig config=framework.getAtmosphereConfig();
   if (executeAsync) {
     asyncExecutor=ExecutorsFactory.getAsyncOperationExecutor(config,"WebSocket");
