@@ -1,0 +1,4 @@
+{
+  logger.trace("Warning, Fragment not supported");
+  onMessage(webSocketConnection,s);
+}

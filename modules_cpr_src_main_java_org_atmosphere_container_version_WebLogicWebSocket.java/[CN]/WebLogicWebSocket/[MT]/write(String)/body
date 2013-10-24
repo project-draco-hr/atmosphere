@@ -1,0 +1,4 @@
+{
+  webSocketConnection.send(s);
+  return this;
+}

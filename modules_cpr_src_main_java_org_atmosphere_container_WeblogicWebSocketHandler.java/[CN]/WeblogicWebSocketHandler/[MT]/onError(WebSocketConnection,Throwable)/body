@@ -1,0 +1,5 @@
+{
+  WebSocket webSocket=(WebSocket)webSocketConnection.getWebSocketContext().getServletContext().getAttribute(webSocketConnection.toString());
+  webSocketConnection.getWebSocketContext().getServletContext().removeAttribute(webSocketConnection.toString());
+  webSocketProcessor.notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent<Throwable>(throwable,WebSocketEventListener.WebSocketEvent.TYPE.EXCEPTION,webSocket));
+}

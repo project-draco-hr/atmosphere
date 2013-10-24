@@ -1,0 +1,4 @@
+{
+  WebSocket webSocket=(WebSocket)webSocketConnection.getWebSocketContext().getServletContext().getAttribute(webSocketConnection.toString());
+  webSocketProcessor.close(webSocket,1000);
+}

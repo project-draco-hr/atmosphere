@@ -1,0 +1,4 @@
+{
+  request.set(wsHandshakeRequest);
+  return true;
+}

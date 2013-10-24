@@ -1,0 +1,3 @@
+WebSocketConnection webSocketConnection
+boolean b
+byte[] bytes

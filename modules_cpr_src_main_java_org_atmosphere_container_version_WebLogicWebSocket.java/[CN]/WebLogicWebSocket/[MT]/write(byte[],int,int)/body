@@ -1,0 +1,4 @@
+{
+  webSocketConnection.send(Arrays.copyOfRange(b,offset,length));
+  return this;
+}

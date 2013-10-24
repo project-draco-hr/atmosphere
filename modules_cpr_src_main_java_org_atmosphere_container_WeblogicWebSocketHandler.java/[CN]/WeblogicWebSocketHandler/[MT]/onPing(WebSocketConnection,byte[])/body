@@ -1,0 +1,3 @@
+{
+  logger.trace("Warning, Fragment not supported");
+}
