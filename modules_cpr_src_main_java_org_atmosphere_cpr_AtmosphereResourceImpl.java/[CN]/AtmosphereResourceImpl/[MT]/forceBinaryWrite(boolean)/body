@@ -1,0 +1,4 @@
+{
+  this.forceBinaryWrite=forceBinaryWrite;
+  return this;
+}

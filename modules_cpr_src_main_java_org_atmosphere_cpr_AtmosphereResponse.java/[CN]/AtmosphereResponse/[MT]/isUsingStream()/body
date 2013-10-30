@@ -5,5 +5,11 @@
       usingStream.set((Boolean)s);
     }
   }
+  if (resource() != null) {
+    boolean force=resource().forceBinaryWrite();
+    if (!usingStream.get() && force) {
+      usingStream.set(force);
+    }
+  }
   return usingStream.get();
 }
