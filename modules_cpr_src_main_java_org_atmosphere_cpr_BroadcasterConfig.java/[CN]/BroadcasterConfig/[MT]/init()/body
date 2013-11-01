@@ -1,0 +1,10 @@
+{
+  if (handleExecutors) {
+    configExecutors();
+  }
+  if (filterList != null) {
+    configureBroadcasterFilter(filterList);
+  }
+  configureBroadcasterCache();
+  return this;
+}

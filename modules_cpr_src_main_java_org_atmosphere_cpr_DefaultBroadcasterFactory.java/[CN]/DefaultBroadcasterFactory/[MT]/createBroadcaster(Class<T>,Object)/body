@@ -4,7 +4,7 @@
     b.initialize(id.toString(),legacyBroadcasterURI,config);
     b.setSuspendPolicy(defaultPolicyInteger,defaultPolicy);
     if (b.getBroadcasterConfig() == null) {
-      b.setBroadcasterConfig(new BroadcasterConfig(config.framework().broadcasterFilters,config,id.toString()));
+      b.setBroadcasterConfig(new BroadcasterConfig(config.framework().broadcasterFilters,config,id.toString()).init());
     }
     b.setBroadcasterLifeCyclePolicy(policy);
     if (DefaultBroadcaster.class.isAssignableFrom(clazz)) {

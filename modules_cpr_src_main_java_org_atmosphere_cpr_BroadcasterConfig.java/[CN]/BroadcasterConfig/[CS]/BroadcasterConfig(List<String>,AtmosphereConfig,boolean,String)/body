@@ -2,10 +2,6 @@
   this.config=config;
   this.name=name;
   this.shared=config.framework().isShareExecutorServices();
-  if (handleExecutors) {
-    configExecutors();
-  }
-  configureBroadcasterFilter(list);
-  configureBroadcasterCache();
   this.handleExecutors=handleExecutors;
+  this.filterList=broadcastFilters;
 }
