@@ -1,6 +1,8 @@
 {
   final int tag=di.readUnsignedByte();
-  if (DEBUG)   print("tag='%c'",(char)tag);
+  if (DEBUG) {
+    print("tag='%c'",(char)tag);
+  }
 switch (tag) {
 case BYTE:
 case CHAR:

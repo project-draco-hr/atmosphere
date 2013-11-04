@@ -1,4 +1,6 @@
 {
-  if (DEBUG)   print("detectFilesOrDirectories: %s",(Object)filesOrDirectories);
-  detect(new ClassFileIterator(filesOrDirectories));
+  if (DEBUG) {
+    print("detectFilesOrDirectories: %s",(Object)filesOrDirectories);
+  }
+  detect(new ClassFileIterator(filesOrDirectories,null));
 }

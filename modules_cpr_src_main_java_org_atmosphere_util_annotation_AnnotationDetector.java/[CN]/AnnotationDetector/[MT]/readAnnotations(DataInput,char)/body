@@ -1,6 +1,8 @@
 {
   final int count=di.readUnsignedShort();
-  if (DEBUG)   print("annotation count (%s) = %d",reporterType,count);
+  if (DEBUG) {
+    print("annotation count (%s) = %d",reporterType,count);
+  }
   for (int i=0; i < count; ++i) {
     final String rawTypeName=readAnnotation(di);
     final Class<? extends Annotation> type=annotations.get(rawTypeName);

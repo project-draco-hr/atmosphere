@@ -1,0 +1,14 @@
+{
+  if (entry.isDirectory()) {
+    return false;
+  }
+  if (entryNameFilter == null) {
+    return true;
+  }
+  for (  final String filter : entryNameFilter) {
+    if (entry.getName().startsWith(filter)) {
+      return true;
+    }
+  }
+  return false;
+}

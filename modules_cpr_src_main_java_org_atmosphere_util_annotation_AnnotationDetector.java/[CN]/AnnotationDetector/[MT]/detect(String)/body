@@ -30,7 +30,7 @@
               if (DEBUG)               print("Add jar file from VFS: '%s'",jarFile);
             }
  else {
-              List<org.jboss.vfs.VirtualFile> vfs=org.jboss.vfs.VFS.getChild(dir.getPath()).getChildren();
+              List<VirtualFile> vfs=org.jboss.vfs.VFS.getChild(dir.getPath()).getChildren();
               for (              org.jboss.vfs.VirtualFile f : vfs) {
                 files.add(f.getPhysicalFile());
               }
@@ -68,8 +68,5 @@
         }
       }
     }
-  }
-  if (!files.isEmpty()) {
-    detect(files.toArray(new File[files.size()]));
   }
 }

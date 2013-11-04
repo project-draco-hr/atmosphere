@@ -12,16 +12,14 @@
           return new FileInputStream(file);
         }
  else         if (fileIterator.isRootFile() && endsWithIgnoreCase(name,".jar")) {
-          zipIterator=new ZipFileIterator(file);
+          zipIterator=new ZipFileIterator(new ZipFile(file),pkgNameFilter);
         }
-        continue;
       }
     }
  else {
       final InputStream is=zipIterator.next();
       if (is == null) {
         zipIterator=null;
-        continue;
       }
  else {
         isFile=false;

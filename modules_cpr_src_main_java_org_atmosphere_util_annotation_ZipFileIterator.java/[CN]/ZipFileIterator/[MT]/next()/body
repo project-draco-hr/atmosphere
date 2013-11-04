@@ -1,7 +1,7 @@
 {
   while (entries.hasMoreElements()) {
     current=entries.nextElement();
-    if (!current.isDirectory()) {
+    if (accept(current)) {
       return zipFile.getInputStream(current);
     }
   }
