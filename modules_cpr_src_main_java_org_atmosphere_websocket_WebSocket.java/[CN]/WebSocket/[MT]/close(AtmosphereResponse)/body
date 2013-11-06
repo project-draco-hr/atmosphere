@@ -1,6 +1,8 @@
 {
   logger.trace("WebSocket.close()");
-  close();
+  if (r.request() != null && r.request().getAttribute(CLEAN_CLOSE) == null) {
+    close();
+  }
   try {
     bb.clear();
     cb.clear();
