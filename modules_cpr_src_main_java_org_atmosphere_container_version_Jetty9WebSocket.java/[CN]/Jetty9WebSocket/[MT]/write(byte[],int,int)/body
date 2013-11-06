@@ -1,4 +1,4 @@
 {
-  blockingConnection.write(b,offset,length);
+  if (isOpen())   blockingConnection.write(b,offset,length);
   return this;
 }
