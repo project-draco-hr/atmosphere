@@ -1,4 +1,7 @@
 {
-  logger.trace("WebSocket.close()");
-  outbound.close(1005,ByteBuffer.wrap(new byte[0]));
+  isOpen.set(false);
+  if (!isClosed.getAndSet(true)) {
+    logger.trace("WebSocket.close()");
+    outbound.close(1000,closeCode);
+  }
 }
