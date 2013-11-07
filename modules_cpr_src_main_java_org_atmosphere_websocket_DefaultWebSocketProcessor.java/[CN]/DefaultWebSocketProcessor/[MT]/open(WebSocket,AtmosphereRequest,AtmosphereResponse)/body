@@ -8,16 +8,19 @@
   request.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,r.uuid());
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
-  dispatch(webSocket,request,response);
-  if (handlers.size() != 0 && REFLECTOR_ATMOSPHEREHANDLER.getClass().isAssignableFrom(r.getAtmosphereHandler().getClass())) {
+  WebSocketHandler proxy=null;
+  if (handlers.size() != 0) {
     WebSocketHandlerProxy handler=mapper.map(request,handlers);
     if (handler == null) {
       logger.debug("No WebSocketHandler maps request for {} with mapping {}",request.getRequestURI(),handlers);
       throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + request.getRequestURI());
     }
-    WebSocketHandler proxy=postProcessMapping(webSocket,request,handler);
-    webSocket.webSocketHandler(proxy).resource().suspend(-1);
+    proxy=postProcessMapping(webSocket,request,handler);
+  }
+  dispatch(webSocket,request,response);
+  if (proxy != null) {
     proxy.onOpen(webSocket);
+    webSocket.webSocketHandler(proxy).resource().suspend(-1);
   }
   request.removeAttribute(INJECTED_ATMOSPHERE_RESOURCE);
   if (webSocket.resource() != null) {
