@@ -1,0 +1,3 @@
+{
+  return BroadcasterFactory.getDefault().lookup(broadcasterClass(framework,broadcaster),path,true);
+}

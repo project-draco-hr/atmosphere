@@ -28,7 +28,7 @@
       IntrospectionUtils.setProperty(handler,nv[0],nv[1]);
       IntrospectionUtils.addProperty(handler,nv[0],nv[1]);
     }
-    framework.addAtmosphereHandler(a.path(),handler,framework.getBroadcasterFactory().lookup(a.broadcaster(),a.path(),true),l);
+    framework.addAtmosphereHandler(a.path(),handler,broadcaster(framework,a.broadcaster(),a.path()),l);
     framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
   }
  catch (  Throwable e) {

@@ -1,0 +1,6 @@
+{
+  if (framework.isBroadcasterSpecified()) {
+    broadcaster=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(framework.getDefaultBroadcasterClassName());
+  }
+  return broadcaster;
+}
