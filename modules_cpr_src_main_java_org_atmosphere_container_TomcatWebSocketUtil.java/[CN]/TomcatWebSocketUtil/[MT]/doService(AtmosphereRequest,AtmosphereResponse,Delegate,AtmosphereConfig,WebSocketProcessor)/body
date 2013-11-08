@@ -5,17 +5,20 @@
     if (s != null) {
       useBuildInSession=Boolean.valueOf(s);
     }
-    String key;
+    String key=null;
     String subProtocol=null;
-    if (!headerContainsToken(req,"Upgrade","websocket")) {
-      return delegate.doService(req,res);
-    }
-    if (!headerContainsToken(req,"Connection","upgrade")) {
-      return delegate.doService(req,res);
-    }
-    if (!headerContainsToken(req,"sec-websocket-version","13")) {
-      WebSocket.notSupported(req,res);
-      return new Action(Action.TYPE.CANCELLED);
+    boolean allowWebSocketWithoutHeaders=req.getHeader(HeaderConfig.X_ATMO_WEBSOCKET_PROXY) != null ? true : false;
+    if (!allowWebSocketWithoutHeaders) {
+      if (!headerContainsToken(req,"Upgrade","websocket")) {
+        return delegate.doService(req,res);
+      }
+      if (!headerContainsToken(req,"Connection","upgrade")) {
+        return delegate.doService(req,res);
+      }
+      if (!headerContainsToken(req,"sec-websocket-version","13")) {
+        WebSocket.notSupported(req,res);
+        return new Action(Action.TYPE.CANCELLED);
+      }
     }
     key=req.getHeader("Sec-WebSocket-Key");
     if (key == null) {
