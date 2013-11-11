@@ -10,7 +10,7 @@
         s=p.split("=");
         if (s[0].equalsIgnoreCase("Content-Type")) {
           if (request.getContentType() == null || !request.getContentType().equalsIgnoreCase(s.length > 1 ? s[1] : "")) {
-            request.contentType(s.length > 1 ? s[1] : "");
+            request.contentType(s.length > 1 ? URLDecoder.decode(s[1],"UTF-8") : "");
           }
         }
         if (!s[0].isEmpty() && !s[0].toLowerCase().startsWith("x-atmo") && !s[0].equalsIgnoreCase("x-cache-date")&& !s[0].equalsIgnoreCase("Content-Type")&& !s[0].equalsIgnoreCase("_")) {
