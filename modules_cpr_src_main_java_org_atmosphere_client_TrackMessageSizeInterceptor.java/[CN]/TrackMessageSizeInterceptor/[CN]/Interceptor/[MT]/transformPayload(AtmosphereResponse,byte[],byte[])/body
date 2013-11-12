@@ -2,7 +2,9 @@
   if (response.request().getAttribute(SKIP_INTERCEPTOR) == null && (response.getContentType() == null || !excludedContentTypes.contains(response.getContentType().toLowerCase()))) {
     response.setCharacterEncoding(OUT_ENCODING);
     CharBuffer cb=inCharset.newDecoder().decode(ByteBuffer.wrap(responseDraft,0,responseDraft.length));
-    if (cb.toString().trim().length() == 0) {
+    String s=cb.toString();
+    if (s.trim().length() == 0 || s.indexOf(endString) != -1) {
+      logger.debug("Already filtered {}",s);
       return responseDraft;
     }
     int size=cb.length();
