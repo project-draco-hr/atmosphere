@@ -1,3 +1,11 @@
 {
-  return new AtmosphereResourceImpl(config,null,request,response,a,voidAtmosphereHandler);
+  AtmosphereResource r=null;
+  try {
+    r=config.framework().newClassInstance(AtmosphereResourceImpl.class);
+    r.initialize(config,null,request,response,a,voidAtmosphereHandler);
+  }
+ catch (  Exception e) {
+    logger.error("",e);
+  }
+  return r;
 }
