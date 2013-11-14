@@ -24,9 +24,11 @@
  catch (                Throwable t) {
                   logger.trace("{}",r.uuid(),t);
                   try {
-                    AtmosphereResourceImpl.class.cast(r).close();
+                    AtmosphereResourceImpl.class.cast(r).cancel();
+                    r.notifyListeners(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(r),true,false));
                   }
  catch (                  IOException e) {
+                    logger.trace("{}",e);
                   }
                   ;
                   writeFuture.cancel(false);
