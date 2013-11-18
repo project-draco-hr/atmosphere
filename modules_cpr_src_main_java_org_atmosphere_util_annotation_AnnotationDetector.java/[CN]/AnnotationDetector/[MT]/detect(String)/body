@@ -30,9 +30,14 @@
               if (DEBUG)               print("Add jar file from VFS: '%s'",jarFile);
             }
  else {
-              List<org.jboss.vfs.VirtualFile> vfs=org.jboss.vfs.VFS.getChild(dir.getPath()).getChildren();
-              for (              org.jboss.vfs.VirtualFile f : vfs) {
-                files.add(f.getPhysicalFile());
+              try {
+                List<org.jboss.vfs.VirtualFile> vfs=org.jboss.vfs.VFS.getChild(dir.getPath()).getChildren();
+                for (                org.jboss.vfs.VirtualFile f : vfs) {
+                  files.add(f.getPhysicalFile());
+                }
+              }
+ catch (              Throwable ex) {
+                logger.warn("Unable to scan classes for annotation {}",dir);
               }
             }
           }
