@@ -15,7 +15,7 @@
       }
     }
     if (a.path().contains("{")) {
-      framework.interceptors().add(new AtmosphereHandlerServiceInterceptor());
+      framework.interceptors().add(framework.newClassInstance(AtmosphereHandlerServiceInterceptor.class));
     }
     AtmosphereInterceptor aa=listeners(a.listeners(),framework);
     if (aa != null) {

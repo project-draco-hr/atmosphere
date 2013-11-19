@@ -12,7 +12,11 @@
       }
  catch (      Exception ex2) {
         logger.error("Cannot load the WebSocketProtocol {}",getWebSocketProtocolClassName(),ex);
-        webSocketProtocol=new SimpleHttpProtocol();
+        try {
+          webSocketProtocol=newClassInstance(SimpleHttpProtocol.class);
+        }
+ catch (        Exception e) {
+        }
       }
     }
   }

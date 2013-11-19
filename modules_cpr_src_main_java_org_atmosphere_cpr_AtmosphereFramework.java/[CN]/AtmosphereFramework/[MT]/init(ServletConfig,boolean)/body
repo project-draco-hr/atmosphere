@@ -46,7 +46,7 @@
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
     objectFactory=lookupDefaultObjectFactoryType();
-    asyncSupportListener(new AsyncSupportListenerAdapter());
+    asyncSupportListener(newClassInstance(AsyncSupportListenerAdapter.class));
     configureObjectFactory();
     configureAnnotationPackages();
     configureBroadcasterFactory();

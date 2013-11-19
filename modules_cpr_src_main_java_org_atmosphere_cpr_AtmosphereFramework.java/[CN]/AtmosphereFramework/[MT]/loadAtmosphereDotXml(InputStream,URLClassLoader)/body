@@ -12,7 +12,7 @@
           handler=(AtmosphereHandler)newClassInstance(c.loadClass(atmoHandler.getClassName()));
         }
  else {
-          handler=new ReflectorServletProcessor();
+          handler=newClassInstance(ReflectorServletProcessor.class);
         }
         logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",handler,atmoHandler.getContextRoot());
       }
