@@ -1,0 +1,23 @@
+{
+  ClassLoader c=Thread.currentThread().getContextClassLoader();
+  try {
+    Class<?> vfs=c.loadClass("org.jboss.virtual.VFS");
+    Method getVFS=vfs.getMethod("getVFS",new Class[]{URL.class});
+    Object vfsInstance=getVFS.invoke(null,url);
+    Method getRoot=vfs.getMethod("getRoot");
+    Object virtualFileInstance=getRoot.invoke(vfsInstance);
+    Method getChildrenRecursively=virtualFileInstance.getClass().getMethod("getChildrenRecursively");
+    List<Object> children=(List<Object>)getChildrenRecursively.invoke(virtualFileInstance);
+    Method getPathName=virtualFileInstance.getClass().getMethod("getPathName");
+    for (    Object f : children) {
+      String clazz=(String)getPathName.invoke(f);
+      String classP=(packageName + clazz);
+      if (clazz != null && clazz.endsWith(".class")) {
+        streams.add(c.getResourceAsStream(classP));
+      }
+    }
+  }
+ catch (  Throwable t) {
+    logger.warn("",t);
+  }
+}

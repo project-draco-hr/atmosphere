@@ -1,0 +1,10 @@
+{
+  if (stack.isEmpty()) {
+    current=null;
+    return null;
+  }
+ else {
+    current=stack.removeLast();
+    return current;
+  }
+}

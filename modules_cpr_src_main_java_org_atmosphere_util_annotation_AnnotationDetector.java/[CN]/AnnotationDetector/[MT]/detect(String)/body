@@ -7,6 +7,7 @@
     }
   }
   final Set<File> files=new HashSet<File>();
+  final Set<InputStream> streams=new HashSet<InputStream>();
   for (  final String packageName : pkgNameFilter) {
     final ClassLoader loader=Thread.currentThread().getContextClassLoader();
     final Enumeration<URL> resourceEnum=loader.getResources(packageName);
@@ -37,9 +38,12 @@
                 }
               }
  catch (              Throwable ex) {
-                logger.warn("Unable to scan classes for annotation {}",dir);
+                vfs(url,packageName,streams);
               }
             }
+          }
+ else {
+            vfs(url,packageName,streams);
           }
         }
       }
@@ -76,5 +80,8 @@
   }
   if (!files.isEmpty()) {
     detect(new ClassFileIterator(files.toArray(new File[files.size()]),pkgNameFilter));
+  }
+ else   if (!streams.isEmpty()) {
+    detect(new ClassFileIterator(streams.toArray(new InputStream[streams.size()]),pkgNameFilter));
   }
 }

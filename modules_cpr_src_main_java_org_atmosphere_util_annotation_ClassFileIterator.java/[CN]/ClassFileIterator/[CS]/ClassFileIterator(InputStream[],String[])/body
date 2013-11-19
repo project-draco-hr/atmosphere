@@ -1,0 +1,5 @@
+{
+  this.fileIterator=null;
+  this.pkgNameFilter=pkgNameFilter;
+  this.inputStreamIterator=new InputStreamIterator(filesOrDirectories);
+}

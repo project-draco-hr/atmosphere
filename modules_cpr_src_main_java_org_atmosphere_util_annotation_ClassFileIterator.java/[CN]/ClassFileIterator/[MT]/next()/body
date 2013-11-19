@@ -1,30 +1,35 @@
 {
   while (true) {
-    if (zipIterator == null) {
-      final File file=fileIterator.next();
-      if (file == null) {
-        return null;
+    if (fileIterator != null) {
+      if (zipIterator == null) {
+        final File file=fileIterator.next();
+        if (file == null) {
+          return null;
+        }
+ else {
+          final String name=file.getName();
+          if (name.endsWith(".class")) {
+            isFile=true;
+            return new FileInputStream(file);
+          }
+ else           if (fileIterator.isRootFile() && endsWithIgnoreCase(name,".jar")) {
+            zipIterator=new ZipFileIterator(new ZipFile(file),pkgNameFilter);
+          }
+        }
       }
  else {
-        final String name=file.getName();
-        if (name.endsWith(".class")) {
-          isFile=true;
-          return new FileInputStream(file);
+        final InputStream is=zipIterator.next();
+        if (is == null) {
+          zipIterator=null;
         }
- else         if (fileIterator.isRootFile() && endsWithIgnoreCase(name,".jar")) {
-          zipIterator=new ZipFileIterator(new ZipFile(file),pkgNameFilter);
+ else {
+          isFile=false;
+          return is;
         }
       }
     }
  else {
-      final InputStream is=zipIterator.next();
-      if (is == null) {
-        zipIterator=null;
-      }
- else {
-        isFile=false;
-        return is;
-      }
+      return inputStreamIterator.next();
     }
   }
 }
