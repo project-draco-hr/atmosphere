@@ -5,7 +5,7 @@
   AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(h,broadcaster);
   w.interceptors=l;
   addMapping(mapping,w);
-  logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",h.getClass().getName(),mapping);
+  logger.info("Installed AtmosphereHandler {} mapped to context-path {} and Broadcaster Class {}",new String[]{h.getClass().getName(),mapping,broadcaster.getClass().getName()});
   if (l.size() > 0) {
     logger.info("Installed AtmosphereInterceptor {} mapped to AtmosphereHandler {}",l,h.getClass().getName());
   }
