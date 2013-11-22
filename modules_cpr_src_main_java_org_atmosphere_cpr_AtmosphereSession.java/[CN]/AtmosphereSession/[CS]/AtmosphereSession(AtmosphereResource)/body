@@ -1,0 +1,3 @@
+{
+  this(resource,resource.getAtmosphereConfig().getBroadcasterFactory().lookupAll().toArray(new Broadcaster[]{}));
+}

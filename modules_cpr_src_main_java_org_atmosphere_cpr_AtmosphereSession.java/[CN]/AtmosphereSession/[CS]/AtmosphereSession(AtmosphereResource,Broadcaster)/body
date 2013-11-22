@@ -1,0 +1,23 @@
+{
+  this.uuid=r.uuid();
+  resource.set(r);
+  for (  Broadcaster b : broadcasters) {
+    b.addBroadcasterListener(new BroadcasterListenerAdapter(){
+      @Override public void onAddAtmosphereResource(      Broadcaster b,      AtmosphereResource r){
+        logger.trace("",b);
+        boolean found=false;
+        if (r.uuid().equalsIgnoreCase(uuid)) {
+          resource.set(r);
+          found=true;
+        }
+        if (found && latch.availablePermits() == 0)         latch.release();
+      }
+      @Override public void onRemoveAtmosphereResource(      Broadcaster b,      AtmosphereResource r){
+        logger.trace("",b);
+        resource.set(null);
+        latch.tryAcquire();
+      }
+    }
+);
+  }
+}

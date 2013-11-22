@@ -1,0 +1,6 @@
+{
+  if (resource.get() == null) {
+    latch.tryAcquire(timeInSecond,TimeUnit.SECONDS);
+  }
+  return resource.get();
+}
