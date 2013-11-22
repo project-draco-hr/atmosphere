@@ -6,3 +6,4 @@ BroadcasterFuture<?> future
 CacheMessage cache
 boolean writeLocally
 Set<AtmosphereResource> resources
+boolean async

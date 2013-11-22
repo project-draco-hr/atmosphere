@@ -50,7 +50,7 @@
           e.onBroadcast(event);
         }
       }
- else {
+ else       if (!event.isResumedOnTimeout()) {
         r.notifyListeners();
       }
     }

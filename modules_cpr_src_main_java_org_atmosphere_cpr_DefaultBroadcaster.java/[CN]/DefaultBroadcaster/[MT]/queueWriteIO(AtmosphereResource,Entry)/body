@@ -1,26 +1,31 @@
 {
-  if (!bc.getBroadcasterCache().getClass().equals(BroadcasterCache.DEFAULT.getClass().getName())) {
-    if (r.isResumed() || r.isCancelled()) {
-      logger.trace("AtmosphereResource {} has been resumed or cancelled, unable to Broadcast message {}",r.uuid(),entry.message);
-      return;
-    }
-  }
-  AsyncWriteToken w=new AsyncWriteToken(r,entry.message,entry.future,entry.originalMessage,entry.cache);
-  if (!outOfOrderBroadcastSupported.get()) {
-    WriteQueue writeQueue=writeQueues.get(r.uuid());
-    if (writeQueue == null) {
-      writeQueue=new WriteQueue(r.uuid());
-      writeQueues.put(r.uuid(),writeQueue);
-    }
-    writeQueue.queue.put(w);
-synchronized (writeQueue) {
-      if (!writeQueue.monitored.getAndSet(true)) {
-        logger.trace("Broadcaster {} is about to queueWriteIO for AtmosphereResource {}",name,r.uuid());
-        bc.getAsyncWriteService().submit(getAsyncWriteHandler(writeQueue));
+  if (entry.async) {
+    if (!bc.getBroadcasterCache().getClass().equals(BroadcasterCache.DEFAULT.getClass().getName())) {
+      if (r.isResumed() || r.isCancelled()) {
+        logger.trace("AtmosphereResource {} has been resumed or cancelled, unable to Broadcast message {}",r.uuid(),entry.message);
+        return;
       }
+    }
+    AsyncWriteToken w=new AsyncWriteToken(r,entry.message,entry.future,entry.originalMessage,entry.cache);
+    if (!outOfOrderBroadcastSupported.get()) {
+      WriteQueue writeQueue=writeQueues.get(r.uuid());
+      if (writeQueue == null) {
+        writeQueue=new WriteQueue(r.uuid());
+        writeQueues.put(r.uuid(),writeQueue);
+      }
+      writeQueue.queue.put(w);
+synchronized (writeQueue) {
+        if (!writeQueue.monitored.getAndSet(true)) {
+          logger.trace("Broadcaster {} is about to queueWriteIO for AtmosphereResource {}",name,r.uuid());
+          bc.getAsyncWriteService().submit(getAsyncWriteHandler(writeQueue));
+        }
+      }
+    }
+ else {
+      uniqueWriteQueue.queue.offer(w);
     }
   }
  else {
-    uniqueWriteQueue.queue.offer(w);
+    executeBlockingWrite(r,entry);
   }
 }

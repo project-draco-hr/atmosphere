@@ -1,7 +1,6 @@
 {
-  Iterator<Entry> i=broadcastOnResume.iterator();
-  while (i.hasNext()) {
-    Entry e=i.next();
+  for (  Entry e : broadcastOnResume) {
+    e.async=false;
     push(new Entry(r,e));
   }
   if (resources.isEmpty()) {

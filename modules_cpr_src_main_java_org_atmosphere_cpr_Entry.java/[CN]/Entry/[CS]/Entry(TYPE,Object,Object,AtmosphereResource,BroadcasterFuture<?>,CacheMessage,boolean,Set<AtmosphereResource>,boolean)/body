@@ -7,4 +7,5 @@
   this.resource=r;
   this.cache=cache;
   this.resources=resources;
+  this.async=async;
 }
