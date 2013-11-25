@@ -36,5 +36,6 @@
       }
     }
   }
+  req.setAttribute(FrameworkConfig.MAPPED_PATH,path);
   return handler;
 }
