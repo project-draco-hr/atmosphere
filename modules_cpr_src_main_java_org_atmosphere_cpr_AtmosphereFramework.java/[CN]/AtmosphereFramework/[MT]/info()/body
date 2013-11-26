@@ -1,4 +1,5 @@
 {
+  logger.info("Using EndpointMapper {}",endpointMapper.getClass());
   for (  String i : broadcasterFilters) {
     logger.info("Using BroadcastFilter: {}",i);
   }

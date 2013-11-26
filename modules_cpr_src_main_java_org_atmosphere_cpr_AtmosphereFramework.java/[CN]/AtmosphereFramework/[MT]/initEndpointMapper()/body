@@ -9,4 +9,5 @@
       logger.error("Cannot load the EndpointMapper {}",s,ex);
     }
   }
+  endpointMapper.configure(config);
 }
