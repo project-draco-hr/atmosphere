@@ -3,6 +3,6 @@
     return Thread.currentThread().getContextClassLoader().loadClass(className);
   }
  catch (  Throwable t) {
-    return getClass().getClassLoader().loadClass(className);
+    return thisClass.getClassLoader().loadClass(className);
   }
 }

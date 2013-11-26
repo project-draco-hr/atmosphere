@@ -25,15 +25,5 @@
  else {
     maxTextBufferSize=-1;
   }
-  try {
-    Map<String,? extends ServletRegistration> m=framework.getServletContext().getServletRegistrations();
-    for (    Map.Entry<String,? extends ServletRegistration> e : m.entrySet()) {
-      if (AtmosphereServlet.class.isAssignableFrom(loadClass(e.getValue().getClassName()))) {
-        servletPath="/" + e.getValue().getMappings().iterator().next().replace("/","").replace("*","");
-      }
-    }
-  }
- catch (  Exception ex) {
-    logger.trace("",ex);
-  }
+  servletPath=IOUtils.guestServletPath(framework,AtmosphereServlet.class,getClass());
 }
