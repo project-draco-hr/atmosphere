@@ -1,9 +1,11 @@
 {
   BytecodeBasedAnnotationProcessor b=new BytecodeBasedAnnotationProcessor(handler);
   b.configure(framework);
-  for (  Class<?> clazz : atmosphereAnnotatedClasses) {
-    if (clazz.getPackage().getName().startsWith(Processor.class.getName())) {
-      b.scan(clazz.getPackage().getName());
+  List<String> packages=framework.packages();
+  if (packages.size() > 0) {
+    for (    String p : packages) {
+      logger.trace("Package {} scanned for @AtmosphereAnnotation",p);
+      b.scan(p);
     }
   }
   b.destroy();

@@ -9,7 +9,7 @@
  else {
     fallbackToManualAnnotatedClasses(getClass(),framework,handler);
   }
-  if (atmosphereAnnotatedClasses != null && atmosphereAnnotatedClasses.size() > AnnotationScanningServletContainerInitializer.class.getAnnotation(HandlesTypes.class).value().length) {
+  if (atmosphereAnnotatedClasses != null && atmosphereAnnotatedClasses.size() >= AnnotationScanningServletContainerInitializer.class.getAnnotation(HandlesTypes.class).value().length) {
     scanForCustomizedAnnotation=true;
   }
   return scanForCustomizedAnnotation;
