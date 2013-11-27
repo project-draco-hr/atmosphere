@@ -1,19 +1,35 @@
 {
   try {
-    for (    Method m : onRuntimeMethod) {
-      Object decoded=Invoker.decode(decoders.get(m),o);
+    for (    MethodInfo m : onRuntimeMethod) {
+      if (m.useReader) {
+        o=resource.getRequest().getReader();
+      }
+ else       if (m.useStream) {
+        o=resource.getRequest().getInputStream();
+      }
+ else       if (o == null) {
+        o=IOUtils.readEntirely(resource).toString();
+        if (String.class.cast(o).isEmpty()) {
+          logger.warn("{} received an empty body",ManagedServiceInterceptor.class.getSimpleName());
+          return null;
+        }
+      }
+      Object decoded=Invoker.decode(decoders.get(m.method),o);
       if (decoded == null) {
         decoded=o;
       }
       Object objectToEncode=null;
-      if (m.getParameterTypes().length == 2) {
-        objectToEncode=Invoker.invokeMethod(m,proxiedInstance,resource,decoded);
+      if (m.method.getParameterTypes().length > 2) {
+        logger.warn("Injection of more than 2 parameters not supported {}",m);
+      }
+      if (m.method.getParameterTypes().length == 2) {
+        objectToEncode=Invoker.invokeMethod(m.method,proxiedInstance,resource,decoded);
       }
  else {
-        objectToEncode=Invoker.invokeMethod(m,proxiedInstance,decoded);
+        objectToEncode=Invoker.invokeMethod(m.method,proxiedInstance,decoded);
       }
       if (objectToEncode != null) {
-        return Invoker.encode(encoders.get(m),objectToEncode);
+        return Invoker.encode(encoders.get(m.method),objectToEncode);
       }
     }
   }

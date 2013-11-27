@@ -20,8 +20,8 @@
  else {
     Object msg=event.getMessage();
     Object o;
-    for (    Method m : onRuntimeMethod) {
-      o=Invoker.encode(encoders.get(m),msg);
+    for (    MethodInfo m : onRuntimeMethod) {
+      o=Invoker.encode(encoders.get(m.method),msg);
       if (o != null) {
         event.setMessage(o);
         break;

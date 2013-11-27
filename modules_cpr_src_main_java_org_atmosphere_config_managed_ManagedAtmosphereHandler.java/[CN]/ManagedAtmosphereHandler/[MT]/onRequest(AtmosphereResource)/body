@@ -23,23 +23,15 @@
     invoke(onGetMethod,resource);
   }
  else   if (method.equalsIgnoreCase("post")) {
-    String body=IOUtils.readEntirely(resource).toString();
-    resource.getRequest().body(body);
-    invoke(onPostMethod,resource);
-    if (!body.isEmpty()) {
-      Object o=null;
-      try {
-        o=invoke(resource,body);
-      }
- catch (      IOException e) {
-        logger.error("",e);
-      }
-      if (o != null) {
-        resource.getBroadcaster().broadcast(o);
-      }
+    String body=null;
+    if (onPostMethod != null) {
+      body=IOUtils.readEntirely(resource).toString();
+      resource.getRequest().body(body);
+      invoke(onPostMethod,resource);
     }
- else {
-      logger.warn("{} received an empty body",ManagedServiceInterceptor.class.getSimpleName());
+    Object o=message(resource,body);
+    if (o != null) {
+      resource.getBroadcaster().broadcast(o);
     }
   }
  else   if (method.equalsIgnoreCase("delete")) {

@@ -1,0 +1,8 @@
+{
+  try {
+    message.set(new BufferedReader(reader).readLine());
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

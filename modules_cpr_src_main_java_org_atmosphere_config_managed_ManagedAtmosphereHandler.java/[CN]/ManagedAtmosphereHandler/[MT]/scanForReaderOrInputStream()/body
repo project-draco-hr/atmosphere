@@ -1,0 +1,13 @@
+{
+  for (  MethodInfo m : onRuntimeMethod) {
+    Class<?>[] classes=m.method.getParameterTypes();
+    for (    Class<?> c : classes) {
+      if (InputStream.class.isAssignableFrom(c)) {
+        m.useStream=true;
+      }
+ else       if (Reader.class.isAssignableFrom(c)) {
+        m.useReader=true;
+      }
+    }
+  }
+}

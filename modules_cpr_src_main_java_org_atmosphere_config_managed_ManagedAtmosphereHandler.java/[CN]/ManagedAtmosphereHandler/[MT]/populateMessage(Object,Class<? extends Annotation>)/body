@@ -1,8 +1,8 @@
 {
-  ArrayList<Method> methods=new ArrayList<Method>();
+  ArrayList<MethodInfo> methods=new ArrayList<MethodInfo>();
   for (  Method m : c.getClass().getMethods()) {
     if (m.isAnnotationPresent(annotation)) {
-      methods.add(m);
+      methods.add(new MethodInfo(m));
     }
   }
   return methods;

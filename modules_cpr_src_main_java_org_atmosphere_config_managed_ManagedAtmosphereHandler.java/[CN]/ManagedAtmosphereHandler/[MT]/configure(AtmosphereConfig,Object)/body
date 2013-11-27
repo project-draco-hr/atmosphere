@@ -10,6 +10,7 @@
   this.onReadyMethod=populate(c,Ready.class);
   this.onResumeMethod=populate(c,Resume.class);
   this.config=config;
+  scanForReaderOrInputStream();
   if (onRuntimeMethod.size() > 0) {
     populateEncoders();
     populateDecoders();

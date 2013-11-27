@@ -1,7 +1,7 @@
 {
-  for (  Method m : onRuntimeMethod) {
+  for (  MethodInfo m : onRuntimeMethod) {
     List<Encoder<?,?>> l=new CopyOnWriteArrayList<Encoder<?,?>>();
-    for (    Class<? extends Encoder> s : m.getAnnotation(Message.class).encoders()) {
+    for (    Class<? extends Encoder> s : m.method.getAnnotation(Message.class).encoders()) {
       try {
         l.add(config.framework().newClassInstance(s));
       }
@@ -9,7 +9,7 @@
         logger.error("Unable to load encoder {}",s);
       }
     }
-    encoders.put(m,l);
+    encoders.put(m.method,l);
   }
   if (onReadyMethod != null) {
     List<Encoder<?,?>> l=new CopyOnWriteArrayList<Encoder<?,?>>();
