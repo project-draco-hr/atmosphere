@@ -1,0 +1,10 @@
+{
+  WeakReference<ServletContext> ref=servletContext.get();
+  if (ref != null) {
+    ServletContext ctx=ref.get();
+    if (ctx != null) {
+      return ctx;
+    }
+  }
+  return null;
+}
