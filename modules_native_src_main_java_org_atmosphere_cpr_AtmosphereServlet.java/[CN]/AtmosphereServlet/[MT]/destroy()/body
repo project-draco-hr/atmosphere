@@ -1,3 +1,6 @@
 {
-  framework.destroy();
+  if (framework != null) {
+    framework.destroy();
+    framework=null;
+  }
 }
