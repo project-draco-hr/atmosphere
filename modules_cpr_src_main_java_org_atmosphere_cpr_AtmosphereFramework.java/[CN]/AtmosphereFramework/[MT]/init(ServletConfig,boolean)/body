@@ -42,6 +42,7 @@
       scFacade=sc;
     }
     this.servletConfig=scFacade;
+    ServletContextFactory.getDefault().init(sc.getServletContext());
     preventOOM();
     doInitParams(scFacade);
     doInitParamsForWebSocket(scFacade);
