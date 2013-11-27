@@ -1,0 +1,6 @@
+{
+  if (reconfigureInitParams) {
+    doInitParams(servletConfig);
+    doInitParamsForWebSocket(servletConfig);
+  }
+}
