@@ -1,0 +1,4 @@
+{
+  templateVariables.clear();
+  return this;
+}

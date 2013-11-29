@@ -1,0 +1,9 @@
+{
+  names.clear();
+  groupCounts.clear();
+  nameToPattern.clear();
+  regex.setLength(0);
+  normalizedTemplate.setLength(0);
+  literalCharactersBuffer.setLength(0);
+  return this;
+}
