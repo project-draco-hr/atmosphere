@@ -1,7 +1,8 @@
 {
   AtmosphereRequest request=resource.getRequest();
   String method=request.getMethod();
-  if (onReadyMethod != null) {
+  boolean polling=resource.transport().equals(AtmosphereResource.TRANSPORT.POLLING);
+  if (onReadyMethod != null && !polling) {
     resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
       @Override public void onSuspend(      AtmosphereResourceEvent event){
         processReady(event.getResource());
@@ -10,7 +11,7 @@
     }
 );
   }
-  if (onResumeMethod != null) {
+  if (onResumeMethod != null && !polling) {
     resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
       @Override public void onResume(      AtmosphereResourceEvent event){
         invoke(onResumeMethod,event.getResource());
