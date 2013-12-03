@@ -2,15 +2,10 @@
   final AtmosphereResponse response=r.getResponse();
   final AtmosphereRequest request=r.getRequest();
   request.setAttribute(ApplicationConfig.NO_CACHE_HEADERS,injectCacheHeaders);
-  request.setAttribute(ApplicationConfig.DROP_ACCESS_CONTROL_ALLOW_ORIGIN_HEADER,enableAccessControl);
   if (writeHeaders && injectCacheHeaders) {
     response.setHeader(EXPIRES,"-1");
     response.setHeader(CACHE_CONTROL,"no-store, no-cache, must-revalidate");
     response.setHeader(PRAGMA,"no-cache");
-  }
-  if (writeHeaders && enableAccessControl) {
-    response.setHeader(ACCESS_CONTROL_ALLOW_ORIGIN,request.getHeader("Origin") == null ? "*" : request.getHeader("Origin"));
-    response.setHeader(ACCESS_CONTROL_ALLOW_CREDENTIALS,"true");
   }
   return Action.CONTINUE;
 }
