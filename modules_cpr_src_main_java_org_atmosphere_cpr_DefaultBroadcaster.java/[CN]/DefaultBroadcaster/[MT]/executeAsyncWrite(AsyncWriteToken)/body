@@ -4,9 +4,9 @@
   final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
   final boolean willBeResumed=r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING) || r.transport().equals(AtmosphereResource.TRANSPORT.JSONP);
-  final AtmosphereRequest request=r.getRequest();
   List<AtmosphereResourceEventListener> listeners=willBeResumed ? new ArrayList() : EMPTY_LISTENERS;
   try {
+    final AtmosphereRequest request=r.getRequest(false);
     event.setMessage(token.msg);
     if (!isAtmosphereResourceValid(r)) {
       logger.debug("AtmosphereResource {} state is invalid for Broadcaster {}. ",r.uuid(),name);
