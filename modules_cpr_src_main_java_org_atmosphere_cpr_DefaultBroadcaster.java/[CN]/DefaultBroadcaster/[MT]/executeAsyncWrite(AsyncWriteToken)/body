@@ -9,7 +9,7 @@
     final AtmosphereRequest request=r.getRequest(false);
     event.setMessage(token.msg);
     if (!isAtmosphereResourceValid(r)) {
-      logger.debug("AtmosphereResource {} state is invalid for Broadcaster {}. ",r.uuid(),name);
+      logger.trace("AtmosphereResource {} state is invalid for Broadcaster {}. Message will be cached",r.uuid(),name);
       removeAtmosphereResource(r,false);
       return;
     }
