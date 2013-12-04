@@ -4,6 +4,10 @@
   String uri=request.getRequestURI() == null ? "" : request.getRequestURI();
   if (r.transport().equals(AtmosphereResource.TRANSPORT.JSONP) || uri.indexOf("jsonp") != -1) {
     super.inspect(r);
+    if (uri.indexOf("jsonp") != -1) {
+      startChunk="(\"";
+      endChunk="\");\r\n\r\n";
+    }
     AsyncIOWriter writer=response.getAsyncIOWriter();
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {
       AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
@@ -19,14 +23,14 @@
         }
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           String callbackName=callbackName();
-          response.write(callbackName + START_CHUNK);
+          response.write(callbackName + startChunk);
         }
         @Override public byte[] transformPayload(        AtmosphereResponse response,        byte[] responseDraft,        byte[] data) throws IOException {
           String charEncoding=response.getCharacterEncoding() == null ? "UTF-8" : response.getCharacterEncoding();
           return escapeForJavaScript(new String(responseDraft,charEncoding)).getBytes(charEncoding);
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
-          response.write(END_CHUNK,true);
+          response.write(endChunk,true);
         }
       }
 );
