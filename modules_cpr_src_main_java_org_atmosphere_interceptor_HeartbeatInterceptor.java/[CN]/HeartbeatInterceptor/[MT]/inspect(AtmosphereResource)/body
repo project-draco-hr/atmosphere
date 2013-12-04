@@ -1,6 +1,6 @@
 {
   final AtmosphereResponse response=r.getResponse();
-  if (r.transport().equals(TRANSPORT.STREAMING) || r.transport().equals(TRANSPORT.SSE) || r.transport().equals(TRANSPORT.WEBSOCKET)) {
+  if (force || r.transport().equals(TRANSPORT.STREAMING) || r.transport().equals(TRANSPORT.SSE)|| r.transport().equals(TRANSPORT.WEBSOCKET)) {
     super.inspect(r);
     AsyncIOWriter writer=response.getAsyncIOWriter();
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass()) && r.getRequest().getAttribute(INTERCEPTOR_ADDED) == null) {
@@ -19,7 +19,7 @@
               logger.trace("Writing heartbeat for {}",r.uuid());
               if (r.isSuspended()) {
                 try {
-                  response.write(paddingText,false);
+                  response.write(paddingText,false).flushBuffer();
                 }
  catch (                Throwable t) {
                   logger.trace("{}",r.uuid(),t);
