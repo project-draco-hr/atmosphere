@@ -1,0 +1,4 @@
+{
+  startUpHook.add(s);
+  return this;
+}

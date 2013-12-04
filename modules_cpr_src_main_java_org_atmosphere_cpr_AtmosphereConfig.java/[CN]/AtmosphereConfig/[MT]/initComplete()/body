@@ -1,0 +1,10 @@
+{
+  for (  StartupHook h : startUpHook) {
+    try {
+      h.started(framework);
+    }
+ catch (    Exception ex) {
+      logger.warn("",ex);
+    }
+  }
+}
