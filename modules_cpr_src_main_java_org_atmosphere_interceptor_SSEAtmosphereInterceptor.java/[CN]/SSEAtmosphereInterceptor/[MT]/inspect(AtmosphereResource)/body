@@ -1,6 +1,8 @@
 {
   final AtmosphereResponse response=r.getResponse();
-  if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE)) {
+  final AtmosphereRequest request=r.getRequest();
+  String accept=request.getHeader("Accept") == null ? "text/plain" : request.getHeader("Accept").trim();
+  if (r.transport().equals(AtmosphereResource.TRANSPORT.SSE) || contentType.equalsIgnoreCase(accept)) {
     super.inspect(r);
     r.addEventListener(new P(response));
     AsyncIOWriter writer=response.getAsyncIOWriter();
