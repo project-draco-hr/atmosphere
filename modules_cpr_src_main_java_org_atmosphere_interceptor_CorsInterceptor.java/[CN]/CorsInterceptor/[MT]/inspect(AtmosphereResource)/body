@@ -1,4 +1,5 @@
 {
+  if (!enableAccessControl)   return Action.CONTINUE;
   AtmosphereRequest req=resource.getRequest();
   AtmosphereResponse res=resource.getResponse();
   if (req.getHeader("Origin") != null && res.getHeader("Access-Control-Allow-Origin") == null) {
