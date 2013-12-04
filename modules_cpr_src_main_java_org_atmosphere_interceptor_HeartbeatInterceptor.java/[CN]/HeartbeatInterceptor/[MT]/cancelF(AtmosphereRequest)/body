@@ -1,0 +1,5 @@
+{
+  Future<?> f=(Future<?>)request.getAttribute("heartbeat.future");
+  if (f != null)   f.cancel(false);
+  request.removeAttribute("heartbeat.future");
+}
