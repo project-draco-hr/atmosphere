@@ -1,11 +1,11 @@
 {
   request.setAttribute("heartbeat.future",heartBeat.schedule(new Callable<Object>(){
     @Override public Object call() throws Exception {
-      logger.trace("Writing heartbeat for {}",r.uuid());
-      if (r.isSuspended()) {
+      if (AtmosphereResourceImpl.class.cast(r).isInScope() && r.isSuspended()) {
         try {
-          response.write(paddingText,false);
-          if (r.transport().equals(TRANSPORT.LONG_POLLING) || r.transport().equals(TRANSPORT.JSONP)) {
+          logger.trace("Heartbeat for Resource {}",r);
+          response.write(paddingBytes,false);
+          if (Utils.resumableTransport(r.transport())) {
             r.resume();
           }
  else {
@@ -14,14 +14,6 @@
         }
  catch (        Throwable t) {
           logger.trace("{}",r.uuid(),t);
-          try {
-            AtmosphereResourceImpl.class.cast(r).cancel();
-            r.notifyListeners(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(r),true,false));
-          }
- catch (          IOException e) {
-            logger.trace("{}",e);
-          }
-          ;
           cancelF(request);
         }
       }

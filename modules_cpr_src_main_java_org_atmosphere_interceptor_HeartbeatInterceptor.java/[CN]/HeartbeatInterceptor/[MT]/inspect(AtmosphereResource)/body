@@ -1,9 +1,20 @@
 {
+  super.inspect(r);
   final AtmosphereResponse response=r.getResponse();
   final AtmosphereRequest request=r.getRequest();
-  super.inspect(r);
+  if (!r.transport().equals(TRANSPORT.POLLING)) {
+    r.addEventListener(new Clock(){
+      @Override public void onSuspend(      AtmosphereResourceEvent event){
+        clock(r,request,response);
+      }
+      @Override public void onResume(      AtmosphereResourceEvent event){
+        cancelF(request);
+      }
+    }
+);
+  }
   AsyncIOWriter writer=response.getAsyncIOWriter();
-  if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass()) && r.getRequest().getAttribute(INTERCEPTOR_ADDED) == null) {
+  if (!Utils.resumableTransport(r.transport()) && AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass()) && r.getRequest().getAttribute(INTERCEPTOR_ADDED) == null) {
     AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
       @Override public byte[] transformPayload(      AtmosphereResponse response,      byte[] responseDraft,      byte[] data) throws IOException {
         cancelF(request);

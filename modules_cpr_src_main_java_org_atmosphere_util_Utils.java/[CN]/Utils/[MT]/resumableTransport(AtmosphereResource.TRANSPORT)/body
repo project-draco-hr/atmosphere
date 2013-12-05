@@ -1,0 +1,6 @@
+{
+  if (t.equals(AtmosphereResource.TRANSPORT.JSONP) || t.equals(AtmosphereResource.TRANSPORT.LONG_POLLING)) {
+    return true;
+  }
+  return false;
+}

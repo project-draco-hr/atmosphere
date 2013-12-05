@@ -31,7 +31,7 @@ switch (entry.type) {
 case ALL:
 synchronized (resources) {
         for (        AtmosphereResource r : resources) {
-          if (r.transport().equals(AtmosphereResource.TRANSPORT.JSONP) || r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING))           try {
+          if (Utils.resumableTransport(r.transport()))           try {
             r.resume();
           }
  catch (          Throwable t) {

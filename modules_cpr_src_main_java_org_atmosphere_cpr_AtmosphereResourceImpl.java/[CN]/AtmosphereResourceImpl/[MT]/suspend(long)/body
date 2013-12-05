@@ -3,7 +3,7 @@
   if (config.isSupportSession() && req.getSession(false) != null && req.getSession().getMaxInactiveInterval() != -1 && req.getSession().getMaxInactiveInterval() * 1000 < timeout) {
     throw new IllegalStateException("Cannot suspend a " + "response longer than the session timeout. Increase the value of session-timeout in web.xml");
   }
-  if (transport().equals(TRANSPORT.JSONP) || transport().equals(TRANSPORT.LONG_POLLING)) {
+  if (Utils.resumableTransport(transport())) {
     resumeOnBroadcast.set(true);
   }
   onPreSuspend(event);
@@ -46,7 +46,7 @@
       }
     }
     broadcaster.addAtmosphereResource(this);
-    if (req.getAttribute(DefaultBroadcaster.CACHED) != null && transport() != null && (transport().equals(TRANSPORT.LONG_POLLING) || transport().equals(TRANSPORT.JSONP))) {
+    if (req.getAttribute(DefaultBroadcaster.CACHED) != null && transport() != null && Utils.resumableTransport(transport())) {
       action.type(Action.TYPE.CONTINUE);
       logger.debug("Cached message found, not suspending {}",uuid());
       return this;

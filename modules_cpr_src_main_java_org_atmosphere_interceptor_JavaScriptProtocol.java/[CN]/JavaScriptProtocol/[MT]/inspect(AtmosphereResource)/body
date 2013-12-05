@@ -17,7 +17,7 @@
     if (track) {
       protocolMessage.set((String)f.filter(r,protocolMessage.get(),protocolMessage.get()).message());
     }
-    if (r.transport() != AtmosphereResource.TRANSPORT.LONG_POLLING && r.transport() != AtmosphereResource.TRANSPORT.JSONP) {
+    if (!Utils.resumableTransport(r.transport())) {
       AtmosphereResourceEventListenerAdapter a=new AtmosphereResourceEventListenerAdapter(){
         @Override public void onSuspend(        AtmosphereResourceEvent event){
           r.getResponse().write(protocolMessage.get());

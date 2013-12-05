@@ -26,7 +26,7 @@
       return false;
     }
     e.setMessage(filteredMessage);
-    final boolean willBeResumed=r.transport().equals(AtmosphereResource.TRANSPORT.LONG_POLLING) || r.transport().equals(AtmosphereResource.TRANSPORT.JSONP);
+    final boolean willBeResumed=Utils.resumableTransport(r.transport());
     if (willBeResumed) {
       filteredMessageClone=(LinkedList<Object>)filteredMessage.clone();
     }
