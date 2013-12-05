@@ -22,7 +22,7 @@ catch (      ClassNotFoundException e) {
   s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   if (s == null) {
     for (    Class<? extends AtmosphereInterceptor> a : defaultInterceptors) {
-      interceptors.addLast(newAInterceptor(a));
+      interceptors.addFirst(newAInterceptor(a));
     }
     logger.info("Set {} to disable them.",ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR,interceptors);
   }
