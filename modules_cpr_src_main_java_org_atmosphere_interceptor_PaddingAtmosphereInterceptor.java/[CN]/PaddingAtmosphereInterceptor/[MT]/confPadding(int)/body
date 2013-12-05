@@ -1,0 +1,8 @@
+{
+  StringBuilder whitespace=new StringBuilder();
+  for (int i=0; i < size; i++) {
+    whitespace.append(" ");
+  }
+  whitespace.append("\n");
+  return whitespace.toString();
+}

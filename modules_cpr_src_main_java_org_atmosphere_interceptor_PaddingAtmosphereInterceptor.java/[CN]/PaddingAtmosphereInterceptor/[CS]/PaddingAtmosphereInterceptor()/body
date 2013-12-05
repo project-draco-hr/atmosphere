@@ -1,0 +1,4 @@
+{
+  paddingText=confPadding(1024);
+  padding=paddingText.getBytes();
+}
