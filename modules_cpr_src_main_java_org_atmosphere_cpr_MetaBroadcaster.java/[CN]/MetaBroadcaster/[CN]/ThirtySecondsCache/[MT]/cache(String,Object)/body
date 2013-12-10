@@ -1,0 +1,4 @@
+{
+  cache.put(path,o);
+  return this;
+}

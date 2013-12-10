@@ -1,0 +1,4 @@
+{
+  flushCache();
+  cache.clear();
+}

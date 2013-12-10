@@ -18,8 +18,13 @@
   finally {
       if (t != null)       t.destroy();
     }
-    if (l.isEmpty()) {
-      logger.warn("No Broadcaster matches {}. Message {} WILL BE LOST. Make sure you cache it or make sure the Broadcaster exists before.",path,message);
+    if (l.isEmpty() && cacheMessage) {
+      if (NoCache.class.isAssignableFrom(cache.getClass())) {
+        logger.warn("No Broadcaster matches {}. Message {} WILL BE LOST. " + "Make sure you cache it or make sure the Broadcaster exists before.",path,message);
+      }
+ else {
+        cache.cache(path,message);
+      }
       return E;
     }
     MetaBroadcasterFuture f=new MetaBroadcasterFuture(l);
