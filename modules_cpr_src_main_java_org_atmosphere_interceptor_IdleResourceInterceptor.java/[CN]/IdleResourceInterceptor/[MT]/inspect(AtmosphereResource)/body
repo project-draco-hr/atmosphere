@@ -1,0 +1,4 @@
+{
+  AtmosphereResourceImpl.class.cast(r).getRequest(false).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
+  return Action.CONTINUE;
+}

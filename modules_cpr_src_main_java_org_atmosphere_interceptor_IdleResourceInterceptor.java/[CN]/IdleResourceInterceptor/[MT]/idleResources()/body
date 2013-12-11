@@ -1,0 +1,36 @@
+{
+  for (  Broadcaster b : config.getBroadcasterFactory().lookupAll()) {
+    for (    AtmosphereResource r : b.getAtmosphereResources()) {
+      AtmosphereRequest req=AtmosphereResourceImpl.class.cast(r).getRequest(false);
+      try {
+        long l=(Long)req.getAttribute(MAX_INACTIVE);
+        if (l > 0 && System.currentTimeMillis() - l > maxInactiveTime) {
+          logger.debug("IdleResourceInterceptor disconnecting {}",r);
+          if (!AtmosphereResourceImpl.class.cast(r).isSuspended() || !AtmosphereResourceImpl.class.cast(r).isInScope()) {
+            return;
+          }
+          Future<?> f=(Future<?>)req.getAttribute(HeartbeatInterceptor.HEARTBEAT_FUTURE);
+          if (f != null)           f.cancel(false);
+          req.removeAttribute(HeartbeatInterceptor.HEARTBEAT_FUTURE);
+          Object o=req.getAttribute(ASYNCHRONOUS_HOOK);
+          AsynchronousProcessor.AsynchronousProcessorHook h;
+          if (o != null && AsynchronousProcessor.AsynchronousProcessorHook.class.isAssignableFrom(o.getClass())) {
+            h=(AsynchronousProcessor.AsynchronousProcessorHook)o;
+            h.closed();
+          }
+        }
+      }
+ catch (      Throwable e) {
+        logger.warn("IdleResourceInterceptor",e);
+      }
+ finally {
+        try {
+          req.setAttribute(MAX_INACTIVE,(long)-1);
+        }
+ catch (        Throwable t) {
+          logger.trace("IdleResourceInterceptor",t);
+        }
+      }
+    }
+  }
+}

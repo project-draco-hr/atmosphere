@@ -1,0 +1,14 @@
+{
+  this.config=config;
+  String maxInactive=config.getInitParameter(MAX_INACTIVE) != null ? config.getInitParameter(MAX_INACTIVE) : config.getInitParameter(MAX_INACTIVE);
+  if (maxInactive != null) {
+    maxInactiveTime=Long.parseLong(maxInactive);
+    if (maxInactiveTime <= 0)     return;
+  }
+  ExecutorsFactory.getScheduler(config).scheduleAtFixedRate(new Runnable(){
+    public void run(){
+      idleResources();
+    }
+  }
+,0,1,TimeUnit.SECONDS);
+}
