@@ -1,0 +1,16 @@
+{
+  this.framework=framework;
+  framework.setAsyncSupport(new BlockingIOCometSupport(framework.getAtmosphereConfig()){
+    public boolean supportWebSocket(){
+      return true;
+    }
+  }
+).getAtmosphereConfig().startupHook(new AtmosphereConfig.StartupHook(){
+    @Override public void started(    AtmosphereFramework framework){
+      if (framework.getAtmosphereConfig().handlers().size() == 0) {
+        framework.addAtmosphereHandler("/*",ECHO_ATMOSPHEREHANDLER);
+      }
+    }
+  }
+);
+}

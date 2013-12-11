@@ -1,0 +1,3 @@
+{
+  new EmbeddedWebSocketHandler(new AtmosphereFramework()).on().serve(System.in);
+}

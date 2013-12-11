@@ -1,0 +1,9 @@
+{
+  if (!on) {
+    on=true;
+    framework.init();
+    processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
+  }
+  logger.info("EmbeddedWebSocketHandler started");
+  return this;
+}

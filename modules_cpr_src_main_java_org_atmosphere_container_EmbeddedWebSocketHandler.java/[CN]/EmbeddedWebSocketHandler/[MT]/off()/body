@@ -1,0 +1,4 @@
+{
+  if (on)   framework.destroy();
+  return this;
+}
