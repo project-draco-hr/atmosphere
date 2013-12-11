@@ -1,6 +1,6 @@
 {
   logger.trace("Cancelling {}",req);
-  if (trackActiveRequest(req) && completeLifecycle(req.resource(),true)) {
+  if (completeLifecycle(req.resource(),true)) {
     config.framework().notify(Action.TYPE.CANCELLED,req,res);
   }
   return cancelledAction;

@@ -1,11 +1,2 @@
 {
-  closedDetector.shutdownNow();
-  for (  AtmosphereResource resource : aliveRequests.values()) {
-    try {
-      resource.resume();
-    }
- catch (    Throwable t) {
-      logger.debug("failed on resume: " + resource,t);
-    }
-  }
 }

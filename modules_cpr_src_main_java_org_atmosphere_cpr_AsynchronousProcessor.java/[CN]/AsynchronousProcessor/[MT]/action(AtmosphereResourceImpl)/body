@@ -1,5 +1,2 @@
 {
-  if (trackActiveRequest) {
-    aliveRequests.remove(r.getRequest(false));
-  }
 }

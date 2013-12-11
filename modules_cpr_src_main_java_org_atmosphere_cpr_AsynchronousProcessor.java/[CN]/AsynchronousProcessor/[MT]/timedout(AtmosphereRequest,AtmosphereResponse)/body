@@ -1,6 +1,6 @@
 {
   logger.trace("Timing out {}",req);
-  if (trackActiveRequest(req) && completeLifecycle(req.resource(),false)) {
+  if (completeLifecycle(req.resource(),false)) {
     config.framework().notify(Action.TYPE.TIMEOUT,req,res);
   }
   return timedoutAction;
