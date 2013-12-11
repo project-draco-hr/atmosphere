@@ -38,7 +38,7 @@
       skipCreation=true;
     }
     if (!skipCreation && (broadcaster == null || broadcaster.getScope() == Broadcaster.SCOPE.REQUEST) && !isJersey) {
-      String id=broadcaster != null ? broadcaster.getID() : getClass().getName();
+      String id=broadcaster != null ? broadcaster.getID() : "/*";
       Class<? extends Broadcaster> clazz=broadcaster != null ? broadcaster.getClass() : DefaultBroadcaster.class;
       broadcaster=config.getBroadcasterFactory().lookup(clazz,id,false);
       if (broadcaster == null || broadcaster.getAtmosphereResources().size() > 0) {
