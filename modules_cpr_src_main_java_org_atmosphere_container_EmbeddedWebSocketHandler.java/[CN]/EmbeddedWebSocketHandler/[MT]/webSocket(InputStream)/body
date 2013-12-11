@@ -3,8 +3,13 @@
   if (webSocket == null) {
     webSocket=new ArrayBaseWebSocket();
     webSockets.put(inputStream,webSocket);
-    AtmosphereRequest request=AtmosphereRequest.newInstance().header("Connection","Upgrade").header("Upgrade","websocket").pathInfo("/");
-    processor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
+    AtmosphereRequest request=AtmosphereRequest.newInstance().header("Connection","Upgrade").header("Upgrade","websocket").pathInfo(requestURI);
+    try {
+      processor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
+    }
+ catch (    Exception ex) {
+      ex.printStackTrace();
+    }
   }
   return webSocket;
 }
