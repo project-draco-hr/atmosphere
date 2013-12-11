@@ -1,5 +1,5 @@
 {
-  logger.trace("WebSocket closed with {}",closeCode);
+  logger.trace("WebSocket {} closed with {}",webSocket.resource(),closeCode);
   WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
   closeCode=closeCode(closeCode);
   notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(closeCode,CLOSE,webSocket));
