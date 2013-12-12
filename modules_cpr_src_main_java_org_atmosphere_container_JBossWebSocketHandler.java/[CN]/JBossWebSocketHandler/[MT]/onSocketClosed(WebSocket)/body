@@ -1,4 +1,4 @@
 {
   logger.trace("WebSocket.onSocketClosed.");
-  webSocketProcessor.close(webSocket,0);
+  webSocketProcessor.close(webSocket,1000);
 }
