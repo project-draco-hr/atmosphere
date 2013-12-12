@@ -5,6 +5,7 @@
       try {
         long l=(Long)req.getAttribute(MAX_INACTIVE);
         if (l > 0 && System.currentTimeMillis() - l > maxInactiveTime) {
+          req.setAttribute(MAX_INACTIVE,(long)-1);
           logger.debug("IdleResourceInterceptor disconnecting {}",r);
           if (!AtmosphereResourceImpl.class.cast(r).isSuspended() || !AtmosphereResourceImpl.class.cast(r).isInScope()) {
             return;
@@ -23,14 +24,6 @@
       }
  catch (      Throwable e) {
         logger.warn("IdleResourceInterceptor",e);
-      }
- finally {
-        try {
-          req.setAttribute(MAX_INACTIVE,(long)-1);
-        }
- catch (        Throwable t) {
-          logger.trace("IdleResourceInterceptor",t);
-        }
       }
     }
   }

@@ -18,9 +18,9 @@
           webSocketHandler.onClose(webSocket);
         }
         Object o=r.getAttribute(ASYNCHRONOUS_HOOK);
-        AsynchronousProcessor.AsynchronousProcessorHook h;
-        if (o != null && AsynchronousProcessor.AsynchronousProcessorHook.class.isAssignableFrom(o.getClass())) {
-          h=(AsynchronousProcessor.AsynchronousProcessorHook)o;
+        AsynchronousProcessorHook h;
+        if (o != null && AsynchronousProcessorHook.class.isAssignableFrom(o.getClass())) {
+          h=(AsynchronousProcessorHook)o;
           if (!resource.isCancelled()) {
             if (closeCode == 1005) {
               h.closed();
@@ -30,14 +30,6 @@
             }
           }
         }
-        resource.setIsInScope(false);
-        try {
-          resource.cancel();
-        }
- catch (        IOException e) {
-          logger.trace("",e);
-        }
-        AtmosphereResourceImpl.class.cast(resource)._destroy();
       }
     }
   finally {

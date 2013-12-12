@@ -2,7 +2,7 @@
   super.action(actionEvent);
   if (actionEvent.action().type() == Action.TYPE.RESUME && actionEvent.isInScope()) {
     AsyncContext asyncContext=(AsyncContext)actionEvent.getRequest().getAttribute(FrameworkConfig.ASYNC_CONTEXT);
-    if (asyncContext != null && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
+    if (asyncContext != null) {
       try {
         asyncContext.complete();
       }

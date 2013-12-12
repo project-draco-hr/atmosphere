@@ -1,9 +1,8 @@
 {
-  Action action=null;
+  Action action;
   action=suspended(req,res);
   if (action.type() == Action.TYPE.SUSPEND) {
     req.setAttribute(SUSPEND,action);
-    req.setAttribute(ASYNCHRONOUS_HOOK,new AsynchronousProcessorHook((AtmosphereResourceImpl)req.getAttribute(ATMOSPHERE_RESOURCE)));
   }
  else   if (action.type() == Action.TYPE.RESUME) {
     req.setAttribute(SUSPEND,action);
