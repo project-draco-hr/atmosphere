@@ -1,4 +1,4 @@
 {
   logger.error("",e);
-  webSocketProcessor.notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(e,WebSocketEventListener.WebSocketEvent.TYPE.EXCEPTION,webSocket));
+  onWebSocketClose(1006,e.getCause().getMessage());
 }
