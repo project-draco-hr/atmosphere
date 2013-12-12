@@ -3,9 +3,7 @@
   if (actionEvent.action().type() == Action.TYPE.RESUME && actionEvent.isInScope()) {
     try {
       HttpEvent event=(HttpEvent)actionEvent.getRequest().getAttribute(HTTP_EVENT);
-      if (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false")) {
-        event.close();
-      }
+      event.close();
     }
  catch (    IOException ex) {
       logger.debug("",ex);

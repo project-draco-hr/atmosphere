@@ -55,10 +55,6 @@
  else {
     initParams.put(DISABLE_ONSTATE_EVENT,"false");
   }
-  s=sc.getInitParameter(RESUME_AND_KEEPALIVE);
-  if (s != null) {
-    initParams.put(RESUME_AND_KEEPALIVE,s);
-  }
   s=sc.getInitParameter(BROADCAST_FILTER_CLASSES);
   if (s != null) {
     broadcasterFilters.addAll(Arrays.asList(s.split(",")));

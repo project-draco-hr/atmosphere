@@ -8,7 +8,7 @@
     handler=ctx.getCometHandler((Integer)req.getSession(false).getAttribute(ATMOSPHERE));
     req.getSession().removeAttribute(ATMOSPHERE);
   }
-  if (handler != null && (config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE) == null || config.getInitParameter(ApplicationConfig.RESUME_AND_KEEPALIVE).equalsIgnoreCase("false"))) {
+  if (handler != null) {
     ctx.resumeCometHandler(handler);
   }
 }
