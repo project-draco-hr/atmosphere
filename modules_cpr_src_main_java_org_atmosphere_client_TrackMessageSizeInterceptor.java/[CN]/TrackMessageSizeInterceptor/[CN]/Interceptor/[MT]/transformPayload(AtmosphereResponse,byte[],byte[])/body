@@ -4,7 +4,6 @@
     CharBuffer cb=inCharset.newDecoder().decode(ByteBuffer.wrap(responseDraft,0,responseDraft.length));
     String s=cb.toString();
     if (s.trim().length() == 0 || s.indexOf(endString) != -1) {
-      logger.trace("Already filtered {}",s);
       return responseDraft;
     }
     int size=cb.length();
