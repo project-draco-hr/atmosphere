@@ -1,3 +1,6 @@
 {
-  if (asyncIOWriter == null)   throw new IOException("AtmosphereResource Cancelled: " + uuid);
+  if (asyncIOWriter == null) {
+    logger.trace("{} invalid state",this.hashCode());
+    throw new IOException("AtmosphereResource Cancelled: " + uuid);
+  }
 }
