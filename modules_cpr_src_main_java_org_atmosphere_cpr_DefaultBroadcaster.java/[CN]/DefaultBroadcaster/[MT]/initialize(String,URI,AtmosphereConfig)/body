@@ -24,5 +24,6 @@
     logger.trace("{} supports Out Of Order Broadcast: {}",name,outOfOrderBroadcastSupported.get());
   }
   initialized.set(true);
+  backwardCompatible=Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
   return this;
 }

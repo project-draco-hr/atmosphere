@@ -10,7 +10,6 @@
   if (!wasResumed && isAtmosphereResourceValid(r)) {
     logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
     String parentUUID=(String)r.getRequest().getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
-    Boolean backwardCompatible=Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
     if (!backwardCompatible && parentUUID != null) {
       AtmosphereResource p=AtmosphereResourceFactory.getDefault().find(parentUUID);
       if (p != null && !resources.contains(p)) {
@@ -18,6 +17,9 @@
       }
  else       if (p == null) {
         notifyAndAdd(r);
+      }
+ else {
+        logger.trace("Unable to add AtmosphereResource {}",r.uuid());
       }
     }
  else {
