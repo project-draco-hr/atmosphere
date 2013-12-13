@@ -11,7 +11,4 @@
       }
     }
   }
- else   if (!actionEvent.isInScope()) {
-    logger.trace("Already resumed or cancelled: event: {}",actionEvent);
-  }
 }
