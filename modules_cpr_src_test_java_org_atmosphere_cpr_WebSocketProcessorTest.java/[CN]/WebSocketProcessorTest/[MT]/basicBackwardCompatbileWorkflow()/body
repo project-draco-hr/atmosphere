@@ -2,6 +2,7 @@
   ByteArrayOutputStream b=new ByteArrayOutputStream();
   final WebSocket w=new ArrayBaseWebSocket(b);
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
+  framework.getBroadcasterFactory().remove("/*");
   framework.addInitParameter(ApplicationConfig.BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR,"true").addAtmosphereHandler("/*",new AtmosphereHandler(){
     @Override public void onRequest(    AtmosphereResource resource) throws IOException {
       resource.getBroadcaster().addAtmosphereResource(resource);
