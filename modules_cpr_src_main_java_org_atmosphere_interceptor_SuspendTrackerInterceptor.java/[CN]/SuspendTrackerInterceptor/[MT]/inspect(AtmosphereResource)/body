@@ -4,7 +4,7 @@
       logger.trace("Blocking {} from suspend",r.uuid());
       AtmosphereResourceImpl.class.cast(r).disableSuspendEvent(true);
     }
-    r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    r.addEventListener(new OnDisconnect(){
       @Override public void onDisconnect(      AtmosphereResourceEvent event){
         logger.trace("Untracking {}",r.uuid());
         trackedUUID.remove(r.uuid());

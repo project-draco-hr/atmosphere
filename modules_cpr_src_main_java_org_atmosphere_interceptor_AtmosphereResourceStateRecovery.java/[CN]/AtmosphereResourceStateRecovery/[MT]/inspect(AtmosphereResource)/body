@@ -8,11 +8,11 @@
       return Action.CANCELLED;
     }
  else {
-      r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+      r.addEventListener(new OnSuspend(){
         public void onSuspend(        AtmosphereResourceEvent event){
           logger.trace("onSuspend first");
           final AtomicBoolean doNotSuspend=new AtomicBoolean(false);
-          r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+          r.addEventListener(new OnBroadcast(){
             @Override public void onBroadcast(            AtmosphereResourceEvent event){
               r.removeEventListener(this);
               doNotSuspend.set(true);

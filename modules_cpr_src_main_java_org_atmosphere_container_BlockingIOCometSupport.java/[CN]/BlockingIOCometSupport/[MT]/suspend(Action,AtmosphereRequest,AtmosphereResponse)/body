@@ -4,7 +4,7 @@
   boolean ok=true;
   try {
     AtmosphereResource resource=req.resource();
-    resource.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    resource.addEventListener(new OnResume(){
       @Override public void onResume(      AtmosphereResourceEvent event){
         latch.countDown();
       }

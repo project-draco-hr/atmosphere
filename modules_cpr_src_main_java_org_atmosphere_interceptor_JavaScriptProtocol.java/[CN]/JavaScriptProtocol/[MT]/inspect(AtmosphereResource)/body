@@ -18,7 +18,7 @@
       protocolMessage.set((String)f.filter(r,protocolMessage.get(),protocolMessage.get()).message());
     }
     if (!Utils.resumableTransport(r.transport())) {
-      AtmosphereResourceEventListenerAdapter a=new AtmosphereResourceEventListenerAdapter(){
+      OnSuspend a=new OnSuspend(){
         @Override public void onSuspend(        AtmosphereResourceEvent event){
           r.getResponse().write(protocolMessage.get());
           try {

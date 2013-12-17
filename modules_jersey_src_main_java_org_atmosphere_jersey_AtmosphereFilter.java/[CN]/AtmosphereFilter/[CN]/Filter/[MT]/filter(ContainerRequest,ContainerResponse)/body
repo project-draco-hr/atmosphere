@@ -74,7 +74,7 @@ throw new WebApplicationException(new IllegalStateException("Invalid AtmosphereR
 }
 }
 final Object entity=response.getEntity();
-r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+r.addEventListener(new OnSuspend(){
 @Override public void onSuspend(AtmosphereResourceEvent event){
 try {
 if (entity != null) {
