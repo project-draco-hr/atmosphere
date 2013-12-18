@@ -22,6 +22,7 @@
       }
     }
     framework.addAtmosphereHandler(a.path(),handler,broadcaster(framework,a.broadcaster(),a.path()),l);
+    framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
   }
  catch (  Throwable e) {
     logger.warn("",e);
