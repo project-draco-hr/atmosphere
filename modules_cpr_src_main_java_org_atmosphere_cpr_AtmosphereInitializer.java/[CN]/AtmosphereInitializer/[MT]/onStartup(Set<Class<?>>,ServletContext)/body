@@ -19,6 +19,22 @@
       }
 ));
     }
+    try {
+      c.addListener(new ServletRequestListener(){
+        @Override public void requestDestroyed(        ServletRequestEvent sre){
+        }
+        @Override public void requestInitialized(        ServletRequestEvent sre){
+          HttpServletRequest r=HttpServletRequest.class.cast(sre.getServletRequest());
+          if (framework.getAtmosphereConfig().isSupportSession() && r.getHeader("Upgrade") != null) {
+            r.getSession(true);
+          }
+        }
+      }
+);
+    }
+ catch (    Throwable t) {
+      logger.trace("Unable to install WebSocket Session Creator",t);
+    }
     c.setAttribute(AtmosphereFramework.class.getName(),framework);
   }
 }
