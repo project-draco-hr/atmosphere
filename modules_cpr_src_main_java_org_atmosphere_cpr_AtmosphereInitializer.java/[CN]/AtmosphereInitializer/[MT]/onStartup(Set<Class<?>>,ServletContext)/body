@@ -25,7 +25,7 @@
         }
         @Override public void requestInitialized(        ServletRequestEvent sre){
           HttpServletRequest r=HttpServletRequest.class.cast(sre.getServletRequest());
-          if (framework.getAtmosphereConfig().isSupportSession() && r.getHeader("Upgrade") != null) {
+          if (framework.getAtmosphereConfig().isSupportSession() && Utils.webSocketEnabled(r)) {
             r.getSession(true);
           }
         }
