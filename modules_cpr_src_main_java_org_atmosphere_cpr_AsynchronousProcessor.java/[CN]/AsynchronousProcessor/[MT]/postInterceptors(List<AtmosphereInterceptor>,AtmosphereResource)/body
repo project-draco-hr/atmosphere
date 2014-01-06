@@ -1,5 +1,13 @@
 {
+  AtmosphereInterceptor arc=null;
   for (int i=c.size() - 1; i > -1; i--) {
-    c.get(i).postInspect(r);
+    try {
+      arc=c.get(i);
+      arc.postInspect(r);
+    }
+ catch (    Exception ex) {
+      logger.error("Interceptor {} crashed. Processing will continue with other interceptor.",arc,ex);
+      continue;
+    }
   }
 }

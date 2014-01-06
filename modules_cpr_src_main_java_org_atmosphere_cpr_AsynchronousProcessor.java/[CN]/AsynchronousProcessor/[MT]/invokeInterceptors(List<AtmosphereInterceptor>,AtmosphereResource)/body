@@ -1,7 +1,13 @@
 {
   Action a=Action.CONTINUE;
   for (  AtmosphereInterceptor arc : c) {
-    a=arc.inspect(r);
+    try {
+      a=arc.inspect(r);
+    }
+ catch (    Exception ex) {
+      logger.error("Interceptor {} crashed. Processing will continue with other interceptor.",arc,ex);
+      continue;
+    }
     if (a == null) {
       logger.trace("Action was null for {}",arc);
       a=Action.CANCELLED;
