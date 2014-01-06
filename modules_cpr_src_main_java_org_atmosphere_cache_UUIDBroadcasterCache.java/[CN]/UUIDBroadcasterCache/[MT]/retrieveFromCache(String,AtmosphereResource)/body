@@ -5,15 +5,12 @@
   ClientQueue clientQueue;
   activeClients.put(clientId,now);
   clientQueue=messages.remove(clientId);
-  List<CacheMessage> clientMessages;
-  if (clientQueue == null) {
-    clientMessages=Collections.emptyList();
-  }
- else {
+  ConcurrentLinkedQueue<CacheMessage> clientMessages;
+  if (clientQueue != null) {
     clientMessages=clientQueue.getQueue();
-  }
-  for (  CacheMessage cacheMessage : clientMessages) {
-    result.add(cacheMessage.getMessage());
+    for (    CacheMessage cacheMessage : clientMessages) {
+      result.add(cacheMessage.getMessage());
+    }
   }
   if (logger.isTraceEnabled()) {
     logger.trace("Retrieved for AtmosphereResource {} cached messages {}",r.uuid(),result);

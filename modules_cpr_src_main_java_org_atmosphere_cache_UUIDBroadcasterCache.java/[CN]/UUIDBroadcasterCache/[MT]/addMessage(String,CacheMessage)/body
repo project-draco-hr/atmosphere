@@ -4,6 +4,6 @@
     clientQueue=new ClientQueue();
     messages.put(clientId,clientQueue);
   }
-  clientQueue.getQueue().addLast(message);
+  clientQueue.getQueue().offer(message);
   clientQueue.getIds().add(message.getId());
 }
