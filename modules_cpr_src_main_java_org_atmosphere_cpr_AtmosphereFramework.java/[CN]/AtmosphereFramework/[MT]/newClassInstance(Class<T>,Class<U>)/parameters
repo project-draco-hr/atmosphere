@@ -1,2 +1,2 @@
 Class<T> classType
-Class<U> defaultImplementation
+Class<U> defaultType
