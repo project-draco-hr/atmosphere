@@ -1,11 +1,10 @@
 {
-  ClassLoader cl=Thread.currentThread().getContextClassLoader();
   String broadcasterClassNameTmp=null;
   try {
-    cl.loadClass(JERSEY_CONTAINER);
+    IOUtils.loadClass(getClass(),JERSEY_CONTAINER);
     if (!isBroadcasterSpecified) {
       broadcasterClassNameTmp=lookupDefaultBroadcasterType(JERSEY_BROADCASTER);
-      cl.loadClass(broadcasterClassNameTmp);
+      IOUtils.loadClass(getClass(),broadcasterClassNameTmp);
     }
     useStreamForFlushingComments=true;
     StringBuilder packagesInit=new StringBuilder();
@@ -19,7 +18,7 @@
     return false;
   }
   logger.warn("Missing META-INF/atmosphere.xml but found the Jersey runtime. Starting Jersey");
-  ReflectorServletProcessor rsp=newClassInstance(ReflectorServletProcessor.class);
+  ReflectorServletProcessor rsp=newClassInstance(AtmosphereHandler.class,ReflectorServletProcessor.class);
   if (broadcasterClassNameTmp != null)   broadcasterClassName=broadcasterClassNameTmp;
   rsp.setServletClassName(JERSEY_CONTAINER);
   sessionSupport(false);
@@ -31,7 +30,7 @@
       mapping=ROOT;
     }
   }
-  Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
+  Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)IOUtils.loadClass(getClass(),broadcasterClassName);
   broadcasterFactory.destroy();
   broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
   BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);

@@ -3,7 +3,7 @@
     List<Encoder<?,?>> l=new CopyOnWriteArrayList<Encoder<?,?>>();
     for (    Class<? extends Encoder> s : m.method.getAnnotation(Message.class).encoders()) {
       try {
-        l.add(config.framework().newClassInstance(s));
+        l.add(config.framework().newClassInstance(Encoder.class,s));
       }
  catch (      Exception e) {
         logger.error("Unable to load encoder {}",s);
@@ -15,7 +15,7 @@
     List<Encoder<?,?>> l=new CopyOnWriteArrayList<Encoder<?,?>>();
     for (    Class<? extends Encoder> s : onReadyMethod.getAnnotation(Ready.class).encoders()) {
       try {
-        l.add(config.framework().newClassInstance(s));
+        l.add(config.framework().newClassInstance(Encoder.class,s));
       }
  catch (      Exception e) {
         logger.error("Unable to load encoder {}",s);

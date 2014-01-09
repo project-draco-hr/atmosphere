@@ -9,7 +9,7 @@
         className=className.replaceFirst("^.*/(WEB-INF|target)(?:/scala-[^/]+)?/(test-)?classes/(.*)\\.class","$3").replace("/",".");
         Class<?> clazz=classloader.loadClass(className);
         if (AtmosphereHandler.class.isAssignableFrom(clazz)) {
-          AtmosphereHandler handler=(AtmosphereHandler)newClassInstance(clazz);
+          AtmosphereHandler handler=newClassInstance(AtmosphereHandler.class,(Class<AtmosphereHandler>)clazz);
           addMapping("/" + handler.getClass().getSimpleName(),new AtmosphereHandlerWrapper(broadcasterFactory,handler,"/" + handler.getClass().getSimpleName()));
           logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",handler,handler.getClass().getName());
         }

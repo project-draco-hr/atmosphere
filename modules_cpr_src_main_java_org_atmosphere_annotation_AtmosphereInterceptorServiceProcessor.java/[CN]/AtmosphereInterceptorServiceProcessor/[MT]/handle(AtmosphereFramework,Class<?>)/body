@@ -1,9 +1,0 @@
-{
-  try {
-    AtmosphereInterceptor a=(AtmosphereInterceptor)framework.newClassInstance(annotatedClass);
-    framework.interceptor(a);
-  }
- catch (  Throwable e) {
-    logger.warn("",e);
-  }
-}

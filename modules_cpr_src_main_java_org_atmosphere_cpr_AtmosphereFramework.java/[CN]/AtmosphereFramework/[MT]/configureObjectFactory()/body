@@ -7,8 +7,10 @@
   if (s != null) {
     ClassLoader cl=Thread.currentThread().getContextClassLoader();
     try {
-      AtmosphereObjectFactory aci=(AtmosphereObjectFactory)cl.loadClass(s).newInstance();
-      if (aci != null)       objectFactory(aci);
+      AtmosphereObjectFactory aci=(AtmosphereObjectFactory)IOUtils.loadClass(getClass(),s).newInstance();
+      if (aci != null) {
+        objectFactory(aci);
+      }
     }
  catch (    Exception ex) {
       logger.warn("Unable to load AtmosphereClassInstantiator instance",ex);

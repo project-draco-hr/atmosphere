@@ -11,7 +11,7 @@
       }
  else {
         if (broadcasterCacheClassName != null) {
-          BroadcasterCache cache=(BroadcasterCache)newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(broadcasterCacheClassName));
+          BroadcasterCache cache=newClassInstance(BroadcasterCache.class,(Class<BroadcasterCache>)IOUtils.loadClass(getClass(),broadcasterCacheClassName));
           w.broadcaster.getBroadcasterConfig().setBroadcasterCache(cache);
         }
       }

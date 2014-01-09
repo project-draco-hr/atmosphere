@@ -4,16 +4,10 @@
     String[] list=s.split(",");
     for (    String a : list) {
       try {
-        AtmosphereInterceptor ai=(AtmosphereInterceptor)newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(a.trim()));
+        AtmosphereInterceptor ai=newClassInstance(AtmosphereInterceptor.class,(Class<AtmosphereInterceptor>)IOUtils.loadClass(getClass(),a.trim()));
         interceptor(ai);
       }
- catch (      InstantiationException e) {
-        logger.warn("",e);
-      }
-catch (      IllegalAccessException e) {
-        logger.warn("",e);
-      }
-catch (      ClassNotFoundException e) {
+ catch (      Exception e) {
         logger.warn("",e);
       }
     }

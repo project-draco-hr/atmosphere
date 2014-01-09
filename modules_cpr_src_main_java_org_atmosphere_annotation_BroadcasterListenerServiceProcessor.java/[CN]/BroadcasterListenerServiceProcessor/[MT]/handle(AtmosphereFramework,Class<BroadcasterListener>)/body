@@ -1,0 +1,8 @@
+{
+  try {
+    framework.addBroadcasterListener((BroadcasterListener)framework.newClassInstance(BroadcasterListener.class,annotatedClass));
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

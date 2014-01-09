@@ -1,10 +1,10 @@
 {
   if (servletClassName != null && servlet == null) {
     try {
-      servlet=(Servlet)config.framework().newClassInstance(urlC.loadClass(servletClassName));
+      servlet=config.framework().newClassInstance(Servlet.class,(Class<Servlet>)urlC.loadClass(servletClassName));
     }
  catch (    NullPointerException ex) {
-      servlet=(Servlet)config.framework().newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(servletClassName));
+      servlet=config.framework().newClassInstance(Servlet.class,(Class<Servlet>)IOUtils.loadClass(getClass(),servletClassName));
     }
   }
   logger.info("Installing Servlet {}",servletClassName);

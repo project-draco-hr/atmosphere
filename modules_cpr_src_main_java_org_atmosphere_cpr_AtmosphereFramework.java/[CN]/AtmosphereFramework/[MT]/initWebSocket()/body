@@ -2,21 +2,15 @@
   if (webSocketProtocolInitialized)   return;
   if (webSocketProtocol == null) {
     try {
-      webSocketProtocol=(WebSocketProtocol)newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(webSocketProtocolClassName));
+      webSocketProtocol=newClassInstance(WebSocketProtocol.class,(Class<WebSocketProtocol>)IOUtils.loadClass(this.getClass(),webSocketProtocolClassName));
       logger.info("Installed WebSocketProtocol {} ",webSocketProtocolClassName);
     }
  catch (    Exception ex) {
+      logger.error("Cannot load the WebSocketProtocol {}",getWebSocketProtocolClassName(),ex);
       try {
-        webSocketProtocol=(WebSocketProtocol)newClassInstance(AtmosphereFramework.class.getClassLoader().loadClass(webSocketProtocolClassName));
-        logger.info("Installed WebSocketProtocol {} ",webSocketProtocolClassName);
+        webSocketProtocol=newClassInstance(WebSocketProtocol.class,SimpleHttpProtocol.class);
       }
- catch (      Exception ex2) {
-        logger.error("Cannot load the WebSocketProtocol {}",getWebSocketProtocolClassName(),ex);
-        try {
-          webSocketProtocol=newClassInstance(SimpleHttpProtocol.class);
-        }
- catch (        Exception e) {
-        }
+ catch (      Exception e) {
       }
     }
   }

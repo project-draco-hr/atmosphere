@@ -1,0 +1,3 @@
+{
+  return objectFactory.newClassInstance(this,classType,defaultImplementation);
+}

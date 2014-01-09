@@ -2,12 +2,7 @@
   try {
     String className=config.framework().getBroadcasterCacheClassName();
     if (className != null) {
-      try {
-        broadcasterCache=(BroadcasterCache)config.framework().newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(className));
-      }
- catch (      ClassNotFoundException ex) {
-        broadcasterCache=(BroadcasterCache)config.framework().newClassInstance(getClass().getClassLoader().loadClass(className));
-      }
+      broadcasterCache=config.framework().newClassInstance(BroadcasterCache.class,(Class<BroadcasterCache>)IOUtils.loadClass(getClass(),className));
       configureSharedCacheExecutor();
       broadcasterCache.configure(this);
     }
@@ -15,13 +10,7 @@
       broadcasterCache.inspector(b);
     }
   }
- catch (  InstantiationException e) {
-    throw new RuntimeException(e);
-  }
-catch (  IllegalAccessException e) {
-    throw new RuntimeException(e);
-  }
-catch (  ClassNotFoundException e) {
+ catch (  Exception e) {
     throw new RuntimeException(e);
   }
 }

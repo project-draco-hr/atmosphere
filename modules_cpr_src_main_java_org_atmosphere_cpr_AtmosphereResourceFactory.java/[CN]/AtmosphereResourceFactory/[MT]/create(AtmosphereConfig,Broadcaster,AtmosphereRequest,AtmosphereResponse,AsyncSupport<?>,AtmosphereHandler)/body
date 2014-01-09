@@ -1,7 +1,7 @@
 {
   AtmosphereResource r=null;
   try {
-    r=config.framework().newClassInstance(AtmosphereResourceImpl.class);
+    r=config.framework().newClassInstance(AtmosphereResource.class,AtmosphereResourceImpl.class);
     r.initialize(config,broadcaster,request,response,a,handler);
   }
  catch (  Exception e) {

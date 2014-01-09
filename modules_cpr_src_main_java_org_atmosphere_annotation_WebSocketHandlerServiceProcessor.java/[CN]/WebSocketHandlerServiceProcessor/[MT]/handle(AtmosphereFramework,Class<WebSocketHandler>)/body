@@ -1,0 +1,19 @@
+{
+  try {
+    WebSocketHandlerService m=annotatedClass.getAnnotation(WebSocketHandlerService.class);
+    atmosphereConfig(m.atmosphereConfig(),framework);
+    framework.addAtmosphereHandler(m.path(),AtmosphereFramework.REFLECTOR_ATMOSPHEREHANDLER).initWebSocket();
+    framework.setDefaultBroadcasterClassName(m.broadcaster().getName());
+    filters(m.broadcastFilters(),framework);
+    interceptors(m.interceptors(),framework);
+    AtmosphereInterceptor aa=listeners(m.listeners(),framework);
+    if (aa != null) {
+      framework.interceptor(aa);
+    }
+    WebSocketProcessor p=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
+    p.registerWebSocketHandler(m.path(),new WebSocketProcessor.WebSocketHandlerProxy(broadcasterClass(framework,m.broadcaster()),framework.newClassInstance(WebSocketHandler.class,annotatedClass)));
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

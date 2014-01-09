@@ -2,7 +2,7 @@
   String s=servletConfig.getInitParameter(ApplicationConfig.ENDPOINT_MAPPER);
   if (s != null) {
     try {
-      endpointMapper=(EndpointMapper)newClassInstance(AtmosphereFramework.class.getClassLoader().loadClass(s));
+      endpointMapper=newClassInstance(EndpointMapper.class,(Class<EndpointMapper>)IOUtils.loadClass(this.getClass(),s));
       logger.info("Installed EndpointMapper {} ",s);
     }
  catch (    Exception ex) {

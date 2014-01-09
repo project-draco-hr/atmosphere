@@ -1,13 +1,12 @@
 {
   String s=sc.getInitParameter(ATMOSPHERE_HANDLER);
   if (s != null) {
-    ClassLoader cl=Thread.currentThread().getContextClassLoader();
     try {
       String mapping=sc.getInitParameter(ATMOSPHERE_HANDLER_MAPPING);
       if (mapping == null) {
         mapping=ROOT;
       }
-      addAtmosphereHandler(mapping,(AtmosphereHandler)newClassInstance(cl.loadClass(s)));
+      addAtmosphereHandler(mapping,newClassInstance(AtmosphereHandler.class,(Class<AtmosphereHandler>)IOUtils.loadClass(getClass(),s)));
     }
  catch (    Exception ex) {
       logger.warn("Unable to load WebSocketHandle instance",ex);

@@ -1,8 +1,0 @@
-{
-  try {
-    framework.addBroadcasterCacheInjector((BroadcasterCacheInspector)framework.newClassInstance(annotatedClass));
-  }
- catch (  Throwable e) {
-    logger.warn("",e);
-  }
-}

@@ -4,10 +4,10 @@
       broadcasterClassName=lookupDefaultBroadcasterType(broadcasterClassName);
     }
     if (broadcasterFactoryClassName != null) {
-      broadcasterFactory=(BroadcasterFactory)newClassInstance(Thread.currentThread().getContextClassLoader().loadClass(broadcasterFactoryClassName));
+      broadcasterFactory=newClassInstance(BroadcasterFactory.class,(Class<BroadcasterFactory>)IOUtils.loadClass(getClass(),broadcasterFactoryClassName));
     }
     if (broadcasterFactory == null) {
-      Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)Thread.currentThread().getContextClassLoader().loadClass(broadcasterClassName);
+      Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)IOUtils.loadClass(getClass(),broadcasterClassName);
       broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
     }
     for (    BroadcasterListener b : broadcasterListeners) {
