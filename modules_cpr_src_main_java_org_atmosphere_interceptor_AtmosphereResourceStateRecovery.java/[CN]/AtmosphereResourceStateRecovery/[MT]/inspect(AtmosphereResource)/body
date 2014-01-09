@@ -1,5 +1,5 @@
 {
-  if (!r.transport().equals(AtmosphereResource.TRANSPORT.POLLING) && !r.transport().equals(AtmosphereResource.TRANSPORT.AJAX)) {
+  if (!Utils.pollableTransport(r.transport())) {
     final BroadcasterTracker tracker=track(r).tick();
     List<Object> cachedMessages=retrieveCache(r,tracker,false);
     if (cachedMessages.size() > 0) {

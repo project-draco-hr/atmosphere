@@ -1,7 +1,8 @@
 {
 switch (t) {
-case JSONP:
-case LONG_POLLING:
+case POLLING:
+case UNDEFINED:
+case AJAX:
     return true;
 default :
   return false;

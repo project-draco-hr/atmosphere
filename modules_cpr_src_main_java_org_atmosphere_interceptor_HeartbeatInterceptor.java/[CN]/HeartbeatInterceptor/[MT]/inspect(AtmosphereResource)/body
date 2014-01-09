@@ -1,8 +1,8 @@
 {
-  super.inspect(r);
   final AtmosphereResponse response=r.getResponse();
   final AtmosphereRequest request=r.getRequest();
-  if (!r.transport().equals(TRANSPORT.POLLING)) {
+  if (!Utils.pollableTransport(r.transport())) {
+    super.inspect(r);
     r.addEventListener(new Clock(){
       @Override public void onSuspend(      AtmosphereResourceEvent event){
         clock(r,request,response);
@@ -12,6 +12,9 @@
       }
     }
 );
+  }
+ else {
+    return Action.CONTINUE;
   }
   AsyncIOWriter writer=response.getAsyncIOWriter();
   if (!Utils.resumableTransport(r.transport()) && AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass()) && r.getRequest().getAttribute(INTERCEPTOR_ADDED) == null) {

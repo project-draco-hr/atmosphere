@@ -1,7 +1,7 @@
 {
   AtmosphereRequest request=resource.getRequest();
   String method=request.getMethod();
-  boolean polling=resource.transport().equals(AtmosphereResource.TRANSPORT.POLLING);
+  boolean polling=Utils.pollableTransport(resource.transport());
   if (onReadyMethod != null && !polling) {
     resource.addEventListener(new OnSuspend(){
       @Override public void onSuspend(      AtmosphereResourceEvent event){
