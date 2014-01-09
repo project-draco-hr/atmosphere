@@ -1,6 +1,6 @@
 {
   try {
-    ReflectorServletProcessor r=framework.newClassInstance(AtmosphereHandler.class,ReflectorServletProcessor.class);
+    ReflectorServletProcessor r=framework.newClassInstance(ReflectorServletProcessor.class,ReflectorServletProcessor.class);
     r.setServletClassName(annotatedClass.getName());
     List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
     MeteorService m=annotatedClass.getAnnotation(MeteorService.class);

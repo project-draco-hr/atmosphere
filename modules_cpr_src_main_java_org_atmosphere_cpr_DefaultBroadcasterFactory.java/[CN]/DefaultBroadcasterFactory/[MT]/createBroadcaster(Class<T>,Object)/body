@@ -1,6 +1,6 @@
 {
   try {
-    T b=config.framework().newClassInstance(Broadcaster.class,c);
+    T b=config.framework().newClassInstance(c,c);
     b.initialize(id.toString(),legacyBroadcasterURI,config);
     b.setSuspendPolicy(defaultPolicyInteger,defaultPolicy);
     if (b.getBroadcasterConfig() == null) {
