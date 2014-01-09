@@ -27,7 +27,7 @@ catch (      ClassNotFoundException e) {
       disables.addAll(Arrays.asList(s.split(",")));
     }
     for (    Class<? extends AtmosphereInterceptor> a : defaultInterceptors) {
-      if (!s.contains(a.getName())) {
+      if (!disables.contains(a.getName())) {
         interceptors.addFirst(newAInterceptor(a));
       }
  else {
