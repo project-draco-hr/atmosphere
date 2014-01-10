@@ -1,5 +1,5 @@
 {
-  final AtomicBoolean useBuildInSession=new AtomicBoolean(false);
+  final AtomicBoolean useBuildInSession=new AtomicBoolean(config.isSupportSession());
   String s=config.getInitParameter(ApplicationConfig.BUILT_IN_SESSION);
   if (s != null) {
     useBuildInSession.set(Boolean.valueOf(s));
