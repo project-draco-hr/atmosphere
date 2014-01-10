@@ -1,0 +1,4 @@
+{
+  excludedInterceptors.add(interceptor);
+  return this;
+}
