@@ -37,7 +37,7 @@
     }
 synchronized (r) {
       try {
-        r.getRequest().setAttribute(CACHED,"true");
+        rImpl.getRequest().setAttribute(CACHED,"true");
         prepareInvokeOnStateChange(r,e);
       }
  catch (      Throwable t) {
