@@ -11,4 +11,9 @@
     activeClients.remove(clientId);
     messages.remove(clientId);
   }
+  for (  String msg : messages().keySet()) {
+    if (!activeClients().containsKey(msg)) {
+      messages().remove(msg);
+    }
+  }
 }

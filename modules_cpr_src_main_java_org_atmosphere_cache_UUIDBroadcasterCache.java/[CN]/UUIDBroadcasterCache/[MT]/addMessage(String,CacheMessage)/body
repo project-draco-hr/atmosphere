@@ -2,7 +2,13 @@
   ClientQueue clientQueue=messages.get(clientId);
   if (clientQueue == null) {
     clientQueue=new ClientQueue();
-    messages.put(clientId,clientQueue);
+    if (activeClients.get(clientId) != null) {
+      messages.put(clientId,clientQueue);
+    }
+ else {
+      logger.debug("Client is no longer active. Not caching message {}}",clientId,message);
+      return;
+    }
   }
   clientQueue.getQueue().offer(message);
   clientQueue.getIds().add(message.getId());
