@@ -13,6 +13,9 @@
       @Override public void onDisconnect(      AtmosphereResourceEvent event){
         cancelF(request);
       }
+      @Override public void onClose(      AtmosphereResourceEvent event){
+        cancelF(request);
+      }
     }
 );
   }
