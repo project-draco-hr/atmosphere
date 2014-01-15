@@ -1,0 +1,12 @@
+{
+  AtmosphereResourceSession session=sessions.get(r.uuid());
+  if (create && session == null) {
+    r.addEventListener(disconnectListener);
+    session=new DefaultAtmosphereResourceSession();
+    AtmosphereResourceSession existing=sessions.putIfAbsent(r.uuid(),session);
+    if (existing != null) {
+      session=existing;
+    }
+  }
+  return session;
+}
