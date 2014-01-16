@@ -1,3 +1,4 @@
 {
+  checkValid();
   return attributes.get(name);
 }

@@ -12,12 +12,13 @@
   assertSame(s1,factory.getSession(r1));
   AtmosphereResourceSession s2=factory.getSession(r2);
   assertNotSame(s1,s2);
-  s1.setAttribute("att1","value1");
-  s2.setAttribute("att1","value2");
-  assertEquals("value1",s1.getAttribute("att1",String.class));
-  assertEquals("value2",s2.getAttribute("att1",String.class));
-  s1.setAttribute("att1","value1.1");
-  assertEquals("value1.1",s1.getAttribute("att1"));
+  s1.setAttribute("att1","s1v1");
+  assertEquals("s1v1",s1.getAttribute("att1",String.class));
+  assertEquals(Collections.singleton("att1"),s1.getAttributeNames());
+  s2.setAttribute("att1","s2v1");
+  assertEquals("s2v1",s2.getAttribute("att1",String.class));
+  s1.setAttribute("att1","s1v2");
+  assertEquals("s1v2",s1.getAttribute("att1"));
   verify(r1).addEventListener(disconnectListener);
   verify(r2).addEventListener(disconnectListener);
   AtmosphereResourceEvent e1=mock(AtmosphereResourceEvent.class);
@@ -26,6 +27,24 @@
   when(e2.getResource()).thenReturn(r2);
   disconnectListener.onDisconnect(e1);
   disconnectListener.onDisconnect(e2);
+  try {
+    s1.getAttribute("foo");
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+  try {
+    s1.setAttribute("foo","bar");
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+  try {
+    s1.getAttributeNames();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
   assertNull(factory.getSession(r1,false));
   assertNull(factory.getSession(r2,false));
 }

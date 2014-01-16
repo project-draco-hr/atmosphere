@@ -1,0 +1,5 @@
+{
+  checkValid();
+  valid=false;
+  attributes.clear();
+}
