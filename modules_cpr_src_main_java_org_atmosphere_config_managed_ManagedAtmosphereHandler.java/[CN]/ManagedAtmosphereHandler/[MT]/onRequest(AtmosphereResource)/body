@@ -32,7 +32,7 @@
     }
     Object o=message(resource,body);
     if (o != null) {
-      resource.getBroadcaster().broadcast(o);
+      resource.getBroadcaster().broadcast(new Managed(o));
     }
   }
  else   if (method.equalsIgnoreCase("delete")) {

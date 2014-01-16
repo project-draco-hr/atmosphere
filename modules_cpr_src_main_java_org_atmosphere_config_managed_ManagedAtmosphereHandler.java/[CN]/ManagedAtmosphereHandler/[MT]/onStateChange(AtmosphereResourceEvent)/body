@@ -20,11 +20,23 @@
  else {
     Object msg=event.getMessage();
     Object o;
-    for (    MethodInfo m : onRuntimeMethod) {
-      o=Invoker.encode(encoders.get(m.method),msg);
-      if (o != null) {
-        event.setMessage(o);
-        break;
+    if (msg != null) {
+      if (Managed.class.isAssignableFrom(msg.getClass())) {
+        Object newMsg=Managed.class.cast(msg).o;
+        event.setMessage(newMsg);
+        for (        MethodInfo m : onRuntimeMethod) {
+          o=Invoker.encode(encoders.get(m.method),newMsg);
+          if (o != null) {
+            event.setMessage(o);
+            break;
+          }
+        }
+      }
+ else {
+        o=message(r,msg);
+        if (o != null) {
+          event.setMessage(o);
+        }
       }
     }
     super.onStateChange(event);
