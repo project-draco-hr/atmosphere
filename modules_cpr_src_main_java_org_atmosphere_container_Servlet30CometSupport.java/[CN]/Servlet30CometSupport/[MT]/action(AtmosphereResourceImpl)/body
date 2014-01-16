@@ -1,14 +1,6 @@
 {
-  super.action(actionEvent);
-  if (actionEvent.action().type() == Action.TYPE.RESUME && actionEvent.isInScope()) {
-    AsyncContext asyncContext=(AsyncContext)actionEvent.getRequest().getAttribute(FrameworkConfig.ASYNC_CONTEXT);
-    if (asyncContext != null) {
-      try {
-        asyncContext.complete();
-      }
- catch (      IllegalStateException ex) {
-        logger.trace("Already resumed!",ex);
-      }
-    }
+  super.action(r);
+  if (r.action().type() == Action.TYPE.RESUME && r.isInScope()) {
+    endAsyncContext(r.getRequest(false));
   }
 }

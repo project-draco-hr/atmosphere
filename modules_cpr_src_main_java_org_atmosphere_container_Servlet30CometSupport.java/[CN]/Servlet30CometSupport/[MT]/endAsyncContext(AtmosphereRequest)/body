@@ -1,0 +1,11 @@
+{
+  AsyncContext asyncContext=(AsyncContext)request.getAttribute(FrameworkConfig.ASYNC_CONTEXT);
+  if (asyncContext != null) {
+    try {
+      asyncContext.complete();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("Already resumed!",ex);
+    }
+  }
+}
