@@ -1,0 +1,4 @@
+{
+  checkValid();
+  return Collections.unmodifiableSet(attributes.keySet());
+}
