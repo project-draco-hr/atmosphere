@@ -1,0 +1,6 @@
+{
+  if (!result.isOK() || result.getException() != null) {
+    Broadcaster b=r.getBroadcaster();
+    b.getBroadcasterConfig().getBroadcasterCache().addToCache(b.getID(),r,new BroadcastMessage(message));
+  }
+}

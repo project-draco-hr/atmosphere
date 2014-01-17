@@ -1,6 +1,6 @@
 {
   try {
-    session.getAsyncRemote().sendText(s);
+    session.getAsyncRemote().sendText(s,new WriteResult(resource(),s));
   }
  catch (  NullPointerException e) {
     patchGlassFish(e);

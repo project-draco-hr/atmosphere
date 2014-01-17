@@ -1,6 +1,7 @@
 {
   try {
-    session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length));
+    ByteBuffer b=ByteBuffer.wrap(data,offset,length);
+    session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length),new WriteResult(resource(),b.array()));
   }
  catch (  NullPointerException e) {
     patchGlassFish(e);
