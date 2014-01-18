@@ -1,10 +1,16 @@
 {
   try {
+    semaphore.acquireUninterruptibly();
     ByteBuffer b=ByteBuffer.wrap(data,offset,length);
-    session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length),new WriteResult(resource(),b.array()));
+    session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length),new WriteResult(resource(),b.array(),semaphore));
   }
  catch (  NullPointerException e) {
     patchGlassFish(e);
+    semaphore.release();
+  }
+catch (  IllegalStateException e) {
+    semaphore.release();
+    throw e;
   }
   return this;
 }

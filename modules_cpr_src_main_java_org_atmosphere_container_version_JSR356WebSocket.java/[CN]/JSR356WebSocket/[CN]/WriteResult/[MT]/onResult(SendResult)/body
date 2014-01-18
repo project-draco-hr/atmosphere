@@ -1,4 +1,5 @@
 {
+  semaphore.release();
   if (!result.isOK() || result.getException() != null) {
     logger.trace("WebSocket {} failed to write {}",r,message);
     Broadcaster b=r.getBroadcaster();

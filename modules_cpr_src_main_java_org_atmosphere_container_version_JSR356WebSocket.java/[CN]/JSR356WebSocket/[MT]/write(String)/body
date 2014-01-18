@@ -1,6 +1,13 @@
 {
   try {
-    session.getAsyncRemote().sendText(s,new WriteResult(resource(),s));
+    try {
+      semaphore.acquireUninterruptibly();
+      session.getAsyncRemote().sendText(s,new WriteResult(resource(),s,semaphore));
+    }
+ catch (    IllegalStateException e) {
+      semaphore.release();
+      throw e;
+    }
   }
  catch (  NullPointerException e) {
     patchGlassFish(e);
