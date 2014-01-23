@@ -3,4 +3,5 @@
   this.dataBytes=dataBytes;
   this.offset=offset;
   this.length=length;
+  isEmpty=data == null && dataBytes == null;
 }
