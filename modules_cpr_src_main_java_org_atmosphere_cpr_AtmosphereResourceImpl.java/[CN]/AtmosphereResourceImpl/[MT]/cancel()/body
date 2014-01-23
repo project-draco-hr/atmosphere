@@ -11,6 +11,7 @@
         }
       }
     }
+    Servlet30CometSupport.endAsyncContext(req);
     SessionTimeoutSupport.restoreTimeout(req);
     action.type(Action.TYPE.CANCELLED);
     if (asyncSupport != null)     asyncSupport.action(this);
