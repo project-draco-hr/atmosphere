@@ -1,6 +1,4 @@
 {
-  this.dataBytes=dataBytes;
-  this.offset=offset;
-  this.length=length;
+  this.body=new Body(null,dataBytes,offset,length);
   return this;
 }

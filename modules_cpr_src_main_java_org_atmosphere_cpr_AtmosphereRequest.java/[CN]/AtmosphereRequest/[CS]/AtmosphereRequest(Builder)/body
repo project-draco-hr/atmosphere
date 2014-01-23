@@ -1,24 +1,5 @@
 {
   super(b.request == null ? new NoOpsRequest() : b.request);
-  if (b.inputStream == null && b.reader == null) {
-    if (b.dataBytes != null) {
-      configureStream(b.dataBytes,b.offset,b.length,b.encoding);
-    }
- else     if (b.data != null) {
-      try {
-        byte[] bytes=b.data.getBytes("UTF-8");
-        bis=new ByteInputStream(bytes,0,bytes.length);
-      }
- catch (      UnsupportedEncodingException e) {
-        logger.trace("",e);
-      }
-      br=new BufferedReader(new StringReader(b.data));
-    }
-  }
- else {
-    bis=b.inputStream == null ? new IS(new ReaderInputStream(b.reader)) : new IS(b.inputStream);
-    br=b.reader == null ? new BufferedReader(new InputStreamReader(b.inputStream)) : new BufferedReader(b.reader);
-  }
   if (b.request == null)   b.request(new NoOpsRequest());
   this.b=b;
 }

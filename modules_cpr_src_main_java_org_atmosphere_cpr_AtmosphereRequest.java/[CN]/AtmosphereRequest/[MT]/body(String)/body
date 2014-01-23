@@ -1,11 +1,4 @@
 {
-  try {
-    byte[] bytes=body.getBytes("UTF-8");
-    bis=new ByteInputStream(bytes,0,bytes.length);
-  }
- catch (  UnsupportedEncodingException e) {
-    logger.trace("",e);
-  }
-  br=new BufferedReader(new StringReader(body));
+  b.body=new Body(body,null,0,0);
   return this;
 }

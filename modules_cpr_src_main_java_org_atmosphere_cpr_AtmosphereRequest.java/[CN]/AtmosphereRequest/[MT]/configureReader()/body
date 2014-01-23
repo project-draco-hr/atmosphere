@@ -1,0 +1,21 @@
+{
+  if (br == null && !readerSet.getAndSet(false)) {
+    if (b.reader == null) {
+      try {
+        if (b.body.dataBytes != null) {
+          br=new BufferedReader(new StringReader(new String(b.body.dataBytes,b.body.offset,b.body.length,b.encoding)));
+        }
+ else         if (b.body.data != null) {
+          br=new BufferedReader(new StringReader(b.body.data));
+        }
+      }
+ catch (      UnsupportedEncodingException e) {
+        throw new RuntimeException(e);
+      }
+    }
+ else {
+      br=b.reader == null ? new BufferedReader(new InputStreamReader(b.inputStream)) : new BufferedReader(b.reader);
+    }
+  }
+  return br;
+}

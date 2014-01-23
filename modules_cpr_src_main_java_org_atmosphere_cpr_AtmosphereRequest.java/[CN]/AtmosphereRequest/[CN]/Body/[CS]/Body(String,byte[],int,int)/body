@@ -1,0 +1,6 @@
+{
+  this.data=data;
+  this.dataBytes=dataBytes;
+  this.offset=offset;
+  this.length=length;
+}
