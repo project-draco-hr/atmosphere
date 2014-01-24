@@ -1,7 +1,9 @@
 {
   try {
     HttpEvent event=(HttpEvent)r.getRequest().getAttribute(HTTP_EVENT);
-    event.close();
+    if (event != null) {
+      event.close();
+    }
   }
  catch (  IOException ex) {
     logger.debug("",ex);
