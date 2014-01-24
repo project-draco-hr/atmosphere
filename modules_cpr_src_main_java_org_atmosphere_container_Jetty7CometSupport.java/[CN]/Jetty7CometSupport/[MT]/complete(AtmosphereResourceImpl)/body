@@ -1,0 +1,25 @@
+{
+  ServletRequest request=r.getRequest(false);
+  while (request != null) {
+    Continuation c=(Continuation)request.getAttribute(Continuation.class.getName());
+    if (c != null) {
+      try {
+        if (c.isSuspended()) {
+          c.complete();
+        }
+      }
+ catch (      IllegalStateException ex) {
+        logger.trace("c.complete()",ex);
+      }
+ finally {
+        r.getRequest(false).setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
+      }
+      request.removeAttribute(Continuation.class.getName());
+      return this;
+    }
+ else {
+      return this;
+    }
+  }
+  return this;
+}

@@ -1,0 +1,10 @@
+{
+  if (r.getRequest(false).getAttribute(CHANNEL) == null)   return this;
+  try {
+    ((AsyncIOWriter)r.getRequest(false).getAttribute(CHANNEL)).close(r.getResponse(false));
+  }
+ catch (  IOException e) {
+    logger.trace("",e);
+  }
+  return this;
+}

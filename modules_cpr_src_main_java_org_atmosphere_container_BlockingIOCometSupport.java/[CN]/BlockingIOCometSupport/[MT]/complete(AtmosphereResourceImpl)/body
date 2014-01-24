@@ -1,0 +1,14 @@
+{
+  AtmosphereRequest req=r.getRequest(false);
+  CountDownLatch latch=null;
+  if (req.getAttribute(LATCH) != null) {
+    latch=(CountDownLatch)req.getAttribute(LATCH);
+  }
+  if (latch != null) {
+    latch.countDown();
+  }
+ else   if (req.getAttribute(AtmosphereResourceImpl.PRE_SUSPEND) == null) {
+    logger.trace("Unable to resume the suspended connection");
+  }
+  return this;
+}

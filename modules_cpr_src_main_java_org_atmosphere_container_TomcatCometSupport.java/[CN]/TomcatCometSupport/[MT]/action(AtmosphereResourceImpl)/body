@@ -1,18 +1,6 @@
 {
-  super.action(resource);
-  if (resource.action().type() == Action.TYPE.RESUME && resource.isInScope()) {
-    try {
-      CometEvent event=(CometEvent)resource.getRequest().getAttribute(COMET_EVENT);
-      if (event == null)       return;
-      try {
-        event.close();
-      }
- catch (      IllegalStateException ex) {
-        logger.trace("event.close",ex);
-      }
-    }
- catch (    IOException ex) {
-      logger.debug("action failed",ex);
-    }
+  super.action(r);
+  if (r.action().type() == Action.TYPE.RESUME && r.isInScope()) {
+    complete(r);
   }
 }

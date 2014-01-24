@@ -1,0 +1,5 @@
+{
+  CometContext ctx=CometEngine.getEngine().getCometContext(atmosphereCtx);
+  resume(r.getRequest(false),ctx);
+  return this;
+}

@@ -1,14 +1,9 @@
 {
   super.action(r);
   if (r.action().type() == Action.TYPE.RESUME && r.isInScope()) {
-    Continuation c=ContinuationSupport.getContinuation(r.getRequest(),null);
+    Continuation c=ContinuationSupport.getContinuation(r.getRequest(false),null);
     resumed.offer(c);
-    if (!c.isNew()) {
-      c.resume();
-    }
- else {
-      r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
-    }
+    complete(r);
   }
  else {
     try {

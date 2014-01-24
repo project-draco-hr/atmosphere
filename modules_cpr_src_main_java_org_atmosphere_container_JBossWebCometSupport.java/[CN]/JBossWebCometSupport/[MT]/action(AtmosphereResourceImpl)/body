@@ -1,12 +1,6 @@
 {
-  super.action(actionEvent);
-  if (actionEvent.action().type() == Action.TYPE.RESUME && actionEvent.isInScope()) {
-    try {
-      HttpEvent event=(HttpEvent)actionEvent.getRequest().getAttribute(HTTP_EVENT);
-      event.close();
-    }
- catch (    IOException ex) {
-      logger.debug("",ex);
-    }
+  super.action(r);
+  if (r.action().type() == Action.TYPE.RESUME && r.isInScope()) {
+    complete(r);
   }
 }

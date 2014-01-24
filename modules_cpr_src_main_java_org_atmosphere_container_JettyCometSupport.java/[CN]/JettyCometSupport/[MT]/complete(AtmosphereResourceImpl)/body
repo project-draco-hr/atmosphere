@@ -1,0 +1,10 @@
+{
+  Continuation c=ContinuationSupport.getContinuation(r.getRequest(false),null);
+  if (!c.isNew()) {
+    c.resume();
+  }
+ else {
+    r.getRequest().setAttribute(FrameworkConfig.CANCEL_SUSPEND_OPERATION,true);
+  }
+  return this;
+}

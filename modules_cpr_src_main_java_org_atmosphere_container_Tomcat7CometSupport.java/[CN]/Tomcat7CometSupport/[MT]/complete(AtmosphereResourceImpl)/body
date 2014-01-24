@@ -1,0 +1,13 @@
+{
+  try {
+    CometEvent event=(CometEvent)r.getRequest(false).getAttribute(COMET_EVENT);
+    if (event == null)     return this;
+    if (!r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
+      bz51881(event);
+    }
+  }
+ catch (  IOException ex) {
+    logger.debug("action failed",ex);
+  }
+  return this;
+}

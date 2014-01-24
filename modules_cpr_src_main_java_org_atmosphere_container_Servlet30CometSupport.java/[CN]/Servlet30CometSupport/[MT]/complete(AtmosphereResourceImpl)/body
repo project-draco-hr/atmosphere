@@ -1,0 +1,4 @@
+{
+  endAsyncContext(r.getRequest(false));
+  return null;
+}

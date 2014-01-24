@@ -1,0 +1,16 @@
+{
+  try {
+    CometEvent event=(CometEvent)r.getRequest(false).getAttribute(COMET_EVENT);
+    if (event == null)     return this;
+    try {
+      event.close();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("event.close",ex);
+    }
+  }
+ catch (  IOException ex) {
+    logger.debug("action failed",ex);
+  }
+  return this;
+}
