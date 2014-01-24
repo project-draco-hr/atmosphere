@@ -43,6 +43,10 @@
     }
     isSessionSupportSpecified=true;
   }
+  s=sc.getInitParameter(PROPERTY_ALLOW_SESSION_TIMEOUT_REMOVAL);
+  if (s != null) {
+    config.setSessionTimeoutRemovalAllowed(Boolean.valueOf(s));
+  }
   s=sc.getInitParameter(PROPERTY_THROW_EXCEPTION_ON_CLONED_REQUEST);
   if (s != null) {
     config.setThrowExceptionOnCloned(Boolean.valueOf(s));
