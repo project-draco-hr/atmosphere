@@ -57,7 +57,7 @@
   postInterceptors(handlerWrapper.interceptors,resource);
   postInterceptors(config.framework().interceptors(),resource);
   Action action=skipAtmosphereHandler ? Action.CANCELLED : resource.action();
-  if (supportSession() && action.type().equals(Action.TYPE.SUSPEND)) {
+  if (supportSession() && allowSessionTimeoutRemoval() && action.type().equals(Action.TYPE.SUSPEND)) {
     SessionTimeoutSupport.setupTimeout(req.getSession());
   }
   logger.trace("Action for {} was {} with transport " + req.getHeader(X_ATMOSPHERE_TRANSPORT),req.resource() != null ? req.resource().uuid() : "null",action);
