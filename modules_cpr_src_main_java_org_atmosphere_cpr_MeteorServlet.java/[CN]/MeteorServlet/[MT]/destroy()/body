@@ -1,4 +1,3 @@
 {
   super.destroy();
-  Meteor.cache.clear();
 }

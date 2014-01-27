@@ -6,5 +6,4 @@
       this.r.getBroadcaster().getBroadcasterConfig().addFilter(f);
     }
   }
-  cache.put(this.r,this);
 }

@@ -8,5 +8,4 @@
     }
   }
   logger.info("Installing Servlet {}",servletClassName);
-  filterChain.setServlet(sc,servlet);
 }

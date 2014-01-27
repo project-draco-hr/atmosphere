@@ -1,6 +1,5 @@
 {
   if (destroyed())   return null;
   r.resume();
-  cache.remove(r);
   return this;
 }
