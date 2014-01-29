@@ -1,3 +1,4 @@
 {
   this.p=processor;
+  this.uuid=uuid;
 }

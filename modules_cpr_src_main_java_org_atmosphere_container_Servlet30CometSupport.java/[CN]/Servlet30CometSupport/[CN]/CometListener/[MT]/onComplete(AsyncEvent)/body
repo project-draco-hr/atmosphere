@@ -1,7 +1,3 @@
 {
-  try {
-    logger.trace("Resumed (completed): event: {}",event.getAsyncContext().getRequest());
-  }
- catch (  NullPointerException ex) {
-  }
+  logger.trace("Resumed (completed): event: {}",uuid);
 }

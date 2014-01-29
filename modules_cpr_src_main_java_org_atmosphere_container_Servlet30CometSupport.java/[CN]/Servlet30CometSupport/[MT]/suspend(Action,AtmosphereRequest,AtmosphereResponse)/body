@@ -1,7 +1,7 @@
 {
   if (!req.isAsyncStarted() && !Utils.webSocketEnabled(req)) {
     AsyncContext asyncContext=req.startAsync(req,res);
-    asyncContext.addListener(new CometListener(this));
+    asyncContext.addListener(new CometListener(this,res.uuid()));
     if (action.timeout() != -1) {
       asyncContext.setTimeout(action.timeout());
     }
