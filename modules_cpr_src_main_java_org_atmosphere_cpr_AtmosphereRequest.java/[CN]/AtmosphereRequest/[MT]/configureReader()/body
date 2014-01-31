@@ -17,7 +17,7 @@
       }
     }
  else {
-      br=new BufferedReader(b.reader);
+      br=new BufferedReader(new InputStreamReader(b.inputStream));
     }
   }
   return br;
