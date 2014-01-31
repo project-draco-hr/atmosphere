@@ -1,6 +1,6 @@
 {
   if (br == null && !readerSet.getAndSet(false)) {
-    if (b.reader == null) {
+    if (b.inputStream == null) {
       try {
         if (b.body.dataBytes != null) {
           br=new BufferedReader(new StringReader(new String(b.body.dataBytes,b.body.offset,b.body.length,b.encoding)));

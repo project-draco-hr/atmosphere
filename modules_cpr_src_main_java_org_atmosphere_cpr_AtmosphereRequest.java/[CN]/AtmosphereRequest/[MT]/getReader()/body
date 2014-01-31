@@ -1,3 +1,4 @@
 {
-  return br == configureReader() ? (isNotNoOps() ? b.request.getReader() : voidReader) : br;
+  configureReader();
+  return br == null ? (isNotNoOps() ? b.request.getReader() : voidReader) : br;
 }

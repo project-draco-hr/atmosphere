@@ -1,3 +1,4 @@
 {
-  return bis == configureStream() ? (isNotNoOps() ? b.request.getInputStream() : voidStream) : bis;
+  configureStream();
+  return bis == null ? (isNotNoOps() ? b.request.getInputStream() : voidStream) : bis;
 }
