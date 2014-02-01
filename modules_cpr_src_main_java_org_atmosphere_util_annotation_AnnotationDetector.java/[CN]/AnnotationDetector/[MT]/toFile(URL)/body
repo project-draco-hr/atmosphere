@@ -1,3 +1,8 @@
 {
-  return new File(URLDecoder.decode(url.getFile(),"UTF-8"));
+  try {
+    return new File(url.toURI());
+  }
+ catch (  URISyntaxException ex) {
+    throw new MalformedURLException(ex.getMessage());
+  }
 }
