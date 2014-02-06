@@ -2,12 +2,7 @@
   try {
     removeEventListeners();
     if (!isCancelled.get()) {
-      try {
-        getBroadcaster(false).removeAtmosphereResource(this);
-      }
- catch (      IllegalStateException ex) {
-        logger.trace(ex.getMessage(),ex);
-      }
+      if (broadcaster != null)       broadcaster.removeAtmosphereResource(this);
       if (config.getBroadcasterFactory().getDefault() != null) {
         config.getBroadcasterFactory().getDefault().removeAllAtmosphereResource(this);
       }
