@@ -52,16 +52,7 @@
       return this;
     }
     req.removeAttribute(PRE_SUSPEND);
-    try {
-      notifyListeners();
-    }
- catch (    Exception ex) {
-      logger.warn("Exception during suspend() operation {}",ex);
-      broadcaster.removeAtmosphereResource(this);
-      if (config.getBroadcasterFactory().getDefault() != null) {
-        config.getBroadcasterFactory().getDefault().removeAllAtmosphereResource(this);
-      }
-    }
+    notifyListeners();
   }
   return this;
 }
