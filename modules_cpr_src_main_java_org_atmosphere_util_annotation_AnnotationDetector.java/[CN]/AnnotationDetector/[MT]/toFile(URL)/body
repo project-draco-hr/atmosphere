@@ -3,6 +3,11 @@
     return new File(url.toURI());
   }
  catch (  URISyntaxException ex) {
-    throw new MalformedURLException(ex.getMessage());
+    try {
+      return new File(URLDecoder.decode(url.getFile(),"UTF-8"));
+    }
+ catch (    Exception ex2) {
+      throw new MalformedURLException(ex.getMessage());
+    }
   }
 }
