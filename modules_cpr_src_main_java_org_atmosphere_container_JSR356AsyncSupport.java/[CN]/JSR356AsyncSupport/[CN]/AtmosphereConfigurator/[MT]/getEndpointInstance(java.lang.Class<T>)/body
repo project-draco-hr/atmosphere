@@ -1,6 +1,6 @@
 {
   if (JSR356Endpoint.class.isAssignableFrom(endpointClass)) {
-    JSR356Endpoint e=new JSR356Endpoint(framework,WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework));
+    JSR356Endpoint e=new JSR356Endpoint(framework,WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework),guessedServletPath);
     if (hRequest.get() != null) {
       e.handshakeRequest(hRequest.get());
       hRequest.set(null);

@@ -3,9 +3,15 @@
   try {
     Map<String,? extends ServletRegistration> m=framework.getServletContext().getServletRegistrations();
     for (    Map.Entry<String,? extends ServletRegistration> e : m.entrySet()) {
-      if (clazz.isAssignableFrom(loadClass(callee,e.getValue().getClassName()))) {
+      Class<?> classToScan=loadClass(framework.getClass(),e.getValue().getClassName());
+      if (scanForAtmosphereFramework(classToScan)) {
         servletPath="/" + e.getValue().getMappings().iterator().next().replace("/","").replace("*","");
-        break;
+        if (!servletPath.equalsIgnoreCase(exclude)) {
+          break;
+        }
+ else {
+          logger.trace("Already guessed {}",exclude);
+        }
       }
     }
   }

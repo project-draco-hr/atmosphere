@@ -1,0 +1,21 @@
+{
+  if (classToScan == null)   return false;
+  logger.trace("Scanning {}",classToScan.getName());
+  if (knownClasses.contains(classToScan.getName())) {
+    return true;
+  }
+  try {
+    Field[] fields=classToScan.getDeclaredFields();
+    for (    Field f : fields) {
+      f.setAccessible(true);
+      if (AtmosphereFramework.class.isAssignableFrom(f.getType())) {
+        return true;
+      }
+    }
+  }
+ catch (  Exception ex) {
+    logger.trace("",ex);
+  }
+  if (scanForAtmosphereFramework(classToScan.getSuperclass()))   return true;
+  return false;
+}
