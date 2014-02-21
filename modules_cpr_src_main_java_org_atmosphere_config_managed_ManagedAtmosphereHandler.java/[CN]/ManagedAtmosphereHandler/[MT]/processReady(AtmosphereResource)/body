@@ -3,11 +3,16 @@
 switch (onReadyMethod.getAnnotation(Ready.class).value()) {
 case RESOURCE:
     if (o != null) {
-      if (String.class.isAssignableFrom(o.getClass())) {
-        r.write(o.toString());
+      try {
+        if (String.class.isAssignableFrom(o.getClass())) {
+          r.write(o.toString()).getResponse().flushBuffer();
+        }
+ else         if (byte[].class.isAssignableFrom(o.getClass())) {
+          r.write((byte[])o).getResponse().flushBuffer();
+        }
       }
- else       if (byte[].class.isAssignableFrom(o.getClass())) {
-        r.write((byte[])o);
+ catch (      Exception ex) {
+        logger.warn("",ex);
       }
     }
   break;
