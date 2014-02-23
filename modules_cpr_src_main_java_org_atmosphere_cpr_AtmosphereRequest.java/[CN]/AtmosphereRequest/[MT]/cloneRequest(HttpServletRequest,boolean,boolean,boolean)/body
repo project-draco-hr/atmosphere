@@ -2,7 +2,7 @@
   Builder b;
   HttpServletRequest r;
   Cookie[] cs=request.getCookies();
-  Set<Cookie> hs=new HashSet();
+  Set<Cookie> hs=Collections.synchronizedSet(new HashSet());
   if (cs != null) {
     for (    Cookie c : cs) {
       hs.add(c);
