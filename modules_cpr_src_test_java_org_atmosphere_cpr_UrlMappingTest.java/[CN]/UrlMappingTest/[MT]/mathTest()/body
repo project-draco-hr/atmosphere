@@ -1,0 +1,7 @@
+{
+  EndpointMapper<String> mapper=new DefaultEndpointMapper<String>();
+  Map<String,String> mappingPoints=new HashMap<String,String>();
+  mappingPoints.put("/c","/c");
+  mappingPoints.put("/{a}/{b}","/{a}/{b}");
+  Assert.assertEquals("/c",mapper.map("/c",mappingPoints));
+}

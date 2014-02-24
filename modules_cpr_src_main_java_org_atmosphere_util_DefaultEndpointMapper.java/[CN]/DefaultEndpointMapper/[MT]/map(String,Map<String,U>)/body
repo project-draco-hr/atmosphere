@@ -2,9 +2,9 @@
   if (path == null || path.isEmpty()) {
     path="/";
   }
-  U handler=match(path + (path.endsWith("/") ? "all" : "/all"),handlers);
+  U handler=match(path,handlers);
   if (handler == null) {
-    handler=match(path,handlers);
+    handler=match(path + (path.endsWith("/") ? "all" : "/all"),handlers);
     if (handler == null) {
       handler=match(path + "*",handlers);
       if (handler == null) {

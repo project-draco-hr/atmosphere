@@ -1,8 +1,8 @@
 {
   String path=computePath(req);
-  U handler=map(path + (path.endsWith("/") ? "all" : "/all"),handlers);
+  U handler=map(path,handlers);
   if (handler == null) {
-    handler=map(path,handlers);
+    handler=map(path + (path.endsWith("/") ? "all" : "/all"),handlers);
     if (handler == null) {
       handler=map(path + "*",handlers);
       if (handler == null) {

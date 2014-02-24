@@ -13,7 +13,7 @@
   r=new AtmosphereRequest.Builder().pathInfo("/red/1").build();
   assertEquals(processor.map(r).atmosphereHandler.toString(),"red");
   r=new AtmosphereRequest.Builder().pathInfo("/red/red").build();
-  assertEquals(processor.map(r).atmosphereHandler.toString(),"redred");
+  assertEquals(processor.map(r).atmosphereHandler.toString(),"red");
   r=new AtmosphereRequest.Builder().pathInfo("/red/red/1").build();
   assertEquals(processor.map(r).atmosphereHandler.toString(),"redred");
   r=new AtmosphereRequest.Builder().pathInfo("/red/blue/").build();
@@ -21,8 +21,10 @@
   r=new AtmosphereRequest.Builder().pathInfo("/red/blue/1").build();
   assertEquals(processor.map(r).atmosphereHandler.toString(),"redblue");
   r=new AtmosphereRequest.Builder().pathInfo("/blue").build();
-  assertEquals(processor.map(r).atmosphereHandler.toString(),"blue");
+  assertEquals(processor.map(r).atmosphereHandler.toString(),"/");
   r=new AtmosphereRequest.Builder().pathInfo("/blue/blue").build();
+  assertEquals(processor.map(r).atmosphereHandler.toString(),"blue");
+  r=new AtmosphereRequest.Builder().pathInfo("/blue/blue/white").build();
   assertEquals(processor.map(r).atmosphereHandler.toString(),"blueblue");
   r=new AtmosphereRequest.Builder().pathInfo("/green").build();
   assertEquals(processor.map(r).atmosphereHandler.toString(),"/");
