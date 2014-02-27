@@ -1,7 +1,12 @@
 {
   try {
-    AtmosphereInterceptor a=(AtmosphereInterceptor)framework.newClassInstance(AtmosphereInterceptor.class,annotatedClass);
-    framework.interceptor(a);
+    final AtmosphereInterceptor a=(AtmosphereInterceptor)framework.newClassInstance(AtmosphereInterceptor.class,annotatedClass);
+    framework.getAtmosphereConfig().startupHook(new AtmosphereConfig.StartupHook(){
+      @Override public void started(      AtmosphereFramework framework){
+        framework.interceptor(a);
+      }
+    }
+);
   }
  catch (  Throwable e) {
     logger.warn("",e);
