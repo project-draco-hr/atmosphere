@@ -13,5 +13,5 @@
       }
     }
   }
-  return isOK && isWebSocket;
+  return isWebSocket ? isOK : true;
 }
