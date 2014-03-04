@@ -1,4 +1,4 @@
 {
-  if (isOpen())   webSocketConnection.getRemote().sendString(s);
+  if (isOpen())   webSocketConnection.getRemote().sendStringByFuture(s);
   return this;
 }
