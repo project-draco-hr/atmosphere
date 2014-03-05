@@ -11,9 +11,7 @@
   this.onResumeMethod=populate(c,Resume.class);
   this.config=config;
   scanForReaderOrInputStream();
-  if (onRuntimeMethod.size() > 0) {
-    populateEncoders();
-    populateDecoders();
-  }
+  populateEncoders();
+  populateDecoders();
   return this;
 }
