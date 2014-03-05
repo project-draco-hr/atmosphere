@@ -6,7 +6,7 @@
     resource.addEventListener(new OnSuspend(){
       @Override public void onSuspend(      AtmosphereResourceEvent event){
         processReady(event.getResource());
-        event.getResource().removeEventListener(this);
+        resource.removeEventListener(this);
       }
     }
 );
@@ -20,6 +20,12 @@
     }
 );
   }
+  resource.addEventListener(new OnClose(){
+    @Override public void onClose(    AtmosphereResourceEvent event){
+      invoke(onDisconnectMethod,event);
+    }
+  }
+);
   if (method.equalsIgnoreCase("get")) {
     invoke(onGetMethod,resource);
   }
