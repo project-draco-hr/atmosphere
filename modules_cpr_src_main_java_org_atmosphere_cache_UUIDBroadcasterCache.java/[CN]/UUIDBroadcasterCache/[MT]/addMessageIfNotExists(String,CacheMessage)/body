@@ -3,6 +3,6 @@
     addMessage(clientId,message);
   }
  else {
-    logger.debug("Duplicate message {} for client {}",clientId,message);
+    logger.debug("Duplicate message {} for client {}",message,clientId);
   }
 }
