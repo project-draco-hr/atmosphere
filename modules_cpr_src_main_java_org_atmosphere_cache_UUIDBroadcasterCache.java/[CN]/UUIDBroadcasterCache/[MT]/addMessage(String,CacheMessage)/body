@@ -6,7 +6,7 @@
       messages.put(clientId,clientQueue);
     }
  else {
-      logger.debug("Client is no longer active. Not caching message {}}",clientId,message);
+      logger.debug("Client {} is no longer active. Not caching message {}}",clientId,message);
       return;
     }
   }
