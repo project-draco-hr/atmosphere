@@ -1,4 +1,4 @@
 {
-  if (requestCount.get() > 0)   session.setMaxInactiveInterval(-1);
+  if (requestCount.get() > 0)   session.setMaxInactiveInterval(internalSessionTimeout);
  else   session.setMaxInactiveInterval(timeout);
 }

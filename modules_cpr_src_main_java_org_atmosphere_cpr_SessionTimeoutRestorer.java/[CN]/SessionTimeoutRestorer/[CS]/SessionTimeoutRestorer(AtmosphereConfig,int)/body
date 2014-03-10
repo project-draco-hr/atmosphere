@@ -1,0 +1,10 @@
+{
+  this.timeout=timeout;
+  String s=config.getInitParameter(ApplicationConfig.SESSION_MAX_INACTIVE_INTERVAL);
+  if (s != null) {
+    internalSessionTimeout=Integer.valueOf(s);
+  }
+ else {
+    internalSessionTimeout=-1;
+  }
+}

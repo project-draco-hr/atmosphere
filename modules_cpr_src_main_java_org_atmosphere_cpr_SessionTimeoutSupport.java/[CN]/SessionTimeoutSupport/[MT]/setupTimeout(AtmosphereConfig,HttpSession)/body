@@ -1,7 +1,7 @@
 {
   if (session == null)   return;
   try {
-    SessionTimeoutRestorer restorer=getOrCreate(session);
+    SessionTimeoutRestorer restorer=getOrCreate(config,session);
     restorer.setup(session);
   }
  catch (  Exception e) {
