@@ -35,6 +35,19 @@
  catch (    Throwable t) {
       logger.trace("Unable to install WebSocket Session Creator",t);
     }
+    try {
+      String s=c.getInitParameter(PROPERTY_SESSION_SUPPORT);
+      if (s != null) {
+        boolean sessionSupport=Boolean.valueOf(s);
+        if (sessionSupport && c.getMajorVersion() > 2) {
+          c.addListener(SessionSupport.class);
+          logger.debug("Installed {}",SessionSupport.class);
+        }
+      }
+    }
+ catch (    Throwable t) {
+      logger.warn("SessionSupport error. Make sure you define {} as a listener in web.xml instead",SessionSupport.class.getName(),t);
+    }
     c.setAttribute(AtmosphereFramework.class.getName(),framework);
   }
 }
