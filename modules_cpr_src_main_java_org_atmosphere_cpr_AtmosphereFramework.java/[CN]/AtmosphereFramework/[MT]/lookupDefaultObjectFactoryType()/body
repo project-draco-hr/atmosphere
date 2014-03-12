@@ -4,7 +4,10 @@
       Class<?> c=Class.forName(b);
       return (AtmosphereObjectFactory)c.newInstance();
     }
- catch (    Exception e) {
+ catch (    ClassNotFoundException e) {
+      logger.trace(e.getMessage() + " not found");
+    }
+catch (    Exception e) {
       logger.trace("",e);
     }
   }
