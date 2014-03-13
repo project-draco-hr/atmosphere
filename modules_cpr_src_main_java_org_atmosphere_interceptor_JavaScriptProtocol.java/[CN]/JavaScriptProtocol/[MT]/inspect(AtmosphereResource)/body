@@ -1,8 +1,11 @@
 {
-  String uuid=r.getRequest().getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
-  String handshakeUUID=r.getRequest().getHeader(HeaderConfig.X_ATMO_PROTOCOL);
+  final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(ar);
+  final AtmosphereRequest request=r.getRequest(false);
+  final AtmosphereResponse response=r.getResponse(false);
+  String uuid=request.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
+  String handshakeUUID=request.getHeader(HeaderConfig.X_ATMO_PROTOCOL);
   if (uuid != null && uuid.equals("0") && handshakeUUID != null) {
-    r.getRequest().header(HeaderConfig.X_ATMO_PROTOCOL,null);
+    request.header(HeaderConfig.X_ATMO_PROTOCOL,null);
     final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis());
     boolean track=false;
     if (r.getBroadcaster().getBroadcasterConfig().hasFilters()) {
@@ -20,9 +23,9 @@
     if (!Utils.resumableTransport(r.transport())) {
       OnSuspend a=new OnSuspend(){
         @Override public void onSuspend(        AtmosphereResourceEvent event){
-          r.getResponse().write(protocolMessage.get());
+          response.write(protocolMessage.get());
           try {
-            r.getResponse().flushBuffer();
+            response.flushBuffer();
           }
  catch (          IOException e) {
             logger.trace("",e);
@@ -30,11 +33,11 @@
         }
       }
 ;
-      r.getRequest().setAttribute(CALLBACK_JAVASCRIPT_PROTOCOL,a);
+      request.setAttribute(CALLBACK_JAVASCRIPT_PROTOCOL,a);
       r.addEventListener(a);
     }
  else {
-      r.getResponse().write(protocolMessage.get());
+      response.write(protocolMessage.get());
     }
     if (r.transport() == AtmosphereResource.TRANSPORT.WEBSOCKET || r.transport() == AtmosphereResource.TRANSPORT.STREAMING || r.transport() == AtmosphereResource.TRANSPORT.SSE) {
       return Action.CONTINUE;
