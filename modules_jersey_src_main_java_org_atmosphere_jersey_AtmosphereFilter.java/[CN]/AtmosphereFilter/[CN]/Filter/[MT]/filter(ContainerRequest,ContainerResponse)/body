@@ -9,6 +9,7 @@
     logger.error(INSTALLATION_ERROR);
     throw new WebApplicationException(new IllegalStateException(INSTALLATION_ERROR));
   }
+  AtmosphereFramework atmosphereFramework=config.framework();
   String p=config.getInitParameter(JERSEY_CONTAINER_RESPONSE_WRITER_CLASS);
   ContainerResponseWriter w;
   if (p != null) {
@@ -65,7 +66,7 @@ final boolean resumeOnBroadcast=transport.equals(JSONP_TRANSPORT) || transport.e
 if (listeners != null) {
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
-AtmosphereResourceEventListener el=listener.newInstance();
+AtmosphereResourceEventListener el=atmosphereFramework.newClassInstance(AtmosphereResourceEventListener.class,listener);
 r.addEventListener(el);
 }
  catch (Throwable t) {
@@ -149,7 +150,7 @@ resumeOnBroadcast=resumeOnBroadcast((action == Action.SUSPEND_RESUME));
 if (listeners != null) {
 for (Class<? extends AtmosphereResourceEventListener> listener : listeners) {
 try {
-AtmosphereResourceEventListener el=listener.newInstance();
+AtmosphereResourceEventListener el=atmosphereFramework.newClassInstance(AtmosphereResourceEventListener.class,listener);
 r.addEventListener(el);
 }
  catch (Throwable t) {
