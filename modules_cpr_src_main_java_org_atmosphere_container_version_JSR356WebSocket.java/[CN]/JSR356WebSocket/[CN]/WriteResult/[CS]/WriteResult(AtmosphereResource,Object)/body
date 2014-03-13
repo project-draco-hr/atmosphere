@@ -1,5 +1,4 @@
 {
   this.r=r;
   this.message=message;
-  this.semaphore=semaphore;
 }
