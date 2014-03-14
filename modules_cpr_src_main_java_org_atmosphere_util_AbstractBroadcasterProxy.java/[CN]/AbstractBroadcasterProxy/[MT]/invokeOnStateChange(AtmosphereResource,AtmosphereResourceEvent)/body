@@ -1,19 +1,13 @@
 {
-  if (r.getRequest() instanceof HttpServletRequest) {
-    if (r.getRequest().getAttribute(FrameworkConfig.CONTAINER_RESPONSE) != null) {
-      try {
-        if (jerseyBroadcast == null) {
-          Class jerseyBroadcasterUtil=Class.forName("org.atmosphere.jersey.util.JerseyBroadcasterUtil");
-          jerseyBroadcast=jerseyBroadcasterUtil.getMethod("broadcast",new Class[]{AtmosphereResource.class,AtmosphereResourceEvent.class});
-        }
-        jerseyBroadcast.invoke(null,new Object[]{r,e});
-      }
- catch (      Throwable t) {
-        super.invokeOnStateChange(r,e);
-      }
+  if (r.getRequest().getAttribute(FrameworkConfig.CONTAINER_RESPONSE) != null) {
+    try {
+      jerseyBroadcast.invoke(null,new Object[]{r,e});
     }
- else {
+ catch (    Throwable t) {
       super.invokeOnStateChange(r,e);
     }
+  }
+ else {
+    super.invokeOnStateChange(r,e);
   }
 }

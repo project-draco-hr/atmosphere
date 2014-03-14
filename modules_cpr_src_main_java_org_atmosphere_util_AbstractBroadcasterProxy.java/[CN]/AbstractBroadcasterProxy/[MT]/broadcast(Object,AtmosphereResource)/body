@@ -1,15 +1,4 @@
 {
-  if (destroyed.get()) {
-    logger.warn("This Broadcaster has been destroyed and cannot be used {}",getID());
-    return null;
-  }
-  start();
-  BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(msg);
-  try {
-    outgoingBroadcast(msg);
-  }
-  finally {
-    futureDone(f);
-  }
-  return f;
+  logger.warn("This feature is not supported with {}",r.getBroadcaster().getClass().getName());
+  return b(msg);
 }

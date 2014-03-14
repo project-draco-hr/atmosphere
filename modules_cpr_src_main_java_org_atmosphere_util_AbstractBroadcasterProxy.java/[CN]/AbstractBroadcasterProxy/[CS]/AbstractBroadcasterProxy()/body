@@ -1,2 +1,9 @@
 {
+  try {
+    Class jerseyBroadcasterUtil=Class.forName("org.atmosphere.jersey.util.JerseyBroadcasterUtil");
+    jerseyBroadcast=jerseyBroadcasterUtil.getMethod("broadcast",new Class[]{AtmosphereResource.class,AtmosphereResourceEvent.class});
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e);
+  }
 }
