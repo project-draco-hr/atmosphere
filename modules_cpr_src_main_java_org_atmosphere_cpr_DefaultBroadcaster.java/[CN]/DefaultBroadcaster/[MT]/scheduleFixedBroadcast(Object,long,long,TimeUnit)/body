@@ -17,8 +17,8 @@
           Object r=Callable.class.cast(o).call();
           final Object msg=filter(r);
           if (msg != null) {
-            Entry entry=new Entry(msg,f,r);
-            push(entry);
+            Deliver deliver=new Deliver(msg,f,r);
+            push(deliver);
           }
           return;
         }
@@ -27,7 +27,7 @@
         }
       }
       final Object msg=filter(o);
-      final Entry e=new Entry(msg,f,o);
+      final Deliver e=new Deliver(msg,f,o);
       push(e);
     }
   }

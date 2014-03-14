@@ -1,7 +1,7 @@
 {
-  for (  Entry e : broadcastOnResume) {
+  for (  Deliver e : broadcastOnResume) {
     e.async=false;
-    push(new Entry(r,e));
+    push(new Deliver(r,e));
   }
   if (resources.isEmpty()) {
     broadcastOnResume.clear();

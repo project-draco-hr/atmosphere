@@ -5,4 +5,5 @@
   AtmosphereRequest request=new AtmosphereRequest.Builder().headers(m).pathInfo("/a").method("GET").build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   assertEquals(BAR.count.get(),1);
+  assertTrue(onMessage.get());
 }

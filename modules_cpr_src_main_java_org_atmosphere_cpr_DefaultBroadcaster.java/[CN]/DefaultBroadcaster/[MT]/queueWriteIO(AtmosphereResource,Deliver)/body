@@ -1,12 +1,12 @@
 {
-  if (entry.async) {
+  if (deliver.async) {
     if (!bc.getBroadcasterCache().getClass().equals(BroadcasterCache.DEFAULT.getClass().getName())) {
       if (r.isResumed() || r.isCancelled()) {
-        logger.trace("AtmosphereResource {} has been resumed or cancelled, unable to Broadcast message {}",r.uuid(),entry.message);
+        logger.trace("AtmosphereResource {} has been resumed or cancelled, unable to Broadcast message {}",r.uuid(),deliver.message);
         return;
       }
     }
-    AsyncWriteToken w=new AsyncWriteToken(r,entry.message,entry.future,entry.originalMessage,entry.cache);
+    AsyncWriteToken w=new AsyncWriteToken(r,deliver.message,deliver.future,deliver.originalMessage,deliver.cache);
     if (!outOfOrderBroadcastSupported.get()) {
       WriteQueue writeQueue=writeQueues.get(r.uuid());
       if (writeQueue == null) {
@@ -26,6 +26,6 @@ synchronized (writeQueue) {
     }
   }
  else {
-    executeBlockingWrite(r,entry);
+    executeBlockingWrite(r,deliver);
   }
 }

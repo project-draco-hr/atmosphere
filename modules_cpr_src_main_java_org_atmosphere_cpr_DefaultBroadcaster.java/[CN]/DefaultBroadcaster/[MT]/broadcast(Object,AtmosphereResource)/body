@@ -7,6 +7,6 @@
   Object newMsg=filter(msg);
   if (newMsg == null)   return futureDone(msg);
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,1);
-  dispatchMessages(new Entry(newMsg,r,f,msg));
+  dispatchMessages(new Deliver(newMsg,r,f,msg));
   return f;
 }

@@ -1,0 +1,123 @@
+{
+  recentActivity.set(true);
+  String prevMessage=deliver.message.toString();
+  if (rec && !delayedBroadcast.isEmpty()) {
+    Iterator<Deliver> i=delayedBroadcast.iterator();
+    StringBuilder b=new StringBuilder();
+    while (i.hasNext()) {
+      Deliver e=i.next();
+      e.future.cancel(true);
+      try {
+        if (e.message instanceof String && deliver.message instanceof String) {
+          b.append(e.message);
+        }
+ else {
+          deliverPush(e,false);
+        }
+      }
+  finally {
+        i.remove();
+      }
+    }
+    if (b.length() > 0) {
+      deliver.message=b.append(deliver.message).toString();
+    }
+  }
+  Object finalMsg=callable(deliver.message);
+  if (finalMsg == null) {
+    logger.error("Callable exception. Please catch all exceptions from your callable. Message {} will be lost and all AtmosphereResource " + "associated with this Broadcaster resumed.",deliver.message);
+    entryDone(deliver.future);
+switch (deliver.type) {
+case ALL:
+synchronized (resources) {
+        for (        AtmosphereResource r : resources) {
+          if (Utils.resumableTransport(r.transport()))           try {
+            r.resume();
+          }
+ catch (          Throwable t) {
+            logger.trace("resumeAll",t);
+          }
+        }
+      }
+    break;
+case RESOURCE:
+  deliver.resource.resume();
+break;
+case SET:
+for (AtmosphereResource r : deliver.resources) {
+r.resume();
+}
+break;
+}
+return;
+}
+Object prevM=deliver.originalMessage;
+deliver.originalMessage=(deliver.originalMessage != deliver.message ? callable(deliver.originalMessage) : finalMsg);
+if (deliver.originalMessage == null) {
+logger.trace("Broadcasted message was null {}",prevM);
+entryDone(deliver.future);
+return;
+}
+deliver.message=finalMsg;
+AtmosphereResource cache=deliver.type != Deliver.TYPE.RESOURCE ? null : deliver.resource;
+deliver.cache=bc.getBroadcasterCache().addToCache(getID(),cache,new BroadcastMessage(deliver.originalMessage));
+notifyOnMessage(deliver);
+if (resources.isEmpty()) {
+entryDone(deliver.future);
+return;
+}
+try {
+if (logger.isTraceEnabled()) {
+for (AtmosphereResource r : resources) {
+logger.trace("AtmosphereResource {} available for {}",r.uuid(),deliver.message);
+}
+}
+boolean hasFilters=bc.hasPerRequestFilters();
+Object beforeProcessingMessage=deliver.message;
+switch (deliver.type) {
+case ALL:
+for (AtmosphereResource r : resources) {
+deliver.message=beforeProcessingMessage;
+boolean deliverMessage=perRequestFilter(r,deliver);
+if (!deliverMessage || deliver.message == null) {
+logger.debug("Skipping broadcast delivery {} for resource {} ",deliver.message,r.uuid());
+bc.getBroadcasterCache().clearCache(getID(),r,deliver.cache);
+continue;
+}
+if (deliver.writeLocally) {
+queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver);
+}
+}
+break;
+case RESOURCE:
+boolean deliverMessage=perRequestFilter(deliver.resource,deliver);
+if (!deliverMessage || deliver.message == null) {
+logger.debug("Skipping broadcast delivery {} for resource {} ",deliver.message,deliver.resource.uuid());
+bc.getBroadcasterCache().clearCache(getID(),deliver.resource,deliver.cache);
+return;
+}
+if (deliver.writeLocally) {
+queueWriteIO(deliver.resource,deliver);
+}
+break;
+case SET:
+for (AtmosphereResource r : deliver.resources) {
+deliver.message=beforeProcessingMessage;
+deliverMessage=perRequestFilter(r,deliver);
+if (!deliverMessage || deliver.message == null) {
+logger.debug("Skipping broadcast delivery {} for resource {} ",deliver.message,r.uuid());
+bc.getBroadcasterCache().clearCache(getID(),r,deliver.cache);
+continue;
+}
+if (deliver.writeLocally) {
+queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver);
+}
+}
+break;
+}
+deliver.message=prevMessage;
+}
+ catch (InterruptedException ex) {
+logger.debug(ex.getMessage(),ex);
+}
+}

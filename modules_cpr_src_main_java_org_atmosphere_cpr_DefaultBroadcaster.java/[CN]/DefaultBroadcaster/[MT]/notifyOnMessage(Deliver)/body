@@ -1,0 +1,10 @@
+{
+  for (  BroadcasterListener b : broadcasterListeners) {
+    try {
+      b.onMessage(this,deliver);
+    }
+ catch (    Exception ex) {
+      logger.warn("",ex);
+    }
+  }
+}

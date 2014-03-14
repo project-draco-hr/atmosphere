@@ -2,7 +2,7 @@
   try {
     Object newMsg=filter(message);
     if (newMsg != null) {
-      push(new Entry(newMsg,new BroadcasterFuture<Object>(newMsg),message));
+      push(new Deliver(newMsg,new BroadcasterFuture<Object>(newMsg),message));
     }
   }
  catch (  Throwable t) {

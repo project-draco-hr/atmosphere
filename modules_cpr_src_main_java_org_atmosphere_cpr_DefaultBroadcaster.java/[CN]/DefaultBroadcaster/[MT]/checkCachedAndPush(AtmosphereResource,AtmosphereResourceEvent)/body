@@ -7,19 +7,19 @@
     BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(e.getMessage(),1);
     LinkedList<Object> filteredMessage=new LinkedList<Object>();
     LinkedList<Object> filteredMessageClone=null;
-    Entry entry;
+    Deliver deliver;
     Object newMessage;
     for (    Object o : cacheMessages) {
       newMessage=filter(o);
       if (newMessage == null) {
         continue;
       }
-      entry=new Entry(newMessage,r,f,o);
-      if (!perRequestFilter(r,entry)) {
+      deliver=new Deliver(newMessage,r,f,o);
+      if (!perRequestFilter(r,deliver)) {
         continue;
       }
-      if (entry.message != null) {
-        filteredMessage.addLast(entry.message);
+      if (deliver.message != null) {
+        filteredMessage.addLast(deliver.message);
       }
     }
     if (filteredMessage.size() == 0) {

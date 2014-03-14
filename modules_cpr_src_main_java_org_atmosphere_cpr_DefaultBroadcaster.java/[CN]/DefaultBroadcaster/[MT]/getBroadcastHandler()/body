@@ -2,7 +2,7 @@
   return new Runnable(){
     public void run(){
       while (!isDestroyed()) {
-        Entry msg=null;
+        Deliver msg=null;
         try {
           msg=messages.poll(waitTime,TimeUnit.MILLISECONDS);
           if (msg == null) {

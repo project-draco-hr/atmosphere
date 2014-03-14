@@ -9,6 +9,6 @@
     return futureDone(msg);
   }
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,subset.size());
-  dispatchMessages(new Entry(newMsg,subset,f,msg));
+  dispatchMessages(new Deliver(newMsg,subset,f,msg));
   return f;
 }
