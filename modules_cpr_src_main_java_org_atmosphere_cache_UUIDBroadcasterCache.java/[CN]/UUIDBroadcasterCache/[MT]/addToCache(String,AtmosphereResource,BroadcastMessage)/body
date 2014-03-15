@@ -4,7 +4,6 @@
     logger.trace("Adding for AtmosphereResource {} cached messages {}",r != null ? r.uuid() : "null",e);
     logger.trace("Active clients {}",activeClients());
   }
-  long now=System.currentTimeMillis();
   String messageId=UUID.randomUUID().toString();
   CacheMessage cacheMessage=new CacheMessage(messageId,e);
   if (r == null) {
@@ -14,7 +13,7 @@
   }
  else {
     String clientId=uuid(r);
-    activeClients.put(clientId,now);
+    cacheCandidate(broadcasterId,clientId);
     addMessageIfNotExists(clientId,cacheMessage);
   }
   return cacheMessage;

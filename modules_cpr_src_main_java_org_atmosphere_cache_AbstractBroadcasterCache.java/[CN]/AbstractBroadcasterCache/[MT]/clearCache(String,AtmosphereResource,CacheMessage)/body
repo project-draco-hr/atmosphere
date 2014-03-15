@@ -3,4 +3,5 @@
     messages.remove(cache);
     messagesIds.remove(cache.getId());
   }
+  return this;
 }

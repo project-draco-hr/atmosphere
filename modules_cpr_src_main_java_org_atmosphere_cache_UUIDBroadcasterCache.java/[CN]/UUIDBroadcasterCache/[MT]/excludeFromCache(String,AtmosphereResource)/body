@@ -1,3 +1,4 @@
 {
   activeClients.remove(r.uuid());
+  return this;
 }

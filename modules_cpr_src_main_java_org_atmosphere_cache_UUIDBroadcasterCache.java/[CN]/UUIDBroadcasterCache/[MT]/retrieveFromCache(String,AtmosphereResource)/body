@@ -1,9 +1,8 @@
 {
   String clientId=uuid(r);
-  long now=System.currentTimeMillis();
   List<Object> result=new ArrayList<Object>();
   ClientQueue clientQueue;
-  activeClients.put(clientId,now);
+  cacheCandidate(broadcasterId,clientId);
   clientQueue=messages.remove(clientId);
   ConcurrentLinkedQueue<CacheMessage> clientMessages;
   if (clientQueue != null) {

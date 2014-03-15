@@ -1,0 +1,5 @@
+{
+  long now=System.currentTimeMillis();
+  activeClients.put(uuid,now);
+  return this;
+}
