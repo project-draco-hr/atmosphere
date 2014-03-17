@@ -1,0 +1,13 @@
+{
+  String testFullPath;
+  String testCleanedPath;
+  testFullPath="/foo/bar/*";
+  testCleanedPath=IOUtils.getCleanedServletPath(testFullPath);
+  assertEquals(testCleanedPath,"/foo/bar");
+  testFullPath="foo/bar/**/*";
+  testCleanedPath=IOUtils.getCleanedServletPath(testFullPath);
+  assertEquals(testCleanedPath,"/foo/bar/**");
+  testFullPath="/com.zyxabc.abc.Abc/gwtCometEvent*";
+  testCleanedPath=IOUtils.getCleanedServletPath(testFullPath);
+  assertEquals(testCleanedPath,"/com.zyxabc.abc.Abc/gwtCometEvent");
+}
