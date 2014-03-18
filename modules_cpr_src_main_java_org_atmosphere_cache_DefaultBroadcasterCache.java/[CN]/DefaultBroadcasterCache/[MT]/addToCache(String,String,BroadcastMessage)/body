@@ -1,0 +1,4 @@
+{
+  logger.trace("Message {} might be lost! Please install a proper BroadcasterCache",message.message);
+  return null;
+}

@@ -1,6 +1,6 @@
 {
   broadcaster.getBroadcasterConfig().setBroadcasterCache(new AbstractBroadcasterCache(){
-    @Override public CacheMessage addToCache(    String id,    AtmosphereResource r,    BroadcastMessage e){
+    @Override public CacheMessage addToCache(    String id,    String r,    BroadcastMessage e){
       CacheMessage c=put(e,System.nanoTime());
       cachedMessage.set(messages);
       return c;

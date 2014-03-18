@@ -13,7 +13,7 @@
       removeAtmosphereResource(r,false);
       return;
     }
-    bc.getBroadcasterCache().clearCache(getID(),r,token.cache);
+    bc.getBroadcasterCache().clearCache(getID(),r != null ? r.uuid() : BroadcasterCache.NULL,token.cache);
     try {
       request.setAttribute(getID(),token.future);
       request.setAttribute(MAX_INACTIVE,System.currentTimeMillis());

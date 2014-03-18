@@ -1,0 +1,8 @@
+{
+  long now=System.nanoTime();
+  CacheMessage cacheMessage=put(e,now);
+  if (uuid.equals(NULL)) {
+    AtmosphereResourceFactory.getDefault().find(uuid).getResponse().setHeader(X_CACHE_DATE,String.valueOf(now));
+  }
+  return cacheMessage;
+}

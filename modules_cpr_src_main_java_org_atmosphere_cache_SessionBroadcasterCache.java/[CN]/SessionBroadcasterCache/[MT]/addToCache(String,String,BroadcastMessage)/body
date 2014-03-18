@@ -1,9 +1,9 @@
 {
   long now=System.nanoTime();
   CacheMessage cacheMessage=put(message,now);
-  if (r == null)   return cacheMessage;
+  if (uuid.equals(NULL))   return cacheMessage;
   try {
-    HttpSession session=r.session();
+    HttpSession session=AtmosphereResourceFactory.getDefault().find(uuid).session();
     if (session == null) {
       logger.error(ERROR_MESSAGE);
       return cacheMessage;

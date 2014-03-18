@@ -44,7 +44,7 @@ synchronized (r) {
         logger.error("Unable to write cached message {} for {}",e.getMessage(),r.uuid());
         logger.error("",t);
         for (        Object o : cacheMessages) {
-          bc.getBroadcasterCache().addToCache(getID(),r,new BroadcastMessage(o));
+          bc.getBroadcasterCache().addToCache(getID(),r != null ? r.uuid() : BroadcasterCache.NULL,new BroadcastMessage(o));
         }
         return true;
       }
