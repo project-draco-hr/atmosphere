@@ -6,7 +6,7 @@
   }
   String messageId=UUID.randomUUID().toString();
   CacheMessage cacheMessage=new CacheMessage(messageId,e,clientId);
-  if (clientId.equals("null")) {
+  if (clientId.equals(NULL)) {
     for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {
       addMessageIfNotExists(broadcasterId,entry.getKey(),cacheMessage);
     }
