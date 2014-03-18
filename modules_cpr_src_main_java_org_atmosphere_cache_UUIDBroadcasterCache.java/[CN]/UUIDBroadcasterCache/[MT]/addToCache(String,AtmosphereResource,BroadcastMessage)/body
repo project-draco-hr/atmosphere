@@ -8,13 +8,13 @@
   CacheMessage cacheMessage=new CacheMessage(messageId,e);
   if (r == null) {
     for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {
-      addMessageIfNotExists(entry.getKey(),cacheMessage);
+      addMessageIfNotExists(broadcasterId,entry.getKey(),cacheMessage);
     }
   }
  else {
     String clientId=uuid(r);
     cacheCandidate(broadcasterId,clientId);
-    addMessageIfNotExists(clientId,cacheMessage);
+    addMessageIfNotExists(broadcasterId,clientId,cacheMessage);
   }
   return cacheMessage;
 }

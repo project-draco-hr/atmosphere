@@ -1,0 +1,4 @@
+{
+  listeners.remove(l);
+  return this;
+}

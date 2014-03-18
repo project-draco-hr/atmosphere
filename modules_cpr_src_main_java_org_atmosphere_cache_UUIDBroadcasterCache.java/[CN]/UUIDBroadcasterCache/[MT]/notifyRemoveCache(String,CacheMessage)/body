@@ -1,0 +1,10 @@
+{
+  for (  BroadcasterCacheListener l : listeners) {
+    try {
+      l.onRemoveCache(broadcasterId,message);
+    }
+ catch (    Exception ex) {
+      logger.warn("Listener exception",ex);
+    }
+  }
+}

@@ -10,6 +10,7 @@
       return;
     }
   }
+  notifyAddCache(broadcasterId,message);
   clientQueue.getQueue().offer(message);
   clientQueue.getIds().add(message.getId());
 }
