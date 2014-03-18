@@ -1,0 +1,5 @@
+{
+  for (  Broadcaster br : relatedBroadcasters) {
+    br.removeBroadcasterListener(broadcasterListener);
+  }
+}
