@@ -1,0 +1,9 @@
+{
+  Matcher matcher=SERVLET_PATH_PATTERN.matcher(fullServletPath);
+  if (!matcher.find())   return fullServletPath;
+  String servletPath=matcher.group(0);
+  if (!servletPath.startsWith("/")) {
+    servletPath="/" + servletPath;
+  }
+  return servletPath;
+}
