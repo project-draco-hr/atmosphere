@@ -2,4 +2,5 @@
   this.id=id;
   this.message=message;
   this.createTime=now;
+  this.uuid=uuid;
 }

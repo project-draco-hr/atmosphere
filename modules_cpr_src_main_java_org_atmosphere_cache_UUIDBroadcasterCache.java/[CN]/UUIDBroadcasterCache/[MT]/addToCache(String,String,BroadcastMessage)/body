@@ -5,7 +5,7 @@
     logger.trace("Active clients {}",activeClients());
   }
   String messageId=UUID.randomUUID().toString();
-  CacheMessage cacheMessage=new CacheMessage(messageId,e);
+  CacheMessage cacheMessage=new CacheMessage(messageId,e,clientId);
   if (clientId.equals("null")) {
     for (    Map.Entry<String,Long> entry : activeClients.entrySet()) {
       addMessageIfNotExists(broadcasterId,entry.getKey(),cacheMessage);

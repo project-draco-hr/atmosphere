@@ -2,7 +2,7 @@
   final CountDownLatch latch=new CountDownLatch(1);
   broadcaster.getBroadcasterConfig().setBroadcasterCache(new AbstractBroadcasterCache(){
     @Override public CacheMessage addToCache(    String id,    String r,    BroadcastMessage e){
-      CacheMessage c=put(e,System.nanoTime());
+      CacheMessage c=put(e,System.nanoTime(),r);
       cachedMessage.set(messages);
       latch.countDown();
       return c;

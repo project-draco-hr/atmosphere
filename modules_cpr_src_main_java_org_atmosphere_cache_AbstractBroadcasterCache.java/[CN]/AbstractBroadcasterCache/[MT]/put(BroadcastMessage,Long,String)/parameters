@@ -1,2 +1,3 @@
 BroadcastMessage message
 Long now
+String uuid
