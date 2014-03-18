@@ -1,6 +1,11 @@
 {
   try {
-    framework.addBroadcasterListener(framework.newClassInstance(BroadcasterListener.class,annotatedClass));
+    BroadcasterListener l=framework.newClassInstance(BroadcasterListener.class,annotatedClass);
+    framework.addBroadcasterListener(l);
+    Collection<Broadcaster> c=framework.getBroadcasterFactory().lookupAll();
+    for (    Broadcaster b : c) {
+      l.onPostCreate(b);
+    }
   }
  catch (  Throwable e) {
     logger.warn("",e);
