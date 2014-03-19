@@ -7,4 +7,5 @@
       logger.warn("",ex);
     }
   }
+  startUpHook.clear();
 }
