@@ -29,7 +29,7 @@
   if (mapping == null) {
     mapping=sc.getInitParameter(ATMOSPHERE_HANDLER_MAPPING);
     if (mapping == null) {
-      mapping=ROOT;
+      mapping=Broadcaster.ROOT_MASTER;
     }
   }
   Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)IOUtils.loadClass(getClass(),broadcasterClassName);

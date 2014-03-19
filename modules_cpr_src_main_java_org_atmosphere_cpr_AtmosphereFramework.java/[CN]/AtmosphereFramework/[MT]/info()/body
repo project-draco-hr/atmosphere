@@ -13,7 +13,7 @@
   logger.info("Default Broadcaster Class: {}",broadcasterClassName);
   logger.info("Broadcaster Polling Wait Time {}",s == null ? DefaultBroadcaster.POLLING_DEFAULT : s);
   logger.info("Shared ExecutorService supported: {}",sharedThreadPools);
-  BroadcasterConfig bc=broadcasterFactory.lookup("/*",true).getBroadcasterConfig();
+  BroadcasterConfig bc=broadcasterFactory.lookup(Broadcaster.ROOT_MASTER,true).getBroadcasterConfig();
   if (bc.getAsyncWriteService() != null) {
     long max=ThreadPoolExecutor.class.cast(bc.getExecutorService()).getMaximumPoolSize();
     logger.info("Messaging Thread Pool Size: {}",ThreadPoolExecutor.class.cast(bc.getExecutorService()).getMaximumPoolSize() == 2147483647 ? "Unlimited" : max);

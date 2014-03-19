@@ -4,7 +4,7 @@
     try {
       String mapping=sc.getInitParameter(ATMOSPHERE_HANDLER_MAPPING);
       if (mapping == null) {
-        mapping=ROOT;
+        mapping=Broadcaster.ROOT_MASTER;
       }
       addAtmosphereHandler(mapping,newClassInstance(AtmosphereHandler.class,(Class<AtmosphereHandler>)IOUtils.loadClass(getClass(),s)));
     }

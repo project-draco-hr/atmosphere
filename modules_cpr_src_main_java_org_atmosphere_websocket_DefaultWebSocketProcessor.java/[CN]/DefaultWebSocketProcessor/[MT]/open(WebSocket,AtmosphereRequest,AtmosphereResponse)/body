@@ -1,6 +1,6 @@
 {
   if (framework.getAtmosphereConfig().handlers().size() == 0) {
-    framework.addAtmosphereHandler("/*",REFLECTOR_ATMOSPHEREHANDLER);
+    framework.addAtmosphereHandler(ROOT_MASTER,REFLECTOR_ATMOSPHEREHANDLER);
   }
   request.headers(configureHeader(request)).setAttribute(WebSocket.WEBSOCKET_SUSPEND,true);
   AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(framework.getAtmosphereConfig(),response,framework.getAsyncSupport());

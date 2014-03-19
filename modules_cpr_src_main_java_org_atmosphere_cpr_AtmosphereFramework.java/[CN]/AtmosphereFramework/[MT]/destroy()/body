@@ -1,6 +1,6 @@
 {
-  if (isDestroyed)   return this;
-  isDestroyed=true;
+  if (isDestroyed.getAndSet(true))   return this;
+  config.destroy();
   if (asyncSupport != null && AsynchronousProcessor.class.isAssignableFrom(asyncSupport.getClass())) {
     ((AsynchronousProcessor)asyncSupport).shutdown();
   }
@@ -8,7 +8,6 @@
     AtmosphereHandlerWrapper handlerWrapper=entry.getValue();
     handlerWrapper.atmosphereHandler.destroy();
   }
-  config.destroy();
   BroadcasterFactory factory=broadcasterFactory;
   if (factory != null) {
     factory.destroy();

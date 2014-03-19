@@ -1,4 +1,4 @@
 {
-  addWebSocketHandler("/*",handler);
+  addWebSocketHandler(ROOT_MASTER,handler);
   return this;
 }
