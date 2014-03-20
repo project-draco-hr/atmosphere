@@ -6,7 +6,7 @@
   String handshakeUUID=request.getHeader(HeaderConfig.X_ATMO_PROTOCOL);
   if (uuid != null && uuid.equals("0") && handshakeUUID != null) {
     request.header(HeaderConfig.X_ATMO_PROTOCOL,null);
-    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis());
+    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis()).append(wsDelimiter);
     boolean track=false;
     if (r.getBroadcaster().getBroadcasterConfig().hasFilters()) {
       for (      BroadcastFilter bf : r.getBroadcaster().getBroadcasterConfig().filters()) {
