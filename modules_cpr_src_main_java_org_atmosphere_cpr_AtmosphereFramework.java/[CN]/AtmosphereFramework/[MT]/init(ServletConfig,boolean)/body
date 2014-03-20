@@ -65,6 +65,7 @@
     autoDetectContainer();
     configureWebDotXmlAtmosphereHandler(scFacade);
     asyncSupport.init(scFacade);
+    configureAtmosphereResourceFactoryFindOps();
     initAtmosphereHandler(scFacade);
     configureAtmosphereInterceptor(scFacade);
     analytics();

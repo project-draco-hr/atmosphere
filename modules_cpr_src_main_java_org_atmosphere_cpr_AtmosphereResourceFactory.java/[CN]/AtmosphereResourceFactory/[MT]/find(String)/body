@@ -1,11 +1,3 @@
 {
-  Collection<Broadcaster> l=BroadcasterFactory.getDefault().lookupAll();
-  for (  Broadcaster b : l) {
-    for (    AtmosphereResource r : b.getAtmosphereResources()) {
-      if (r.uuid().equalsIgnoreCase(uuid)) {
-        return r;
-      }
-    }
-  }
-  return null;
+  return resources.get(uuid);
 }
