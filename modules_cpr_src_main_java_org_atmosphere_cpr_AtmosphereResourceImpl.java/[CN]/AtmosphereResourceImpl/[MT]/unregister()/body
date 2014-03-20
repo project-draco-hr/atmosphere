@@ -1,0 +1,5 @@
+{
+  if (!Utils.uuidTrackableTransport(transport()) && !Utils.webSocketMessage(this)) {
+    getDefault().unRegisterUuidForFindCandidate(this);
+  }
+}

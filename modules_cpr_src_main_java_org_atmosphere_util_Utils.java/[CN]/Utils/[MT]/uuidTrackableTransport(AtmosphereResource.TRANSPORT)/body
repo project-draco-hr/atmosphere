@@ -1,0 +1,9 @@
+{
+switch (t) {
+case POLLING:
+case AJAX:
+    return true;
+default :
+  return false;
+}
+}

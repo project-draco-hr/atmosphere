@@ -11,4 +11,7 @@
  catch (  Throwable t) {
     logger.trace("destroyResource",t);
   }
+ finally {
+    unregister();
+  }
 }
