@@ -35,6 +35,9 @@
       p.deleteCharAt(p.length() - 1);
     }
     pathInfo=p.toString();
+    if (pathInfo.equals(servletPath)) {
+      pathInfo=null;
+    }
   }
  catch (  Exception ex) {
     logger.warn("Unexpected path decoding",ex);
