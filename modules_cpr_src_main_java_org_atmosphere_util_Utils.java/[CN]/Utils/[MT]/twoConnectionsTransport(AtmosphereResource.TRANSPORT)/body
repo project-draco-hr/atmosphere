@@ -1,0 +1,13 @@
+{
+switch (t) {
+case JSONP:
+case LONG_POLLING:
+case STREAMING:
+case SSE:
+case POLLING:
+case HTMLFILE:
+    return true;
+default :
+  return false;
+}
+}
