@@ -19,12 +19,22 @@
     if (s != null) {
       excludedInterceptors.addAll(Arrays.asList(s.trim().replace(" ","").split(",")));
     }
+    LinkedList<AtmosphereInterceptor> copy=null;
+    if (!interceptors.isEmpty()) {
+      copy=new LinkedList(interceptors);
+      interceptors.clear();
+    }
     for (    Class<? extends AtmosphereInterceptor> a : defaultInterceptors) {
       if (!excludedInterceptors.contains(a.getName())) {
         interceptors.add(newAInterceptor(a));
       }
  else {
         logger.info("Dropping Interceptor {}",a.getName());
+      }
+    }
+    if (copy != null) {
+      for (      AtmosphereInterceptor i : copy) {
+        interceptor(i);
       }
     }
     logger.info("Set {} to disable them.",ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR,interceptors);
