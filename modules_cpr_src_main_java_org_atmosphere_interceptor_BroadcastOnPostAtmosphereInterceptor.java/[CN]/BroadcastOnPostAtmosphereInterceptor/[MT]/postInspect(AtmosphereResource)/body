@@ -1,11 +1,24 @@
 {
   if (r.getRequest().getMethod().equalsIgnoreCase("POST")) {
-    StringBuilder b=IOUtils.readEntirely(r);
-    if (b.length() > 0) {
-      r.getBroadcaster().broadcast(b.toString());
+    AtmosphereRequest request=r.getRequest();
+    AtmosphereRequest.Body body=request.body();
+    if (body.hasString()) {
+      StringBuilder b=readEntirelyAsString(r);
+      if (b.length() > 0) {
+        r.getBroadcaster().broadcast(b.toString());
+      }
+ else {
+        logger.warn("{} received an empty body",BroadcastOnPostAtmosphereInterceptor.class.getSimpleName());
+      }
     }
  else {
-      logger.warn("{} received an empty body",BroadcastOnPostAtmosphereInterceptor.class.getSimpleName());
+      byte[] b=readEntirelyAsByte(r);
+      if (b.length > 0) {
+        r.getBroadcaster().broadcast(b);
+      }
+ else {
+        logger.warn("{} received an empty body",BroadcastOnPostAtmosphereInterceptor.class.getSimpleName());
+      }
     }
   }
 }

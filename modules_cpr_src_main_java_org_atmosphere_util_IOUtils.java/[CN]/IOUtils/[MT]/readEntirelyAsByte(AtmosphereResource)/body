@@ -1,0 +1,16 @@
+{
+  AtmosphereRequest request=r.getRequest();
+  AtmosphereRequest.Body body=request.body();
+  if (body.hasString()) {
+    try {
+      return readEntirelyAsString(r).toString().getBytes(request.getCharacterEncoding());
+    }
+ catch (    UnsupportedEncodingException e) {
+      logger.error("",e);
+    }
+  }
+ else   if (body.hasBytes()) {
+    return Arrays.copyOfRange(body.asBytes(),body.byteOffset(),body.byteLength());
+  }
+  throw new IllegalStateException("No body " + r);
+}

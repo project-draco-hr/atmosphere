@@ -1,0 +1,10 @@
+{
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/b").method("POST").build();
+  try {
+    framework.doCometSupport(request,AtmosphereResponse.newInstance());
+    fail();
+  }
+ catch (  IllegalStateException ex) {
+    assertTrue(ex.getMessage().startsWith("No body"));
+  }
+}
