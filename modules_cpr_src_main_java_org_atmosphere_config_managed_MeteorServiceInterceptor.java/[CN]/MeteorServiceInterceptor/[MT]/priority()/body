@@ -1,3 +1,0 @@
-{
-  return InvokationOrder.BEFORE_DEFAULT;
-}
