@@ -1,0 +1,11 @@
+{
+  String servletPath="";
+  try {
+    servletPath=config.getServletContext().getServletRegistration(config.getServletConfig().getServletName()).getMappings().iterator().next();
+    servletPath=getCleanedServletPath(servletPath);
+  }
+ catch (  Exception ex) {
+    logger.trace("",ex);
+  }
+  return servletPath;
+}
