@@ -1,6 +1,6 @@
 {
 synchronized (this) {
-    config=BroadcasterFactory.getDefault().lookup(ROOT_MASTER).getBroadcasterConfig().getAtmosphereConfig();
+    config=config.getBroadcasterFactory().lookup(ROOT_MASTER).getBroadcasterConfig().getAtmosphereConfig();
     webSocketProcessor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config.framework());
     String s=config.getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME);
     if (s != null) {

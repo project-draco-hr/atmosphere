@@ -3,8 +3,8 @@
     removeEventListeners();
     if (!isCancelled.get()) {
       if (broadcaster != null)       broadcaster.removeAtmosphereResource(this);
-      if (config.getBroadcasterFactory().getDefault() != null) {
-        config.getBroadcasterFactory().getDefault().removeAllAtmosphereResource(this);
+      if (config.getBroadcasterFactory() != null) {
+        config.getBroadcasterFactory().removeAllAtmosphereResource(this);
       }
     }
   }
