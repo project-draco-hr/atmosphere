@@ -18,6 +18,6 @@
     }
   }
   List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
-  list.add(constructRequest(resource,pathInfo,requestURI,methodType,contentType,destroyable).body(message).build());
+  list.add(constructRequest(resource,pathInfo,requestURI,methodType,contentType.equalsIgnoreCase(TEXT) ? null : contentType,destroyable).body(message).build());
   return list;
 }

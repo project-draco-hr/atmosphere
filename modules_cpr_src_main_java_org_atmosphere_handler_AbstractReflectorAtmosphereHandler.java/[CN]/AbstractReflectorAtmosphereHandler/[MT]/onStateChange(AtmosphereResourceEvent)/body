@@ -2,6 +2,8 @@
   Object message=event.getMessage();
   AtmosphereResource resource=event.getResource();
   AtmosphereResponse r=resource.getResponse();
+  AtmosphereRequest request=resource.getRequest();
+  boolean writeAsBytes=IOUtils.isBodyBinary(request);
   if (message == null) {
     logger.trace("Message was null for AtmosphereEvent {}",event);
     return;
@@ -34,6 +36,9 @@
       }
  catch (      IllegalStateException e) {
         isUsingStream=true;
+      }
+      if (writeAsBytes) {
+        throw new IllegalStateException("Cannot write bytes using PrintWriter");
       }
     }
     if (message instanceof List) {
@@ -82,7 +87,7 @@
     }
  else {
       if (isUsingStream) {
-        r.getOutputStream().write(message.toString().getBytes(r.getCharacterEncoding()));
+        r.getOutputStream().write(writeAsBytes ? (byte[])message : message.toString().getBytes(r.getCharacterEncoding()));
         r.getOutputStream().flush();
       }
  else {
