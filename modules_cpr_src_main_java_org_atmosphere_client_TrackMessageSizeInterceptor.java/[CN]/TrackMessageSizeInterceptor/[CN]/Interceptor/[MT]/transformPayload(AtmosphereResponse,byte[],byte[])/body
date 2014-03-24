@@ -1,4 +1,9 @@
 {
+  boolean writeAsBytes=IOUtils.isBodyBinary(response.request());
+  if (writeAsBytes) {
+    logger.warn("Cannot use TrackMessageSizeInterceptor with binary write. Writing the message as it is.");
+    return responseDraft;
+  }
   if (response.request().getAttribute(SKIP_INTERCEPTOR) == null && (response.getContentType() == null || !excludedContentTypes.contains(response.getContentType().toLowerCase()))) {
     response.setCharacterEncoding(OUT_ENCODING);
     CharBuffer cb=inCharset.newDecoder().decode(ByteBuffer.wrap(responseDraft,0,responseDraft.length));
