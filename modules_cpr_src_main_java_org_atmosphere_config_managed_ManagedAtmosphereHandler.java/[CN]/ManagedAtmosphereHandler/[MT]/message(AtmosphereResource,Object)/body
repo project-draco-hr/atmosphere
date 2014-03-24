@@ -1,7 +1,6 @@
 {
   try {
     AtmosphereRequest request=resource.getRequest();
-    AtmosphereRequest.Body body=request.body();
     for (    MethodInfo m : onRuntimeMethod) {
       if (m.useReader) {
         o=resource.getRequest().getReader();
@@ -10,19 +9,10 @@
         o=resource.getRequest().getInputStream();
       }
  else       if (o == null) {
-        if (body.hasString()) {
-          o=readEntirelyAsString(resource).toString();
-          if (String.class.cast(o).isEmpty()) {
-            logger.warn("{} received an empty body",ManagedServiceInterceptor.class.getSimpleName());
-            return null;
-          }
-        }
- else {
-          o=readEntirelyAsByte(resource);
-          if (o == null || ((byte[])o).length == 0) {
-            logger.warn("{} received an empty body",ManagedServiceInterceptor.class.getSimpleName());
-            return null;
-          }
+        o=readEntirely(resource);
+        if (isBodyEmpty(o)) {
+          logger.warn("{} received an empty body",request);
+          return null;
         }
       }
       Object decoded=Invoker.decode(decoders.get(m.method),o);

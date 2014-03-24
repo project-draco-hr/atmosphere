@@ -1,0 +1,8 @@
+{
+  if (o != null && (String.class.isAssignableFrom(o.getClass()) && String.class.cast(o).isEmpty()) || (Byte[].class.isAssignableFrom(o.getClass()) && Byte[].class.cast(o).length == 0)) {
+    return true;
+  }
+ else {
+    return false;
+  }
+}

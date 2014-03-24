@@ -1,0 +1,4 @@
+{
+  AtmosphereRequest request=r.getRequest();
+  return isBodyBinary(request) ? readEntirelyAsByte(r) : readEntirelyAsString(r).toString();
+}
