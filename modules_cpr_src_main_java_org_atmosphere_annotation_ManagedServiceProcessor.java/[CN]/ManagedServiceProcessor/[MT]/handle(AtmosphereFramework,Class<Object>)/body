@@ -13,6 +13,23 @@
     Object c=framework.newClassInstance(Object.class,aClass);
     AtmosphereHandler handler=framework.newClassInstance(ManagedAtmosphereHandler.class,ManagedAtmosphereHandler.class).configure(framework.getAtmosphereConfig(),c);
     l.add(framework.newClassInstance(AtmosphereInterceptor.class,ManagedServiceInterceptor.class));
+    framework.filterManipulator(new BroadcasterConfig.FilterManipulator(){
+      @Override public Object unwrap(      Object o){
+        if (ManagedAtmosphereHandler.Managed.class.isAssignableFrom(o.getClass())) {
+          o=ManagedAtmosphereHandler.Managed.class.cast(o).object();
+        }
+        return o;
+      }
+      @Override public BroadcastFilter.BroadcastAction wrap(      BroadcastFilter.BroadcastAction a,      boolean wasWrapped){
+        if (wasWrapped) {
+          return new BroadcastFilter.BroadcastAction(a.action(),new ManagedAtmosphereHandler.Managed(a.message()));
+        }
+ else {
+          return a;
+        }
+      }
+    }
+);
     Class<? extends AtmosphereInterceptor>[] interceptors=a.interceptors();
     for (    Class i : interceptors) {
       try {

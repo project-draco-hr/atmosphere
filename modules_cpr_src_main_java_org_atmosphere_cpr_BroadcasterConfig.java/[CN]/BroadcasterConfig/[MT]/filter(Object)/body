@@ -1,4 +1,10 @@
 {
+  Object newO=unwrap(object);
+  boolean isManipulated=false;
+  if (!newO.equals(object)) {
+    isManipulated=true;
+    object=newO;
+  }
   BroadcastAction transformed=new BroadcastAction(object);
   for (  BroadcastFilter mf : filters) {
 synchronized (mf) {
@@ -8,5 +14,5 @@ synchronized (mf) {
       }
     }
   }
-  return transformed;
+  return wrap(transformed,isManipulated);
 }

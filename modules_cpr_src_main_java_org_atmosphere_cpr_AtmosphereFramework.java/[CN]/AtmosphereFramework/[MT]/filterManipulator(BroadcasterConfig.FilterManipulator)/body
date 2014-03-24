@@ -1,0 +1,4 @@
+{
+  filterManipulators.add(m);
+  return this;
+}

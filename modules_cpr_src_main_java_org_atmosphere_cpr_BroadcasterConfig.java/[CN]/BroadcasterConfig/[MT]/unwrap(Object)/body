@@ -1,0 +1,7 @@
+{
+  Object manipulated=o;
+  for (  FilterManipulator f : config.framework().filterManipulators()) {
+    manipulated=f.unwrap(manipulated);
+  }
+  return manipulated;
+}

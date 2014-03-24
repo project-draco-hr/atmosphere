@@ -1,0 +1,6 @@
+{
+  for (  FilterManipulator f : config.framework().filterManipulators()) {
+    a=f.wrap(a,wasUnwraped);
+  }
+  return a;
+}

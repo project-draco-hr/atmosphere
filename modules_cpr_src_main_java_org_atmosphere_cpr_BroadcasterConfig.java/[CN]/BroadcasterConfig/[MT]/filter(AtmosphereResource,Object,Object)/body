@@ -1,4 +1,10 @@
 {
+  Object newO=unwrap(message);
+  boolean isManipulated=false;
+  if (!newO.equals(message)) {
+    isManipulated=true;
+    message=newO;
+  }
   BroadcastAction transformed=new BroadcastAction(message);
   for (  PerRequestBroadcastFilter mf : perRequestFilters) {
 synchronized (mf) {
@@ -8,5 +14,5 @@ synchronized (mf) {
       }
     }
   }
-  return transformed;
+  return wrap(transformed,isManipulated);
 }
