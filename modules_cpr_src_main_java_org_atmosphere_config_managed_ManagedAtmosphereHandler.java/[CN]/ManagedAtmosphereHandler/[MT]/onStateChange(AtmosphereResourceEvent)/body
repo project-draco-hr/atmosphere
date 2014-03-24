@@ -32,7 +32,7 @@
           }
         }
       }
- else       if (onRuntimeMethod.size() > 1) {
+ else {
         logger.trace("BroadcasterFactory has been used, this may produce recursion if encoder/decoder match the broadcasted message");
         o=message(r,msg);
         if (o != null) {
