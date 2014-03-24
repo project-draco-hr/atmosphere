@@ -1,6 +1,6 @@
 {
   try {
-    r.getResponse().getAsyncIOWriter().close(r.getResponse(false));
+    r.getResponse(false).getAsyncIOWriter().close(r.getResponse(false));
   }
  catch (  IOException e) {
     logger.trace("",e);
