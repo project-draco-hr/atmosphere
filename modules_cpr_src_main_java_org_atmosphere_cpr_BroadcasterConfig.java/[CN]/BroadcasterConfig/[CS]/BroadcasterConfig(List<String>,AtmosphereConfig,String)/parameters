@@ -1,3 +1,3 @@
 List<String> broadcastFilters
 AtmosphereConfig config
-String name
+String broadcasterId

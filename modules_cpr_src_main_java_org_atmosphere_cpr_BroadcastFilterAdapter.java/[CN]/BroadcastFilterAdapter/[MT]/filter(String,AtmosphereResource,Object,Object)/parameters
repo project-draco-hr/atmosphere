@@ -1,0 +1,4 @@
+String broadcasterId
+AtmosphereResource r
+Object originalMessage
+Object message

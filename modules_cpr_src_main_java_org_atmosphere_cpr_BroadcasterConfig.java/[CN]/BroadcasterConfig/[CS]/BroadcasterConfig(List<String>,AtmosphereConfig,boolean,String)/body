@@ -1,6 +1,6 @@
 {
   this.config=config;
-  this.name=name;
+  this.broadcasterId=broadcasterId;
   this.shared=config.framework().isShareExecutorServices();
   this.handleExecutors=handleExecutors;
   this.filterList=broadcastFilters;

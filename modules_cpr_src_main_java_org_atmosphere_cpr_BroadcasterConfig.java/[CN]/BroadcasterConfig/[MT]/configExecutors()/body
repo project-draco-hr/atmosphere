@@ -4,7 +4,7 @@
     isExecutorShared=true;
     isAsyncExecutorShared=true;
   }
-  executorService=ExecutorsFactory.getMessageDispatcher(config,name);
-  asyncWriteService=ExecutorsFactory.getAsyncOperationExecutor(config,name);
+  executorService=ExecutorsFactory.getMessageDispatcher(config,broadcasterId);
+  asyncWriteService=ExecutorsFactory.getAsyncOperationExecutor(config,broadcasterId);
   scheduler=ExecutorsFactory.getScheduler(config);
 }

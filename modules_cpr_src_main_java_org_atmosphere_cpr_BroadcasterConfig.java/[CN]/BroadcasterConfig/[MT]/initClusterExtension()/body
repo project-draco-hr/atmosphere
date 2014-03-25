@@ -2,7 +2,7 @@
   for (  BroadcastFilter mf : filters) {
     if (ClusterBroadcastFilter.class.isAssignableFrom(mf.getClass())) {
       try {
-        Broadcaster b=config.getBroadcasterFactory().lookup(name,false);
+        Broadcaster b=config.getBroadcasterFactory().lookup(broadcasterId,false);
         if (b != null) {
 synchronized (mf) {
             ClusterBroadcastFilter.class.cast(mf).setBroadcaster(b);

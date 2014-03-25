@@ -1,4 +1,4 @@
 List<String> broadcastFilters
 AtmosphereConfig config
 boolean handleExecutors
-String name
+String broadcasterId

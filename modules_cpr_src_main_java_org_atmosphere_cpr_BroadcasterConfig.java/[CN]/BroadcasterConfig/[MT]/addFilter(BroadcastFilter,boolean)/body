@@ -5,7 +5,7 @@
     ((BroadcastFilterLifecycle)e).init(config);
   }
   if (init && ClusterBroadcastFilter.class.isAssignableFrom(e.getClass())) {
-    Broadcaster b=config.getBroadcasterFactory().lookup(name,false);
+    Broadcaster b=config.getBroadcasterFactory().lookup(broadcasterId,false);
     if (b != null) {
 synchronized (e) {
         ClusterBroadcastFilter.class.cast(e).setBroadcaster(b);

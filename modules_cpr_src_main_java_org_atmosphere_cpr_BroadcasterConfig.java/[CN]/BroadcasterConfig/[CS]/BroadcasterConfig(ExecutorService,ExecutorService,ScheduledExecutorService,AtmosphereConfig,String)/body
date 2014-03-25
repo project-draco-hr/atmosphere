@@ -3,7 +3,7 @@
   this.scheduler=scheduler;
   this.asyncWriteService=asyncWriteService;
   this.config=config;
-  this.name=name;
+  this.broadcasterId=broadcasterId;
   this.handleExecutors=true;
   this.shared=config.framework().isShareExecutorServices();
 }
