@@ -1,4 +1,5 @@
 {
+  logger.trace("Removing: {}",uuid);
   AtmosphereResource r=resources.remove(uuid);
   if (r != null) {
     r.getAtmosphereConfig().getBroadcasterFactory().removeAllAtmosphereResource(r);

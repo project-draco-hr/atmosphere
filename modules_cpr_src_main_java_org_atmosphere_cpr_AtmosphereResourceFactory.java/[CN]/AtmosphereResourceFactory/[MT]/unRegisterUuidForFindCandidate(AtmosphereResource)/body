@@ -1,3 +1,4 @@
 {
+  logger.debug("Removing: {}",r);
   resources.remove(r.uuid());
 }
