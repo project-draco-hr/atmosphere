@@ -1,4 +1,4 @@
 {
-  logger.debug("Removing: {}",r);
+  logger.trace("Removing: {}",r);
   resources.remove(r.uuid());
 }
