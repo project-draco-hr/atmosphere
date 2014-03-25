@@ -6,6 +6,9 @@
   AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(framework.getAtmosphereConfig(),response,framework.getAsyncSupport());
   request.setAttribute(INJECTED_ATMOSPHERE_RESOURCE,r);
   request.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,r.uuid());
+  if (Utils.firefoxWebSocketEnabled(request)) {
+    request.setAttribute("firefox","true");
+  }
   webSocket.resource(r);
   webSocketProtocol.onOpen(webSocket);
   WebSocketHandler proxy=null;

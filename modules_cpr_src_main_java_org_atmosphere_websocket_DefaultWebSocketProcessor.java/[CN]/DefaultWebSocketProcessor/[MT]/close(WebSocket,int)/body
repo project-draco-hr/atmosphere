@@ -18,12 +18,22 @@
       }
       if (resource != null && resource.isInScope()) {
         Object o=r.getAttribute(ASYNCHRONOUS_HOOK);
-        AsynchronousProcessorHook h;
         if (o != null && AsynchronousProcessorHook.class.isAssignableFrom(o.getClass())) {
-          h=(AsynchronousProcessorHook)o;
+          final AsynchronousProcessorHook h=(AsynchronousProcessorHook)o;
           if (!resource.isCancelled() && !resource.getAtmosphereResourceEvent().isClosedByClient()) {
             if (closeCode == 1005 || closeCode == 1001) {
-              h.closed();
+              if (r.getAttribute("firefox") != null) {
+                resource.getBroadcaster().getBroadcasterConfig().getScheduledExecutorService().schedule(new Callable<Object>(){
+                  @Override public Object call() throws Exception {
+                    h.closed();
+                    return null;
+                  }
+                }
+,500,TimeUnit.MILLISECONDS);
+              }
+ else {
+                h.closed();
+              }
             }
  else {
               h.timedOut();
