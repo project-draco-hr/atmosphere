@@ -1,7 +1,18 @@
 {
   logger.trace("Cancelling {}",req);
-  if (completeLifecycle(req.resource(),true)) {
-    config.framework().notify(Action.TYPE.CANCELLED,req,res);
+  if (closingTime > 0) {
+    ExecutorsFactory.getScheduler(config).schedule(new Callable<Object>(){
+      @Override public Object call() throws Exception {
+        endRequest(req,res);
+        return null;
+      }
+    }
+,closingTime,TimeUnit.MILLISECONDS);
+  }
+ else {
+    if (completeLifecycle(req.resource(),true)) {
+      config.framework().notify(Action.TYPE.CANCELLED,req,res);
+    }
   }
   return cancelledAction;
 }

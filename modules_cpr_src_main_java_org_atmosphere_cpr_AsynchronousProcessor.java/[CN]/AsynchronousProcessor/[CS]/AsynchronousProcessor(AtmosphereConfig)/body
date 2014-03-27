@@ -1,4 +1,5 @@
 {
   this.config=config;
   mapper=config.framework().endPointMapper();
+  closingTime=Long.valueOf(config.getInitParameter(ApplicationConfig.CLOSED_ATMOSPHERE_THINK_TIME,"0"));
 }

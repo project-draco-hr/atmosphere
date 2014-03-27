@@ -29,4 +29,5 @@
   }
   scheduler=ExecutorsFactory.getScheduler(config);
   optimizeMapping();
+  closingTime=Long.valueOf(config.getInitParameter(ApplicationConfig.CLOSED_ATMOSPHERE_THINK_TIME,"0"));
 }
