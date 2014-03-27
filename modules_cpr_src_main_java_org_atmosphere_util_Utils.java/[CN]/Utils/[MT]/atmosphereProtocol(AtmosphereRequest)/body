@@ -1,0 +1,7 @@
+{
+  String p=r.getHeader(HeaderConfig.X_ATMO_PROTOCOL);
+  if (p != null && Boolean.valueOf(p)) {
+    return true;
+  }
+  return false;
+}
