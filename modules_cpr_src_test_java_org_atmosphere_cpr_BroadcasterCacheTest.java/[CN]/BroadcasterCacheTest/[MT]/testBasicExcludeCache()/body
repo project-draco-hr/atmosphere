@@ -5,7 +5,7 @@
   broadcaster.getBroadcasterConfig().setBroadcasterCache(cache);
   broadcaster.removeAtmosphereResource(r);
   broadcaster.broadcast("foo").get();
-  List<Object> l=cache.retrieveFromCache(broadcaster.getID(),ar);
+  List<Object> l=cache.retrieveFromCache(broadcaster.getID(),ar.uuid());
   assertNotNull(l);
   assertEquals(l.isEmpty(),true);
 }
