@@ -1,6 +1,6 @@
 {
   logger.trace("Checking cached message for {}",r.uuid());
-  List<?> missedMsg=bc.getBroadcasterCache().retrieveFromCache(getID(),r);
+  List<?> missedMsg=bc.getBroadcasterCache().retrieveFromCache(getID(),r.uuid());
   if (missedMsg != null && !missedMsg.isEmpty()) {
     e.setMessage(missedMsg);
     return true;

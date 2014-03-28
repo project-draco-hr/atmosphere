@@ -1,8 +1,8 @@
 {
   ClientQueue clientQueue;
-  clientQueue=messages.get(clientId);
+  clientQueue=messages.get(uuid);
   if (clientQueue != null) {
-    logger.trace("Removing for AtmosphereResource {} cached message {}",clientId,message.getMessage());
+    logger.trace("Removing for AtmosphereResource {} cached message {}",uuid,message.getMessage());
     notifyRemoveCache(broadcasterId,message);
     clientQueue.getQueue().remove(message);
   }

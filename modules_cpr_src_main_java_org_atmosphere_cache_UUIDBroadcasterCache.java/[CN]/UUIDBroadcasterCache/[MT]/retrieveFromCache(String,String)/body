@@ -1,9 +1,8 @@
 {
-  String clientId=uuid(r);
   List<Object> result=new ArrayList<Object>();
   ClientQueue clientQueue;
-  cacheCandidate(broadcasterId,clientId);
-  clientQueue=messages.remove(clientId);
+  cacheCandidate(broadcasterId,uuid);
+  clientQueue=messages.remove(uuid);
   ConcurrentLinkedQueue<CacheMessage> clientMessages;
   if (clientQueue != null) {
     clientMessages=clientQueue.getQueue();
@@ -12,7 +11,7 @@
     }
   }
   if (logger.isTraceEnabled()) {
-    logger.trace("Retrieved for AtmosphereResource {} cached messages {}",r.uuid(),result);
+    logger.trace("Retrieved for AtmosphereResource {} cached messages {}",uuid,result);
     logger.trace("Available cached message {}",messages);
   }
   return result;
