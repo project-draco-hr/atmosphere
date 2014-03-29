@@ -1,5 +1,5 @@
 {
-  if (r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET) && r.getRequest().getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE) == null) {
+  if (Utils.webSocketMessage(r)) {
     AtmosphereResourceImpl.class.cast(r).action().type(Action.TYPE.SUSPEND_MESSAGE);
   }
   return Action.CONTINUE;
