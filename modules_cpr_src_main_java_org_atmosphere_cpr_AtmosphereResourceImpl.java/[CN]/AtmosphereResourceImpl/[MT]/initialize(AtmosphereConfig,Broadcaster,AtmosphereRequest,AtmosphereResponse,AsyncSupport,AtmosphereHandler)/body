@@ -20,5 +20,6 @@
     }
   }
   transport=configureTransport();
+  register();
   return this;
 }
