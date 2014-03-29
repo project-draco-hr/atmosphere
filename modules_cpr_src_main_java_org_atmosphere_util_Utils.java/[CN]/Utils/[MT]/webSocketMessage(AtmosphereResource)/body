@@ -1,5 +1,6 @@
 {
-  if (r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET) && AtmosphereResourceImpl.class.cast(r).getRequest(false).getAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE) == null) {
+  AtmosphereRequest request=AtmosphereResourceImpl.class.cast(r).getRequest(false);
+  if (request.getAttribute(FrameworkConfig.WEBSOCKET_MESSAGE) != null) {
     return true;
   }
   return false;
