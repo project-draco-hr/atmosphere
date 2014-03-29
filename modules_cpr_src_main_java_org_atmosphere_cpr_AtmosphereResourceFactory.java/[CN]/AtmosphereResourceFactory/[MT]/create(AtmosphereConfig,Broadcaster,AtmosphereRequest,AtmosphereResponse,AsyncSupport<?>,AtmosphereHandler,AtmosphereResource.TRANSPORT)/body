@@ -1,0 +1,14 @@
+{
+  AtmosphereResource r=null;
+  try {
+    r=config.framework().newClassInstance(AtmosphereResource.class,AtmosphereResourceImpl.class);
+    if (request.getHeader(X_ATMOSPHERE_TRANSPORT) == null) {
+      request.header(X_ATMOSPHERE_TRANSPORT,T.name());
+    }
+    r.initialize(config,broadcaster,request,response,a,handler);
+  }
+ catch (  Exception e) {
+    logger.error("",e);
+  }
+  return r;
+}

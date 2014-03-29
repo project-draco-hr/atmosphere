@@ -2,6 +2,7 @@
 switch (t) {
 case POLLING:
 case CLOSE:
+case UNDEFINED:
 case AJAX:
     return true;
 default :

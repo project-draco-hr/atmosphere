@@ -1,11 +1,3 @@
 {
-  AtmosphereResource r=null;
-  try {
-    r=config.framework().newClassInstance(AtmosphereResource.class,AtmosphereResourceImpl.class);
-    r.initialize(config,broadcaster,request,response,a,handler);
-  }
- catch (  Exception e) {
-    logger.error("",e);
-  }
-  return r;
+  return create(config,broadcaster,request,response,a,handler,AtmosphereResource.TRANSPORT.UNDEFINED);
 }
