@@ -1,0 +1,4 @@
+{
+  h.closed();
+  notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent(closeCode,CLOSE,webSocket));
+}
