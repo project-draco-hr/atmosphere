@@ -1,0 +1,4 @@
+{
+  this.timeoutInSeconds=timeoutInSeconds;
+  return this;
+}
