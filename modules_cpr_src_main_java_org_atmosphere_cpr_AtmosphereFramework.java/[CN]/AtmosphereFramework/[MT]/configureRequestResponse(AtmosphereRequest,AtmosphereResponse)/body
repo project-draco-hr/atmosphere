@@ -29,9 +29,11 @@
   }
   if (s == null || s.equals("0")) {
     s=UUID.randomUUID().toString();
+    res.setHeader(HeaderConfig.X_FIRST_REQUEST,"true");
     res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
   }
  else {
+    res.setHeader(HeaderConfig.X_FIRST_REQUEST,null);
     if (req.resource() == null) {
       res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
     }
