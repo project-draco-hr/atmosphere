@@ -1,6 +1,6 @@
 {
   BroadcasterCache cache=new UUIDBroadcasterCache();
-  AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(broadcaster.getBroadcasterConfig().getAtmosphereConfig(),"1234567");
+  AtmosphereResource r=config.resourcesFactory().create(broadcaster.getBroadcasterConfig().getAtmosphereConfig(),"1234567");
   broadcaster.getBroadcasterConfig().setBroadcasterCache(cache);
   broadcaster.addAtmosphereResource(r);
   broadcaster.broadcast("foo").get();

@@ -3,6 +3,6 @@
   framework.setAsyncSupport(mock(AsyncSupport.class));
   framework.init();
   config=framework.getAtmosphereConfig();
-  r=AtmosphereResourceFactory.getDefault().create(config,"1234567");
+  r=config.resourcesFactory().create(config,"1234567");
   r.setBroadcaster(config.getBroadcasterFactory().lookup("/*",true));
 }

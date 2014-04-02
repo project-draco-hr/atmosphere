@@ -13,6 +13,7 @@
     factory.destroy();
     BroadcasterFactory.factory=null;
   }
+  arFactory.destroy();
   AtmosphereResourceFactory.getDefault().destroy();
   WebSocketProcessorFactory.getDefault().destroy();
   return this;

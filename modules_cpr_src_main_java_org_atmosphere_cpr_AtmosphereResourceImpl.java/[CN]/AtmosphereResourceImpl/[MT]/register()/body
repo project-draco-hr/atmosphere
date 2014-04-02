@@ -1,5 +1,5 @@
 {
   if (!Utils.unTrackableTransport(transport()) && !Utils.webSocketMessage(this)) {
-    AtmosphereResourceFactory.getDefault().registerUuidForFindCandidate(this);
+    config.resourcesFactory().registerUuidForFindCandidate(this);
   }
 }

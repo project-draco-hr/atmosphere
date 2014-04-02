@@ -1,5 +1,5 @@
 {
   if (!Utils.unTrackableTransport(transport()) && !Utils.webSocketMessage(this)) {
-    getDefault().unRegisterUuidForFindCandidate(this);
+    config.resourcesFactory().unRegisterUuidForFindCandidate(this);
   }
 }

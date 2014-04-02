@@ -1,3 +1,6 @@
 {
+  if (factory == null) {
+    new AtmosphereResourceFactory();
+  }
   return factory;
 }

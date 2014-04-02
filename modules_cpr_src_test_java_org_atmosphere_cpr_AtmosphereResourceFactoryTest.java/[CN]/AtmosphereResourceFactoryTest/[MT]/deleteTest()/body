@@ -3,10 +3,10 @@
     BroadcasterFactory.getDefault().get(String.valueOf(i));
   }
   Broadcaster b2=BroadcasterFactory.getDefault().get("b2");
-  AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(framework.config,BroadcasterFactory.getDefault().lookup("1"),AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
+  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.config,BroadcasterFactory.getDefault().lookup("1"),AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
   assertNotNull(r);
   b2.addAtmosphereResource(r);
-  assertNotNull(AtmosphereResourceFactory.getDefault().find(r.uuid()));
-  assertEquals(AtmosphereResourceFactory.getDefault().remove(r.uuid()),r);
-  assertNull(AtmosphereResourceFactory.getDefault().find(r.uuid()));
+  assertNotNull(framework.getAtmosphereConfig().resourcesFactory().find(r.uuid()));
+  assertEquals(framework.getAtmosphereConfig().resourcesFactory().remove(r.uuid()),r);
+  assertNull(framework.getAtmosphereConfig().resourcesFactory().find(r.uuid()));
 }

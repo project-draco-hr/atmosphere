@@ -6,7 +6,7 @@
         config.getBroadcasterFactory().removeAllAtmosphereResource(this);
         if (transport.equals(TRANSPORT.WEBSOCKET)) {
           String parentUUID=(String)req.getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
-          AtmosphereResource p=getDefault().find(parentUUID);
+          AtmosphereResource p=config.resourcesFactory().find(parentUUID);
           if (p != null) {
             config.getBroadcasterFactory().removeAllAtmosphereResource(p);
           }
@@ -35,7 +35,7 @@
       req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
       event.destroy();
       if (!Utils.pollableTransport(transport()) && !Utils.webSocketMessage(this)) {
-        getDefault().unRegisterUuidForFindCandidate(this);
+        config.resourcesFactory().unRegisterUuidForFindCandidate(this);
       }
     }
   finally {

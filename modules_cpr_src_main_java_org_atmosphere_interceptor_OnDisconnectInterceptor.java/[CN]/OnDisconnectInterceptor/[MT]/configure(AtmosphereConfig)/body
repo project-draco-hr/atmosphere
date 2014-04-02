@@ -2,4 +2,5 @@
   if (AsynchronousProcessor.class.isAssignableFrom(config.framework().getAsyncSupport().getClass())) {
     p=AsynchronousProcessor.class.cast(config.framework().getAsyncSupport());
   }
+  this.config=config;
 }
