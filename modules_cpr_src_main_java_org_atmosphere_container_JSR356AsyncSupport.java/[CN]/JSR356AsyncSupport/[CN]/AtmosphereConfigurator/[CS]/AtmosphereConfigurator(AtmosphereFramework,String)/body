@@ -1,4 +1,0 @@
-{
-  this.framework=framework;
-  this.guessedServletPath=guessedServletPath;
-}

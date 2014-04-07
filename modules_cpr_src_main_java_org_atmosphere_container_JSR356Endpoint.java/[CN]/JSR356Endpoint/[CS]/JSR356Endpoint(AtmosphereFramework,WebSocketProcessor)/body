@@ -1,7 +1,6 @@
 {
   this.framework=framework;
   this.webSocketProcessor=webSocketProcessor;
-  this.servletPath=servletPath;
   if (framework.isUseNativeImplementation()) {
     throw new IllegalStateException("You cannot use WebSocket native implementation with JSR356. Please set " + ApplicationConfig.PROPERTY_NATIVE_COMETSUPPORT + " to false");
   }

@@ -16,31 +16,22 @@
   for (  Map.Entry<String,List<String>> e : handshakeRequest.getHeaders().entrySet()) {
     headers.put(e.getKey(),e.getValue().size() > 0 ? e.getValue().get(0) : "");
   }
-  String pathInfo="";
-  StringBuffer p=new StringBuffer("/");
-  try {
-    boolean append=true;
-    for (    Map.Entry<String,String> e : session.getPathParameters().entrySet()) {
-      if (append && !e.getKey().equalsIgnoreCase("{path}")) {
-        append=false;
-      }
-      if (append) {
-        p.append(e.getValue()).append("/");
-      }
- else {
-        p.insert(0,e.getValue()).insert(0,"/");
-      }
-    }
-    if (p.length() > 1) {
-      p.deleteCharAt(p.length() - 1);
-    }
-    pathInfo=p.toString();
-    if (pathInfo.equals(servletPath)) {
-      pathInfo=null;
+  String servletPath="";
+  URI uri=session.getRequestURI();
+  String[] paths=uri.getPath() != null ? uri.getPath().split("/") : new String[]{};
+  StringBuffer b=new StringBuffer("/");
+  for (int i=0; i < paths.length; i++) {
+    if (i == 2)     servletPath+="/" + paths[i];
+    if (i >= 3) {
+      b.append(paths[i]).append("/");
     }
   }
- catch (  Exception ex) {
-    logger.warn("Unexpected path decoding",ex);
+  if (b.length() > 1) {
+    b.deleteCharAt(b.length() - 1);
+  }
+  String pathInfo=b.toString();
+  if (pathInfo.equals("/")) {
+    pathInfo=null;
   }
   try {
     String requestUri=session.getRequestURI().toASCIIString();
