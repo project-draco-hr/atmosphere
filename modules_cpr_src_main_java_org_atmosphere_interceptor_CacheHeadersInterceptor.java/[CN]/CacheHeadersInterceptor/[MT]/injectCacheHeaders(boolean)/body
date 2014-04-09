@@ -1,0 +1,4 @@
+{
+  this.injectCacheHeaders=injectCacheHeaders;
+  return this;
+}

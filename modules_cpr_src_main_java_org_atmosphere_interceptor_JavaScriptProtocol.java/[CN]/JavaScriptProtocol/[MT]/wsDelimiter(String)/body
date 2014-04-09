@@ -1,0 +1,4 @@
+{
+  this.wsDelimiter=wsDelimiter;
+  return this;
+}
