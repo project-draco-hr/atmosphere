@@ -5,7 +5,7 @@
     while (read > -1) {
       bb.position(bb.position() + read);
       if (bb.remaining() == 0) {
-        resizeByteBuffer(webSocket);
+        bb=resizeByteBuffer(webSocket);
       }
       read=is.read(bb.array(),bb.position(),bb.remaining());
     }

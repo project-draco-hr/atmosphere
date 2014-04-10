@@ -12,4 +12,5 @@
   bb.rewind();
   newBuffer.put(bb);
   webSocket.bb=newBuffer;
+  return newBuffer;
 }
