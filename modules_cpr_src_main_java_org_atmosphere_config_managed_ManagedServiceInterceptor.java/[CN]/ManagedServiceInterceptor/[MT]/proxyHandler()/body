@@ -1,0 +1,3 @@
+{
+  return config.framework().newClassInstance(AnnotatedProxy.class,ManagedAtmosphereHandler.class);
+}

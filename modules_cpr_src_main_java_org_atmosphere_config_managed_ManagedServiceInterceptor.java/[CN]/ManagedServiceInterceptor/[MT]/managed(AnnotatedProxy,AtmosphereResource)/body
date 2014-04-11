@@ -1,0 +1,13 @@
+{
+  final ManagedService a=ap.target().getClass().getAnnotation(ManagedService.class);
+  if (a == null)   return null;
+  return new ManagedAnnotation(){
+    @Override public String path(){
+      return a.path();
+    }
+    @Override public Class<? extends Broadcaster> broadcaster(){
+      return a.broadcaster();
+    }
+  }
+;
+}

@@ -3,18 +3,18 @@ synchronized (config.handlers()) {
     if (config.handlers().get(path) == null) {
       if (AnnotatedProxy.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
         AnnotatedProxy ap=AnnotatedProxy.class.cast(w.atmosphereHandler);
-        ManagedService a=ap.target().getClass().getAnnotation(ManagedService.class);
+        ManagedAnnotation a=managed(ap,request.resource());
         if (a != null) {
           String targetPath=a.path();
           if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {
             try {
               boolean singleton=ap.target().getClass().getAnnotation(Singleton.class) != null;
               if (!singleton) {
-                ManagedAtmosphereHandler h=config.framework().newClassInstance(ManagedAtmosphereHandler.class,ManagedAtmosphereHandler.class);
+                AnnotatedProxy h=proxyHandler();
                 final Object o=config.framework().newClassInstance(Object.class,ap.target().getClass());
                 h.configure(config,o);
                 if (h.pathParams()) {
-                  injectPathParams(path,targetPath,o);
+                  prepareForPathInjection(path,targetPath,o);
                 }
                 config.framework().addAtmosphereHandler(path,h,config.getBroadcasterFactory().lookup(a.broadcaster(),path,true),w.interceptors);
               }
