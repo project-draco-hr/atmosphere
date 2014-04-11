@@ -1,0 +1,8 @@
+{
+  for (  Field field : o.getClass().getDeclaredFields()) {
+    if (field.isAnnotationPresent(PathParam.class)) {
+      return true;
+    }
+  }
+  return false;
+}
