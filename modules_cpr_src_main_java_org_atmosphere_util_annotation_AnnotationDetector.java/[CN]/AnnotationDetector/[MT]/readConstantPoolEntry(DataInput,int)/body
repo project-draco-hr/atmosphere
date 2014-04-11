@@ -26,6 +26,15 @@ case CP_REF_INTERFACE:
 case CP_NAME_AND_TYPE:
 di.skipBytes(4);
 return false;
+case CP_METHOD_HANDLE:
+di.skipBytes(3);
+return false;
+case CP_METHOD_TYPE:
+di.skipBytes(2);
+return false;
+case CP_INVOKE_DYNAMIC:
+di.skipBytes(4);
+return false;
 default :
 throw new ClassFormatError("Unkown tag value for constant pool entry: " + tag);
 }
