@@ -1,4 +1,13 @@
 {
-  configureReader();
-  return br == null ? (isNotNoOps() ? b.request.getReader() : voidReader) : br;
+  if (b.body.isEmpty()) {
+    configureReader();
+    return br == null ? (isNotNoOps() ? b.request.getReader() : voidReader) : br;
+  }
+ else   if (b.body.hasString()) {
+    br=new BufferedReader(new StringReader(body().asString()));
+  }
+ else   if (b.body.hasBytes()) {
+    br=new BufferedReader(new StringReader(new String(body().asBytes(),body().byteOffset(),body().length)));
+  }
+  return br;
 }
