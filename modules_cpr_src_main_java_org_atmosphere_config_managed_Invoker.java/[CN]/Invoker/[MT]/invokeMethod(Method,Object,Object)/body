@@ -9,7 +9,7 @@
     logger.trace("",e);
   }
 catch (  InvocationTargetException e) {
-    logger.trace("",e);
+    logger.error("",e);
   }
 catch (  java.lang.IllegalArgumentException e) {
     logger.trace("",e);
