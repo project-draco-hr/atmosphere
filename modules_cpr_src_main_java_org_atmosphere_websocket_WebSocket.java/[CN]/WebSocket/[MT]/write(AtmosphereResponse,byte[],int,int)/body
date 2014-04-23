@@ -12,7 +12,7 @@
       b=transform(b,offset,length);
     }
     if (b != null) {
-      write(b,0,length);
+      write(b,0,b.length);
     }
   }
  else {
