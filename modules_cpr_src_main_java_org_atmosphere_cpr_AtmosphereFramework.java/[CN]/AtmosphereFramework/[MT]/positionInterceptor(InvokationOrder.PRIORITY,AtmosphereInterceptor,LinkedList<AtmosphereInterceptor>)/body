@@ -1,15 +1,19 @@
 {
 switch (p) {
 case AFTER_DEFAULT:
-    interceptors.addLast(c);
-  break;
+    interceptors.remove(c);
+  interceptors.addLast(c);
+break;
 case BEFORE_DEFAULT:
+if (!checkDuplicate(c)) return;
+interceptors.remove(c);
 int pos=executeFirstSet ? 1 : 0;
-interceptors.add(pos,c);
+this.interceptors.add(pos,c);
 break;
 case FIRST_BEFORE_DEFAULT:
 if (executeFirstSet) throw new IllegalStateException("Cannot set more than one AtmosphereInterceptor to be executed first");
 logger.info("AtmosphereInterceptor {} will always be executed first",c);
+interceptors.remove(c);
 interceptors.addFirst(c);
 executeFirstSet=true;
 break;

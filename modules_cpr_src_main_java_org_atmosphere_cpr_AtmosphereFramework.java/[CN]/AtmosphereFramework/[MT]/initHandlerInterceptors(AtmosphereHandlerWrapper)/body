@@ -1,16 +1,13 @@
 {
   List<AtmosphereInterceptor> remove=new ArrayList<AtmosphereInterceptor>();
   if (w.interceptors != null) {
-    for (    AtmosphereInterceptor i : w.interceptors) {
+    LinkedList<AtmosphereInterceptor> d=new LinkedList<AtmosphereInterceptor>(w.interceptors);
+    for (    AtmosphereInterceptor i : d) {
       InvokationOrder.PRIORITY p=InvokationOrder.class.isAssignableFrom(i.getClass()) ? InvokationOrder.class.cast(i).priority() : InvokationOrder.AFTER_DEFAULT;
       if (!p.equals(InvokationOrder.AFTER_DEFAULT)) {
-        positionInterceptor(p,i);
-        remove.add(i);
+        positionInterceptor(p,i,w.interceptors);
       }
       i.configure(config);
-    }
-    for (    AtmosphereInterceptor i : remove) {
-      w.interceptors.remove(i);
     }
   }
 }

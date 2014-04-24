@@ -11,7 +11,7 @@
   }
   if (!found) {
     InvokationOrder.PRIORITY p=InvokationOrder.class.isAssignableFrom(c.getClass()) ? InvokationOrder.class.cast(c).priority() : InvokationOrder.AFTER_DEFAULT;
-    positionInterceptor(p,c);
+    positionInterceptor(p,c,interceptors);
     logger.info("Installed AtmosphereInterceptor {} with priority {} ",c,p.name());
   }
   return this;

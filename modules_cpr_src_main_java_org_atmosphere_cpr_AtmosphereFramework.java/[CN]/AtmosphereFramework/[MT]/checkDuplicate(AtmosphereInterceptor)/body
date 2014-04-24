@@ -1,0 +1,6 @@
+{
+  for (  AtmosphereInterceptor i : interceptors) {
+    if (i.getClass().equals(c.getClass()))     return false;
+  }
+  return true;
+}

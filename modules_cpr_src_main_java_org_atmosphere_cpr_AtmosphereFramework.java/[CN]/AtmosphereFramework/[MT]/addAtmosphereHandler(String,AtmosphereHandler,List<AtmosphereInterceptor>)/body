@@ -3,7 +3,7 @@
     mapping="/" + mapping;
   }
   AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(broadcasterFactory,h,mapping);
-  w.interceptors=l;
+  w.interceptors=LinkedList.class.isAssignableFrom(l.getClass()) ? LinkedList.class.cast(l) : new LinkedList<AtmosphereInterceptor>(l);
   addMapping(mapping,w);
   if (isInit) {
     try {

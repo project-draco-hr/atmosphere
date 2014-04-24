@@ -61,7 +61,7 @@
         if (atmoHandler.getBroadcastFilterClasses() != null) {
           broadcasterFilters.addAll(atmoHandler.getBroadcastFilterClasses());
         }
-        List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+        LinkedList<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
         if (atmoHandler.getAtmosphereInterceptorClasses() != null) {
           for (          String a : atmoHandler.getAtmosphereInterceptorClasses()) {
             try {

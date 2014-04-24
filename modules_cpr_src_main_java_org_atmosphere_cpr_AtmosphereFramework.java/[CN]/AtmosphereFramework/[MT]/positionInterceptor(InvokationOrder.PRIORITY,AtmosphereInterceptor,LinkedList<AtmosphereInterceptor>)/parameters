@@ -1,2 +1,3 @@
 InvokationOrder.PRIORITY p
 AtmosphereInterceptor c
+LinkedList<AtmosphereInterceptor> interceptors
