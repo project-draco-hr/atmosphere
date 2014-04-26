@@ -1,0 +1,21 @@
+{
+  isInit=false;
+  broadcasterFilters.clear();
+  asyncSupportListeners.clear();
+  possibleComponentsCandidate.clear();
+  initParams.clear();
+  atmosphereHandlers.clear();
+  broadcasterTypes.clear();
+  objectFactoryType.clear();
+  inspectors.clear();
+  broadcasterListeners.clear();
+  packages.clear();
+  annotationPackages.clear();
+  excludedInterceptors.clear();
+  broadcasterCacheListeners.clear();
+  filterManipulators.clear();
+  interceptors.clear();
+  broadcasterFactory=null;
+  annotationFound=false;
+  return this;
+}

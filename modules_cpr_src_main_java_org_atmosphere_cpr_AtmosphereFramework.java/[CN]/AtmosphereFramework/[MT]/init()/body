@@ -1,6 +1,6 @@
 {
   try {
-    init(new ServletConfig(){
+    init(servletConfig == null ? new ServletConfig(){
       @Override public String getServletName(){
         return "AtmosphereFramework";
       }
@@ -19,7 +19,7 @@
         return Collections.enumeration(initParams.values());
       }
     }
-,false);
+ : servletConfig,false);
   }
  catch (  ServletException e) {
     logger.error("",e);

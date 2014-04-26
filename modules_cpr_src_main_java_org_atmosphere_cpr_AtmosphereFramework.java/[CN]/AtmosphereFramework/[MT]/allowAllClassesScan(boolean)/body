@@ -1,0 +1,4 @@
+{
+  this.allowAllClassesScan=allowAllClassesScan;
+  return this;
+}

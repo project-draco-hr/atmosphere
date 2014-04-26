@@ -12,9 +12,11 @@
   if (factory != null) {
     factory.destroy();
     BroadcasterFactory.factory=null;
+    BroadcasterFactory.config=null;
   }
   arFactory.destroy();
   AtmosphereResourceFactory.getDefault().destroy();
   WebSocketProcessorFactory.getDefault().destroy();
+  resetStates();
   return this;
 }

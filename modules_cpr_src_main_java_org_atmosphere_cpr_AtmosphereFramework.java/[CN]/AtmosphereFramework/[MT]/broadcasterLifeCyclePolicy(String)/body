@@ -1,0 +1,4 @@
+{
+  this.broadcasterLifeCyclePolicy=broadcasterLifeCyclePolicy;
+  return this;
+}

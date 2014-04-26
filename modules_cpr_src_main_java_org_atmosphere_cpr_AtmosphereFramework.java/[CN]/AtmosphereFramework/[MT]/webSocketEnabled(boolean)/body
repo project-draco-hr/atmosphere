@@ -1,0 +1,4 @@
+{
+  this.webSocketEnabled=webSocketEnabled;
+  return this;
+}

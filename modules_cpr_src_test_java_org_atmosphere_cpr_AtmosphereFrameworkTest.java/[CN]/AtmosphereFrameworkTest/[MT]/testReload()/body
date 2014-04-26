@@ -1,0 +1,7 @@
+{
+  AtmosphereFramework f=new AtmosphereFramework();
+  f.init();
+  f.destroy();
+  f.init();
+  assertNotNull(f.getBroadcasterFactory());
+}
