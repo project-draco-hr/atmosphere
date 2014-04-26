@@ -1,3 +1,4 @@
 {
   writePadding(response);
+  event.getResource().removeEventListener(this);
 }
