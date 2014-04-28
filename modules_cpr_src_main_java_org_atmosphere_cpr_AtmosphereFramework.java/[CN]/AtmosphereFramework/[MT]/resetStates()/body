@@ -1,5 +1,6 @@
 {
   isInit=false;
+  executeFirstSet=false;
   broadcasterFilters.clear();
   asyncSupportListeners.clear();
   possibleComponentsCandidate.clear();
