@@ -1,5 +1,5 @@
 {
-  if (!r.uuid().equals("0")) {
+  if (!r.uuid().equals("0") && !Utils.webSocketMessage(r) && !Utils.pollableTransport(r.transport())) {
     if (!trackedUUID.add(r.uuid())) {
       logger.trace("Blocking {} from suspend",r.uuid());
       AtmosphereResourceImpl.class.cast(r).disableSuspendEvent(true);
