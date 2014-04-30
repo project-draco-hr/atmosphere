@@ -3,6 +3,7 @@
   readSystemProperties();
   populateBroadcasterType();
   populateObjectFactoryType();
+  loadMetaService();
   try {
     ServletConfig scFacade;
     if (wrap) {
