@@ -1,5 +1,5 @@
 {
-  int maxSize=getCharBufferMaxSize();
+  int maxSize=charBufferMaxSize;
   CharBuffer cb=webSocket.cb;
   if (cb.limit() >= maxSize) {
     throw new IOException("Message Buffer too small. Use " + StreamingHttpProtocol.class.getName() + " when streaming over websocket.");
