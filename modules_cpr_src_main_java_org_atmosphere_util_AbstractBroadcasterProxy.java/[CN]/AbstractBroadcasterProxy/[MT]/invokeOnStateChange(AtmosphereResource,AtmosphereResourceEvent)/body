@@ -1,7 +1,7 @@
 {
   if (r.getRequest().getAttribute(FrameworkConfig.CONTAINER_RESPONSE) != null) {
     try {
-      jerseyBroadcast.invoke(null,new Object[]{r,e});
+      jerseyBroadcast.invoke(null,new Object[]{r,e,r.getBroadcaster()});
     }
  catch (    Throwable t) {
       super.invokeOnStateChange(r,e);
