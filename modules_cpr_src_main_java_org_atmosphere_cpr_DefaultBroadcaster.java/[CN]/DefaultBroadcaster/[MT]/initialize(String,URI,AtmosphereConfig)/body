@@ -19,7 +19,6 @@
   if (s != null) {
     writeTimeoutInSecond=Integer.valueOf(s);
   }
-  noOpsResource=config.resourcesFactory().create(config,"-1");
   if (outOfOrderBroadcastSupported.get()) {
     logger.trace("{} supports Out Of Order Broadcast: {}",name,outOfOrderBroadcastSupported.get());
   }
