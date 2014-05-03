@@ -1,0 +1,12 @@
+{
+  try {
+    final Map<String,MetaServiceAction> config=IOUtils.readServiceFile(AtmosphereFramework.class.getName());
+    for (    final Map.Entry<String,MetaServiceAction> action : config.entrySet()) {
+      final Class c=IOUtils.loadClass(AtmosphereFramework.class,action.getKey());
+      action.getValue().apply(this,c);
+    }
+  }
+ catch (  Exception ex) {
+    logger.error("",ex);
+  }
+}

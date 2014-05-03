@@ -1,0 +1,8 @@
+{
+  if (AtmosphereInterceptor.class.isAssignableFrom(c)) {
+    fwk.excludeInterceptor(c.getName());
+  }
+ else {
+    logger.warn("{} is not a framework service that could be excluded, pull request is welcome ;-)",c.getName());
+  }
+}

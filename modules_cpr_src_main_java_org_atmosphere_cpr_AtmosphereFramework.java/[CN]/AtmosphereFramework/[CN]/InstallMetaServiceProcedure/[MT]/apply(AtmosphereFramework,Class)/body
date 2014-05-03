@@ -1,0 +1,41 @@
+{
+  if (AtmosphereInterceptor.class.isAssignableFrom(c)) {
+    fwk.interceptor(fwk.newClassInstance(AtmosphereInterceptor.class,c));
+  }
+ else   if (Broadcaster.class.isAssignableFrom(c)) {
+    fwk.setDefaultBroadcasterClassName(c.getName());
+  }
+ else   if (BroadcasterListener.class.isAssignableFrom(c)) {
+    fwk.addBroadcasterListener(fwk.newClassInstance(BroadcasterListener.class,c));
+  }
+ else   if (BroadcasterCache.class.isAssignableFrom(c)) {
+    fwk.setBroadcasterCacheClassName(c.getName());
+  }
+ else   if (BroadcastFilter.class.isAssignableFrom(c)) {
+    fwk.broadcasterFilters.add(c.getName());
+  }
+ else   if (BroadcasterCacheInspector.class.isAssignableFrom(c)) {
+    fwk.inspectors.add(fwk.newClassInstance(BroadcasterCacheInspector.class,c));
+  }
+ else   if (AsyncSupportListener.class.isAssignableFrom(c)) {
+    fwk.asyncSupportListeners.add(fwk.newClassInstance(AsyncSupportListener.class,c));
+  }
+ else   if (AsyncSupport.class.isAssignableFrom(c)) {
+    fwk.setAsyncSupport(fwk.newClassInstance(AsyncSupport.class,c));
+  }
+ else   if (BroadcasterCacheListener.class.isAssignableFrom(c)) {
+    fwk.broadcasterCacheListeners.add(fwk.newClassInstance(BroadcasterCacheListener.class,c));
+  }
+ else   if (BroadcasterConfig.FilterManipulator.class.isAssignableFrom(c)) {
+    fwk.filterManipulators.add(fwk.newClassInstance(BroadcasterConfig.FilterManipulator.class,c));
+  }
+ else   if (WebSocketProtocol.class.isAssignableFrom(c)) {
+    fwk.webSocketProtocolClassName=WebSocketProtocol.class.getName();
+  }
+ else   if (WebSocketProcessor.class.isAssignableFrom(c)) {
+    fwk.webSocketProcessorClassName=WebSocketProcessor.class.getName();
+  }
+ else {
+    logger.warn("{} is not a framework service that could be installed",c.getName());
+  }
+}

@@ -1,0 +1,12 @@
+{
+  for (  Closeable closeable : closeableArray) {
+    try {
+      if (closeable != null) {
+        closeable.close();
+      }
+    }
+ catch (    IOException ioe) {
+      logger.info("Can't close the object",ioe);
+    }
+  }
+}

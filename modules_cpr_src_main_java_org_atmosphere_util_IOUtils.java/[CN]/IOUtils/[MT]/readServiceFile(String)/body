@@ -1,33 +1,37 @@
 {
-  List<String> b=new ArrayList<String>();
-  InputStream is=AtmosphereFramework.class.getClassLoader().getResourceAsStream("META-INF/services/" + path);
-  if (is == null)   return b;
-  BufferedReader reader=new BufferedReader(new InputStreamReader(is));
+  final Map<String,AtmosphereFramework.MetaServiceAction> b=new HashMap<String,AtmosphereFramework.MetaServiceAction>();
   String line;
+  InputStream is=null;
+  BufferedReader reader=null;
+  AtmosphereFramework.MetaServiceAction action=AtmosphereFramework.MetaServiceAction.INSTALL;
   try {
+    is=AtmosphereFramework.class.getClassLoader().getResourceAsStream("META-INF/services/" + path);
+    if (is == null) {
+      logger.warn("META-INF/services/{} not found in class loader",path);
+      return b;
+    }
+    reader=new BufferedReader(new InputStreamReader(is));
     while (true) {
       line=reader.readLine();
       if (line == null) {
         break;
       }
-      if (line.isEmpty())       continue;
-      b.add(line);
+ else       if (line.isEmpty()) {
+        continue;
+      }
+ else       if (line.indexOf('.') == -1) {
+        action=AtmosphereFramework.MetaServiceAction.valueOf(line);
+      }
+ else {
+        b.put(line,action);
+      }
     }
   }
  catch (  IOException e) {
-    e.printStackTrace();
+    logger.warn("Unable to read META-INF/services/{} from class loader",path,e);
   }
  finally {
-    try {
-      is.close();
-    }
- catch (    IOException e) {
-    }
-    try {
-      reader.close();
-    }
- catch (    IOException e) {
-    }
+    close(is,reader);
   }
   return b;
 }
