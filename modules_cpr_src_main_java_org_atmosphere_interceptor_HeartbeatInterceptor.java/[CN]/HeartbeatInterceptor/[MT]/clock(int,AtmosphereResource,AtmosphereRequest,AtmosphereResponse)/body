@@ -23,6 +23,6 @@
       return null;
     }
   }
-,heartbeatFrequencyInSeconds,TimeUnit.SECONDS));
+,interval,TimeUnit.SECONDS));
   return this;
 }

@@ -1,41 +1,57 @@
 {
   final AtmosphereResponse response=r.getResponse();
   final AtmosphereRequest request=r.getRequest();
-  if (!Utils.pollableTransport(r.transport())) {
-    super.inspect(r);
-    r.addEventListener(new Clock(){
-      @Override public void onSuspend(      AtmosphereResourceEvent event){
-        clock(r,request,response);
-      }
-      @Override public void onResume(      AtmosphereResourceEvent event){
-        cancelF(request);
-      }
-      @Override public void onDisconnect(      AtmosphereResourceEvent event){
-        cancelF(request);
-      }
-      @Override public void onClose(      AtmosphereResourceEvent event){
-        cancelF(request);
+  int interval=heartbeatFrequencyInSeconds;
+  final String s=request.getHeader(HeaderConfig.X_HEARTBEAT_SERVER);
+  if (s != null) {
+    try {
+      interval=Integer.parseInt(s);
+      if (interval != 0 && interval < heartbeatFrequencyInSeconds) {
+        interval=heartbeatFrequencyInSeconds;
       }
     }
-);
+ catch (    NumberFormatException nfe) {
+      logger.warn("{} header is not an integer",HeaderConfig.X_HEARTBEAT_SERVER,nfe);
+    }
   }
+  if (interval != 0) {
+    final int finalInterval=interval;
+    if (!Utils.pollableTransport(r.transport())) {
+      super.inspect(r);
+      r.addEventListener(new Clock(){
+        @Override public void onSuspend(        AtmosphereResourceEvent event){
+          clock(finalInterval,r,request,response);
+        }
+        @Override public void onResume(        AtmosphereResourceEvent event){
+          cancelF(request);
+        }
+        @Override public void onDisconnect(        AtmosphereResourceEvent event){
+          cancelF(request);
+        }
+        @Override public void onClose(        AtmosphereResourceEvent event){
+          cancelF(request);
+        }
+      }
+);
+    }
  else {
-    return Action.CONTINUE;
-  }
-  AsyncIOWriter writer=response.getAsyncIOWriter();
-  if (!Utils.resumableTransport(r.transport()) && AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass()) && r.getRequest().getAttribute(INTERCEPTOR_ADDED) == null) {
-    AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
-      @Override public byte[] transformPayload(      AtmosphereResponse response,      byte[] responseDraft,      byte[] data) throws IOException {
-        cancelF(request);
-        return responseDraft;
-      }
-      @Override public void postPayload(      final AtmosphereResponse response,      byte[] data,      int offset,      int length){
-        logger.trace("Scheduling heartbeat for {}",r.uuid());
-        clock(r,request,response);
-      }
+      return Action.CONTINUE;
     }
+    AsyncIOWriter writer=response.getAsyncIOWriter();
+    if (!Utils.resumableTransport(r.transport()) && AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass()) && r.getRequest().getAttribute(INTERCEPTOR_ADDED) == null) {
+      AtmosphereInterceptorWriter.class.cast(writer).interceptor(new AsyncIOInterceptorAdapter(){
+        @Override public byte[] transformPayload(        AtmosphereResponse response,        byte[] responseDraft,        byte[] data) throws IOException {
+          cancelF(request);
+          return responseDraft;
+        }
+        @Override public void postPayload(        final AtmosphereResponse response,        byte[] data,        int offset,        int length){
+          logger.trace("Scheduling heartbeat for {}",r.uuid());
+          clock(finalInterval,r,request,response);
+        }
+      }
 );
-    r.getRequest().setAttribute(INTERCEPTOR_ADDED,Boolean.TRUE);
+      r.getRequest().setAttribute(INTERCEPTOR_ADDED,Boolean.TRUE);
+    }
   }
   return Action.CONTINUE;
 }
