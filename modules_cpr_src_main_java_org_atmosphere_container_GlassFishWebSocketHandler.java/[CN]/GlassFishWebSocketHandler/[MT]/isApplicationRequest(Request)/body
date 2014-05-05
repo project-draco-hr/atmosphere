@@ -1,6 +1,9 @@
 {
-  if (!request.requestURI().startsWith(config.getServletContext().getContextPath()))   return false;
-  String path=request.requestURI().toString().substring(config.getServletContext().getContextPath().length());
+  String path=request.requestURI().toString();
+  String contextPath=config.getServletContext().getContextPath();
+  if (path.startsWith(contextPath)) {
+    path=path.substring(contextPath.length());
+  }
   Boolean b=mapper.map(path,paths);
   return b == null ? false : b;
 }

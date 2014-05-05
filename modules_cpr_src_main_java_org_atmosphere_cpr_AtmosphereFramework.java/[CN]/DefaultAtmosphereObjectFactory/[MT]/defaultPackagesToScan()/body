@@ -1,3 +1,4 @@
 {
   packages.add("io.async.control");
+  packages.add("io.async.satellite");
 }

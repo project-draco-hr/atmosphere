@@ -9,4 +9,6 @@
  else {
     taskScheduler=Executors.newSingleThreadScheduledExecutor();
   }
+  clientIdleTime=TimeUnit.SECONDS.toMillis(Long.valueOf(config.getAtmosphereConfig().getInitParameter(ApplicationConfig.UUIDBROADCASTERCACHE_CLIENT_IDLETIME,"60")));
+  invalidateCacheInterval=TimeUnit.SECONDS.toMillis(Long.valueOf(config.getAtmosphereConfig().getInitParameter(ApplicationConfig.UUIDBROADCASTERCACHE_IDLE_CACHE_INTERVAL,"30")));
 }
