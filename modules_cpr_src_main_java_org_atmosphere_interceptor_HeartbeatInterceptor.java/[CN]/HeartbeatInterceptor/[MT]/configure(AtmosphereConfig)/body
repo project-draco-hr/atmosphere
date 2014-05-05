@@ -3,5 +3,9 @@
   if (s != null) {
     heartbeatFrequencyInSeconds=Integer.valueOf(s);
   }
+  s=config.getInitParameter(CLIENT_HEARTBEAT_INTERVAL_IN_SECONDS);
+  if (s != null) {
+    clientHeartbeatFrequencyInSeconds=Integer.valueOf(s);
+  }
   heartBeat=ExecutorsFactory.getScheduler(config);
 }

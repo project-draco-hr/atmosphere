@@ -52,6 +52,11 @@
 );
       r.getRequest().setAttribute(INTERCEPTOR_ADDED,Boolean.TRUE);
     }
+ else {
+      if (Arrays.equals(paddingBytes,IOUtils.readEntirelyAsByte(r))) {
+        return Action.CANCELLED;
+      }
+    }
   }
   return Action.CONTINUE;
 }
