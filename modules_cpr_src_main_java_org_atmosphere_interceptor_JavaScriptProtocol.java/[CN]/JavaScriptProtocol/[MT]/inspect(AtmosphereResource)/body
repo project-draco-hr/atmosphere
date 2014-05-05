@@ -6,7 +6,17 @@
   String handshakeUUID=request.getHeader(HeaderConfig.X_ATMO_PROTOCOL);
   if (uuid != null && uuid.equals("0") && handshakeUUID != null) {
     request.header(HeaderConfig.X_ATMO_PROTOCOL,null);
-    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis()).append(wsDelimiter);
+    int heartbeatInterval=0;
+    String heartbeatData="";
+    for (    final AtmosphereInterceptor interceptor : framework.interceptors()) {
+      if (HeartbeatInterceptor.class.isAssignableFrom(interceptor.getClass())) {
+        final HeartbeatInterceptor heartbeatInterceptor=HeartbeatInterceptor.class.cast(interceptor);
+        heartbeatInterval=heartbeatInterceptor.getClientHeartbeatFrequencyInSeconds();
+        heartbeatData=new String(heartbeatInterceptor.getPaddingBytes());
+        break;
+      }
+    }
+    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis()).append(wsDelimiter).append(heartbeatInterval).append(wsDelimiter).append(heartbeatData).append(wsDelimiter);
     final AtomicReference<String> protocolMessage=new AtomicReference<String>(message.toString());
     if (r.getBroadcaster().getBroadcasterConfig().hasFilters()) {
       for (      BroadcastFilter bf : r.getBroadcaster().getBroadcasterConfig().filters()) {

@@ -3,4 +3,5 @@
   if (s != null) {
     wsDelimiter=s;
   }
+  framework=config.framework();
 }
