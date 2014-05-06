@@ -4,12 +4,12 @@
   AtmosphereResponse res=resource.getResponse();
   if (req.getHeader("Origin") != null && res.getHeader("Access-Control-Allow-Origin") == null) {
     res.addHeader("Access-Control-Allow-Origin",req.getHeader("Origin"));
-    res.addHeader("Access-Control-Expose-Headers","X-Cache-Date, X-Atmosphere-tracking-id");
+    res.addHeader("Access-Control-Expose-Headers",EXPOSE_HEADERS);
     res.setHeader("Access-Control-Allow-Credentials","true");
   }
   if ("OPTIONS".equals(req.getMethod())) {
     res.setHeader("Access-Control-Allow-Methods","OPTIONS, GET, POST");
-    res.setHeader("Access-Control-Allow-Headers","Origin, Content-Type, AuthToken, X-Atmosphere-Framework, X-Cache-Date, X-Atmosphere-tracking-id, X-Atmosphere-Transport, X-Atmosphere-TrackMessageSize, X-atmo-protocol");
+    res.setHeader("Access-Control-Allow-Headers","Origin, Content-Type, AuthToken, X-Atmosphere-Framework, " + EXPOSE_HEADERS + ", X-Atmosphere-Transport, X-Atmosphere-TrackMessageSize, X-atmo-protocol");
     res.setHeader("Access-Control-Max-Age","-1");
     return Action.SKIP_ATMOSPHEREHANDLER;
   }
