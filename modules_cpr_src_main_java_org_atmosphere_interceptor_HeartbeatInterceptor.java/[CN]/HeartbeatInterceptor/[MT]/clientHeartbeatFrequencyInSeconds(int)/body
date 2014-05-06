@@ -1,0 +1,4 @@
+{
+  this.clientHeartbeatFrequencyInSeconds=clientHeartbeatFrequencyInSeconds;
+  return this;
+}
