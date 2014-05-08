@@ -1,26 +1,19 @@
 {
-  final AtmosphereResponse response=r.getResponse();
-  final AtmosphereRequest request=r.getRequest();
-  int interval=heartbeatFrequencyInSeconds;
-  final String s=request.getHeader(HeaderConfig.X_HEARTBEAT_SERVER);
-  if (s != null) {
-    try {
-      interval=Integer.parseInt(s);
-      if (interval != 0 && interval < heartbeatFrequencyInSeconds) {
-        interval=heartbeatFrequencyInSeconds;
-      }
-    }
- catch (    NumberFormatException nfe) {
-      logger.warn("{} header is not an integer",HeaderConfig.X_HEARTBEAT_SERVER,nfe);
-    }
-  }
+  final int interval=extractHeartbeatInterval(r);
   if (interval != 0) {
-    final int finalInterval=interval;
+    final AtmosphereResponse response=r.getResponse();
+    final AtmosphereRequest request=r.getRequest();
     if (!Utils.pollableTransport(r.transport())) {
       super.inspect(r);
+      final boolean wasSuspended=r.isSuspended();
+      if (wasSuspended) {
+        clock(interval,r,request,response);
+      }
       r.addEventListener(new Clock(){
         @Override public void onSuspend(        AtmosphereResourceEvent event){
-          clock(finalInterval,r,request,response);
+          if (!wasSuspended) {
+            clock(interval,r,request,response);
+          }
         }
         @Override public void onResume(        AtmosphereResourceEvent event){
           cancelF(request);
@@ -46,7 +39,7 @@
         }
         @Override public void postPayload(        final AtmosphereResponse response,        byte[] data,        int offset,        int length){
           logger.trace("Scheduling heartbeat for {}",r.uuid());
-          clock(finalInterval,r,request,response);
+          clock(interval,r,request,response);
         }
       }
 );

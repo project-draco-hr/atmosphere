@@ -1,0 +1,16 @@
+{
+  int interval=heartbeatFrequencyInSeconds;
+  final String s=resource.getRequest().getHeader(HeaderConfig.X_HEARTBEAT_SERVER);
+  if (s != null) {
+    try {
+      interval=Integer.parseInt(s);
+      if (interval != 0 && interval < heartbeatFrequencyInSeconds) {
+        interval=heartbeatFrequencyInSeconds;
+      }
+    }
+ catch (    NumberFormatException nfe) {
+      logger.warn("{} header is not an integer",HeaderConfig.X_HEARTBEAT_SERVER,nfe);
+    }
+  }
+  return interval;
+}
