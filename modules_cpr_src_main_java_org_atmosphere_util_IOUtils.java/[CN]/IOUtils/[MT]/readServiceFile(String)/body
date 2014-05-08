@@ -1,5 +1,5 @@
 {
-  final Map<String,AtmosphereFramework.MetaServiceAction> b=new HashMap<String,AtmosphereFramework.MetaServiceAction>();
+  final Map<String,AtmosphereFramework.MetaServiceAction> b=new LinkedHashMap<String,AtmosphereFramework.MetaServiceAction>();
   String line;
   InputStream is=null;
   BufferedReader reader=null;
