@@ -2,7 +2,6 @@
   logger.trace("WebSocket {} closed with {}",webSocket.resource(),closeCode);
   WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
   AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
-  closeCode=closeCode(closeCode);
   if (resource == null) {
     logger.debug("Already closed {}",webSocket);
   }

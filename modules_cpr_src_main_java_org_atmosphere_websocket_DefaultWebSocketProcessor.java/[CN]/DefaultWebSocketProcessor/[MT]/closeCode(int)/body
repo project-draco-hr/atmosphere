@@ -1,6 +1,0 @@
-{
-  if (closeCode == 1000 && framework.getAsyncSupport().getContainerName().contains("Tomcat")) {
-    closeCode=1005;
-  }
-  return closeCode;
-}
