@@ -4,7 +4,6 @@
     for (    Class<?> clazz : atmosphereAnnotatedClasses) {
       handler.handleProcessor(clazz);
     }
-    annotations.remove(AtmosphereAnnotation.class);
   }
  else {
     fallbackToManualAnnotatedClasses(getClass(),framework,handler);

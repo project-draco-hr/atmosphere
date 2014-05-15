@@ -4,7 +4,6 @@
       return handler.handledClass();
     }
     @Override public void reportTypeAnnotation(    Class<? extends Annotation> annotation,    String className){
-      logger.info("Found Annotation in {} being scanned: {}",className,annotation);
       try {
         final Class<?> discoveredClass=loadClass(getClass(),className);
         handler.handleAnnotation(framework,annotation,discoveredClass);

@@ -1,4 +1,5 @@
 {
+  logger.info("Found Annotation in {} being scanned: {}",discoveredClass,annotation);
   framework.annotationScanned(true);
   Class<? extends Processor> a=annotations.get(annotation);
   if (a != null) {
