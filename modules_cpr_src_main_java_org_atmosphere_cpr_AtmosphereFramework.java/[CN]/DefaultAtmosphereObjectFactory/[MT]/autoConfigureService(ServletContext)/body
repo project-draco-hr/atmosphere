@@ -1,5 +1,5 @@
 {
-  String path=handlersPath != DEFAULT_HANDLER_PATH ? handlersPath : sc.getRealPath(handlersPath);
+  String path=handlersPath != DEFAULT_HANDLER_PATH ? handlersPath : realPath(sc,handlersPath);
   try {
     annotationProcessor=newClassInstance(AnnotationProcessor.class,(Class<AnnotationProcessor>)IOUtils.loadClass(getClass(),annotationProcessorClassName));
     logger.info("Atmosphere is using {} for processing annotation",annotationProcessorClassName);
@@ -13,7 +13,7 @@
       if (path != null) {
         annotationProcessor.scan(new File(path));
       }
-      String pathLibs=libPath != DEFAULT_LIB_PATH ? libPath : sc.getRealPath(DEFAULT_LIB_PATH);
+      String pathLibs=libPath != DEFAULT_LIB_PATH ? libPath : realPath(sc,DEFAULT_LIB_PATH);
       if (pathLibs != null) {
         File libFolder=new File(pathLibs);
         File jars[]=libFolder.listFiles(new FilenameFilter(){

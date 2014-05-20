@@ -1,0 +1,13 @@
+{
+  String realPath=servletContext.getRealPath(targetPath);
+  if (realPath == null) {
+    URL u=servletContext.getResource(targetPath);
+    if (u != null) {
+      realPath=u.getPath();
+    }
+ else {
+      return "";
+    }
+  }
+  return realPath;
+}

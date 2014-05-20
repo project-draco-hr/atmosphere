@@ -1,6 +1,6 @@
 {
   File file=new File(realPath);
-  if (file.isDirectory()) {
+  if (file.exists() && file.isDirectory()) {
     getFiles(file);
     scanDone=true;
     for (    String className : possibleComponentsCandidate) {

@@ -8,7 +8,7 @@
         detector.detect(p);
       }
     }
-    String path=f.getServletContext().getRealPath(f.getHandlersPath());
+    String path=IOUtils.realPath(f.getServletContext(),f.getHandlersPath());
     if (path != null) {
       detector.detect(new File(path));
     }
