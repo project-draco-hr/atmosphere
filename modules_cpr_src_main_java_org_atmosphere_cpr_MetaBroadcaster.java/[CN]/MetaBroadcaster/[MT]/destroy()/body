@@ -1,0 +1,4 @@
+{
+  broadcasterListeners.clear();
+  flushCache();
+}

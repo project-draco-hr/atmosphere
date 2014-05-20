@@ -1,6 +1,6 @@
 {
   if (metaBroadcaster == null) {
-    metaBroadcaster=new MetaBroadcaster();
+    configureMetaBroadcaster();
   }
   return metaBroadcaster;
 }

@@ -2,5 +2,5 @@
   factory.get("/a/chat1");
   factory.get("/a/chat2");
   factory.get("/a/chat3");
-  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/a/*","yo").get().size(),3);
+  assertEquals(metaBroadcaster.broadcastTo("/a/*","yo").get().size(),3);
 }

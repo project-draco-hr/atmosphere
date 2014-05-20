@@ -2,8 +2,8 @@
   factory.get("/a/b/c/d");
   factory.get("/b");
   factory.get("/c");
-  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/*","yo").get().size(),3);
-  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/a/b/c/d","yo").get().size(),1);
-  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/a","yo").get().size(),0);
-  assertEquals(MetaBroadcaster.getDefault().broadcastTo("/b","yo").get().size(),1);
+  assertEquals(metaBroadcaster.broadcastTo("/*","yo").get().size(),3);
+  assertEquals(metaBroadcaster.broadcastTo("/a/b/c/d","yo").get().size(),1);
+  assertEquals(metaBroadcaster.broadcastTo("/a","yo").get().size(),0);
+  assertEquals(metaBroadcaster.broadcastTo("/b","yo").get().size(),1);
 }

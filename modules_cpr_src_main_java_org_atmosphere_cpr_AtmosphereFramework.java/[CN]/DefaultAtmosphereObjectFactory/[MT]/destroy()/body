@@ -14,6 +14,7 @@
     BroadcasterFactory.factory=null;
     BroadcasterFactory.config=null;
   }
+  metaBroadcaster.destroy();
   arFactory.destroy();
   WebSocketProcessorFactory.getDefault().destroy();
   resetStates();

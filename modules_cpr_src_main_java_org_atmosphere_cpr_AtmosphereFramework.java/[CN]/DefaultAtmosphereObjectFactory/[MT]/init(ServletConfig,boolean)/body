@@ -59,6 +59,7 @@
     installAnnotationProcessor(scFacade);
     autoConfigureService(scFacade.getServletContext());
     configureBroadcasterFactory();
+    configureMetaBroadcaster();
     patchContainer();
     configureBroadcaster();
     loadConfiguration(scFacade);

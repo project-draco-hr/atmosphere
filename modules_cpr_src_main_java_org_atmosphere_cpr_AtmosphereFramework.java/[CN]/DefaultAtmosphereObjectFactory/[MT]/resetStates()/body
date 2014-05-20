@@ -18,6 +18,7 @@
   interceptors.clear();
   broadcasterFactory=null;
   arFactory=null;
+  metaBroadcaster=null;
   annotationFound=false;
   return this;
 }

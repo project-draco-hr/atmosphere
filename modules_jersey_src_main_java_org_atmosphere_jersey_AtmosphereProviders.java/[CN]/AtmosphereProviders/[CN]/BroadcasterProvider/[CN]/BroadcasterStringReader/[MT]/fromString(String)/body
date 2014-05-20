@@ -2,7 +2,7 @@
   Broadcaster broadcaster;
   try {
     AtmosphereResource r=(AtmosphereResource)req.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-    BroadcasterFactory bp=(BroadcasterFactory)req.getAttribute(ApplicationConfig.BROADCASTER_FACTORY);
+    BroadcasterFactory bp=r.getAtmosphereConfig().getBroadcasterFactory();
     Class<? extends Broadcaster> c;
     try {
       c=(Class<Broadcaster>)Class.forName((String)req.getAttribute(ApplicationConfig.BROADCASTER_CLASS));

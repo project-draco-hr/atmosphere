@@ -2,7 +2,7 @@
   if (response.getStatus() == 204) {
     response.setStatus(200);
   }
-  BroadcasterFactory broadcasterFactory=(BroadcasterFactory)servletReq.getAttribute(BROADCASTER_FACTORY);
+  BroadcasterFactory broadcasterFactory=r.getAtmosphereConfig().getBroadcasterFactory();
   boolean sessionSupported=(Boolean)servletReq.getAttribute(FrameworkConfig.SUPPORT_SESSION);
   URI location=null;
   if (useResumeAnnotation && !sessionSupported && !resumeOnBroadcast&& response.getHttpHeaders().getFirst("Location") == null) {
