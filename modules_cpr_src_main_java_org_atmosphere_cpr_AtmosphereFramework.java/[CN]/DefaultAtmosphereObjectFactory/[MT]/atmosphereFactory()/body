@@ -1,0 +1,6 @@
+{
+  if (arFactory == null) {
+    configureAtmosphereResourceFactory();
+  }
+  return arFactory;
+}

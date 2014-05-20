@@ -1,0 +1,4 @@
+{
+  arFactory=new AtmosphereResourceFactory(broadcasterFactory);
+  return this;
+}

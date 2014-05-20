@@ -14,6 +14,7 @@
       broadcasterFactory.addBroadcasterListener(b);
     }
     BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
+    configureAtmosphereResourceFactory();
   }
  catch (  Exception ex) {
     logger.error("Unable to configure Broadcaster/Factory/Cache",ex);

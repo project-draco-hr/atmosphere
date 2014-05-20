@@ -3,7 +3,7 @@
   try {
     r=config.framework().newClassInstance(AtmosphereResource.class,AtmosphereResourceImpl.class);
     if (request.getHeader(X_ATMOSPHERE_TRANSPORT) == null) {
-      request.header(X_ATMOSPHERE_TRANSPORT,T.name());
+      request.header(X_ATMOSPHERE_TRANSPORT,t.name());
     }
     r.initialize(config,broadcaster,request,response,a,handler);
   }

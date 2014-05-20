@@ -4,4 +4,4 @@ AtmosphereRequest request
 AtmosphereResponse response
 AsyncSupport<?> a
 AtmosphereHandler handler
-AtmosphereResource.TRANSPORT T
+AtmosphereResource.TRANSPORT t

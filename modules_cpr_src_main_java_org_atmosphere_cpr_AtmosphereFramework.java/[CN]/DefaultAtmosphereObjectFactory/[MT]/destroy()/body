@@ -15,7 +15,6 @@
     BroadcasterFactory.config=null;
   }
   arFactory.destroy();
-  AtmosphereResourceFactory.getDefault().destroy();
   WebSocketProcessorFactory.getDefault().destroy();
   resetStates();
   return this;
