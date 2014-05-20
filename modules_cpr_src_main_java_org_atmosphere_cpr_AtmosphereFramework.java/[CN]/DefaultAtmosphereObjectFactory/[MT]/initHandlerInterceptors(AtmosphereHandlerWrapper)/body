@@ -1,5 +1,4 @@
 {
-  List<AtmosphereInterceptor> remove=new ArrayList<AtmosphereInterceptor>();
   if (w.interceptors != null) {
     LinkedList<AtmosphereInterceptor> d=new LinkedList<AtmosphereInterceptor>(w.interceptors);
     for (    AtmosphereInterceptor i : d) {
