@@ -1,0 +1,3 @@
+JarURLConnection url
+String packageName
+Set<InputStream> streams
