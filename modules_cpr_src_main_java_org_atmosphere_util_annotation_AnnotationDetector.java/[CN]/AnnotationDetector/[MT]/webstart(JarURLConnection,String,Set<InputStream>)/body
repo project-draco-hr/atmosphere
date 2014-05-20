@@ -1,0 +1,10 @@
+{
+  JarFile jarFile=url.getJarFile();
+  Enumeration<JarEntry> entries=jarFile.entries();
+  while (entries.hasMoreElements()) {
+    JarEntry entry=entries.nextElement();
+    if (entry.getName().startsWith(packageName)) {
+      streams.add(jarFile.getInputStream(entry));
+    }
+  }
+}

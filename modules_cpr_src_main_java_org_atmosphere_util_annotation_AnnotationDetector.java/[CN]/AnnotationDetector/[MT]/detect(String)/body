@@ -47,6 +47,14 @@
           }
         }
       }
+ else       if (isRunningJavaWebStart()) {
+        try {
+          webstart((JarURLConnection)url.openConnection(),packageName,streams);
+        }
+ catch (        ClassCastException cce) {
+          throw new AssertionError("Not a File: " + url.toExternalForm());
+        }
+      }
  else {
         File jarFile;
         try {
