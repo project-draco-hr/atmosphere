@@ -1,9 +1,9 @@
 {
   logger.trace("WebSocket {} closed with {}",webSocket.resource(),closeCode);
   WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
-  AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
+  final AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
   if (resource == null) {
-    logger.debug("Already closed {}",webSocket);
+    logger.trace("Already closed {}",webSocket);
   }
  else {
     logger.trace("About to close AtmosphereResource for {}",resource.uuid());
@@ -36,6 +36,7 @@
               }
             }
  else {
+              logger.debug("Timeout",resource.uuid());
               h.timedOut();
             }
           }
