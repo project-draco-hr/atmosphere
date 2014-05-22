@@ -23,6 +23,7 @@
           }
         }
   finally {
+          config.getBroadcasterFactory().removeAllAtmosphereResource(r);
           config.resourcesFactory().unRegisterUuidForFindCandidate(r);
         }
       }
