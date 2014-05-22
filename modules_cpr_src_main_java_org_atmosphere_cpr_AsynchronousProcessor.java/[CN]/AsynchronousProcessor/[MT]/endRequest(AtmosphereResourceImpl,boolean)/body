@@ -1,0 +1,5 @@
+{
+  if (completeLifecycle(r,cancel)) {
+    config.framework().notify(Action.TYPE.CANCELLED,r.getRequest(false),r.getResponse(false));
+  }
+}

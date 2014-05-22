@@ -1,7 +1,5 @@
 {
   logger.trace("Timing out {}",req);
-  if (completeLifecycle(req.resource(),false)) {
-    config.framework().notify(Action.TYPE.TIMEOUT,req,res);
-  }
+  endRequest(AtmosphereResourceImpl.class.cast(req.resource()),false);
   return timedoutAction;
 }

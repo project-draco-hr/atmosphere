@@ -1,5 +1,0 @@
-{
-  if (completeLifecycle(req.resource(),true)) {
-    config.framework().notify(Action.TYPE.CANCELLED,req,res);
-  }
-}

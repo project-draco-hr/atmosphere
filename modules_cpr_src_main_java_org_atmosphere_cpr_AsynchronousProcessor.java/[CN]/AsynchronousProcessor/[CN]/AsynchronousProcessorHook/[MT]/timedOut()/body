@@ -1,11 +1,3 @@
 {
-  try {
-    ((AsynchronousProcessor)r.asyncSupport).timedout(r.getRequest(false),r.getResponse(false));
-  }
- catch (  IOException e) {
-    logger.debug("",e);
-  }
-catch (  ServletException e) {
-    logger.debug("",e);
-  }
+  ((AsynchronousProcessor)r.asyncSupport).endRequest(r,false);
 }

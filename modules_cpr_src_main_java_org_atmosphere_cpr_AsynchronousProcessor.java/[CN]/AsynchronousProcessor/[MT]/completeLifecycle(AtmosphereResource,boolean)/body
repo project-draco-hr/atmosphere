@@ -5,7 +5,7 @@
 synchronized (impl) {
       try {
         if (impl.isCancelled()) {
-          logger.error("{} is already cancelled",impl.uuid());
+          logger.debug("{} is already cancelled",impl.uuid());
           return false;
         }
         AtmosphereResourceEventImpl e=impl.getAtmosphereResourceEvent();
@@ -24,7 +24,7 @@ synchronized (impl) {
         invokeAtmosphereHandler(impl);
       }
  catch (      Throwable ex) {
-        logger.trace("Failed to cancel resource: {}",impl.uuid(),ex);
+        logger.error("Failed to cancel resource: {}",impl.uuid(),ex);
       }
  finally {
         try {
@@ -43,7 +43,7 @@ synchronized (impl) {
           impl.cancel();
         }
  catch (        Throwable t) {
-          logger.trace("completeLifecycle",t);
+          logger.debug("completeLifecycle",t);
         }
  finally {
           impl._destroy();
@@ -53,7 +53,7 @@ synchronized (impl) {
     return true;
   }
  else {
-    logger.trace("AtmosphereResource {} was already cancelled or gc",r != null ? r.uuid() : "null");
+    logger.debug("AtmosphereResource {} was already cancelled or gc",r != null ? r.uuid() : "null");
     return false;
   }
 }
