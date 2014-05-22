@@ -1,5 +1,3 @@
 {
-  if (!Utils.pollableTransport(transport()) && !Utils.webSocketMessage(this)) {
-    config.resourcesFactory().unRegisterUuidForFindCandidate(this);
-  }
+  config.resourcesFactory().unRegisterUuidForFindCandidate(this);
 }
