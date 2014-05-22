@@ -13,6 +13,7 @@ synchronized (framework) {
     if (Utils.firefoxWebSocketEnabled(request)) {
       request.setAttribute("firefox","true");
     }
+    AtmosphereResourceImpl.class.cast(r).webSocket(webSocket);
     webSocket.resource(r);
     webSocketProtocol.onOpen(webSocket);
     WebSocketHandler proxy=null;

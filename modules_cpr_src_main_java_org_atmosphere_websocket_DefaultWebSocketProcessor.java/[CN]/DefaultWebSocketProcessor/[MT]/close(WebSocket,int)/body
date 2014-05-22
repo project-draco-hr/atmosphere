@@ -14,7 +14,7 @@
       if (webSocketHandler != null) {
         webSocketHandler.onClose(webSocket);
       }
-      if (resource != null && resource.isInScope() && !resource.getAtmosphereResourceEvent().isClosedByApplication()) {
+      if (resource != null && !resource.getAtmosphereResourceEvent().isClosedByApplication()) {
         Object o=r.getAttribute(ASYNCHRONOUS_HOOK);
         if (o != null && AsynchronousProcessorHook.class.isAssignableFrom(o.getClass())) {
           final AsynchronousProcessorHook h=(AsynchronousProcessorHook)o;

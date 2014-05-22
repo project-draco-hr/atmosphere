@@ -2,4 +2,7 @@
   event.setCloseByApplication(true);
   notifyListeners();
   cancel();
+  if (webSocket != null) {
+    webSocket.close();
+  }
 }
