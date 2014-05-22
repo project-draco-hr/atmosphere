@@ -48,7 +48,7 @@
     logger.trace("Wasn't able to resume a connection {}",this,t);
   }
  finally {
-    config.resourcesFactory().unRegisterUuidForFindCandidate(this);
+    unregister();
     try {
       Meteor m=(Meteor)req.getAttribute(METEOR);
       if (m != null) {

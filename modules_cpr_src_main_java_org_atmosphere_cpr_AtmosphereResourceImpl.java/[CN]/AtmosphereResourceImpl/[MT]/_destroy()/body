@@ -6,6 +6,7 @@
         config.getBroadcasterFactory().removeAllAtmosphereResource(this);
       }
     }
+    unregister();
     removeEventListeners();
   }
  catch (  Throwable t) {

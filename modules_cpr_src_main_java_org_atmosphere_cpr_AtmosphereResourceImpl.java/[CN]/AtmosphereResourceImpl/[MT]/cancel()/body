@@ -1,7 +1,7 @@
 {
-  if (!isCancelled.getAndSet(true)) {
-    suspended.set(false);
-    try {
+  try {
+    if (!isCancelled.getAndSet(true)) {
+      suspended.set(false);
       logger.trace("Cancelling {}",uuid);
       if (config.getBroadcasterFactory() != null) {
         config.getBroadcasterFactory().removeAllAtmosphereResource(this);
@@ -36,8 +36,8 @@
       req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
       event.destroy();
     }
+  }
   finally {
-      unregister();
-    }
+    unregister();
   }
 }
