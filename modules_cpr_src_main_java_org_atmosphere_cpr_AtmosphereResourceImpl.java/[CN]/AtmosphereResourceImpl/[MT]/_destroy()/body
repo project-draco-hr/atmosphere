@@ -1,12 +1,12 @@
 {
   try {
-    removeEventListeners();
     if (!isCancelled.get()) {
       if (broadcaster != null)       broadcaster.removeAtmosphereResource(this);
       if (config.getBroadcasterFactory() != null) {
         config.getBroadcasterFactory().removeAllAtmosphereResource(this);
       }
     }
+    removeEventListeners();
   }
  catch (  Throwable t) {
     logger.trace("destroyResource",t);

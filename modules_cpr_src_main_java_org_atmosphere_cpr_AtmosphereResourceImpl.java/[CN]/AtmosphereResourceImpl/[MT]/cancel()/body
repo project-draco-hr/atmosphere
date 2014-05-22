@@ -34,9 +34,6 @@
       }
       req.removeAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
       event.destroy();
-      if (!Utils.pollableTransport(transport()) && !Utils.webSocketMessage(this)) {
-        config.resourcesFactory().unRegisterUuidForFindCandidate(this);
-      }
     }
   finally {
       unregister();
