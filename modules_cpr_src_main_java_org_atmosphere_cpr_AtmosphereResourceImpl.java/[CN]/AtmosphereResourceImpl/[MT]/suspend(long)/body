@@ -9,6 +9,7 @@
   onPreSuspend(event);
   if (event.isSuspended() || disableSuspend)   return this;
   if (!event.isResumedOnTimeout()) {
+    suspended.set(true);
     Enumeration<String> connection=req.getHeaders("Connection");
     if (connection == null) {
       connection=req.getHeaders("connection");

@@ -1,3 +1,3 @@
 {
-  return resource == null ? false : resource.action().type() == Action.TYPE.RESUME;
+  return resource.isResumed();
 }

@@ -1,5 +1,6 @@
 {
   if (!isCancelled.getAndSet(true)) {
+    suspended.set(false);
     try {
       logger.trace("Cancelling {}",uuid);
       if (config.getBroadcasterFactory() != null) {
