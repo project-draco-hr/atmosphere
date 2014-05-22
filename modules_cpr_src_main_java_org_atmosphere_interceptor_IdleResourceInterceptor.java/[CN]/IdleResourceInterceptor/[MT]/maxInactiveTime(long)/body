@@ -1,4 +1,5 @@
 {
   this.maxInactiveTime=maxInactiveTime;
+  start();
   return this;
 }
