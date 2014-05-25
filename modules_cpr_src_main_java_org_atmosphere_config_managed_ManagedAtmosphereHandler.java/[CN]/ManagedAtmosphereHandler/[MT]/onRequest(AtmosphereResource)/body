@@ -22,6 +22,14 @@
       }
 );
     }
+    if (onHeartbeatMethod != null && !polling) {
+      resource.addEventListener(new OnHeartbeat(){
+        @Override public void onHeartbeat(        AtmosphereResourceEvent event){
+          invoke(onHeartbeatMethod,event);
+        }
+      }
+);
+    }
     resource.addEventListener(new OnClose(){
       @Override public void onClose(      AtmosphereResourceEvent event){
         invoke(onDisconnectMethod,event);
