@@ -1,0 +1,5 @@
+{
+  if (onHeartbeatMethod != null && !Utils.pollableTransport(event.getResource().transport())) {
+    invoke(onHeartbeatMethod,event);
+  }
+}
