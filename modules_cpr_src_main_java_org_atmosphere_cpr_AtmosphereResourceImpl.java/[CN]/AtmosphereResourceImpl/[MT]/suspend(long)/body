@@ -53,6 +53,7 @@
       return this;
     }
     req.removeAttribute(PRE_SUSPEND);
+    register();
     notifyListeners();
   }
   return this;

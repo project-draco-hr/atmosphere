@@ -2,7 +2,7 @@
   try {
     if (!isCancelled.getAndSet(true)) {
       suspended.set(false);
-      logger.trace("Cancelling {}",uuid);
+      logger.info("Cancelling {}",uuid);
       if (config.getBroadcasterFactory() != null) {
         config.getBroadcasterFactory().removeAllAtmosphereResource(this);
         if (transport.equals(TRANSPORT.WEBSOCKET)) {

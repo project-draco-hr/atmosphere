@@ -1,10 +1,9 @@
 {
-  if (listeners.size() > 0) {
-    logger.trace("Invoking listener with {}",event);
-  }
- else {
+  if (listeners.isEmpty()) {
+    logger.trace("NO listener with {}",event);
     return this;
   }
+  logger.trace("Invoking listener with {}",event);
   Action oldAction=action;
   try {
     if (HeartbeatAtmosphereResourceEvent.class.isAssignableFrom(event.getClass())) {
