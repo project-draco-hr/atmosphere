@@ -49,13 +49,15 @@
       byte[] body=IOUtils.readEntirelyAsByte(r);
       if (Arrays.equals(paddingBytes,body)) {
         final AtmosphereResourceEvent event=new HeartbeatAtmosphereResourceEvent(AtmosphereResourceImpl.class.cast(r));
-        final AtmosphereResourceEventListener kept=onHeartbeatListeners.get(r.uuid());
-        if (kept != null) {
-          kept.onHeartbeat(event);
+        if (r.getAtmosphereHandler().getClass().isAssignableFrom(ManagedAtmosphereHandler.class)) {
+          r.addEventListener(new AtmosphereResourceEventListenerAdapter.OnHeartbeat(){
+            @Override public void onHeartbeat(            AtmosphereResourceEvent event){
+              ManagedAtmosphereHandler.class.cast(r.getAtmosphereHandler()).onHeartbeat(event);
+            }
+          }
+);
         }
- else {
-          r.notifyListeners(event);
-        }
+        r.notifyListeners(event);
         return Action.CANCELLED;
       }
       request.body(body);
