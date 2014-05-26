@@ -67,9 +67,11 @@ catch (  Exception ex) {
   }
  finally {
     if (cleanUpAfterDisconnect) {
-      Thread.dumpStack();
+      logger.warn("Problem opening websocket for {}",r.uuid());
       framework.atmosphereFactory().remove(r.uuid());
-      AtmosphereResourceImpl.class.cast(r).cancel();
+      request.setAttribute(ASYNCHRONOUS_HOOK,null);
+      AtmosphereResourceEventImpl.class.cast(r.getAtmosphereResourceEvent()).setCancelled(true);
+      AsynchronousProcessor.class.cast(framework.getAsyncSupport()).completeLifecycle(r,true);
     }
   }
 }
