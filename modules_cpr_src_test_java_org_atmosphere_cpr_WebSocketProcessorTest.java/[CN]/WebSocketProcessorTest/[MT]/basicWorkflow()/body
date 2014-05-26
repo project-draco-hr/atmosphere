@@ -4,7 +4,7 @@
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
   framework.addAtmosphereHandler("/*",new AtmosphereHandler(){
     @Override public void onRequest(    AtmosphereResource resource) throws IOException {
-      resource.getBroadcaster().addAtmosphereResource(resource);
+      resource.getBroadcaster().addAtmosphereResource(resource.suspend());
       resource.getResponse().write(resource.getRequest().getReader().readLine());
     }
     @Override public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
