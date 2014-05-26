@@ -1,6 +1,4 @@
 {
-  r.getRequest().setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,r);
-  r.getRequest().setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER,this);
   try {
     wrapper.service(r.getRequest(),r.getResponse());
   }
