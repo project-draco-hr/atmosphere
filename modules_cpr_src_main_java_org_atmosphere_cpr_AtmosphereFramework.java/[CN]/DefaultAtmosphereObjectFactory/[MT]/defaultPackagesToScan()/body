@@ -1,4 +1,5 @@
 {
   packages.add("io.async.control");
   packages.add("io.async.satellite");
+  packages.add("io.async.postman");
 }
