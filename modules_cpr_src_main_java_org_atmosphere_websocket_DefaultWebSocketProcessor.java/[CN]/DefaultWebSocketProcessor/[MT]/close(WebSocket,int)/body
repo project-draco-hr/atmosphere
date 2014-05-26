@@ -15,30 +15,26 @@
         webSocketHandler.onClose(webSocket);
       }
       if (resource != null && !resource.getAtmosphereResourceEvent().isClosedByApplication()) {
-        Object o=r.getAttribute(ASYNCHRONOUS_HOOK);
-        if (o != null && AsynchronousProcessorHook.class.isAssignableFrom(o.getClass())) {
-          final AsynchronousProcessorHook h=(AsynchronousProcessorHook)o;
-          if (!resource.isCancelled()) {
-            if (closeCode == 1005 || closeCode == 1001 || closeCode == 1006) {
-              boolean ff=r.getAttribute("firefox") != null;
-              if (ff || closingTime > 0) {
-                logger.debug("Delaying closing operation for firefox and resource {}",resource.uuid());
-                ExecutorsFactory.getScheduler(framework.getAtmosphereConfig()).schedule(new Callable<Object>(){
-                  @Override public Object call() throws Exception {
-                    executeClose(h,webSocket,1005);
-                    return null;
-                  }
+        if (!resource.isCancelled()) {
+          if (closeCode == 1005 || closeCode == 1001 || closeCode == 1006) {
+            boolean ff=r.getAttribute("firefox") != null;
+            if (ff || closingTime > 0) {
+              logger.debug("Delaying closing operation for firefox and resource {}",resource.uuid());
+              ExecutorsFactory.getScheduler(framework.getAtmosphereConfig()).schedule(new Callable<Object>(){
+                @Override public Object call() throws Exception {
+                  executeClose(webSocket,1005);
+                  return null;
                 }
+              }
 ,ff ? closingTime == 0 ? 500 : closingTime : closingTime,TimeUnit.MILLISECONDS);
-              }
- else {
-                executeClose(h,webSocket,closeCode);
-              }
             }
  else {
-              logger.debug("Timeout",resource.uuid());
-              h.timedOut();
+              executeClose(webSocket,closeCode);
             }
+          }
+ else {
+            logger.debug("Timeout",resource.uuid());
+            asynchronousProcessor.endRequest(AtmosphereResourceImpl.class.cast(webSocket.resource()),false);
           }
         }
  else {

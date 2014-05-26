@@ -1,8 +1,0 @@
-{
-  if (r.isSuspended()) {
-    ((AsynchronousProcessor)r.asyncSupport).endRequest(r,true);
-  }
- else {
-    logger.debug("Not suspended {}, probably processed by the OnDisconnect interceptor.",r.uuid());
-  }
-}

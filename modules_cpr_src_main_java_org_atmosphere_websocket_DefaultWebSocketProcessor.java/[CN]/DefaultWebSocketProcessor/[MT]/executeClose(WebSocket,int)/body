@@ -1,7 +1,7 @@
 {
   boolean isClosedByClient=webSocket.resource() == null ? true : webSocket.resource().getAtmosphereResourceEvent().isClosedByClient();
   try {
-    h.closed();
+    asynchronousProcessor.endRequest(AtmosphereResourceImpl.class.cast(webSocket.resource()),true);
   }
   finally {
     if (!isClosedByClient) {

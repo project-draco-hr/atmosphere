@@ -32,14 +32,13 @@ synchronized (framework) {
     }
     request.removeAttribute(INJECTED_ATMOSPHERE_RESOURCE);
     if (webSocket.resource() != null) {
-      final AsynchronousProcessorHook hook=(AsynchronousProcessorHook)request.getAttribute(ASYNCHRONOUS_HOOK);
       final Action action=((AtmosphereResourceImpl)webSocket.resource()).action();
       if (action.timeout() != -1 && !framework.getAsyncSupport().getContainerName().contains("Netty")) {
         final AtomicReference<Future<?>> f=new AtomicReference();
         f.set(scheduler.scheduleAtFixedRate(new Runnable(){
           @Override public void run(){
             if (WebSocket.class.isAssignableFrom(webSocket.getClass()) && System.currentTimeMillis() - WebSocket.class.cast(webSocket).lastWriteTimeStampInMilliseconds() > action.timeout()) {
-              hook.timedOut();
+              asynchronousProcessor.endRequest(((AtmosphereResourceImpl)webSocket.resource()),false);
               f.get().cancel(true);
             }
           }
@@ -69,7 +68,6 @@ catch (  Exception ex) {
     if (cleanUpAfterDisconnect) {
       logger.warn("Problem opening websocket for {}",r.uuid());
       framework.atmosphereFactory().remove(r.uuid());
-      request.setAttribute(ASYNCHRONOUS_HOOK,null);
       AtmosphereResourceEventImpl.class.cast(r.getAtmosphereResourceEvent()).setCancelled(true);
       AsynchronousProcessor.class.cast(framework.getAsyncSupport()).completeLifecycle(r,true);
     }

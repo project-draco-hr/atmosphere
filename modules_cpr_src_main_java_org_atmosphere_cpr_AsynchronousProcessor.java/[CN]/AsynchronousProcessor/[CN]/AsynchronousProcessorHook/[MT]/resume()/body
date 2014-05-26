@@ -1,3 +1,0 @@
-{
-  ((AsynchronousProcessor)r.asyncSupport).action(r);
-}

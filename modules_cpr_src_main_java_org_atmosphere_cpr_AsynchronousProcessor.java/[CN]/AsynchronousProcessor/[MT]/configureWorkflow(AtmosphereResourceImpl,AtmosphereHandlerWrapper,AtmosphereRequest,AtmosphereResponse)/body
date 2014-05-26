@@ -32,6 +32,5 @@ synchronized (f) {
   req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
   req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER,handlerWrapper);
   req.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
-  req.setAttribute(ASYNCHRONOUS_HOOK,new AsynchronousProcessorHook(resource));
   return resource;
 }

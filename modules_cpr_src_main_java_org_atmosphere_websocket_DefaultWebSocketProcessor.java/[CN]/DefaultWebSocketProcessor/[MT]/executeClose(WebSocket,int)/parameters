@@ -1,3 +1,2 @@
-AsynchronousProcessorHook h
 WebSocket webSocket
 int closeCode

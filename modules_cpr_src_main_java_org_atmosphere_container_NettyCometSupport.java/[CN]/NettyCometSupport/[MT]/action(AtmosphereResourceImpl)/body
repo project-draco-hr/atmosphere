@@ -1,6 +1,6 @@
 {
   super.action(r);
-  if (r.isResumed() && r.getRequest(false).getAttribute(ASYNCHRONOUS_HOOK) != null) {
+  if (r.isResumed()) {
     complete(r);
   }
 }
