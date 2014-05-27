@@ -48,5 +48,5 @@ synchronized (handlers) {
  catch (  Exception e) {
     logger.error("",e);
   }
-  return p != null ? p.proxied : w.proxied;
+  return p != null ? p : w.proxied;
 }
