@@ -6,5 +6,6 @@
   if (s != null) {
     timeout=Long.parseLong(s);
   }
+  startStateTracker();
   logger.trace("{} started.",AtmosphereResourceStateRecovery.class.getName());
 }
