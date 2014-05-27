@@ -1,4 +1,6 @@
 {
   this.timeout=timeout;
+  f.cancel(false);
+  clearStateTracker();
   return this;
 }
