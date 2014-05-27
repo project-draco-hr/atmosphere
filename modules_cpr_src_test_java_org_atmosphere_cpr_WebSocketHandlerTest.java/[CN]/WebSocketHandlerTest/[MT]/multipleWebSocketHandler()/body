@@ -2,8 +2,8 @@
   ByteArrayOutputStream b=new ByteArrayOutputStream();
   final WebSocket w=new ArrayBaseWebSocket(b);
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
-  registerWebSocketHandler("/a",new EchoHandler());
-  registerWebSocketHandler("/b",new EchoHandler());
+  registerWebSocketHandler("/a",new WebSocketProcessor.WebSocketHandlerProxy(new EchoHandler()));
+  registerWebSocketHandler("/b",new WebSocketProcessor.WebSocketHandlerProxy(new EchoHandler()));
   AtmosphereRequest request=new AtmosphereRequest.Builder().destroyable(false).body("a").pathInfo("/a").build();
   processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
   processor.invokeWebSocketProtocol(w,"a");

@@ -14,7 +14,12 @@
  else {
     if (!WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.getClass())) {
       try {
-        webSocketHandler.onTextMessage(webSocket,webSocketMessage);
+        if (invokeInterceptors) {
+          invokeInterceptors(webSocketHandler,webSocket,webSocketMessage,null,0,0);
+        }
+ else {
+          webSocketHandler.onTextMessage(webSocket,webSocketMessage);
+        }
       }
  catch (      Exception ex) {
         handleException(ex,webSocket,webSocketHandler);

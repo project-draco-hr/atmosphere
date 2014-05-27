@@ -21,6 +21,12 @@
   }
   logger.info("Using BroadcasterFactory: {}",broadcasterFactory.getClass().getName());
   logger.info("Using WebSocketProcessor: {}",webSocketProcessorClassName);
+  WebSocketProcessor wp=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(this);
+  boolean b=false;
+  if (DefaultWebSocketProcessor.class.isAssignableFrom(wp.getClass())) {
+    b=DefaultWebSocketProcessor.class.cast(wp).invokeInterceptors();
+  }
+  logger.info("Invoke AtmosphereInterceptor on WebSocket message {}",b);
   logger.info("HttpSession supported: {}",config.isSupportSession());
   logger.info("Atmosphere is using {} for dependency injection and object creation",objectFactory);
   logger.info("Atmosphere is using async support: {} running under container: {}",getAsyncSupport().getClass().getName(),asyncSupport.getContainerName());

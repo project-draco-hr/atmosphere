@@ -1,4 +1,5 @@
 {
+  if (Utils.webSocketMessage(r))   return Action.CONTINUE;
   final AtmosphereRequest request=r.getRequest();
   final AtmosphereResponse response=r.getResponse();
   String uri=request.getRequestURI() == null ? "" : request.getRequestURI();

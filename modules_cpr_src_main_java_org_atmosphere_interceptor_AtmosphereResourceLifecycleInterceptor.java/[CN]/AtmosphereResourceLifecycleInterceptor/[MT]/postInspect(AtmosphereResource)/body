@@ -1,5 +1,5 @@
 {
-  if (r.transport().equals(AtmosphereResource.TRANSPORT.UNDEFINED))   return;
+  if (r.transport().equals(AtmosphereResource.TRANSPORT.UNDEFINED) || Utils.webSocketMessage(r))   return;
   AtmosphereResourceImpl impl=AtmosphereResourceImpl.class.cast(r);
   if ((force || impl.getRequest(false).getMethod().equalsIgnoreCase(method)) && !impl.action().equals(Action.CANCELLED) && impl.isInScope()) {
     logger.trace("Marking AtmosphereResource {} for suspend operation",r.uuid());

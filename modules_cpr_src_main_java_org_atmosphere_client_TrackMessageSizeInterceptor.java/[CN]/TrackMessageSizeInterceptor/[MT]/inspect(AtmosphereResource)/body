@@ -1,5 +1,5 @@
 {
-  if (AtmosphereResource.TRANSPORT.UNDEFINED == r.transport())   return Action.CONTINUE;
+  if (AtmosphereResource.TRANSPORT.UNDEFINED == r.transport() || Utils.webSocketMessage(r))   return Action.CONTINUE;
   final AtmosphereResponse response=r.getResponse();
   super.inspect(r);
   AsyncIOWriter writer=response.getAsyncIOWriter();
