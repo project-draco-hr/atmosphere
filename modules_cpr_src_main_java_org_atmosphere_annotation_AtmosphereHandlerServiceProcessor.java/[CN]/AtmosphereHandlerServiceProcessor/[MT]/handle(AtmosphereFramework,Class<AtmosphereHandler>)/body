@@ -4,7 +4,7 @@
     atmosphereConfig(a.atmosphereConfig(),framework);
     filters(a.broadcastFilters(),framework);
     Class<?>[] interceptors=a.interceptors();
-    List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+    List<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
     for (    Class i : interceptors) {
       try {
         AtmosphereInterceptor ai=(AtmosphereInterceptor)framework.newClassInstance(AtmosphereHandler.class,i);

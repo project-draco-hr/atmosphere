@@ -1,5 +1,5 @@
 {
-  WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
+  WebSocketHandlerProxy webSocketHandler=webSocketHandlerForMessage(webSocket);
   try {
     if (webSocketHandler == null) {
       if (WebSocketProtocolStream.class.isAssignableFrom(webSocketProtocol.getClass())) {
@@ -12,8 +12,8 @@
       }
     }
  else {
-      if (WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.getClass())) {
-        WebSocketStreamingHandler.class.cast(webSocketHandler).onTextStream(webSocket,reader);
+      if (WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.proxied().getClass())) {
+        WebSocketStreamingHandler.class.cast(webSocketHandler.proxied()).onTextStream(webSocket,reader);
       }
  else {
         dispatchReader(webSocket,reader);

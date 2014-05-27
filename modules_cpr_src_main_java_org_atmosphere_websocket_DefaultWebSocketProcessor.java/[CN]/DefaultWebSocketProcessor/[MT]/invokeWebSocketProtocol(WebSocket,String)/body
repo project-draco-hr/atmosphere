@@ -1,5 +1,5 @@
 {
-  WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
+  WebSocketHandlerProxy webSocketHandler=webSocketHandlerForMessage(webSocket);
   if (webSocketHandler == null) {
     if (!WebSocketProtocolStream.class.isAssignableFrom(webSocketProtocol.getClass())) {
       List<AtmosphereRequest> list=webSocketProtocol.onMessage(webSocket,webSocketMessage);
@@ -12,7 +12,7 @@
     }
   }
  else {
-    if (!WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.getClass())) {
+    if (!WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.proxied().getClass())) {
       try {
         if (invokeInterceptors) {
           invokeInterceptors(webSocketHandler,webSocket,webSocketMessage,null,0,0);

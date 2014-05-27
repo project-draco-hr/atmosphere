@@ -1,10 +1,9 @@
 {
-  if (w.interceptors != null) {
-    LinkedList<AtmosphereInterceptor> d=new LinkedList<AtmosphereInterceptor>(w.interceptors);
-    for (    AtmosphereInterceptor i : d) {
+  if (l != null) {
+    for (    AtmosphereInterceptor i : l) {
       InvokationOrder.PRIORITY p=InvokationOrder.class.isAssignableFrom(i.getClass()) ? InvokationOrder.class.cast(i).priority() : InvokationOrder.AFTER_DEFAULT;
       if (!p.equals(InvokationOrder.AFTER_DEFAULT)) {
-        positionInterceptor(p,i,w.interceptors);
+        positionInterceptor(p,i,l);
       }
       i.configure(config);
     }

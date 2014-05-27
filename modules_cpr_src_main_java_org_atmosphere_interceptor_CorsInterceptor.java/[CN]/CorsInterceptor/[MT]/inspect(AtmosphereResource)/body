@@ -1,7 +1,8 @@
 {
-  if (!enableAccessControl || Utils.webSocketMessage(resource))   return Action.CONTINUE;
-  AtmosphereRequest req=resource.getRequest();
-  AtmosphereResponse res=resource.getResponse();
+  if (Utils.webSocketMessage(r))   return Action.CONTINUE;
+  if (!enableAccessControl)   return Action.CONTINUE;
+  AtmosphereRequest req=r.getRequest();
+  AtmosphereResponse res=r.getResponse();
   if (req.getHeader("Origin") != null && res.getHeader("Access-Control-Allow-Origin") == null) {
     res.addHeader("Access-Control-Allow-Origin",req.getHeader("Origin"));
     res.addHeader("Access-Control-Expose-Headers",EXPOSE_HEADERS);

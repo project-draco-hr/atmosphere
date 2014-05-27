@@ -6,7 +6,6 @@
         @Override public void run(){
           AtmosphereResponse w=new AtmosphereResponse(webSocket,r,destroyable);
           try {
-            r.setAttribute(FrameworkConfig.WEBSOCKET_MESSAGE,"true");
             dispatch(webSocket,r,w);
           }
   finally {

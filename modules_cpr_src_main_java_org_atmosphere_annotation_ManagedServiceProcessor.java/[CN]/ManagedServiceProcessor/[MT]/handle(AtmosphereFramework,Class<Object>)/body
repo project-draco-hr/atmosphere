@@ -3,7 +3,7 @@
     Class<?> aClass=annotatedClass;
     ManagedService a=aClass.getAnnotation(ManagedService.class);
     framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
-    List<AtmosphereInterceptor> l=new ArrayList<AtmosphereInterceptor>();
+    List<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
     atmosphereConfig(a.atmosphereConfig(),framework);
     filters(a.broadcastFilters(),framework);
     AtmosphereInterceptor aa=listeners(a.listeners(),framework);
