@@ -5,18 +5,20 @@
   String uuid=request.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
   String handshakeUUID=request.getHeader(HeaderConfig.X_ATMO_PROTOCOL);
   if (uuid != null && uuid.equals("0") && handshakeUUID != null) {
-    String javascriptVersion=request.getHeader(HeaderConfig.X_ATMOSPHERE_FRAMEWORK);
-    int version=Integer.valueOf(javascriptVersion.split("-")[0].replace(".",""));
-    if (version < 221) {
-      logger.debug("Invalid Atmosphere Version {}",javascriptVersion);
-      response.setStatus(501);
-      response.addHeader(X_ATMOSPHERE_ERROR,"Atmosphere Protocol version not supported.");
-      try {
-        response.flushBuffer();
+    if (enforceAtmosphereVersion) {
+      String javascriptVersion=request.getHeader(HeaderConfig.X_ATMOSPHERE_FRAMEWORK);
+      int version=Integer.valueOf(javascriptVersion.split("-")[0].replace(".",""));
+      if (version < 221) {
+        logger.debug("Invalid Atmosphere Version {}",javascriptVersion);
+        response.setStatus(501);
+        response.addHeader(X_ATMOSPHERE_ERROR,"Atmosphere Protocol version not supported.");
+        try {
+          response.flushBuffer();
+        }
+ catch (        IOException e) {
+        }
+        return Action.CANCELLED;
       }
- catch (      IOException e) {
-      }
-      return Action.CANCELLED;
     }
     request.header(HeaderConfig.X_ATMO_PROTOCOL,null);
     int heartbeatInterval=0;
@@ -29,7 +31,10 @@
         break;
       }
     }
-    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis()).append(wsDelimiter).append(heartbeatInterval).append(wsDelimiter).append(heartbeatData).append(wsDelimiter);
+    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis()).append(wsDelimiter);
+    if (enforceAtmosphereVersion) {
+      message.append(heartbeatInterval).append(wsDelimiter).append(heartbeatData).append(wsDelimiter);
+    }
     final AtomicReference<String> protocolMessage=new AtomicReference<String>(message.toString());
     if (r.getBroadcaster().getBroadcasterConfig().hasFilters()) {
       for (      BroadcastFilter bf : r.getBroadcaster().getBroadcasterConfig().filters()) {

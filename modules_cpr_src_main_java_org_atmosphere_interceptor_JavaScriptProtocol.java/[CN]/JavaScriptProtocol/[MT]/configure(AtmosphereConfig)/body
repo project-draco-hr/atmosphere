@@ -3,5 +3,6 @@
   if (s != null) {
     wsDelimiter=s;
   }
+  enforceAtmosphereVersion=Boolean.valueOf(config.getInitParameter(ApplicationConfig.ENFORCE_ATMOSPHERE_VERSION,"true"));
   framework=config.framework();
 }

@@ -1,5 +1,5 @@
 {
-  String s=getInitParameter(closedAtmosphereThinkTime);
+  String s=getInitParameter(key);
   if (s == null) {
     return defaultValue;
   }
