@@ -5,7 +5,12 @@
       asyncContext.complete();
     }
  catch (    IllegalStateException ex) {
-      logger.trace("Already resumed!",ex);
+      try {
+        logger.trace("Already resumed!",ex);
+      }
+ catch (      Exception ex2) {
+      }
+      ;
     }
   }
 }
