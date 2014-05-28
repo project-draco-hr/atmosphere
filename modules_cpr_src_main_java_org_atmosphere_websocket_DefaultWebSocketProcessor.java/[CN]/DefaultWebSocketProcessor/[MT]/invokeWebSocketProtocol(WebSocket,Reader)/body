@@ -13,7 +13,12 @@
     }
  else {
       if (WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.proxied().getClass())) {
-        WebSocketStreamingHandler.class.cast(webSocketHandler.proxied()).onTextStream(webSocket,reader);
+        if (invokeInterceptors) {
+          invokeInterceptors(webSocketHandler,webSocket,reader);
+        }
+ else {
+          WebSocketStreamingHandler.class.cast(webSocketHandler.proxied()).onTextStream(webSocket,reader);
+        }
       }
  else {
         dispatchReader(webSocket,reader);

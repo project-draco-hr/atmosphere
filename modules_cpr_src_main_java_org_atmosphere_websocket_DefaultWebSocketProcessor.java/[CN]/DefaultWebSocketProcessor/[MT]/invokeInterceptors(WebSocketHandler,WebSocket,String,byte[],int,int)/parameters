@@ -1,6 +1,0 @@
-WebSocketHandler webSocketHandler
-WebSocket webSocket
-String webSocketMessage
-byte[] webSocketBinary
-int offset
-int length

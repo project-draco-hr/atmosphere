@@ -1,0 +1,3 @@
+{
+  invokeInterceptors(webSocketHandler,webSocket,webSocketMessageAsBody,0,0);
+}

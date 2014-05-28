@@ -1,0 +1,54 @@
+{
+  AtmosphereResourceImpl resource=AtmosphereResourceImpl.class.cast(webSocket.resource());
+  if (resource == null) {
+    return;
+  }
+  AtmosphereRequest request=resource.getRequest(false);
+  if (String.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+    request.body(String.class.cast(webSocketMessageAsBody));
+  }
+ else   if (Reader.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+    request.body(Reader.class.cast(webSocketMessageAsBody));
+  }
+ else   if (InputStream.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+    request.body(InputStream.class.cast(webSocketMessageAsBody));
+  }
+ else {
+    request.body(new ByteArrayInputStream((byte[])webSocketMessageAsBody,offset,length));
+  }
+  Action a=asynchronousProcessor.invokeInterceptors(framework.interceptors(),resource);
+  if (a.type() != Action.TYPE.CONTINUE && a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
+    return;
+  }
+  WebSocketHandlerProxy proxy=WebSocketHandlerProxy.class.cast(webSocketHandler);
+  if (a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
+    a=asynchronousProcessor.invokeInterceptors(proxy.interceptors(),resource);
+    if (a.type() != Action.TYPE.CONTINUE) {
+      return;
+    }
+  }
+  boolean skipAtmosphereHandler=request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
+  if (!skipAtmosphereHandler) {
+    try {
+      if (String.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+        webSocketHandler.onTextMessage(webSocket,String.class.cast(webSocketMessageAsBody));
+      }
+ else       if (Reader.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+        WebSocketStreamingHandler.class.cast(webSocketHandler.proxied).onTextStream(webSocket,Reader.class.cast(webSocketMessageAsBody));
+      }
+ else       if (InputStream.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+        WebSocketStreamingHandler.class.cast(webSocketHandler.proxied()).onBinaryStream(webSocket,InputStream.class.cast(webSocketMessageAsBody));
+      }
+ else {
+        webSocketHandler.onByteMessage(webSocket,(byte[])webSocketMessageAsBody,offset,length);
+      }
+    }
+ catch (    IOException t) {
+      resource.onThrowable(t);
+      throw t;
+    }
+    asynchronousProcessor.postInterceptors(proxy.interceptors(),resource);
+  }
+  request.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
+  asynchronousProcessor.postInterceptors(framework.interceptors(),resource);
+}

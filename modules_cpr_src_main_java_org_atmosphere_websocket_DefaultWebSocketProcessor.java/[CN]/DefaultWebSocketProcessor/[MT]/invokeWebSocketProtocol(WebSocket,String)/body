@@ -15,7 +15,7 @@
     if (!WebSocketStreamingHandler.class.isAssignableFrom(webSocketHandler.proxied().getClass())) {
       try {
         if (invokeInterceptors) {
-          invokeInterceptors(webSocketHandler,webSocket,webSocketMessage,null,0,0);
+          invokeInterceptors(webSocketHandler,webSocket,webSocketMessage);
         }
  else {
           webSocketHandler.onTextMessage(webSocket,webSocketMessage);
