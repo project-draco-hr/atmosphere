@@ -40,7 +40,14 @@
     }
     if ((!requestUri.startsWith("http://")) || (!requestUri.startsWith("https://"))) {
       if (requestUri.startsWith("/")) {
-        String origin=((List<String>)handshakeRequest.getHeaders().get("origin")).get(0);
+        List<String> l=handshakeRequest.getHeaders().get("origin");
+        String origin;
+        if (l.size() > 0) {
+          origin=l.get(0);
+        }
+ else {
+          origin=new StringBuilder("http").append(session.isSecure() ? "s" : "").append("://0.0.0.0:80").append(requestUri).toString();
+        }
         requestUri=new StringBuilder(origin).append(requestUri).toString();
       }
  else       if (requestUri.startsWith("ws://")) {
