@@ -27,8 +27,8 @@
         }
       }
     }
-    if (req.getHeader(X_ATMOSPHERE_TRANSPORT) == null) {
-      req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,HeaderConfig.LONG_POLLING_TRANSPORT);
+    if (req.getHeader(X_ATMOSPHERE_TRANSPORT) == null || transport().equals(UNDEFINED)) {
+      req.setAttribute(FrameworkConfig.TRANSPORT_IN_USE,LONG_POLLING_TRANSPORT);
     }
     req.setAttribute(PRE_SUSPEND,"true");
     action.type(Action.TYPE.SUSPEND);
