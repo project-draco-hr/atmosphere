@@ -1,6 +1,8 @@
 {
   if (!filters.contains(filter)) {
+    logger.trace("Adding AsyncIOInterceptor {}",filter.getClass().getName());
     filters.addLast(filter);
+    reversedFilters.addFirst(filter);
   }
   return this;
 }

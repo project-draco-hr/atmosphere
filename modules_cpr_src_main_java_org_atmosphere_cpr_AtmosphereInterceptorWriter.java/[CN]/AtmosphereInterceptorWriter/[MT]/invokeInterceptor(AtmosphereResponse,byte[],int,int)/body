@@ -8,8 +8,6 @@
     responseDraft=i.transformPayload(response,responseDraft,data);
   }
   writeReady(response,responseDraft);
-  LinkedList<AsyncIOInterceptor> reversedFilters=(LinkedList<AsyncIOInterceptor>)filters.clone();
-  Collections.reverse(reversedFilters);
   for (  AsyncIOInterceptor i : reversedFilters) {
     i.postPayload(response,data,offset,length);
   }
