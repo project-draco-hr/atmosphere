@@ -1,0 +1,19 @@
+{
+  framework.atmosphereFactory().remove(resource.uuid());
+  if (webSocket != null) {
+    try {
+      r.setAttribute(WebSocket.CLEAN_CLOSE,Boolean.TRUE);
+      webSocket.resource(null);
+      if (webSocket.isOpen())       webSocket.close(s);
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
+  }
+  if (r != null) {
+    r.destroy(true);
+  }
+  if (s != null) {
+    s.destroy(true);
+  }
+}
