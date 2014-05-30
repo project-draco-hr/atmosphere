@@ -29,8 +29,8 @@ synchronized (f) {
     }
     resource.atmosphereHandler(handlerWrapper.atmosphereHandler);
   }
-  req.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,resource);
-  req.setAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER,handlerWrapper);
+  req.setAttribute(ATMOSPHERE_RESOURCE,resource);
+  req.setAttribute(ATMOSPHERE_HANDLER_WRAPPER,handlerWrapper);
   req.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
   return resource;
 }

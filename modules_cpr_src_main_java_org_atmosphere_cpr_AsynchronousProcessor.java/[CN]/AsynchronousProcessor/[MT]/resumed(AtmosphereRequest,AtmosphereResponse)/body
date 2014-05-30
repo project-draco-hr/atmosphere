@@ -1,5 +1,5 @@
 {
-  AtmosphereResourceImpl r=(AtmosphereResourceImpl)request.getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
+  AtmosphereResourceImpl r=(AtmosphereResourceImpl)request.getAttribute(ATMOSPHERE_RESOURCE);
   if (r == null)   return Action.CANCELLED;
   AtmosphereHandler atmosphereHandler=r.getAtmosphereHandler();
   AtmosphereResourceEvent event=r.getAtmosphereResourceEvent();
