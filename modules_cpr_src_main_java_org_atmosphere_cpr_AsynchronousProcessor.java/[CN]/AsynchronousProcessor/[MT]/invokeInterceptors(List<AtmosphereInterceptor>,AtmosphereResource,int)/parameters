@@ -1,2 +1,3 @@
 List<AtmosphereInterceptor> c
 AtmosphereResource r
+int tracing
