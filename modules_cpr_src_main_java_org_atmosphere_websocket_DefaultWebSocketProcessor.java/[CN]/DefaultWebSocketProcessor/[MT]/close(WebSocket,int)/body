@@ -38,11 +38,14 @@
           }
         }
  else {
-          logger.debug("Resource already cancelled {}",resource.uuid());
+          logger.trace("Resource already cancelled {}",resource.uuid());
         }
       }
  else {
-        logger.debug("Unable to properly complete {}",resource == null ? "null" : resource.uuid());
+        logger.trace("Unable to properly complete {}",resource == null ? "null" : resource.uuid());
+      }
+      if (resource != null) {
+        framework.atmosphereFactory().remove(resource.uuid());
       }
     }
   finally {
