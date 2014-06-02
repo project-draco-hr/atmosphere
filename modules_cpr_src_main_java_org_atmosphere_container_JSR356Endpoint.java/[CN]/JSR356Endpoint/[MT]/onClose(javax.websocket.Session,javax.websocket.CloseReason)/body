@@ -1,5 +1,7 @@
 {
   logger.trace("{} closed {}",session,closeCode);
-  request.destroy();
-  webSocketProcessor.close(webSocket,closeCode.getCloseCode().getCode());
+  if (request != null) {
+    request.destroy();
+    webSocketProcessor.close(webSocket,closeCode.getCloseCode().getCode());
+  }
 }

@@ -42,7 +42,7 @@
       if (requestUri.startsWith("/")) {
         List<String> l=handshakeRequest.getHeaders().get("origin");
         String origin;
-        if (l.size() > 0) {
+        if (l != null && l.size() > 0) {
           origin=l.get(0);
         }
  else {
@@ -61,6 +61,20 @@
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
+    session.addMessageHandler(new MessageHandler.Whole<String>(){
+      @Override public void onMessage(      String s){
+        webSocketProcessor.invokeWebSocketProtocol(webSocket,s);
+      }
+    }
+);
+    session.addMessageHandler(new MessageHandler.Whole<ByteBuffer>(){
+      @Override public void onMessage(      ByteBuffer bb){
+        byte[] b=new byte[bb.limit()];
+        bb.get(b);
+        webSocketProcessor.invokeWebSocketProtocol(webSocket,b,0,b.length);
+      }
+    }
+);
   }
  catch (  Throwable e) {
     try {
@@ -72,18 +86,4 @@
     logger.error("",e);
     return;
   }
-  session.addMessageHandler(new MessageHandler.Whole<String>(){
-    @Override public void onMessage(    String s){
-      webSocketProcessor.invokeWebSocketProtocol(webSocket,s);
-    }
-  }
-);
-  session.addMessageHandler(new MessageHandler.Whole<ByteBuffer>(){
-    @Override public void onMessage(    ByteBuffer bb){
-      byte[] b=new byte[bb.limit()];
-      bb.get(b);
-      webSocketProcessor.invokeWebSocketProtocol(webSocket,b,0,b.length);
-    }
-  }
-);
 }
