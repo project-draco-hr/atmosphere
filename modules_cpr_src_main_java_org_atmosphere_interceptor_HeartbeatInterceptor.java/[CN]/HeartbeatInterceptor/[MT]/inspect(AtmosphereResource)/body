@@ -50,10 +50,10 @@
       byte[] body=IOUtils.readEntirelyAsByte(r);
       if (Arrays.equals(paddingBytes,body)) {
         final AtmosphereResourceEvent event=new HeartbeatAtmosphereResourceEvent(AtmosphereResourceImpl.class.cast(r));
-        if (r.getAtmosphereHandler().getClass().isAssignableFrom(ManagedAtmosphereHandler.class)) {
+        if (AtmosphereResourceHeartbeatEventListener.class.isAssignableFrom(r.getAtmosphereHandler().getClass())) {
           r.addEventListener(new AtmosphereResourceEventListenerAdapter.OnHeartbeat(){
             @Override public void onHeartbeat(            AtmosphereResourceEvent event){
-              ManagedAtmosphereHandler.class.cast(r.getAtmosphereHandler()).onHeartbeat(event);
+              AtmosphereResourceHeartbeatEventListener.class.cast(r.getAtmosphereHandler()).onHeartbeat(event);
             }
           }
 );
