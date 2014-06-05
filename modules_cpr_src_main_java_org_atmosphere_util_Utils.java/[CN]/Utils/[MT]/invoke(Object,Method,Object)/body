@@ -1,0 +1,15 @@
+{
+  if (m != null) {
+    try {
+      return m.invoke(proxiedInstance,o == null ? new Object[]{} : new Object[]{o});
+    }
+ catch (    IllegalAccessException e) {
+      LOGGER.debug("",e);
+    }
+catch (    InvocationTargetException e) {
+      LOGGER.debug("",e);
+    }
+  }
+  LOGGER.trace("No Method Mapped for {}",o);
+  return null;
+}
