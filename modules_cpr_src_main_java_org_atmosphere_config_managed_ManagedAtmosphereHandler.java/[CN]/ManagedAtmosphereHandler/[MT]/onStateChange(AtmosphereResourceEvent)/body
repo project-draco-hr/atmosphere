@@ -31,6 +31,7 @@
             break;
           }
         }
+        event.setMessage(newMsg);
       }
  else {
         logger.trace("BroadcasterFactory has been used, this may produce recursion if encoder/decoder match the broadcasted message");
