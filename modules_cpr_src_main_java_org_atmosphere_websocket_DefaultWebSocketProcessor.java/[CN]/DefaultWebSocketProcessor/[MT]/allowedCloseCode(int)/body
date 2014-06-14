@@ -1,0 +1,3 @@
+{
+  return closeCode < 1002 || closeCode > 1004 ? true : false;
+}
