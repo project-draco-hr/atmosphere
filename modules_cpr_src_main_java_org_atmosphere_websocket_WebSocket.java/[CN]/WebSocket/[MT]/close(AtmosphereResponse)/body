@@ -1,7 +1,12 @@
 {
   logger.trace("WebSocket.close()");
-  if (r.request() != null && r.request().getAttribute(CLEAN_CLOSE) == null) {
-    close();
+  try {
+    if (r.request() != null && r.request().getAttribute(CLEAN_CLOSE) == null) {
+      close();
+    }
+  }
+ catch (  Exception ex) {
+    logger.trace("",ex);
   }
   try {
     bb.clear();
