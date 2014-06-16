@@ -19,7 +19,7 @@
     logger.trace("",t);
     return false;
   }
-  logger.warn("Missing META-INF/atmosphere.xml but found the Jersey runtime. Starting Jersey");
+  logger.debug("Missing META-INF/atmosphere.xml but found the Jersey runtime. Starting Jersey");
   ReflectorServletProcessor rsp=newClassInstance(ReflectorServletProcessor.class,ReflectorServletProcessor.class);
   if (broadcasterClassNameTmp != null)   broadcasterClassName=broadcasterClassNameTmp;
   configureDetectedFramework(rsp,isJersey);
