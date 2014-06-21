@@ -15,7 +15,7 @@
             request.contentType(s.length > 1 ? URLDecoder.decode(value,"UTF-8") : "");
           }
         }
-        if (!header.isEmpty() && !header.toLowerCase().startsWith("x-atmo") && !header.equalsIgnoreCase("x-cache-date")&& !header.equalsIgnoreCase(HeaderConfig.X_HEARTBEAT_SERVER)&& !header.equalsIgnoreCase("Content-Type")&& !header.equalsIgnoreCase("_")) {
+        if (!header.isEmpty() && !header.toLowerCase().startsWith("x-atmo") && !header.equalsIgnoreCase(HeaderConfig.X_HEARTBEAT_SERVER)&& !header.equalsIgnoreCase("Content-Type")&& !header.equalsIgnoreCase("_")) {
           q.append(header).append("=").append(s.length > 1 ? value : "").append("&");
         }
         headers.put(header,s.length > 1 ? value : "");

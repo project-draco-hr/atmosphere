@@ -32,7 +32,7 @@
         break;
       }
     }
-    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter).append(System.currentTimeMillis()).append(wsDelimiter);
+    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter);
     if (enforceAtmosphereVersion) {
       message.append(heartbeatInterval).append(wsDelimiter).append(heartbeatData).append(wsDelimiter);
     }
