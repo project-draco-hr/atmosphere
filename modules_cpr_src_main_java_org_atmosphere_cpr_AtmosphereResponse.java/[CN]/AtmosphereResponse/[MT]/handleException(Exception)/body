@@ -2,7 +2,7 @@
   AtmosphereResource r=resource();
   if (r != null) {
     AtmosphereResourceImpl.class.cast(r).notifyListeners(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(r),true,false));
+    r.getAtmosphereConfig().resourcesFactory().remove(uuid);
   }
-  r.getAtmosphereConfig().resourcesFactory().remove(uuid);
   logger.trace("{} unexpected I/O exception",uuid,ex);
 }
