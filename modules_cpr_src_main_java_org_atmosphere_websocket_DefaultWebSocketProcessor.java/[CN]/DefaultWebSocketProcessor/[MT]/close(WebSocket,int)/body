@@ -5,6 +5,7 @@
     logger.trace("Already closed {}",webSocket);
   }
  else {
+    final boolean allowedToClose=allowedCloseCode(closeCode);
     final AtmosphereRequest r=resource.getRequest(false);
     final AtmosphereResponse s=resource.getResponse(false);
     boolean ff=r.getAttribute("firefox") != null;
@@ -16,14 +17,14 @@
       }
       logger.trace("About to close AtmosphereResource for {} with code {}",resource,closeCode);
       if (!resource.getAtmosphereResourceEvent().isClosedByApplication() && !resource.isCancelled()) {
-        if (allowedCloseCode(closeCode)) {
+        if (allowedToClose) {
           if (ff || closingTime > 0) {
             completeLifecycle=false;
             logger.debug("Delaying closing operation for firefox and resource {}",resource.uuid());
             ExecutorsFactory.getScheduler(framework.getAtmosphereConfig()).schedule(new Callable<Object>(){
               @Override public Object call() throws Exception {
                 executeClose(webSocket,1005);
-                finish(webSocket,resource,r,s);
+                finish(webSocket,resource,r,s,allowedToClose);
                 return null;
               }
             }
@@ -45,7 +46,7 @@
     }
   finally {
       if (completeLifecycle) {
-        finish(webSocket,resource,r,s);
+        finish(webSocket,resource,r,s,allowedToClose);
       }
     }
   }

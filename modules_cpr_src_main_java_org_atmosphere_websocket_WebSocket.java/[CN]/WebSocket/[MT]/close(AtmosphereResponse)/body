@@ -1,5 +1,5 @@
 {
-  logger.trace("WebSocket.close()");
+  logger.trace("WebSocket.close() for {}",uuid);
   try {
     if (r.request() != null && r.request().getAttribute(CLEAN_CLOSE) == null) {
       close();
