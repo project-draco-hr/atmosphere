@@ -4,7 +4,7 @@
     logger.error("Cannot write null value for {}",resource());
     return this;
   }
-  if (!isOpen())   throw new IOException("Connection remotely closed for " + r != null ? r.uuid() : "Null");
+  if (!isOpen())   throw new IOException("Connection remotely closed for " + uuid);
   if (logger.isTraceEnabled()) {
     logger.trace("WebSocket.write() {}",new String(b,offset,length,"UTF-8"));
   }

@@ -1,7 +1,3 @@
 {
-  isOpen.set(false);
-  if (!isClosed.getAndSet(true)) {
-    logger.trace("WebSocket.close()");
-    outbound.close(1000,closeCode);
-  }
+  close(r.uuid());
 }

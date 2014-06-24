@@ -1,5 +1,5 @@
 {
-  logger.trace("WebSocket.write() for {}",resource() != null ? resource().uuid() : "");
+  logger.trace("WebSocket.write() for {}",uuid);
   outbound.writeTextMessage(CharBuffer.wrap(s));
   return this;
 }

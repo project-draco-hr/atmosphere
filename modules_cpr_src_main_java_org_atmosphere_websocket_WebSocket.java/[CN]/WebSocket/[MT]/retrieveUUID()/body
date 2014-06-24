@@ -1,3 +1,0 @@
-{
-  return r == null ? "null" : r.uuid();
-}

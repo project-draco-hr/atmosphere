@@ -1,0 +1,15 @@
+{
+  isOpen.set(false);
+  if (!isClosed.getAndSet(true)) {
+    try {
+      logger.trace("WebSocket.close() for AtmosphereResource {}",uuid);
+      outbound.close(1000,closeCode);
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
+  }
+ else {
+    logger.trace("Already closed {}",uuid);
+  }
+}
