@@ -1,5 +1,5 @@
 {
-  if (closeMessage(request))   return false;
+  if (closeMessage(request) || !webSocketQueryStringPresentOrNull(request))   return false;
   boolean allowWebSocketWithoutHeaders=request.getHeader(HeaderConfig.X_ATMO_WEBSOCKET_PROXY) != null ? true : false;
   if (allowWebSocketWithoutHeaders)   return true;
   boolean webSocketEnabled=false;
