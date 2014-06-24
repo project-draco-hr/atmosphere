@@ -4,5 +4,5 @@
     AtmosphereResourceImpl.class.cast(r).notifyListeners(new AtmosphereResourceEventImpl(AtmosphereResourceImpl.class.cast(r),true,false));
     r.getAtmosphereConfig().resourcesFactory().remove(uuid);
   }
-  logger.trace("{} unexpected I/O exception",uuid,ex);
+  logger.trace("{} unexpected I/O exception {}",uuid,ex);
 }

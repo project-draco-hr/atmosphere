@@ -17,7 +17,7 @@
         onDisconnect(event);
       }
  else {
-        logger.trace("Already disconnected {}",event.getResource().uuid());
+        logger.trace("Skipping notification, already disconnected {}",event.getResource().uuid());
       }
     }
  else     if (event.isResuming() || event.isResumedOnTimeout()) {
