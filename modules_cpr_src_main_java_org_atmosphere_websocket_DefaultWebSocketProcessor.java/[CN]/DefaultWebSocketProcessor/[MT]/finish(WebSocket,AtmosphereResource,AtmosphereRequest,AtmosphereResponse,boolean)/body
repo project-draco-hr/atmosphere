@@ -4,7 +4,7 @@
     try {
       r.setAttribute(WebSocket.CLEAN_CLOSE,Boolean.TRUE);
       webSocket.resource(null);
-      if (allowedToClose)       webSocket.close(s);
+      if (closeWebSocket)       webSocket.close(s);
     }
  catch (    IOException e) {
       logger.trace("",e);

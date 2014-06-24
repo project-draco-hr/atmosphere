@@ -2,4 +2,4 @@ WebSocket webSocket
 AtmosphereResource resource
 AtmosphereRequest r
 AtmosphereResponse s
-boolean allowedToClose
+boolean closeWebSocket

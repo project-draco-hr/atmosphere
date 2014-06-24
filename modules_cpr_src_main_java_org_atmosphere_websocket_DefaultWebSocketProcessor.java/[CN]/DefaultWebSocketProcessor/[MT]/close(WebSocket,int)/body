@@ -24,7 +24,7 @@
             ExecutorsFactory.getScheduler(framework.getAtmosphereConfig()).schedule(new Callable<Object>(){
               @Override public Object call() throws Exception {
                 executeClose(webSocket,1005);
-                finish(webSocket,resource,r,s,allowedToClose);
+                finish(webSocket,resource,r,s,!allowedToClose);
                 return null;
               }
             }
@@ -46,7 +46,7 @@
     }
   finally {
       if (completeLifecycle) {
-        finish(webSocket,resource,r,s,allowedToClose);
+        finish(webSocket,resource,r,s,!allowedToClose);
       }
     }
   }
