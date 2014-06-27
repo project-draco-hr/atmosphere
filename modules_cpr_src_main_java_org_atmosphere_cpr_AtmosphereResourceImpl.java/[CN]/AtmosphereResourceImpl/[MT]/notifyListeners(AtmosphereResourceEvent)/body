@@ -1,9 +1,9 @@
 {
   if (listeners.isEmpty()) {
-    logger.trace("NO listener with {}",event);
+    logger.trace("No listener with {}",uuid);
     return this;
   }
-  logger.trace("Invoking listener with {}",event);
+  logger.trace("Invoking listener {} for {}",listeners,uuid);
   Action oldAction=action;
   try {
     if (HeartbeatAtmosphereResourceEvent.class.isAssignableFrom(event.getClass())) {
@@ -15,6 +15,9 @@
  else     if (event.isCancelled() || event.isClosedByClient()) {
       if (!disconnected.getAndSet(true)) {
         onDisconnect(event);
+      }
+ else {
+        logger.trace("Skipping notification, already disconnected {}",event.getResource().uuid());
       }
     }
  else     if (event.isResuming() || event.isResumedOnTimeout()) {

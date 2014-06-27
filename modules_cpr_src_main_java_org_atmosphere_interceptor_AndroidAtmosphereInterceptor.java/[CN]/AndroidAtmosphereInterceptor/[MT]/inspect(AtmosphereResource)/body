@@ -1,7 +1,8 @@
 {
-  final AtmosphereResponse response=r.getResponse();
-  String userAgent=r.getRequest().getHeader("User-Agent");
-  if (r.transport().equals(TRANSPORT.STREAMING) && userAgent != null && (userAgent.indexOf("Android 2.") != -1 || userAgent.indexOf("Android 3.") != -1)) {
+  if (!r.transport().equals(TRANSPORT.STREAMING))   return Action.CONTINUE;
+  final AtmosphereResponse response=AtmosphereResourceImpl.class.cast(r).getResponse(false);
+  String userAgent=AtmosphereResourceImpl.class.cast(r).getRequest(false).getHeader("User-Agent");
+  if (userAgent != null && (userAgent.indexOf("Android 2.") != -1 || userAgent.indexOf("Android 3.") != -1)) {
     super.inspect(r);
     AsyncIOWriter writer=response.getAsyncIOWriter();
     if (AtmosphereInterceptorWriter.class.isAssignableFrom(writer.getClass())) {

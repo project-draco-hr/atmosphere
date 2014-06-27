@@ -2,19 +2,14 @@
   if (resource() != null && resource().transport() != AtmosphereResource.TRANSPORT.WEBSOCKET) {
     try {
       if (isUsingStream()) {
-        try {
-          getOutputStream().close();
-        }
- catch (        java.lang.IllegalStateException ex) {
-          logger.trace("",ex);
-        }
+        getOutputStream().close();
       }
  else {
         getWriter().close();
       }
     }
- catch (    IOException e) {
-      logger.trace("",e);
+ catch (    Exception e) {
+      logger.trace("Unexpected exception",e);
     }
   }
 }

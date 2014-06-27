@@ -1,4 +1,6 @@
 {
-  logger.trace("Removing: {}",r);
-  resources.remove(r.uuid());
+  Object o=resources.remove(r.uuid());
+  if (o != null) {
+    logger.trace("Removing: {}",r);
+  }
 }

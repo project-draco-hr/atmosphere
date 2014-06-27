@@ -6,7 +6,7 @@
     res.flushBuffer();
     return new Action();
   }
-  if (isServlet30 && !req.isAsyncSupported()) {
+  if (isServlet30 && (!req.isAsyncSupported() && !Utils.closeMessage(req))) {
     logger.error("Invalid request state. AsyncContext#startAsync not supported. Make sure async-supported is set to true in web.xml");
     res.setStatus(501);
     res.addHeader(X_ATMOSPHERE_ERROR,"AsyncContext not enabled");
@@ -24,6 +24,7 @@
     req.getSession(true);
   }
   req.setAttribute(FrameworkConfig.SUPPORT_SESSION,supportSession());
+  int tracing=0;
   AtmosphereHandlerWrapper handlerWrapper=map(req);
   if (config.getBroadcasterFactory() == null) {
     logger.error("Atmosphere is misconfigured and will not work. BroadcasterFactory is null");
@@ -34,12 +35,12 @@
   if (v != null) {
     resource.forceBinaryWrite(Boolean.valueOf(v));
   }
-  Action a=invokeInterceptors(config.framework().interceptors(),resource);
+  Action a=invokeInterceptors(config.framework().interceptors(),resource,tracing);
   if (a.type() != Action.TYPE.CONTINUE && a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
     return a;
   }
   if (a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
-    a=invokeInterceptors(handlerWrapper.interceptors,resource);
+    a=invokeInterceptors(handlerWrapper.interceptors,resource,tracing);
     if (a.type() != Action.TYPE.CONTINUE) {
       return a;
     }

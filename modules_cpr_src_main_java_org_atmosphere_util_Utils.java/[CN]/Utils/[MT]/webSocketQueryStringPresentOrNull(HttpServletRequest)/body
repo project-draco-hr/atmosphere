@@ -1,0 +1,9 @@
+{
+  String transport=request.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
+  if (transport == null) {
+    return true;
+  }
+ else {
+    return transport.equalsIgnoreCase(HeaderConfig.WEBSOCKET_TRANSPORT);
+  }
+}

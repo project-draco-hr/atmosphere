@@ -1,4 +1,5 @@
 {
+  Object msg=event.getMessage();
   AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(event.getResource());
   Boolean resumeOnBroadcast=r.resumeOnBroadcast();
   if (!resumeOnBroadcast) {
@@ -18,7 +19,6 @@
     invoke(onTimeoutMethod,event);
   }
  else {
-    Object msg=event.getMessage();
     Object o;
     if (msg != null) {
       if (Managed.class.isAssignableFrom(msg.getClass())) {

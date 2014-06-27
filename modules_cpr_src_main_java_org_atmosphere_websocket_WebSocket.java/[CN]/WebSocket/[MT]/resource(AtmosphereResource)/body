@@ -3,5 +3,6 @@
     AtmosphereResourceImpl.class.cast(r).cloneState(this.r);
   }
   this.r=r;
+  if (r != null)   uuid=r.uuid();
   return this;
 }

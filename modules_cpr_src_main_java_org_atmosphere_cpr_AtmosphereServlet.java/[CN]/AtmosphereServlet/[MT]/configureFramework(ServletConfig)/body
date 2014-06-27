@@ -4,7 +4,7 @@
       try {
         framework=(AtmosphereFramework)sc.getServletContext().getAttribute(sc.getServletContext().getServletRegistration(sc.getServletName()).getName());
       }
- catch (      UnsupportedOperationException ex) {
+ catch (      Exception ex) {
         logger.trace("",ex);
       }
     }

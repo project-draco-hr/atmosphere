@@ -1,12 +1,12 @@
 {
+  AtmosphereRequest request=AtmosphereResourceImpl.class.cast(resource).getRequest(false);
   try {
-    AtmosphereRequest request=resource.getRequest();
     for (    MethodInfo m : onRuntimeMethod) {
       if (m.useReader) {
-        o=resource.getRequest().getReader();
+        o=request.getReader();
       }
  else       if (m.useStream) {
-        o=resource.getRequest().getInputStream();
+        o=request.getInputStream();
       }
  else       if (o == null) {
         o=readEntirely(resource);

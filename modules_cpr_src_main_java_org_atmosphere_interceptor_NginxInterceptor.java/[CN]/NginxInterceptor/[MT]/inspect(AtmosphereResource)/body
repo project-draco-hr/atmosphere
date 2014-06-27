@@ -1,4 +1,5 @@
 {
+  if (Utils.webSocketMessage(r))   return Action.CONTINUE;
   try {
     r.getResponse().addHeader("X-Accel-Buffering","No");
   }

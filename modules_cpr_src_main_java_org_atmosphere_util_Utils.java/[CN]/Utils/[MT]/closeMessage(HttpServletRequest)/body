@@ -1,0 +1,4 @@
+{
+  String s=request.getHeader(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
+  return s != null && s.equalsIgnoreCase(HeaderConfig.DISCONNECT_TRANSPORT_MESSAGE);
+}

@@ -1,7 +1,9 @@
 {
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(ar);
+  logger.trace("Unexpected exception for AtmosphereResource {} and Broadcaster {}",ar.uuid(),getID());
+  logger.trace("NotifyAndCache {} ",notifyAndCache);
+  logger.trace("{}",t);
   removeAtmosphereResource(r);
-  logger.trace("Unexpected exception for AtmosphereResource {} and Broadcaster " + name,ar.uuid(),t);
   if (notifyAndCache) {
     final AtmosphereResourceEventImpl event=r.getAtmosphereResourceEvent();
     event.setThrowable(t);
@@ -15,7 +17,9 @@
     bc.getAsyncWriteService().execute(new Runnable(){
       @Override public void run(){
         try {
+          logger.trace("Forcing connection close {}",ar.uuid());
           r.resume();
+          r.close();
         }
  catch (        Throwable t) {
           logger.trace("Was unable to resume a corrupted AtmosphereResource {}",r);

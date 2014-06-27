@@ -1,7 +1,4 @@
 {
   AtmosphereRequest request=AtmosphereResourceImpl.class.cast(r).getRequest(false);
-  if (request.getAttribute(FrameworkConfig.WEBSOCKET_MESSAGE) != null) {
-    return true;
-  }
-  return false;
+  return request.getAttribute(FrameworkConfig.WEBSOCKET_MESSAGE) != null;
 }

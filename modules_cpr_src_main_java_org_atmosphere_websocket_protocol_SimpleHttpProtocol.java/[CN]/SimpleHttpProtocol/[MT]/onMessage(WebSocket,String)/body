@@ -8,6 +8,11 @@
   if (!resource.isInScope())   return Collections.emptyList();
   String pathInfo=request.getPathInfo();
   String requestURI=request.getRequestURI();
+  if (rewriteUri && (requestURI.startsWith("http://") || requestURI.startsWith("https://"))) {
+    logger.debug("Rewriting requestURI {}. To disable, add {} set to true as init-param",requestURI,ApplicationConfig.REWRITE_WEBSOCKET_REQUESTURI);
+    requestURI=URI.create(requestURI).getPath();
+    request.requestURI(requestURI);
+  }
   if (message.startsWith(delimiter)) {
     int delimiterLength=delimiter.length();
     int bodyBeginIndex=message.indexOf(delimiter,delimiterLength);

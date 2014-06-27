@@ -1,0 +1,7 @@
+{
+  String parentUUID=(String)AtmosphereResourceImpl.class.cast(r).getRequest(false).getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
+  if (parentUUID != null) {
+    r=r.getAtmosphereConfig().resourcesFactory().find(parentUUID);
+  }
+  return r;
+}

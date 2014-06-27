@@ -40,7 +40,17 @@
     }
     if ((!requestUri.startsWith("http://")) || (!requestUri.startsWith("https://"))) {
       if (requestUri.startsWith("/")) {
-        String origin=((List<String>)handshakeRequest.getHeaders().get("origin")).get(0);
+        List<String> l=handshakeRequest.getHeaders().get("origin");
+        if (l == null) {
+          l=handshakeRequest.getHeaders().get("Origin");
+        }
+        String origin;
+        if (l.size() > 0) {
+          origin=l.get(0);
+        }
+ else {
+          origin=new StringBuilder("http").append(session.isSecure() ? "s" : "").append("://0.0.0.0:80").append(requestUri).toString();
+        }
         requestUri=new StringBuilder(origin).append(requestUri).toString();
       }
  else       if (requestUri.startsWith("ws://")) {
@@ -54,6 +64,20 @@
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
+    session.addMessageHandler(new MessageHandler.Whole<String>(){
+      @Override public void onMessage(      String s){
+        webSocketProcessor.invokeWebSocketProtocol(webSocket,s);
+      }
+    }
+);
+    session.addMessageHandler(new MessageHandler.Whole<ByteBuffer>(){
+      @Override public void onMessage(      ByteBuffer bb){
+        byte[] b=bb.hasArray() ? bb.array() : new byte[bb.limit()];
+        bb.get(b);
+        webSocketProcessor.invokeWebSocketProtocol(webSocket,b,0,b.length);
+      }
+    }
+);
   }
  catch (  Throwable e) {
     try {
@@ -65,18 +89,4 @@
     logger.error("",e);
     return;
   }
-  session.addMessageHandler(new MessageHandler.Whole<String>(){
-    @Override public void onMessage(    String s){
-      webSocketProcessor.invokeWebSocketProtocol(webSocket,s);
-    }
-  }
-);
-  session.addMessageHandler(new MessageHandler.Whole<ByteBuffer>(){
-    @Override public void onMessage(    ByteBuffer bb){
-      byte[] b=new byte[bb.limit()];
-      bb.get(b);
-      webSocketProcessor.invokeWebSocketProtocol(webSocket,b,0,b.length);
-    }
-  }
-);
 }

@@ -15,10 +15,6 @@
   }
   this.delimiter=delimiter;
   String s=config.getInitParameter(ApplicationConfig.RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
-  if (s != null && Boolean.valueOf(s)) {
-    destroyable=true;
-  }
- else {
-    destroyable=false;
-  }
+  destroyable=s != null && Boolean.valueOf(s);
+  rewriteUri=Boolean.valueOf(config.getInitParameter(ApplicationConfig.REWRITE_WEBSOCKET_REQUESTURI,"true"));
 }
