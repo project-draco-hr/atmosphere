@@ -16,7 +16,7 @@
         webSocketHandler.onClose(webSocket);
       }
       logger.trace("About to close AtmosphereResource for {} with code {}",resource,closeCode);
-      if (!resource.getAtmosphereResourceEvent().isClosedByApplication() && !resource.isCancelled()) {
+      if (!resource.getAtmosphereResourceEvent().isClosedByClient() && !resource.getAtmosphereResourceEvent().isClosedByApplication() && !resource.isCancelled()) {
         if (allowedToClose) {
           if (ff || closingTime > 0) {
             completeLifecycle=false;
