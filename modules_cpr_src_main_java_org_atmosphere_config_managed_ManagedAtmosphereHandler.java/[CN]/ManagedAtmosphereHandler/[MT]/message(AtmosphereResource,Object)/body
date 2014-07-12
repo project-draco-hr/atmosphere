@@ -30,7 +30,7 @@
         objectToEncode=Invoker.invokeMethod(m.method,proxiedInstance,decoded);
       }
       if (objectToEncode != null) {
-        return Invoker.encode(encoders.get(m.method),objectToEncode);
+        return m.encode(encoders,objectToEncode);
       }
     }
   }

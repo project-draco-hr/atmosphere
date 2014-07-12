@@ -1,0 +1,4 @@
+{
+  encodedObject=Invoker.encode(encoders.get(method),objectToEncode);
+  methodInfo=MethodInfo.this;
+}
