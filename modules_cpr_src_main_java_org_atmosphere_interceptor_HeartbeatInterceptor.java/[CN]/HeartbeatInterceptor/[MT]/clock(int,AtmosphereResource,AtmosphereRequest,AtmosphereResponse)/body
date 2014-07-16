@@ -6,7 +6,7 @@ synchronized (r) {
           try {
             logger.trace("Heartbeat for Resource {}",r);
             response.write(paddingBytes,false);
-            if (Utils.resumableTransport(r.transport())) {
+            if (Utils.resumableTransport(r.transport()) && resumeOnHeartbeat) {
               r.resume();
             }
  else {

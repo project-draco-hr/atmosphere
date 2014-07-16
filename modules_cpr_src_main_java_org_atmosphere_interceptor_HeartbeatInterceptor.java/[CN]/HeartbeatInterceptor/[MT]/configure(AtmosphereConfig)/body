@@ -8,4 +8,5 @@
     clientHeartbeatFrequencyInSeconds=Integer.valueOf(s);
   }
   heartBeat=ExecutorsFactory.getScheduler(config);
+  resumeOnHeartbeat=config.getInitParameter(RESUME_ON_HEARTBEAT,true);
 }
