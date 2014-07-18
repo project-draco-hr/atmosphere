@@ -1,0 +1,13 @@
+{
+  try {
+    event.setCancelled(true);
+    notifyListeners();
+    cancel();
+    if (webSocket != null) {
+      webSocket.close();
+    }
+  }
+ catch (  IOException ex) {
+    logger.trace("",ex);
+  }
+}

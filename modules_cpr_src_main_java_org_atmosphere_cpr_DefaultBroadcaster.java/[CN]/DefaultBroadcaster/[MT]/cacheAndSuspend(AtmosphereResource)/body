@@ -9,7 +9,7 @@
   boolean wasResumed=checkCachedAndPush(r,r.getAtmosphereResourceEvent());
   if (!wasResumed && isAtmosphereResourceValid(r)) {
     logger.trace("Associating AtmosphereResource {} with Broadcaster {}",r.uuid(),getID());
-    String parentUUID=(String)AtmosphereResourceImpl.class.cast(r).getRequest(false).getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
+    String parentUUID=r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET) ? (String)AtmosphereResourceImpl.class.cast(r).getRequest(false).getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID) : null;
     if (!backwardCompatible && parentUUID != null) {
       AtmosphereResource p=config.resourcesFactory().find(parentUUID);
       if (p != null && !resources.contains(p)) {
