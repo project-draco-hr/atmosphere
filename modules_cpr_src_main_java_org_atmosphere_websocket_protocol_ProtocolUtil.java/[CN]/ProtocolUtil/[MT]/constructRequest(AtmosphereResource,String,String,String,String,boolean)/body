@@ -1,6 +1,6 @@
 {
-  AtmosphereRequest request=resource.getRequest();
+  AtmosphereRequest request=AtmosphereResourceImpl.class.cast(resource).getRequest(false);
   Map<String,Object> m=attributes(request);
-  AtmosphereRequest.Builder b=(new AtmosphereRequest.Builder().request(request).method(methodType).contentType(contentType == null ? request.getContentType() : contentType).attributes(m).pathInfo(pathInfo).requestURI(requestURI).destroyable(destroyable).headers(request.headersMap()).session(resource.session()));
+  AtmosphereRequest.Builder b=(new AtmosphereRequest.Builder().request(request).method(methodType).contentType(contentType == null ? request.getContentType() : contentType).attributes(m).pathInfo(pathInfo).contextPath(resource.getRequest().getContextPath()).servletPath(resource.getRequest().getServletPath()).requestURI(requestURI).requestURL(resource.getRequest().getRequestURL()).destroyable(destroyable).headers(request.headersMap()).session(resource.session()));
   return b;
 }
