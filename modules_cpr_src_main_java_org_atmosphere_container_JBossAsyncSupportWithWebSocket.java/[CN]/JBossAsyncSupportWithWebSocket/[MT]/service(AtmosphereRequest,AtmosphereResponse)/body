@@ -1,0 +1,26 @@
+{
+  boolean allowWebSocketWithoutHeaders=req.getHeader(HeaderConfig.X_ATMO_WEBSOCKET_PROXY) != null ? true : false;
+  if (!allowWebSocketWithoutHeaders) {
+    if (!headerContainsToken(req,"Upgrade","websocket")) {
+      return doService(req,res);
+    }
+    if (!headerContainsToken(req,"Connection","upgrade")) {
+      return doService(req,res);
+    }
+    if (!headerContainsToken(req,"sec-websocket-version","13")) {
+      WebSocket.notSupported(req,res);
+      return new Action(Action.TYPE.CANCELLED);
+    }
+  }
+  try {
+    Action action=suspended(req,res);
+    if (action.type() == Action.TYPE.RESUME) {
+      req.setAttribute(WebSocket.WEBSOCKET_RESUME,true);
+    }
+    return action;
+  }
+ catch (  Exception ex) {
+    logger.error("",ex);
+  }
+  return Action.CANCELLED;
+}
