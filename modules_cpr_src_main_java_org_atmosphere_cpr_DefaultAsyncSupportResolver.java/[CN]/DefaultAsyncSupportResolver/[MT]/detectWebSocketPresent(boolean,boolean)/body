@@ -21,7 +21,7 @@
         if (testClassExists(JETTY_8))         add(JettyAsyncSupportWithWebSocket.class);
         if (testClassExists(GRIZZLY_WEBSOCKET))         add(GlassFishWebSocketSupport.class);
         if (testClassExists(GRIZZLY2_WEBSOCKET))         add(Grizzly2WebSocketSupport.class);
-        if (testClassExists(JBOSS_AS7_WEBSOCKET))         add(JBossWebSocketSupport.class);
+        if (testClassExists(JBOSS_AS7_WEBSOCKET))         add(JBossAsyncSupportWithWebSocket.class);
       }
     }
   }
