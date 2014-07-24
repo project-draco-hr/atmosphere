@@ -1,0 +1,4 @@
+{
+  this.resumeOnHeartbeat=resumeOnHeartbeat;
+  return this;
+}

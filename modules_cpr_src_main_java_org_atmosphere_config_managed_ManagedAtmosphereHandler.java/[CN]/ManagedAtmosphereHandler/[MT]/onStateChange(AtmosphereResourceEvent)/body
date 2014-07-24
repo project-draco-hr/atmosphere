@@ -34,7 +34,8 @@
       }
  else {
         logger.trace("BroadcasterFactory has been used, this may produce recursion if encoder/decoder match the broadcasted message");
-        o=message(r,msg);
+        final MethodInfo.EncoderObject e=message(r,msg);
+        o=e == null ? null : e.encodedObject;
         if (o != null) {
           event.setMessage(o);
         }

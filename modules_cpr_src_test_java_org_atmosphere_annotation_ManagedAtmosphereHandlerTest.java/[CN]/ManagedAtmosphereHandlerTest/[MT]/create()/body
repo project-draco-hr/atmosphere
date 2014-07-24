@@ -26,7 +26,7 @@ catch (      ServletException e) {
       return mock(ServletContext.class);
     }
     @Override public String getInitParameter(    String name){
-      return HeartbeatInterceptor.CLIENT_HEARTBEAT_INTERVAL_IN_SECONDS.equals(name) ? "10" : null;
+      return ApplicationConfig.CLIENT_HEARTBEAT_INTERVAL_IN_SECONDS.equals(name) ? "10" : null;
     }
     @Override public Enumeration<String> getInitParameterNames(){
       return null;

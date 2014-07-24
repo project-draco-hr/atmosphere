@@ -44,9 +44,9 @@
       }
       invoke(onPostMethod,resource);
     }
-    Object o=message(resource,body);
-    if (o != null) {
-      resource.getBroadcaster().broadcast(new Managed(o));
+    MethodInfo.EncoderObject e=message(resource,body);
+    if (e != null && e.encodedObject != null) {
+      deliver(new Managed(e.encodedObject),null,e.methodInfo.deliverTo,resource);
     }
   }
  else   if (method.equalsIgnoreCase("delete")) {

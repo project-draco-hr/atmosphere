@@ -1,3 +1,9 @@
 {
   this.method=method;
+  if (method.isAnnotationPresent(DeliverTo.class)) {
+    this.deliverTo=method.getAnnotation(DeliverTo.class).value();
+  }
+ else {
+    this.deliverTo=DeliverTo.DELIVER_TO.BROADCASTER;
+  }
 }
