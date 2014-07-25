@@ -1,6 +1,6 @@
 {
   int interval=heartbeatFrequencyInSeconds;
-  final String s=resource.getRequest().getHeader(HeaderConfig.X_HEARTBEAT_SERVER);
+  final String s=resource.getRequest(false).getHeader(HeaderConfig.X_HEARTBEAT_SERVER);
   if (s != null) {
     try {
       interval=Integer.parseInt(s);
