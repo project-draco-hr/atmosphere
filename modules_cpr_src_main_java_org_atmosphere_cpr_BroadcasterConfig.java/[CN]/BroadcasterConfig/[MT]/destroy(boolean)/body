@@ -1,6 +1,6 @@
 {
   broadcasterCache.cleanup();
-  if ((force || !shared) && broadcasterCache != null) {
+  if ((force) && broadcasterCache != null) {
     broadcasterCache.stop();
   }
   for (  BroadcastFilter f : filters) {
