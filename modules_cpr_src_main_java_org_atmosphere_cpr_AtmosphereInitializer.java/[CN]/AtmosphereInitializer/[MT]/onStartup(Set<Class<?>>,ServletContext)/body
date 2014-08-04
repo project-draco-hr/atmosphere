@@ -1,5 +1,5 @@
 {
-  logger.trace("Initializing AtmosphereFramework");
+  c.log("Initializing AtmosphereFramework");
   for (  Map.Entry<String,? extends ServletRegistration> reg : c.getServletRegistrations().entrySet()) {
     if (c.getAttribute(reg.getKey()) == null && IOUtils.isAtmosphere(reg.getValue().getClassName())) {
       final AtmosphereFramework framework=new AtmosphereFramework(false,true);
@@ -33,7 +33,7 @@
 );
       }
  catch (      Throwable t) {
-        logger.trace("Unable to install WebSocket Session Creator",t);
+        c.log("AtmosphereFramework : Unable to install WebSocket Session Creator",t);
       }
       try {
         String s=c.getInitParameter(PROPERTY_SESSION_SUPPORT);
@@ -41,12 +41,12 @@
           boolean sessionSupport=Boolean.valueOf(s);
           if (sessionSupport && c.getMajorVersion() > 2) {
             c.addListener(SessionSupport.class);
-            logger.debug("Installed {}",SessionSupport.class);
+            c.log("AtmosphereFramework : Installed " + SessionSupport.class);
           }
         }
       }
  catch (      Throwable t) {
-        logger.warn("SessionSupport error. Make sure you also define {} as a listener in web.xml, see https://github.com/Atmosphere/atmosphere/wiki/Enabling-HttpSession-Support",SessionSupport.class.getName(),t);
+        c.log("AtmosphereFramework : SessionSupport error. Make sure you also define {} as a listener in web.xml, see https://github.com/Atmosphere/atmosphere/wiki/Enabling-HttpSession-Support",t);
       }
       c.setAttribute(reg.getKey(),framework);
     }
