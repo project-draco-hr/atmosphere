@@ -84,4 +84,8 @@
   if (s != null) {
     packages.add(s);
   }
+  s=sc.getInitParameter(ApplicationConfig.DEFAULT_SERIALIZER);
+  if (s != null) {
+    defaultSerializerClassName=s;
+  }
 }

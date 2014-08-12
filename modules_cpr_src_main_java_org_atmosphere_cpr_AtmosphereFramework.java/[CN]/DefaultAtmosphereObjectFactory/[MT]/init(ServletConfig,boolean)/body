@@ -65,6 +65,7 @@
     loadConfiguration(scFacade);
     initWebSocket();
     initEndpointMapper();
+    initDefaultSerializer();
     autoDetectContainer();
     configureWebDotXmlAtmosphereHandler(scFacade);
     asyncSupport.init(scFacade);

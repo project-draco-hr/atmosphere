@@ -1,0 +1,24 @@
+{
+  if (defaultSerializerClassName != null && !defaultSerializerClassName.isEmpty()) {
+    try {
+      @SuppressWarnings("unchecked") Class<Serializer> clazz=(Class<Serializer>)IOUtils.<Serializer>loadClass(Serializer.class,defaultSerializerClassName);
+      if (Serializer.class.isAssignableFrom(clazz)) {
+        defaultSerializerClass=clazz;
+      }
+ else {
+        logger.error("Default Serializer class name does not implement Serializer interface");
+        defaultSerializerClassName=null;
+        defaultSerializerClass=null;
+      }
+    }
+ catch (    Exception e) {
+      logger.error("Unable to set default Serializer",e);
+      defaultSerializerClassName=null;
+      defaultSerializerClass=null;
+    }
+  }
+ else {
+    defaultSerializerClassName=null;
+    defaultSerializerClass=null;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  this.defaultSerializerClassName=defaultSerializerClassName;
+  initDefaultSerializer();
+  return this;
+}

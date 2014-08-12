@@ -3,6 +3,7 @@
   try {
     r=config.framework().newClassInstance(AtmosphereResource.class,AtmosphereResourceImpl.class);
     r.initialize(config,null,response.request(),response,a,voidAtmosphereHandler);
+    setDefaultSerializer(config,r);
   }
  catch (  Exception e) {
     logger.error("",e);
