@@ -1,7 +1,7 @@
 {
   c.log("Initializing AtmosphereFramework");
   for (  Map.Entry<String,? extends ServletRegistration> reg : c.getServletRegistrations().entrySet()) {
-    String disableSwitchValue=reg.getValue().getInitParameter(DISABLE_SWITCH_KEY);
+    String disableSwitchValue=reg.getValue().getInitParameter(ApplicationConfig.DISABLE_ATMOSPHERE_INITIALIZER);
     if (Boolean.parseBoolean(disableSwitchValue)) {
       c.log("container managed initialization disabled for servlet: " + reg.getValue().getName());
       continue;
