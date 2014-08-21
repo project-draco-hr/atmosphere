@@ -46,7 +46,7 @@
     }
     MethodInfo.EncoderObject e=message(resource,body);
     if (e != null && e.encodedObject != null) {
-      deliver(new Managed(e.encodedObject),null,e.methodInfo.deliverTo,resource);
+      IOUtils.deliver(new Managed(e.encodedObject),null,e.methodInfo.deliverTo,resource);
     }
   }
  else   if (method.equalsIgnoreCase("delete")) {

@@ -25,5 +25,5 @@ case BROADCASTER:
  else {
 deliverTo=onReadyMethod.getAnnotation(DeliverTo.class);
 }
-deliver(message(onReadyMethod,r),deliverTo,DeliverTo.DELIVER_TO.RESOURCE,r);
+IOUtils.deliver(message(onReadyMethod,r),deliverTo,DeliverTo.DELIVER_TO.RESOURCE,r);
 }
