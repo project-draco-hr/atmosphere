@@ -13,7 +13,7 @@
     final Enumeration<URL> resourceEnum=loader.getResources(packageName);
     while (resourceEnum.hasMoreElements()) {
       final URL url=resourceEnum.nextElement();
-      final boolean isVfs=("vfs".equals(url.getProtocol()) || "vfsfile".equals(url.getProtocol()));
+      final boolean isVfs=url.getProtocol() != null && url.getProtocol().startsWith("vfs");
       if ("file".equals(url.getProtocol()) || isVfs) {
         final File dir=toFile(url);
         if (dir.isDirectory()) {
