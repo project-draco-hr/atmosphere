@@ -49,7 +49,7 @@
       }
  else       if (isRunningJavaWebStart()) {
         try {
-          webstart((JarURLConnection)url.openConnection(),packageName,streams);
+          loadJarContent((JarURLConnection)url.openConnection(),packageName,streams);
         }
  catch (        ClassCastException cce) {
           throw new AssertionError("Not a File: " + url.toExternalForm());
@@ -81,7 +81,7 @@
           if (DEBUG)           print("Add jar file: '%s'",jarFile);
         }
  else {
-          throw new AssertionError("Not a File: " + jarFile);
+          loadJarContent((JarURLConnection)url.openConnection(),packageName,streams);
         }
       }
     }
