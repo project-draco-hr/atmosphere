@@ -1,0 +1,6 @@
+{
+  if (DefaultBroadcaster.class.isAssignableFrom(b.getClass())) {
+    DefaultBroadcaster broadcaster=DefaultBroadcaster.class.cast(b);
+    broadcaster.lifecycleHandler(liferCycleHandler.on(broadcaster));
+  }
+}

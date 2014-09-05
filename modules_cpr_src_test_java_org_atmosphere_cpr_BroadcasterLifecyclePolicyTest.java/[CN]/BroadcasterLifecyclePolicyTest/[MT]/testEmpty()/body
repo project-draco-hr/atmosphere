@@ -1,0 +1,11 @@
+{
+  Broadcaster b=framework.getBroadcasterFactory().lookup(B.class,"/test",true);
+  b.setBroadcasterLifeCyclePolicy(BroadcasterLifeCyclePolicy.EMPTY);
+  AR ah=new AR();
+  framework.addAtmosphereHandler("/*",ah,b).init();
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").method("GET").build();
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  b.removeAtmosphereResource(ah.resource);
+  assertTrue(B.class.cast(b).releaseExternalResources.get());
+  assertFalse(B.class.cast(b).destroy.get());
+}

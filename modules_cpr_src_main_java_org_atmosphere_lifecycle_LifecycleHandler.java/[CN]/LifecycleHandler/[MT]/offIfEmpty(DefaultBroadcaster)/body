@@ -1,0 +1,16 @@
+{
+  BroadcasterConfig bc=broadcaster.getBroadcasterConfig();
+  Collection<AtmosphereResource> resources=broadcaster.getAtmosphereResources();
+  final BroadcasterLifeCyclePolicy lifeCyclePolicy=broadcaster.getBroadcasterLifeCyclePolicy();
+  if (resources.isEmpty()) {
+    notifyEmptyListener(broadcaster);
+    if (broadcaster.getScope() != Broadcaster.SCOPE.REQUEST && lifeCyclePolicy.getLifeCyclePolicy() == EMPTY) {
+      broadcaster.releaseExternalResources();
+    }
+ else     if (broadcaster.getScope() == Broadcaster.SCOPE.REQUEST || lifeCyclePolicy.getLifeCyclePolicy() == EMPTY_DESTROY) {
+      bc.getAtmosphereConfig().getBroadcasterFactory().remove(broadcaster,broadcaster.getID());
+      broadcaster.destroy();
+    }
+  }
+  return this;
+}

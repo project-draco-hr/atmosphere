@@ -1,0 +1,8 @@
+{
+  Future<?> currentLifecycleTask=broadcaster.currentLifecycleTask();
+  if (currentLifecycleTask != null) {
+    currentLifecycleTask.cancel(true);
+  }
+  notifyDestroyListener(broadcaster);
+  return this;
+}

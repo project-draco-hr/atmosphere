@@ -1,0 +1,4 @@
+{
+  releaseExternalResources.set(true);
+  latch.countDown();
+}

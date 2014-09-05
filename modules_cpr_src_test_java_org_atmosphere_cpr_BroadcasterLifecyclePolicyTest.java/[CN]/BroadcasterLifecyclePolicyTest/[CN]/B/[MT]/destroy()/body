@@ -1,0 +1,4 @@
+{
+  destroy.set(true);
+  latch.countDown();
+}

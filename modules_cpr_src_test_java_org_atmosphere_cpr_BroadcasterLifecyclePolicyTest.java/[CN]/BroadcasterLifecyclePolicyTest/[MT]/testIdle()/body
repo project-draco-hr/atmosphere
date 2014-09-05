@@ -1,0 +1,13 @@
+{
+  B b=framework.getBroadcasterFactory().lookup(B.class,"/test",true);
+  b.setBroadcasterLifeCyclePolicy(new BroadcasterLifeCyclePolicy.Builder().policy(BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.IDLE).idleTimeInMS(500).build());
+  b.latch=new CountDownLatch(1);
+  AR ah=new AR();
+  framework.addAtmosphereHandler("/*",ah,b).init();
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").method("GET").build();
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  b.removeAtmosphereResource(ah.resource);
+  b.latch.await();
+  assertTrue(B.class.cast(b).releaseExternalResources.get());
+  assertFalse(B.class.cast(b).destroy.get());
+}
