@@ -1,0 +1,4 @@
+{
+  this.lifecycleHandler=lifecycleHandler;
+  return this;
+}

@@ -1,5 +1,0 @@
-{
-  for (  BroadcasterLifeCyclePolicyListener b : lifeCycleListeners) {
-    b.onIdle();
-  }
-}

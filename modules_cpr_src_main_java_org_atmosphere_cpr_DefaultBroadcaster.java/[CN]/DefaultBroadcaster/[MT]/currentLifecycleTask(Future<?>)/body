@@ -1,0 +1,4 @@
+{
+  this.currentLifecycleTask=currentLifecycleTask;
+  return this;
+}

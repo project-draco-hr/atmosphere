@@ -13,6 +13,7 @@
     for (    BroadcasterListener l : broadcasterListeners) {
       b.addBroadcasterListener(l);
     }
+    addBroadcasterListener(lifeCycleListener);
     logger.trace("Broadcaster {} was created {}",id,b);
     notifyOnPostCreate(b);
     return b;
