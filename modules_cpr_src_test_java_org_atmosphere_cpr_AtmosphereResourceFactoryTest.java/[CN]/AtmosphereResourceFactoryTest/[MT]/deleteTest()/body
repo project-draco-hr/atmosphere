@@ -1,9 +1,9 @@
 {
   for (int i=0; i < 10; i++) {
-    BroadcasterFactory.getDefault().get(String.valueOf(i));
+    framework.getBroadcasterFactory().get(String.valueOf(i));
   }
-  Broadcaster b2=BroadcasterFactory.getDefault().get("b2");
-  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.config,BroadcasterFactory.getDefault().lookup("1"),AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
+  Broadcaster b2=framework.getBroadcasterFactory().get("b2");
+  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.config,framework.getBroadcasterFactory().lookup("1"),AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
   assertNotNull(r);
   b2.addAtmosphereResource(r.suspend());
   assertNotNull(framework.getAtmosphereConfig().resourcesFactory().find(r.uuid()));

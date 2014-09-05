@@ -1,6 +1,6 @@
 {
-  Broadcaster b1=BroadcasterFactory.getDefault().get("b1");
-  Broadcaster b2=BroadcasterFactory.getDefault().get("b2");
+  Broadcaster b1=framework.getBroadcasterFactory().get("b1");
+  Broadcaster b2=framework.getBroadcasterFactory().get("b2");
   AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.getAtmosphereConfig(),b1,AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
   r.suspend();
   assertNotNull(r);

@@ -10,6 +10,6 @@
     }
   }
 ;
-  BroadcasterFactory.getDefault().addBroadcasterListener(l).get("/a1");
+  config.getBroadcasterFactory().addBroadcasterListener(l).get("/a1");
   assertTrue(create.get());
 }

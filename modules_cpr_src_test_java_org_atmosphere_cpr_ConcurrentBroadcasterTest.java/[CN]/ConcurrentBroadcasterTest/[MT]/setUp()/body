@@ -1,5 +1,5 @@
 {
-  AtmosphereConfig config=new AtmosphereFramework().addInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS,"true").getAtmosphereConfig();
+  config=new AtmosphereFramework().addInitParameter(ApplicationConfig.BROADCASTER_SHARABLE_THREAD_POOLS,"true").getAtmosphereConfig();
   DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
   config.framework().setBroadcasterFactory(factory);
   broadcaster=factory.get(DefaultBroadcaster.class,"test");

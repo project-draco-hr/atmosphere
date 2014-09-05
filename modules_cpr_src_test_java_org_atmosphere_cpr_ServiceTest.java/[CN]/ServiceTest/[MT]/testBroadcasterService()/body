@@ -1,3 +1,3 @@
 {
-  assertEquals(BroadcasterFactory.getDefault().get("test").getClass().getName(),B.class.getName());
+  assertEquals(framework.getBroadcasterFactory().get("test").getClass().getName(),B.class.getName());
 }

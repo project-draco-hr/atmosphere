@@ -1,4 +1,4 @@
 {
   broadcaster.destroy();
-  BroadcasterFactory.getDefault().destroy();
+  config.getBroadcasterFactory().destroy();
 }
