@@ -12,16 +12,7 @@
     if (aa != null) {
       l.add(aa);
     }
-    Class<? extends AtmosphereInterceptor>[] interceptors=m.interceptors();
-    for (    Class i : interceptors) {
-      try {
-        AtmosphereInterceptor ai=framework.newClassInstance(AtmosphereInterceptor.class,i);
-        l.add(ai);
-      }
- catch (      Throwable e) {
-        logger.warn("",e);
-      }
-    }
+    AnnotationUtil.interceptors(framework,m.interceptors(),l);
     if (m.path().contains("{")) {
       framework.interceptors().add(framework.newClassInstance(AtmosphereInterceptor.class,MeteorServiceInterceptor.class));
     }

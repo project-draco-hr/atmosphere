@@ -1,0 +1,3 @@
+{
+  interceptors(framework,defaultInterceptors,l);
+}

@@ -1,0 +1,3 @@
+AtmosphereFramework framework
+Class<? extends AtmosphereInterceptor>[] interceptors
+List<AtmosphereInterceptor> l
