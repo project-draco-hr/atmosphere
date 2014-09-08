@@ -41,6 +41,7 @@
         }
       }
     }
+    r.getRequest().removeAttribute(getClass().getName());
     super.onStateChange(event);
   }
   if (resumeOnBroadcast && r.isSuspended()) {
