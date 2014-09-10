@@ -6,14 +6,7 @@
   w.interceptors=LinkedList.class.isAssignableFrom(l.getClass()) ? LinkedList.class.cast(l) : new LinkedList<AtmosphereInterceptor>(l);
   addMapping(mapping,w);
   if (isInit) {
-    try {
-      if (h instanceof AtmosphereServletProcessor) {
-        ((AtmosphereServletProcessor)h).init(config);
-      }
-    }
- catch (    ServletException e) {
-      throw new RuntimeException(e);
-    }
+    initServletProcessor(h);
     initHandlerInterceptors(w.interceptors);
   }
  else {
