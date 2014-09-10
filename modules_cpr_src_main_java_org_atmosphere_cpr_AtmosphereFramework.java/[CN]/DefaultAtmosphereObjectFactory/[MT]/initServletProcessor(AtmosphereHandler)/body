@@ -1,4 +1,5 @@
 {
+  if (!isInit)   return;
   try {
     if (h instanceof AtmosphereServletProcessor) {
       ((AtmosphereServletProcessor)h).init(config);

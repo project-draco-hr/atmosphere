@@ -5,8 +5,8 @@
   AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(broadcasterFactory,h,mapping);
   w.interceptors=LinkedList.class.isAssignableFrom(l.getClass()) ? LinkedList.class.cast(l) : new LinkedList<AtmosphereInterceptor>(l);
   addMapping(mapping,w);
+  initServletProcessor(h);
   if (isInit) {
-    initServletProcessor(h);
     initHandlerInterceptors(w.interceptors);
   }
  else {

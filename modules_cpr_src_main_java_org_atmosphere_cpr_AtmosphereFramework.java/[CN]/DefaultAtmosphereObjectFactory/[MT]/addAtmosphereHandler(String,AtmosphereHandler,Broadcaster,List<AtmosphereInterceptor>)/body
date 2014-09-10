@@ -5,9 +5,9 @@
   AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(h,broadcaster);
   w.interceptors=LinkedList.class.isAssignableFrom(l.getClass()) ? LinkedList.class.cast(l) : new LinkedList<AtmosphereInterceptor>(l);
   addMapping(mapping,w);
+  initServletProcessor(h);
   if (!isInit) {
     logger.info("Installed AtmosphereHandler {} mapped to context-path {} and Broadcaster Class {}",new String[]{h.getClass().getName(),mapping,broadcaster.getClass().getName()});
-    initServletProcessor(h);
   }
  else {
     logger.debug("Installed AtmosphereHandler {} mapped to context-path {} and Broadcaster Class {}",new String[]{h.getClass().getName(),mapping,broadcaster.getClass().getName()});
