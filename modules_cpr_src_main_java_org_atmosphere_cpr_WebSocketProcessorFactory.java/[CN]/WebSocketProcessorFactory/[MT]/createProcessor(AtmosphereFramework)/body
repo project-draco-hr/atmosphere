@@ -6,6 +6,7 @@
       processor=framework.newClassInstance(WebSocketProcessor.class,(Class<WebSocketProcessor>)IOUtils.loadClass(getClass(),webSocketProcessorName));
     }
  catch (    Exception ex) {
+      logger.error("Unable to create {}",webSocketProcessorName);
       processor=new DefaultWebSocketProcessor(framework);
     }
   }
