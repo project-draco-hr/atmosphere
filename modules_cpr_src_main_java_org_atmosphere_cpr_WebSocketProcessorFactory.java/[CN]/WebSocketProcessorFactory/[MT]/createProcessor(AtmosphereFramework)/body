@@ -7,11 +7,12 @@
     }
  catch (    Exception ex) {
       logger.error("Unable to create {}",webSocketProcessorName);
-      processor=new DefaultWebSocketProcessor(framework);
+      processor=new DefaultWebSocketProcessor();
     }
   }
   if (processor == null) {
-    processor=new DefaultWebSocketProcessor(framework);
+    processor=new DefaultWebSocketProcessor();
   }
+  processor.configure(framework.getAtmosphereConfig());
   return processor;
 }

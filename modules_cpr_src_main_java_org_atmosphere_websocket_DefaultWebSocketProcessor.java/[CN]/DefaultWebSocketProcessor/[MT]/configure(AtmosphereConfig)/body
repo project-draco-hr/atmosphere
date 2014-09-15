@@ -1,5 +1,5 @@
 {
-  this.framework=framework;
+  this.framework=config.framework();
   this.webSocketProtocol=framework.getWebSocketProtocol();
   String s=framework.getAtmosphereConfig().getInitParameter(RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
   if (s != null && Boolean.valueOf(s)) {
@@ -20,7 +20,6 @@
     byteBufferMaxSize=Integer.valueOf(s);
     charBufferMaxSize=byteBufferMaxSize;
   }
-  AtmosphereConfig config=framework.getAtmosphereConfig();
   if (executeAsync) {
     asyncExecutor=ExecutorsFactory.getAsyncOperationExecutor(config,"WebSocket");
   }
@@ -47,4 +46,5 @@
     }
   }
 );
+  return this;
 }
