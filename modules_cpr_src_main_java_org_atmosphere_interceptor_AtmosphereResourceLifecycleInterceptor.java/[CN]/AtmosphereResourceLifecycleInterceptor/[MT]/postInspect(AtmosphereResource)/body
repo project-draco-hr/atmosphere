@@ -21,6 +21,6 @@ default :
   }
 }
 }
-).suspend(timeoutInMilli == -1 ? timeoutInMilli : timeoutInMilli);
+).suspend(timeoutInMilli);
 }
 }
