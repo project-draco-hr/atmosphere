@@ -7,4 +7,5 @@
   if (s != null) {
     timeoutInSeconds=Integer.valueOf(s);
   }
+  timeoutInMilli=TimeUnit.MILLISECONDS.convert(timeoutInSeconds,TimeUnit.SECONDS);
 }

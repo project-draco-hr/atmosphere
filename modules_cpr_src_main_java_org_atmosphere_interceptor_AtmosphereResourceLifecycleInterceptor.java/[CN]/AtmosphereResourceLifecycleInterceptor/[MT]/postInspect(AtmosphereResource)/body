@@ -1,5 +1,5 @@
 {
-  if (r.transport().equals(AtmosphereResource.TRANSPORT.UNDEFINED) || Utils.webSocketMessage(r))   return;
+  if (r.transport().equals(UNDEFINED) || Utils.webSocketMessage(r) || r.transport().equals(POLLING))   return;
   AtmosphereResourceImpl impl=AtmosphereResourceImpl.class.cast(r);
   if ((force || impl.getRequest(false).getMethod().equalsIgnoreCase(method)) && !impl.action().equals(Action.CANCELLED) && impl.isInScope()) {
     logger.trace("Marking AtmosphereResource {} for suspend operation",r.uuid());
@@ -21,6 +21,6 @@ default :
   }
 }
 }
-).suspend(timeoutInSeconds == -1 ? timeoutInSeconds : TimeUnit.MILLISECONDS.convert(timeoutInSeconds,TimeUnit.SECONDS));
+).suspend(timeoutInMilli == -1 ? timeoutInMilli : timeoutInMilli);
 }
 }

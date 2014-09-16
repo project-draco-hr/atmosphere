@@ -1,4 +1,5 @@
 {
   this.timeoutInSeconds=timeoutInSeconds;
+  timeoutInMilli=TimeUnit.MILLISECONDS.convert(timeoutInSeconds,TimeUnit.SECONDS);
   return this;
 }
