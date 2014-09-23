@@ -1,5 +1,5 @@
 {
-  Object e=message.message;
+  Object e=message.message();
   if (logger.isTraceEnabled()) {
     logger.trace("Adding for AtmosphereResource {} cached messages {}",uuid,e);
     logger.trace("Active clients {}",activeClients());
