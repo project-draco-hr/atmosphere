@@ -1,0 +1,18 @@
+{
+  config=(AtmosphereConfig)servletContext.getAttribute(AtmosphereConfig.class.getName());
+  webSocketProcessor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config.framework());
+  String s=config.getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME);
+  if (s != null) {
+    webSocketWriteTimeout=Integer.valueOf(s);
+  }
+ else {
+    webSocketWriteTimeout=-1;
+  }
+  s=config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE);
+  if (s != null) {
+    maxTextBufferSize=Integer.valueOf(s);
+  }
+ else {
+    maxTextBufferSize=-1;
+  }
+}

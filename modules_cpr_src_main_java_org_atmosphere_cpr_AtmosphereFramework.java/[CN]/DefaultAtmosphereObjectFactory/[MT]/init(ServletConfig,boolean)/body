@@ -90,5 +90,8 @@
   }
   isInit=true;
   config.initComplete();
+  if (WebLogicServlet30WithWebSocket.class.isAssignableFrom(asyncSupport.getClass())) {
+    servletConfig.getServletContext().setAttribute(AtmosphereConfig.class.getName(),config);
+  }
   return this;
 }
