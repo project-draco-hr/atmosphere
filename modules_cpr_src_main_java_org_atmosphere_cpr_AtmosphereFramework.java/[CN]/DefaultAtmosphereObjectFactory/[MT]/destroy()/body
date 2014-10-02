@@ -16,6 +16,7 @@
   }
   if (metaBroadcaster != null)   metaBroadcaster.destroy();
   if (arFactory != null)   arFactory.destroy();
+  if (sessionFactory != null)   sessionFactory.destroy();
   WebSocketProcessorFactory.getDefault().destroy();
   resetStates();
   return this;

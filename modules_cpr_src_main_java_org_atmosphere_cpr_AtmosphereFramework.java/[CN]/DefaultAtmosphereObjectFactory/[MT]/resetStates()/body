@@ -19,6 +19,7 @@
   broadcasterFactory=null;
   arFactory=null;
   metaBroadcaster=null;
+  sessionFactory=null;
   annotationFound=false;
   return this;
 }

@@ -1,0 +1,6 @@
+{
+  if (sessionFactory == null) {
+    sessionFactory=new DefaultAtmosphereResourceSessionFactory();
+  }
+  return sessionFactory;
+}
