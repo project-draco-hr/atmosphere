@@ -1,0 +1,32 @@
+{
+  if (injectables.isEmpty()) {
+    for (    Class<Injectable<?>> i : defaultInjectables) {
+      injectables.add(i.newInstance());
+    }
+  }
+  U instance=defaultType.newInstance();
+  Field[] fields=defaultType.getDeclaredFields();
+  for (  Field field : fields) {
+    field.setAccessible(true);
+    if (field.isAnnotationPresent(Inject.class)) {
+      for (      Injectable c : injectables) {
+        if (c.supportedType(field.getType())) {
+          field.set(instance,c.injectable(framework.getAtmosphereConfig()));
+          break;
+        }
+      }
+    }
+  }
+  Method[] methods=defaultType.getMethods();
+  for (  Method m : methods) {
+    if (m.isAnnotationPresent(PostConstruct.class)) {
+      try {
+        m.invoke(instance);
+      }
+ catch (      InvocationTargetException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+  return instance;
+}

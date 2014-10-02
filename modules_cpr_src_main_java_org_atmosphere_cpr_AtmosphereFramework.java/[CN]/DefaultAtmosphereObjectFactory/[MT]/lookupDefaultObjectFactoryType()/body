@@ -11,5 +11,15 @@ catch (    Exception e) {
       logger.trace("",e);
     }
   }
+  if (objectFactory == null) {
+    try {
+      IOUtils.loadClass(getClass(),INJECT_LIBARY);
+      objectFactory=new InjectableObjectFactory();
+    }
+ catch (    Exception e) {
+      logger.trace("javax.inject.Inject nor installed. Using DefaultAtmosphereObjectFactory");
+      objectFactory=new DefaultAtmosphereObjectFactory();
+    }
+  }
   return objectFactory;
 }

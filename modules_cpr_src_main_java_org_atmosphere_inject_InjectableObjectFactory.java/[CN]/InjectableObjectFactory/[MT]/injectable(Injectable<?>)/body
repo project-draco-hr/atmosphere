@@ -1,0 +1,4 @@
+{
+  injectables.add(injectable);
+  return this;
+}

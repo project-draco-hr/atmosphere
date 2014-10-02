@@ -1,0 +1,8 @@
+{
+  message.set(config.toString());
+  message.set(f.toString());
+  message.set(resourceFactory.toString());
+  message.set(bFactory.toString());
+  message.set(m.toString());
+  message.set(sessionFactory.toString());
+}
