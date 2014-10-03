@@ -4,7 +4,9 @@
     logger.error("HttpEvent is null, JBoss APR Not Properly installed");
     throw unableToDetectComet;
   }
-  logger.trace("Event Type {} for {}",event.getType(),req.getQueryString());
+  if (logger.isTraceEnabled()) {
+    logger.trace("Event Type {} for {}",event.getType(),req.getRequestURL().toString());
+  }
   Action action=null;
   AtmosphereResource r=req.resource();
   if (event.getType() == HttpEvent.EventType.BEGIN) {
