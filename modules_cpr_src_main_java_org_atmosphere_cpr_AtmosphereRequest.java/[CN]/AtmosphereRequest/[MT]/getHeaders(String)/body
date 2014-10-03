@@ -15,8 +15,8 @@
     }
     if (isNotNoOps()) {
       if (list.size() == 0 && name.startsWith(X_ATMOSPHERE)) {
-        if (b.request.getAttribute(name) != null) {
-          list.add(b.request.getAttribute(name));
+        if (attributeWithoutException(b.request,name) != null) {
+          list.add(attributeWithoutException(b.request,name));
         }
       }
     }

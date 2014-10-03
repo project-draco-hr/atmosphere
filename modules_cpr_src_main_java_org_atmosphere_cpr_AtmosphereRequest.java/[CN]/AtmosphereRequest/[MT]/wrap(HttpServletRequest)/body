@@ -7,7 +7,7 @@
   String s;
   while (e.hasMoreElements()) {
     s=e.nextElement();
-    b.localAttributes.put(s,request.getAttribute(s));
+    b.localAttributes.put(s,attributeWithoutException(request,s));
   }
   return b.request(request).build();
 }

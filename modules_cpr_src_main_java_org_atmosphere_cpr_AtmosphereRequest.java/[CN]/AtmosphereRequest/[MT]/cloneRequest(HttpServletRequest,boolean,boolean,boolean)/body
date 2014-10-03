@@ -26,7 +26,7 @@
   }
   b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).remoteAddr(request.getRemoteAddr()).remoteHost(request.getRemoteHost()).remotePort(request.getRemotePort()).destroyable(isDestroyable).cookies(hs).session(session).principal(request.getUserPrincipal()).authType(request.getAuthType()).isSSecure(request.isSecure());
   if (loadInMemory) {
-    String s=(String)request.getAttribute(FrameworkConfig.THROW_EXCEPTION_ON_CLONED_REQUEST);
+    String s=(String)attributeWithoutException(request,FrameworkConfig.THROW_EXCEPTION_ON_CLONED_REQUEST);
     boolean throwException=s != null && Boolean.parseBoolean(s);
     r=new NoOpsRequest(throwException);
     if (isWrapped) {

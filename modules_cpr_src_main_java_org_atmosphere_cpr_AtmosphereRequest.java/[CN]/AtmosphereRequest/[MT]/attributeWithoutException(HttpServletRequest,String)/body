@@ -1,0 +1,9 @@
+{
+  try {
+    return request.getAttribute(attribute);
+  }
+ catch (  NullPointerException ex) {
+    logger.trace("Unexpected NPE",ex);
+    return "";
+  }
+}

@@ -8,7 +8,7 @@
       return b.headers.get(s);
     }
     if (s.startsWith(X_ATMOSPHERE) && isNotNoOps()) {
-      Object o=b.request.getAttribute(s);
+      Object o=attributeWithoutException(b.request,s);
       if (o == null || String.class.isAssignableFrom(o.getClass())) {
         name=String.class.cast(o);
       }
@@ -18,7 +18,7 @@
             HttpServletRequest hsr=HttpServletRequestWrapper.class.cast(b.request);
             while (hsr instanceof HttpServletRequestWrapper) {
               hsr=(HttpServletRequest)((HttpServletRequestWrapper)hsr).getRequest();
-              o=hsr.getAttribute(s);
+              o=attributeWithoutException(hsr,s);
               if (o == null || String.class.isAssignableFrom(o.getClass())) {
                 name=String.class.cast(o);
                 break;
