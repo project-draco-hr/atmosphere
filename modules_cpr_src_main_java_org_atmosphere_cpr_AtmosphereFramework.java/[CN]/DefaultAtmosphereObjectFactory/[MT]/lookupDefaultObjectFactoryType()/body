@@ -11,7 +11,7 @@ catch (    Exception e) {
       logger.trace("",e);
     }
   }
-  if (objectFactory == null) {
+  if (objectFactory == null || DefaultAtmosphereObjectFactory.class.getName().equals(objectFactory.getClass().getName())) {
     try {
       IOUtils.loadClass(getClass(),INJECT_LIBARY);
       objectFactory=new InjectableObjectFactory();
