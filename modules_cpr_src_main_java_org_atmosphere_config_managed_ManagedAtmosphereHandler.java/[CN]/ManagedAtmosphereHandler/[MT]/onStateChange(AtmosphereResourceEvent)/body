@@ -12,41 +12,36 @@
     r.resumeOnBroadcast(false);
     r.getRequest(false).setAttribute(ApplicationConfig.RESUME_ON_BROADCAST,false);
   }
-  try {
-    if (event.isCancelled() || event.isClosedByClient()) {
-      invoke(onDisconnectMethod,event);
-    }
- else     if (event.isResumedOnTimeout() || event.isResuming()) {
-      invoke(onTimeoutMethod,event);
-    }
+  if (event.isCancelled() || event.isClosedByClient()) {
+    invoke(onDisconnectMethod,event);
+  }
+ else   if (event.isResumedOnTimeout() || event.isResuming()) {
+    invoke(onTimeoutMethod,event);
+  }
  else {
-      Object o;
-      if (msg != null) {
-        if (Managed.class.isAssignableFrom(msg.getClass())) {
-          Object newMsg=Managed.class.cast(msg).o;
-          event.setMessage(newMsg);
-          for (          MethodInfo m : onRuntimeMethod) {
-            o=Invoker.encode(encoders.get(m.method),newMsg);
-            if (o != null) {
-              event.setMessage(o);
-              break;
-            }
-          }
-        }
- else {
-          logger.trace("BroadcasterFactory has been used, this may produce recursion if encoder/decoder match the broadcasted message");
-          final MethodInfo.EncoderObject e=message(r,msg);
-          o=e == null ? null : e.encodedObject;
+    Object o;
+    if (msg != null) {
+      if (Managed.class.isAssignableFrom(msg.getClass())) {
+        Object newMsg=Managed.class.cast(msg).o;
+        event.setMessage(newMsg);
+        for (        MethodInfo m : onRuntimeMethod) {
+          o=Invoker.encode(encoders.get(m.method),newMsg);
           if (o != null) {
             event.setMessage(o);
+            break;
           }
         }
       }
-      super.onStateChange(event);
+ else {
+        logger.trace("BroadcasterFactory has been used, this may produce recursion if encoder/decoder match the broadcasted message");
+        final MethodInfo.EncoderObject e=message(r,msg);
+        o=e == null ? null : e.encodedObject;
+        if (o != null) {
+          event.setMessage(o);
+        }
+      }
     }
-  }
-  finally {
-    r.getRequest().removeAttribute(getClass().getName());
+    super.onStateChange(event);
   }
   if (resumeOnBroadcast && r.isSuspended()) {
     r.resume();

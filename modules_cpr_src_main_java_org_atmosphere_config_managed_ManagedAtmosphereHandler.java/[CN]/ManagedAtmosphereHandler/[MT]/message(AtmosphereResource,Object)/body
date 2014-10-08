@@ -2,6 +2,14 @@
   AtmosphereRequest request=AtmosphereResourceImpl.class.cast(resource).getRequest(false);
   try {
     Method invokedMethod=(Method)request.getAttribute(getClass().getName());
+    request.removeAttribute(getClass().getName());
+    if (invokedMethod != null) {
+      for (      MethodInfo m : onRuntimeMethod) {
+        if (invokedMethod.equals(m.method)) {
+          return m.encode(encoders,o);
+        }
+      }
+    }
     for (    MethodInfo m : onRuntimeMethod) {
       if (m.useReader) {
         o=request.getReader();
@@ -25,13 +33,8 @@
         logger.warn("Injection of more than 2 parameters not supported {}",m);
       }
       if (invokedMethod == null) {
-        request.setAttribute(getClass().getName(),m.method);
-      }
- else {
-        request.removeAttribute(getClass().getName());
-      }
-      if (invokedMethod == null || !invokedMethod.equals(m.method)) {
         if (m.method.getParameterTypes().length == 2) {
+          request.setAttribute(getClass().getName(),m.method);
           objectToEncode=Invoker.invokeMethod(m.method,proxiedInstance,resource,decoded);
         }
  else {
