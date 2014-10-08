@@ -35,7 +35,7 @@
     if (willBeResumed && !rImpl.atmosphereResourceEventListener().isEmpty()) {
       listeners.addAll(rImpl.atmosphereResourceEventListener());
     }
-synchronized (r) {
+synchronized (rImpl) {
       try {
         rImpl.getRequest().setAttribute(CACHED,"true");
         prepareInvokeOnStateChange(r,e);
