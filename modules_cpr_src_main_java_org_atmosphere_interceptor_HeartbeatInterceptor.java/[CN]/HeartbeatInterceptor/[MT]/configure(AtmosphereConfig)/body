@@ -3,10 +3,20 @@
   if (s != null) {
     heartbeatFrequencyInSeconds=Integer.valueOf(s);
   }
+  s=config.getInitParameter(HEARTBEAT_PADDING_CHAR);
+  if (s != null) {
+    try {
+      paddingBytes=s.getBytes("UTF-8");
+    }
+ catch (    UnsupportedEncodingException e) {
+      logger.error("",e);
+    }
+  }
   s=config.getInitParameter(CLIENT_HEARTBEAT_INTERVAL_IN_SECONDS);
   if (s != null) {
     clientHeartbeatFrequencyInSeconds=Integer.valueOf(s);
   }
   heartBeat=ExecutorsFactory.getScheduler(config);
   resumeOnHeartbeat=config.getInitParameter(RESUME_ON_HEARTBEAT,true);
+  logger.info("HeartbeatInterceptor configured with padding value '{}', client frequency {} seconds and server frequency {} seconds",new String[]{new String(paddingBytes),String.valueOf(heartbeatFrequencyInSeconds),String.valueOf(clientHeartbeatFrequencyInSeconds)});
 }
