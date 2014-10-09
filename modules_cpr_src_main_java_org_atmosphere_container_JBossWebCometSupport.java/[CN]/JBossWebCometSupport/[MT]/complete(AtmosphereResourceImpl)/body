@@ -1,6 +1,6 @@
 {
   try {
-    HttpEvent event=(HttpEvent)r.getRequest().getAttribute(HTTP_EVENT);
+    HttpEvent event=(HttpEvent)r.getRequest(false).getAttribute(HTTP_EVENT);
     if (event != null) {
       event.close();
     }
