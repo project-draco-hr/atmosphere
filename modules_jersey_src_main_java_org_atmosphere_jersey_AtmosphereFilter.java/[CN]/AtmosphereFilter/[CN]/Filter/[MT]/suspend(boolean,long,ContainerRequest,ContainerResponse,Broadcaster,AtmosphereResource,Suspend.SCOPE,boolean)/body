@@ -15,7 +15,10 @@
   if (bc == null && localScope != Suspend.SCOPE.REQUEST) {
     bc=r.getBroadcaster();
   }
-  if (response.getEntity() == null && response.getEntity() instanceof Broadcastable) {
+  if (response.getEntity() == null) {
+    response.setEntity("");
+  }
+  if (response.getEntity() instanceof Broadcastable) {
     Broadcastable b=(Broadcastable)response.getEntity();
     bc=b.getBroadcaster();
     response.setEntity(b.getResponseMessage());
