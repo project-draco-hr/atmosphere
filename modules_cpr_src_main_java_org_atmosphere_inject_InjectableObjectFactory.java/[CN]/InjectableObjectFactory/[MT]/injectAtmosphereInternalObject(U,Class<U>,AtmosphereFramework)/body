@@ -1,0 +1,14 @@
+{
+  Field[] fields=defaultType.getDeclaredFields();
+  for (  Field field : fields) {
+    field.setAccessible(true);
+    if (field.isAnnotationPresent(Inject.class)) {
+      for (      Injectable c : injectables) {
+        if (c.supportedType(field.getType())) {
+          field.set(instance,c.injectable(framework.getAtmosphereConfig()));
+          break;
+        }
+      }
+    }
+  }
+}

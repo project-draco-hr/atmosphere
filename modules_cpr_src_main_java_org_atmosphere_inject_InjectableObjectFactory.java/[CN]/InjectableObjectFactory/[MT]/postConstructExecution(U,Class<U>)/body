@@ -1,0 +1,13 @@
+{
+  Method[] methods=defaultType.getMethods();
+  for (  Method m : methods) {
+    if (m.isAnnotationPresent(PostConstruct.class)) {
+      try {
+        m.invoke(instance);
+      }
+ catch (      InvocationTargetException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+}
