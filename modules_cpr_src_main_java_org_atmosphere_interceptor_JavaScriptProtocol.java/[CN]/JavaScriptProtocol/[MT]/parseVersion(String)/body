@@ -1,0 +1,4 @@
+{
+  String[] parts=version.split("\\.");
+  return Integer.valueOf(parts[0] + parts[1] + parts[2]);
+}
