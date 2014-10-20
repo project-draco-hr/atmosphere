@@ -1,0 +1,19 @@
+{
+  String uuid=UUID.randomUUID().toString();
+  AtmosphereRequest request=AtmosphereRequest.newInstance();
+  request.setAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID,uuid);
+  AtmosphereResponse response=AtmosphereResponse.newInstance(request);
+  AtmosphereResourceImpl res0=new AtmosphereResourceImpl();
+  res0.initialize(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().get(),request,response,null,null);
+  AtmosphereResourceImpl res1=new AtmosphereResourceImpl();
+  res1.initialize(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().get(),request,response,null,null);
+  assertEquals(res0,res1);
+  HashSet set=new HashSet();
+  set.add(res0);
+  set.add(res1);
+  assertEquals(set.size(),1);
+  assertTrue(set.contains(res0));
+  assertTrue(set.contains(res1));
+  assertEquals(res0,set.iterator().next());
+  assertEquals(res1,set.iterator().next());
+}
