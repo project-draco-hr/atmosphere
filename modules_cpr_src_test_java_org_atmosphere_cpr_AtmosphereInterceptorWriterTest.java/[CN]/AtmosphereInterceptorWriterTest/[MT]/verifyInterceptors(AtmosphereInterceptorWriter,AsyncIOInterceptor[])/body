@@ -1,0 +1,18 @@
+{
+  int p=0;
+  for (  AsyncIOInterceptor f : writer.filters) {
+    if (!filters[p].equals(f)) {
+      fail("filter at index " + p + " does not match");
+    }
+    p++;
+  }
+  assertEquals(filters.length,p,"the wrong size of the list");
+  p=filters.length;
+  for (  AsyncIOInterceptor f : writer.reversedFilters) {
+    --p;
+    if (!filters[p].equals(f)) {
+      fail("reversedFilter index at " + p + " does not match");
+    }
+  }
+  assertEquals(filters.length,filters.length - p,"the wrong size of the list");
+}

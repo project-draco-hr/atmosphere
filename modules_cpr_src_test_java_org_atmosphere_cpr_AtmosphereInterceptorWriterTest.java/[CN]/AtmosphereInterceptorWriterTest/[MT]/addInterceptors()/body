@@ -1,0 +1,16 @@
+{
+  AtmosphereInterceptorWriter writer=new AtmosphereInterceptorWriter();
+  TestFilter[] filters=new TestFilter[4];
+  for (int i=0; i < 4; i++) {
+    filters[i]=new TestFilter();
+  }
+  writer.interceptor(filters[0]);
+  writer.interceptor(filters[1]);
+  verifyInterceptors(writer,new AsyncIOInterceptor[]{filters[0],filters[1]});
+  writer.interceptor(filters[2],0);
+  verifyInterceptors(writer,new AsyncIOInterceptor[]{filters[2],filters[0],filters[1]});
+  writer.interceptor(filters[3],2);
+  verifyInterceptors(writer,new AsyncIOInterceptor[]{filters[2],filters[0],filters[3],filters[1]});
+  writer.interceptor(filters[2],2);
+  verifyInterceptors(writer,new AsyncIOInterceptor[]{filters[2],filters[0],filters[3],filters[1]});
+}

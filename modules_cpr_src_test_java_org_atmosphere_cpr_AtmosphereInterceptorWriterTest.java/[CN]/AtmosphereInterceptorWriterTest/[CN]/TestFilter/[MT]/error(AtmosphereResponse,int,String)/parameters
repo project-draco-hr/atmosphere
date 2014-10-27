@@ -1,0 +1,3 @@
+AtmosphereResponse response
+int statusCode
+String reasonPhrase
