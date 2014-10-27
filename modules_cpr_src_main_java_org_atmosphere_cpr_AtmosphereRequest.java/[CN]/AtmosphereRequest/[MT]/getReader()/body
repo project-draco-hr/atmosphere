@@ -1,7 +1,7 @@
 {
   if (b.body.isEmpty()) {
     configureReader();
-    return br == null ? (isNotNoOps() ? b.request.getReader() : voidReader) : br;
+    return br == null ? (isNotNoOps() ? b.request.getReader() : getVoidReader()) : br;
   }
  else   if (b.body.hasString()) {
     br=new BufferedReader(new StringReader(body().asString()));
