@@ -1,0 +1,3 @@
+AtmosphereResponse response
+byte[] responseDraft
+byte[] data

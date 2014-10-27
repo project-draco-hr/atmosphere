@@ -1,0 +1,10 @@
+{
+  if (!filters.contains(filter)) {
+    if (logger.isTraceEnabled()) {
+      logger.trace("Adding AsyncIOInterceptor {} at index {}",filter.getClass().getName(),index);
+    }
+    filters.add(index,filter);
+    reversedFilters.add(reversedFilters.size() - index,filter);
+  }
+  return this;
+}
