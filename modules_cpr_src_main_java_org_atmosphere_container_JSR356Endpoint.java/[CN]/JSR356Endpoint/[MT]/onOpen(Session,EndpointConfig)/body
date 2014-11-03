@@ -68,7 +68,17 @@
         requestUri=requestUri.replace("wss://","https://");
       }
     }
-    request=new AtmosphereRequest.Builder().requestURI(requestUri).requestURL(requestUri).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).servletPath(servletPath).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).userPrincipal(session.getUserPrincipal()).build().queryString(session.getQueryString());
+    request=new AtmosphereRequest.Builder().requestURI(requestUri).requestURL(requestUri).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).servletPath(servletPath).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).userPrincipal(session.getUserPrincipal()).remoteInetSocketAddress(new Callable<InetSocketAddress>(){
+      @Override public InetSocketAddress call() throws Exception {
+        return (InetSocketAddress)endpointConfig.getUserProperties().get(JAVAX_WEBSOCKET_ENDPOINT_REMOTE_ADDRESS);
+      }
+    }
+).localInetSocketAddress(new Callable<InetSocketAddress>(){
+      @Override public InetSocketAddress call() throws Exception {
+        return (InetSocketAddress)endpointConfig.getUserProperties().get(JAVAX_WEBSOCKET_ENDPOINT_LOCAL_ADDRESS);
+      }
+    }
+).build().queryString(session.getQueryString());
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
