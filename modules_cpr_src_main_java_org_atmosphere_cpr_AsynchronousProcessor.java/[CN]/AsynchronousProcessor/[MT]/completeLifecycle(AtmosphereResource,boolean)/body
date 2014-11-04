@@ -9,6 +9,9 @@ synchronized (impl) {
           return false;
         }
         AtmosphereResourceEventImpl e=impl.getAtmosphereResourceEvent();
+        if (config.framework().isDestroyed()) {
+          cancelled=true;
+        }
         if (!e.isClosedByClient()) {
           if (cancelled) {
             e.setCancelled(true);
