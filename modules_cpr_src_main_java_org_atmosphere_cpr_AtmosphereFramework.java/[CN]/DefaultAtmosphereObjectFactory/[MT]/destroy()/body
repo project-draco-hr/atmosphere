@@ -1,6 +1,7 @@
 {
   if (isDestroyed.getAndSet(true))   return this;
   config.destroy();
+  ExecutorsFactory.reset(config);
   if (asyncSupport != null && AsynchronousProcessor.class.isAssignableFrom(asyncSupport.getClass())) {
     ((AsynchronousProcessor)asyncSupport).shutdown();
   }

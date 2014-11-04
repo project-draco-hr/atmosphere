@@ -1,6 +1,6 @@
 {
   final boolean shared=config.framework().isShareExecutorServices();
-  if (!shared || config.properties().get("scheduler") == null) {
+  if (!shared || config.properties().get(SCHEDULER_THREAD_POOL) == null) {
     int threads=config.getInitParameter(ApplicationConfig.SCHEDULER_THREADPOOL_MAXSIZE,Runtime.getRuntime().availableProcessors());
     logger.trace("Max number of Atmosphere-Scheduler {}",threads);
     ScheduledExecutorService scheduler=Executors.newScheduledThreadPool(threads,new ThreadFactory(){
@@ -13,11 +13,11 @@
     }
 );
     if (shared) {
-      config.properties().put("scheduler",scheduler);
+      config.properties().put(SCHEDULER_THREAD_POOL,scheduler);
     }
     return scheduler;
   }
  else {
-    return (ScheduledExecutorService)config.properties().get("scheduler");
+    return (ScheduledExecutorService)config.properties().get(SCHEDULER_THREAD_POOL);
   }
 }

@@ -1,7 +1,7 @@
 {
   final boolean shared=config.framework().isShareExecutorServices();
   boolean isExecutorShared=shared ? true : false;
-  if (!shared || config.properties().get("executorService") == null) {
+  if (!shared || config.properties().get(BROADCASTER_THREAD_POOL) == null) {
     int numberOfMessageProcessingThread=DEFAULT_MESSAGE_THREAD;
     String s=config.getInitParameter(ApplicationConfig.BROADCASTER_MESSAGE_PROCESSING_THREADPOOL_MAXSIZE);
     if (s != null) {
@@ -37,11 +37,11 @@
     }
     keepAliveThreads(messageService,config);
     if (shared) {
-      config.properties().put("executorService",messageService);
+      config.properties().put(BROADCASTER_THREAD_POOL,messageService);
     }
     return messageService;
   }
  else {
-    return (ExecutorService)config.properties().get("executorService");
+    return (ExecutorService)config.properties().get(BROADCASTER_THREAD_POOL);
   }
 }

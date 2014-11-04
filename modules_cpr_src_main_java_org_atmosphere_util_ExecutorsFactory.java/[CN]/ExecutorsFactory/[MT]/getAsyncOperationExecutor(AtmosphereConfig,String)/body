@@ -1,7 +1,7 @@
 {
   final boolean shared=config.framework().isShareExecutorServices();
   boolean isAsyncExecutorShared=shared ? true : false;
-  if (!shared || config.properties().get("asyncWriteService") == null) {
+  if (!shared || config.properties().get(ASYNC_WRITE_THREAD_POOL) == null) {
     int numberOfAsyncThread=DEFAULT_ASYNC_THREAD;
     String s=config.getInitParameter(ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
     if (s != null) {
@@ -37,11 +37,11 @@
     }
     keepAliveThreads(asyncWriteService,config);
     if (shared) {
-      config.properties().put("asyncWriteService",asyncWriteService);
+      config.properties().put(ASYNC_WRITE_THREAD_POOL,asyncWriteService);
     }
     return asyncWriteService;
   }
  else {
-    return (ExecutorService)config.properties().get("asyncWriteService");
+    return (ExecutorService)config.properties().get(ASYNC_WRITE_THREAD_POOL);
   }
 }
