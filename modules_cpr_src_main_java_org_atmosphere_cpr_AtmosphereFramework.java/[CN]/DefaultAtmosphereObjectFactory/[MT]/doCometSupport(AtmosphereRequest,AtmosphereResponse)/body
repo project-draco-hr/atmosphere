@@ -1,4 +1,5 @@
 {
+  if (isDestroyed.get())   return Action.CANCELLED;
   Action a=null;
   try {
     configureRequestResponse(req,res);

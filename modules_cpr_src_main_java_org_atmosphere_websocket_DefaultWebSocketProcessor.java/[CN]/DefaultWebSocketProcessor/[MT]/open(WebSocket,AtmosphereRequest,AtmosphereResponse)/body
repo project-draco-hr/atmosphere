@@ -1,4 +1,5 @@
 {
+  if (framework.isDestroyed())   return;
   if (framework.getAtmosphereConfig().handlers().size() == 0) {
 synchronized (framework) {
       framework.addAtmosphereHandler(ROOT_MASTER,REFLECTOR_ATMOSPHEREHANDLER);
