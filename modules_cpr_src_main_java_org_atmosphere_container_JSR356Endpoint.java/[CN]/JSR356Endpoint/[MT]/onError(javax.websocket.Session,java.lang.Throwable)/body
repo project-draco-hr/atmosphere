@@ -1,4 +1,8 @@
 {
-  logger.error("",t);
-  webSocketProcessor.notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent<Throwable>(t,WebSocketEventListener.WebSocketEvent.TYPE.EXCEPTION,webSocket));
+  try {
+    logger.error("",t);
+    webSocketProcessor.notifyListener(webSocket,new WebSocketEventListener.WebSocketEvent<Throwable>(t,WebSocketEventListener.WebSocketEvent.TYPE.EXCEPTION,webSocket));
+  }
+ catch (  Exception ex) {
+  }
 }
