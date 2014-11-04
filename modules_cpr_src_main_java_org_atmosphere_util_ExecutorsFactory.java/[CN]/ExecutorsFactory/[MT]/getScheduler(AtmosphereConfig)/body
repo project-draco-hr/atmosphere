@@ -1,7 +1,9 @@
 {
   final boolean shared=config.framework().isShareExecutorServices();
   if (!shared || config.properties().get("scheduler") == null) {
-    ScheduledExecutorService scheduler=Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors(),new ThreadFactory(){
+    int threads=config.getInitParameter(ApplicationConfig.SCHEDULER_THREADPOOL_MAXSIZE,Runtime.getRuntime().availableProcessors());
+    logger.trace("Max number of Atmosphere-Scheduler {}",threads);
+    ScheduledExecutorService scheduler=Executors.newScheduledThreadPool(threads,new ThreadFactory(){
       private final AtomicInteger count=new AtomicInteger();
       @Override public Thread newThread(      final Runnable runnable){
         Thread t=new Thread(runnable,"Atmosphere-Scheduler-" + count.getAndIncrement());

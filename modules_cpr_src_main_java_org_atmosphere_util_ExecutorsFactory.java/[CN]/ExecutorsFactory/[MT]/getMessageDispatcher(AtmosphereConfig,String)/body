@@ -12,6 +12,7 @@
       numberOfMessageProcessingThread=-1;
     }
     ThreadPoolExecutor messageService;
+    logger.trace("Max number of DispatchOp {}",numberOfMessageProcessingThread == -1 ? "Unlimited" : numberOfMessageProcessingThread);
     if (numberOfMessageProcessingThread == -1) {
       messageService=(ThreadPoolExecutor)Executors.newCachedThreadPool(new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();

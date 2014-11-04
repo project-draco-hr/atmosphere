@@ -1,0 +1,7 @@
+{
+  String s=getInitParameter(key);
+  if (s == null) {
+    return defaultValue;
+  }
+  return Integer.valueOf(s);
+}

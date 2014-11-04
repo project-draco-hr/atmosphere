@@ -12,6 +12,7 @@
       numberOfAsyncThread=-1;
     }
     ThreadPoolExecutor asyncWriteService;
+    logger.trace("Max number of AsyncOp {}",numberOfAsyncThread == -1 ? "Unlimited" : numberOfAsyncThread);
     if (numberOfAsyncThread == -1) {
       asyncWriteService=(ThreadPoolExecutor)Executors.newCachedThreadPool(new ThreadFactory(){
         private final AtomicInteger count=new AtomicInteger();
