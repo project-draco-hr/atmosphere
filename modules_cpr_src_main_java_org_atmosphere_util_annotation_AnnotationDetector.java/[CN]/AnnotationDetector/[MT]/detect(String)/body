@@ -76,12 +76,23 @@
             throw new AssertionError("Not a File: " + url.toExternalForm());
           }
         }
-        if (jarFile.isFile()) {
-          files.add(jarFile);
-          if (DEBUG)           print("Add jar file: '%s'",jarFile);
-        }
+        try {
+          if (jarFile.isFile()) {
+            files.add(jarFile);
+            if (DEBUG)             print("Add jar file: '%s'",jarFile);
+          }
  else {
-          loadJarContent((JarURLConnection)url.openConnection(),packageName,streams);
+            final URLConnection urlConnection=url.openConnection();
+            if (urlConnection instanceof JarURLConnection) {
+              loadJarContent((JarURLConnection)(url.openConnection()),packageName,streams);
+            }
+ else {
+              streams.add(url.openConnection().getInputStream());
+            }
+          }
+        }
+ catch (        Exception ex) {
+          print("Cannot load from jar file",ex);
         }
       }
     }
