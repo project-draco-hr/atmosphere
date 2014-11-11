@@ -35,7 +35,6 @@
   Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)IOUtils.loadClass(getClass(),broadcasterClassName);
   broadcasterFactory.destroy();
   broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
-  BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
   for (  BroadcasterListener b : broadcasterListeners) {
     broadcasterFactory.addBroadcasterListener(b);
   }

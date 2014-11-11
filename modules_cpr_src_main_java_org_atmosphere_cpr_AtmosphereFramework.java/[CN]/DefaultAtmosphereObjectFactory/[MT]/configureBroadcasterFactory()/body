@@ -13,7 +13,6 @@
     for (    BroadcasterListener b : broadcasterListeners) {
       broadcasterFactory.addBroadcasterListener(b);
     }
-    BroadcasterFactory.setBroadcasterFactory(broadcasterFactory,config);
     configureAtmosphereResourceFactory();
   }
  catch (  Exception ex) {

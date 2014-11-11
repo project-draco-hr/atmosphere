@@ -1,5 +1,0 @@
-{
-  factory=new DefaultBroadcasterFactory(clazz,"NEVER",c);
-  c.framework().setBroadcasterFactory(factory);
-  return factory;
-}

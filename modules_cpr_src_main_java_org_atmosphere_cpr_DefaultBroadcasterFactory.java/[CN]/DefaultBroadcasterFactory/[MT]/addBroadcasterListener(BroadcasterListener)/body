@@ -1,5 +1,7 @@
 {
-  super.addBroadcasterListener(l);
+  if (!broadcasterListeners.contains(l)) {
+    broadcasterListeners.add(l);
+  }
   for (  Broadcaster b : store.values()) {
     b.addBroadcasterListener(l);
   }

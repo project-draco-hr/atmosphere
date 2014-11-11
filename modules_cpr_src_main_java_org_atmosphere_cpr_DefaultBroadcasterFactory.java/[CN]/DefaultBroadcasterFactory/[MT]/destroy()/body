@@ -22,5 +22,4 @@
   }
   broadcasterListeners.clear();
   store.clear();
-  factory=null;
 }

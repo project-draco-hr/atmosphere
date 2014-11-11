@@ -1,4 +1,0 @@
-{
-  broadcasterListeners.remove(b);
-  return this;
-}

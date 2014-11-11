@@ -12,8 +12,6 @@
   BroadcasterFactory factory=broadcasterFactory;
   if (factory != null) {
     factory.destroy();
-    BroadcasterFactory.factory=null;
-    BroadcasterFactory.config=null;
   }
   if (metaBroadcaster != null)   metaBroadcaster.destroy();
   if (arFactory != null)   arFactory.destroy();
