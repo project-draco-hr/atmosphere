@@ -1,3 +1,4 @@
 {
   this.objectFactory=objectFactory;
+  this.objectFactory.configure(config);
 }
