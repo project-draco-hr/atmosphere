@@ -5,7 +5,7 @@
     }
   }
   U instance=defaultType.newInstance();
-  injectAtmosphereInternalObject(instance,defaultType,framework);
+  injectAtmosphereInternalObject(instance,defaultType,config.framework());
   postConstructExecution(instance,defaultType);
   return instance;
 }
