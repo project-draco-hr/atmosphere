@@ -1,5 +1,5 @@
 {
-  if (event.isResuming() || event.isCancelled())   return;
+  if (event.isCancelled() || event.isResuming())   return;
   AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(event.getResource());
   if (r == null) {
     logger.trace("Event {} returned a null AtmosphereResource",event);
