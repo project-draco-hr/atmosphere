@@ -4,13 +4,19 @@
     logger.error("Invalid state - CometListener");
     return;
   }
+  final AsyncContext asyncContext=event.getAsyncContext();
   try {
-    p.timedout((AtmosphereRequest)event.getAsyncContext().getRequest(),(AtmosphereResponse)event.getAsyncContext().getResponse());
+    p.timedout((AtmosphereRequest)asyncContext.getRequest(),(AtmosphereResponse)asyncContext.getResponse());
   }
  catch (  ServletException ex) {
     logger.warn("onTimeout(): failed timing out comet response: " + event.getAsyncContext().getResponse(),ex);
   }
  finally {
-    event.getAsyncContext().complete();
+    try {
+      asyncContext.complete();
+    }
+ catch (    IllegalStateException ex) {
+      logger.trace("",ex);
+    }
   }
 }
