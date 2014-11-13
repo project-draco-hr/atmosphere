@@ -4,7 +4,7 @@
   }
   List<Object> result=new ArrayList<Object>();
   try {
-    HttpSession session=AtmosphereResourceFactory.getDefault().find(uuid).session();
+    HttpSession session=config.resourcesFactory().find(uuid).session();
     if (session == null) {
       logger.error(ERROR_MESSAGE);
       return result;

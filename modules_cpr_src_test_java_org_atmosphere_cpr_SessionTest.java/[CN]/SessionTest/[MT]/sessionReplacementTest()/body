@@ -4,7 +4,7 @@
   HttpServletRequest httpRequest=new NoOpsRequest();
   AtmosphereRequest request=new AtmosphereRequest.Builder().request(httpRequest).session(httpRequest.getSession(true)).build();
   AtmosphereResponse response=new AtmosphereResponse.Builder().build();
-  AtmosphereResource r=AtmosphereResourceFactory.getDefault().create(config,request,response,mock(AsyncSupport.class));
+  AtmosphereResource r=config.resourcesFactory().create(config,request,response,mock(AsyncSupport.class));
   request.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,r);
   assertNotNull(request.getSession());
   request.getSession().invalidate();

@@ -1,4 +1,3 @@
 {
   this.broadcasterFactory=broadcasterFactory;
-  factory=this;
 }

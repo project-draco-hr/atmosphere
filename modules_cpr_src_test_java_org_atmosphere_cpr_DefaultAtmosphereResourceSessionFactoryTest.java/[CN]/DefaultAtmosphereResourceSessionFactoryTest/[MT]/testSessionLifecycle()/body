@@ -1,5 +1,5 @@
 {
-  DefaultAtmosphereResourceSessionFactory factory=(DefaultAtmosphereResourceSessionFactory)AtmosphereResourceSessionFactory.getDefault();
+  DefaultAtmosphereResourceSessionFactory factory=new DefaultAtmosphereResourceSessionFactory();
   AtmosphereResourceEventListener disconnectListener=factory.getDisconnectListener();
   AtmosphereResource r1=Mockito.mock(AtmosphereResource.class);
   when(r1.uuid()).thenReturn("uuid1");

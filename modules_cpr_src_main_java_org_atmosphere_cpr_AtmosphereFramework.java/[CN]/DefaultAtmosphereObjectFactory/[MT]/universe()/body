@@ -1,0 +1,6 @@
+{
+  Universe.broadcasterFactory(broadcasterFactory);
+  Universe.resourceFactory(arFactory);
+  Universe.sessionResourceFactory(sessionFactory);
+  Universe.framework(this);
+}
