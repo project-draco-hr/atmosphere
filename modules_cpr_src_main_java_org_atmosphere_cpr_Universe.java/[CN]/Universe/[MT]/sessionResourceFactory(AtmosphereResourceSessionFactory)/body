@@ -1,6 +1,6 @@
 {
   if (sessionFactory != null) {
-    logger.warn("More than one Universe configured. Universe class will gives wrong object reference");
+    logger.warn("More than one Universe configured. Universe class will gives wrong object reference {}",a);
   }
   sessionFactory=a;
 }
