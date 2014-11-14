@@ -15,6 +15,7 @@
     if (shared) {
       config.properties().put(SCHEDULER_THREAD_POOL,scheduler);
     }
+    keepAliveThreads((ThreadPoolExecutor)scheduler,config);
     return scheduler;
   }
  else {

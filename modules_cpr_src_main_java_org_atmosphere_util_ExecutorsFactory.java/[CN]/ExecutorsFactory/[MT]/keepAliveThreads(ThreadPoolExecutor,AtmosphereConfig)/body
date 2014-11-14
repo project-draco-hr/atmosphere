@@ -5,4 +5,5 @@
     keepAlive=Integer.parseInt(s);
   }
   e.setKeepAliveTime(keepAlive,TimeUnit.SECONDS);
+  e.allowCoreThreadTimeOut(config.getInitParameter(ApplicationConfig.ALLOW_CORE_THREAD_TIMEOUT,true));
 }
