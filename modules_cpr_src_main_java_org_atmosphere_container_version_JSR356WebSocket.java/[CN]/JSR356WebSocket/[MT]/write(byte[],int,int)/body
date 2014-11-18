@@ -6,11 +6,9 @@
   }
  catch (  NullPointerException e) {
     patchGlassFish(e);
-    semaphore.release();
   }
-catch (  IllegalStateException e) {
+ finally {
     semaphore.release();
-    throw e;
   }
   return this;
 }

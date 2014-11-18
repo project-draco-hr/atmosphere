@@ -1,16 +1,13 @@
 {
   try {
-    try {
-      semaphore.acquireUninterruptibly();
-      session.getAsyncRemote().sendText(s,new WriteResult(resource(),s));
-    }
- catch (    IllegalStateException e) {
-      semaphore.release();
-      throw e;
-    }
+    semaphore.acquireUninterruptibly();
+    session.getAsyncRemote().sendText(s,new WriteResult(resource(),s));
   }
  catch (  NullPointerException e) {
     patchGlassFish(e);
+  }
+ finally {
+    semaphore.release();
   }
   return this;
 }
