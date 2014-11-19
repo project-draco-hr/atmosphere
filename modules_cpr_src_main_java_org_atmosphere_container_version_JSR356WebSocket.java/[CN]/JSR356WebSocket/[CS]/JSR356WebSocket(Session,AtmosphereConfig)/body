@@ -1,8 +1,5 @@
 {
   super(config);
   this.session=session;
-  String s=config.getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME);
-  if (s != null) {
-    session.getAsyncRemote().setSendTimeout(Integer.valueOf(s));
-  }
+  session.getAsyncRemote().setSendTimeout(config.getInitParameter(ApplicationConfig.WEBSOCKET_IDLETIME,10 * 1000));
 }
