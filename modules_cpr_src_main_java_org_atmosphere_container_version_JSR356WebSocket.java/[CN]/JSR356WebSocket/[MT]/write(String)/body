@@ -5,9 +5,11 @@
   }
  catch (  NullPointerException e) {
     patchGlassFish(e);
-  }
- finally {
     semaphore.release();
+  }
+catch (  RuntimeException e) {
+    semaphore.release();
+    throw e;
   }
   return this;
 }
