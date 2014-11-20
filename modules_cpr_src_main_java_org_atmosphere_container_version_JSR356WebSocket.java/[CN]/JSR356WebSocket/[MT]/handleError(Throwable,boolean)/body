@@ -1,0 +1,17 @@
+{
+  if (acquired) {
+    semaphore.release();
+  }
+  if (e instanceof NullPointerException) {
+    patchGlassFish((NullPointerException)e);
+    return;
+  }
+  if (e instanceof InterruptedException) {
+    logger.info("Writing to the socket {} was interrupted",session.getId());
+    return;
+  }
+  if (e instanceof RuntimeException) {
+    throw (RuntimeException)e;
+  }
+  throw new RuntimeException("Unexpected error while writing to socket",e);
+}

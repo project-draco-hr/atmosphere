@@ -1,5 +1,6 @@
 {
   super(config);
   this.session=session;
-  session.getAsyncRemote().setSendTimeout(config.getInitParameter(ApplicationConfig.WEBSOCKET_WRITE_TIMEOUT,60 * 1000));
+  this.writeTimeout=config.getInitParameter(ApplicationConfig.WEBSOCKET_WRITE_TIMEOUT,60 * 1000);
+  session.getAsyncRemote().setSendTimeout(writeTimeout);
 }

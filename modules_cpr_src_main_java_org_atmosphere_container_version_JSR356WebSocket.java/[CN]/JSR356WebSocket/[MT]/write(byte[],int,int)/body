@@ -1,16 +1,17 @@
 {
+  boolean acquired=false;
   try {
-    semaphore.acquireUninterruptibly();
-    ByteBuffer b=ByteBuffer.wrap(data,offset,length);
-    session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length),new WriteResult(resource(),b.array()));
+    acquired=semaphore.tryAcquire(writeTimeout,TimeUnit.MILLISECONDS);
+    if (acquired) {
+      ByteBuffer b=ByteBuffer.wrap(data,offset,length);
+      session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length),new WriteResult(resource(),b.array()));
+    }
+ else {
+      logger.warn("Timeout while waiting until socket is available, message will be lost");
+    }
   }
- catch (  NullPointerException e) {
-    patchGlassFish(e);
-    semaphore.release();
-  }
-catch (  RuntimeException e) {
-    semaphore.release();
-    throw e;
+ catch (  Throwable e) {
+    handleError(e,acquired);
   }
   return this;
 }
