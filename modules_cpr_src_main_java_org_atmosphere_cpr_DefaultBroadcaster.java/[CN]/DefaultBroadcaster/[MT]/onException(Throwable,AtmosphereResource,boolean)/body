@@ -1,8 +1,8 @@
 {
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(ar);
-  logger.trace("Unexpected exception for AtmosphereResource {} and Broadcaster {}",ar.uuid(),getID());
+  logger.warn("Unexpected exception for AtmosphereResource {} and Broadcaster {}",ar.uuid(),getID());
+  logger.warn("{}",t);
   logger.trace("NotifyAndCache {} ",notifyAndCache);
-  logger.trace("{}",t);
   removeAtmosphereResource(r);
   if (notifyAndCache) {
     final AtmosphereResourceEventImpl event=r.getAtmosphereResourceEvent();
