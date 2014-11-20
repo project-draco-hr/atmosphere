@@ -31,7 +31,7 @@
           }
  else {
             logger.warn("This message {} will be lost",msg);
-            logger.debug("Failed to submit broadcast handler runnable to for Broadcaster {}",getID(),ex);
+            logger.warn("Failed to submit broadcast handler runnable to for Broadcaster" + getID(),ex);
           }
         }
  finally {
