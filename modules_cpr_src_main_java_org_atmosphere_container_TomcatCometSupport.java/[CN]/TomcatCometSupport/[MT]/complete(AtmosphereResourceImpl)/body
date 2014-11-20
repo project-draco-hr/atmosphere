@@ -1,16 +1,16 @@
 {
-  try {
-    CometEvent event=(CometEvent)r.getRequest(false).getAttribute(COMET_EVENT);
-    if (event == null)     return this;
-    try {
-      event.close();
+  final CometEvent event=(CometEvent)r.getRequest(false).getAttribute(COMET_EVENT);
+  if (event == null)   return this;
+  if (!r.isResumed()) {
+    ExecutorsFactory.getScheduler(config).schedule(new Runnable(){
+      @Override public void run(){
+        close(event);
+      }
     }
- catch (    IllegalStateException ex) {
-      logger.trace("event.close",ex);
-    }
+,500,TimeUnit.MILLISECONDS);
   }
- catch (  IOException ex) {
-    logger.debug("action failed",ex);
+ else {
+    close(event);
   }
   return this;
 }

@@ -1,12 +1,17 @@
 {
-  try {
-    HttpEvent event=(HttpEvent)r.getRequest(false).getAttribute(HTTP_EVENT);
-    if (event != null) {
-      event.close();
+  final HttpEvent event=(HttpEvent)r.getRequest(false).getAttribute(HTTP_EVENT);
+  if (event != null) {
+    if (!r.isResumed()) {
+      ExecutorsFactory.getScheduler(config).schedule(new Runnable(){
+        @Override public void run(){
+          close(event);
+        }
+      }
+,500,TimeUnit.MILLISECONDS);
     }
-  }
- catch (  IOException ex) {
-    logger.debug("",ex);
+ else {
+      close(event);
+    }
   }
   return this;
 }

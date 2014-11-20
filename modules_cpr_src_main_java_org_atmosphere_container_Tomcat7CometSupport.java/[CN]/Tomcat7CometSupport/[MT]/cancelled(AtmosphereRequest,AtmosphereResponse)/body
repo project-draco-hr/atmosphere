@@ -3,7 +3,7 @@
   if (req.getAttribute(MAX_INACTIVE) != null && Long.class.cast(req.getAttribute(MAX_INACTIVE)) == -1) {
     CometEvent event=(CometEvent)req.getAttribute(COMET_EVENT);
     if (event == null)     return action;
-    bz51881(event);
+    bz51881(event,false);
   }
   return action;
 }

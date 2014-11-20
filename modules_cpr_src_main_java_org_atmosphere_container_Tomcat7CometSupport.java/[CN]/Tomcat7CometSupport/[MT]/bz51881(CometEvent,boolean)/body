@@ -26,12 +26,7 @@
         logger.trace("Was unable to recycle internal Tomcat object");
       }
  finally {
-        try {
-          event.close();
-        }
- catch (        IllegalStateException e) {
-          logger.trace("",e);
-        }
+        close(event);
       }
       try {
         ResponseFacade response=ResponseFacade.class.cast(event.getHttpServletResponse());
@@ -45,21 +40,21 @@
       }
     }
  else {
-      try {
-        event.close();
+      if (delay) {
+        ExecutorsFactory.getScheduler(config).schedule(new Runnable(){
+          @Override public void run(){
+            close(event);
+          }
+        }
+,500,TimeUnit.MILLISECONDS);
       }
- catch (      IllegalStateException ex) {
-        logger.trace("event.close",ex);
+ else {
+        close(event);
       }
     }
   }
  catch (  NumberFormatException ex) {
     logger.trace("This is a mofified version of Tomcat {}",config.getServletContext().getServerInfo().substring(14).split("\\."));
-    try {
-      event.close();
-    }
- catch (    IllegalStateException e) {
-      logger.trace("event.close",e);
-    }
+    close(event);
   }
 }

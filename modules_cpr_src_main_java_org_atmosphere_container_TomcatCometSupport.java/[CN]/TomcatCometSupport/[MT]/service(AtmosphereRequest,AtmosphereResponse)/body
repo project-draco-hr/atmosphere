@@ -22,12 +22,7 @@
       req.setAttribute(SUSPENDED,true);
     }
  else {
-      try {
-        event.close();
-      }
- catch (      IllegalStateException ex) {
-        logger.trace("event.close",ex);
-      }
+      close(event);
     }
   }
  else   if (event.getEventType() == EventType.READ) {
@@ -37,29 +32,14 @@
       req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
-    try {
-      event.close();
-    }
- catch (    IllegalStateException ex) {
-      logger.trace("event.close",ex);
-    }
+    close(event);
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.TIMEOUT) {
     action=timedout(req,res);
-    try {
-      event.close();
-    }
- catch (    IllegalStateException ex) {
-      logger.trace("event.close",ex);
-    }
+    close(event);
   }
  else   if (event.getEventType() == EventType.ERROR) {
-    try {
-      event.close();
-    }
- catch (    IllegalStateException ex) {
-      logger.trace("event.close",ex);
-    }
+    close(event);
   }
  else   if (event.getEventType() == EventType.END) {
     if (req.resource() != null && req.resource().isResumed()) {
@@ -70,12 +50,7 @@
       action=cancelled(req,res);
     }
  else {
-      try {
-        event.close();
-      }
- catch (      IllegalStateException ex) {
-        logger.trace("event.close",ex);
-      }
+      close(event);
     }
   }
   return action;

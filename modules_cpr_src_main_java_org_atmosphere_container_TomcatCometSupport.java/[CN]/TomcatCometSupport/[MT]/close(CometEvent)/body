@@ -1,0 +1,8 @@
+{
+  try {
+    event.close();
+  }
+ catch (  Exception ex) {
+    logger.trace("event.close",ex);
+  }
+}

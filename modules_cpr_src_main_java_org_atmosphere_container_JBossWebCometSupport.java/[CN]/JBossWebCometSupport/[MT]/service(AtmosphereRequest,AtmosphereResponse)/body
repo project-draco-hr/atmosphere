@@ -25,10 +25,10 @@
       }
     }
  else     if (action.type() == Action.TYPE.RESUME) {
-      event.close();
+      close(event);
     }
  else {
-      event.close();
+      close(event);
     }
   }
  else   if (event.getType() == HttpEvent.EventType.READ) {
@@ -43,12 +43,12 @@
       action=cancelled(req,res);
     }
  else {
-      event.close();
+      close(event);
     }
   }
  else   if (event.getType() == HttpEvent.EventType.TIMEOUT) {
     action=timedout(req,res);
-    event.close();
+    close(event);
   }
   return action;
 }

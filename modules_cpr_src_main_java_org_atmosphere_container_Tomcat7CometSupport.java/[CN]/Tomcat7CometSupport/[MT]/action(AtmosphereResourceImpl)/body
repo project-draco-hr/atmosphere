@@ -1,6 +1,9 @@
 {
   super.action(r);
   if (r.action().type() == Action.TYPE.RESUME && r.isInScope()) {
-    complete(r);
+    CometEvent event=(CometEvent)r.getRequest(false).getAttribute(COMET_EVENT);
+    if (event != null && !r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
+      close(event);
+    }
   }
 }

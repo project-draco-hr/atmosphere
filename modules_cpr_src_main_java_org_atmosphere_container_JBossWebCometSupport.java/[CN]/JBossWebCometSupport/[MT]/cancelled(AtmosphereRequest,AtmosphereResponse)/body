@@ -5,7 +5,7 @@
     if (event == null) {
       return action;
     }
-    event.close();
+    close(event);
   }
   return action;
 }

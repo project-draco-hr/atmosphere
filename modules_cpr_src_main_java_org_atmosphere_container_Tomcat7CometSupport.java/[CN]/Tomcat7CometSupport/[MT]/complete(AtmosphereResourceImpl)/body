@@ -3,7 +3,7 @@
     CometEvent event=(CometEvent)r.getRequest(false).getAttribute(COMET_EVENT);
     if (event == null)     return this;
     if (!r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
-      bz51881(event);
+      bz51881(event,!r.isResumed());
     }
   }
  catch (  IOException ex) {
