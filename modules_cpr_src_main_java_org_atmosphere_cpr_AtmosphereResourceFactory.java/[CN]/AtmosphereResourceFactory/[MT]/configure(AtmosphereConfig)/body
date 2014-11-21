@@ -1,0 +1,3 @@
+{
+  this.broadcasterFactory=config.getBroadcasterFactory();
+}
