@@ -1,0 +1,14 @@
+{
+  doAnswer(new Answer<Void>(){
+    @Override public Void answer(    final InvocationOnMock invocationOnMock) throws Throwable {
+      new Thread(){
+        @Override public void run(){
+          ((SendHandler)invocationOnMock.getArguments()[1]).onResult(sendResult);
+        }
+      }
+.start();
+      return null;
+    }
+  }
+).when(asyncRemoteEndpoint).sendText(anyString(),any(SendHandler.class));
+}

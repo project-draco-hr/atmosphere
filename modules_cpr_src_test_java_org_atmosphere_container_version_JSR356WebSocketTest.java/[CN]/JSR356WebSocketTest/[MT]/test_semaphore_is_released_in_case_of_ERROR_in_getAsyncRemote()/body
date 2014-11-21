@@ -1,0 +1,6 @@
+{
+  when(session.getAsyncRemote()).thenThrow(new Error("Unexpected error")).thenReturn(asyncRemoteEndpoint);
+  webSocket.write("Hello1");
+  webSocket.write("Hello2");
+  verify(asyncRemoteEndpoint).sendText(eq("Hello2"),any(SendHandler.class));
+}

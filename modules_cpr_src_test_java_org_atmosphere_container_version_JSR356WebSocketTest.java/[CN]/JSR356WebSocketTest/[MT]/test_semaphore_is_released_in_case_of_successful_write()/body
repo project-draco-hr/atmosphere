@@ -1,0 +1,6 @@
+{
+  mockWriteResult(new SendResult());
+  webSocket.write("Hello");
+  webSocket.write("Hello");
+  verify(asyncRemoteEndpoint,times(2)).sendText(eq("Hello"),any(SendHandler.class));
+}
