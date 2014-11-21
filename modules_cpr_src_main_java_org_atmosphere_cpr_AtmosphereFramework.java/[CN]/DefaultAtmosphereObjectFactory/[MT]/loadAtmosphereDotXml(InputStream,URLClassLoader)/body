@@ -45,7 +45,8 @@
           broadcasterClassName=broadcasterClass;
           ClassLoader cl=Thread.currentThread().getContextClassLoader();
           Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)cl.loadClass(broadcasterClassName);
-          broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
+          broadcasterFactory=newClassInstance(BroadcasterFactory.class,DefaultBroadcasterFactory.class);
+          broadcasterFactory.configure(bc,broadcasterLifeCyclePolicy,config);
         }
         b=broadcasterFactory.lookup(atmoHandler.getContextRoot(),true);
         AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler,b);

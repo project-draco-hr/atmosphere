@@ -1,0 +1,3 @@
+{
+  _get().configure(clazz,broadcasterLifeCyclePolicy,c);
+}

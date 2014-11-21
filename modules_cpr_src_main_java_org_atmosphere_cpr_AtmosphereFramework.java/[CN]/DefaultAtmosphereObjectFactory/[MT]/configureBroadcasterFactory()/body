@@ -8,7 +8,8 @@
     }
     if (broadcasterFactory == null) {
       Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)IOUtils.loadClass(getClass(),broadcasterClassName);
-      broadcasterFactory=new DefaultBroadcasterFactory(bc,broadcasterLifeCyclePolicy,config);
+      broadcasterFactory=newClassInstance(BroadcasterFactory.class,DefaultBroadcasterFactory.class);
+      broadcasterFactory.configure(bc,broadcasterLifeCyclePolicy,config);
     }
     for (    BroadcasterListener b : broadcasterListeners) {
       broadcasterFactory.addBroadcasterListener(b);

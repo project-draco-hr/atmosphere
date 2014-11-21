@@ -1,0 +1,5 @@
+{
+  this.clazz=clazz;
+  config=c;
+  configure(broadcasterLifeCyclePolicy);
+}
