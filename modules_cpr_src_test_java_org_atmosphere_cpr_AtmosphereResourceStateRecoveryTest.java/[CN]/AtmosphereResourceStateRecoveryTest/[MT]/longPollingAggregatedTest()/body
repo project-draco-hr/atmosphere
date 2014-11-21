@@ -13,7 +13,7 @@
   config.getBroadcasterFactory().lookup("/3",true).addAtmosphereResource(r);
   config.getBroadcasterFactory().lookup("/4",true).addAtmosphereResource(r);
   r.suspend();
-  MetaBroadcaster.getDefault().broadcastTo("/1","Initialize Cache").get();
+  config.metaBroadcaster().broadcastTo("/1","Initialize Cache").get();
   r.close();
   AtmosphereResourceImpl r2=(AtmosphereResourceImpl)config.resourcesFactory().create(config,"1234567");
   r2.setBroadcaster(config.getBroadcasterFactory().lookup("/*",true));

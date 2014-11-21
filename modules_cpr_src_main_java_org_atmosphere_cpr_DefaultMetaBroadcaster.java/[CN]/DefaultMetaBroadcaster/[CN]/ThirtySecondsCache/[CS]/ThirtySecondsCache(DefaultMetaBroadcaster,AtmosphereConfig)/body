@@ -1,4 +1,4 @@
 {
-  this.metaBroadcaster=metaBroadcaster;
+  this.defaultMetaBroadcaster=metaBroadcaster;
   ExecutorsFactory.getScheduler(config).scheduleAtFixedRate(this,0,30,TimeUnit.SECONDS);
 }

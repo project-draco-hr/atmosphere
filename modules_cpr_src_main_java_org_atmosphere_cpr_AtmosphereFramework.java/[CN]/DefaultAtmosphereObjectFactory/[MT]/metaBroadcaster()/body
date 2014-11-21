@@ -1,6 +1,3 @@
 {
-  if (metaBroadcaster == null) {
-    metaBroadcaster=new MetaBroadcaster(config);
-  }
   return metaBroadcaster;
 }

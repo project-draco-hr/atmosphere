@@ -1,5 +1,13 @@
 {
-  if (metaBroadcaster == null) {
+  try {
+    metaBroadcaster=newClassInstance(MetaBroadcaster.class,DefaultMetaBroadcaster.class);
+    metaBroadcaster.configure(config);
+  }
+ catch (  InstantiationException e) {
+    logger.error("",e);
+  }
+catch (  IllegalAccessException e) {
+    logger.error("",e);
   }
   return this;
 }

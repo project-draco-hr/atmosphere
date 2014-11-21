@@ -1,6 +1,14 @@
 {
   if (sessionFactory == null) {
-    sessionFactory=new DefaultAtmosphereResourceSessionFactory();
+    try {
+      sessionFactory=newClassInstance(AtmosphereResourceSessionFactory.class,DefaultAtmosphereResourceSessionFactory.class);
+    }
+ catch (    InstantiationException e) {
+      logger.error("",e);
+    }
+catch (    IllegalAccessException e) {
+      logger.error("",e);
+    }
   }
   return sessionFactory;
 }

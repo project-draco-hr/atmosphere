@@ -53,6 +53,7 @@
     configureObjectFactory();
     configureAnnotationPackages();
     configureBroadcasterFactory();
+    configureMetaBroadcaster();
     configureScanningPackage(scFacade,ApplicationConfig.ANNOTATION_PACKAGE);
     configureScanningPackage(scFacade,FrameworkConfig.JERSEY2_SCANNING_PACKAGE);
     configureScanningPackage(scFacade,FrameworkConfig.JERSEY_SCANNING_PACKAGE);
@@ -60,7 +61,6 @@
     installAnnotationProcessor(scFacade);
     autoConfigureService(scFacade.getServletContext());
     configureBroadcasterFactory();
-    configureMetaBroadcaster();
     patchContainer();
     configureBroadcaster();
     loadConfiguration(scFacade);
