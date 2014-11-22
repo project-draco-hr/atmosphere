@@ -1,5 +1,5 @@
 {
-  if (webSocket.isOpen()) {
+  if (!webSocket.isOpen()) {
     logger.trace("Already closed {}",webSocket);
     return;
   }
