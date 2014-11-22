@@ -32,7 +32,7 @@
             }
  else {
               try {
-                List<org.jboss.vfs.VirtualFile> vfs=org.jboss.vfs.VFS.getChild(dir.getPath()).getChildren();
+                List<org.jboss.vfs.VirtualFile> vfs=getVfsChildren(org.jboss.vfs.VFS.getChild(dir.getPath()));
                 for (                org.jboss.vfs.VirtualFile f : vfs) {
                   files.add(f.getPhysicalFile());
                 }

@@ -1,0 +1,12 @@
+{
+  final List<org.jboss.vfs.VirtualFile> retval=new ArrayList<org.jboss.vfs.VirtualFile>();
+  for (  org.jboss.vfs.VirtualFile f : vfs.getChildren()) {
+    if (f.isDirectory()) {
+      retval.addAll(getVfsChildren(org.jboss.vfs.VFS.getChild(vfs.getPathName() + File.separator + f.getName())));
+    }
+ else {
+      retval.add(f);
+    }
+  }
+  return retval;
+}
