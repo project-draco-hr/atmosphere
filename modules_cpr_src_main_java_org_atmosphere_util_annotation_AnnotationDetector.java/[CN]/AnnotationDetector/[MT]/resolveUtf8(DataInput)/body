@@ -4,15 +4,11 @@
   final String s;
   if (value instanceof Integer) {
     s=(String)constantPool[(Integer)value];
-    if (DEBUG) {
-      print("resolveUtf8(%d): %d --> %s",index,value,s);
-    }
+    print("resolveUtf8(%d): %d --> %s",index,value,s);
   }
  else {
     s=(String)value;
-    if (DEBUG) {
-      print("resolveUtf8(%d): %s",index,s);
-    }
+    print("resolveUtf8(%d): %s",index,s);
   }
   return s;
 }

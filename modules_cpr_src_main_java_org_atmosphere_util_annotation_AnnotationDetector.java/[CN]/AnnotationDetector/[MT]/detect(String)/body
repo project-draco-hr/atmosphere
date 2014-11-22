@@ -18,7 +18,7 @@
         final File dir=toFile(url);
         if (dir.isDirectory()) {
           files.add(dir);
-          if (DEBUG)           print("Add directory: '%s'",dir);
+          print("Add directory: '%s'",dir);
         }
  else         if (isVfs) {
           String jarPath=dir.getPath();
@@ -28,7 +28,7 @@
             final File jarFile=new File(jarPath);
             if (jarFile.isFile() && jarFile.exists()) {
               files.add(jarFile);
-              if (DEBUG)               print("Add jar file from VFS: '%s'",jarFile);
+              print("Add jar file from VFS: '%s'",jarFile);
             }
  else {
               try {
@@ -79,7 +79,7 @@
         try {
           if (jarFile.isFile()) {
             files.add(jarFile);
-            if (DEBUG)             print("Add jar file: '%s'",jarFile);
+            print("Add jar file: '%s'",jarFile);
           }
  else {
             final URLConnection urlConnection=url.openConnection();

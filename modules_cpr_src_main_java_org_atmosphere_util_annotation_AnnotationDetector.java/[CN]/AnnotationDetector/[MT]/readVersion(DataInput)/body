@@ -1,5 +1,5 @@
 {
-  if (DEBUG) {
+  if (logger.isDebugEnabled()) {
     print("Java Class version %2$d.%1$d",di.readUnsignedShort(),di.readUnsignedShort());
   }
  else {
