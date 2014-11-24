@@ -1,7 +1,0 @@
-{
-  Class<Serializer> serializerClass=config.framework().getDefaultSerializerClass();
-  if (serializerClass != null) {
-    Serializer serializer=config.framework().newClassInstance(Serializer.class,serializerClass);
-    r.setSerializer(serializer);
-  }
-}

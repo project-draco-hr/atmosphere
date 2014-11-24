@@ -1,3 +1,0 @@
-{
-  return create(config,broadcaster,response.request(),response,a,handler,t);
-}

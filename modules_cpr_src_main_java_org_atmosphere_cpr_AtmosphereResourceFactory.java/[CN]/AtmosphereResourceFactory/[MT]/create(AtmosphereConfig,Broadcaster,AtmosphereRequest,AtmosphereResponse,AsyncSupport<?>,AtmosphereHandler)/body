@@ -1,3 +1,0 @@
-{
-  return create(config,broadcaster,request,response,a,handler,AtmosphereResource.TRANSPORT.UNDEFINED);
-}
