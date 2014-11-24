@@ -1,7 +1,6 @@
 AtmosphereConfig config
 Broadcaster broadcaster
-DefaultAtmosphereRequest request
+AtmosphereRequest request
 AtmosphereResponse response
 AsyncSupport<?> a
 AtmosphereHandler handler
-AtmosphereResource.TRANSPORT t

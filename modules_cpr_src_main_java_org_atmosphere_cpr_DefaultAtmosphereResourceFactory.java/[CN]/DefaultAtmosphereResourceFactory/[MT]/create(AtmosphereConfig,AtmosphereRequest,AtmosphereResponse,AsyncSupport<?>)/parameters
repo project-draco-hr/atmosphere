@@ -1,4 +1,4 @@
 AtmosphereConfig config
-DefaultAtmosphereRequest request
+AtmosphereRequest request
 AtmosphereResponse response
 AsyncSupport<?> a
