@@ -1,0 +1,5 @@
+{
+  AtmosphereResponse response=AtmosphereResponse.newInstance();
+  response.setHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID,uuid);
+  return create(config,noOps,DefaultAtmosphereRequest.newInstance(),response,config.framework().getAsyncSupport(),noOpsHandler);
+}

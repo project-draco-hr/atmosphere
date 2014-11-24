@@ -1,0 +1,12 @@
+{
+  Collection<Broadcaster> l=broadcasterFactory.lookupAll();
+  Set<Broadcaster> h=new HashSet<Broadcaster>();
+  for (  Broadcaster b : l) {
+    for (    AtmosphereResource r : b.getAtmosphereResources()) {
+      if (r.uuid().equalsIgnoreCase(uuid)) {
+        h.add(b);
+      }
+    }
+  }
+  return h;
+}

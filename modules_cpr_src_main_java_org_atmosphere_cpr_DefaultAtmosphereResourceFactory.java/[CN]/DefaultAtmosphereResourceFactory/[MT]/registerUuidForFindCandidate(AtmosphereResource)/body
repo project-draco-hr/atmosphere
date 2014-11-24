@@ -1,0 +1,4 @@
+{
+  logger.trace("Adding: {}",r);
+  resources.put(r.uuid(),r);
+}

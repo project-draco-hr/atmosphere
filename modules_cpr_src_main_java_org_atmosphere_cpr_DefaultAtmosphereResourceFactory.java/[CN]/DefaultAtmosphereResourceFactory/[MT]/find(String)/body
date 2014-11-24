@@ -1,0 +1,4 @@
+{
+  if (uuid == null)   return null;
+  return resources.get(uuid);
+}
