@@ -18,6 +18,6 @@
       }
       logMessage=String.format(message,args);
     }
-    logger.debug(logMessage);
+    logger.trace(logMessage);
   }
 }
