@@ -4,5 +4,5 @@
   assertNotNull(r.get());
   r.get().resume();
   assertNotNull(message.get());
-  assertEquals(message.get(),framework.sessionFactory().toString());
+  assertEquals(message.get(),framework.metaBroadcaster().toString());
 }
