@@ -1,4 +1,7 @@
 {
+  if (!isOpen()) {
+    throw new IOException("Socket closed {}");
+  }
   boolean acquired=false;
   try {
     acquired=semaphore.tryAcquire(writeTimeout,TimeUnit.MILLISECONDS);
@@ -7,10 +10,13 @@
       session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length),new WriteResult(resource(),b.array()));
     }
  else {
-      logger.warn("Timeout while waiting until socket is available, message will be lost");
+      throw new IOException("Socket closed");
     }
   }
  catch (  Throwable e) {
+    if (IOException.class.isAssignableFrom(e.getClass())) {
+      throw IOException.class.cast(e);
+    }
     handleError(e,acquired);
   }
   return this;

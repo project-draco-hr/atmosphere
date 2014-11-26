@@ -6,10 +6,6 @@
     patchGlassFish((NullPointerException)e);
     return;
   }
-  if (e instanceof InterruptedException) {
-    logger.info("Writing to the socket {} was interrupted",session.getId());
-    return;
-  }
   if (e instanceof RuntimeException) {
     throw (RuntimeException)e;
   }
