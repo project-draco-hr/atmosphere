@@ -1,0 +1,4 @@
+{
+  this.arFactory=arFactory;
+  this.arFactory.configure(config);
+}

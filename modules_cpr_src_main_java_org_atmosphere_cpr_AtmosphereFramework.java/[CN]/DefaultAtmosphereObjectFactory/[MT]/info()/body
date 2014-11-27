@@ -34,6 +34,7 @@
     }
   }
   logger.info("Using BroadcasterFactory: {}",broadcasterFactory.getClass().getName());
+  logger.info("Using AtmosphereResurceFactory: {}",arFactory.getClass().getName());
   logger.info("Using WebSocketProcessor: {}",webSocketProcessorClassName);
   if (defaultSerializerClassName != null && !defaultSerializerClassName.isEmpty()) {
     logger.info("Using Serializer: {}",defaultSerializerClassName);

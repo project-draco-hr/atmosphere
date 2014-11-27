@@ -14,7 +14,6 @@
     for (    BroadcasterListener b : broadcasterListeners) {
       broadcasterFactory.addBroadcasterListener(b);
     }
-    configureAtmosphereResourceFactory();
   }
  catch (  Exception ex) {
     logger.error("Unable to configure Broadcaster/Factory/Cache",ex);

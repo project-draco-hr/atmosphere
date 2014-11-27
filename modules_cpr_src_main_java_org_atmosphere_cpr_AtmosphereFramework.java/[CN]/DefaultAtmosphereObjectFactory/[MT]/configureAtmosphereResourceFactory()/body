@@ -1,4 +1,5 @@
 {
+  if (arFactory != null)   return this;
   try {
     arFactory=newClassInstance(AtmosphereResourceFactory.class,DefaultAtmosphereResourceFactory.class);
   }
