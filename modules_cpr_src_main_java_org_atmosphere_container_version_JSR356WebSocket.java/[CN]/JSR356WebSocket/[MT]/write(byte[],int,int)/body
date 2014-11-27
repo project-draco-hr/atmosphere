@@ -7,7 +7,7 @@
     acquired=semaphore.tryAcquire(writeTimeout,TimeUnit.MILLISECONDS);
     if (acquired) {
       ByteBuffer b=ByteBuffer.wrap(data,offset,length);
-      session.getAsyncRemote().sendBinary(ByteBuffer.wrap(data,offset,length),new WriteResult(resource(),b.array()));
+      session.getAsyncRemote().sendBinary(b,new WriteResult(resource(),b.array()));
     }
  else {
       throw new IOException("Socket closed");
