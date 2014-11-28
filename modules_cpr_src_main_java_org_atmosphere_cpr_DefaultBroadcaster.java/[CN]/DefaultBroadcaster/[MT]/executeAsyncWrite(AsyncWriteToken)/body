@@ -54,7 +54,10 @@
         r.notifyListeners();
       }
     }
-    entryDone(token.future);
+    if (token.lastBroadcasted()) {
+      notifyBroadcastListener();
+    }
+    if (token.future != null)     token.future.done();
     if (lostCandidate) {
       cacheLostMessage(r,token,true);
     }

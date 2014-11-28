@@ -77,12 +77,13 @@ boolean hasFilters=bc.hasPerRequestFilters();
 Object beforeProcessingMessage=deliver.message;
 switch (deliver.type) {
 case ALL:
+AtomicInteger count=new AtomicInteger(resources.size());
 for (AtmosphereResource r : resources) {
 deliver.message=beforeProcessingMessage;
 boolean deliverMessage=perRequestFilter(r,deliver);
 if (endBroadcast(deliver,deliverMessage)) continue;
 if (deliver.writeLocally) {
-queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver);
+queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver,count);
 }
 }
 break;
@@ -90,16 +91,17 @@ case RESOURCE:
 boolean deliverMessage=perRequestFilter(deliver.resource,deliver);
 if (endBroadcast(deliver,deliverMessage)) return;
 if (deliver.writeLocally) {
-queueWriteIO(deliver.resource,deliver);
+queueWriteIO(deliver.resource,deliver,new AtomicInteger(1));
 }
 break;
 case SET:
+count=new AtomicInteger(deliver.resources.size());
 for (AtmosphereResource r : deliver.resources) {
 deliver.message=beforeProcessingMessage;
 deliverMessage=perRequestFilter(r,deliver);
 if (endBroadcast(deliver,deliverMessage)) continue;
 if (deliver.writeLocally) {
-queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver);
+queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver,count);
 }
 }
 break;

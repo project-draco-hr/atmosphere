@@ -3,4 +3,5 @@
   this.msg=msg;
   this.future=future;
   this.originalMessage=originalMessage;
+  this.count=count;
 }

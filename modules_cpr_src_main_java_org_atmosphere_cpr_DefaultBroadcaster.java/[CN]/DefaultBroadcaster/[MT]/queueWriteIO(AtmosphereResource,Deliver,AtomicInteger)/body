@@ -6,7 +6,7 @@
         return;
       }
     }
-    AsyncWriteToken w=new AsyncWriteToken(r,deliver.message,deliver.future,deliver.originalMessage,deliver.cache);
+    AsyncWriteToken w=new AsyncWriteToken(r,deliver.message,deliver.future,deliver.originalMessage,deliver.cache,count);
     if (!outOfOrderBroadcastSupported.get()) {
       WriteQueue writeQueue=writeQueues.get(r.uuid());
       if (writeQueue == null) {
@@ -26,6 +26,6 @@ synchronized (writeQueue) {
     }
   }
  else {
-    executeBlockingWrite(r,deliver);
+    executeBlockingWrite(r,deliver,count);
   }
 }

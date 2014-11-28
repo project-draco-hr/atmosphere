@@ -2,4 +2,4 @@ AtmosphereResource resource
 Object msg
 BroadcasterFuture future
 Object originalMessage
-CacheMessage cache
+AtomicInteger count

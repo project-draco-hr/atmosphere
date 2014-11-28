@@ -1,5 +1,0 @@
-{
-synchronized (r) {
-    executeAsyncWrite(new AsyncWriteToken(r,deliver.message,deliver.future,deliver.originalMessage,deliver.cache));
-  }
-}
