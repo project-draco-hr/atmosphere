@@ -1,0 +1,9 @@
+{
+  if (!deliverMessage || deliver.message == null) {
+    logger.debug("Skipping broadcast delivery {} for resource {} ",deliver.message,deliver.resource != null ? deliver.resource.uuid() : "null");
+    bc.getBroadcasterCache().clearCache(getID(),deliver.resource != null ? deliver.resource.uuid() : BroadcasterCache.NULL,deliver.cache);
+    entryDone(deliver.future);
+    return true;
+  }
+  return false;
+}

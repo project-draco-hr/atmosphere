@@ -1,0 +1,5 @@
+{
+  broadcaster.getBroadcasterConfig().addFilter(new AbortFilter2());
+  broadcaster.broadcast("0").get();
+  assertEquals(atmosphereHandler.value.get().toString(),"");
+}
