@@ -1,5 +1,6 @@
 {
   if (isDestroyed.getAndSet(true))   return this;
+  onPreDestroy();
   config.destroy();
   ExecutorsFactory.reset(config);
   if (asyncSupport != null && AsynchronousProcessor.class.isAssignableFrom(asyncSupport.getClass())) {
@@ -18,5 +19,6 @@
   if (sessionFactory != null)   sessionFactory.destroy();
   WebSocketProcessorFactory.getDefault().destroy();
   resetStates();
+  onPostDestroy();
   return this;
 }

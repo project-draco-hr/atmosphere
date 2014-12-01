@@ -1,0 +1,10 @@
+{
+  for (  AtmosphereFrameworkListener l : frameworkListeners) {
+    try {
+      l.onPostInit(this);
+    }
+ catch (    Exception e) {
+      logger.error("",e);
+    }
+  }
+}

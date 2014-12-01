@@ -1,0 +1,36 @@
+{
+  AtmosphereServlet s=new MyAtmosphereServlet();
+  final AtomicInteger count=new AtomicInteger();
+  s.framework().frameworkListener(new AtmosphereFrameworkListener(){
+    @Override public void onPreInit(    AtmosphereFramework f){
+      count.incrementAndGet();
+    }
+    @Override public void onPostInit(    AtmosphereFramework f){
+      count.incrementAndGet();
+    }
+    @Override public void onPreDestroy(    AtmosphereFramework f){
+      count.incrementAndGet();
+    }
+    @Override public void onPostDestroy(    AtmosphereFramework f){
+      count.incrementAndGet();
+    }
+  }
+);
+  s.init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return null;
+    }
+  }
+);
+  s.destroy();
+  assertEquals(count.get(),4);
+}

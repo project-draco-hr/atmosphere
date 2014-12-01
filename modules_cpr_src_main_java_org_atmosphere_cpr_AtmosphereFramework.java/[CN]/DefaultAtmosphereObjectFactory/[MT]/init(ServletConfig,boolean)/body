@@ -1,5 +1,6 @@
 {
   if (isInit)   return this;
+  onPreInit();
   readSystemProperties();
   populateBroadcasterType();
   populateObjectFactoryType();
@@ -95,5 +96,6 @@
   if (WebLogicServlet30WithWebSocket.class.isAssignableFrom(asyncSupport.getClass())) {
     servletConfig.getServletContext().setAttribute(AtmosphereConfig.class.getName(),config);
   }
+  onPostInit();
   return this;
 }

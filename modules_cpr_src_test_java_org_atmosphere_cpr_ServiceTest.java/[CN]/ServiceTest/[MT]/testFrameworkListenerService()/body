@@ -1,0 +1,3 @@
+{
+  assertEquals(framework.frameworkListeners().get(0).getClass().getName(),C.class.getName());
+}

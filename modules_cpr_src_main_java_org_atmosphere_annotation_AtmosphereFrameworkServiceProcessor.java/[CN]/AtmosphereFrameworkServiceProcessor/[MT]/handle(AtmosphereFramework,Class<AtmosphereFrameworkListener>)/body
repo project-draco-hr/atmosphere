@@ -1,0 +1,8 @@
+{
+  try {
+    framework.frameworkListener(framework.newClassInstance(AtmosphereFrameworkListener.class,annotatedClass));
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}
