@@ -1,0 +1,28 @@
+{
+  ByteArrayOutputStream b=new ByteArrayOutputStream();
+  final WebSocket w=new ArrayBaseWebSocket(b);
+  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
+  final AtomicBoolean closed=new AtomicBoolean();
+  framework.addAtmosphereHandler("/*",new AtmosphereHandler(){
+    @Override public void onRequest(    final AtmosphereResource resource) throws IOException {
+      resource.addEventListener(new WebSocketEventListenerAdapter(){
+        @Override public void onClose(        WebSocketEvent event){
+          closed.set(true);
+        }
+      }
+);
+      AtmosphereResourceImpl.class.cast(resource).inClosingPhase(true);
+      AtmosphereResourceEventImpl.class.cast(resource.getAtmosphereResourceEvent()).isClosedByClient(true);
+      AsynchronousProcessor.class.cast(framework.getAsyncSupport()).completeLifecycle(resource,false);
+      processor.close(w,1005);
+    }
+    @Override public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
+    }
+    @Override public void destroy(){
+    }
+  }
+);
+  AtmosphereRequest request=new AtmosphereRequest.Builder().destroyable(false).body("yoComet").pathInfo("/a").build();
+  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  assertFalse(closed.get());
+}
