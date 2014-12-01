@@ -1,10 +1,10 @@
 {
   if (isInit)   return this;
-  onPreInit();
   readSystemProperties();
   populateBroadcasterType();
   populateObjectFactoryType();
   loadMetaService();
+  onPreInit();
   try {
     ServletConfig scFacade;
     if (wrap) {
