@@ -1,9 +1,6 @@
 {
   AtmosphereResource r=find(uuid);
-  if (uuid == null) {
-    async.notAvailable(uuid);
-  }
- else {
+  if (uuid != null) {
     async.available(r);
   }
 }
