@@ -1,9 +1,4 @@
 {
-  if (injectables.isEmpty()) {
-    for (    Class<Injectable<?>> i : defaultInjectables) {
-      injectables.add(i.newInstance());
-    }
-  }
   U instance=defaultType.newInstance();
   injectAtmosphereInternalObject(instance,defaultType,config.framework());
   postConstructExecution(instance,defaultType);

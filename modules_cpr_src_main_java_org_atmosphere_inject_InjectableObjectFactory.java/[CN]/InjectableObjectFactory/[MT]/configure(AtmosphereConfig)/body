@@ -1,3 +1,11 @@
 {
   this.config=config;
+  for (  Class<Injectable<?>> i : defaultInjectables) {
+    try {
+      injectables.add(i.newInstance());
+    }
+ catch (    Exception e) {
+      logger.error("",e);
+    }
+  }
 }
