@@ -1,5 +1,5 @@
 {
-  ServletContext sc=framework.getServletContext();
+  ServletContext sc=config.framework().getServletContext();
   Map<Class<? extends Annotation>,Set<Class<?>>> annotations=(Map<Class<? extends Annotation>,Set<Class<?>>>)sc.getAttribute(ANNOTATION_ATTRIBUTE);
   sc.removeAttribute(ANNOTATION_ATTRIBUTE);
   boolean scanForAtmosphereAnnotation=false;
@@ -10,12 +10,11 @@
  else {
     Map<Class<? extends Annotation>,Set<Class<?>>> clone=new HashMap<Class<? extends Annotation>,Set<Class<?>>>();
     clone.putAll(annotations);
-    delegate=new ServletContainerInitializerAnnotationProcessor(handler,clone,framework);
+    delegate=new ServletContainerInitializerAnnotationProcessor(handler,clone,config.framework());
   }
   logger.info("AnnotationProcessor {} being used",delegate.getClass());
   if (scanForAtmosphereAnnotation) {
-    scanForAnnotation(framework);
+    scanForAnnotation(config.framework());
   }
-  delegate.configure(framework);
-  return this;
+  delegate.configure(config.framework().getAtmosphereConfig());
 }

@@ -1,6 +1,6 @@
 {
   BytecodeBasedAnnotationProcessor b=new BytecodeBasedAnnotationProcessor(handler);
-  b.configure(framework);
+  b.configure(framework.getAtmosphereConfig());
   String path=framework.getServletContext().getRealPath(framework.getHandlersPath());
   if (path != null) {
     b.scan(new File(path)).destroy();

@@ -6,7 +6,7 @@
     @Override public void reportTypeAnnotation(    Class<? extends Annotation> annotation,    String className){
       try {
         final Class<?> discoveredClass=loadClass(getClass(),className);
-        handler.handleAnnotation(framework,annotation,discoveredClass);
+        handler.handleAnnotation(config.framework(),annotation,discoveredClass);
       }
  catch (      Exception e) {
         logger.warn("Could not load discovered class",e);
@@ -15,5 +15,4 @@
   }
 ;
   detector=new AnnotationDetector(reporter);
-  return this;
 }
