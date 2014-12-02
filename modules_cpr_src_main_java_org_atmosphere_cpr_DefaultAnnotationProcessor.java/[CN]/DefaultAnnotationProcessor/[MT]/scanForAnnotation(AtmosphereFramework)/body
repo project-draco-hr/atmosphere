@@ -12,6 +12,21 @@
     if (path != null) {
       detector.detect(new File(path));
     }
+    String pathLibs=IOUtils.realPath(f.getServletContext(),f.getLibPath());
+    if (pathLibs != null) {
+      File libFolder=new File(pathLibs);
+      File jars[]=libFolder.listFiles(new FilenameFilter(){
+        @Override public boolean accept(        File arg0,        String arg1){
+          return arg1.endsWith(".jar");
+        }
+      }
+);
+      if (jars != null) {
+        for (        File file : jars) {
+          detector.detect(file);
+        }
+      }
+    }
     if (!coreAnnotationsFound.get()) {
       fallbackToManualAnnotatedClasses(getClass(),f,handler);
     }
