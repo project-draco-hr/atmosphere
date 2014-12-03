@@ -2,19 +2,6 @@
   if (closeMessage(request) || !webSocketQueryStringPresentOrNull(request))   return false;
   boolean allowWebSocketWithoutHeaders=request.getHeader(HeaderConfig.X_ATMO_WEBSOCKET_PROXY) != null ? true : false;
   if (allowWebSocketWithoutHeaders)   return true;
-  boolean webSocketEnabled=false;
-  Enumeration<String> connection=request.getHeaders("Connection");
-  if (connection == null || !connection.hasMoreElements()) {
-    connection=request.getHeaders("connection");
-  }
-  if (connection != null && connection.hasMoreElements()) {
-    String[] e=connection.nextElement().toString().split(",");
-    for (    String upgrade : e) {
-      if (upgrade.trim().equalsIgnoreCase(WEBSOCKET_UPGRADE)) {
-        webSocketEnabled=true;
-        break;
-      }
-    }
-  }
+  boolean webSocketEnabled=rawWebSocket(request);
   return webSocketEnabled;
 }
