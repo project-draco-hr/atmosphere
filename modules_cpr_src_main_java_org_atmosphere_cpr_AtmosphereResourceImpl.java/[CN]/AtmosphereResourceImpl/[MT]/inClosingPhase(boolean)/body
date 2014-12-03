@@ -1,4 +1,0 @@
-{
-  inClosingPhase.set(inProgress);
-  return this;
-}

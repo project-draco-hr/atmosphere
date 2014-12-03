@@ -9,7 +9,6 @@
     logger.trace("Already closed {}",webSocket);
   }
  else {
-    resource.inClosingPhase(true);
     final boolean allowedToClose=allowedCloseCode(closeCode);
     final AtmosphereRequest r=resource.getRequest(false);
     final AtmosphereResponse s=resource.getResponse(false);

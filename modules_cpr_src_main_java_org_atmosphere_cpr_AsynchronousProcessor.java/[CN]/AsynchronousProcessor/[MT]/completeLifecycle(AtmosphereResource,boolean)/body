@@ -1,5 +1,5 @@
 {
-  if (r != null && !r.isCancelled() && !AtmosphereResourceImpl.class.cast(r).inClosingPhase()) {
+  if (r != null && !r.isCancelled() && !AtmosphereResourceImpl.class.cast(r).getAndSetInClosingPhase()) {
     logger.trace("Finishing lifecycle for AtmosphereResource {}",r.uuid());
     final AtmosphereResourceImpl impl=AtmosphereResourceImpl.class.cast(r);
 synchronized (impl) {
