@@ -4,7 +4,7 @@
     c=isNotNoOps() && b.request.getContextPath() != null ? b.request.getContextPath() : b.contextPath != null ? b.contextPath : "";
   }
  catch (  NullPointerException ex) {
-    logger.trace("Unexpected getContextPath exception. Forcing `/`",ex);
+    logger.debug("Unexpected getContextPath exception. Forcing `/`",ex);
   }
   return c;
 }
