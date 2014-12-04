@@ -3,11 +3,6 @@
   if ((force || !shared) && broadcasterCache != null) {
     broadcasterCache.stop();
   }
-  for (  BroadcastFilter f : filters) {
-    if (f instanceof BroadcastFilterLifecycle) {
-      ((BroadcastFilterLifecycle)f).destroy();
-    }
-  }
   removeAllFilters();
   if (!force && !handleExecutors)   return;
   if ((force || !isExecutorShared) && executorService != null) {
