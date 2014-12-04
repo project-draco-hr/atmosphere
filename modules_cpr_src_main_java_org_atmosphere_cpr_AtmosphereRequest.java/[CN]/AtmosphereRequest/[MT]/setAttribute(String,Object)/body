@@ -5,6 +5,11 @@
   }
   b.localAttributes.put(s,o);
   if (isNotNoOps()) {
-    b.request.setAttribute(s,o);
+    try {
+      b.request.setAttribute(s,o);
+    }
+ catch (    NullPointerException ex) {
+      logger.warn("",ex);
+    }
   }
 }
