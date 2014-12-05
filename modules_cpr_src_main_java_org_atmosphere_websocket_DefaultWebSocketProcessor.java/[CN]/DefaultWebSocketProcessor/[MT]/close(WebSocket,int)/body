@@ -1,8 +1,4 @@
 {
-  if (!webSocket.isOpen()) {
-    logger.trace("Already closed {}",webSocket);
-    return;
-  }
   WebSocketHandler webSocketHandler=webSocket.webSocketHandler();
   final AtmosphereResourceImpl resource=(AtmosphereResourceImpl)webSocket.resource();
   if (resource == null) {
