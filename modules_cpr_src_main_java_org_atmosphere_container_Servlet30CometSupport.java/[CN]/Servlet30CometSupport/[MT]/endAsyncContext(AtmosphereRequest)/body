@@ -12,5 +12,8 @@
       }
       ;
     }
+ finally {
+      request.removeAttribute(FrameworkConfig.ASYNC_CONTEXT);
+    }
   }
 }

@@ -5,8 +5,8 @@
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
   final boolean willBeResumed=Utils.resumableTransport(r.transport());
   List<AtmosphereResourceEventListener> listeners=willBeResumed ? new ArrayList() : EMPTY_LISTENERS;
+  final AtmosphereRequest request=r.getRequest(false);
   try {
-    final AtmosphereRequest request=r.getRequest(false);
     event.setMessage(token.msg);
     if (!isAtmosphereResourceValid(r)) {
       logger.trace("AtmosphereResource {} state is invalid for Broadcaster {}. Message will be cached",r.uuid(),name);
@@ -58,10 +58,11 @@
       notifyBroadcastListener();
     }
     if (token.future != null)     token.future.done();
-    r.getRequest().setAttribute(getID(),null);
     if (lostCandidate) {
       cacheLostMessage(r,token,true);
     }
+    request.removeAttribute(getID());
+    request.removeAttribute(ASYNC_TOKEN);
     token.destroy();
   }
 }
