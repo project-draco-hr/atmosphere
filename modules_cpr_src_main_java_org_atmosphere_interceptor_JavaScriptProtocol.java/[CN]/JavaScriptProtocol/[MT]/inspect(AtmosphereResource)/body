@@ -35,11 +35,14 @@
         break;
       }
     }
-    final StringBuffer message=new StringBuffer(r.uuid()).append(wsDelimiter);
+    String message;
     if (enforceAtmosphereVersion) {
-      message.append(heartbeatInterval).append(wsDelimiter).append(heartbeatData).append(wsDelimiter);
+      message=r.uuid() + wsDelimiter + heartbeatInterval+ wsDelimiter+ heartbeatData+ wsDelimiter;
     }
-    final AtomicReference<String> protocolMessage=new AtomicReference<String>(message.toString());
+ else {
+      message=r.uuid();
+    }
+    final AtomicReference<String> protocolMessage=new AtomicReference<String>(message);
     if (r.getBroadcaster().getBroadcasterConfig().hasFilters()) {
       for (      BroadcastFilter bf : r.getBroadcaster().getBroadcasterConfig().filters()) {
         if (TrackMessageSizeFilter.class.isAssignableFrom(bf.getClass())) {
