@@ -37,7 +37,7 @@
     }
     String message;
     if (enforceAtmosphereVersion) {
-      message=r.uuid() + wsDelimiter + heartbeatInterval+ wsDelimiter+ heartbeatData+ wsDelimiter;
+      message=new StringBuilder(r.uuid()).append(wsDelimiter).append(heartbeatInterval).append(wsDelimiter).append(heartbeatData).append(wsDelimiter).toString();
     }
  else {
       message=r.uuid();
