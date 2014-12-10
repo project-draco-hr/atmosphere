@@ -1,6 +1,0 @@
-{
-  for (  Map.Entry<String,Object> e : cache.entrySet()) {
-    defaultMetaBroadcaster.map(e.getKey(),e.getValue(),-1,null,false,false);
-  }
-  return this;
-}
