@@ -1,0 +1,11 @@
+{
+  atmosphereHandlerConfig=config.atmosphereHandlerConfig;
+  supportSession=config.supportSession;
+  sessionTimeoutRemovalAllowed=config.sessionTimeoutRemovalAllowed;
+  throwExceptionOnCloned=config.throwExceptionOnCloned;
+  framework=config.framework;
+  properties=config.properties;
+  shutdownHooks=config.shutdownHooks;
+  startUpHook=config.startUpHook;
+  return this;
+}
