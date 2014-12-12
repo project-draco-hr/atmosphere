@@ -17,9 +17,6 @@
         throw new IOException("Connection Closed by the Client " + response.uuid());
       }
       int size=cb.length();
-      if (r.transport().equals(AtmosphereResource.TRANSPORT.JSONP) && data.length != responseDraft.length) {
-        size=inCharset.newDecoder().decode(ByteBuffer.wrap(data,0,data.length)).length();
-      }
       String csq=Integer.toString(size) + endString;
       ByteBuffer bb=ByteBuffer.allocate(csq.getBytes().length + responseDraft.length);
       CharBuffer cb2=CharBuffer.wrap(csq);
