@@ -32,7 +32,6 @@
     res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
   }
  else {
-    res.setHeader(HeaderConfig.X_FIRST_REQUEST,null);
     if (req.resource() == null) {
       res.setHeader(X_ATMOSPHERE_TRACKING_ID,s);
     }
