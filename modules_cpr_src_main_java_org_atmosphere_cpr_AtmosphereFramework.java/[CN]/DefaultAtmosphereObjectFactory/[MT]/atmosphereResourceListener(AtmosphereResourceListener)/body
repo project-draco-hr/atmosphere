@@ -1,0 +1,4 @@
+{
+  atmosphereResourceListeners.add(atmosphereResourceListener);
+  return this;
+}

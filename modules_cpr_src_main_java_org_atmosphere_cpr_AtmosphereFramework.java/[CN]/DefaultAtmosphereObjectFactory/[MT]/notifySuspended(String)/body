@@ -1,0 +1,6 @@
+{
+  for (  AtmosphereResourceListener l : atmosphereResourceListeners()) {
+    l.onSuspended(uuid);
+  }
+  return this;
+}

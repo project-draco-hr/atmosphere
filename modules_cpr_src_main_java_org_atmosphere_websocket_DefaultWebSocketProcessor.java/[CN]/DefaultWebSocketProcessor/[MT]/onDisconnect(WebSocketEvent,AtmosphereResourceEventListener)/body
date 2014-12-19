@@ -1,0 +1,6 @@
+{
+  if (event.webSocket() != null && event.webSocket().resource() != null) {
+    framework.notifyDestroyed(event.webSocket().resource().uuid());
+  }
+  WebSocketEventListener.class.cast(l).onDisconnect(event);
+}

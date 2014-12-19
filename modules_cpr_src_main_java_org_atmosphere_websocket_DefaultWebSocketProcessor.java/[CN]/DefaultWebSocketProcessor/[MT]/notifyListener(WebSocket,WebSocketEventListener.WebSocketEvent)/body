@@ -11,9 +11,10 @@ case CONNECT:
         break;
 case DISCONNECT:
       WebSocketEventListener.class.cast(l).onDisconnect(event);
-    break;
+    onDisconnect(event,l);
+  break;
 case CONTROL:
-  WebSocketEventListener.class.cast(l).onControl(event);
+WebSocketEventListener.class.cast(l).onControl(event);
 break;
 case MESSAGE:
 WebSocketEventListener.class.cast(l).onMessage(event);
@@ -24,7 +25,7 @@ break;
 case CLOSE:
 boolean isClosedByClient=r.getAtmosphereResourceEvent().isClosedByClient();
 l.onDisconnect(new AtmosphereResourceEventImpl(r,!isClosedByClient,false,isClosedByClient,null));
-WebSocketEventListener.class.cast(l).onDisconnect(event);
+onDisconnect(event,l);
 WebSocketEventListener.class.cast(l).onClose(event);
 break;
 }

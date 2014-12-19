@@ -1,0 +1,27 @@
+{
+  framework=new AtmosphereFramework();
+  framework.setDefaultBroadcasterClassName(SimpleBroadcaster.class.getName());
+  framework.addAnnotationPackage(AnnotationScanningTest.class);
+  framework.setAsyncSupport(new AsynchronousProcessor(framework.getAtmosphereConfig()){
+    @Override public Action service(    AtmosphereRequest req,    AtmosphereResponse res) throws IOException, ServletException {
+      return suspended(req,res);
+    }
+    public void action(    AtmosphereResourceImpl r){
+      try {
+        resumed(r.getRequest(),r.getResponse());
+      }
+ catch (      IOException e) {
+        e.printStackTrace();
+      }
+catch (      ServletException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+).init().addAtmosphereHandler("/a",new AtmosphereHandlerAdapter(){
+    @Override public void onRequest(    AtmosphereResource resource) throws IOException {
+      resource.suspend();
+    }
+  }
+);
+}

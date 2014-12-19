@@ -1,0 +1,6 @@
+{
+  for (  AtmosphereResourceListener l : atmosphereResourceListeners()) {
+    l.onDisconnect(uuid);
+  }
+  return this;
+}

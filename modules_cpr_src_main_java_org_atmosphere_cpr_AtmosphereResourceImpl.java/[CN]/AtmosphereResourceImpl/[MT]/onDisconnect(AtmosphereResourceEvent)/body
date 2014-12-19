@@ -5,4 +5,7 @@
       WebSocketEventListener.class.cast(r).onDisconnect(new WebSocketEventListener.WebSocketEvent(1005,CLOSE,webSocket));
     }
   }
+  if (e.getResource() != null) {
+    config.framework().notifyDestroyed(e.getResource().uuid());
+  }
 }

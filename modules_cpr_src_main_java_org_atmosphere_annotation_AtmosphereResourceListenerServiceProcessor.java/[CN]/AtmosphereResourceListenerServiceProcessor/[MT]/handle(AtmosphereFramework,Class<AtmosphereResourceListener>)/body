@@ -1,0 +1,8 @@
+{
+  try {
+    framework.atmosphereResourceListener(framework.newClassInstance(AtmosphereResourceListener.class,annotatedClass));
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}
