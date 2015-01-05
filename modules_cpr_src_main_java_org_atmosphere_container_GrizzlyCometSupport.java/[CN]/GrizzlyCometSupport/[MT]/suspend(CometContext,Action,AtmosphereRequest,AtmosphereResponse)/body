@@ -4,7 +4,4 @@
   ctx.addCometHandler(c);
   req.setAttribute(ATMOSPHERE,c.hashCode());
   ctx.addAttribute("Time",System.currentTimeMillis());
-  if (supportSession()) {
-    req.getSession().setAttribute(ATMOSPHERE,c.hashCode());
-  }
 }
