@@ -1,2 +1,11 @@
 {
+  Collection<AtmosphereResource> c=config.resourcesFactory().findAll();
+  for (  AtmosphereResource r : c) {
+    try {
+      r.close();
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
+  }
 }

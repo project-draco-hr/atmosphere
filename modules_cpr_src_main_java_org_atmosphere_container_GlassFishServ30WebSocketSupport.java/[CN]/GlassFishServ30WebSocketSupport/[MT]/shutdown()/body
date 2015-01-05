@@ -1,4 +1,5 @@
 {
+  super.shutdown();
   WebSocketEngine.getEngine().unregister(application);
   super.shutdown();
 }
