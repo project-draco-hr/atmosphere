@@ -1,3 +1,8 @@
 {
-  return Collections.unmodifiableSet(headers.keySet());
+  Set<String> s=headers.keySet();
+  Collection<String> r=_r().getHeaderNames();
+  if (r != null && !r.isEmpty()) {
+    s.addAll(r);
+  }
+  return Collections.unmodifiableSet(s);
 }

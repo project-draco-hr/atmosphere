@@ -1,7 +1,15 @@
 {
+  String s;
   if (name.equalsIgnoreCase("content-type")) {
-    String s=headers.get("Content-Type");
+    s=headers.get("Content-Type");
+    if (s == null) {
+      s=_r().getHeader(name);
+    }
     return s == null ? contentType : s;
   }
-  return headers.get(name);
+  s=headers.get(name);
+  if (s == null) {
+    s=_r().getHeader(name);
+  }
+  return s;
 }
