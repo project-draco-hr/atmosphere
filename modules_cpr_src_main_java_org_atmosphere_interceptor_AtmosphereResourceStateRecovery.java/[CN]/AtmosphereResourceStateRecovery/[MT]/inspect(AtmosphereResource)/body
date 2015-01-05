@@ -8,7 +8,7 @@
       return Action.CANCELLED;
     }
  else {
-      r.addEventListener(new OnSuspend(){
+      r.addEventListener(new OnAlwaysSuspend(){
         public void onSuspend(        AtmosphereResourceEvent event){
           r.removeEventListener(this);
           logger.trace("onSuspend first");
