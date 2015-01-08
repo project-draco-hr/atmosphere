@@ -17,7 +17,7 @@
   uuid=s == null ? UUID.randomUUID().toString() : s;
   if (config.isSupportSession()) {
     try {
-      session=req.getSession(true);
+      session=req.getSession(config.getInitParameter(PROPERTY_SESSION_CREATE,true));
     }
  catch (    NullPointerException ex) {
       logger.trace("http://java.net/jira/browse/GLASSFISH-18856",ex);

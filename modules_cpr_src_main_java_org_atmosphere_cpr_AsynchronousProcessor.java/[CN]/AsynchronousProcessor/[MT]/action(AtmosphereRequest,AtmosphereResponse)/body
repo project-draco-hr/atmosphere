@@ -28,8 +28,8 @@
     res.request(req);
   }
   if (supportSession()) {
-    HttpSession s=req.getSession(true);
-    if (s.isNew()) {
+    HttpSession s=req.getSession(config.getInitParameter(PROPERTY_SESSION_CREATE,true));
+    if (s != null && s.isNew()) {
       s.setAttribute(FrameworkConfig.BROADCASTER_FACTORY,config.getBroadcasterFactory());
     }
   }
@@ -79,7 +79,7 @@
   postInterceptors(config.framework().interceptors(),resource);
   Action action=resource.action();
   if (supportSession() && allowSessionTimeoutRemoval() && action.type().equals(Action.TYPE.SUSPEND)) {
-    SessionTimeoutSupport.setupTimeout(config,req.getSession());
+    SessionTimeoutSupport.setupTimeout(config,req.getSession(config.getInitParameter(ApplicationConfig.PROPERTY_SESSION_CREATE,true)));
   }
   logger.trace("Action for {} was {} with transport " + req.getHeader(X_ATMOSPHERE_TRANSPORT),req.resource() != null ? req.resource().uuid() : "null",action);
   return action;

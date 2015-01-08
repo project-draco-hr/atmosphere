@@ -19,9 +19,12 @@
   }
   HttpSession session=null;
   if (copySession) {
-    session=request.getSession(true);
+    session=request.getSession(createSession);
     if (session != null) {
       session=new FakeHttpSession(session);
+    }
+ else {
+      session=new FakeHttpSession("",null,System.currentTimeMillis(),-1);
     }
   }
   b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).remoteAddr(request.getRemoteAddr()).remoteHost(request.getRemoteHost()).remotePort(request.getRemotePort()).destroyable(isDestroyable).cookies(hs).session(session).principal(request.getUserPrincipal()).authType(request.getAuthType()).isSSecure(request.isSecure());

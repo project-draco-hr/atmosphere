@@ -2,3 +2,4 @@ HttpServletRequest request
 boolean loadInMemory
 boolean copySession
 boolean isDestroyable
+boolean createSession
