@@ -3,7 +3,7 @@
     logger.trace("Adding for AtmosphereResource {} cached messages {}",uuid,message.message());
     logger.trace("Active clients {}",activeClients());
   }
-  String messageId=UUID.randomUUID().toString();
+  String messageId=uuidProvider.generateUuid();
   boolean cache=true;
   if (!inspect(message)) {
     cache=false;

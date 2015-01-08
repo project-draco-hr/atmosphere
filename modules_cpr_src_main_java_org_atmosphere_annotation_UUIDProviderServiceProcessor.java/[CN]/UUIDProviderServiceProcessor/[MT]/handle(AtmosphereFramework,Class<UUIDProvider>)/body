@@ -1,0 +1,8 @@
+{
+  try {
+    framework.uuidProvider(framework.newClassInstance(UUIDProvider.class,annotatedClass));
+  }
+ catch (  Throwable e) {
+    logger.warn("",e);
+  }
+}

@@ -1,6 +1,6 @@
 {
   if (id == null) {
-    id=getClass().getSimpleName() + "/" + UUID.randomUUID();
+    id=getClass().getSimpleName() + "/" + config.uuidProvider().generateUuid();
   }
   if (config.getBroadcasterFactory() == null)   return;
   Broadcaster b=config.getBroadcasterFactory().lookup(this.getClass(),id);

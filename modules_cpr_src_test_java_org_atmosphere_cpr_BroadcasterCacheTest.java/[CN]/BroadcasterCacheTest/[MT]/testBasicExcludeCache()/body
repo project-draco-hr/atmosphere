@@ -1,5 +1,6 @@
 {
   BroadcasterCache cache=new UUIDBroadcasterCache();
+  cache.configure(broadcaster.getBroadcasterConfig());
   AtmosphereResource r=config.resourcesFactory().create(broadcaster.getBroadcasterConfig().getAtmosphereConfig(),"1234567");
   cache.excludeFromCache(broadcaster.getID(),r);
   broadcaster.getBroadcasterConfig().setBroadcasterCache(cache);

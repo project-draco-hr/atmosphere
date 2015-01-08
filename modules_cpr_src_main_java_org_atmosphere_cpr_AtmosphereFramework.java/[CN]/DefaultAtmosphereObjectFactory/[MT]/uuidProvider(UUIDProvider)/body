@@ -1,0 +1,4 @@
+{
+  this.uuidProvider=uuidProvider;
+  return this;
+}

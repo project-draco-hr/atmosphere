@@ -14,7 +14,7 @@
       s=tmp != null && !tmp.equalsIgnoreCase("0") ? tmp : null;
     }
   }
-  uuid=s == null ? UUID.randomUUID().toString() : s;
+  uuid=s == null ? config.uuidProvider().generateUuid() : s;
   if (config.isSupportSession()) {
     try {
       session=req.getSession(config.getInitParameter(PROPERTY_SESSION_CREATE,true));
