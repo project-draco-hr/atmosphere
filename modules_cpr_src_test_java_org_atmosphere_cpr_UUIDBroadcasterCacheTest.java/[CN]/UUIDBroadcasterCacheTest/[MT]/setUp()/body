@@ -5,7 +5,7 @@
   config.framework().setBroadcasterFactory(factory);
   broadcasterCache=new UUIDBroadcasterCache();
   broadcaster.getBroadcasterConfig().setBroadcasterCache(broadcasterCache);
-  broadcasterCache.configure(broadcaster.getBroadcasterConfig());
+  broadcasterCache.configure(config);
   atmosphereHandler=new AR();
   ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
   broadcaster.addAtmosphereResource(ar);

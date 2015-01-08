@@ -1,7 +1,7 @@
 {
   UUIDBroadcasterCache cache=new UUIDBroadcasterCache();
   SimpleBroadcaster b=config.getBroadcasterFactory().lookup(SimpleBroadcaster.class,"uuidTest",true);
-  cache.configure(b.getBroadcasterConfig());
+  cache.configure(config);
   b.getBroadcasterConfig().setBroadcasterCache(cache);
   b.removeAtmosphereResource(ar);
   ar.suspend();
