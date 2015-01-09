@@ -1,14 +1,16 @@
 {
-  super.init(sc);
-  if (delegate == null) {
-    loadDelegateViaConfig(sc);
-  }
- else {
-    ReflectorServletProcessor r=new ReflectorServletProcessor(delegate);
-    for (    Filter f : filters) {
-      r.addFilter(f);
+  if (!framework().isInit) {
+    super.init(sc);
+    if (delegate == null) {
+      loadDelegateViaConfig(sc);
     }
-    framework().getBroadcasterFactory().remove(delegateMapping);
-    framework.addAtmosphereHandler(delegateMapping,r).initAtmosphereHandler(sc);
+ else {
+      ReflectorServletProcessor r=new ReflectorServletProcessor(delegate);
+      for (      Filter f : filters) {
+        r.addFilter(f);
+      }
+      framework().getBroadcasterFactory().remove(delegateMapping);
+      framework.addAtmosphereHandler(delegateMapping,r).initAtmosphereHandler(sc);
+    }
   }
 }
