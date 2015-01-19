@@ -1,4 +1,5 @@
 {
+  if (fullServletPath.equalsIgnoreCase("/*"))   return "";
   Matcher matcher=SERVLET_PATH_PATTERN.matcher(fullServletPath);
   if (!matcher.find())   return fullServletPath;
   String servletPath=matcher.group(0);
