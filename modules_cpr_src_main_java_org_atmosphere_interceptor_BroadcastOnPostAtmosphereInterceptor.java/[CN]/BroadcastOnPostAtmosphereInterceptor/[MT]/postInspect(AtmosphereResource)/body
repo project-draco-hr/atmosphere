@@ -1,7 +1,14 @@
 {
   if (r.getRequest().getMethod().equalsIgnoreCase("POST")) {
     AtmosphereRequest request=r.getRequest();
-    Object o=readEntirely(r);
+    Object o;
+    try {
+      o=readEntirely(r);
+    }
+ catch (    IOException e) {
+      logger.warn("",e);
+      return;
+    }
     if (isBodyEmpty(o)) {
       logger.warn("{} received an empty body",request);
       return;

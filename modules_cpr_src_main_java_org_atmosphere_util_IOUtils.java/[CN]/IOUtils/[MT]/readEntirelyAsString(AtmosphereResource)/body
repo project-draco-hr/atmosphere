@@ -32,10 +32,7 @@
         stringBuilder.append("");
       }
     }
- catch (    IOException ex) {
-      logger.warn("",ex);
-    }
- finally {
+  finally {
       if (bufferedReader != null) {
         try {
           bufferedReader.close();

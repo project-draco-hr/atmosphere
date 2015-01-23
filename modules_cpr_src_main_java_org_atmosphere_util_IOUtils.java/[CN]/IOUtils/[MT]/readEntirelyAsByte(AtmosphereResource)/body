@@ -30,10 +30,7 @@
         bbIS.write("".getBytes());
       }
     }
- catch (    IOException ex) {
-      logger.warn("",ex);
-    }
- finally {
+  finally {
       if (bufferedStream != null) {
         try {
           bufferedStream.close();

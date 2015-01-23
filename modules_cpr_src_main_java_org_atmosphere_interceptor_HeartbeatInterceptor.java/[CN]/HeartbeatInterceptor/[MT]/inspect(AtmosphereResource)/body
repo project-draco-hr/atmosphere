@@ -3,7 +3,15 @@
   final AtmosphereRequest request=impl.getRequest(false);
   final AtmosphereResponse response=impl.getResponse(false);
   if (clientHeartbeatFrequencyInSeconds > 0) {
-    byte[] body=IOUtils.readEntirelyAsByte(r);
+    byte[] body;
+    try {
+      body=IOUtils.readEntirelyAsByte(r);
+    }
+ catch (    IOException e) {
+      logger.warn("",e);
+      cancelF(request);
+      return Action.CONTINUE;
+    }
     if (Arrays.equals(paddingBytes,body)) {
       final AtmosphereResourceEvent event=new HeartbeatAtmosphereResourceEvent(AtmosphereResourceImpl.class.cast(r));
       if (AtmosphereResourceHeartbeatEventListener.class.isAssignableFrom(r.getAtmosphereHandler().getClass())) {
