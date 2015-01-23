@@ -1,0 +1,4 @@
+{
+  this.closeAsyncIOWriterOnClose=closeAsyncIOWriterOnClose;
+  return this;
+}

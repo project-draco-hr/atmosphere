@@ -1,0 +1,18 @@
+{
+  AtmosphereResponse response=AtmosphereResponse.newInstance();
+  AsyncIOWriter writer=mock(AsyncIOWriter.class);
+  response.asyncIOWriter(writer);
+  ServletOutputStream sos=response.getOutputStream();
+  sos.close();
+  verify(writer,times(0)).close(response);
+  reset(writer);
+  response.closeAsyncIOWriterOnClose(true);
+  sos=response.getOutputStream();
+  sos.close();
+  verify(writer,times(1)).close(response);
+  reset(writer);
+  response.closeAsyncIOWriterOnClose(false);
+  sos=response.getOutputStream();
+  sos.close();
+  verify(writer,times(0)).close(response);
+}
