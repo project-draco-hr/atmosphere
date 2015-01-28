@@ -81,7 +81,7 @@
         }
       }
       @Override public void close(){
-        if (!validFlushOrClose() || !closeAsyncIOWriterOnClose)         return;
+        if (!validFlushOrClose())         return;
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
         try {
