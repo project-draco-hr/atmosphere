@@ -81,7 +81,7 @@
         }
       }
       @Override public void close(){
-        if (!validFlushOrClose())         return;
+        if (!validFlushOrClose() || asyncIOWriter instanceof WebSocket)         return;
         boolean b=forceAsyncIOWriter;
         forceAsyncIOWriter=false;
         try {
