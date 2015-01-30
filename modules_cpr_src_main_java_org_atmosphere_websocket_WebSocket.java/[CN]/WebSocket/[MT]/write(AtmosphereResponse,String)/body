@@ -10,7 +10,7 @@
   if (binaryWrite) {
     byte[] b=data.getBytes(resource().getResponse().getCharacterEncoding());
     if (transform) {
-      b=transform(b,0,b.length);
+      b=transform(r,b,0,b.length);
     }
     if (b != null) {
       write(b,0,b.length);
@@ -19,7 +19,7 @@
  else {
     if (transform) {
       byte[] b=data.getBytes(resource().getResponse().getCharacterEncoding());
-      data=new String(transform(b,0,b.length),r.getCharacterEncoding());
+      data=new String(transform(r,b,0,b.length),r.getCharacterEncoding());
     }
     if (data != null) {
       write(data);
