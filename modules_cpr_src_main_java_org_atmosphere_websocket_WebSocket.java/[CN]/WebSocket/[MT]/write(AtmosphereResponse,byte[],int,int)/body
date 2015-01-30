@@ -11,7 +11,7 @@
   boolean transform=filters.size() > 0 && r.getStatus() < 400;
   if (binaryWrite || resource().forceBinaryWrite()) {
     if (transform) {
-      b=transform(b,offset,length);
+      b=transform(r,b,offset,length);
     }
     if (b != null) {
       write(b,0,b.length);
@@ -21,7 +21,7 @@
     String data=null;
     String charset=r.getCharacterEncoding() == null ? "UTF-8" : r.getCharacterEncoding();
     if (transform) {
-      data=new String(transform(b,offset,length),charset);
+      data=new String(transform(r,b,offset,length),charset);
     }
  else {
       data=new String(b,offset,length,charset);

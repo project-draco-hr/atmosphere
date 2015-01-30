@@ -1,0 +1,12 @@
+{
+  AsyncIOWriter a=response.getAsyncIOWriter();
+  try {
+    response.asyncIOWriter(buffer);
+    invokeInterceptor(response,b,offset,length);
+    return buffer.stream().toByteArray();
+  }
+  finally {
+    buffer.close(null);
+    response.asyncIOWriter(a);
+  }
+}
