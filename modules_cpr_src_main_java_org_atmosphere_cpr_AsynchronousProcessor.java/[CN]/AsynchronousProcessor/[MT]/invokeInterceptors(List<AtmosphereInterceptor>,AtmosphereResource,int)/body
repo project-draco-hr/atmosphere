@@ -1,6 +1,10 @@
 {
   Action a=Action.CONTINUE;
   for (  AtmosphereInterceptor arc : c) {
+    if (!AtmosphereResourceImpl.class.cast(r).isInScope()) {
+      logger.warn("Request closed during processing {} and transport {}",r.uuid(),r.transport());
+      return Action.CANCELLED;
+    }
     try {
       a=arc.inspect(r);
     }
