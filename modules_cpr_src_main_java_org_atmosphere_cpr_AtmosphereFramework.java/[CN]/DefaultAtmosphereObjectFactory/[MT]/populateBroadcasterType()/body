@@ -1,4 +1,5 @@
 {
+  broadcasterTypes.add(KAFKA_BROADCASTER);
   broadcasterTypes.add(HAZELCAST_BROADCASTER);
   broadcasterTypes.add(XMPP_BROADCASTER);
   broadcasterTypes.add(REDIS_BROADCASTER);
