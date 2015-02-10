@@ -7,7 +7,7 @@
         if (testClassExists(JETTY_8))         add(JettyServlet30AsyncSupportWithWebSocket.class);
         if (testClassExists(GRIZZLY2_WEBSOCKET))         add(GlassFishServ30WebSocketSupport.class);
         if (testClassExists(GRIZZLY_WEBSOCKET))         add(GrizzlyServlet30WebSocketSupport.class);
-        if (testClassExists(WEBLOGIC_WEBSOCKWET)) {
+        if (testClassExists(WEBLOGIC_WEBSOCKET) && !testClassExists(HK2)) {
           logger.warn("***************************************************************************************************");
           logger.warn("WebLogic WebSocket detected and will be deployed under the hardcoded path <<application-name>>/ws/*");
           logger.warn("***************************************************************************************************");

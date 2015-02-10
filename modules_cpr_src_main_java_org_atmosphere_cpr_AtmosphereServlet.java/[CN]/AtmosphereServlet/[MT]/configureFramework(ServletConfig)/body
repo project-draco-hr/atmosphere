@@ -5,7 +5,13 @@
         framework=(AtmosphereFramework)sc.getServletContext().getAttribute(sc.getServletContext().getServletRegistration(sc.getServletName()).getName());
       }
  catch (      Exception ex) {
-        logger.trace("",ex);
+        if (UnsupportedOperationException.class.isAssignableFrom(ex.getClass())) {
+          logger.warn("WebLogic 12c unable to retrieve Servlet. Please make sure your servlet-name to 'AtmosphereServlet'");
+          framework=(AtmosphereFramework)sc.getServletContext().getAttribute(AtmosphereServlet.class.getSimpleName());
+        }
+ else {
+          logger.trace("",ex);
+        }
       }
     }
     if (framework == null) {
