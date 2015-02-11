@@ -3,7 +3,7 @@
   if (maxTextBufferSize != -1)   webSocketConnection.getWebSocketContext().setMaxMessageSize(maxTextBufferSize);
   WebSocket webSocket=new WebLogicWebSocket(webSocketConnection,config);
   webSocketConnection.getWebSocketContext().getServletContext().setAttribute(webSocketConnection.toString(),webSocket);
-  AtmosphereRequest ar=AtmosphereRequest.cloneRequest(request.get(),true,false,true,config.getInitParameter(PROPERTY_SESSION_CREATE,true));
+  AtmosphereRequest ar=AtmosphereRequest.cloneRequest(request.get(),true,true,true,config.getInitParameter(PROPERTY_SESSION_CREATE,true));
   ar.queryString(ar.getQueryString());
   request.set(null);
   try {
