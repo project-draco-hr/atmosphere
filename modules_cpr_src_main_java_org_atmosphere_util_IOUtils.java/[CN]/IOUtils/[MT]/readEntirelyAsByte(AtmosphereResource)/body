@@ -1,5 +1,9 @@
 {
   AtmosphereRequest request=r.getRequest();
+  boolean readGetBody=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.READ_GET_BODY,false);
+  if (!readGetBody && AtmosphereResourceImpl.class.cast(r).getRequest(false).getMethod().equalsIgnoreCase("GET")) {
+    return new byte[0];
+  }
   AtmosphereRequest.Body body=request.body();
   if (request.body().isEmpty()) {
     BufferedInputStream bufferedStream=null;

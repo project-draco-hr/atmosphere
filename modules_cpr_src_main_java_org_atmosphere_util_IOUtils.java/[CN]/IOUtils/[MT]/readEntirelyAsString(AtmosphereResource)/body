@@ -1,5 +1,9 @@
 {
   final StringBuilder stringBuilder=new StringBuilder();
+  boolean readGetBody=r.getAtmosphereConfig().getInitParameter(ApplicationConfig.READ_GET_BODY,false);
+  if (!readGetBody && AtmosphereResourceImpl.class.cast(r).getRequest(false).getMethod().equalsIgnoreCase("GET")) {
+    return stringBuilder;
+  }
   AtmosphereRequest request=r.getRequest();
   if (request.body().isEmpty()) {
     BufferedReader bufferedReader=null;
