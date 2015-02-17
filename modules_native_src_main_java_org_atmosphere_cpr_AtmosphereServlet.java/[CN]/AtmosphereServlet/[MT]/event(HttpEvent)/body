@@ -4,7 +4,7 @@
   req.setAttribute(JBossWebCometSupport.HTTP_EVENT,httpEvent);
   if (!framework.isCometSupportSpecified && !framework.isCometSupportConfigured.getAndSet(true)) {
 synchronized (framework.asyncSupport) {
-      if (!framework.asyncSupport.getClass().equals(JBossWebCometSupport.class) && !framework.asyncSupport.getClass().equals(JBossWebSocketSupport.class)) {
+      if (!framework.asyncSupport.getClass().equals(JBossWebCometSupport.class) && !framework.asyncSupport.getClass().equals(JBossWebSocketSupport.class) && !framework.asyncSupport.getClass().equals(JBossAsyncSupportWithWebSocket.class)) {
         AsyncSupport current=framework.asyncSupport;
         logger.warn("JBossWebCometSupport is enabled, switching to it");
         framework.asyncSupport=new JBossWebCometSupport(framework.config);
