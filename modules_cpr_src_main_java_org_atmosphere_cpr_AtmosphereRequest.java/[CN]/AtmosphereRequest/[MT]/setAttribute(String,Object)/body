@@ -9,7 +9,7 @@
       b.request.setAttribute(s,o);
     }
  catch (    NullPointerException ex) {
-      logger.warn("",ex);
+      logger.trace("",ex);
     }
   }
 }
