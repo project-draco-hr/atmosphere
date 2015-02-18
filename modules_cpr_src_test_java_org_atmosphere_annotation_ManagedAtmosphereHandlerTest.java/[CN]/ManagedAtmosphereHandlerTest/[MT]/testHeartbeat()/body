@@ -1,5 +1,5 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/heartbeat").method("POST").build();
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/heartbeat").method("GET").build();
   request.header(X_ATMOSPHERE_TRANSPORT,WEBSOCKET_TRANSPORT);
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   final AtmosphereResource res=r.get();
