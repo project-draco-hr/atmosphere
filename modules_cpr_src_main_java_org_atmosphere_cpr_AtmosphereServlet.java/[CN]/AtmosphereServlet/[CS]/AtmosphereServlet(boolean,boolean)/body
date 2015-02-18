@@ -1,4 +1,3 @@
 {
-  this.isFilter=isFilter;
-  this.autoDetectHandlers=autoDetectHandlers;
+  initializer=new AtmosphereFrameworkInitializer(isFilter,autoDetectHandlers);
 }

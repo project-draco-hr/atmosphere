@@ -1,0 +1,4 @@
+{
+  this.isFilter=isFilter;
+  this.autoDetectHandlers=autoDetectHandlers;
+}

@@ -15,8 +15,8 @@
     r.addFilterClassName(filterClass,filterName);
     if (mapping == null) {
       mapping=Broadcaster.ROOT_MASTER;
-      framework.getBroadcasterFactory().remove(Broadcaster.ROOT_MASTER);
+      framework().getBroadcasterFactory().remove(Broadcaster.ROOT_MASTER);
     }
-    framework.addAtmosphereHandler(mapping,r).initAtmosphereHandler(sc);
+    framework().addAtmosphereHandler(mapping,r).initAtmosphereHandler(sc);
   }
 }

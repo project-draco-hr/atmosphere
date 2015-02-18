@@ -2,30 +2,30 @@
   HttpServletRequest req=httpEvent.getHttpServletRequest();
   HttpServletResponse res=httpEvent.getHttpServletResponse();
   req.setAttribute(JBossWebCometSupport.HTTP_EVENT,httpEvent);
-  if (!framework.isCometSupportSpecified && !framework.isCometSupportConfigured.getAndSet(true)) {
-synchronized (framework.asyncSupport) {
-      if (!framework.asyncSupport.getClass().equals(JBossWebCometSupport.class) && !framework.asyncSupport.getClass().equals(JBossWebSocketSupport.class) && !framework.asyncSupport.getClass().equals(JBossAsyncSupportWithWebSocket.class)) {
-        AsyncSupport current=framework.asyncSupport;
+  if (!initializer.framework().isCometSupportSpecified && !initializer.framework().isCometSupportConfigured.getAndSet(true)) {
+synchronized (initializer.framework().asyncSupport) {
+      if (!initializer.framework().asyncSupport.getClass().equals(JBossWebCometSupport.class) && !initializer.framework().asyncSupport.getClass().equals(JBossWebSocketSupport.class) && !initializer.framework().asyncSupport.getClass().equals(JBossAsyncSupportWithWebSocket.class)) {
+        AsyncSupport current=initializer.framework().asyncSupport;
         logger.warn("JBossWebCometSupport is enabled, switching to it");
-        framework.asyncSupport=new JBossWebCometSupport(framework.config);
+        initializer.framework().asyncSupport=new JBossWebCometSupport(initializer.framework().config);
         if (current instanceof AsynchronousProcessor) {
           ((AsynchronousProcessor)current).shutdown();
         }
-        framework.asyncSupport.init(framework.config.getServletConfig());
+        initializer.framework().asyncSupport.init(initializer.framework().config.getServletConfig());
       }
     }
   }
   boolean isWebSocket=req.getHeader("Upgrade") == null ? false : true;
-  if (isWebSocket && framework.asyncSupport.getClass().equals(JBossWebSocketSupport.class)) {
+  if (isWebSocket && initializer.framework().asyncSupport.getClass().equals(JBossWebSocketSupport.class)) {
     logger.trace("Dispatching websocket event: " + httpEvent);
-    ((JBossWebSocketSupport)framework.asyncSupport).dispatch(httpEvent);
+    ((JBossWebSocketSupport)initializer.framework().asyncSupport).dispatch(httpEvent);
   }
- else   if (isWebSocket && framework.asyncSupport.getClass().equals(JBossAsyncSupportWithWebSocket.class)) {
+ else   if (isWebSocket && initializer.framework().asyncSupport.getClass().equals(JBossAsyncSupportWithWebSocket.class)) {
     logger.trace("Dispatching websocket event: " + httpEvent);
-    ((JBossAsyncSupportWithWebSocket)framework.asyncSupport).dispatch(httpEvent);
+    ((JBossAsyncSupportWithWebSocket)initializer.framework().asyncSupport).dispatch(httpEvent);
   }
  else {
     logger.trace("Dispatching comet event: " + httpEvent);
-    framework.doCometSupport(AtmosphereRequest.wrap(req),AtmosphereResponse.wrap(res));
+    initializer.framework().doCometSupport(AtmosphereRequest.wrap(req),AtmosphereResponse.wrap(res));
   }
 }

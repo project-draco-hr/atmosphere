@@ -1,6 +1,4 @@
 {
+  configureFramework(sc);
   super.init(sc);
-  framework.setUseNativeImplementation(true);
-  framework.init(sc);
-  logger.info("AtmosphereServlet with native support for Tomcat 6/7 and JBossWeb Installed.");
 }

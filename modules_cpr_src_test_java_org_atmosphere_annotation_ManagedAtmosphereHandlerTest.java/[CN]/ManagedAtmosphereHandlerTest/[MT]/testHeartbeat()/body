@@ -1,10 +1,10 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/heartbeat").method("GET").build();
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/heartbeat").method("POST").build();
   request.header(X_ATMOSPHERE_TRANSPORT,WEBSOCKET_TRANSPORT);
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   final AtmosphereResource res=r.get();
   assertNotNull(res);
-  request=new AtmosphereRequest.Builder().pathInfo("/heartbeat").method("GET").body(Heartbeat.paddingData).build();
+  request=new AtmosphereRequest.Builder().pathInfo("/heartbeat").method("POST").body(Heartbeat.paddingData).build();
   request.header(X_ATMOSPHERE_TRANSPORT,WEBSOCKET_TRANSPORT);
   request.setAttribute(HeartbeatInterceptor.INTERCEPTOR_ADDED,"");
   res.initialize(res.getAtmosphereConfig(),res.getBroadcaster(),request,AtmosphereResponse.newInstance(),framework.getAsyncSupport(),res.getAtmosphereHandler());
