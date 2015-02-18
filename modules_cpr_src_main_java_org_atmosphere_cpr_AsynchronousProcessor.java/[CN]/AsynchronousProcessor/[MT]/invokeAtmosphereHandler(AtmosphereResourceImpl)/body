@@ -8,7 +8,9 @@
         if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
           AtmosphereHandler atmosphereHandler=r.getAtmosphereHandler();
           if (atmosphereHandler != null) {
-            atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
+synchronized (r) {
+              atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
+            }
           }
         }
       }
