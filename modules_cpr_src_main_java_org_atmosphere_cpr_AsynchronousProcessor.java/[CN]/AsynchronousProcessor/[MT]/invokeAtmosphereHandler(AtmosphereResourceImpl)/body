@@ -7,10 +7,8 @@
       try {
         if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
           AtmosphereHandler atmosphereHandler=r.getAtmosphereHandler();
-          if (atmosphereHandler != null) {
-synchronized (r) {
-              atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
-            }
+          if (atmosphereHandler != null && r.isInScope()) {
+            atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
           }
         }
       }
