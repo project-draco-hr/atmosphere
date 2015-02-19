@@ -1,6 +1,7 @@
 {
   boolean notifyListeners=true;
   boolean lostCandidate=false;
+  if (token.resource == null)   throw new NullPointerException();
   final AtmosphereResourceEventImpl event=(AtmosphereResourceEventImpl)token.resource.getAtmosphereResourceEvent();
   final AtmosphereResourceImpl r=AtmosphereResourceImpl.class.cast(token.resource);
   final boolean willBeResumed=Utils.resumableTransport(r.transport());
@@ -18,6 +19,10 @@
       request.setAttribute(getID(),token.future);
       request.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
       request.setAttribute(ASYNC_TOKEN,token);
+      if (willBeResumed && !r.atmosphereResourceEventListener().isEmpty()) {
+        listeners.addAll(r.atmosphereResourceEventListener());
+      }
+      prepareInvokeOnStateChange(r,event);
     }
  catch (    Throwable t) {
       logger.debug("Invalid AtmosphereResource state {}. The connection has been remotely" + " closed and message {} will be added to the configured BroadcasterCache for later retrieval",r.uuid(),event.getMessage());
@@ -31,10 +36,6 @@
       lostCandidate=true;
       return;
     }
-    if (willBeResumed && !r.atmosphereResourceEventListener().isEmpty()) {
-      listeners.addAll(r.atmosphereResourceEventListener());
-    }
-    prepareInvokeOnStateChange(r,event);
     try {
       request.setAttribute(FrameworkConfig.MESSAGE_WRITTEN,"true");
     }
@@ -61,8 +62,13 @@
     if (lostCandidate) {
       cacheLostMessage(r,token,true);
     }
-    request.removeAttribute(getID());
-    request.removeAttribute(ASYNC_TOKEN);
+    try {
+      request.removeAttribute(getID());
+      request.removeAttribute(ASYNC_TOKEN);
+    }
+ catch (    NullPointerException ex) {
+      logger.trace("NPE after the message has been written for {}",r.uuid());
+    }
     token.destroy();
   }
 }
