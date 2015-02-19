@@ -24,5 +24,6 @@
   }
   initialized.set(true);
   backwardCompatible=Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
+  cacheOnIOFlushException=config.getInitParameter(ApplicationConfig.CACHE_MESSAGE_ON_IO_FLUSH_EXCEPTION,true);
   return this;
 }

@@ -1,0 +1,8 @@
+{
+  for (  StackTraceElement element : cause.getStackTrace()) {
+    if (element.getMethodName().equals("flush") || element.getMethodName().equals("flushBuffer")) {
+      return false;
+    }
+  }
+  return true;
+}
