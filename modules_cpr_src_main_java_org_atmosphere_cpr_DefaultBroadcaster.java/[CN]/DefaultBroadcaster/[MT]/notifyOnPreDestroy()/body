@@ -1,5 +1,6 @@
 {
-  for (  BroadcasterListener l : broadcasterListeners) {
+  Collection<BroadcasterListener> b=sharedListeners ? config.framework().broadcasterListeners() : broadcasterListeners;
+  for (  BroadcasterListener l : b) {
     try {
       l.onPreDestroy(this);
     }

@@ -3,9 +3,9 @@
   this.uri=uri;
   this.config=config;
   bc=createBroadcasterConfig(config);
-  String s=config.getInitParameter(ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
+  String s=config.getInitParameter(BROADCASTER_CACHE_STRATEGY);
   if (s != null) {
-    logger.warn("{} is no longer supported. Use BroadcastInterceptor instead. By default the original message will be cached.",ApplicationConfig.BROADCASTER_CACHE_STRATEGY);
+    logger.warn("{} is no longer supported. Use BroadcastInterceptor instead. By default the original message will be cached.",BROADCASTER_CACHE_STRATEGY);
   }
   s=config.getInitParameter(OUT_OF_ORDER_BROADCAST);
   if (s != null) {
@@ -15,7 +15,7 @@
   if (s != null) {
     waitTime=Integer.valueOf(s);
   }
-  s=config.getInitParameter(ApplicationConfig.WRITE_TIMEOUT);
+  s=config.getInitParameter(WRITE_TIMEOUT);
   if (s != null) {
     writeTimeoutInSecond=Integer.valueOf(s);
   }
@@ -23,7 +23,8 @@
     logger.trace("{} supports Out Of Order Broadcast: {}",name,outOfOrderBroadcastSupported.get());
   }
   initialized.set(true);
-  backwardCompatible=Boolean.parseBoolean(config.getInitParameter(ApplicationConfig.BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
-  cacheOnIOFlushException=config.getInitParameter(ApplicationConfig.CACHE_MESSAGE_ON_IO_FLUSH_EXCEPTION,true);
+  backwardCompatible=Boolean.parseBoolean(config.getInitParameter(BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
+  cacheOnIOFlushException=config.getInitParameter(CACHE_MESSAGE_ON_IO_FLUSH_EXCEPTION,true);
+  sharedListeners=config.getInitParameter(BROADCASTER_SHAREABLE_LISTENERS,false);
   return this;
 }

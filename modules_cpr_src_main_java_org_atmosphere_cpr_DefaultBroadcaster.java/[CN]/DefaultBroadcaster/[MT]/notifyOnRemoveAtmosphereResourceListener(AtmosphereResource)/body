@@ -1,5 +1,6 @@
 {
-  for (  BroadcasterListener b : broadcasterListeners) {
+  Collection<BroadcasterListener> l=sharedListeners ? config.framework().broadcasterListeners() : broadcasterListeners;
+  for (  BroadcasterListener b : l) {
     try {
       b.onRemoveAtmosphereResource(this,r);
     }

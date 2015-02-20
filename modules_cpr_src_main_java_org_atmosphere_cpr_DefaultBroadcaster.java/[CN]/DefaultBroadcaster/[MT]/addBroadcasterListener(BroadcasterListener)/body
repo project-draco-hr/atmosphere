@@ -1,5 +1,5 @@
 {
-  if (!broadcasterListeners.contains(b)) {
+  if (!sharedListeners && !broadcasterListeners.contains(b)) {
     broadcasterListeners.add(b);
   }
   return this;
