@@ -1,28 +1,3 @@
 {
-  if (framework == null) {
-    if (sc.getServletContext().getMajorVersion() > 2) {
-      try {
-        framework=(AtmosphereFramework)sc.getServletContext().getAttribute(sc.getServletContext().getServletRegistration(sc.getServletName()).getName());
-      }
- catch (      Exception ex) {
-        if (UnsupportedOperationException.class.isAssignableFrom(ex.getClass())) {
-          logger.warn("WebLogic 12c unable to retrieve Servlet. Please make sure your servlet-name is 'AtmosphereServlet' " + "or set org.atmosphere.servlet to the current value");
-          String name=sc.getInitParameter(ApplicationConfig.SERVLET_NAME);
-          if (name == null) {
-            name=AtmosphereServlet.class.getSimpleName();
-          }
-          framework=(AtmosphereFramework)sc.getServletContext().getAttribute(name);
-        }
- else {
-          logger.trace("",ex);
-        }
-      }
-    }
-    if (framework == null) {
-      framework=newAtmosphereFramework();
-    }
-  }
-  framework.setUseNativeImplementation(true);
-  framework.init(sc);
-  return this;
+  return configureFramework(sc,true,false);
 }

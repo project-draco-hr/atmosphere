@@ -1,4 +1,3 @@
 {
-  initializer.configureFramework(sc);
-  return this;
+  return configureFramework(sc,true);
 }
