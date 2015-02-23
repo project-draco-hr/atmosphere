@@ -1,9 +1,0 @@
-{
-  try {
-    return new JBossWebSocketHandler(config);
-  }
- catch (  Exception e) {
-    logger.error("Cannot instantiate JBossWebSocketHandler. Websocket events will not be handled.",e);
-  }
-  return null;
-}

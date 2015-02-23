@@ -1,5 +1,0 @@
-{
-  if (websocketHandler != null) {
-    websocketHandler.event(httpEvent);
-  }
-}
