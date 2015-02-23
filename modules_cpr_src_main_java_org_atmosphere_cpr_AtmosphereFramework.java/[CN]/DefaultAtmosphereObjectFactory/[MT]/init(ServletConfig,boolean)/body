@@ -28,7 +28,6 @@
     configureScanningPackage(servletConfig,FrameworkConfig.JERSEY_SCANNING_PACKAGE);
     defaultPackagesToScan();
     installAnnotationProcessor(servletConfig);
-    configureAtmosphereInterceptor(servletConfig);
     autoConfigureService(servletConfig.getServletContext());
     configureBroadcasterFactory();
     patchContainer();
@@ -41,7 +40,7 @@
     configureWebDotXmlAtmosphereHandler(servletConfig);
     asyncSupport.init(servletConfig);
     initAtmosphereHandler(servletConfig);
-    analytics();
+    configureAtmosphereInterceptor(servletConfig);
     if (sc.getServletContext() != null) {
       sc.getServletContext().setAttribute(BroadcasterFactory.class.getName(),broadcasterFactory);
     }
