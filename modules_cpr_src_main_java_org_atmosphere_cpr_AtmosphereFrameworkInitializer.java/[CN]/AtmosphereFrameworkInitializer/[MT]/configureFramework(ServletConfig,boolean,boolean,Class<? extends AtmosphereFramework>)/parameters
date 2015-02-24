@@ -1,0 +1,4 @@
+ServletConfig sc
+boolean init
+boolean useNative
+Class<? extends AtmosphereFramework> frameworkClass

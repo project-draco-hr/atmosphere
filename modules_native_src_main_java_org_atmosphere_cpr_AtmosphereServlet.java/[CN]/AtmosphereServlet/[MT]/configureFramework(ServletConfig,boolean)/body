@@ -1,4 +1,4 @@
 {
-  initializer.configureFramework(sc,init,true);
+  initializer.configureFramework(sc,init,true,AtmosphereFramework.class);
   return this;
 }
