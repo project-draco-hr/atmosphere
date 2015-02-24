@@ -88,4 +88,8 @@
   if (s != null) {
     defaultSerializerClassName=s;
   }
+  s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTORS);
+  if (s != null) {
+    excludedInterceptors.addAll(Arrays.asList(s.trim().replace(" ","").split(",")));
+  }
 }

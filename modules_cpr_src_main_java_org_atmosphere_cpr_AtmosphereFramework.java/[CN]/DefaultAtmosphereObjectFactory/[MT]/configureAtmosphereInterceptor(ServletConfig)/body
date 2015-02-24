@@ -15,10 +15,6 @@
   s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   if (s == null || !"true".equalsIgnoreCase(s)) {
     logger.info("Installing Default AtmosphereInterceptors");
-    s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTORS);
-    if (s != null) {
-      excludedInterceptors.addAll(Arrays.asList(s.trim().replace(" ","").split(",")));
-    }
     LinkedList<AtmosphereInterceptor> copy=null;
     if (!interceptors.isEmpty()) {
       copy=new LinkedList<AtmosphereInterceptor>(interceptors);
