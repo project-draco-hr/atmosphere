@@ -22,7 +22,7 @@
       req.setAttribute(SUSPENDED,true);
     }
  else {
-      bz51881(event,false);
+      closeEvent(event,false);
     }
   }
  else   if (event.getEventType() == EventType.READ) {
@@ -32,14 +32,14 @@
       req.setAttribute(SUSPENDED,null);
       action=cancelled(req,res);
     }
-    bz51881(event,false);
+    closeEvent(event,false);
   }
  else   if (event.getEventSubType() == CometEvent.EventSubType.TIMEOUT) {
     action=timedout(req,res);
-    bz51881(event,false);
+    closeEvent(event,false);
   }
  else   if (event.getEventType() == EventType.ERROR) {
-    bz51881(event,false);
+    closeEvent(event,false);
   }
  else   if (event.getEventType() == EventType.END) {
     if (req.resource() != null && req.resource().isResumed()) {
@@ -50,7 +50,7 @@
       action=cancelled(req,res);
     }
  else {
-      bz51881(event,false);
+      closeEvent(event,false);
     }
   }
   return action;

@@ -1,0 +1,13 @@
+{
+  if (delay) {
+    ExecutorsFactory.getScheduler(config).schedule(new Runnable(){
+      @Override public void run(){
+        close(event);
+      }
+    }
+,500,TimeUnit.MILLISECONDS);
+  }
+ else {
+    close(event);
+  }
+}
