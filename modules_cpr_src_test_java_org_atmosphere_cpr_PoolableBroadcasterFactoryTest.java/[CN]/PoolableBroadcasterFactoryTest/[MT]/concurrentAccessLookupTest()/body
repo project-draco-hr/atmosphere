@@ -1,8 +1,7 @@
 {
-  final DefaultBroadcasterFactory f=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
   final CountDownLatch latch=new CountDownLatch(1000);
   final AtomicInteger created=new AtomicInteger();
-  f.addBroadcasterListener(new BroadcasterListenerAdapter(){
+  factory.addBroadcasterListener(new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
       created.incrementAndGet();
       latch.countDown();
@@ -13,13 +12,14 @@
     }
   }
 );
+  final ConcurrentLinkedQueue c=new ConcurrentLinkedQueue();
   ExecutorService r=Executors.newCachedThreadPool();
   try {
     for (int i=0; i < 1000; i++) {
       r.submit(new Runnable(){
         @Override public void run(){
           try {
-            f.get(TestBroadcaster.class,new String("me"));
+            c.add(factory.get(new String("me")));
           }
  catch (          IllegalStateException ex) {
             latch.countDown();
@@ -35,12 +35,10 @@
   latch.await(10,TimeUnit.SECONDS);
   try {
     assertEquals(latch.getCount(),0);
-    assertEquals(f.lookupAll().size(),1);
-    assertEquals(created.get(),1);
-    assertEquals(TestBroadcaster.instance.get(),1);
+    assertEquals(c.size(),1000);
+    assertEquals(created.get(),1000);
   }
   finally {
-    f.destroy();
+    factory.destroy();
   }
-  assertEquals(TestBroadcaster.instance.get(),1);
 }

@@ -1,0 +1,6 @@
+{
+  if (trackPooledBroadcaster) {
+    super.lookupAll();
+  }
+  return emptyCollection;
+}

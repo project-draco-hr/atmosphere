@@ -1,0 +1,10 @@
+{
+  Broadcaster broadcaster=null;
+  if (trackPooledBroadcaster) {
+    broadcaster=store.get(id);
+  }
+  if (broadcaster == null) {
+    broadcaster=poolableProvider.borrowBroadcaster(id);
+  }
+  return (T)broadcaster;
+}

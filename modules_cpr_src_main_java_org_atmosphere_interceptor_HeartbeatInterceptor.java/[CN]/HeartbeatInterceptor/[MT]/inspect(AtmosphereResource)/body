@@ -3,9 +3,11 @@
   final AtmosphereRequest request=impl.getRequest(false);
   final AtmosphereResponse response=impl.getResponse(false);
   if (clientHeartbeatFrequencyInSeconds > 0) {
-    byte[] body;
+    byte[] body=new byte[0];
     try {
-      body=IOUtils.readEntirelyAsByte(r);
+      if (!request.getMethod().equalsIgnoreCase("GET")) {
+        body=IOUtils.readEntirelyAsByte(r);
+      }
     }
  catch (    IOException e) {
       logger.warn("",e);

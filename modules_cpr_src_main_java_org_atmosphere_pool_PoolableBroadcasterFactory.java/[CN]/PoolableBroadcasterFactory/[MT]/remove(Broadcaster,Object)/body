@@ -1,0 +1,7 @@
+{
+  if (trackPooledBroadcaster) {
+    return store.remove(b) != null;
+  }
+  poolableProvider.returnBroadcaster(b);
+  return false;
+}

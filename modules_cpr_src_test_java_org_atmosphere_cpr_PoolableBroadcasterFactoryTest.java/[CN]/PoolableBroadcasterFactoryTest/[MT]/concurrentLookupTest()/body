@@ -1,9 +1,8 @@
 {
   String id="id";
-  final DefaultBroadcasterFactory f=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
   final CountDownLatch latch=new CountDownLatch(100);
   final AtomicInteger created=new AtomicInteger();
-  f.addBroadcasterListener(new BroadcasterListenerAdapter(){
+  factory.addBroadcasterListener(new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
       created.incrementAndGet();
       latch.countDown();
@@ -14,12 +13,13 @@
     }
   }
 );
+  final ConcurrentLinkedQueue c=new ConcurrentLinkedQueue();
   ExecutorService r=Executors.newCachedThreadPool();
   try {
     for (int i=0; i < 100; i++) {
       r.submit(new Runnable(){
         @Override public void run(){
-          f.lookup("name" + UUID.randomUUID().toString(),true);
+          c.add(factory.lookup("name" + UUID.randomUUID().toString(),true));
         }
       }
 );
@@ -30,10 +30,10 @@
   }
   latch.await();
   try {
-    assertEquals(f.lookupAll().size(),100);
+    assertEquals(c.size(),100);
     assertEquals(created.get(),100);
   }
   finally {
-    f.destroy();
+    factory.destroy();
   }
 }

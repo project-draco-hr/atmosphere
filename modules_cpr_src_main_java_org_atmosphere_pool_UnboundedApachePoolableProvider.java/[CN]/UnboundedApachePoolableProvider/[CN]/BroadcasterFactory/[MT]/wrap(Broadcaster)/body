@@ -1,0 +1,4 @@
+{
+  logger.trace("Wapping Object {}",broadcaster.getID());
+  return new DefaultPooledObject<Broadcaster>(broadcaster);
+}

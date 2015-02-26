@@ -1,0 +1,12 @@
+{
+  super.configure(broadcasterLifeCyclePolicy);
+  String poolableProviderClass=config.getInitParameter(POOLEABLE_PROVIDER,UnboundedApachePoolableProvider.class.getName());
+  try {
+    poolableProvider=config.framework().newClassInstance(PoolableProvider.class,(Class<PoolableProvider>)IOUtils.loadClass(PoolableProvider.class,poolableProviderClass));
+  }
+ catch (  Exception e) {
+    throw new RuntimeException(e);
+  }
+  poolableProvider.configure(config);
+  trackPooledBroadcaster=config.getInitParameter(SUPPORT_TRACKED_BROADCASTER,false);
+}

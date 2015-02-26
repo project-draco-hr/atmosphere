@@ -1,0 +1,9 @@
+{
+  if (trackPooledBroadcaster) {
+    super.remove(id);
+  }
+ else {
+    logger.debug("Operation no supported");
+  }
+  return false;
+}

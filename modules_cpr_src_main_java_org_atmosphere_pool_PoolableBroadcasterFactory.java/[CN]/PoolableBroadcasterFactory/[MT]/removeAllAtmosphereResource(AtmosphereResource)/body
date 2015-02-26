@@ -1,0 +1,6 @@
+{
+  logger.debug("Operation no supported");
+  if (trackPooledBroadcaster) {
+    super.removeAllAtmosphereResource(r);
+  }
+}

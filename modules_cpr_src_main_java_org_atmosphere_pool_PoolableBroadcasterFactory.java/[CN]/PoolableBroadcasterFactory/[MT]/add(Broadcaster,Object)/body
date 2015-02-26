@@ -1,0 +1,7 @@
+{
+  if (trackPooledBroadcaster) {
+    super.add(b,id);
+  }
+  poolableProvider.returnBroadcaster(b);
+  return true;
+}

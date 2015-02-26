@@ -1,0 +1,9 @@
+{
+  try {
+    return DefaultBroadcaster.class.cast(genericObjectPool.borrowObject()).rename(id.toString());
+  }
+ catch (  Exception e) {
+    logger.error("",e);
+    throw new RuntimeException(e);
+  }
+}

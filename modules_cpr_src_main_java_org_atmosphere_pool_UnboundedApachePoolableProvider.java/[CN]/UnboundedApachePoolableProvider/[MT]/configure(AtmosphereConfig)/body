@@ -1,0 +1,5 @@
+{
+  this.config=config;
+  configureGenericObjectPoolConfig();
+  genericObjectPool=new GenericObjectPool<Broadcaster>(new BroadcasterFactory(),poolConfig,abandonedConfig);
+}
