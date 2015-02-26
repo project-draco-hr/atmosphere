@@ -4,7 +4,6 @@
   }
   if (!started.getAndSet(true)) {
     bc.getBroadcasterCache().start();
-    setID(name);
     if (notifierFuture == null && asyncWriteFuture == null) {
       spawnReactor();
     }
