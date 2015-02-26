@@ -4,6 +4,5 @@
     logger.debug("No AtmosphereHandler maps request for {} with mapping {}",req.getRequestURI(),config.handlers());
     throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + req.getRequestURI());
   }
-  config.getBroadcasterFactory().add(atmosphereHandlerWrapper.broadcaster,atmosphereHandlerWrapper.broadcaster.getID());
   return atmosphereHandlerWrapper;
 }

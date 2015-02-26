@@ -1,5 +1,4 @@
 {
-  config.getBroadcasterFactory().add(handlerWrapper.broadcaster,handlerWrapper.broadcaster.getID());
   Broadcaster b=handlerWrapper.broadcaster;
   if (b.isDestroyed()) {
     BroadcasterFactory f=config.getBroadcasterFactory();
