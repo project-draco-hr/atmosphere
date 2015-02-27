@@ -1,4 +1,4 @@
 {
-  logger.info("Creating Object {}",count.getAndIncrement());
+  logger.trace("Creating Object {}",count.getAndIncrement());
   return PoolableBroadcasterFactory.class.cast(config.getBroadcasterFactory()).createBroadcaster();
 }

@@ -1,5 +1,5 @@
 {
-  logger.info("Return Object {} now at size {}",b,count.getAndDecrement());
+  logger.trace("Return Object {} now at size {}",b,count.getAndDecrement());
   try {
     genericObjectPool.returnObject(b);
   }
