@@ -1,5 +1,10 @@
 {
   logger.info("Return Object {} now at size {}",b,count.getAndDecrement());
-  genericObjectPool.returnObject(b);
+  try {
+    genericObjectPool.returnObject(b);
+  }
+ catch (  IllegalStateException ex) {
+    logger.trace("",ex);
+  }
   return this;
 }
