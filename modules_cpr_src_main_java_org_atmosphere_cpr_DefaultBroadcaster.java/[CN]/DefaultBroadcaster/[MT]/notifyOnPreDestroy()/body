@@ -1,8 +1,7 @@
 {
-  Collection<BroadcasterListener> b=sharedListeners ? config.framework().broadcasterListeners() : broadcasterListeners;
-  for (  BroadcasterListener l : b) {
+  for (  BroadcasterListener b : broadcasterListeners) {
     try {
-      l.onPreDestroy(this);
+      b.onPreDestroy(this);
     }
  catch (    RuntimeException ex) {
       if (BroadcasterListener.BroadcastListenerException.class.isAssignableFrom(ex.getClass())) {

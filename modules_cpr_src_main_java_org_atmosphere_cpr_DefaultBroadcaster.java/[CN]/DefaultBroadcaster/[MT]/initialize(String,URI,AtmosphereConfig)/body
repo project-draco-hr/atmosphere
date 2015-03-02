@@ -26,5 +26,11 @@
   backwardCompatible=Boolean.parseBoolean(config.getInitParameter(BACKWARD_COMPATIBLE_WEBSOCKET_BEHAVIOR));
   cacheOnIOFlushException=config.getInitParameter(CACHE_MESSAGE_ON_IO_FLUSH_EXCEPTION,true);
   sharedListeners=config.getInitParameter(BROADCASTER_SHAREABLE_LISTENERS,false);
+  if (sharedListeners) {
+    broadcasterListeners=config.getBroadcasterFactory().broadcasterListeners();
+  }
+ else {
+    broadcasterListeners=new ConcurrentLinkedQueue<BroadcasterListener>();
+  }
   return this;
 }

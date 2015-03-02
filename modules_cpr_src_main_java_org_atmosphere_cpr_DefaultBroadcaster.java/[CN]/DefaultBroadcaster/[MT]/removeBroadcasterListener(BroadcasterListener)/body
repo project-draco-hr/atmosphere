@@ -1,4 +1,4 @@
 {
-  broadcasterListeners.remove(b);
+  if (!sharedListeners)   broadcasterListeners.remove(b);
   return this;
 }
