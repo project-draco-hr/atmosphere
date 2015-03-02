@@ -33,4 +33,5 @@
  else {
     logger.warn("Unsupported BroadcasterLifeCyclePolicy policy {}",broadcasterLifeCyclePolicy);
   }
+  broadcasterListeners.add(lifeCycleListener);
 }
