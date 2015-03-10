@@ -1,7 +1,8 @@
 {
-  Set<String> s=headers.keySet();
   Collection<String> r=_r().getHeaderNames();
+  Set<String> s=headers.keySet();
   if (r != null && !r.isEmpty()) {
+    s=new HashSet<String>(s);
     s.addAll(r);
   }
   return Collections.unmodifiableSet(s);
