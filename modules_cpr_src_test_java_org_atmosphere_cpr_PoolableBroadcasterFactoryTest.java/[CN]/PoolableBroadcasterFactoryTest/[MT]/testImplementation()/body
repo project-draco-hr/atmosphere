@@ -1,0 +1,11 @@
+{
+  assertNotNull(factory.poolableProvider());
+  assertNotNull(factory.poolableProvider().implementation());
+  assertEquals(factory.poolableProvider().implementation().getClass(),GenericObjectPool.class);
+  GenericObjectPool nativePool=(GenericObjectPool)factory.poolableProvider().implementation();
+  assertTrue(nativePool.getLifo());
+  GenericObjectPoolConfig c=new GenericObjectPoolConfig();
+  c.setMaxTotal(1);
+  nativePool.setConfig(c);
+  assertEquals(1,nativePool.getMaxTotal());
+}
