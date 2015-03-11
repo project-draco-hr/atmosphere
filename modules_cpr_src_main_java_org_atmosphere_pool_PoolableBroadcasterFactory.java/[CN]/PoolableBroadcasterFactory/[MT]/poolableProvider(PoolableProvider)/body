@@ -1,0 +1,5 @@
+{
+  this.poolableProvider=poolableProvider;
+  this.poolableProvider.configure(config);
+  return this;
+}

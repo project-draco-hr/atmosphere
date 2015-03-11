@@ -2,5 +2,6 @@
   AtmosphereFramework f=new AtmosphereFramework();
   config=f.getAtmosphereConfig();
   factory=new PoolableBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
+  factory.poolableProvider(new BoundedApachePoolableProvider());
   f.setBroadcasterFactory(factory);
 }

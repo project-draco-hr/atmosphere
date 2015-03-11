@@ -32,5 +32,6 @@
  else {
     broadcasterListeners=new ConcurrentLinkedQueue<BroadcasterListener>();
   }
+  candidateForPoolable=PoolableBroadcasterFactory.class.isAssignableFrom(config.getBroadcasterFactory().getClass());
   return this;
 }

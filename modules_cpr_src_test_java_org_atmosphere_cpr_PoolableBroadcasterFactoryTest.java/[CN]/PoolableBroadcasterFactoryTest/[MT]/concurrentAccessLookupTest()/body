@@ -1,6 +1,7 @@
 {
   final CountDownLatch latch=new CountDownLatch(1000);
   final AtomicInteger created=new AtomicInteger();
+  factory.poolableProvider(new UnboundedApachePoolableProvider());
   factory.addBroadcasterListener(new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
       created.incrementAndGet();
@@ -12,7 +13,7 @@
     }
   }
 );
-  final ConcurrentLinkedQueue c=new ConcurrentLinkedQueue();
+  final ConcurrentLinkedQueue<Broadcaster> c=new ConcurrentLinkedQueue<Broadcaster>();
   ExecutorService r=Executors.newCachedThreadPool();
   try {
     for (int i=0; i < 1000; i++) {
@@ -37,6 +38,11 @@
     assertEquals(latch.getCount(),0);
     assertEquals(c.size(),1000);
     assertEquals(created.get(),1000);
+    for (    Broadcaster b : c) {
+      b.destroy();
+    }
+    assertNotNull(factory.lookup("name" + UUID.randomUUID().toString(),true).broadcast("test"));
+    assertEquals(factory.poolableProvider().poolSize(),1000);
   }
   finally {
     factory.destroy();
