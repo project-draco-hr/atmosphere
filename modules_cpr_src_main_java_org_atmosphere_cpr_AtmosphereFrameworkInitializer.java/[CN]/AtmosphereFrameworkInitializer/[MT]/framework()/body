@@ -1,6 +1,6 @@
 {
   if (framework == null) {
-    framework=newAtmosphereFramework(AtmosphereFramework.class);
+    framework=newAtmosphereFramework(AtmosphereFramework.class,isFilter,autoDetectHandlers);
   }
   return framework;
 }

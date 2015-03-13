@@ -1,6 +1,9 @@
 {
   try {
-    final Map<String,MetaServiceAction> config=IOUtils.readServiceFile(AtmosphereFramework.class.getName());
+    final Map<String,MetaServiceAction> config=(Map<String,MetaServiceAction>)servletConfig.getServletContext().getAttribute(AtmosphereFramework.MetaServiceAction.class.getName());
+    if (config == null) {
+      IOUtils.readServiceFile(AtmosphereFramework.class.getName());
+    }
     for (    final Map.Entry<String,MetaServiceAction> action : config.entrySet()) {
       final Class c=IOUtils.loadClass(AtmosphereFramework.class,action.getKey());
       action.getValue().apply(this,c);

@@ -1,0 +1,17 @@
+{
+  try {
+    final Map<String,AtmosphereFramework.MetaServiceAction> config=IOUtils.readServiceFile(AtmosphereFramework.class.getName());
+    sc.setAttribute(AtmosphereFramework.MetaServiceAction.class.getName(),config);
+    for (    final Map.Entry<String,AtmosphereFramework.MetaServiceAction> action : config.entrySet()) {
+      final Class c=IOUtils.loadClass(AtmosphereFramework.class,action.getKey());
+      if (AtmosphereFramework.class.isAssignableFrom(c)) {
+        logger.info("Found a definition of AtmosphereFramework {}",c);
+        return newAtmosphereFramework(c,isFilter,autoDetectHandlers);
+      }
+    }
+  }
+ catch (  Exception ex) {
+    logger.error("",ex);
+  }
+  return newAtmosphereFramework(AtmosphereFramework.class,isFilter,autoDetectHandlers);
+}

@@ -19,7 +19,7 @@
       }
     }
     if (framework == null) {
-      framework=newAtmosphereFramework(frameworkClass);
+      framework=newAtmosphereFramework(frameworkClass,isFilter,autoDetectHandlers);
     }
   }
   framework.setUseNativeImplementation(useNative);

@@ -7,7 +7,7 @@
       continue;
     }
     if (c.getAttribute(reg.getKey()) == null && IOUtils.isAtmosphere(reg.getValue().getClassName())) {
-      final AtmosphereFramework framework=new AtmosphereFramework(false,true);
+      final AtmosphereFramework framework=AtmosphereFrameworkInitializer.newAtmosphereFramework(c,false,true);
       DefaultAsyncSupportResolver resolver=new DefaultAsyncSupportResolver(framework.getAtmosphereConfig());
       List<Class<? extends AsyncSupport>> l=resolver.detectWebSocketPresent(false,true);
       int size=c.getServerInfo().contains("WebLogic") ? 1 : 0;
