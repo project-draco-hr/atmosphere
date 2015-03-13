@@ -27,7 +27,9 @@
       action.type(Action.TYPE.CANCELLED);
       if (asyncSupport != null)       asyncSupport.action(this);
       if (AtmosphereResponse.class.isAssignableFrom(response.getClass())) {
-        AtmosphereResponse.class.cast(response).close();
+        if (closeOnCancel) {
+          AtmosphereResponse.class.cast(response).close();
+        }
         AtmosphereResponse.class.cast(response).destroy();
       }
       if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {

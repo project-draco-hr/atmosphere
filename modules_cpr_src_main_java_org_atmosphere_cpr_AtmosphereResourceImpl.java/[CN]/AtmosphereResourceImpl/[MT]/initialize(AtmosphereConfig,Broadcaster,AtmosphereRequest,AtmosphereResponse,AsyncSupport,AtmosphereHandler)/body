@@ -24,5 +24,6 @@
     }
   }
   transport=configureTransport();
+  closeOnCancel=config.getInitParameter(ApplicationConfig.CLOSE_STREAM_ON_CANCEL,false);
   return this;
 }
