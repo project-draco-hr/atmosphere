@@ -76,6 +76,10 @@
   if (s != null) {
     atmosphereDotXmlPath=s;
   }
+  s=sc.getInitParameter(META_SERVICE_PATH);
+  if (s != null) {
+    metaServicePath=s;
+  }
   s=sc.getInitParameter(ApplicationConfig.HANDLER_MAPPING_REGEX);
   if (s != null) {
     mappingRegex=s;
