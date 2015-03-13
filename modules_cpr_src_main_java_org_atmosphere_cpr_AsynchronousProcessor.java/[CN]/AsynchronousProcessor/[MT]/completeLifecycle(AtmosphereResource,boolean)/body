@@ -31,6 +31,18 @@
  finally {
       try {
         impl.notifyListeners();
+        if (closeOnCancel) {
+          try {
+            impl.getResponse(false).getOutputStream().close();
+          }
+ catch (          Throwable t) {
+            try {
+              impl.getResponse(false).getWriter().close();
+            }
+ catch (            Throwable t2) {
+            }
+          }
+        }
         impl.setIsInScope(false);
         impl.cancel();
       }
