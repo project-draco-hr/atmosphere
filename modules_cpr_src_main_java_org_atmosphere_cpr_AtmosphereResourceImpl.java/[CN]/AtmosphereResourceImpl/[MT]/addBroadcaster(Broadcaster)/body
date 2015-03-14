@@ -1,0 +1,4 @@
+{
+  broadcasters.add(broadcaster);
+  return this;
+}

@@ -4,12 +4,12 @@
       suspended.set(false);
       logger.trace("Cancelling {}",uuid);
       if (config.getBroadcasterFactory() != null) {
-        config.getBroadcasterFactory().removeAllAtmosphereResource(this);
+        removeFromAllBroadcasters();
         if (transport.equals(TRANSPORT.WEBSOCKET)) {
           String parentUUID=(String)req.getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
           AtmosphereResource p=config.resourcesFactory().find(parentUUID);
           if (p != null) {
-            config.getBroadcasterFactory().removeAllAtmosphereResource(p);
+            p.removeFromAllBroadcasters();
           }
         }
       }

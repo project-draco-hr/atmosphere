@@ -8,27 +8,21 @@
       suspended.set(false);
       logger.trace("AtmosphereResource {} is resuming",uuid());
       action.type(Action.TYPE.RESUME);
-      Broadcaster b=getBroadcaster(false);
-      if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
-        ((DefaultBroadcaster)b).broadcastOnResume(this);
-      }
-      notifyListeners();
-      try {
-        if (!b.isDestroyed()) {
-          broadcaster.removeAtmosphereResource(this);
+      boolean notify=true;
+      for (      Broadcaster b : broadcasters) {
+        if (!b.isDestroyed() && b instanceof DefaultBroadcaster) {
+          ((DefaultBroadcaster)b).broadcastOnResume(this);
+        }
+        if (notify) {
+          notify=false;
+          notifyListeners();
+        }
+        if (b.getScope() == Broadcaster.SCOPE.REQUEST) {
+          logger.debug("Broadcaster's scope is set to request, destroying it {}",b.getID());
+          b.destroy();
         }
       }
- catch (      IllegalStateException ex) {
-        logger.warn("Unable to resume",this);
-        logger.debug(ex.getMessage(),ex);
-      }
-      if (b.getScope() == Broadcaster.SCOPE.REQUEST) {
-        logger.debug("Broadcaster's scope is set to request, destroying it {}",b.getID());
-        b.destroy();
-      }
-      if (config.getBroadcasterFactory() != null) {
-        config.getBroadcasterFactory().removeAllAtmosphereResource(this);
-      }
+      removeFromAllBroadcasters();
       try {
         req.setAttribute(ApplicationConfig.RESUMED_ON_TIMEOUT,Boolean.FALSE);
       }

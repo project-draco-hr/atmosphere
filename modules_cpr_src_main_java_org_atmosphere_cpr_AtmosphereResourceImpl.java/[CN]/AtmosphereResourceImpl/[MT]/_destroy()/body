@@ -1,11 +1,9 @@
 {
   try {
     if (!isCancelled.get()) {
-      if (broadcaster != null)       broadcaster.removeAtmosphereResource(this);
-      if (config.getBroadcasterFactory() != null) {
-        config.getBroadcasterFactory().removeAllAtmosphereResource(this);
-      }
+      removeFromAllBroadcasters();
     }
+    broadcasters.clear();
     unregister();
     removeEventListeners();
   }

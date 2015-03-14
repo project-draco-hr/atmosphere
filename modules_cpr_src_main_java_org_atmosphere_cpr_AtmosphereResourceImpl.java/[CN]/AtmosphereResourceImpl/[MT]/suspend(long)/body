@@ -38,6 +38,7 @@
     if (req.getAttribute(SKIP_BROADCASTER_CREATION) != null) {
       skipCreation=true;
     }
+    Broadcaster broadcaster=broadcasters.get(0);
     if (!skipCreation && (broadcaster == null || broadcaster.getScope() == Broadcaster.SCOPE.REQUEST) && !isJersey) {
       String id=broadcaster != null ? broadcaster.getID() : ROOT_MASTER;
       Class<? extends Broadcaster> clazz=broadcaster != null ? broadcaster.getClass() : DefaultBroadcaster.class;

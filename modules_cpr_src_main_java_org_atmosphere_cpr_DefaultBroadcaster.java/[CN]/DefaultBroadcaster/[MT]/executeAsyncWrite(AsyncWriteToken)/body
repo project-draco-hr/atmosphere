@@ -30,7 +30,7 @@
       logger.trace("ApplicationConfig.CACHE_MESSAGE_ON_IO_FLUSH_EXCEPTION {}",cacheOnIOFlushException,t);
       lostCandidate=cacheOnIOFlushException ? cacheOnIOFlushException : cacheMessageOnIOException(t);
       removeAtmosphereResource(r,false);
-      config.getBroadcasterFactory().removeAllAtmosphereResource(r);
+      r.removeFromAllBroadcasters();
       event.setCancelled(true);
       event.setThrowable(t);
       r.setIsInScope(false);

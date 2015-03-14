@@ -3,7 +3,16 @@
     addEventListener(l);
   }
   AtmosphereResourceImpl.class.cast(r).session(r.session());
-  setBroadcaster(r.getBroadcaster());
+  boolean isFirst=true;
+  for (  Broadcaster b : broadcasters) {
+    if (isFirst) {
+      isFirst=false;
+      setBroadcaster(b);
+    }
+ else {
+      addBroadcaster(b);
+    }
+  }
   atmosphereHandler(r.getAtmosphereHandler());
   return this;
 }

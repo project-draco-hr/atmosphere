@@ -1,0 +1,4 @@
+{
+  broadcasters.remove(broadcaster);
+  return this;
+}

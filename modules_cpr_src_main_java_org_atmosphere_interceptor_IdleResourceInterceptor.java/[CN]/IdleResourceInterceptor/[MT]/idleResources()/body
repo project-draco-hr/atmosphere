@@ -7,7 +7,7 @@
     try {
       if (req.getAttribute(MAX_INACTIVE) == null) {
         logger.error("Invalid state {}",r);
-        config.getBroadcasterFactory().removeAllAtmosphereResource(r);
+        r.removeFromAllBroadcasters();
         config.resourcesFactory().unRegisterUuidForFindCandidate(r);
         continue;
       }
@@ -31,7 +31,7 @@
           }
         }
   finally {
-          config.getBroadcasterFactory().removeAllAtmosphereResource(r);
+          r.removeFromAllBroadcasters();
           config.resourcesFactory().unRegisterUuidForFindCandidate(r);
         }
       }

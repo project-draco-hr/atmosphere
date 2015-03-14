@@ -1,11 +1,11 @@
 {
   this.req=req;
   this.response=response;
-  this.broadcaster=broadcaster;
   this.config=config;
   this.asyncSupport=asyncSupport;
   this.atmosphereHandler=atmosphereHandler;
   this.event=new AtmosphereResourceEventImpl(this);
+  broadcasters.add(broadcaster);
   String s=(String)req.getAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
   if (s == null) {
     s=response.getHeader(HeaderConfig.X_ATMOSPHERE_TRACKING_ID);
