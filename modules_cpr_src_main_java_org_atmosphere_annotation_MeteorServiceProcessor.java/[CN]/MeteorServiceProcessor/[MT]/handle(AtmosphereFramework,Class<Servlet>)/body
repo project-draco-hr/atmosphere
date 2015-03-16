@@ -2,7 +2,7 @@
   try {
     ReflectorServletProcessor r=framework.newClassInstance(ReflectorServletProcessor.class,ReflectorServletProcessor.class);
     r.setServletClassName(annotatedClass.getName());
-    List<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
+    LinkedList<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
     MeteorService m=annotatedClass.getAnnotation(MeteorService.class);
     framework.setBroadcasterCacheClassName(m.broadcasterCache().getName());
     String mapping=m.path();
@@ -14,7 +14,7 @@
     }
     AnnotationUtil.interceptors(framework,m.interceptors(),l);
     if (m.path().contains("{")) {
-      framework.interceptors().add(framework.newClassInstance(AtmosphereInterceptor.class,MeteorServiceInterceptor.class));
+      l.addFirst(framework.newClassInstance(AtmosphereInterceptor.class,MeteorServiceInterceptor.class));
     }
     framework.addAtmosphereHandler(mapping,r,broadcaster(framework,m.broadcaster(),m.path()),l);
   }

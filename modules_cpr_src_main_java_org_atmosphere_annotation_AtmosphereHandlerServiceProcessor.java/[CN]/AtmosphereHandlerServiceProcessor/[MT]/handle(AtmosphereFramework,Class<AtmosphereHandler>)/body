@@ -4,7 +4,7 @@
     atmosphereConfig(a.atmosphereConfig(),framework);
     filters(a.broadcastFilters(),framework);
     Class<?>[] interceptors=a.interceptors();
-    List<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
+    LinkedList<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
     for (    Class i : interceptors) {
       try {
         AtmosphereInterceptor ai=(AtmosphereInterceptor)framework.newClassInstance(AtmosphereHandler.class,i);
@@ -14,12 +14,12 @@
         logger.warn("",e);
       }
     }
-    if (a.path().contains("{")) {
-      framework.interceptors().add(framework.newClassInstance(AtmosphereInterceptor.class,AtmosphereHandlerServiceInterceptor.class));
-    }
     AtmosphereInterceptor aa=listeners(a.listeners(),framework);
     if (aa != null) {
       l.add(aa);
+    }
+    if (a.path().contains("{")) {
+      l.addFirst(framework.newClassInstance(AtmosphereInterceptor.class,AtmosphereHandlerServiceInterceptor.class));
     }
     framework.sessionSupport(a.supportSession());
     AtmosphereHandler handler=framework.newClassInstance(AtmosphereHandler.class,annotatedClass);
