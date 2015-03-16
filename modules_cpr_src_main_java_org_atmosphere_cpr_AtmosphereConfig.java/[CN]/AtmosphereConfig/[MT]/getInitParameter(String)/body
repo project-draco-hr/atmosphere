@@ -1,7 +1,7 @@
 {
   try {
     String value=framework.getServletConfig().getInitParameter(name);
-    if (value == null) {
+    if (value == null && useServletContextParameters) {
       value=framework.getServletContext().getInitParameter(name);
     }
     return value;
