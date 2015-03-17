@@ -26,6 +26,8 @@
         suspended.countDown();
       }
     }
+    @Override public void destroy(){
+    }
     @Override public void postInspect(    AtmosphereResource r){
     }
   }

@@ -1,0 +1,10 @@
+{
+  for (  AtmosphereResource r : config.resourcesFactory().findAll()) {
+    try {
+      r.close();
+    }
+ catch (    IOException e) {
+      logger.trace("",e);
+    }
+  }
+}

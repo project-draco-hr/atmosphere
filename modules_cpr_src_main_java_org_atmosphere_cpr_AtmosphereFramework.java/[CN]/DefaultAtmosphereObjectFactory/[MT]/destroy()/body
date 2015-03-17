@@ -1,8 +1,9 @@
 {
   if (isDestroyed.getAndSet(true))   return this;
   onPreDestroy();
+  closeAtmosphereResource();
+  destroyInterceptors();
   config.destroy();
-  ExecutorsFactory.reset(config);
   BroadcasterFactory factory=broadcasterFactory;
   if (factory != null) {
     factory.destroy();
@@ -18,6 +19,7 @@
   if (arFactory != null)   arFactory.destroy();
   if (sessionFactory != null)   sessionFactory.destroy();
   WebSocketProcessorFactory.getDefault().destroy();
+  ExecutorsFactory.reset(config);
   resetStates();
   onPostDestroy();
   return this;

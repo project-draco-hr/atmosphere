@@ -1,0 +1,6 @@
+{
+  if (destroyed.getAndSet(true))   return;
+  for (  AtmosphereResource r : config.resourcesFactory().findAll()) {
+    cancelF(r.getRequest());
+  }
+}

@@ -3,6 +3,8 @@
   framework.interceptor(new AtmosphereInterceptor(){
     @Override public void configure(    AtmosphereConfig config){
     }
+    @Override public void destroy(){
+    }
     @Override public Action inspect(    AtmosphereResource r){
       AtmosphereResourceImpl.class.cast(r).action().type(Action.TYPE.CONTINUE);
       return Action.CONTINUE;
@@ -14,6 +16,8 @@
   assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequest.class),AtmosphereResponse.newInstance()));
   framework.interceptor(new AtmosphereInterceptor(){
     @Override public void configure(    AtmosphereConfig config){
+    }
+    @Override public void destroy(){
     }
     @Override public Action inspect(    AtmosphereResource r){
       AtmosphereResourceImpl.class.cast(r).action().type(Action.TYPE.CREATED);

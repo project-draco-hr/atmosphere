@@ -1,6 +1,6 @@
 {
   this.timeout=timeout;
-  f.cancel(false);
+  trackerFuture.cancel(false);
   startStateTracker();
   return this;
 }

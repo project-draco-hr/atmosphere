@@ -3,6 +3,8 @@
   framework.interceptor(new AtmosphereInterceptor(){
     @Override public void configure(    AtmosphereConfig config){
     }
+    @Override public void destroy(){
+    }
     @Override public Action inspect(    AtmosphereResource r){
       return Action.CREATED;
     }

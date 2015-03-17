@@ -1,0 +1,14 @@
+{
+  for (  AtmosphereHandlerWrapper w : atmosphereHandlers.values()) {
+    if (w.interceptors != null) {
+      for (      AtmosphereInterceptor i : w.interceptors) {
+        try {
+          i.destroy();
+        }
+ catch (        Throwable ex) {
+          logger.warn("",ex);
+        }
+      }
+    }
+  }
+}

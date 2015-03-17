@@ -1,0 +1,3 @@
+{
+  trackerFuture.cancel(true);
+}

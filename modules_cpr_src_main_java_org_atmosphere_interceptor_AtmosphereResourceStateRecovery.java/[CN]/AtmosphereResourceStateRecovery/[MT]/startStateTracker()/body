@@ -1,5 +1,5 @@
 {
-  f=stateTracker.scheduleAtFixedRate(new Runnable(){
+  trackerFuture=stateTracker.scheduleAtFixedRate(new Runnable(){
     @Override public void run(){
       long now=System.currentTimeMillis();
       for (      Map.Entry<String,BroadcasterTracker> t : states.entrySet()) {

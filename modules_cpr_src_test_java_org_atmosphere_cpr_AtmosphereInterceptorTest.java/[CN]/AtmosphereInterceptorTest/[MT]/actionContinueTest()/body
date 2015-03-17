@@ -7,6 +7,8 @@
       AtmosphereResourceImpl.class.cast(r).action().type(Action.TYPE.CONTINUE);
       return Action.CONTINUE;
     }
+    @Override public void destroy(){
+    }
     @Override public void postInspect(    AtmosphereResource r){
     }
   }
