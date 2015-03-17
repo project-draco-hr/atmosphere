@@ -1,5 +1,5 @@
 {
-  if (maxInactiveTime > 0) {
+  if (maxInactiveTime > 0 && !Utils.pollableTransport(r.transport())) {
     AtmosphereResourceImpl.class.cast(r).getRequest(false).setAttribute(MAX_INACTIVE,System.currentTimeMillis());
   }
   return Action.CONTINUE;
