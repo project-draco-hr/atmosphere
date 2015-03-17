@@ -1,5 +1,5 @@
 {
   this.isFilter=isFilter;
   this.autoDetectHandlers=autoDetectHandlers;
-  config=new AtmosphereConfig(this);
+  config=newAtmosphereConfig();
 }

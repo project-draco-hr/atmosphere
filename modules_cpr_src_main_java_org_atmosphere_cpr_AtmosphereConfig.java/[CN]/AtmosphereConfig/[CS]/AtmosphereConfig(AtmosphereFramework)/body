@@ -1,5 +1,3 @@
 {
   this.framework=framework;
-  String value=framework.getServletContext().getInitParameter(ApplicationConfig.USE_SERVLET_CONTEXT_PARAMETERS);
-  useServletContextParameters=value != null && Boolean.valueOf(value);
 }

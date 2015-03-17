@@ -1,6 +1,8 @@
 {
   ServletConfig servletConfig;
   if (wrap) {
+    String value=sc.getServletContext().getInitParameter(USE_SERVLET_CONTEXT_PARAMETERS);
+    final boolean useServletContextParameters=value != null && Boolean.valueOf(value);
     servletConfig=new ServletConfig(){
       AtomicBoolean done=new AtomicBoolean();
       public String getServletName(){
@@ -12,7 +14,10 @@
       public String getInitParameter(      String name){
         String param=initParams.get(name);
         if (param == null) {
-          return sc.getInitParameter(name);
+          param=sc.getInitParameter(name);
+          if (param == null && useServletContextParameters) {
+            param=sc.getServletContext().getInitParameter(name);
+          }
         }
         return param;
       }
