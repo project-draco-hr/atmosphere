@@ -1,0 +1,3 @@
+{
+  return !mangedDefaultInterceptors.contains(i) && !AtmosphereFramework.DEFAULT_ATMOSPHERE_INTERCEPTORS.contains(i);
+}

@@ -10,7 +10,7 @@
     if (aa != null) {
       l.add(aa);
     }
-    AnnotationUtil.interceptors(framework,m.interceptors(),l);
+    AnnotationUtil.interceptors(framework,Arrays.asList(m.interceptors()),l);
     framework.setBroadcasterCacheClassName(m.broadcasterCache().getName());
     WebSocketProcessor p=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
     p.registerWebSocketHandler(m.path(),new WebSocketProcessor.WebSocketHandlerProxy(broadcasterClass(framework,m.broadcaster()),framework.newClassInstance(WebSocketHandler.class,annotatedClass),l));

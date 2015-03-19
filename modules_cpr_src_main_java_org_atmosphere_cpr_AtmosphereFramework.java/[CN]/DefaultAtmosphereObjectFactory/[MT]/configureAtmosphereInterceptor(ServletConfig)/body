@@ -20,7 +20,7 @@
       copy=new LinkedList<AtmosphereInterceptor>(interceptors);
       interceptors.clear();
     }
-    for (    Class<? extends AtmosphereInterceptor> a : defaultInterceptors) {
+    for (    Class<? extends AtmosphereInterceptor> a : DEFAULT_ATMOSPHERE_INTERCEPTORS) {
       if (!excludedInterceptors.contains(a.getName())) {
         interceptors.add(newAInterceptor(a));
       }

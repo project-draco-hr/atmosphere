@@ -1,0 +1,4 @@
+AtmosphereFramework framework
+List<Class<? extends AtmosphereInterceptor>> interceptors
+List<AtmosphereInterceptor> l
+boolean checkDuplicate

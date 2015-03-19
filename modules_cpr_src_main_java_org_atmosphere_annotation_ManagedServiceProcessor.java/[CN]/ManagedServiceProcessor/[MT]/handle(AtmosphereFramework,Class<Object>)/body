@@ -4,6 +4,7 @@
     ManagedService a=aClass.getAnnotation(ManagedService.class);
     framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
     List<AtmosphereInterceptor> l=new LinkedList<AtmosphereInterceptor>();
+    AnnotationUtil.defaultInterceptors(framework,l);
     atmosphereConfig(a.atmosphereConfig(),framework);
     filters(a.broadcastFilters(),framework);
     AtmosphereInterceptor aa=listeners(a.listeners(),framework);
@@ -12,7 +13,6 @@
     }
     Object c=framework.newClassInstance(Object.class,aClass);
     AtmosphereHandler handler=framework.newClassInstance(ManagedAtmosphereHandler.class,ManagedAtmosphereHandler.class).configure(framework.getAtmosphereConfig(),c);
-    l.add(framework.newClassInstance(AtmosphereInterceptor.class,ManagedServiceInterceptor.class));
     framework.filterManipulator(new BroadcasterConfig.FilterManipulator(){
       @Override public Object unwrap(      Object o){
         if (o != null && ManagedAtmosphereHandler.Managed.class.isAssignableFrom(o.getClass())) {
@@ -30,8 +30,7 @@
       }
     }
 );
-    AnnotationUtil.defaultInterceptors(framework,l);
-    AnnotationUtil.interceptors(framework,a.interceptors(),l);
+    AnnotationUtil.interceptors(framework,Arrays.asList(a.interceptors()),l);
     framework.addAtmosphereHandler(a.path(),handler,broadcaster(framework,a.broadcaster(),a.path()),l);
   }
  catch (  Throwable e) {
