@@ -3,8 +3,8 @@
   String method=request.getMethod();
   boolean polling=Utils.pollableTransport(resource.transport());
   boolean webSocketMessage=Utils.webSocketMessage(resource);
-  if (!webSocketMessage) {
-    if (onReadyMethod != null && !polling) {
+  if (!webSocketMessage && !polling) {
+    if (onReadyMethod != null) {
       resource.addEventListener(new OnSuspend(){
         @Override public void onSuspend(        AtmosphereResourceEvent event){
           processReady(event.getResource());
@@ -13,7 +13,7 @@
       }
 );
     }
-    if (onResumeMethod != null && !polling) {
+    if (onResumeMethod != null) {
       resource.addEventListener(new OnResume(){
         @Override public void onResume(        AtmosphereResourceEvent event){
           invoke(onResumeMethod,event);
