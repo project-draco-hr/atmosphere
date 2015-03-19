@@ -1,0 +1,2 @@
+List<AtmosphereInterceptor> interceptorList
+Class<? extends AtmosphereInterceptor> c

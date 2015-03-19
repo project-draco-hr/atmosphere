@@ -1,6 +1,3 @@
 {
-  for (  AtmosphereInterceptor i : interceptors) {
-    if (i.getClass().equals(c.getClass()))     return false;
-  }
-  return true;
+  return checkDuplicate(interceptors,c.getClass());
 }

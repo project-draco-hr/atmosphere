@@ -1,0 +1,4 @@
+{
+  r.getRequest().setAttribute(MyInterceptor.class.getName(),++call);
+  return Action.CONTINUE;
+}

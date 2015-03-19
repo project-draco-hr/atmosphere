@@ -1,0 +1,26 @@
+{
+  final AtmosphereFramework framework=new AtmosphereFramework();
+  framework.addAtmosphereHandler("/*",mock(AtmosphereHandler.class));
+  framework.metaServicePath="META-INF/test-services/";
+  framework.init();
+  final AsynchronousProcessor processor=new AsynchronousProcessor(framework.getAtmosphereConfig()){
+    @Override public org.atmosphere.cpr.Action service(    AtmosphereRequest req,    AtmosphereResponse res) throws IOException, ServletException {
+      return action(req,res);
+    }
+  }
+;
+  framework.setAsyncSupport(processor);
+  final AtomicReference<Object> value=new AtomicReference<Object>();
+  final AtmosphereRequest r=new AtmosphereRequest.Builder().request(new HttpServletRequestWrapper(new AtmosphereRequest.NoOpsRequest()){
+    @Override public void setAttribute(    String name,    Object o){
+      if (MyInterceptor.class.getName().equals(name)) {
+        value.set(o);
+      }
+      super.setAttribute(name,o);
+    }
+  }
+).build();
+  processor.action(r,AtmosphereResponse.newInstance());
+  assertNotNull(value.get());
+  assertEquals(1,value.get());
+}
