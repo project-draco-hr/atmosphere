@@ -1,6 +1,6 @@
 {
   this.config=config;
-  for (  Class<Injectable<?>> i : defaultInjectables) {
+  for (  Class<Injectable<?>> i : DEFAULT_ATMOSPHERE_INJECTABLE) {
     try {
       injectables.add(i.newInstance());
     }
