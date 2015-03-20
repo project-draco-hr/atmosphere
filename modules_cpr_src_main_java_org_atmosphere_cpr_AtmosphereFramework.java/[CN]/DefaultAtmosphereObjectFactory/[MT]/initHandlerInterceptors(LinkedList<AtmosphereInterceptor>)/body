@@ -3,7 +3,11 @@
     for (    AtmosphereInterceptor c : l) {
       c.configure(config);
     }
-    l.addAll(interceptors);
+    for (    final AtmosphereInterceptor i : interceptors) {
+      if (checkDuplicate(l,i.getClass())) {
+        l.add(i);
+      }
+    }
     Collections.sort(l,new InterceptorComparator());
   }
 }

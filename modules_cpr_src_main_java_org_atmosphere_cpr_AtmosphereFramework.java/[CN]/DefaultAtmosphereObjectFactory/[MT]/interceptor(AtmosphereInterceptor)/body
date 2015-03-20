@@ -14,8 +14,10 @@
     positionInterceptor(p,c,interceptors);
     logger.info("Installed AtmosphereInterceptor {} with priority {} ",c,p.name());
     for (    AtmosphereHandlerWrapper wrapper : atmosphereHandlers.values()) {
-      wrapper.interceptors.add(c);
-      Collections.sort(wrapper.interceptors,new InterceptorComparator());
+      if (checkDuplicate(wrapper.interceptors,c.getClass())) {
+        wrapper.interceptors.add(c);
+        Collections.sort(wrapper.interceptors,new InterceptorComparator());
+      }
     }
   }
   return this;
