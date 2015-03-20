@@ -1,6 +1,0 @@
-{
-  initGlobalInterceptors();
-  for (  AtmosphereHandlerWrapper w : atmosphereHandlers.values()) {
-    initHandlerInterceptors(w.interceptors);
-  }
-}

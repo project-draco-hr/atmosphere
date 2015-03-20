@@ -1,0 +1,9 @@
+{
+  for (  AtmosphereInterceptor c : this.interceptors) {
+    addInterceptorToWrapper(wrapper,c);
+  }
+  for (  AtmosphereInterceptor c : interceptors) {
+    addInterceptorToWrapper(wrapper,c);
+    c.configure(config);
+  }
+}

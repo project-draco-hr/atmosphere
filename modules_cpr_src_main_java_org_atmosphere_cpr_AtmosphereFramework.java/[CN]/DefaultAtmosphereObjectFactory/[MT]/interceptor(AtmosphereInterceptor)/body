@@ -1,24 +1,7 @@
 {
-  boolean found=false;
-  for (  AtmosphereInterceptor interceptor : interceptors) {
-    if (interceptor.getClass().equals(c.getClass())) {
-      found=true;
-      break;
-    }
-  }
-  if (isInit) {
-    c.configure(config);
-  }
-  if (!found) {
-    InvokationOrder.PRIORITY p=InvokationOrder.class.isAssignableFrom(c.getClass()) ? InvokationOrder.class.cast(c).priority() : InvokationOrder.AFTER_DEFAULT;
-    positionInterceptor(p,c,interceptors);
-    logger.info("Installed AtmosphereInterceptor {} with priority {} ",c,p.name());
-    for (    AtmosphereHandlerWrapper wrapper : atmosphereHandlers.values()) {
-      if (checkDuplicate(wrapper.interceptors,c.getClass())) {
-        wrapper.interceptors.add(c);
-        Collections.sort(wrapper.interceptors,new InterceptorComparator());
-      }
-    }
+  if (!checkDuplicate(c)) {
+    interceptors.add(c);
+    addInterceptorToAllWrappers(c);
   }
   return this;
 }

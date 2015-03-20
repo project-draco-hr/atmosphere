@@ -1,3 +1,0 @@
-{
-  r.set(resource.getRequest().getPathInfo());
-}

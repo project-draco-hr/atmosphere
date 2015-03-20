@@ -1,0 +1,2 @@
+AtmosphereHandlerWrapper wrapper
+List<AtmosphereInterceptor> interceptors

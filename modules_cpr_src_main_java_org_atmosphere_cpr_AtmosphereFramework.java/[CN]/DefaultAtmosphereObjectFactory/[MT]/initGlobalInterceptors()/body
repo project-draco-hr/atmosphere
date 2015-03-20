@@ -1,5 +1,0 @@
-{
-  for (  AtmosphereInterceptor i : interceptors) {
-    i.configure(config);
-  }
-}

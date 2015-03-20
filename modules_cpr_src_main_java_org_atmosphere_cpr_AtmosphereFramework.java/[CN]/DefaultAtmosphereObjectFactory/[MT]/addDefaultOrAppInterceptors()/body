@@ -1,0 +1,5 @@
+{
+  for (  AtmosphereInterceptor c : interceptors) {
+    addInterceptorToAllWrappers(c);
+  }
+}

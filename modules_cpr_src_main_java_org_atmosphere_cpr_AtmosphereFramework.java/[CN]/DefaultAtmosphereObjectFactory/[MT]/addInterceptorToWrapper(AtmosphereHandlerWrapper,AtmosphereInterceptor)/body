@@ -1,0 +1,6 @@
+{
+  if (!checkDuplicate(wrapper.interceptors,c.getClass())) {
+    wrapper.interceptors.add(c);
+    Collections.sort(wrapper.interceptors,new InterceptorComparator());
+  }
+}

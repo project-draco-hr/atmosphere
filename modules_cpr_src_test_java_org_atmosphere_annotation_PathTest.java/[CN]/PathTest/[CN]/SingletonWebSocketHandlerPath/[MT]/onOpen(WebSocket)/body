@@ -1,3 +1,0 @@
-{
-  r.set(webSocket.resource().getRequest().getPathInfo());
-}

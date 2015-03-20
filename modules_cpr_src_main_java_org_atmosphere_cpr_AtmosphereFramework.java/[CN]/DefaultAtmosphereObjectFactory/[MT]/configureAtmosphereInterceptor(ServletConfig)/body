@@ -15,11 +15,6 @@
   s=sc.getInitParameter(ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   if (s == null || !"true".equalsIgnoreCase(s)) {
     logger.info("Installing Default AtmosphereInterceptors");
-    LinkedList<AtmosphereInterceptor> copy=null;
-    if (!interceptors.isEmpty()) {
-      copy=new LinkedList<AtmosphereInterceptor>(interceptors);
-      interceptors.clear();
-    }
     for (    Class<? extends AtmosphereInterceptor> a : DEFAULT_ATMOSPHERE_INTERCEPTORS) {
       if (!excludedInterceptors.contains(a.getName())) {
         interceptors.add(newAInterceptor(a));
@@ -28,12 +23,7 @@
         logger.info("Dropping Interceptor {}",a.getName());
       }
     }
-    if (copy != null) {
-      for (      AtmosphereInterceptor i : copy) {
-        interceptor(i);
-      }
-    }
     logger.info("Set {} to disable them.",ApplicationConfig.DISABLE_ATMOSPHEREINTERCEPTOR);
   }
-  initInterceptors();
+  addDefaultOrAppInterceptors();
 }

@@ -73,7 +73,7 @@
             }
           }
         }
-        wrapper.interceptors=l;
+        addInterceptorToWrapper(wrapper,l);
         if (l.size() > 0) {
           logger.info("Installed AtmosphereInterceptor {} mapped to AtmosphereHandler {}",l,atmoHandler.getClassName());
         }

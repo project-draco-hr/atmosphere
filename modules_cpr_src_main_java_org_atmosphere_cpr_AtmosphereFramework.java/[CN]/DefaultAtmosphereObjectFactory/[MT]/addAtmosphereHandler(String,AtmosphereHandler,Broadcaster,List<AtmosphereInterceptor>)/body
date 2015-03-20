@@ -2,10 +2,7 @@
   if (!mapping.startsWith("/")) {
     mapping="/" + mapping;
   }
-  AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(h,broadcaster);
-  w.interceptors=LinkedList.class.isAssignableFrom(l.getClass()) ? LinkedList.class.cast(l) : new LinkedList<AtmosphereInterceptor>(l);
-  addMapping(mapping,w);
-  initServletProcessor(h);
+  createWrapperAndConfigureHandler(h,mapping,l).broadcaster=broadcaster;
   if (!isInit) {
     logger.info("Installed AtmosphereHandler {} mapped to context-path {} and Broadcaster Class {}",new String[]{h.getClass().getName(),mapping,broadcaster.getClass().getName()});
   }

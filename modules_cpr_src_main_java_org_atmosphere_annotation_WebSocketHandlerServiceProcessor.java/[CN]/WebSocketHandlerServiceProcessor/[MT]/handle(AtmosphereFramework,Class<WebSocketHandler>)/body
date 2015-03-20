@@ -16,7 +16,9 @@
     p.registerWebSocketHandler(m.path(),new WebSocketProcessor.WebSocketHandlerProxy(broadcasterClass(framework,m.broadcaster()),framework.newClassInstance(WebSocketHandler.class,annotatedClass),l));
     framework.getAtmosphereConfig().startupHook(new AtmosphereConfig.StartupHook(){
       @Override public void started(      AtmosphereFramework framework){
-        framework.initHandlerInterceptors(l);
+        for (        AtmosphereInterceptor c : l) {
+          framework.interceptor(c);
+        }
       }
     }
 );
