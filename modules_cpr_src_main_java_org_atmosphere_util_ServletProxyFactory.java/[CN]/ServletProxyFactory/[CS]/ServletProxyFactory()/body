@@ -1,7 +1,7 @@
 {
   addMethodHandler("encodeURL",voidMethodHandler).addMethodHandler("encodeRedirectURL",voidMethodHandler).addMethodHandler("getCharacterEncoding",new UTF8Handler()).addMethodHandler("getServerInfo",new MethodHandler(){
     @Override public Object handle(    Object clazz,    Method method,    Object[] methodObjects){
-      return "Undefined";
+      return "Undefined/0.0";
     }
   }
 ).addMethodHandler("getMajorVersion",new MethodHandler(){
