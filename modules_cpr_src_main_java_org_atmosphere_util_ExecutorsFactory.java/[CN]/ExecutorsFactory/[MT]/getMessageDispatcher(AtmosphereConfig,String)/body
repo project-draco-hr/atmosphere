@@ -1,13 +1,12 @@
 {
   final boolean shared=config.framework().isShareExecutorServices();
-  boolean isExecutorShared=shared ? true : false;
   if (!shared || config.properties().get(BROADCASTER_THREAD_POOL) == null) {
     int numberOfMessageProcessingThread=DEFAULT_MESSAGE_THREAD;
     String s=config.getInitParameter(ApplicationConfig.BROADCASTER_MESSAGE_PROCESSING_THREADPOOL_MAXSIZE);
     if (s != null) {
       numberOfMessageProcessingThread=Integer.parseInt(s);
     }
-    if (isExecutorShared && numberOfMessageProcessingThread == 1) {
+    if (shared && numberOfMessageProcessingThread == 1) {
       logger.warn("Not enough numberOfMessageProcessingThread for a shareable thread pool {}, " + "Setting it to a newCachedThreadPool",numberOfMessageProcessingThread);
       numberOfMessageProcessingThread=-1;
     }
