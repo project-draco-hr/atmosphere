@@ -1,11 +1,9 @@
 {
   try {
-    Broadcaster b=getBroadcaster();
     if (!isCancelled.get()) {
       removeFromAllBroadcasters();
     }
     broadcasters.clear();
-    broadcasters.add(b);
     unregister();
     removeEventListeners();
   }

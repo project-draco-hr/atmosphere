@@ -1,4 +1,3 @@
 {
-  broadcasters.add(broadcaster);
-  return this;
+  return uniqueBroadcaster(broadcaster);
 }

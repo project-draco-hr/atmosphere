@@ -1,9 +1,4 @@
 {
-  if (broadcasters.size() == 0) {
-    broadcasters.add(broadcaster);
-  }
- else {
-    broadcasters.set(0,broadcaster);
-  }
-  return this;
+  this.broadcaster=broadcaster;
+  return uniqueBroadcaster(broadcaster);
 }

@@ -1,5 +1,4 @@
 {
-  Broadcaster broadcaster=broadcasters.size() == 0 ? null : broadcasters.get(0);
   if (broadcaster == null) {
     throw new IllegalStateException("No Broadcaster associated with this AtmosphereResource.");
   }

@@ -1,0 +1,13 @@
+{
+  if (newB == null) {
+    return this;
+  }
+  for (  Broadcaster b : broadcasters) {
+    if (b.getID() != null && b.getID().equalsIgnoreCase(newB.getID())) {
+      logger.trace("Duplicate Broadcaster {}",newB);
+      return this;
+    }
+  }
+  broadcasters.add(newB);
+  return this;
+}
