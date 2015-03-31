@@ -1,3 +1,0 @@
-{
-  interceptors(framework,MANAGED_ATMOSPHERE_INTERCEPTORS,l,false);
-}

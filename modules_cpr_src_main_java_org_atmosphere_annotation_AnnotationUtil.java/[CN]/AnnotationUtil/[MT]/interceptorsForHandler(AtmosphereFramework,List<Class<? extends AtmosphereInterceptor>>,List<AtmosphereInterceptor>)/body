@@ -1,0 +1,13 @@
+{
+  for (  Class<? extends AtmosphereInterceptor> i : interceptors) {
+    if (!framework.excludedInterceptors().contains(i.getName()) && (!AtmosphereFramework.DEFAULT_ATMOSPHERE_INTERCEPTORS.contains(i))) {
+      try {
+        logger.info("Adding {}",i);
+        l.add(framework.newClassInstance(AtmosphereInterceptor.class,i));
+      }
+ catch (      Throwable e) {
+        logger.warn("",e);
+      }
+    }
+  }
+}

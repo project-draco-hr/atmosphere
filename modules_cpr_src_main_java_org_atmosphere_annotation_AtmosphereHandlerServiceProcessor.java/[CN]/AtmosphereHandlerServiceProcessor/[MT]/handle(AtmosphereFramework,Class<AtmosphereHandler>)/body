@@ -28,6 +28,7 @@
       IntrospectionUtils.setProperty(handler,nv[0],nv[1]);
       IntrospectionUtils.addProperty(handler,nv[0],nv[1]);
     }
+    AnnotationUtil.interceptorsForHandler(framework,Arrays.asList(a.interceptors()),l);
     framework.addAtmosphereHandler(a.path(),handler,broadcaster(framework,a.broadcaster(),a.path()),l);
     framework.setBroadcasterCacheClassName(a.broadcasterCache().getName());
   }
