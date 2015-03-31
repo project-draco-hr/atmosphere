@@ -10,7 +10,7 @@
     r.removeEventListeners();
   }
   if (notifyAndCache) {
-    cacheLostMessage(r,(AsyncWriteToken)r.getRequest(false).getAttribute(ASYNC_TOKEN),notifyAndCache);
+    cacheLostMessage(r,(AsyncWriteToken)r.getRequest(false).getAttribute(usingTokenIdForAttribute),notifyAndCache);
   }
   if (bc != null && bc.getAsyncWriteService() != null) {
     bc.getAsyncWriteService().execute(new Runnable(){

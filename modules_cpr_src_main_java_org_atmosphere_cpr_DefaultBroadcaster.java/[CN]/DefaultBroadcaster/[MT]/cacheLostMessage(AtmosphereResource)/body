@@ -1,9 +1,0 @@
-{
-  AtmosphereRequest request=AtmosphereResourceImpl.class.cast(r).getRequest(false);
-  try {
-    cacheLostMessage(r,(AsyncWriteToken)request.getAttribute(ASYNC_TOKEN));
-  }
-  finally {
-    request.removeAttribute(ASYNC_TOKEN);
-  }
-}

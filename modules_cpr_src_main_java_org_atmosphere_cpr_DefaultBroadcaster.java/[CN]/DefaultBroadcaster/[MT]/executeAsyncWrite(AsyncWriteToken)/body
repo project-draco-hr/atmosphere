@@ -18,7 +18,7 @@
     try {
       request.setAttribute(getID(),token.future);
       request.setAttribute(MAX_INACTIVE,System.currentTimeMillis());
-      request.setAttribute(ASYNC_TOKEN,token);
+      request.setAttribute(usingTokenIdForAttribute,token);
       if (willBeResumed && !r.atmosphereResourceEventListener().isEmpty()) {
         listeners.addAll(r.atmosphereResourceEventListener());
       }
@@ -64,7 +64,7 @@
     }
     try {
       request.removeAttribute(getID());
-      request.removeAttribute(ASYNC_TOKEN);
+      request.removeAttribute(usingTokenIdForAttribute);
     }
  catch (    NullPointerException ex) {
       logger.trace("NPE after the message has been written for {}",r.uuid());
