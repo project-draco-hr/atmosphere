@@ -21,13 +21,6 @@
   if (a.type() != Action.TYPE.CONTINUE && a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
     return;
   }
-  WebSocketHandlerProxy proxy=WebSocketHandlerProxy.class.cast(webSocketHandler);
-  if (a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
-    a=asynchronousProcessor.invokeInterceptors(proxy.interceptors(),resource,tracing);
-    if (a.type() != Action.TYPE.CONTINUE) {
-      return;
-    }
-  }
   boolean skipAtmosphereHandler=request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
   if (!skipAtmosphereHandler) {
     try {
@@ -48,7 +41,6 @@
       resource.onThrowable(t);
       throw t;
     }
-    asynchronousProcessor.postInterceptors(proxy.interceptors(),resource);
   }
   request.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
   asynchronousProcessor.postInterceptors(framework.interceptors(),resource);

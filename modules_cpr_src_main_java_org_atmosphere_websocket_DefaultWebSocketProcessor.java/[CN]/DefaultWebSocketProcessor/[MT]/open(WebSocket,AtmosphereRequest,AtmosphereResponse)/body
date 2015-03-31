@@ -29,7 +29,6 @@ synchronized (framework) {
         throw new AtmosphereMappingException("No AtmosphereHandler maps request for " + request.getRequestURI());
       }
       proxy=postProcessMapping(webSocket,request,handler);
-      AtmosphereResourceImpl.class.cast(webSocket.resource()).action().type(asynchronousProcessor.invokeInterceptors(handler.interceptors(),webSocket.resource(),0).type());
     }
     dispatch(webSocket,request,response);
     if (proxy != null) {

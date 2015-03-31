@@ -7,5 +7,6 @@
   processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
   assertEquals(instanceCount,0);
   assertNotNull(r.get());
+  assertEquals(MyInterceptor.invokationCount,1);
   assertEquals(r.get(),"/singleton/ws/bar");
 }

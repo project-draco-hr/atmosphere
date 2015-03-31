@@ -1,5 +1,5 @@
 {
-  WebSocketProcessorFactory.getDefault().getWebSocketProcessor(this).registerWebSocketHandler(path,new WebSocketProcessor.WebSocketHandlerProxy(broadcasterFactory.lookup(path,true).getClass(),handler,interceptors));
+  WebSocketProcessorFactory.getDefault().getWebSocketProcessor(this).registerWebSocketHandler(path,new WebSocketProcessor.WebSocketHandlerProxy(broadcasterFactory.lookup(path,true).getClass(),handler));
   addAtmosphereHandler(path,h,l);
   return this;
 }
