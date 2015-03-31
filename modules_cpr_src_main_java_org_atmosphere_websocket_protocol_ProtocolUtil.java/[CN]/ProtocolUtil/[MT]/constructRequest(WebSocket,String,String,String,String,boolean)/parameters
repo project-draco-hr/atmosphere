@@ -1,4 +1,4 @@
-AtmosphereResource resource
+WebSocket webSocket
 String pathInfo
 String requestURI
 String methodType

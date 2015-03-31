@@ -1,0 +1,5 @@
+{
+  openProcessed.set(false);
+  openLatch.countDown();
+  return this;
+}

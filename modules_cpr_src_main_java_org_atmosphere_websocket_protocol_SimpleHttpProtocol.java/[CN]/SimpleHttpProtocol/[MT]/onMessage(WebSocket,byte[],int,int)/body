@@ -7,6 +7,6 @@
   AtmosphereRequest request=resource.getRequest(false);
   if (!resource.isInScope())   return Collections.emptyList();
   List<AtmosphereRequest> list=new ArrayList<AtmosphereRequest>();
-  list.add(constructRequest(resource,request.getPathInfo(),request.getRequestURI(),methodType,contentType.equalsIgnoreCase(TEXT) ? null : contentType,destroyable).body(d,offset,length).build());
+  list.add(constructRequest(webSocket,request.getPathInfo(),request.getRequestURI(),methodType,contentType.equalsIgnoreCase(TEXT) ? null : contentType,destroyable).body(d,offset,length).build());
   return list;
 }

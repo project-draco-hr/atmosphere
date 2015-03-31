@@ -77,5 +77,6 @@ catch (  Exception ex) {
       AtmosphereResourceEventImpl.class.cast(r.getAtmosphereResourceEvent()).setCancelled(true);
       AsynchronousProcessor.class.cast(framework.getAsyncSupport()).completeLifecycle(r,true);
     }
+    webSocket.markAsOpenProcessed();
   }
 }

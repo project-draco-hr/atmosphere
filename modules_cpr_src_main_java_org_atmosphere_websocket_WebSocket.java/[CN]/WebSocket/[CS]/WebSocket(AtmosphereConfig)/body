@@ -7,4 +7,5 @@
     binaryWrite=false;
   }
   this.config=config;
+  timeForExecutingOpenInSeconds=config.getInitParameter(WEBSOCKET_WAIT_ON_OPEN,2);
 }
