@@ -1,6 +1,5 @@
 {
   framework=new AtmosphereFramework();
-  framework.setDefaultBroadcasterClassName(SimpleBroadcaster.class.getName());
   framework.addAnnotationPackage(AtmosphereHandlerPath.class);
   framework.setAsyncSupport(new AsynchronousProcessor(framework.getAtmosphereConfig()){
     @Override public Action service(    AtmosphereRequest req,    AtmosphereResponse res) throws IOException, ServletException {
