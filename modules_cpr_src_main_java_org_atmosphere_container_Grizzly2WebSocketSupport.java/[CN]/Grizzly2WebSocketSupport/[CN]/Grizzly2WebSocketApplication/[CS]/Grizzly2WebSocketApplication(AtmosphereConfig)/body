@@ -1,5 +1,4 @@
 {
   this.config=config;
-  contextPath=config.getServletContext().getContextPath();
   this.webSocketProcessor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(config.framework());
 }
