@@ -1,7 +1,6 @@
 {
 switch (t) {
 case POLLING:
-case UNDEFINED:
 case CLOSE:
 case AJAX:
     return true;
