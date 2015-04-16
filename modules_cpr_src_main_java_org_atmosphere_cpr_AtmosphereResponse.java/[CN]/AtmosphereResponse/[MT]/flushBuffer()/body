@@ -2,7 +2,10 @@
   try {
     response.flushBuffer();
   }
- catch (  IOException ex) {
+ catch (  NullPointerException ex) {
+    handleException(ex);
+  }
+catch (  IOException ex) {
     handleException(ex);
     throw ex;
   }
