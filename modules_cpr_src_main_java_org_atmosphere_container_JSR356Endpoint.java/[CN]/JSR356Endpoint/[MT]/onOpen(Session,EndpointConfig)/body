@@ -21,6 +21,7 @@
   for (  Map.Entry<String,List<String>> e : handshakeRequest.getHeaders().entrySet()) {
     headers.put(e.getKey(),e.getValue().size() > 0 ? e.getValue().get(0) : "");
   }
+  headers.put("Connection","Upgrade");
   String servletPath=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.JSR356_MAPPING_PATH);
   if (servletPath == null) {
     servletPath=IOUtils.guestServletPath(framework.getAtmosphereConfig());
