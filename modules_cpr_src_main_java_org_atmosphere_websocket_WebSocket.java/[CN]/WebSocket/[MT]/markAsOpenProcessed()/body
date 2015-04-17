@@ -1,4 +1,0 @@
-{
-  openLatch.countDown();
-  return this;
-}

@@ -1,4 +1,0 @@
-{
-  openLatch.await(timeForExecutingOpenInSeconds,TimeUnit.SECONDS);
-  return true;
-}
