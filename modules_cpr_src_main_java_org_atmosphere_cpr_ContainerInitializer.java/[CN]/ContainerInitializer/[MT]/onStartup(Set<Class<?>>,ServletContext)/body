@@ -17,7 +17,12 @@
         force=true;
       }
       if (force || l.size() == size && resolver.testClassExists(DefaultAsyncSupportResolver.JSR356_WEBSOCKET)) {
-        framework.setAsyncSupport(new JSR356AsyncSupport(framework.getAtmosphereConfig(),c));
+        try {
+          framework.setAsyncSupport(new JSR356AsyncSupport(framework.getAtmosphereConfig(),c));
+        }
+ catch (        IllegalStateException ex) {
+          c.log("Unable to initialize websocket support",ex);
+        }
       }
       try {
         c.addListener(new ServletRequestListener(){
