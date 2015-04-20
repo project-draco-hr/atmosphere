@@ -1,0 +1,16 @@
+{
+  boolean b=forceAsyncIOWriter;
+  try {
+    validAsyncIOWriter();
+    writeStatusAndHeaders();
+    forceAsyncIOWriter=false;
+    asyncIOWriter.write(AtmosphereResponse.this,bytes);
+  }
+ catch (  IOException e) {
+    handleException(e);
+    throw e;
+  }
+ finally {
+    forceAsyncIOWriter=b;
+  }
+}
