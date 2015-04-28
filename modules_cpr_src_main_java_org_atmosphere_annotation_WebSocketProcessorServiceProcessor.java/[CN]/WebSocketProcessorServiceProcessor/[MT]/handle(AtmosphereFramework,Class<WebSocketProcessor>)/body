@@ -1,6 +1,12 @@
 {
   try {
-    framework.setWebsocketProcessorClassName(annotatedClass.getName());
+    if (!hasBeenSet) {
+      hasBeenSet=true;
+      framework.setWebsocketProcessorClassName(annotatedClass.getName());
+    }
+ else {
+      logger.warn("WebSocketProcessor already configured");
+    }
   }
  catch (  Throwable e) {
     logger.warn("",e);
