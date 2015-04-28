@@ -1,0 +1,10 @@
+{
+  try {
+    byte[] b=ws.transform(response,TEST_DATA,0,TEST_DATA.length);
+    corrupted|=!Arrays.equals(TEST_DATA,b);
+    b=ws.transform(response,TEST_DATA,0,TEST_DATA.length);
+    corrupted|=!Arrays.equals(TEST_DATA,b);
+  }
+ catch (  IOException e) {
+  }
+}

@@ -1,5 +1,6 @@
 {
   AsyncIOWriter a=response.getAsyncIOWriter();
+  ByteArrayAsyncWriter buffer=new ByteArrayAsyncWriter();
   try {
     response.asyncIOWriter(buffer);
     invokeInterceptor(response,b,offset,length);

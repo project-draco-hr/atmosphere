@@ -1,0 +1,4 @@
+{
+  this.ws=ws;
+  this.response=response;
+}

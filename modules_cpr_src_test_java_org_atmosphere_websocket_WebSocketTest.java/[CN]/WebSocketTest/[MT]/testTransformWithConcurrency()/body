@@ -1,0 +1,30 @@
+{
+  WebSocket ws=new WebSocket(framework.getAtmosphereConfig()){
+    @Override public boolean isOpen(){
+      return false;
+    }
+    @Override public WebSocket write(    String s) throws IOException {
+      return null;
+    }
+    @Override public WebSocket write(    byte[] b,    int offset,    int length) throws IOException {
+      return null;
+    }
+    @Override public void close(){
+    }
+  }
+;
+  ws.interceptor(new DummyInterceptor(500));
+  ws.interceptor(new DummyInterceptor(10));
+  AtmosphereResponse response1=AtmosphereResponse.newInstance();
+  AtmosphereResponse response2=AtmosphereResponse.newInstance();
+  Worker worker1=new Worker(ws,response1);
+  Worker worker2=new Worker(ws,response2);
+  Thread t1=new Thread(worker1);
+  Thread t2=new Thread(worker2);
+  t1.start();
+  t2.start();
+  t1.join(2000);
+  t2.join(2000);
+  assertFalse(worker1.isCorrupted(),"corrupted");
+  assertFalse(worker2.isCorrupted(),"corrupted");
+}
