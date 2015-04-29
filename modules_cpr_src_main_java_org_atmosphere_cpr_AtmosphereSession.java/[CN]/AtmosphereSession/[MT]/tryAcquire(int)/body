@@ -1,5 +1,5 @@
 {
-  if (resource.get() == null) {
+  if (usesLongPolling || resource.get() == null) {
     latch.tryAcquire(timeInSecond,TimeUnit.SECONDS);
   }
   return resource.get();

@@ -1,6 +1,7 @@
 {
   this.uuid=r.uuid();
   this.relatedBroadcasters=broadcasters;
+  this.usesLongPolling=AtmosphereResource.TRANSPORT.LONG_POLLING == r.transport();
   resource.set(r);
   broadcasterListener=new BroadcasterListenerAdapter(){
     @Override public void onAddAtmosphereResource(    Broadcaster b,    AtmosphereResource r){
