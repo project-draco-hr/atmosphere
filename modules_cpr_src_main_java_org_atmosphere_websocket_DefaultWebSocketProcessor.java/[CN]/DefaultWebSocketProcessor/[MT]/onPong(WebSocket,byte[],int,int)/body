@@ -1,0 +1,6 @@
+{
+  WebSocketHandlerProxy webSocketHandler=webSocketHandlerForMessage(webSocket);
+  if (webSocketHandler != null && WebSocketPingPongListener.class.isAssignableFrom(webSocketHandler.proxied().getClass())) {
+    WebSocketPingPongListener.class.cast(webSocketHandler.proxied()).onPong(webSocket,payload,offset,length);
+  }
+}

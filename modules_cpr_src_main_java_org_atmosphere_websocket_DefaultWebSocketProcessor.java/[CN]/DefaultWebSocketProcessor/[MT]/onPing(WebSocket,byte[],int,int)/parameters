@@ -1,0 +1,4 @@
+WebSocket webSocket
+byte[] payload
+int offset
+int length
