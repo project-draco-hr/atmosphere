@@ -1,6 +1,6 @@
 {
   try {
-    return request.getAttribute(attribute) == null ? "" : request.getAttribute(attribute);
+    return request.getAttribute(attribute);
   }
  catch (  NullPointerException ex) {
     logger.trace("Unexpected NPE",ex);
