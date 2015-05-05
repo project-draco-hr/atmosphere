@@ -3,7 +3,7 @@
     if (isBroadcasterSpecified == false) {
       broadcasterClassName=lookupDefaultBroadcasterType(broadcasterClassName);
     }
-    if (broadcasterFactoryClassName != null) {
+    if (broadcasterFactoryClassName != null && broadcasterFactory == null) {
       broadcasterFactory=newClassInstance(BroadcasterFactory.class,(Class<BroadcasterFactory>)IOUtils.loadClass(getClass(),broadcasterFactoryClassName));
       Class<? extends Broadcaster> bc=(Class<? extends Broadcaster>)IOUtils.loadClass(getClass(),broadcasterClassName);
       broadcasterFactory.configure(bc,broadcasterLifeCyclePolicy,config);
