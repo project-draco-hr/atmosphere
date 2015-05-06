@@ -1,0 +1,3 @@
+{
+  message.set(message.get() + s);
+}

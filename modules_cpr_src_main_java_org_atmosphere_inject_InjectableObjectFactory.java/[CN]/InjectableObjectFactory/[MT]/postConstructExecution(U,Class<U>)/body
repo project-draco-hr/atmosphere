@@ -1,26 +1,4 @@
 {
-  Method[] methods=defaultType.getDeclaredMethods();
-  for (  Method m : methods) {
-    if (m.isAnnotationPresent(PostConstruct.class)) {
-      try {
-        m.invoke(instance);
-        break;
-      }
- catch (      InvocationTargetException e) {
-        throw new RuntimeException(e);
-      }
-    }
-  }
-  methods=defaultType.getMethods();
-  for (  Method m : methods) {
-    if (m.isAnnotationPresent(PostConstruct.class)) {
-      try {
-        m.invoke(instance);
-        return;
-      }
- catch (      InvocationTargetException e) {
-        throw new RuntimeException(e);
-      }
-    }
-  }
+  injectMethods(defaultType.getDeclaredMethods(),instance);
+  injectMethods(defaultType.getMethods(),instance);
 }

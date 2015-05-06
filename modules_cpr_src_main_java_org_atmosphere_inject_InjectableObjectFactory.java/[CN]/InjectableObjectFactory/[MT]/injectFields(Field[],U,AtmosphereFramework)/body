@@ -1,0 +1,13 @@
+{
+  for (  Field field : fields) {
+    if (field.isAnnotationPresent(Inject.class)) {
+      for (      Injectable c : injectables) {
+        if (c.supportedType(field.getType())) {
+          field.setAccessible(true);
+          field.set(instance,c.injectable(framework.getAtmosphereConfig()));
+          break;
+        }
+      }
+    }
+  }
+}

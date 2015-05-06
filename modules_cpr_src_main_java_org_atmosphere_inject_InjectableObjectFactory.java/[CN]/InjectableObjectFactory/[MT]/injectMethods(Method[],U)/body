@@ -1,0 +1,14 @@
+{
+  for (  Method m : methods) {
+    if (m.isAnnotationPresent(PostConstruct.class)) {
+      try {
+        m.setAccessible(true);
+        m.invoke(instance);
+        break;
+      }
+ catch (      InvocationTargetException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+}

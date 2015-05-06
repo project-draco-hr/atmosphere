@@ -1,0 +1,8 @@
+{
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/postConstruct").method("GET").build();
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  assertNotNull(r.get());
+  r.get().resume();
+  assertNotNull(message.get());
+  assertEquals(message.get(),"postConstructmessage");
+}
