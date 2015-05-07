@@ -25,4 +25,11 @@
 catch (  NullPointerException ex) {
     return b.request.getSession(create);
   }
+catch (  RuntimeException ex) {
+    logger.trace("",ex);
+    if (ex.getMessage() != null || ex.getMessage().contains("SESN0007E")) {
+      return null;
+    }
+    throw ex;
+  }
 }
