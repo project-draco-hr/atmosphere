@@ -1,4 +1,8 @@
 {
+  if (!ThreadPoolExecutor.class.isAssignableFrom(t.getClass())) {
+    return;
+  }
+  ThreadPoolExecutor e=ThreadPoolExecutor.class.cast(t);
   int keepAlive=DEFAULT_KEEP_ALIVE;
   String s=config.getInitParameter(ApplicationConfig.EXECUTORFACTORY_KEEP_ALIVE);
   if (s != null) {

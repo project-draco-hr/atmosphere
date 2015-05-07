@@ -1,4 +1,5 @@
 {
   broadcaster.removeAtmosphereResource(ar);
   config.getBroadcasterFactory().destroy();
+  ExecutorsFactory.reset(config);
 }

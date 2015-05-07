@@ -1,4 +1,5 @@
 {
   broadcaster.destroy();
   config.getBroadcasterFactory().destroy();
+  ExecutorsFactory.reset(config);
 }

@@ -2,4 +2,5 @@
   broadcaster.destroy();
   atmosphereHandler.value.set(new HashSet());
   config.getBroadcasterFactory().destroy();
+  ExecutorsFactory.reset(config);
 }

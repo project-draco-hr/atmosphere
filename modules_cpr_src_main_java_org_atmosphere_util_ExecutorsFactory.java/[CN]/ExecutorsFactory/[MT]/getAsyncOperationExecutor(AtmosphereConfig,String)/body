@@ -10,29 +10,13 @@
       logger.warn("Not enough numberOfAsyncThread for a shareable thread pool {}, " + "Setting it to a newCachedThreadPool",numberOfAsyncThread);
       numberOfAsyncThread=-1;
     }
-    ThreadPoolExecutor asyncWriteService;
+    AbstractExecutorService asyncWriteService;
     logger.trace("Max number of AsyncOp {}",numberOfAsyncThread == -1 ? "Unlimited" : numberOfAsyncThread);
     if (numberOfAsyncThread == -1) {
-      asyncWriteService=(ThreadPoolExecutor)Executors.newCachedThreadPool(new ThreadFactory(){
-        private final AtomicInteger count=new AtomicInteger();
-        @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-AsyncOp-" + count.getAndIncrement());
-          t.setDaemon(true);
-          return t;
-        }
-      }
-);
+      asyncWriteService=!useForkJoinPool ? (ThreadPoolExecutor)Executors.newCachedThreadPool(new AtmosphereThreadFactory(shared,name + "-AsyncOp-")) : new org.atmosphere.util.ForkJoinPool();
     }
  else {
-      asyncWriteService=(ThreadPoolExecutor)Executors.newFixedThreadPool(numberOfAsyncThread,new ThreadFactory(){
-        private final AtomicInteger count=new AtomicInteger();
-        @Override public Thread newThread(        final Runnable runnable){
-          Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + "-AsyncOp-" + count.getAndIncrement());
-          t.setDaemon(true);
-          return t;
-        }
-      }
-);
+      asyncWriteService=(ThreadPoolExecutor)Executors.newFixedThreadPool(numberOfAsyncThread,new AtmosphereThreadFactory(shared,name + "-AsyncOp-"));
     }
     keepAliveThreads(asyncWriteService,config);
     if (shared) {

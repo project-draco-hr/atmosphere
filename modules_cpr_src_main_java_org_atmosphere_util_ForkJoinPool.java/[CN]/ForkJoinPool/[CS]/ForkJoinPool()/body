@@ -1,0 +1,9 @@
+{
+  forkJoinPool=new java.util.concurrent.ForkJoinPool(Runtime.getRuntime().availableProcessors(),new java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory(){
+    @Override public java.util.concurrent.ForkJoinWorkerThread newThread(    java.util.concurrent.ForkJoinPool pool){
+      return new AtmosphereThreadFactoryJoin(pool);
+    }
+  }
+,null,true);
+  logger.info("Using ForkJoinPool. Set the {} to -1 to fully use its power.",ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
+}
