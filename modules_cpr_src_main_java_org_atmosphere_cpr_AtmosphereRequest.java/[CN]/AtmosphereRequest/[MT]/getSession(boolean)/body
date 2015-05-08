@@ -1,2 +1,35 @@
 {
+  if (b.webSocketFakeSession != null) {
+    return b.webSocketFakeSession;
+  }
+  if (resource() != null) {
+    HttpSession session=AtmosphereResourceImpl.class.cast(resource()).session;
+    try {
+      if (session != null) {
+        session.isNew();
+        return session;
+      }
+    }
+ catch (    IllegalStateException e) {
+    }
+  }
+  try {
+    return b.request.getSession(create);
+  }
+ catch (  java.lang.IllegalStateException ex) {
+    if (ex.getMessage() != null && ex.getMessage().equalsIgnoreCase("No Session Manager")) {
+      return null;
+    }
+    throw ex;
+  }
+catch (  NullPointerException ex) {
+    return b.request.getSession(create);
+  }
+catch (  RuntimeException ex) {
+    logger.trace("",ex);
+    if (ex.getMessage() != null && ex.getMessage().contains("SESN0007E")) {
+      return null;
+    }
+    throw ex;
+  }
 }
