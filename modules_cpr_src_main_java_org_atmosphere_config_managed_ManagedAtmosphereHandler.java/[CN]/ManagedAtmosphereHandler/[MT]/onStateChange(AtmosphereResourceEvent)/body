@@ -21,7 +21,7 @@
  else {
     Object o;
     if (msg != null) {
-      if (Managed.class.isAssignableFrom(msg.getClass())) {
+      if (r.getBroadcaster().getBroadcasterConfig().hasFilters() && Managed.class.isAssignableFrom(msg.getClass())) {
         Object newMsg=Managed.class.cast(msg).o;
         event.setMessage(newMsg);
         for (        MethodInfo m : onRuntimeMethod) {
