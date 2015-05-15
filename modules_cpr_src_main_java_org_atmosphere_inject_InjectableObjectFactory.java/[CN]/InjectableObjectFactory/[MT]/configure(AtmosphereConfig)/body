@@ -1,8 +1,9 @@
 {
   this.config=config;
-  for (  Class<Injectable<?>> i : DEFAULT_ATMOSPHERE_INJECTABLE) {
+  for (  Injectable i : injectableServiceLoader) {
     try {
-      injectables.add(i.newInstance());
+      logger.debug("Adding class {} as injectable",i.getClass());
+      injectables.addLast(i);
     }
  catch (    Exception e) {
       logger.error("",e);

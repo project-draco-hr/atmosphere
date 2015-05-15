@@ -1,0 +1,8 @@
+{
+  for (  Injectable c : injectables) {
+    if (c.supportedType(u)) {
+      return (U)c.injectable(config);
+    }
+  }
+  return null;
+}
