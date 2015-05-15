@@ -21,14 +21,16 @@
  else {
     Object o;
     if (msg != null) {
-      if (r.getBroadcaster().getBroadcasterConfig().hasFilters() && Managed.class.isAssignableFrom(msg.getClass())) {
+      if (Managed.class.isAssignableFrom(msg.getClass())) {
         Object newMsg=Managed.class.cast(msg).o;
         event.setMessage(newMsg);
-        for (        MethodInfo m : onRuntimeMethod) {
-          o=Invoker.encode(encoders.get(m.method),newMsg);
-          if (o != null) {
-            event.setMessage(o);
-            break;
+        if (r.getBroadcaster().getBroadcasterConfig().hasFilters()) {
+          for (          MethodInfo m : onRuntimeMethod) {
+            o=Invoker.encode(encoders.get(m.method),newMsg);
+            if (o != null) {
+              event.setMessage(o);
+              break;
+            }
           }
         }
       }
