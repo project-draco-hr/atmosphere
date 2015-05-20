@@ -41,6 +41,9 @@
  else   if (AtmosphereFrameworkListener.class.isAssignableFrom(c)) {
     fwk.frameworkListener(fwk.newClassInstance(AtmosphereFrameworkListener.class,c));
   }
+ else   if (WebSocketFactory.class.isAssignableFrom(c)) {
+    fwk.webSocketFactory(fwk.newClassInstance(WebSocketFactory.class,c));
+  }
  else   if (AtmosphereFramework.class.isAssignableFrom(c)) {
   }
  else {

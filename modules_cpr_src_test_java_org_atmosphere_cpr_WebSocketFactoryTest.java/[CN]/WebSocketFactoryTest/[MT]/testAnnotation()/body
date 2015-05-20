@@ -1,0 +1,4 @@
+{
+  assertNotNull(framework.webSocketFactory());
+  assertEquals(CustomFactory.class,framework.webSocketFactory().getClass());
+}

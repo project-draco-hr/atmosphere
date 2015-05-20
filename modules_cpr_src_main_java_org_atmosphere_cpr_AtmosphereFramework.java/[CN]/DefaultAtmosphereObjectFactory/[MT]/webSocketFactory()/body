@@ -1,0 +1,6 @@
+{
+  if (webSocketFactory == null) {
+    configureWebSocketFactory();
+  }
+  return webSocketFactory;
+}

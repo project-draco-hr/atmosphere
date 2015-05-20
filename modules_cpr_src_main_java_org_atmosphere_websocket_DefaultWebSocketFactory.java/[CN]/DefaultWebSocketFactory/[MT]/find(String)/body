@@ -1,0 +1,7 @@
+{
+  AtmosphereResource r=factory.find(uuid);
+  if (r != null) {
+    return AtmosphereResourceImpl.class.cast(r).webSocket();
+  }
+  return null;
+}

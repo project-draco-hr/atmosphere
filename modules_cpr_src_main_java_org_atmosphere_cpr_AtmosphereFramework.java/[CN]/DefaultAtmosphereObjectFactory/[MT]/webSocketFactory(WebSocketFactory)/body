@@ -1,0 +1,4 @@
+{
+  this.webSocketFactory=webSocketFactory;
+  return this;
+}

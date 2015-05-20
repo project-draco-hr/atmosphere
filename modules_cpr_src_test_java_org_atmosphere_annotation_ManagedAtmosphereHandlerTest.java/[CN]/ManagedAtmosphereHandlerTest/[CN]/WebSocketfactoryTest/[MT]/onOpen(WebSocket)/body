@@ -1,0 +1,4 @@
+{
+  WebSocket w=factory.find(webSocket.resource().uuid());
+  r.set(w == null ? null : webSocket.resource());
+}

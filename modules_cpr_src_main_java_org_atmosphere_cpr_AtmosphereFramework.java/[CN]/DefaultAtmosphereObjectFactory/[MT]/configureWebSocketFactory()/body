@@ -1,8 +1,8 @@
 {
-  if (arFactory != null)   return this;
+  if (webSocketFactory != null)   return this;
 synchronized (this) {
     try {
-      arFactory=newClassInstance(AtmosphereResourceFactory.class,DefaultAtmosphereResourceFactory.class);
+      webSocketFactory=newClassInstance(WebSocketFactory.class,DefaultWebSocketFactory.class);
     }
  catch (    InstantiationException e) {
       logger.error("",e);
@@ -10,7 +10,6 @@ synchronized (this) {
 catch (    IllegalAccessException e) {
       logger.error("",e);
     }
-    arFactory.configure(config);
   }
   return this;
 }
