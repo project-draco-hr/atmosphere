@@ -1,6 +1,6 @@
 {
-  forkJoinPool=new java.util.concurrent.ForkJoinPool(Runtime.getRuntime().availableProcessors(),new java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory(){
-    @Override public java.util.concurrent.ForkJoinWorkerThread newThread(    java.util.concurrent.ForkJoinPool pool){
+  forkJoinPool=new org.atmosphere.util.chmv8.ForkJoinPool(Runtime.getRuntime().availableProcessors(),new org.atmosphere.util.chmv8.ForkJoinPool.ForkJoinWorkerThreadFactory(){
+    @Override public org.atmosphere.util.chmv8.ForkJoinWorkerThread newThread(    org.atmosphere.util.chmv8.ForkJoinPool pool){
       return new AtmosphereThreadFactoryJoin(pool);
     }
   }
