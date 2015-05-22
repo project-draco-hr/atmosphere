@@ -1,0 +1,2 @@
+AnnotatedProxy ap
+Class<? extends Broadcaster> aClass
