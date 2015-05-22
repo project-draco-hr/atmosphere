@@ -1,0 +1,12 @@
+{
+  AtmosphereFramework f=new AtmosphereFramework();
+  f.init();
+  final AtomicBoolean b=new AtomicBoolean();
+  f.getAtmosphereConfig().startupHook(new AtmosphereConfig.StartupHook(){
+    @Override public void started(    AtmosphereFramework framework){
+      b.set(true);
+    }
+  }
+);
+  assertTrue(b.get());
+}

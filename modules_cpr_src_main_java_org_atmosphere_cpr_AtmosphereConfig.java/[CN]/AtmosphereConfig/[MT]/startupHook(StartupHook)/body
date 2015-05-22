@@ -1,4 +1,9 @@
 {
-  startUpHook.add(s);
+  if (framework().isInit) {
+    s.started(framework);
+  }
+ else {
+    startUpHook.add(s);
+  }
   return this;
 }
