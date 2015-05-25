@@ -23,7 +23,7 @@
     }
 );
   }
-  latch.await();
+  latch.await(20,TimeUnit.SECONDS);
   try {
     assertEquals(c.size(),100);
     assertEquals(created.get(),100);
