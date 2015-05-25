@@ -17,7 +17,12 @@
   for (int i=0; i < 1000; i++) {
     r.submit(new Runnable(){
       @Override public void run(){
-        f.get(TestBroadcaster.class,new String("me"));
+        try {
+          f.get(TestBroadcaster.class,new String("me"));
+        }
+ catch (        IllegalStateException ex) {
+          latch.countDown();
+        }
       }
     }
 );
