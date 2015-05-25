@@ -28,8 +28,8 @@
     }
 );
   }
-  latch.await(30,TimeUnit.SECONDS);
   try {
+    latch.await(30,TimeUnit.SECONDS);
     assertEquals(latch.getCount(),0);
     assertEquals(f.lookupAll().size(),1);
     assertEquals(created.get(),1);
