@@ -15,18 +15,13 @@
 );
   final ConcurrentLinkedQueue<Broadcaster> c=new ConcurrentLinkedQueue<Broadcaster>();
   ExecutorService r=Executors.newCachedThreadPool();
-  try {
-    for (int i=0; i < 100; i++) {
-      r.submit(new Runnable(){
-        @Override public void run(){
-          c.add(factory.lookup("name" + UUID.randomUUID().toString(),true));
-        }
+  for (int i=0; i < 100; i++) {
+    r.submit(new Runnable(){
+      @Override public void run(){
+        c.add(factory.lookup("name" + UUID.randomUUID().toString(),true));
       }
-);
     }
-  }
-  finally {
-    r.shutdown();
+);
   }
   latch.await();
   try {

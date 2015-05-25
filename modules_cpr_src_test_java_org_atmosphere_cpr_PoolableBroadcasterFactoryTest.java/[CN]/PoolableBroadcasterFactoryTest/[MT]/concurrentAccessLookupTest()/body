@@ -15,23 +15,18 @@
 );
   final ConcurrentLinkedQueue<Broadcaster> c=new ConcurrentLinkedQueue<Broadcaster>();
   ExecutorService r=Executors.newCachedThreadPool();
-  try {
-    for (int i=0; i < 1000; i++) {
-      r.submit(new Runnable(){
-        @Override public void run(){
-          try {
-            c.add(factory.get(new String("me")));
-          }
- catch (          IllegalStateException ex) {
-            latch.countDown();
-          }
+  for (int i=0; i < 1000; i++) {
+    r.submit(new Runnable(){
+      @Override public void run(){
+        try {
+          c.add(factory.get(new String("me")));
+        }
+ catch (        IllegalStateException ex) {
+          latch.countDown();
         }
       }
-);
     }
-  }
-  finally {
-    r.shutdown();
+);
   }
   latch.await(10,TimeUnit.SECONDS);
   try {
