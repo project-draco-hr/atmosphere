@@ -41,5 +41,6 @@
   }
   finally {
     factory.destroy();
+    r.shutdownNow();
   }
 }
