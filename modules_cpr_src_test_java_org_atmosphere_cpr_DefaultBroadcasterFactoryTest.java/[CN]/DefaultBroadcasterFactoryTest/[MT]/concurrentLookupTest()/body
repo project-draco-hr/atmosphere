@@ -6,7 +6,6 @@
   f.addBroadcasterListener(new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
       created.incrementAndGet();
-      latch.countDown();
     }
     @Override public void onComplete(    Broadcaster b){
     }
@@ -19,12 +18,13 @@
     r.submit(new Runnable(){
       @Override public void run(){
         f.lookup("name" + UUID.randomUUID().toString(),true);
+        latch.countDown();
       }
     }
 );
   }
   try {
-    latch.await(30,TimeUnit.SECONDS);
+    assertTrue(latch.await(20,TimeUnit.SECONDS));
     assertEquals(f.lookupAll().size(),100);
     assertEquals(created.get(),100);
   }

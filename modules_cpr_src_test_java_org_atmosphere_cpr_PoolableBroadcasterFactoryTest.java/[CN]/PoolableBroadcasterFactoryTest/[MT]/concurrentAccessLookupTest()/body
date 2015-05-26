@@ -5,7 +5,6 @@
   factory.addBroadcasterListener(new BroadcasterListenerAdapter(){
     @Override public void onPostCreate(    Broadcaster b){
       created.incrementAndGet();
-      latch.countDown();
     }
     @Override public void onComplete(    Broadcaster b){
     }
@@ -20,6 +19,7 @@
     r.submit(new Runnable(){
       @Override public void run(){
         c.add(factory.get(me));
+        latch.countDown();
       }
     }
 );
