@@ -2,13 +2,13 @@
   String s;
   if (name.equalsIgnoreCase("content-type")) {
     s=headers.get("Content-Type");
-    if (s == null) {
+    if (s == null && servlet30) {
       s=_r().getHeader(name);
     }
     return s == null ? contentType : s;
   }
   s=headers.get(name);
-  if (s == null) {
+  if (s == null && servlet30) {
     s=_r().getHeader(name);
   }
   return s;

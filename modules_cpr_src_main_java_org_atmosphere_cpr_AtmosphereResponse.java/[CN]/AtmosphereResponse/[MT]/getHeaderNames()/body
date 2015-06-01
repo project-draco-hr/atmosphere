@@ -1,5 +1,8 @@
 {
-  Collection<String> r=_r().getHeaderNames();
+  Collection<String> r=null;
+  if (servlet30) {
+    r=_r().getHeaderNames();
+  }
   Set<String> s=headers.keySet();
   if (r != null && !r.isEmpty()) {
     s=new HashSet<String>(s);

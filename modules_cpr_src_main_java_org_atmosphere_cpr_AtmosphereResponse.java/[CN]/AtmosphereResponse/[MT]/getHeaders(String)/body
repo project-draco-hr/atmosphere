@@ -8,9 +8,11 @@
     h=headers.get(name);
   }
   s.add(h);
-  Collection<String> r=_r().getHeaders(name);
-  if (r != null && !r.isEmpty()) {
-    s.addAll(r);
+  if (servlet30) {
+    Collection<String> r=_r().getHeaders(name);
+    if (r != null && !r.isEmpty()) {
+      s.addAll(r);
+    }
   }
   return Collections.unmodifiableList(s);
 }
