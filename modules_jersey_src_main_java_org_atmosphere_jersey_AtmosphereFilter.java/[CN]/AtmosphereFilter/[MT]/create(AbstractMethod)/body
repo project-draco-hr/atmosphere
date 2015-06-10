@@ -49,10 +49,10 @@
     suspendTimeout=translateTimeUnit(suspendTimeout,tu);
     Suspend.SCOPE scope=am.getAnnotation(Suspend.class).scope();
     if (am.getAnnotation(Suspend.class).resumeOnBroadcast()) {
-      f=new Filter(Action.SUSPEND_RESUME,suspendTimeout,0,scope,null,null,true,am.getAnnotation(Suspend.class).contentType());
+      f=new Filter(Action.SUSPEND_RESUME,suspendTimeout,0,scope,null,null,am.getAnnotation(Suspend.class).writeEntity(),am.getAnnotation(Suspend.class).contentType());
     }
  else {
-      f=new Filter(Action.SUSPEND,suspendTimeout,0,scope,null,null,true,am.getAnnotation(Suspend.class).contentType());
+      f=new Filter(Action.SUSPEND,suspendTimeout,0,scope,null,null,am.getAnnotation(Suspend.class).writeEntity(),am.getAnnotation(Suspend.class).contentType());
     }
     f.setListeners(am.getAnnotation(Suspend.class).listeners());
     list.addFirst(f);
