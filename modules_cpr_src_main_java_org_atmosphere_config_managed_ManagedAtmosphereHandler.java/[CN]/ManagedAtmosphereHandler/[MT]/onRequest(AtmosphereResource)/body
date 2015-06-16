@@ -46,7 +46,11 @@
     }
     MethodInfo.EncoderObject e=message(resource,body);
     if (e != null && e.encodedObject != null) {
-      IOUtils.deliver(new Managed(e.encodedObject),null,e.methodInfo.deliverTo,resource);
+      AtmosphereResource r=resource;
+      if (e.methodInfo.deliverTo == DeliverTo.DELIVER_TO.RESOURCE && !resource.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
+        r=resourcesFactory.find(resource.uuid());
+      }
+      IOUtils.deliver(new Managed(e.encodedObject),null,e.methodInfo.deliverTo,r);
     }
   }
  else   if (method.equalsIgnoreCase("delete")) {

@@ -12,6 +12,7 @@
   this.onResumeMethod=populate(c,Resume.class);
   this.config=config;
   this.pathParams=pathParams(c);
+  this.resourcesFactory=config.resourcesFactory();
   scanForReaderOrInputStream();
   populateEncoders();
   populateDecoders();
