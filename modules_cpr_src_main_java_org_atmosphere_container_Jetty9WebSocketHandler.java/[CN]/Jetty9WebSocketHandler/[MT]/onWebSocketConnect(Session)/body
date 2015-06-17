@@ -1,6 +1,15 @@
 {
   logger.trace("WebSocket.onOpen.");
   webSocket=new Jetty9WebSocket(session,framework.getAtmosphereConfig());
+  if (jetty93Up) {
+    HttpServletRequest r=originalRequest(session);
+    if (r != null) {
+      request=AtmosphereRequest.cloneRequest(r,true,false,false,framework.getAtmosphereConfig().getInitParameter(PROPERTY_SESSION_CREATE,true));
+    }
+ else {
+      request=AtmosphereRequest.cloneRequest(r,true,true,false,framework.getAtmosphereConfig().getInitParameter(PROPERTY_SESSION_CREATE,true));
+    }
+  }
   try {
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
   }

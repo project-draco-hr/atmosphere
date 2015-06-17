@@ -1,0 +1,17 @@
+{
+  try {
+    ServletUpgradeRequest request=(ServletUpgradeRequest)session.getUpgradeRequest();
+    Field[] fields=ServletUpgradeRequest.class.getDeclaredFields();
+    for (    Field f : fields) {
+      f.setAccessible(true);
+      Object o=f.get(request);
+      if (o instanceof HttpServletRequest) {
+        return HttpServletRequest.class.cast(o);
+      }
+    }
+  }
+ catch (  Exception ex) {
+    logger.error("",ex);
+  }
+  return null;
+}
