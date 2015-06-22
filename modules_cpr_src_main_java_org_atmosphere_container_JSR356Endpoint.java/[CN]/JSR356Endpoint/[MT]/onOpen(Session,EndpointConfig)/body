@@ -1,14 +1,5 @@
 {
   if (framework.isDestroyed())   return;
-  if (!webSocketProcessor.handshake(request)) {
-    try {
-      session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT,"Handshake not accepted."));
-    }
- catch (    IOException e) {
-      logger.trace("",e);
-    }
-    return;
-  }
   if (!session.isOpen()) {
     logger.trace("Session Closed {}",session);
     return;
@@ -85,6 +76,15 @@
       }
     }
 ).build().queryString(session.getQueryString());
+    if (!webSocketProcessor.handshake(request)) {
+      try {
+        session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT,"Handshake not accepted."));
+      }
+ catch (      IOException e) {
+        logger.trace("",e);
+      }
+      return;
+    }
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
     webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
