@@ -4,6 +4,9 @@
     try {
       logger.debug("Adding class {} as injectable",i.getClass());
       injectables.addFirst(i);
+      if (InjectIntrospector.class.isAssignableFrom(i.getClass())) {
+        introspectors.addFirst(InjectIntrospector.class.cast(i));
+      }
     }
  catch (    Exception e) {
       logger.error("",e);

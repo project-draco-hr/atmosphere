@@ -1,0 +1,10 @@
+{
+  if (!m.isAnnotationPresent(PostConstruct.class))   return;
+  m.setAccessible(true);
+  try {
+    m.invoke(instance);
+  }
+ catch (  Exception e) {
+    logger.error("",e);
+  }
+}

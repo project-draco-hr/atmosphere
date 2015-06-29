@@ -2,6 +2,9 @@
   for (  Field field : fields) {
     if (field.isAnnotationPresent(Inject.class)) {
       for (      Injectable c : injectables) {
+        if (InjectIntrospector.class.isAssignableFrom(c.getClass())) {
+          InjectIntrospector.class.cast(c).introspectField(field);
+        }
         if (c.supportedType(field.getType())) {
           field.setAccessible(true);
           field.set(instance,c.injectable(framework.getAtmosphereConfig()));
