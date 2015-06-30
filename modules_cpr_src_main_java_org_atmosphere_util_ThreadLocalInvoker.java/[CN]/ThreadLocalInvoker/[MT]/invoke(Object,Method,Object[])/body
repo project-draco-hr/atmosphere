@@ -1,0 +1,14 @@
+{
+  if (threadLocalInstance.get() == null) {
+    throw new IllegalStateException("No thread local" + proxy.getClass());
+  }
+  try {
+    return method.invoke(threadLocalInstance.get(),args);
+  }
+ catch (  IllegalAccessException ex) {
+    throw new IllegalStateException(ex);
+  }
+catch (  InvocationTargetException ex) {
+    throw ex.getTargetException();
+  }
+}

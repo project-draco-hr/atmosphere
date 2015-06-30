@@ -1,0 +1,3 @@
+{
+  this.threadLocalInstance.set(threadLocalInstance);
+}
