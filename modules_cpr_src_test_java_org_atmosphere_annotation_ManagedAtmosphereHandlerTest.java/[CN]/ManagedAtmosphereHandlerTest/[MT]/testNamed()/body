@@ -1,0 +1,8 @@
+{
+  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/named").method("GET").build();
+  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  assertNotNull(r.get());
+  r.get().resume();
+  assertNotNull(r.get().getBroadcaster());
+  assertEquals(r.get().getBroadcaster().getID(),"/test");
+}

@@ -1,0 +1,4 @@
+{
+  resource.setBroadcaster(broadcaster);
+  r.set(resource);
+}
