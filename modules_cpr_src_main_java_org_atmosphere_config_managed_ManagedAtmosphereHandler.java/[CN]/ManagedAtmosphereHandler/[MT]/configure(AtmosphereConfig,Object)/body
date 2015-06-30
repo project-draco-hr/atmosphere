@@ -13,6 +13,7 @@
   this.config=config;
   this.pathParams=pathParams(c);
   this.resourcesFactory=config.resourcesFactory();
+  this.needInjection=needInjection(c);
   scanForReaderOrInputStream();
   populateEncoders();
   populateDecoders();

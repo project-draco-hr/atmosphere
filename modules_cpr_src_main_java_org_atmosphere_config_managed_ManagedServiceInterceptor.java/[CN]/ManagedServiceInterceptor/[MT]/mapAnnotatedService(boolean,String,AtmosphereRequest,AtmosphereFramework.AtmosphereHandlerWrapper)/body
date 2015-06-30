@@ -16,6 +16,9 @@ synchronized (config.handlers()) {
                 if (h.pathParams()) {
                   prepareForPathInjection(path,targetPath,o);
                 }
+                if (h.needInjection()) {
+                  inject(o,o.getClass());
+                }
                 config.framework().addAtmosphereHandler(path,h,config.getBroadcasterFactory().lookup(a.broadcaster(),path,true),w.interceptors);
               }
  else {

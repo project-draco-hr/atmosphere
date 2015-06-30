@@ -1,4 +1,8 @@
 {
   this.config=config;
+  this.injectableFactory=InjectableObjectFactory.class.isAssignableFrom(config.framework().objectFactory().getClass()) ? InjectableObjectFactory.class.cast(config.framework().objectFactory()) : null;
   optimizeMapping();
+  if (wildcardMapping && injectableFactory != null) {
+    needInjection();
+  }
 }
