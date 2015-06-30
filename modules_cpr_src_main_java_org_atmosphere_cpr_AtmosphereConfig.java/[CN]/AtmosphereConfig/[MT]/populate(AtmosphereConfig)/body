@@ -4,7 +4,7 @@
   sessionTimeoutRemovalAllowed=config.sessionTimeoutRemovalAllowed;
   throwExceptionOnCloned=config.throwExceptionOnCloned;
   framework=config.framework;
-  properties=config.properties;
+  properties.putAll(config.properties);
   shutdownHooks=config.shutdownHooks;
   startUpHook=config.startUpHook;
   return this;

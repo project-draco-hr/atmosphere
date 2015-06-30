@@ -1,3 +1,7 @@
 {
+  String s=(String)config.properties().remove(Thread.currentThread().getName());
+  if (s != null) {
+    name=s;
+  }
   return config.getBroadcasterFactory().lookup(name,true);
 }

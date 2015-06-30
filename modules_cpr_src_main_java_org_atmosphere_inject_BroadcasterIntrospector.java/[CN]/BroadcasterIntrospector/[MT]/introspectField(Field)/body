@@ -1,5 +1,8 @@
 {
   if (f.isAnnotationPresent(Named.class)) {
     name=f.getAnnotation(Named.class).value();
+    if (name.contains("{")) {
+      name=Broadcaster.ROOT_MASTER;
+    }
   }
 }
