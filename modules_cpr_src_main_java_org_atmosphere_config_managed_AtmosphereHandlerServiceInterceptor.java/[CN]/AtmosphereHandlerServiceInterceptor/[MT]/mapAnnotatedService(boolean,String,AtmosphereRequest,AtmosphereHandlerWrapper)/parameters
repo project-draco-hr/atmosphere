@@ -1,4 +1,4 @@
 boolean reMap
 String path
 AtmosphereRequest request
-AtmosphereFramework.AtmosphereHandlerWrapper w
+AtmosphereHandlerWrapper w

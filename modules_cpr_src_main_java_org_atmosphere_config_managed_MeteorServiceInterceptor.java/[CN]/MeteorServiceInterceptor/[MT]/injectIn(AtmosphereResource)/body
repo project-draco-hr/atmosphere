@@ -1,0 +1,3 @@
+{
+  return ReflectorServletProcessor.class.cast(r.getAtmosphereHandler()).getServlet();
+}

@@ -1,0 +1,13 @@
+{
+  Object injectIn=injectIn(r);
+  if (injectIn != null) {
+    String name=Thread.currentThread().getName() + AtmosphereResource.class.getSimpleName();
+    try {
+      config.properties().put(name,r);
+      inject(injectIn,injectIn.getClass());
+    }
+  finally {
+      config.properties().remove(name);
+    }
+  }
+}

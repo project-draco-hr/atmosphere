@@ -1,5 +1,5 @@
 {
-  String s=(String)config.properties().remove(Thread.currentThread().getName());
+  String s=(String)config.properties().get(Thread.currentThread().getName() + ".PATH");
   if (s != null) {
     name=s;
   }

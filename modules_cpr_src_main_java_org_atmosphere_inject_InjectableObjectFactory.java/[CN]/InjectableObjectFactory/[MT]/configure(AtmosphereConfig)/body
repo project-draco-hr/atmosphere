@@ -3,10 +3,16 @@
   for (  Injectable i : injectableServiceLoader) {
     try {
       logger.debug("Adding class {} as injectable",i.getClass());
-      injectables.addFirst(i);
       if (InjectIntrospector.class.isAssignableFrom(i.getClass())) {
-        introspectors.addFirst(InjectIntrospector.class.cast(i));
+        InjectIntrospector<?> ii=InjectIntrospector.class.cast(i);
+        introspectors.addFirst(ii);
+        if (ii.when().equals(InjectIntrospector.WHEN.RUNTIME)) {
+          config.properties().put(FrameworkConfig.NEED_RUNTIME_INJECTION,true);
+          runtimeIntrospectors.addFirst(ii);
+          continue;
+        }
       }
+      injectables.addFirst(i);
     }
  catch (    Exception e) {
       logger.error("",e);

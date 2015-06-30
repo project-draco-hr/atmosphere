@@ -2,7 +2,8 @@
 synchronized (config.handlers()) {
     if (config.handlers().get(path) == null) {
       if (ReflectorServletProcessor.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
-        Servlet s=ReflectorServletProcessor.class.cast(w.atmosphereHandler).getServlet();
+        ReflectorServletProcessor r=ReflectorServletProcessor.class.cast(w.atmosphereHandler);
+        Servlet s=r.getServlet();
         MeteorService m=s.getClass().getAnnotation(MeteorService.class);
         if (m != null) {
           String targetPath=m.path();
@@ -10,14 +11,14 @@ synchronized (config.handlers()) {
             try {
               boolean singleton=s.getClass().getAnnotation(Singleton.class) != null;
               if (!singleton) {
-                ReflectorServletProcessor r=config.framework().newClassInstance(ReflectorServletProcessor.class,ReflectorServletProcessor.class);
+                r=config.framework().newClassInstance(ReflectorServletProcessor.class,ReflectorServletProcessor.class);
                 r.setServlet(config.framework().newClassInstance(Servlet.class,s.getClass()));
                 r.init(config);
-                config.framework().addAtmosphereHandler(path,r,config.getBroadcasterFactory().lookup(w.broadcaster.getClass(),path,true),w.interceptors);
               }
- else {
-                config.framework().addAtmosphereHandler(path,w.atmosphereHandler,config.getBroadcasterFactory().lookup(w.broadcaster.getClass(),path,true),w.interceptors);
+              if (runtimeInjection) {
+                AtmosphereResourceImpl.class.cast(request.resource()).atmosphereHandler(r);
               }
+              config.framework().addAtmosphereHandler(path,r,config.getBroadcasterFactory().lookup(w.broadcaster.getClass(),path,true),w.interceptors);
               request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
             }
  catch (            Throwable e) {

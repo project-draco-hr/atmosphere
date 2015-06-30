@@ -1,0 +1,5 @@
+{
+  AnnotatedProxy ap=AnnotatedProxy.class.cast(r.getAtmosphereHandler());
+  if (ap == null)   return null;
+  return ap.target();
+}

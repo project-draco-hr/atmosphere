@@ -1,0 +1,3 @@
+{
+  config.properties().remove(Thread.currentThread().getName() + ".PATH");
+}

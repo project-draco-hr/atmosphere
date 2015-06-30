@@ -1,5 +1,12 @@
 {
-  if (!wildcardMapping)   return Action.CONTINUE;
-  mapAnnotatedService(r.getRequest(),(AtmosphereFramework.AtmosphereHandlerWrapper)r.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER));
-  return Action.CONTINUE;
+  try {
+    if (!wildcardMapping)     return Action.CONTINUE;
+    mapAnnotatedService(r.getRequest(),(AtmosphereFramework.AtmosphereHandlerWrapper)r.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER));
+    return Action.CONTINUE;
+  }
+  finally {
+    if (runtimeInjection) {
+      inject(r);
+    }
+  }
 }

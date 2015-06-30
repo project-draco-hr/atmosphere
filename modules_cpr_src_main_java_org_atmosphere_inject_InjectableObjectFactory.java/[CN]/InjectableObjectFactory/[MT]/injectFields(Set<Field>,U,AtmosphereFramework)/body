@@ -1,7 +1,8 @@
 {
   for (  Field field : fields) {
     if (field.isAnnotationPresent(Inject.class)) {
-      for (      Injectable c : injectables) {
+      LinkedList<? extends Injectable> list=framework.initialized() ? runtimeIntrospectors : injectables;
+      for (      Injectable c : list) {
         if (InjectIntrospector.class.isAssignableFrom(c.getClass())) {
           InjectIntrospector.class.cast(c).introspectField(field);
         }

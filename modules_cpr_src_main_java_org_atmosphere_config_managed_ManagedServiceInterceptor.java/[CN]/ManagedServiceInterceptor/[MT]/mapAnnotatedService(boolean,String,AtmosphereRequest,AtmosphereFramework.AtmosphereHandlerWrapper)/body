@@ -10,20 +10,18 @@ synchronized (config.handlers()) {
             try {
               boolean singleton=ap.target().getClass().getAnnotation(Singleton.class) != null;
               if (!singleton) {
-                AnnotatedProxy h=proxyHandler();
-                final Object o=config.framework().newClassInstance(Object.class,ap.target().getClass());
-                h.configure(config,o);
-                if (h.pathParams()) {
-                  prepareForPathInjection(path,targetPath,o);
-                }
-                if (h.needInjection()) {
-                  inject(o,o.getClass(),path);
-                }
-                config.framework().addAtmosphereHandler(path,h,config.getBroadcasterFactory().lookup(a.broadcaster(),path,true),w.interceptors);
+                ap=proxyHandler();
+                final Object o=config.framework().newClassInstance(Object.class,AnnotatedProxy.class.cast(w.atmosphereHandler).target().getClass());
+                ap.configure(config,o);
               }
- else {
-                config.framework().addAtmosphereHandler(path,w.atmosphereHandler,config.getBroadcasterFactory().lookup(a.broadcaster(),path,true),w.interceptors);
+              config.properties().put(Thread.currentThread().getName() + ".PATH",path);
+              if (ap.pathParams()) {
+                prepareForPathInjection(path,targetPath,ap.target());
               }
+              if (runtimeInjection) {
+                AtmosphereResourceImpl.class.cast(request.resource()).atmosphereHandler(ap);
+              }
+              config.framework().addAtmosphereHandler(path,ap,config.getBroadcasterFactory().lookup(a.broadcaster(),path,true),w.interceptors);
               request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
             }
  catch (            Throwable e) {
