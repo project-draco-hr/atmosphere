@@ -4,7 +4,7 @@
     if (r != null) {
       asyncExecutor.execute(new Runnable(){
         @Override public void run(){
-          AtmosphereResponse w=new AtmosphereResponse(webSocket,r,destroyable);
+          AtmosphereResponse w=new AtmosphereResponseImpl(webSocket,r,destroyable);
           try {
             dispatch(webSocket,r,w);
           }

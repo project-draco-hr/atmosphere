@@ -4,7 +4,7 @@
     @Override public void onSuspend(    AtmosphereResourceEvent event){
       AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/e").method("POST").body("message").build();
       try {
-        event.getResource().getAtmosphereConfig().framework().doCometSupport(request,AtmosphereResponse.newInstance());
+        event.getResource().getAtmosphereConfig().framework().doCometSupport(request,AtmosphereResponseImpl.newInstance());
       }
  catch (      IOException e) {
         e.printStackTrace();

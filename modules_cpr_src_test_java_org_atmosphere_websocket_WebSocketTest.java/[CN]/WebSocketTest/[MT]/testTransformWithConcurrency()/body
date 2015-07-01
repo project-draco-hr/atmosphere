@@ -15,8 +15,8 @@
 ;
   ws.interceptor(new DummyInterceptor(500));
   ws.interceptor(new DummyInterceptor(10));
-  AtmosphereResponse response1=AtmosphereResponse.newInstance();
-  AtmosphereResponse response2=AtmosphereResponse.newInstance();
+  AtmosphereResponse response1=AtmosphereResponseImpl.newInstance();
+  AtmosphereResponse response2=AtmosphereResponseImpl.newInstance();
   Worker worker1=new Worker(ws,response1);
   Worker worker2=new Worker(ws,response2);
   Thread t1=new Thread(worker1);

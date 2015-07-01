@@ -5,7 +5,7 @@
   registerWebSocketHandler("/a",new WebSocketProcessor.WebSocketHandlerProxy(new EchoHandler()));
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).body("yoComet").pathInfo("/abcd").build();
   try {
-    processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+    processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
     fail();
   }
  catch (  Exception ex) {

@@ -4,6 +4,6 @@
   m.put(HeaderConfig.X_ATMOSPHERE_TRACKING_ID,UUID.randomUUID().toString());
   m.put(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.LONG_POLLING_TRANSPORT);
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().headers(m).pathInfo("/a").method("GET").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertEquals(CachedAR.count.get(),3);
 }

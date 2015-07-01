@@ -21,6 +21,6 @@
     }
   }
 );
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertEquals(e.get(),"a=b");
 }

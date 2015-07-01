@@ -1,6 +1,6 @@
 {
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/d").method("PUT").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertNotNull(r.get());
   r.get().resume();
 }

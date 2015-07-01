@@ -1,7 +1,7 @@
 {
   logger.trace("WebSocket.onOpen {}",connection);
   try {
-    webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
+    webSocketProcessor.open(webSocket,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,webSocket));
   }
  catch (  Exception e) {
     logger.warn("Failed to connect to WebSocket",e);

@@ -1,5 +1,5 @@
 {
-  AtmosphereResponse response=AtmosphereResponse.newInstance();
+  AtmosphereResponse response=AtmosphereResponseImpl.newInstance();
   AsyncIOWriter writer=mock(AsyncIOWriter.class);
   AsyncIOWriter wswriter=mock(WebSocket.class);
   response.asyncIOWriter(writer);

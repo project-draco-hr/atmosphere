@@ -9,7 +9,7 @@
   }
 );
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").body("test").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance().delegateToNativeResponse(false));
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance().delegateToNativeResponse(false));
   assertNotNull(e.get());
   assertTrue(e.get().hasString());
   assertFalse(e.get().hasBytes());

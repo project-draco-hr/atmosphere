@@ -5,7 +5,7 @@
     if (pt.getRawType() != AtmosphereResource.class)     return false;
     if (pt.getActualTypeArguments().length != 2)     return false;
     if (pt.getActualTypeArguments()[0] != AtmosphereRequestImpl.class)     return false;
-    if (pt.getActualTypeArguments()[1] != AtmosphereResponse.class)     return false;
+    if (pt.getActualTypeArguments()[1] != AtmosphereResponseImpl.class)     return false;
     return true;
   }
   return false;

@@ -22,6 +22,6 @@
   }
 );
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).body("yoComet").pathInfo("/a").build();
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   assertFalse(closed.get());
 }

@@ -18,7 +18,7 @@
   queryStrings.put("b",new String[]{"d"});
   queryStrings.put("c",new String[]{"f"});
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().queryStrings(queryStrings).pathInfo("/a").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   r.get().getBroadcaster().broadcast("yo").get();
   assertNotNull(q.get());
   assertEquals(q.get(),"a=b&b=d&c=f");

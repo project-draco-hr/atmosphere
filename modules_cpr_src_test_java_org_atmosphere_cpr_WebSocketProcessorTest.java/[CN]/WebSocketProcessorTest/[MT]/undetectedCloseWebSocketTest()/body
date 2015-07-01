@@ -21,7 +21,7 @@
   m.put(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.WEBSOCKET_TRANSPORT);
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().headers(m).pathInfo("/a").build();
   request.setAttribute(FrameworkConfig.WEBSOCKET_MESSAGE,null);
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   final AtomicBoolean dirtyDisconnect=new AtomicBoolean();
   request.setAttribute(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,w.resource().uuid());
   m.put(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.WEBSOCKET_TRANSPORT);
@@ -35,7 +35,7 @@
   }
 );
   request.setAttribute(FrameworkConfig.WEBSOCKET_MESSAGE,null);
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   r.get().getBroadcaster().broadcast("yo").get();
   assertTrue(dirtyDisconnect.get());
 }

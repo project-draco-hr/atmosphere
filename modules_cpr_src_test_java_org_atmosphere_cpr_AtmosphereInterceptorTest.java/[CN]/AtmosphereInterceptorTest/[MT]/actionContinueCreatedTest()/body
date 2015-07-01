@@ -13,7 +13,7 @@
     }
   }
 );
-  assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance()));
+  assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponseImpl.newInstance()));
   framework.interceptor(new AtmosphereInterceptor(){
     @Override public void configure(    AtmosphereConfig config){
     }
@@ -27,5 +27,5 @@
     }
   }
 );
-  assertEquals(Action.CREATED,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance()));
+  assertEquals(Action.CREATED,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponseImpl.newInstance()));
 }

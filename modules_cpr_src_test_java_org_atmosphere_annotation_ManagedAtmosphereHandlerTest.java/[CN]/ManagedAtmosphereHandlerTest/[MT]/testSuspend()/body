@@ -1,6 +1,6 @@
 {
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/j").method("GET").build();
   request.header(X_ATMOSPHERE_TRANSPORT,LONG_POLLING_TRANSPORT);
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertNotNull(r.get());
 }

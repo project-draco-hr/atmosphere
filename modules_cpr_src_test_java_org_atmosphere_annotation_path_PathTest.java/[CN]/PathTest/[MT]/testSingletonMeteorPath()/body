@@ -1,7 +1,7 @@
 {
   instanceCount=0;
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/singleton/meteor/test2").method("GET").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertEquals(instanceCount,0);
   assertNotNull(r.get());
   assertEquals(r.get(),"/singleton/meteor/test2");

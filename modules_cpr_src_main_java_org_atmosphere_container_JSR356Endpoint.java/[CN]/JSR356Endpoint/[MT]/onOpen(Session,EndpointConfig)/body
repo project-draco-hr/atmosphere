@@ -86,7 +86,7 @@
       return;
     }
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"false");
-    webSocketProcessor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
+    webSocketProcessor.open(webSocket,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     framework.addInitParameter(ALLOW_QUERYSTRING_AS_REQUEST,"true");
     if (session.isOpen()) {
       session.addMessageHandler(new MessageHandler.Whole<String>(){

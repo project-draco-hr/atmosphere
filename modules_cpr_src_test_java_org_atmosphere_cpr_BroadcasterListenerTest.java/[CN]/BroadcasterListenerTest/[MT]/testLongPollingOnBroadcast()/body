@@ -3,7 +3,7 @@
   Map<String,String> m=new HashMap<String,String>();
   m.put(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.LONG_POLLING_TRANSPORT);
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().headers(m).pathInfo("/a").method("GET").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertEquals(BAR.count.get(),1);
   assertTrue(onMessage.get());
 }

@@ -20,7 +20,7 @@
   Set<Cookie> c=new HashSet<Cookie>();
   c.add(new Cookie("yo","man"));
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().cookies(c).pathInfo("/a").build();
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   r.get().getBroadcaster().broadcast("yo").get();
   assertNotNull(cValue.get());
   Cookie i=c.iterator().next();

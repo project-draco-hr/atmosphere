@@ -15,6 +15,6 @@
     }
   }
 );
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertNotNull(meteor.get());
 }

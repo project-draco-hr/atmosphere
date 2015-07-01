@@ -38,6 +38,6 @@
   }
 ;
   framework.addAtmosphereHandler("/*",handler);
-  assertEquals(Action.CREATED,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance()));
+  assertEquals(Action.CREATED,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponseImpl.newInstance()));
   assertEquals(1,count.get());
 }

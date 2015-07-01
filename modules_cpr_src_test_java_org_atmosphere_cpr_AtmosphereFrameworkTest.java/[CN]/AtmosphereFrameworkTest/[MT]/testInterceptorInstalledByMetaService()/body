@@ -20,7 +20,7 @@
     }
   }
 ).build();
-  processor.action(r,AtmosphereResponse.newInstance());
+  processor.action(r,AtmosphereResponseImpl.newInstance());
   assertNotNull(value.get());
   assertEquals(1,value.get());
 }

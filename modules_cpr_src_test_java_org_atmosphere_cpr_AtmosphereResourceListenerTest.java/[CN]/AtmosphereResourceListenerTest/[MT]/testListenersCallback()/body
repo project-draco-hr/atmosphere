@@ -57,7 +57,7 @@ catch (      ExecutionException e) {
     }
   }
 );
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertTrue(preSuspended.get());
   assertTrue(suspended.get());
   assertTrue(resumed.get());

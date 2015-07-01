@@ -6,5 +6,5 @@
   }
   AtmosphereRequest r=AtmosphereRequestImpl.wrap(socket.getServletRequest());
   webSocket=new JBossWebSocket(socket,config);
-  webSocketProcessor.open(webSocket,r,AtmosphereResponse.newInstance(config,r,webSocket));
+  webSocketProcessor.open(webSocket,r,AtmosphereResponseImpl.newInstance(config,r,webSocket));
 }

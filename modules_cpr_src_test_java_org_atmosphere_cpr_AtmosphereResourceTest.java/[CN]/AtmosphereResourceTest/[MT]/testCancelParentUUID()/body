@@ -35,7 +35,7 @@
   new Thread(){
     public void run(){
       try {
-        framework.doCometSupport(parentRequest,AtmosphereResponse.newInstance().request(parentRequest));
+        framework.doCometSupport(parentRequest,AtmosphereResponseImpl.newInstance().request(parentRequest));
       }
  catch (      IOException e) {
         e.printStackTrace();
@@ -51,7 +51,7 @@ catch (      ServletException e) {
   m.put(SUSPENDED_ATMOSPHERE_RESOURCE_UUID,parentRequest.resource().uuid());
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().attributes(m).pathInfo("/a").queryString(HeaderConfig.WEBSOCKET_X_ATMOSPHERE_TRANSPORT).build();
   request.setAttribute(FrameworkConfig.WEBSOCKET_MESSAGE,"true");
-  framework.doCometSupport(request,AtmosphereResponse.newInstance().request(request));
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance().request(request));
   AtmosphereResource r=parentRequest.resource();
   Broadcaster b=r.getBroadcaster();
   assertEquals(b.getAtmosphereResources().size(),1);

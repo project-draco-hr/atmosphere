@@ -40,6 +40,6 @@ catch (      ExecutionException e) {
     }
   }
 );
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   assertTrue(closed.get());
 }

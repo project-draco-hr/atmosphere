@@ -4,7 +4,7 @@
   AR ah=new AR();
   framework.addAtmosphereHandler("/*",ah,b).init();
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").method("GET").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   b.removeAtmosphereResource(ah.resource);
   assertFalse(B.class.cast(b).releaseExternalResources.get());
   assertFalse(B.class.cast(b).destroy.get());

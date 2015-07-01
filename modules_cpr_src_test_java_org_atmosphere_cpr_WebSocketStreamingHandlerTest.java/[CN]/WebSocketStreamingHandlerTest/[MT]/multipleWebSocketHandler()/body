@@ -5,11 +5,11 @@
   registerWebSocketHandler("/a",new EchoHandler());
   registerWebSocketHandler("/b",new EchoHandler());
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).body("a").pathInfo("/a").build();
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   processor.invokeWebSocketProtocol(w,"a");
   assertEquals(b.toString(),"a");
   request=new AtmosphereRequestImpl.Builder().destroyable(false).body("b").pathInfo("/b").build();
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   processor.invokeWebSocketProtocol(w,"b");
   assertEquals(b.toString(),"ab");
 }

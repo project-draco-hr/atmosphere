@@ -4,7 +4,7 @@
   final WebSocket w=new ArrayBaseWebSocket(b);
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/singleton/ws/bar").method("GET").build();
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   assertEquals(instanceCount,0);
   assertNotNull(r.get());
   assertEquals(MyInterceptor.invokationCount,1);

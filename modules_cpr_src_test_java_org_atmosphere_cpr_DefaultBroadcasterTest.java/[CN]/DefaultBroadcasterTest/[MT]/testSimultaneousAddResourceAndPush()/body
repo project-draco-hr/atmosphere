@@ -16,7 +16,7 @@
     }
   }
 );
-  final AtmosphereResourceImpl ar=new AtmosphereResourceImpl(new AtmosphereFramework().getAtmosphereConfig(),broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),new AR());
+  final AtmosphereResourceImpl ar=new AtmosphereResourceImpl(new AtmosphereFramework().getAtmosphereConfig(),broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponseImpl.newInstance(),mock(BlockingIOCometSupport.class),new AR());
   final String message="foo";
   Runnable broadcastRunnable=new Runnable(){
     @Override public void run(){

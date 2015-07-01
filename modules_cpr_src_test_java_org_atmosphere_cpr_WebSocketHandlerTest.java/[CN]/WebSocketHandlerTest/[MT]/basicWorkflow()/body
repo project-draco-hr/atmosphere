@@ -4,7 +4,7 @@
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
   registerWebSocketHandler("/*",new WebSocketProcessor.WebSocketHandlerProxy(new EchoHandler()));
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).body("yoComet").pathInfo("/a").build();
-  processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
   processor.invokeWebSocketProtocol(w,"yoWebSocket");
   assertEquals(b.toString(),"yoWebSocket");
 }

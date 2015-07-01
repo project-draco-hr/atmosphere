@@ -17,7 +17,7 @@
   Set<Cookie> c=new HashSet<Cookie>();
   c.add(new Cookie("yo","man"));
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().cookies(c).pathInfo("/a").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   r.get().getBroadcaster().broadcast("yo").get();
   assertNotNull(cValue.get());
   Cookie i=c.iterator().next();

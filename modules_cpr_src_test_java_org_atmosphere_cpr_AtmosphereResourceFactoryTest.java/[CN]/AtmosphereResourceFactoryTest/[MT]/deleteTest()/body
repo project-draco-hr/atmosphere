@@ -3,7 +3,7 @@
     framework.getBroadcasterFactory().get(String.valueOf(i));
   }
   Broadcaster b2=framework.getBroadcasterFactory().get("b2");
-  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.config,framework.getBroadcasterFactory().lookup("1"),AtmosphereResponse.newInstance().request(AtmosphereRequestImpl.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
+  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.config,framework.getBroadcasterFactory().lookup("1"),AtmosphereResponseImpl.newInstance().request(AtmosphereRequestImpl.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
   assertNotNull(r);
   b2.addAtmosphereResource(r.suspend());
   assertNotNull(framework.getAtmosphereConfig().resourcesFactory().find(r.uuid()));

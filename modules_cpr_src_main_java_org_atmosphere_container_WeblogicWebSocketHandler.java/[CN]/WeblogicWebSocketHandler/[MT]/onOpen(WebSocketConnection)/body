@@ -7,7 +7,7 @@
   ar.queryString(ar.getQueryString());
   request.set(null);
   try {
-    webSocketProcessor.open(webSocket,ar,AtmosphereResponse.newInstance(config,ar,webSocket));
+    webSocketProcessor.open(webSocket,ar,AtmosphereResponseImpl.newInstance(config,ar,webSocket));
   }
  catch (  IOException e) {
     logger.error("{}",e);

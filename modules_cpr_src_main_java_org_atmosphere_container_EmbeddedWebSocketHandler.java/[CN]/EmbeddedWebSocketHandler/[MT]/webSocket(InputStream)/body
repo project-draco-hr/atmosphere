@@ -5,7 +5,7 @@
     webSockets.put(inputStream,webSocket);
     AtmosphereRequest request=AtmosphereRequestImpl.newInstance().header("Connection","Upgrade").header("Upgrade","websocket").pathInfo(requestURI);
     try {
-      processor.open(webSocket,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,webSocket));
+      processor.open(webSocket,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,webSocket));
     }
  catch (    Exception ex) {
       ex.printStackTrace();

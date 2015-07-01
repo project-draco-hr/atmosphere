@@ -1,7 +1,7 @@
 {
   final CountDownLatch latch=new CountDownLatch(1);
   final CountDownLatch guard=new CountDownLatch(1);
-  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponseImpl.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
   broadcaster.latch(latch).addAtmosphereResource(ar);
   final AtomicReference<Throwable> t=new AtomicReference<Throwable>();
   ar.addEventListener(new AtmosphereResourceEventListenerAdapter(){

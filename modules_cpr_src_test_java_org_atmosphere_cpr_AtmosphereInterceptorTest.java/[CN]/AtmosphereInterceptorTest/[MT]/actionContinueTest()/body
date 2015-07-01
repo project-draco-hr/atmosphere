@@ -13,5 +13,5 @@
     }
   }
 );
-  assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance()));
+  assertEquals(Action.CONTINUE,processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponseImpl.newInstance()));
 }

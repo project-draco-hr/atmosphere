@@ -14,7 +14,7 @@
   }
 );
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   r.get().resume();
   assertTrue(e.get().isResuming());
   framework.destroy();

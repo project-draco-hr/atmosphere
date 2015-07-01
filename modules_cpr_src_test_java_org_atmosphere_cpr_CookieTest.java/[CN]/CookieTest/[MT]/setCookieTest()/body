@@ -23,7 +23,7 @@
   a.setPath("/ya");
   c.add(a);
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().cookies(c).pathInfo("/a").build();
-  AtmosphereResponse response=AtmosphereResponse.newInstance().delegateToNativeResponse(false);
+  AtmosphereResponse response=AtmosphereResponseImpl.newInstance().delegateToNativeResponse(false);
   response.destroyable(false);
   framework.doCometSupport(request,response);
   r.get().getBroadcaster().broadcast("yo").get();

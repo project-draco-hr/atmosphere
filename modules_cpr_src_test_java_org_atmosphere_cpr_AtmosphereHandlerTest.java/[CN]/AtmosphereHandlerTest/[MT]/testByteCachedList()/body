@@ -5,7 +5,7 @@
   broadcaster=f.getBroadcasterFactory().get(DefaultBroadcaster.class,"test");
   atmosphereHandler=new AR();
   final AtomicReference<byte[]> ref=new AtomicReference<byte[]>();
-  AtmosphereResponse r=AtmosphereResponse.newInstance();
+  AtmosphereResponse r=AtmosphereResponseImpl.newInstance();
   r.asyncIOWriter(new AsyncIOWriterAdapter(){
     @Override public AsyncIOWriter write(    AtmosphereResponse r,    byte[] data) throws IOException {
       ref.set(data);

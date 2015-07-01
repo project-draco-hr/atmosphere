@@ -8,7 +8,7 @@
   wMap.put(w,webSocket);
   try {
     AtmosphereRequest r=AtmosphereRequestImpl.wrap(dws.getRequest());
-    AtmosphereResponse response=AtmosphereResponse.newInstance(config,r,webSocket);
+    AtmosphereResponse response=AtmosphereResponseImpl.newInstance(config,r,webSocket);
     config.framework().configureRequestResponse(r,response);
     try {
       if (r.getPathInfo() == null) {

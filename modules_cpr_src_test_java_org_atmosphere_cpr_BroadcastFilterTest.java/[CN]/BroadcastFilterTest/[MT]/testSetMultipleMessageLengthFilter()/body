@@ -5,7 +5,7 @@
   Set<AtmosphereResource> s=new HashSet<AtmosphereResource>();
   s.add(ar);
   for (int i=0; i < 10; i++) {
-    ar=new AtmosphereResourceImpl(ar.getAtmosphereConfig(),broadcaster,req,AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),new AR());
+    ar=new AtmosphereResourceImpl(ar.getAtmosphereConfig(),broadcaster,req,AtmosphereResponseImpl.newInstance(),mock(BlockingIOCometSupport.class),new AR());
     broadcaster.addAtmosphereResource(ar);
   }
   broadcaster.getBroadcasterConfig().addFilter(new TrackMessageSizeFilter());

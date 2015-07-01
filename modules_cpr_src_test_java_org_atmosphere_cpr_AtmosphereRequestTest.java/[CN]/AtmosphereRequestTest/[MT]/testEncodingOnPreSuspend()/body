@@ -16,6 +16,6 @@
   }
 );
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance().delegateToNativeResponse(false));
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance().delegateToNativeResponse(false));
   assertEquals(e.get().getCharacterEncoding(),"utf-8");
 }

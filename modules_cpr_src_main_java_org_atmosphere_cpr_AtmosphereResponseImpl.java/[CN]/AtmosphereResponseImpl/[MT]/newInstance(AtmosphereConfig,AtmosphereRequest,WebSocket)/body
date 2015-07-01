@@ -1,0 +1,11 @@
+{
+  boolean destroyable;
+  String s=config.getInitParameter(RECYCLE_ATMOSPHERE_REQUEST_RESPONSE);
+  if (s != null && Boolean.valueOf(s)) {
+    destroyable=true;
+  }
+ else {
+    destroyable=false;
+  }
+  return new AtmosphereResponseImpl(webSocket,request,destroyable);
+}

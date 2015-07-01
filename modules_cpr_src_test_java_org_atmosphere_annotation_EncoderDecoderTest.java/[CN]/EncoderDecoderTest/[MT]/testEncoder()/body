@@ -1,6 +1,6 @@
 {
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/h").method("GET").build();
-  AtmosphereResponse response=AtmosphereResponse.newInstance();
+  AtmosphereResponse response=AtmosphereResponseImpl.newInstance();
   final AtomicReference<String> ref=new AtomicReference();
   response.asyncIOWriter(new AsyncIOWriterAdapter(){
     @Override public AsyncIOWriter write(    AtmosphereResponse r,    byte[] data) throws IOException {

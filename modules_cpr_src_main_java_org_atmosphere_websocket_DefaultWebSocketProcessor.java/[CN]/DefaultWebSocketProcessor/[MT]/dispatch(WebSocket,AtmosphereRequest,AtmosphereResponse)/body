@@ -5,7 +5,7 @@
   }
  catch (  Throwable e) {
     logger.warn("Failed invoking AtmosphereFramework.doCometSupport()",e);
-    webSocketProtocol.onError(webSocket,new WebSocketException(e,new AtmosphereResponse.Builder().request(request).status(500).statusMessage("Server Error").build()));
+    webSocketProtocol.onError(webSocket,new WebSocketException(e,new AtmosphereResponseImpl.Builder().request(request).status(500).statusMessage("Server Error").build()));
     return;
   }
   if (r.getStatus() >= 400) {

@@ -1,6 +1,6 @@
 {
   AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").method("GET").build();
-  framework.doCometSupport(request,AtmosphereResponse.newInstance());
+  framework.doCometSupport(request,AtmosphereResponseImpl.newInstance());
   AsynchronousProcessor.class.cast(framework.getAsyncSupport()).endRequest((AtmosphereResourceImpl)request.resource(),true);
   assertTrue(suspended.get());
   assertTrue(disconnected.get());
