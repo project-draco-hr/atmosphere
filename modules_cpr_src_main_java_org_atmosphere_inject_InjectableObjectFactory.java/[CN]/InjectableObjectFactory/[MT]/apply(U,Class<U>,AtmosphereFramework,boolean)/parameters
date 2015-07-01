@@ -1,0 +1,4 @@
+U instance
+Class<U> defaultType
+AtmosphereFramework framework
+boolean requestScoped

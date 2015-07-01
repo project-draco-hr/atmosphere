@@ -1,3 +1,4 @@
 Set<Field> fields
 U instance
 AtmosphereFramework framework
+boolean requestScoped
