@@ -1,0 +1,3 @@
+{
+  return isNotNoOps() ? b.request.getLocalAddr() : b.lazyLocal != null ? b.lazyLocal.getHostAddress() : b.localAddr;
+}

@@ -1,0 +1,3 @@
+{
+  return b.serverPort != 0 ? b.serverPort : b.request.getServerPort();
+}

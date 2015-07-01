@@ -1,0 +1,8 @@
+{
+  try {
+    return "AtmosphereRequest{" + " method=" + getMethod() + " contextPath="+ getContextPath()+ " servletPath="+ getServletPath()+ " pathInfo="+ getPathInfo()+ " requestURI="+ getRequestURI()+ " requestURL="+ getRequestURL()+ " AtmosphereResource UUID="+ (resource() != null ? resource().uuid() : "")+ " destroyable="+ b.destroyable+ '}';
+  }
+ catch (  Exception e) {
+    return "AtmosphereRequest{" + " contextPath=" + getContextPath() + " servletPath="+ getServletPath()+ " pathInfo="+ getPathInfo()+ " requestURI="+ getRequestURI()+ " destroyable="+ b.destroyable+ '}';
+  }
+}

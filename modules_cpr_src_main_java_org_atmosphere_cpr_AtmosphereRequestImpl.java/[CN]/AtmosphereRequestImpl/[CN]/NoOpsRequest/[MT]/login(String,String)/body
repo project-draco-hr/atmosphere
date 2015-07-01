@@ -1,0 +1,5 @@
+{
+  if (this.throwExceptionOnCloned == true) {
+    throw new ServletException();
+  }
+}

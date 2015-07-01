@@ -1,0 +1,13 @@
+{
+  if (AtmosphereRequestImpl.class.isAssignableFrom(request.getClass())) {
+    return AtmosphereRequestImpl.class.cast(request);
+  }
+  Builder b=new Builder();
+  Enumeration<String> e=request.getAttributeNames();
+  String s;
+  while (e.hasMoreElements()) {
+    s=e.nextElement();
+    b.localAttributes.put(s,attributeWithoutException(request,s));
+  }
+  return b.request(request).build();
+}

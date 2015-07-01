@@ -1,0 +1,4 @@
+{
+  b.servletPath=servletPath;
+  return this;
+}

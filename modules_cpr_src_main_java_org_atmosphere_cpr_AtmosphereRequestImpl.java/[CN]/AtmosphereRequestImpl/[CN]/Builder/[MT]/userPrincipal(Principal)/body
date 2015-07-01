@@ -1,0 +1,4 @@
+{
+  this.principal=userPrincipal;
+  return this;
+}

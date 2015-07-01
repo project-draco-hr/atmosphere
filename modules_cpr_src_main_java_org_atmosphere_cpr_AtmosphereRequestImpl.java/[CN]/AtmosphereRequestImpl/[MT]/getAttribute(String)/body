@@ -1,0 +1,3 @@
+{
+  return b.localAttributes.get(s) != null ? b.localAttributes.get(s) : (isNotNoOps() ? attributeWithoutException(b.request,s) : null);
+}

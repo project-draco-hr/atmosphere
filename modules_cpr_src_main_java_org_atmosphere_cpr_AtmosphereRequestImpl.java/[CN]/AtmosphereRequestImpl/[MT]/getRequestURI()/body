@@ -1,0 +1,3 @@
+{
+  return b.requestURI != null ? b.requestURI : (isNotNoOps() ? b.request.getRequestURI() : "");
+}

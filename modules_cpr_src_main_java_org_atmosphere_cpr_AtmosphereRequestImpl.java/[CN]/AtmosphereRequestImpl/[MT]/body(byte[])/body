@@ -1,0 +1,4 @@
+{
+  b.body=new Body(null,bytes,0,bytes.length);
+  return this;
+}

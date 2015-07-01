@@ -1,0 +1,25 @@
+{
+  ArrayList list=new ArrayList<String>();
+  if (!name.equalsIgnoreCase("content-type")) {
+    list=Collections.list(b.request.getHeaders(name));
+  }
+  if (name.equalsIgnoreCase("content-type")) {
+    String s=getContentType();
+    if (s != null) {
+      list.add(s);
+    }
+  }
+ else {
+    if (b.headers.get(name) != null) {
+      list.add(b.headers.get(name));
+    }
+    if (isNotNoOps()) {
+      if (list.size() == 0 && name.startsWith(X_ATMOSPHERE)) {
+        if (attributeWithoutException(b.request,name) != null) {
+          list.add(attributeWithoutException(b.request,name));
+        }
+      }
+    }
+  }
+  return Collections.enumeration(list);
+}

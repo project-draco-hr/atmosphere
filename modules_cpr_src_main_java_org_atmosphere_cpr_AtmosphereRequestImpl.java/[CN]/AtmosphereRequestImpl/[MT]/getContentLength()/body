@@ -1,0 +1,8 @@
+{
+  if (b.contentLength == null) {
+    return b.request.getContentLength();
+  }
+ else {
+    return b.contentLength.intValue();
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return b.principal != null ? b.principal.getName() : b.request.getRemoteUser();
+}

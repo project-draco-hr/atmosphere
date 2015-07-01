@@ -1,0 +1,3 @@
+{
+  return isNotNoOps() ? b.request.getLocale() : b.locales.iterator().hasNext() ? b.locales.iterator().next() : Locale.getDefault();
+}

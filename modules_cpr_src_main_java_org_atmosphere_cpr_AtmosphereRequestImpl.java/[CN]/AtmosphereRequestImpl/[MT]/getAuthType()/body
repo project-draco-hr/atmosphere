@@ -1,0 +1,3 @@
+{
+  return b.authType != null ? b.authType : b.request.getAuthType();
+}

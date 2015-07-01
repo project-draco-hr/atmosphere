@@ -1,0 +1,6 @@
+{
+  if (this.throwExceptionOnCloned == true) {
+    throw new UnsupportedOperationException();
+  }
+  return false;
+}

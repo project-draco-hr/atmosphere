@@ -1,0 +1,12 @@
+{
+  if (create && fake == null) {
+    fake=new FakeHttpSession("",null,System.currentTimeMillis(),-1){
+      @Override public void invalidate(){
+        fake=null;
+        super.invalidate();
+      }
+    }
+;
+  }
+  return fake;
+}

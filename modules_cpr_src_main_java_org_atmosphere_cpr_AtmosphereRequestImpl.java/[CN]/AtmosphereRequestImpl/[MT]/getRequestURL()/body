@@ -1,0 +1,3 @@
+{
+  return b.requestURL != null ? new StringBuffer(b.requestURL) : (isNotNoOps() ? b.request.getRequestURL() : new StringBuffer());
+}

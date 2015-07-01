@@ -1,0 +1,3 @@
+{
+  return b.request.getCharacterEncoding() == null ? b.encoding : b.request.getCharacterEncoding();
+}

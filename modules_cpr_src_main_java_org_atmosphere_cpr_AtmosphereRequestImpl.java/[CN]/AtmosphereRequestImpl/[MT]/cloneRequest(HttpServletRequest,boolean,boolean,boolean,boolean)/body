@@ -1,0 +1,44 @@
+{
+  Builder b;
+  HttpServletRequest r;
+  Cookie[] cs=request.getCookies();
+  Set<Cookie> hs=Collections.synchronizedSet(new HashSet());
+  if (cs != null) {
+    for (    Cookie c : cs) {
+      hs.add(c);
+    }
+  }
+  boolean isWrapped=false;
+  if (AtmosphereRequestImpl.class.isAssignableFrom(request.getClass())) {
+    b=AtmosphereRequestImpl.class.cast(request).b;
+    isWrapped=true;
+  }
+ else {
+    b=new Builder();
+    b.request(request);
+  }
+  HttpSession session=null;
+  if (copySession) {
+    session=request.getSession(createSession);
+    if (session != null) {
+      session=new FakeHttpSession(session);
+    }
+ else {
+      session=new FakeHttpSession("",null,System.currentTimeMillis(),-1);
+    }
+  }
+  b.servletPath(request.getServletPath()).pathInfo(request.getPathInfo()).contextPath(request.getContextPath()).requestURI(request.getRequestURI()).requestURL(request.getRequestURL().toString()).method(request.getMethod()).serverName(request.getServerName()).serverPort(request.getServerPort()).remoteAddr(request.getRemoteAddr()).remoteHost(request.getRemoteHost()).remotePort(request.getRemotePort()).destroyable(isDestroyable).cookies(hs).session(session).principal(request.getUserPrincipal()).authType(request.getAuthType()).isSSecure(request.isSecure());
+  if (loadInMemory) {
+    String s=(String)attributeWithoutException(request,FrameworkConfig.THROW_EXCEPTION_ON_CLONED_REQUEST);
+    boolean throwException=s != null && Boolean.parseBoolean(s);
+    r=new NoOpsRequest(throwException);
+    if (isWrapped) {
+      load(b.request,b);
+    }
+ else {
+      load(request,b);
+    }
+    b.request(r);
+  }
+  return isWrapped ? AtmosphereRequestImpl.class.cast(request) : b.build();
+}

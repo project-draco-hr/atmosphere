@@ -1,0 +1,13 @@
+{
+  if (b.body.isEmpty()) {
+    configureStream();
+    return bis == null ? (isNotNoOps() ? b.request.getInputStream() : voidStream) : bis;
+  }
+ else   if (b.body.hasString()) {
+    bis=new IS(new ByteArrayInputStream(b.body.asString().getBytes()));
+  }
+ else   if (b.body.hasBytes()) {
+    bis=new IS(new ByteArrayInputStream(b.body.asBytes(),b.body.offset,b.body.byteLength()));
+  }
+  return bis;
+}

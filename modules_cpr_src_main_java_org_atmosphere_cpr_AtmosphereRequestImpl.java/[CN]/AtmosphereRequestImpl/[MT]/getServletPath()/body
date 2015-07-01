@@ -1,0 +1,3 @@
+{
+  return b.servletPath != "" ? b.servletPath : (isNotNoOps() ? b.request.getServletPath() : "");
+}

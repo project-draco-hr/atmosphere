@@ -1,0 +1,9 @@
+{
+  try {
+    return b.request.isAsyncSupported();
+  }
+ catch (  Exception ex) {
+    logger.trace("",ex);
+    return false;
+  }
+}

@@ -1,0 +1,42 @@
+{
+  if ("content-type".equalsIgnoreCase(s)) {
+    return getContentType();
+  }
+  String name=b.request.getHeader(s);
+  if (name == null) {
+    if (b.headers.get(s) != null) {
+      return b.headers.get(s);
+    }
+    if (s.startsWith(X_ATMOSPHERE) && isNotNoOps()) {
+      Object o=attributeWithoutException(b.request,s);
+      if (o == null || String.class.isAssignableFrom(o.getClass())) {
+        name=String.class.cast(o);
+      }
+ else {
+        try {
+          if (HttpServletRequestWrapper.class.isAssignableFrom(b.request.getClass())) {
+            HttpServletRequest hsr=HttpServletRequestWrapper.class.cast(b.request);
+            while (hsr instanceof HttpServletRequestWrapper) {
+              hsr=(HttpServletRequest)((HttpServletRequestWrapper)hsr).getRequest();
+              o=attributeWithoutException(hsr,s);
+              if (o == null || String.class.isAssignableFrom(o.getClass())) {
+                name=String.class.cast(o);
+                break;
+              }
+            }
+          }
+        }
+ catch (        Exception ex) {
+          logger.warn("",ex);
+        }
+      }
+    }
+  }
+  if (name == null && checkCase) {
+    return getHeader(s.toLowerCase(),false);
+  }
+  if (name == null && "connection".equalsIgnoreCase(s)) {
+    return "keep-alive";
+  }
+  return name;
+}

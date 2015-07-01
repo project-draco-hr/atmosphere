@@ -1,0 +1,4 @@
+{
+  b.pathInfo=pathInfo;
+  return this;
+}
