@@ -1,7 +1,7 @@
 {
   String s=(String)config.properties().get(Thread.currentThread().getName() + ".PATH");
   if (s != null) {
-    name=s;
+    name=name.substring(0,name.indexOf("{")) + s;
   }
   return config.getBroadcasterFactory().lookup(name,true);
 }

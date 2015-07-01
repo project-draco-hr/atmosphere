@@ -15,6 +15,7 @@ synchronized (config.handlers()) {
                 r.setServlet(config.framework().newClassInstance(Servlet.class,s.getClass()));
                 r.init(config);
               }
+              config.properties().put(Thread.currentThread().getName() + ".PATH",path.substring(targetPath.indexOf("{")));
               AtmosphereResourceImpl.class.cast(request.resource()).atmosphereHandler(r);
               config.framework().addAtmosphereHandler(path,r,config.getBroadcasterFactory().lookup(w.broadcaster.getClass(),path,true),w.interceptors);
               request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
