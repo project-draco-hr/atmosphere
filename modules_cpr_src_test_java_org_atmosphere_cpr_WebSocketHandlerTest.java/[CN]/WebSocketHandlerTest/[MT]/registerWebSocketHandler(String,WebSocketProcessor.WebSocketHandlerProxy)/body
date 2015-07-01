@@ -1,0 +1,3 @@
+{
+  WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework).registerWebSocketHandler(path,w);
+}

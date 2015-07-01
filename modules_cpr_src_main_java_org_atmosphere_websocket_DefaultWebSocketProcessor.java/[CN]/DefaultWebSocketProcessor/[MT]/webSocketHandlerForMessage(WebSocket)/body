@@ -2,6 +2,12 @@
   AtmosphereResourceImpl impl=AtmosphereResourceImpl.class.cast(webSocket.resource());
   if (impl != null) {
     impl.getRequest(false).setAttribute(FrameworkConfig.WEBSOCKET_MESSAGE,"true");
+    try {
+      Utils.inject(impl);
+    }
+ catch (    IllegalAccessException e) {
+      logger.warn("",e);
+    }
   }
   return WebSocketHandlerProxy.class.cast(webSocket.webSocketHandler());
 }

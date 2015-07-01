@@ -1,0 +1,11 @@
+{
+  EchoHandler e=new EchoHandler();
+  ByteArrayOutputStream b=new ByteArrayOutputStream();
+  final WebSocket w=new ArrayBaseWebSocket(b);
+  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
+  registerWebSocketHandler("/*",new WebSocketProcessor.WebSocketHandlerProxy(e));
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).body("yoComet").pathInfo("/a").build();
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.invokeWebSocketProtocol(w,"yoWebSocket");
+  assertNotNull(e.request);
+}
