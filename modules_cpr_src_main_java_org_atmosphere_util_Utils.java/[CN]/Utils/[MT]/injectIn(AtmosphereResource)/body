@@ -1,0 +1,12 @@
+{
+  AtmosphereHandler h=r.getAtmosphereHandler();
+  if (ManagedAtmosphereHandler.class.isAssignableFrom(h.getClass())) {
+    return AnnotatedProxy.class.cast(h).target();
+  }
+ else   if (ReflectorServletProcessor.class.isAssignableFrom(h.getClass())) {
+    return ReflectorServletProcessor.class.cast(h).getServlet();
+  }
+ else {
+    return h;
+  }
+}

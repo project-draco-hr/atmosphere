@@ -5,8 +5,11 @@
     return Action.CONTINUE;
   }
   finally {
-    if (runtimeInjection) {
-      inject(r);
+    try {
+      Utils.inject(r);
+    }
+ catch (    IllegalAccessException e) {
+      logger.error("",e);
     }
   }
 }

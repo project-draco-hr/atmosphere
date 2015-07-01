@@ -1,8 +1,4 @@
 {
   this.config=config;
-  this.injectableFactory=InjectableObjectFactory.class.isAssignableFrom(config.framework().objectFactory().getClass()) ? InjectableObjectFactory.class.cast(config.framework().objectFactory()) : null;
   optimizeMapping();
-  if (config.properties().get(FrameworkConfig.NEED_RUNTIME_INJECTION) != null) {
-    runtimeInjection=true;
-  }
 }

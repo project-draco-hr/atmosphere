@@ -1,8 +1,0 @@
-{
-  try {
-    injectableFactory.injectAtmosphereInternalObject(object,clazz,config.framework());
-  }
- catch (  IllegalAccessException e) {
-    logger.error("",e);
-  }
-}

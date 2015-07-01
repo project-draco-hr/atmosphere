@@ -8,6 +8,12 @@
         if (disableOnEvent == null || !disableOnEvent.equals(String.valueOf(true))) {
           AtmosphereHandler atmosphereHandler=r.getAtmosphereHandler();
           if (atmosphereHandler != null && r.isInScope()) {
+            try {
+              Utils.inject(r);
+            }
+ catch (            IllegalAccessException e) {
+              logger.warn("",e);
+            }
             atmosphereHandler.onStateChange(r.getAtmosphereResourceEvent());
           }
         }
