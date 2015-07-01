@@ -1,6 +1,6 @@
 {
   framework.setDefaultBroadcasterClassName(SimpleBroadcaster.class.getName());
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/override").method("GET").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/override").method("GET").build();
   request.header(X_ATMOSPHERE_TRANSPORT,LONG_POLLING_TRANSPORT);
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   assertNotNull(r.get());

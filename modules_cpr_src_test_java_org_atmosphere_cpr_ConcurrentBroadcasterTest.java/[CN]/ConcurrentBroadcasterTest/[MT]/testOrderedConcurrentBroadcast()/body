@@ -1,7 +1,7 @@
 {
   long t1=System.currentTimeMillis();
   atmosphereHandler=new AR();
-  ar=new AtmosphereResourceImpl(broadcaster.getBroadcasterConfig().getAtmosphereConfig(),broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  ar=new AtmosphereResourceImpl(broadcaster.getBroadcasterConfig().getAtmosphereConfig(),broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
   broadcaster.addAtmosphereResource(ar);
   final CountDownLatch latch=new CountDownLatch(1000);
   broadcaster.addBroadcasterListener(new BroadcasterListenerAdapter(){

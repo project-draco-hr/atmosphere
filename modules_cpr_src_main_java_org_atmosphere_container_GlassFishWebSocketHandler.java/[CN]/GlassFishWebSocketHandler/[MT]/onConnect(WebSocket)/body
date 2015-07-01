@@ -7,7 +7,7 @@
   DefaultWebSocket dws=DefaultWebSocket.class.cast(w);
   wMap.put(w,webSocket);
   try {
-    AtmosphereRequest r=AtmosphereRequest.wrap(dws.getRequest());
+    AtmosphereRequest r=AtmosphereRequestImpl.wrap(dws.getRequest());
     AtmosphereResponse response=AtmosphereResponse.newInstance(config,r,webSocket);
     config.framework().configureRequestResponse(r,response);
     try {

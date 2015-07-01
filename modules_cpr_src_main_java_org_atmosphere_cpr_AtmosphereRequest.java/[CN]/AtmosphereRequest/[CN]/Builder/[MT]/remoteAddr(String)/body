@@ -1,4 +1,0 @@
-{
-  this.remoteAddr=remoteAddr;
-  return this;
-}

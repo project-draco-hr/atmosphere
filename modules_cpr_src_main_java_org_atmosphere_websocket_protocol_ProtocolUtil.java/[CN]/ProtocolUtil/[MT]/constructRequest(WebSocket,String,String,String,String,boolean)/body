@@ -2,6 +2,6 @@
   AtmosphereResource resource=webSocket.resource();
   AtmosphereRequest request=AtmosphereResourceImpl.class.cast(resource).getRequest(false);
   Map<String,Object> m=attributes(webSocket,request);
-  AtmosphereRequest.Builder b=(new AtmosphereRequest.Builder().request(request).method(methodType).contentType(contentType == null ? request.getContentType() : contentType).attributes(m).pathInfo(pathInfo).contextPath(request.getContextPath()).servletPath(request.getServletPath()).requestURI(requestURI).requestURL(request.requestURL()).destroyable(destroyable).headers(request.headersMap()).session(resource.session()));
+  AtmosphereRequestImpl.Builder b=(new AtmosphereRequestImpl.Builder().request(request).method(methodType).contentType(contentType == null ? request.getContentType() : contentType).attributes(m).pathInfo(pathInfo).contextPath(request.getContextPath()).servletPath(request.getServletPath()).requestURI(requestURI).requestURL(request.requestURL()).destroyable(destroyable).headers(request.headersMap()).session(resource.session()));
   return b;
 }

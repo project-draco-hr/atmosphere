@@ -3,7 +3,7 @@
   ByteArrayOutputStream b=new ByteArrayOutputStream();
   final WebSocket w=new ArrayBaseWebSocket(b);
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/singleton/ws/bar").method("GET").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/singleton/ws/bar").method("GET").build();
   processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
   assertEquals(instanceCount,0);
   assertNotNull(r.get());

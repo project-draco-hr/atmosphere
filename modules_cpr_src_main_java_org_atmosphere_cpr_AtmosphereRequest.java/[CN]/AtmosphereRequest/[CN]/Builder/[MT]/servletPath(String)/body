@@ -1,4 +1,0 @@
-{
-  this.servletPath=servletPath;
-  return this;
-}

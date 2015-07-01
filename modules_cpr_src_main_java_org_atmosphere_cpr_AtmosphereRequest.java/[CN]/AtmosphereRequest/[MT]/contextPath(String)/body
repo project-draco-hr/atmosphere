@@ -1,4 +1,0 @@
-{
-  b.contextPath=contextPath;
-  return this;
-}

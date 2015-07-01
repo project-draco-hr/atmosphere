@@ -1,7 +1,7 @@
 {
   framework.addAtmosphereHandler("/*",handler);
-  AtmosphereRequest r=new AtmosphereRequest.Builder().pathInfo("/a.b/b").build();
+  AtmosphereRequest r=new AtmosphereRequestImpl.Builder().pathInfo("/a.b/b").build();
   assertNotNull(processor.map(r));
-  r=new AtmosphereRequest.Builder().pathInfo("/a/1.2").build();
+  r=new AtmosphereRequestImpl.Builder().pathInfo("/a/1.2").build();
   assertNotNull(processor.map(r));
 }

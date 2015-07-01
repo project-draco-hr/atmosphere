@@ -1,6 +1,6 @@
 {
   instanceCount=0;
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/ah/test2").method("GET").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/ah/test2").method("GET").build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   assertEquals(instanceCount,1);
   assertNotNull(r.get());

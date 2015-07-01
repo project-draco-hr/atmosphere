@@ -1,5 +1,5 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/b").method("POST").body("test".getBytes()).build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/b").method("POST").body("test".getBytes()).build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   assertNotNull(r.get());
   r.get().resume();

@@ -1,6 +1,0 @@
-{
-  super.setRequest(request);
-  if (HttpServletRequest.class.isAssignableFrom(request.getClass())) {
-    b.request=HttpServletRequest.class.cast(request);
-  }
-}

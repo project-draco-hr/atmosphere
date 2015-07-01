@@ -1,6 +1,0 @@
-{
-  super(b.request == null ? new NoOpsRequest() : b.request);
-  if (b.request == null)   b.request(new NoOpsRequest());
-  this.b=b;
-  this.uuid=resource() != null ? resource().uuid() : "0";
-}

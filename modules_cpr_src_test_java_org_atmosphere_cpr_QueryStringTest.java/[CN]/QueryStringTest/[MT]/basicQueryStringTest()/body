@@ -17,7 +17,7 @@
   queryStrings.put("a",new String[]{"b"});
   queryStrings.put("b",new String[]{"d"});
   queryStrings.put("c",new String[]{"f"});
-  AtmosphereRequest request=new AtmosphereRequest.Builder().queryStrings(queryStrings).pathInfo("/a").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().queryStrings(queryStrings).pathInfo("/a").build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   r.get().getBroadcaster().broadcast("yo").get();
   assertNotNull(q.get());

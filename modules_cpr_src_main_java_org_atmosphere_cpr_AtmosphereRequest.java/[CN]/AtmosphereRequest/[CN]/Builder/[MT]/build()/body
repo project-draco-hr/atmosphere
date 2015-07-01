@@ -1,6 +1,0 @@
-{
-  if (body == null) {
-    body=NULL_BODY;
-  }
-  return new AtmosphereRequest(this);
-}

@@ -1,3 +1,0 @@
-{
-  return b.serverName != "" ? b.serverName : b.request.getServerName();
-}

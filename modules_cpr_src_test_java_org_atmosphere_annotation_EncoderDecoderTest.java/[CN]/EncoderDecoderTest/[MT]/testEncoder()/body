@@ -1,5 +1,5 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/h").method("GET").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/h").method("GET").build();
   AtmosphereResponse response=AtmosphereResponse.newInstance();
   final AtomicReference<String> ref=new AtomicReference();
   response.asyncIOWriter(new AsyncIOWriterAdapter(){

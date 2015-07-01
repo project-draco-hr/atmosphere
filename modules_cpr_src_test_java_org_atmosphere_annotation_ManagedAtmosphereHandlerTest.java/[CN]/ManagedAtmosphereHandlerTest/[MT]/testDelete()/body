@@ -1,5 +1,5 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/c").method("DELETE").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/c").method("DELETE").build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   assertNotNull(r.get());
   r.get().resume();

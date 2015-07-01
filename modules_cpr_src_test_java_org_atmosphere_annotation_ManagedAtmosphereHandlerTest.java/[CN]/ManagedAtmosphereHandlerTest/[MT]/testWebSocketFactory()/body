@@ -2,7 +2,7 @@
   ByteArrayOutputStream b=new ByteArrayOutputStream();
   final WebSocket w=new ArrayBaseWebSocket(b);
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
-  AtmosphereRequest request=new AtmosphereRequest.Builder().destroyable(false).body("yoComet").pathInfo("/websocketfactory").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).body("yoComet").pathInfo("/websocketfactory").build();
   processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
   assertNotNull(r.get());
 }

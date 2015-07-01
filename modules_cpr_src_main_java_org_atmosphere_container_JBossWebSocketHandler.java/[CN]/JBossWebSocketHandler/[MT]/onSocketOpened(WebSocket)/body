@@ -4,7 +4,7 @@
     socket.closeSocket();
     throw new IOException();
   }
-  AtmosphereRequest r=AtmosphereRequest.wrap(socket.getServletRequest());
+  AtmosphereRequest r=AtmosphereRequestImpl.wrap(socket.getServletRequest());
   webSocket=new JBossWebSocket(socket,config);
   webSocketProcessor.open(webSocket,r,AtmosphereResponse.newInstance(config,r,webSocket));
 }

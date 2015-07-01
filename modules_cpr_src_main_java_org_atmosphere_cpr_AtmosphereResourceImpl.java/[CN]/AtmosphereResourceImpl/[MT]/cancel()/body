@@ -32,9 +32,9 @@
         }
         AtmosphereResponse.class.cast(response).destroy();
       }
-      if (AtmosphereRequest.class.isAssignableFrom(req.getClass())) {
+      if (AtmosphereRequestImpl.class.isAssignableFrom(req.getClass())) {
         if (closeOnCancel) {
-          AtmosphereRequest.class.cast(req).destroy();
+          AtmosphereRequestImpl.class.cast(req).destroy();
         }
       }
       event.destroy();

@@ -1,10 +1,10 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().build();
   assertNull(request.getSession(false));
   assertNotNull(request.getSession());
   assertNotNull(request.getSession(true));
   assertNotNull(request.getSession());
-  request=new AtmosphereRequest.Builder().session(new FakeHttpSession("-1",null,System.currentTimeMillis(),-1)).build();
+  request=new AtmosphereRequestImpl.Builder().session(new FakeHttpSession("-1",null,System.currentTimeMillis(),-1)).build();
   assertNotNull(request.getSession());
   assertNotNull(request.getSession(true));
 }

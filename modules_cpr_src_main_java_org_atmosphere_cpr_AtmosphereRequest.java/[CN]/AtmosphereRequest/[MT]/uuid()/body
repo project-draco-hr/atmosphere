@@ -1,6 +1,0 @@
-{
-  if (uuid == "0") {
-    this.uuid=resource() != null ? resource().uuid() : "0";
-  }
-  return uuid;
-}

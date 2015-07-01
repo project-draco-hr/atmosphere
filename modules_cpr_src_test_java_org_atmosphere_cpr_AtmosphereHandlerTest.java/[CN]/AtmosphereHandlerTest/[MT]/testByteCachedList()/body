@@ -13,7 +13,7 @@
     }
   }
 );
-  ar=new AtmosphereResourceImpl(f.getAtmosphereConfig(),broadcaster,mock(AtmosphereRequest.class),r,mock(BlockingIOCometSupport.class),atmosphereHandler);
+  ar=new AtmosphereResourceImpl(f.getAtmosphereConfig(),broadcaster,mock(AtmosphereRequestImpl.class),r,mock(BlockingIOCometSupport.class),atmosphereHandler);
   broadcaster.addAtmosphereResource(ar);
   List<byte[]> l=new ArrayList<byte[]>();
   l.add("yo".getBytes());

@@ -65,7 +65,7 @@
         requestURL=requestURL.replace("wss://","https://");
       }
     }
-    request=new AtmosphereRequest.Builder().requestURI(uri.getPath()).requestURL(requestURL).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).servletPath(servletPath).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).userPrincipal(session.getUserPrincipal()).remoteInetSocketAddress(new Callable<InetSocketAddress>(){
+    request=new AtmosphereRequestImpl.Builder().requestURI(uri.getPath()).requestURL(requestURL).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).servletPath(servletPath).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).userPrincipal(session.getUserPrincipal()).remoteInetSocketAddress(new Callable<InetSocketAddress>(){
       @Override public InetSocketAddress call() throws Exception {
         return (InetSocketAddress)endpointConfig.getUserProperties().get(JAVAX_WEBSOCKET_ENDPOINT_REMOTE_ADDRESS);
       }

@@ -1,3 +1,0 @@
-{
-  return isNotNoOps() ? b.request.getRemotePort() : b.lazyRemote != null ? b.lazyRemote.getPort() : b.remotePort;
-}

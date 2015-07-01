@@ -1,3 +1,0 @@
-{
-  b.request.login(username,password);
-}

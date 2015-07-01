@@ -17,7 +17,7 @@ synchronized (initializer.framework().asyncSupport) {
       }
     }
   }
-  initializer.framework().doCometSupport(AtmosphereRequest.wrap(req),AtmosphereResponse.wrap(res));
+  initializer.framework().doCometSupport(AtmosphereRequestImpl.wrap(req),AtmosphereResponse.wrap(res));
   String transport=cometEvent.getHttpServletRequest().getParameter(HeaderConfig.X_ATMOSPHERE_TRANSPORT);
   boolean webSocketSupported=(transport != null && transport.equalsIgnoreCase(HeaderConfig.WEBSOCKET_TRANSPORT));
   if (!webSocketSupported) {

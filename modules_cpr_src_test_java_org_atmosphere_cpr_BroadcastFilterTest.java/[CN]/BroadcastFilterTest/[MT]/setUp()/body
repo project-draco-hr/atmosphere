@@ -6,7 +6,7 @@
   atmosphereHandler=new AR();
   HashMap<String,String> m=new HashMap<String,String>();
   m.put(HeaderConfig.X_ATMOSPHERE_TRACKMESSAGESIZE,"true");
-  AtmosphereRequest req=new AtmosphereRequest.Builder().headers(m).build();
+  AtmosphereRequest req=new AtmosphereRequestImpl.Builder().headers(m).build();
   ar=new AtmosphereResourceImpl(config,broadcaster,req,AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
   broadcaster.addAtmosphereResource(ar);
 }

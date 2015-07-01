@@ -1,4 +1,0 @@
-{
-  this.principal=principal;
-  return this;
-}

@@ -1,6 +1,0 @@
-{
-  if (voidReader == null) {
-    voidReader=new BufferedReader(new StringReader(""),5);
-  }
-  return voidReader;
-}

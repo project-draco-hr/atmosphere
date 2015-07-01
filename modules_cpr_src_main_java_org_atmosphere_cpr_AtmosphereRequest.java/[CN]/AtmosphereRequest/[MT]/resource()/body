@@ -1,3 +1,0 @@
-{
-  return (AtmosphereResource)getAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE);
-}

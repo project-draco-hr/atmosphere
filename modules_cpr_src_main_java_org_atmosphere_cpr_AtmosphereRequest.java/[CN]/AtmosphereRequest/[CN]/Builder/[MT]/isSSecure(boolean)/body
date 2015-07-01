@@ -1,4 +1,0 @@
-{
-  this.isSecure=isSecure;
-  return this;
-}

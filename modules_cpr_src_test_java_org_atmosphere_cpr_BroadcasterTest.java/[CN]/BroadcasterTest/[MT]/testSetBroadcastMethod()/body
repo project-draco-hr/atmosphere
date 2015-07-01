@@ -17,9 +17,9 @@
   DefaultBroadcasterFactory factory=new DefaultBroadcasterFactory(DefaultBroadcaster.class,"NEVER",config);
   broadcaster=factory.get(DefaultBroadcaster.class,"test");
   atmosphereHandler=new AR();
-  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
-  AtmosphereResource ar2=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
-  AtmosphereResource ar3=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequest.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  ar=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  AtmosphereResource ar2=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
+  AtmosphereResource ar3=new AtmosphereResourceImpl(config,broadcaster,mock(AtmosphereRequestImpl.class),AtmosphereResponse.newInstance(),mock(BlockingIOCometSupport.class),atmosphereHandler);
   broadcaster.addAtmosphereResource(ar).addAtmosphereResource(ar2).addAtmosphereResource(ar3);
   Set<AtmosphereResource> set=new HashSet<AtmosphereResource>();
   set.add(ar);

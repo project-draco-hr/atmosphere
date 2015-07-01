@@ -1,6 +1,0 @@
-{
-  b.localAttributes.remove(name);
-  if (isNotNoOps()) {
-    b.request.removeAttribute(name);
-  }
-}

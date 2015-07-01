@@ -4,11 +4,11 @@
   final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
   registerWebSocketHandler("/a",new EchoHandler());
   registerWebSocketHandler("/b",new EchoHandler());
-  AtmosphereRequest request=new AtmosphereRequest.Builder().destroyable(false).body("a").pathInfo("/a").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).body("a").pathInfo("/a").build();
   processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
   processor.invokeWebSocketProtocol(w,"a");
   assertEquals(b.toString(),"a");
-  request=new AtmosphereRequest.Builder().destroyable(false).body("b").pathInfo("/b").build();
+  request=new AtmosphereRequestImpl.Builder().destroyable(false).body("b").pathInfo("/b").build();
   processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
   processor.invokeWebSocketProtocol(w,"b");
   assertEquals(b.toString(),"ab");

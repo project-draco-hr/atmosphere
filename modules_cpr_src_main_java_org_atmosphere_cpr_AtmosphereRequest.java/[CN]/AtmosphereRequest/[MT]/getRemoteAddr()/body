@@ -1,3 +1,0 @@
-{
-  return isNotNoOps() ? b.request.getRemoteAddr() : b.lazyRemote != null ? b.lazyRemote.getHostAddress() : b.remoteAddr;
-}

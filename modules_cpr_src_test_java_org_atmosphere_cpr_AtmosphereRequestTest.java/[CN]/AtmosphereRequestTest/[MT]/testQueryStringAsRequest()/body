@@ -9,7 +9,7 @@
   Map<String,String[]> qs=new HashMap<String,String[]>();
   qs.put("Content-Type",new String[]{"application/xml"});
   qs.put("X-Atmosphere-Transport",new String[]{"long-polling"});
-  AtmosphereRequest request=new AtmosphereRequest.Builder().queryStrings(qs).pathInfo("/a").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().queryStrings(qs).pathInfo("/a").build();
   final AtomicReference<String> e=new AtomicReference<String>();
   final AtomicReference<String> e2=new AtomicReference<String>();
   framework.interceptor(new AtmosphereInterceptor(){

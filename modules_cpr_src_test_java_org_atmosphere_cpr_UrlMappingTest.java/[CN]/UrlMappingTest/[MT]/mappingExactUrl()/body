@@ -1,5 +1,5 @@
 {
   framework.addAtmosphereHandler("/foo/a/",handler);
-  AtmosphereRequest r=new AtmosphereRequest.Builder().servletPath("/foo").pathInfo("/a").build();
+  AtmosphereRequest r=new AtmosphereRequestImpl.Builder().servletPath("/foo").pathInfo("/a").build();
   assertNotNull(processor.map(r));
 }

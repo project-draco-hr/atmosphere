@@ -1,5 +1,0 @@
-{
-  bis=new IS(body);
-  br=new BufferedReader(new InputStreamReader(body));
-  return this;
-}

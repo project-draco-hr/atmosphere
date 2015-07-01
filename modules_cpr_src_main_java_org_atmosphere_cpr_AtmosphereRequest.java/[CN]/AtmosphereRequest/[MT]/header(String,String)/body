@@ -1,4 +1,0 @@
-{
-  b.headers.put(name,value);
-  return this;
-}

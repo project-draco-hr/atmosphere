@@ -1,5 +1,5 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/cache").method("GET").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/cache").method("GET").build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   assertEquals(framework.getBroadcasterFactory().lookup("/*",true).getBroadcasterConfig().getBroadcasterCache().getClass(),UUIDBroadcasterCache.class);
 }

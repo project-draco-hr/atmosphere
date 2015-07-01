@@ -1,4 +1,0 @@
-{
-  this.remoteHost=remoteHost;
-  return this;
-}

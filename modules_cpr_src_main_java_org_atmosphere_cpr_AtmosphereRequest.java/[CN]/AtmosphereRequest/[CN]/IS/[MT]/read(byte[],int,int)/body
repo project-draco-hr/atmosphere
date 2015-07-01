@@ -1,3 +1,0 @@
-{
-  return innerStream.read(bytes,i,i1);
-}

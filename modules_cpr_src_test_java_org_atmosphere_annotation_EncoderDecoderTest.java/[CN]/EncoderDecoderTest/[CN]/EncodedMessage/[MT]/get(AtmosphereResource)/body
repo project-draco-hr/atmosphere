@@ -2,7 +2,7 @@
   r.set(resource);
   resource.addEventListener(new OnSuspend(){
     @Override public void onSuspend(    AtmosphereResourceEvent event){
-      AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/h").method("POST").body("message").build();
+      AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/h").method("POST").body("message").build();
       try {
         event.getResource().addEventListener(new OnBroadcast(){
           @Override public void onBroadcast(          AtmosphereResourceEvent event){

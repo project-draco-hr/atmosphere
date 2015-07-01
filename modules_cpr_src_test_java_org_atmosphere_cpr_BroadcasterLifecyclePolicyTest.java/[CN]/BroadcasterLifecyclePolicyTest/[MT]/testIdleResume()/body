@@ -4,7 +4,7 @@
   b.latch=new CountDownLatch(1);
   AR ah=new AR();
   framework.addAtmosphereHandler("/*",ah,b).init();
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").method("GET").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").method("GET").build();
   framework.doCometSupport(request,AtmosphereResponse.newInstance());
   b.latch.await();
   assertFalse(B.class.cast(b).releaseExternalResources.get());

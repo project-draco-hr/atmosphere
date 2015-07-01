@@ -1,4 +1,0 @@
-{
-  this.queryStrings=Collections.synchronizedMap(queryStrings);
-  return this;
-}

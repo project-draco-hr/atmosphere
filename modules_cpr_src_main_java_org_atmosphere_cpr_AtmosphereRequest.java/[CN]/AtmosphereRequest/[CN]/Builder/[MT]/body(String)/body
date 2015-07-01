@@ -1,4 +1,0 @@
-{
-  this.body=new Body(data,null,0,0);
-  return this;
-}

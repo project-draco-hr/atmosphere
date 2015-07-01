@@ -6,7 +6,7 @@
     }
   }
 );
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").build();
   final AtomicReference<Boolean> closed=new AtomicReference<Boolean>();
   final AtmosphereResourceEventListener listener=new AtmosphereResourceEventListenerAdapter(){
     @Override public void onClose(    AtmosphereResourceEvent event){

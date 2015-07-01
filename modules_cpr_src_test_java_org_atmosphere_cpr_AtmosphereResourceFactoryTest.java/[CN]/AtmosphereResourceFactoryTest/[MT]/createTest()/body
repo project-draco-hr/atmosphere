@@ -1,4 +1,4 @@
 {
-  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.getAtmosphereConfig(),mock(Broadcaster.class),AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
+  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.getAtmosphereConfig(),mock(Broadcaster.class),AtmosphereResponse.newInstance().request(AtmosphereRequestImpl.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class),AtmosphereResource.TRANSPORT.WEBSOCKET);
   assertNotNull(r);
 }

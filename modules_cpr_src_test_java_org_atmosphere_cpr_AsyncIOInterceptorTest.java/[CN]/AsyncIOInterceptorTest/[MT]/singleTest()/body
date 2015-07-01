@@ -1,6 +1,6 @@
 {
   final AtomicReference<String> s=new AtomicReference<String>();
-  AtmosphereResponse res=AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance());
+  AtmosphereResponse res=AtmosphereResponse.newInstance().request(AtmosphereRequestImpl.newInstance());
   res.request().setAttribute(PROPERTY_USE_STREAM,false);
   res.asyncIOWriter(new AtmosphereInterceptorWriter().interceptor(new AsyncIOInterceptor(){
     @Override public void prePayload(    AtmosphereResponse response,    byte[] data,    int offset,    int length){

@@ -1,4 +1,0 @@
-{
-  this.headers=Collections.synchronizedMap(headers);
-  return this;
-}

@@ -1,6 +1,6 @@
 {
   String uuid=UUID.randomUUID().toString();
-  AtmosphereRequest request=AtmosphereRequest.newInstance();
+  AtmosphereRequest request=AtmosphereRequestImpl.newInstance();
   request.setAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID,uuid);
   AtmosphereResponse response=AtmosphereResponse.newInstance(request);
   AtmosphereResourceImpl res0=new AtmosphereResourceImpl();

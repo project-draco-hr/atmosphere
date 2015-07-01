@@ -1,5 +1,5 @@
 {
-  AtmosphereRequest request=new AtmosphereRequest.Builder().build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().build();
   AtmosphereResponse response=new AtmosphereResponse.Builder().build();
   AtmosphereConfig config=new AtmosphereFramework().getAtmosphereConfig();
   AtmosphereResource r=config.resourcesFactory().create(new AtmosphereFramework().getAtmosphereConfig(),request,response,mock(AsyncSupport.class));
@@ -8,7 +8,7 @@
   assertNotNull(r.session());
   assertNotNull(r.session(true));
   assertNotNull(r.session());
-  request=new AtmosphereRequest.Builder().session(new FakeHttpSession("-1",null,System.currentTimeMillis(),-1)).build();
+  request=new AtmosphereRequestImpl.Builder().session(new FakeHttpSession("-1",null,System.currentTimeMillis(),-1)).build();
   response=new AtmosphereResponse.Builder().build();
   r=config.resourcesFactory().create(new AtmosphereFramework().getAtmosphereConfig(),request,response,mock(AsyncSupport.class));
   r.getAtmosphereConfig().setSupportSession(true);

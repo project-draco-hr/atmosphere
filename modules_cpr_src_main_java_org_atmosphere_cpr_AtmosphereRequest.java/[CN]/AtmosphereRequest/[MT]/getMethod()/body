@@ -1,3 +1,0 @@
-{
-  return b.methodType != null ? b.methodType : b.request.getMethod();
-}

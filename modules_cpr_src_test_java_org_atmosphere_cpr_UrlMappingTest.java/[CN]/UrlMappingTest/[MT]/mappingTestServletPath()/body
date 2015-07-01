@@ -1,5 +1,5 @@
 {
   framework.addAtmosphereHandler("/com.zyxabc.abc.Abc/gwtCometEvent*",handler);
-  AtmosphereRequest r=new AtmosphereRequest.Builder().servletPath("/com.zyxabc.abc.Abc/gwtCometEvent").build();
+  AtmosphereRequest r=new AtmosphereRequestImpl.Builder().servletPath("/com.zyxabc.abc.Abc/gwtCometEvent").build();
   assertNotNull(processor.map(r));
 }

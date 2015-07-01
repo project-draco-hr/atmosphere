@@ -1,4 +1,0 @@
-{
-  this.lazyRemote=new LazyComputation(remoteAddr);
-  return this;
-}

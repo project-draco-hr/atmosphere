@@ -4,7 +4,7 @@
     ParameterizedType pt=(ParameterizedType)c;
     if (pt.getRawType() != AtmosphereResource.class)     return false;
     if (pt.getActualTypeArguments().length != 2)     return false;
-    if (pt.getActualTypeArguments()[0] != AtmosphereRequest.class)     return false;
+    if (pt.getActualTypeArguments()[0] != AtmosphereRequestImpl.class)     return false;
     if (pt.getActualTypeArguments()[1] != AtmosphereResponse.class)     return false;
     return true;
   }

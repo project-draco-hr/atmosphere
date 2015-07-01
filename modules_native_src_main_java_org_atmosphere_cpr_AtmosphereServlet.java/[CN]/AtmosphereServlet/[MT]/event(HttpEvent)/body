@@ -22,6 +22,6 @@ synchronized (initializer.framework().asyncSupport) {
   }
  else {
     logger.trace("Dispatching comet event: " + httpEvent);
-    initializer.framework().doCometSupport(AtmosphereRequest.wrap(req),AtmosphereResponse.wrap(res));
+    initializer.framework().doCometSupport(AtmosphereRequestImpl.wrap(req),AtmosphereResponse.wrap(res));
   }
 }

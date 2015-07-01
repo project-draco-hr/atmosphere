@@ -1,3 +1,0 @@
-{
-  return isNotNoOps() ? b.request.getLocalPort() : b.lazyLocal != null ? b.lazyLocal.getPort() : b.localPort;
-}

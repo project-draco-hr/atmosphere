@@ -6,7 +6,7 @@
     }
   }
 );
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").build();
   final AtomicReference<String> e=new AtomicReference<String>();
   final AtomicReference<String> e2=new AtomicReference<String>();
   framework.interceptor(new AtmosphereInterceptor(){

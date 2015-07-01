@@ -19,7 +19,7 @@
 );
   Map<String,String> m=new HashMap<String,String>();
   m.put(HeaderConfig.X_ATMOSPHERE_TRANSPORT,HeaderConfig.WEBSOCKET_TRANSPORT);
-  AtmosphereRequest request=new AtmosphereRequest.Builder().headers(m).pathInfo("/a").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().headers(m).pathInfo("/a").build();
   request.setAttribute(FrameworkConfig.WEBSOCKET_MESSAGE,null);
   processor.open(w,request,AtmosphereResponse.newInstance(framework.getAtmosphereConfig(),request,w));
   final AtomicBoolean dirtyDisconnect=new AtomicBoolean();

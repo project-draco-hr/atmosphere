@@ -6,7 +6,7 @@
     }
   }
 );
-  AtmosphereRequest request=new AtmosphereRequest.Builder().pathInfo("/a").build();
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").build();
   final AtomicReference<Boolean> suspended=new AtomicReference<Boolean>();
   final AtomicReference<Boolean> resumed=new AtomicReference<Boolean>();
   final AtomicReference<Boolean> disconnected=new AtomicReference<Boolean>();

@@ -1,3 +1,0 @@
-{
-  return b.pathInfo != "" ? b.pathInfo : isNotNoOps() ? b.request.getPathInfo() : "";
-}

@@ -2,7 +2,7 @@
   for (int i=0; i < 10; i++) {
     framework.getBroadcasterFactory().get(String.valueOf(i));
   }
-  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().lookup("1"),AtmosphereResponse.newInstance().request(AtmosphereRequest.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class));
+  AtmosphereResource r=framework.getAtmosphereConfig().resourcesFactory().create(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().lookup("1"),AtmosphereResponse.newInstance().request(AtmosphereRequestImpl.newInstance()),mock(AsyncSupport.class),mock(AtmosphereHandler.class));
   assertNotNull(r);
   assertNull(framework.getAtmosphereConfig().resourcesFactory().find(r.uuid()));
 }

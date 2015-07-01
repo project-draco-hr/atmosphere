@@ -49,7 +49,7 @@
     }
   }
  else {
-    AtmosphereRequest.Body body=request.body();
+    AtmosphereRequestImpl.Body body=request.body();
     try {
       stringBuilder.append(body.hasString() ? body.asString() : new String(body.asBytes(),body.byteOffset(),body.byteLength(),request.getCharacterEncoding()));
     }

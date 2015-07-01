@@ -1,7 +1,7 @@
 {
   try {
-    AtmosphereRequest r=AtmosphereRequest.wrap(request);
-    return AtmosphereRequest.cloneRequest(r,false,false,false,framework.getAtmosphereConfig().getInitParameter(PROPERTY_SESSION_CREATE,true));
+    AtmosphereRequest r=AtmosphereRequestImpl.wrap(request);
+    return AtmosphereRequestImpl.cloneRequest(r,false,false,false,framework.getAtmosphereConfig().getInitParameter(PROPERTY_SESSION_CREATE,true));
   }
  catch (  Exception ex) {
     logger.error("",ex);
