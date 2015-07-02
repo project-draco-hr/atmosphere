@@ -1,6 +1,6 @@
 {
   this.config=config;
-  for (  Injectable i : injectableServiceLoader) {
+  for (  Injectable<?> i : injectableServiceLoader) {
     try {
       logger.debug("Adding class {} as injectable",i.getClass());
       if (InjectIntrospector.class.isAssignableFrom(i.getClass())) {
@@ -16,6 +16,14 @@
       }
     }
  catch (    Exception e) {
+      logger.error("",e);
+    }
+  }
+  for (  Injectable<?> i : injectables) {
+    try {
+      injectInjectable(i,i.getClass(),config.framework());
+    }
+ catch (    IllegalAccessException e) {
       logger.error("",e);
     }
   }

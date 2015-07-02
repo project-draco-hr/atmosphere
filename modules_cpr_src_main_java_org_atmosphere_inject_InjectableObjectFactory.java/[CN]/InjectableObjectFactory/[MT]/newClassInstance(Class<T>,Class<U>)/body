@@ -1,6 +1,6 @@
 {
   U instance=defaultType.newInstance();
-  injectAtmosphereInternalObject(instance,defaultType,config.framework());
+  injectInjectable(instance,defaultType,config.framework());
   postConstructExecution(instance,defaultType);
   return instance;
 }
