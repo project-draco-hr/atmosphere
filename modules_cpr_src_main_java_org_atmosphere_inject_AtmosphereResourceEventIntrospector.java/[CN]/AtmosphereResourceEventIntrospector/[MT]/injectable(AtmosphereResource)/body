@@ -1,0 +1,12 @@
+{
+  final AtmosphereResourceEvent e=r.getAtmosphereResourceEvent();
+  return (AtmosphereResourceEvent)Proxy.newProxyInstance(this.getClass().getClassLoader(),new Class[]{AtmosphereResourceEvent.class},new ThreadLocalInvoker(){
+{
+      set(e);
+    }
+    @Override public Object invoke(    Object proxy,    Method method,    Object[] args) throws Throwable {
+      return method.invoke(e,args);
+    }
+  }
+);
+}

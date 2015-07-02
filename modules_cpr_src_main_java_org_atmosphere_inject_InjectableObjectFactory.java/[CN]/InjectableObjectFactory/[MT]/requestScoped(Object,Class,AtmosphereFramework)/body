@@ -1,3 +1,0 @@
-{
-  apply(instance,defaultType,framework,true);
-}

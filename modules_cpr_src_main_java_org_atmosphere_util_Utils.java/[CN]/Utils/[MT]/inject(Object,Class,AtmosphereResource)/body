@@ -1,0 +1,3 @@
+{
+  InjectableObjectFactory.class.cast(r.getAtmosphereConfig().framework().objectFactory()).requestScoped(object,clazz,r);
+}

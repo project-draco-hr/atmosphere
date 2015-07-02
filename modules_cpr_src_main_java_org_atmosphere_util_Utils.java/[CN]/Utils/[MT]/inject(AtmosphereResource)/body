@@ -1,6 +1,6 @@
 {
   AtmosphereConfig config=r.getAtmosphereConfig();
-  if (config.properties().get(FrameworkConfig.NEED_RUNTIME_INJECTION) == null) {
+  if (config.properties().get(NEED_RUNTIME_INJECTION) == null) {
     return;
   }
   AtmosphereObjectFactory injectableFactory=config.framework().objectFactory();
@@ -9,13 +9,6 @@
   }
   Object injectIn=injectIn(r);
   if (injectIn != null) {
-    String name=Thread.currentThread().getName() + AtmosphereResource.class.getSimpleName();
-    try {
-      config.properties().put(name,r);
-      inject(injectIn,injectIn.getClass(),config);
-    }
-  finally {
-      config.properties().remove(name);
-    }
+    inject(injectIn,injectIn.getClass(),r);
   }
 }

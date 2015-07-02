@@ -6,13 +6,14 @@
       if (InjectIntrospector.class.isAssignableFrom(i.getClass())) {
         InjectIntrospector<?> ii=InjectIntrospector.class.cast(i);
         introspectors.addFirst(ii);
-        if (ii.when().equals(InjectIntrospector.WHEN.RUNTIME)) {
+        if (i.getClass().isAnnotationPresent(RequestScoped.class)) {
           config.properties().put(FrameworkConfig.NEED_RUNTIME_INJECTION,true);
-          runtimeIntrospectors.addFirst(ii);
-          continue;
+          requestScopedIntrospectors.addFirst(ii);
         }
       }
-      injectables.addFirst(i);
+      if (i.getClass().isAnnotationPresent(ApplicationScoped.class) || (!i.getClass().isAnnotationPresent(RequestScoped.class) && !i.getClass().isAnnotationPresent(RequestScoped.class))) {
+        injectables.addFirst(i);
+      }
     }
  catch (    Exception e) {
       logger.error("",e);

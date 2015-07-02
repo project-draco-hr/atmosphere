@@ -1,0 +1,22 @@
+{
+  Set<Field> fields=new HashSet<Field>();
+  fields.addAll(Arrays.asList(defaultType.getDeclaredFields()));
+  fields.addAll(Arrays.asList(defaultType.getFields()));
+  for (  Field field : fields) {
+    if (field.isAnnotationPresent(Inject.class)) {
+      for (      InjectIntrospector c : requestScopedIntrospectors) {
+        InjectIntrospector.class.cast(c).introspectField(field);
+        if (c.supportedType(field.getType())) {
+          try {
+            field.setAccessible(true);
+            field.set(instance,c.injectable(r));
+          }
+  finally {
+            field.setAccessible(false);
+          }
+          break;
+        }
+      }
+    }
+  }
+}

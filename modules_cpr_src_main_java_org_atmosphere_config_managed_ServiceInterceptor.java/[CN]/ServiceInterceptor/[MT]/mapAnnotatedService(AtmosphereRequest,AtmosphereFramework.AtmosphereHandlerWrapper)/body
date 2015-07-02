@@ -21,5 +21,6 @@
     reMap=true;
     config.getBroadcasterFactory().remove(b.getID());
   }
+  request.localAttributes().put(Named.class.getName(),path);
   mapAnnotatedService(reMap,path,request,w);
 }

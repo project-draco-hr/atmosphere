@@ -1,3 +1,0 @@
-{
-  InjectableObjectFactory.class.cast(config.framework().objectFactory()).requestScoped(object,clazz,config.framework());
-}

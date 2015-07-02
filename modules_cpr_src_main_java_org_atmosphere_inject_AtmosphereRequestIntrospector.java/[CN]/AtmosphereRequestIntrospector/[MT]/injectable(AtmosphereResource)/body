@@ -1,0 +1,12 @@
+{
+  final AtmosphereRequest request=r.getRequest();
+  return (AtmosphereRequest)Proxy.newProxyInstance(this.getClass().getClassLoader(),new Class[]{AtmosphereRequest.class},new ThreadLocalInvoker(){
+{
+      set(request);
+    }
+    @Override public Object invoke(    Object proxy,    Method method,    Object[] args) throws Throwable {
+      return method.invoke(request,args);
+    }
+  }
+);
+}
