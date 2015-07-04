@@ -1,5 +1,5 @@
 {
   if (f.isAnnotationPresent(Named.class)) {
-    name=f.getAnnotation(Named.class).value();
+    name.set(f.getAnnotation(Named.class).value());
   }
 }

@@ -1,9 +1,13 @@
 {
+  String named=name.get();
+  if (named == null) {
+    named=Broadcaster.ROOT_MASTER;
+  }
   String s=(String)r.getRequest().getAttribute(Named.class.getName());
   if (s != null) {
-    name=name.substring(0,name.indexOf("{")) + s;
+    named=named.substring(0,named.indexOf("{")) + s;
   }
-  final Broadcaster broadcaster=r.getAtmosphereConfig().getBroadcasterFactory().lookup(name,true);
+  final Broadcaster broadcaster=r.getAtmosphereConfig().getBroadcasterFactory().lookup(named,true);
   return (Broadcaster)Proxy.newProxyInstance(this.getClass().getClassLoader(),new Class[]{Broadcaster.class},new ThreadLocalInvoker(){
 {
       set(broadcaster);
