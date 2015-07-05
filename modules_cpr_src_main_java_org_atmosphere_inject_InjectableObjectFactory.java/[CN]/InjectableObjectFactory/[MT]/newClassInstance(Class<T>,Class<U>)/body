@@ -1,6 +1,6 @@
 {
   U instance=defaultType.newInstance();
   injectInjectable(instance,defaultType,config.framework());
-  postConstructExecution(instance,defaultType);
+  applyMethods(instance,defaultType);
   return instance;
 }
