@@ -3,7 +3,7 @@ synchronized (config.handlers()) {
     if (config.handlers().get(path) == null) {
       if (AnnotatedProxy.class.isAssignableFrom(w.atmosphereHandler.getClass())) {
         AnnotatedProxy ap=AnnotatedProxy.class.cast(w.atmosphereHandler);
-        ManagedAnnotation a=managed(ap,w.broadcaster.getClass());
+        ManagedAnnotation a=managed(ap,request.resource());
         if (a != null) {
           String targetPath=a.path();
           if (targetPath.indexOf("{") != -1 && targetPath.indexOf("}") != -1) {

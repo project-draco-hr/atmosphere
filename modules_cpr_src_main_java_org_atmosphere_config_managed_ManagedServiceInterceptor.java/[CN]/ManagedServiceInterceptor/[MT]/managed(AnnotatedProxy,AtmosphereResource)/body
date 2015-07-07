@@ -6,7 +6,7 @@
       return a.path();
     }
     @Override public Class<? extends Broadcaster> broadcaster(){
-      return aClass;
+      return r.getBroadcaster().getClass();
     }
   }
 ;
