@@ -1,0 +1,13 @@
+{
+  Set<Field> result=new HashSet<Field>();
+  Class<?> i=type;
+  while (i != null && i != Object.class) {
+    for (    Field field : i.getDeclaredFields()) {
+      if (!field.isSynthetic()) {
+        result.add(field);
+      }
+    }
+    i=i.getSuperclass();
+  }
+  return result;
+}

@@ -1,6 +1,5 @@
 {
   Set<Field> fields=new HashSet<Field>();
-  fields.addAll(Arrays.asList(defaultType.getDeclaredFields()));
-  fields.addAll(Arrays.asList(defaultType.getFields()));
+  fields.addAll(getInheritedPrivateFields(defaultType));
   injectFields(fields,instance,framework,injectables);
 }
