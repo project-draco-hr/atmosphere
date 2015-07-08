@@ -1,0 +1,3 @@
+{
+  this(TYPE.RESOURCE,e.originalMessage,e.message,r,e.future,cacheMessage,e.writeLocally,null,e.async);
+}
