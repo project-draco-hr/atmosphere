@@ -96,7 +96,7 @@ AtomicInteger count=new AtomicInteger(resources.size());
 for (AtmosphereResource r : resources) {
 deliver.message=beforeProcessingMessage;
 boolean deliverMessage=perRequestFilter(r,deliver);
-if (endBroadcast(deliver,deliverMessage)) continue;
+if (endBroadcast(deliver,r,deliver.cache,deliverMessage)) continue;
 if (deliver.writeLocally) {
 queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver,count);
 }
@@ -104,7 +104,7 @@ queueWriteIO(r,hasFilters ? new Deliver(r,deliver) : deliver,count);
 break;
 case RESOURCE:
 boolean deliverMessage=perRequestFilter(deliver.resource,deliver);
-if (endBroadcast(deliver,deliverMessage)) return;
+if (endBroadcast(deliver,deliver.resource,deliver.cache,deliverMessage)) return;
 if (deliver.writeLocally) {
 queueWriteIO(deliver.resource,deliver,new AtomicInteger(1));
 }
@@ -114,9 +114,10 @@ count=new AtomicInteger(deliver.resources.size());
 for (AtmosphereResource r : deliver.resources) {
 deliver.message=beforeProcessingMessage;
 deliverMessage=perRequestFilter(r,deliver);
-if (endBroadcast(deliver,deliverMessage)) continue;
+CacheMessage cacheMsg=cacheForSet.remove(r.uuid());
+if (endBroadcast(deliver,r,cacheMsg,deliverMessage)) continue;
 if (deliver.writeLocally) {
-queueWriteIO(r,new Deliver(r,deliver,cacheForSet.remove(r.uuid())),count);
+queueWriteIO(r,new Deliver(r,deliver,cacheMsg),count);
 }
 }
 break;
