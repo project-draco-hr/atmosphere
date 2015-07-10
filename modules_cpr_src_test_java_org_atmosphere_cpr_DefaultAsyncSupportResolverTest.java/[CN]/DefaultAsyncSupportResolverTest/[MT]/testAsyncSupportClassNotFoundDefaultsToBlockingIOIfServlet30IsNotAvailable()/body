@@ -1,7 +1,7 @@
 {
   boolean useNativeIfPossible=false;
   boolean defaultToBlocking=false;
-  boolean useServlet30Async=false;
+  boolean useServlet30Async=true;
   defaultAsyncSupportResolver=spy(defaultAsyncSupportResolver);
   List<Class<? extends AsyncSupport>> asyncSupportList=new ArrayList(){
 {
@@ -11,5 +11,6 @@
 ;
   doReturn(asyncSupportList).when(defaultAsyncSupportResolver).detectWebSocketPresent(useNativeIfPossible,useServlet30Async);
   doReturn(null).when(defaultAsyncSupportResolver).resolveNativeCometSupport(anyList());
-  Assert.assertEquals(defaultAsyncSupportResolver.resolve(useNativeIfPossible,defaultToBlocking,useServlet30Async).getClass(),Servlet30CometSupport.class);
+  doReturn(false).when(defaultAsyncSupportResolver).testClassExists(DefaultAsyncSupportResolver.SERVLET_30);
+  Assert.assertEquals(defaultAsyncSupportResolver.resolve(useNativeIfPossible,defaultToBlocking,useServlet30Async).getClass(),BlockingIOCometSupport.class);
 }
