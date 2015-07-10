@@ -3,8 +3,7 @@
     return (AsyncSupport)targetClass.getDeclaredConstructor(new Class[]{AtmosphereConfig.class}).newInstance(config);
   }
  catch (  final Exception e) {
-    logger.error("Failed to create comet support class: {}, error: {}",targetClass,e);
-    logger.error("Switching to BlockingIO");
-    return new BlockingIOCometSupport(config);
+    logger.warn("Failed to create AsyncSupport class: {}, error: {}",targetClass,e);
+    return null;
   }
 }

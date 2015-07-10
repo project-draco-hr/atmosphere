@@ -1,0 +1,4 @@
+{
+  config=new AtmosphereFramework().getAtmosphereConfig();
+  defaultAsyncSupportResolver=new DefaultAsyncSupportResolver(config);
+}

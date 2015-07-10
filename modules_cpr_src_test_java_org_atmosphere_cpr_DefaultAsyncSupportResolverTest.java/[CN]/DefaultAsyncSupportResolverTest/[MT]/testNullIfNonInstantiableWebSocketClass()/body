@@ -1,0 +1,3 @@
+{
+  Assert.assertNull(defaultAsyncSupportResolver.newCometSupport(InvalidAsyncSupportClass.class));
+}
