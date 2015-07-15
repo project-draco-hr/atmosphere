@@ -1,4 +1,4 @@
 {
-  localAttributes=ConcurrentHashMap.class.isAssignableFrom(attributes.getClass()) ? attributes : Collections.synchronizedMap(attributes);
+  localAttributes=ConcurrentHashMap.class.isAssignableFrom(attributes.getClass()) ? attributes : new ConcurrentHashMap<String,Object>(attributes);
   return this;
 }
