@@ -10,7 +10,10 @@
             field.setAccessible(true);
             field.set(instance,c.injectable(framework.getAtmosphereConfig()));
           }
-  finally {
+ catch (          Exception ex) {
+            logger.warn("Injectable {} failed to inject",c,ex);
+          }
+ finally {
             field.setAccessible(false);
           }
           break;
