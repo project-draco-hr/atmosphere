@@ -1,9 +1,8 @@
 {
-  Set<Field> fields=new HashSet<Field>();
-  fields.addAll(Arrays.asList(defaultType.getDeclaredFields()));
-  fields.addAll(Arrays.asList(defaultType.getFields()));
+  Set<Field> fields=new HashSet<>();
+  fields.addAll(getInheritedPrivateFields(defaultType));
   for (  Field field : fields) {
-    if (field.isAnnotationPresent(Inject.class)) {
+    if (field.isAnnotationPresent(Inject.class) || field.isAnnotationPresent(PathParam.class)) {
       for (      InjectIntrospector c : requestScopedIntrospectors) {
         c.introspectField(field);
         if (c.supportedType(field.getType())) {
