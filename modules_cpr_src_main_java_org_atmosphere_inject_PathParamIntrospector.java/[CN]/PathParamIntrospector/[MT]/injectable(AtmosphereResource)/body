@@ -1,6 +1,7 @@
 {
   String named=pathLocal.get();
   String[] paths=(String[])r.getRequest().getAttribute(PathParam.class.getName());
+  if (paths == null || paths.length != 2)   return null;
   logger.debug("Path: {}, targetPath: {}",pathLocal,paths[1]);
   String[] inParts=paths[0].split("/");
   String[] outParts=paths[1].split("/");

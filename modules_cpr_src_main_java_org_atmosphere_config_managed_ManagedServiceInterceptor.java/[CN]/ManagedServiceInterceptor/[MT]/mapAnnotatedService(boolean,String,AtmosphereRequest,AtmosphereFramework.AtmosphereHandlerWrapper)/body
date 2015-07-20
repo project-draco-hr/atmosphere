@@ -15,7 +15,9 @@ synchronized (config.handlers()) {
                 ap.configure(config,o);
               }
               request.localAttributes().put(Named.class.getName(),path.substring(targetPath.indexOf("{")));
-              request.localAttributes().put(PathParam.class.getName(),new String[]{path,targetPath});
+              if (ap.pathParams()) {
+                request.localAttributes().put(PathParam.class.getName(),new String[]{path,targetPath});
+              }
               AtmosphereResourceImpl.class.cast(request.resource()).atmosphereHandler(ap);
               config.framework().addAtmosphereHandler(path,ap,config.getBroadcasterFactory().lookup(a.broadcaster(),path,true),w.interceptors);
               request.setAttribute(FrameworkConfig.NEW_MAPPING,"true");
