@@ -1,5 +1,5 @@
 {
-  String named=name.get();
+  String named=nameLocal.get();
   if (named == null) {
     named=Broadcaster.ROOT_MASTER;
   }

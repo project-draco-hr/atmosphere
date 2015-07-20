@@ -1,5 +1,9 @@
 {
   if (f.isAnnotationPresent(Named.class)) {
-    name.set(f.getAnnotation(Named.class).value());
+    String name=f.getAnnotation(Named.class).value();
+    if (name.isEmpty()) {
+      name=f.getName();
+    }
+    nameLocal.set(name);
   }
 }

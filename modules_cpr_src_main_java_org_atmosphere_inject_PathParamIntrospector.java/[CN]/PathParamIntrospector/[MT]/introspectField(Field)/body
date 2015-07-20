@@ -1,0 +1,9 @@
+{
+  if (f.isAnnotationPresent(PathParam.class)) {
+    String name=f.getAnnotation(PathParam.class).value();
+    if (name.isEmpty()) {
+      name=f.getName();
+    }
+    pathLocal.set(name);
+  }
+}
