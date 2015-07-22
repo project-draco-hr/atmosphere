@@ -1,6 +1,5 @@
 {
   Set<Method> methods=new HashSet<Method>();
-  methods.addAll(Arrays.asList(defaultType.getDeclaredMethods()));
-  methods.addAll(Arrays.asList(defaultType.getMethods()));
+  methods.addAll(getInheritedPrivateMethod(defaultType));
   injectMethods(methods,instance);
 }

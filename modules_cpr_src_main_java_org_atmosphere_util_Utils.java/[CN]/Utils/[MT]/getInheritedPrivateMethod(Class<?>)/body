@@ -1,0 +1,13 @@
+{
+  Set<Method> result=new HashSet<>();
+  Class<?> i=type;
+  while (i != null && i != Object.class) {
+    for (    Method m : i.getDeclaredMethods()) {
+      if (!m.isSynthetic()) {
+        result.add(m);
+      }
+    }
+    i=i.getSuperclass();
+  }
+  return result;
+}
