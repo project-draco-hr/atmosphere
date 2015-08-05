@@ -1,0 +1,3 @@
+{
+  return twoStepsWrite && event.getResource().transport() == AtmosphereResource.TRANSPORT.LONG_POLLING;
+}

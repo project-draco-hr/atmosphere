@@ -1,2 +1,3 @@
 {
+  twoStepsWrite=config.getInitParameter(ApplicationConfig.TWO_STEPS_WRITE,false);
 }

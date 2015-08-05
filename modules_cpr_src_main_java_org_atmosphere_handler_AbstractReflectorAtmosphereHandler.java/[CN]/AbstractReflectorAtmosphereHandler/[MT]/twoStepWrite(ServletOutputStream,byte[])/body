@@ -1,0 +1,6 @@
+{
+  o.write(data,0,1);
+  o.flush();
+  o.write(data,1,data.length - 1);
+  o.flush();
+}

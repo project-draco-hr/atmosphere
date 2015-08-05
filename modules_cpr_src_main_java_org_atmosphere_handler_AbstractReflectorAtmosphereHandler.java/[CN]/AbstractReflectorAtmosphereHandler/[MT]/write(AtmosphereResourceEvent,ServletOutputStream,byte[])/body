@@ -1,0 +1,9 @@
+{
+  if (useTwoStepWrite(event) && data.length > 1) {
+    twoStepWrite(o,data);
+  }
+ else {
+    o.write(data);
+    o.flush();
+  }
+}
