@@ -17,4 +17,5 @@
     }
   }
 );
+  framework.setDefaultBroadcasterClassName(SimpleBroadcaster.class.getName());
 }

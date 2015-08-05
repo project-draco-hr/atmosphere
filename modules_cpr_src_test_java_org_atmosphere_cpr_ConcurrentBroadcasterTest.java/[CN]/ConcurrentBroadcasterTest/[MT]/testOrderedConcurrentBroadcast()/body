@@ -21,5 +21,4 @@
   }
   latch.await(60,TimeUnit.SECONDS);
   assertEquals(atmosphereHandler.value.get().toString(),b.toString());
-  System.out.println("Took: " + (System.currentTimeMillis() - t1));
 }

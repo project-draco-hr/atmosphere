@@ -22,5 +22,4 @@
   }
   latch.await(60,TimeUnit.SECONDS);
   assertEquals(a.count.get(),count * client);
-  System.out.println("Took: " + (System.currentTimeMillis() - t1));
 }

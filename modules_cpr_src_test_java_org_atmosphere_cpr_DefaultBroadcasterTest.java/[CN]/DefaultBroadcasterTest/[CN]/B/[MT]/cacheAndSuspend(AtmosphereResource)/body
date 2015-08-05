@@ -1,5 +1,4 @@
 {
-  System.out.println("========> cacheAndSuspend");
   try {
     Thread.sleep(100);
   }
