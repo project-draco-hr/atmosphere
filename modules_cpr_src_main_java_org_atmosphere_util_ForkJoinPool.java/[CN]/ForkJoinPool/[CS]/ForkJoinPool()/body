@@ -5,5 +5,4 @@
     }
   }
 ,null,true);
-  logger.info("Using ForkJoinPool. Set the {} to -1 to fully use its power.",ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
 }

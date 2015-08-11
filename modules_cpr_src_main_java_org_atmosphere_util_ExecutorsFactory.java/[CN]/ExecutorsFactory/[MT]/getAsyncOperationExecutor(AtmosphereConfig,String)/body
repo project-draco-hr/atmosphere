@@ -17,6 +17,9 @@
     }
  else {
       asyncWriteService=(ThreadPoolExecutor)Executors.newFixedThreadPool(numberOfAsyncThread,new AtmosphereThreadFactory(shared,name + "-AsyncOp-"));
+      if (useForkJoinPool) {
+        logger.info("ForkJoinPool is available. Set the {} to -1 to fully use its power.",ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
+      }
     }
     keepAliveThreads(asyncWriteService,config);
     if (shared) {

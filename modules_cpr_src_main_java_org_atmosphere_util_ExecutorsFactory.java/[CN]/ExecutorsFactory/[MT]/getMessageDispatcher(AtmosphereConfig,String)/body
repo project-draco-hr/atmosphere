@@ -18,6 +18,9 @@
     }
  else {
       messageService=(ThreadPoolExecutor)Executors.newFixedThreadPool(numberOfMessageProcessingThread,new AtmosphereThreadFactory(shared,name + "-DispatchOp-"));
+      if (useForkJoinPool) {
+        logger.info("ForkJoinPool is available. Set the {} to -1 to fully use its power.",ApplicationConfig.BROADCASTER_MESSAGE_PROCESSING_THREADPOOL_MAXSIZE);
+      }
     }
     keepAliveThreads(messageService,config);
     if (shared) {
