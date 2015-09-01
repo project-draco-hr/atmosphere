@@ -27,4 +27,25 @@
       logger.error("",e);
     }
   }
+  config.startupHook(new AtmosphereConfig.StartupHook(){
+    @Override public void started(    AtmosphereFramework framework){
+      Set<Field> fields=new HashSet<Field>();
+      try {
+        for (        Object instance : pushBackInjection) {
+          fields.addAll(getInheritedPrivateFields(instance.getClass()));
+          try {
+            injectFields(fields,instance,framework,injectables);
+          }
+ catch (          IllegalAccessException e) {
+            logger.warn("",e);
+          }
+          fields.clear();
+        }
+      }
+  finally {
+        pushBackInjection.clear();
+      }
+    }
+  }
+);
 }
