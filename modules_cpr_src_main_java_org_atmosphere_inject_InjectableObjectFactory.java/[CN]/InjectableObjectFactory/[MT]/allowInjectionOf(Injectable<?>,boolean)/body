@@ -1,0 +1,9 @@
+{
+  if (first) {
+    injectables.addFirst(injectable);
+  }
+ else {
+    injectables.add(injectable);
+  }
+  return this;
+}
