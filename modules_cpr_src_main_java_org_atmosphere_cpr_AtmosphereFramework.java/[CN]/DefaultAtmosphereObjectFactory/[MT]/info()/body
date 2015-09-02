@@ -65,5 +65,4 @@
       logger.trace("{}",e.getValue());
     }
   }
-  Universe.broadcasterFactory(broadcasterFactory);
 }

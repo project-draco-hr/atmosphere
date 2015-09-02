@@ -58,6 +58,7 @@
     if (logger.isInfoEnabled()) {
       info();
     }
+    universe();
   }
  catch (  Throwable t) {
     logger.error("Failed to initialize Atmosphere Framework",t);
