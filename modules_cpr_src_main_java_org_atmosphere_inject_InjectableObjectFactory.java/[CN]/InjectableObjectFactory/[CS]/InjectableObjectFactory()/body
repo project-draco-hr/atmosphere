@@ -1,0 +1,3 @@
+{
+  injectableServiceLoader=ServiceLoader.load(Injectable.class);
+}
