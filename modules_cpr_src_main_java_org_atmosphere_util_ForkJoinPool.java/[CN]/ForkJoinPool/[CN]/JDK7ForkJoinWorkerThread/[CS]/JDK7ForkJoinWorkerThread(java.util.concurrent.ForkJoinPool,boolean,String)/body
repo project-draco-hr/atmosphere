@@ -1,0 +1,4 @@
+{
+  super(pool);
+  setName((shared ? "Atmosphere-Shared-" : threadName) + count.getAndIncrement());
+}

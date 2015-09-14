@@ -1,5 +1,5 @@
 {
-  Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared" : name) + count.getAndIncrement());
+  Thread t=new Thread(runnable,(shared ? "Atmosphere-Shared-" : name) + count.getAndIncrement());
   t.setDaemon(true);
   return t;
 }

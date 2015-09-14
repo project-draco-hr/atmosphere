@@ -1,0 +1,10 @@
+{
+  this.shared=shared;
+  forkJoinPool=new java.util.concurrent.ForkJoinPool(Runtime.getRuntime().availableProcessors(),new java.util.concurrent.ForkJoinPool.ForkJoinWorkerThreadFactory(){
+    @Override public java.util.concurrent.ForkJoinWorkerThread newThread(    java.util.concurrent.ForkJoinPool pool){
+      return new JDK7ForkJoinWorkerThread(pool,ForkJoinPool.this.shared,threadName);
+    }
+  }
+,null,false);
+  logger.info("Using ForkJoinPool  {}. Set the {} to -1 to fully use its power.",forkJoinPool.getClass().getName(),ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
+}

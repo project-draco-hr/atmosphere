@@ -1,0 +1,2 @@
+boolean shared
+String threadName

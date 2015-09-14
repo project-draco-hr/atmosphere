@@ -1,8 +1,0 @@
-{
-  forkJoinPool=new org.atmosphere.util.chmv8.ForkJoinPool(Runtime.getRuntime().availableProcessors(),new org.atmosphere.util.chmv8.ForkJoinPool.ForkJoinWorkerThreadFactory(){
-    @Override public org.atmosphere.util.chmv8.ForkJoinWorkerThread newThread(    org.atmosphere.util.chmv8.ForkJoinPool pool){
-      return new AtmosphereThreadFactoryJoin(pool);
-    }
-  }
-,null,true);
-}

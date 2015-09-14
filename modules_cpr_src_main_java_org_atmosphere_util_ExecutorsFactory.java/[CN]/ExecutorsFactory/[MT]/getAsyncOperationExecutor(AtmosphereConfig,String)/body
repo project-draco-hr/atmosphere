@@ -11,15 +11,14 @@
       numberOfAsyncThread=-1;
     }
     AbstractExecutorService asyncWriteService;
+    boolean useForkJoinPool=config.getInitParameter(USE_FORJOINPOOL,true);
     logger.trace("Max number of AsyncOp {}",numberOfAsyncThread == -1 ? "Unlimited" : numberOfAsyncThread);
+    String threadName=name + "-AsyncOp-";
     if (numberOfAsyncThread == -1) {
-      asyncWriteService=!useForkJoinPool ? (ThreadPoolExecutor)Executors.newCachedThreadPool(new AtmosphereThreadFactory(shared,name + "-AsyncOp-")) : new org.atmosphere.util.ForkJoinPool();
+      asyncWriteService=!useForkJoinPool ? (ThreadPoolExecutor)Executors.newCachedThreadPool(new AtmosphereThreadFactory(shared,threadName)) : new ForkJoinPool(shared,threadName);
     }
  else {
-      asyncWriteService=(ThreadPoolExecutor)Executors.newFixedThreadPool(numberOfAsyncThread,new AtmosphereThreadFactory(shared,name + "-AsyncOp-"));
-      if (useForkJoinPool) {
-        logger.info("ForkJoinPool is available. Set the {} to -1 to fully use its power.",ApplicationConfig.BROADCASTER_ASYNC_WRITE_THREADPOOL_MAXSIZE);
-      }
+      asyncWriteService=(ThreadPoolExecutor)Executors.newFixedThreadPool(numberOfAsyncThread,new AtmosphereThreadFactory(shared,threadName));
     }
     keepAliveThreads(asyncWriteService,config);
     if (shared) {
