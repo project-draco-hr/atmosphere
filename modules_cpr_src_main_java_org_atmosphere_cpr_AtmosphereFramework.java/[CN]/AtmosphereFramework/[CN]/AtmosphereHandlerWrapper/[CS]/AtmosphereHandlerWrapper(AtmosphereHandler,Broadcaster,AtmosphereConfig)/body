@@ -1,10 +1,6 @@
 {
   this.atmosphereHandler=atmosphereHandler;
   this.broadcaster=broadcaster;
-  config.startupHook(new AtmosphereConfig.StartupHook(){
-    @Override public void started(    AtmosphereFramework framework){
-      needRequestScopedInjection=Utils.requestScopedInjection(config,atmosphereHandler);
-    }
-  }
-);
+  hookInjection(config);
+  wilcardMapping=false;
 }

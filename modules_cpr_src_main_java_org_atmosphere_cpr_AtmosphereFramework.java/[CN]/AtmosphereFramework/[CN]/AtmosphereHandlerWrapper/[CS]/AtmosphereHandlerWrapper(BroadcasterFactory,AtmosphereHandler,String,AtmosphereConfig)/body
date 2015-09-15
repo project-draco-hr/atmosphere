@@ -1,11 +1,5 @@
 {
   this.atmosphereHandler=atmosphereHandler;
-  config.startupHook(new AtmosphereConfig.StartupHook(){
-    @Override public void started(    AtmosphereFramework framework){
-      needRequestScopedInjection=Utils.requestScopedInjection(config,atmosphereHandler);
-    }
-  }
-);
   try {
     if (broadcasterFactory != null) {
       this.broadcaster=broadcasterFactory.lookup(mapping,true);
@@ -17,4 +11,6 @@
  catch (  Exception t) {
     throw new RuntimeException(t);
   }
+  wilcardMapping=mapping.contains("{") && mapping.contains("}");
+  hookInjection(config);
 }

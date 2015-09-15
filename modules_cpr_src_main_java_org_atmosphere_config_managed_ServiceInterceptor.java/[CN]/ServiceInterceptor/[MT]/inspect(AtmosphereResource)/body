@@ -2,7 +2,7 @@
   AtmosphereFramework.AtmosphereHandlerWrapper w=null;
   try {
     w=(AtmosphereFramework.AtmosphereHandlerWrapper)r.getRequest().getAttribute(FrameworkConfig.ATMOSPHERE_HANDLER_WRAPPER);
-    if (!wildcardMapping)     return Action.CONTINUE;
+    if (!w.wildcardMapping())     return Action.CONTINUE;
     mapAnnotatedService(r.getRequest(),w);
     return Action.CONTINUE;
   }
