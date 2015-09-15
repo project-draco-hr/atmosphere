@@ -4,10 +4,10 @@
     return false;
   }
   try {
-    return InjectableObjectFactory.class.cast(config.framework().objectFactory()).needRequestScoped(injectWith(h).getClass());
+    return InjectableObjectFactory.class.cast(config.framework().objectFactory()).needRequestScoped(o.getClass());
   }
- catch (  Exception e) {
-    LOGGER.error("",e);
+ catch (  Exception var4) {
+    LOGGER.error("",var4);
     return false;
   }
 }

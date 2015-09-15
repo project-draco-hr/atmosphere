@@ -7,7 +7,7 @@
   if (!InjectableObjectFactory.class.isAssignableFrom(injectableFactory.getClass())) {
     return;
   }
-  Object injectIn=injectIn(r);
+  Object injectIn=injectWith(r);
   if (injectIn != null) {
     inject(injectIn,injectIn.getClass(),r);
   }

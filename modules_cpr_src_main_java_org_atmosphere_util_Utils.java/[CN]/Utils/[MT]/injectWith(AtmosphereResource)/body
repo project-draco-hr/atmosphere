@@ -4,6 +4,6 @@
     return WebSocketProcessor.WebSocketHandlerProxy.class.cast(AtmosphereResourceImpl.class.cast(r).webSocket().webSocketHandler()).proxied();
   }
  else {
-    return injectIn(h);
+    return injectWith(h);
   }
 }
