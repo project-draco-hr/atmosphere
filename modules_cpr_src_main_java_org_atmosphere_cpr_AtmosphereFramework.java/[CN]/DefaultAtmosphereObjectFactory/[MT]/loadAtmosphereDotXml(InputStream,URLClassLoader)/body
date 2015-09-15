@@ -49,7 +49,7 @@
           broadcasterFactory.configure(bc,broadcasterLifeCyclePolicy,config);
         }
         b=broadcasterFactory.lookup(atmoHandler.getContextRoot(),true);
-        AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler,b);
+        AtmosphereHandlerWrapper wrapper=new AtmosphereHandlerWrapper(handler,b,config);
         addMapping(atmoHandler.getContextRoot(),wrapper);
         String bc=atmoHandler.getBroadcasterCache();
         if (bc != null) {

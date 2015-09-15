@@ -1,0 +1,13 @@
+{
+  AtmosphereObjectFactory injectableFactory=config.framework().objectFactory();
+  if (!InjectableObjectFactory.class.isAssignableFrom(injectableFactory.getClass())) {
+    return false;
+  }
+  try {
+    return InjectableObjectFactory.class.cast(config.framework().objectFactory()).needRequestScoped(injectIn(h).getClass());
+  }
+ catch (  Exception e) {
+    LOGGER.error("",e);
+    return false;
+  }
+}

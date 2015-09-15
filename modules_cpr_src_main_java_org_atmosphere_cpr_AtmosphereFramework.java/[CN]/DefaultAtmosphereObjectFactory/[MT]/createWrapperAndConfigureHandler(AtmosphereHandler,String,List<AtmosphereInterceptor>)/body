@@ -1,5 +1,5 @@
 {
-  AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(broadcasterFactory,h,mapping);
+  AtmosphereHandlerWrapper w=new AtmosphereHandlerWrapper(broadcasterFactory,h,mapping,config);
   addMapping(mapping,w);
   addInterceptorToWrapper(w,l);
   initServletProcessor(h);

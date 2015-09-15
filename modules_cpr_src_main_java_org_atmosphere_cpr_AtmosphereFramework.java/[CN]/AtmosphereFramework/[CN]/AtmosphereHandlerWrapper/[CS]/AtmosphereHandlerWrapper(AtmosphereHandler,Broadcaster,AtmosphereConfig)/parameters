@@ -1,2 +1,3 @@
 AtmosphereHandler atmosphereHandler
 Broadcaster broadcaster
+AtmosphereConfig config

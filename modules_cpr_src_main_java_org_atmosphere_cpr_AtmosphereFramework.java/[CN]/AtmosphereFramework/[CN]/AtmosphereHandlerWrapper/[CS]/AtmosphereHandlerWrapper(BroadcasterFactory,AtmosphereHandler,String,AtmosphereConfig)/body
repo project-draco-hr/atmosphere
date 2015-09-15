@@ -1,5 +1,11 @@
 {
   this.atmosphereHandler=atmosphereHandler;
+  config.startupHook(new AtmosphereConfig.StartupHook(){
+    @Override public void started(    AtmosphereFramework framework){
+      needRequestScopedInjection=Utils.requestScopedInjection(config,atmosphereHandler);
+    }
+  }
+);
   try {
     if (broadcasterFactory != null) {
       this.broadcaster=broadcasterFactory.lookup(mapping,true);

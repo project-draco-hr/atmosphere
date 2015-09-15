@@ -10,7 +10,7 @@
         Class<?> clazz=classloader.loadClass(className);
         if (AtmosphereHandler.class.isAssignableFrom(clazz)) {
           AtmosphereHandler handler=newClassInstance(AtmosphereHandler.class,(Class<AtmosphereHandler>)clazz);
-          addMapping("/" + handler.getClass().getSimpleName(),new AtmosphereHandlerWrapper(broadcasterFactory,handler,"/" + handler.getClass().getSimpleName()));
+          addMapping("/" + handler.getClass().getSimpleName(),new AtmosphereHandlerWrapper(broadcasterFactory,handler,"/" + handler.getClass().getSimpleName(),config));
           logger.info("Installed AtmosphereHandler {} mapped to context-path: {}",handler,handler.getClass().getName());
         }
       }
