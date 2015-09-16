@@ -8,6 +8,7 @@
           }
           try {
             field.setAccessible(true);
+            framework.getAtmosphereConfig().properties().put(INSTANCE_BEING_INJECTED,instance);
             Object o=c.injectable(framework.getAtmosphereConfig());
             if (o == null) {
               pushBackInjection.addFirst(instance);
@@ -25,6 +26,7 @@
           }
  finally {
             field.setAccessible(false);
+            framework.getAtmosphereConfig().properties().remove(INSTANCE_BEING_INJECTED);
           }
           break;
         }
