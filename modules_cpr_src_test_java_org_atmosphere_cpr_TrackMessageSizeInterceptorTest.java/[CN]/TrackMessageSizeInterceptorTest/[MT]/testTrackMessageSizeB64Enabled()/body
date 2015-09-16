@@ -1,0 +1,3 @@
+{
+  testTrackMessageSize(true,new TrackMessageSizeB64Interceptor(),"12|eW9Db21ldA==16|eW9XZWJTb2NrZXQ=");
+}

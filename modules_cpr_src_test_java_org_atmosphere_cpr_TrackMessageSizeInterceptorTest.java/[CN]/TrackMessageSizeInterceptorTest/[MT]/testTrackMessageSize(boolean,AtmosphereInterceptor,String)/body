@@ -1,0 +1,25 @@
+{
+  ByteArrayOutputStream b=new ByteArrayOutputStream();
+  final WebSocket w=new ArrayBaseWebSocket(b);
+  final WebSocketProcessor processor=WebSocketProcessorFactory.getDefault().getWebSocketProcessor(framework);
+  framework.interceptor(icp);
+  framework.addAtmosphereHandler("/*",new AtmosphereHandler(){
+    @Override public void onRequest(    AtmosphereResource resource) throws IOException {
+      resource.getResponse().write(resource.getRequest().getReader().readLine());
+    }
+    @Override public void onStateChange(    AtmosphereResourceEvent event) throws IOException {
+      event.getResource().write(event.getMessage().toString().getBytes());
+    }
+    @Override public void destroy(){
+    }
+  }
+);
+  Map<String,String> reqheaders=new HashMap<String,String>();
+  if (enabled) {
+    reqheaders.put(HeaderConfig.X_ATMOSPHERE_TRACKMESSAGESIZE,"true");
+  }
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().destroyable(false).headers(reqheaders).body("yoComet").pathInfo("/a").build();
+  processor.open(w,request,AtmosphereResponseImpl.newInstance(framework.getAtmosphereConfig(),request,w));
+  processor.invokeWebSocketProtocol(w,"yoWebSocket");
+  assertEquals(b.toString(),expected);
+}

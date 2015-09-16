@@ -1,0 +1,3 @@
+{
+  testTrackMessageSize(true,new TrackMessageSizeInterceptor(),"7|yoComet11|yoWebSocket");
+}
