@@ -44,6 +44,7 @@
       }
   finally {
         pushBackInjection.clear();
+        framework.getAtmosphereConfig().properties().remove(INSTANCE_BEING_INJECTED);
       }
     }
   }

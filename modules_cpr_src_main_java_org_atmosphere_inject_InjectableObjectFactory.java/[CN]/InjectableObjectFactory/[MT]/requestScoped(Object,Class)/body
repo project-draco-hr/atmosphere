@@ -5,7 +5,7 @@
     for (    InjectIntrospector c : requestScopedIntrospectors) {
       for (      Class annotation : c.getClass().getAnnotation(RequestScoped.class).value()) {
         if (field.isAnnotationPresent(annotation)) {
-          c.introspectField(field);
+          c.introspectField(instance.getClass(),field);
           if (c.supportedType(field.getType())) {
             try {
               field.setAccessible(true);
