@@ -21,9 +21,9 @@
   }
   for (  Injectable<?> i : injectables) {
     try {
-      injectInjectable(i,i.getClass(),config.framework());
+      inject(i);
     }
- catch (    IllegalAccessException e) {
+ catch (    Exception e) {
       logger.error("",e);
     }
   }
