@@ -1,5 +1,7 @@
 {
   injectInjectable(instance,instance.getClass(),config.framework());
-  applyMethods(instance,(Class<T>)instance.getClass());
+  if (!pushBackInjection.contains(instance)) {
+    applyMethods(instance,(Class<T>)instance.getClass());
+  }
   return instance;
 }
