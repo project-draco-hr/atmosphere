@@ -1,25 +1,3 @@
 {
-  AtmosphereHandler a;
-  AtmosphereHandlerWrapper w;
-  for (  Entry<String,AtmosphereHandlerWrapper> h : atmosphereHandlers.entrySet()) {
-    w=h.getValue();
-    a=w.atmosphereHandler;
-    if (a instanceof AtmosphereServletProcessor) {
-      ((AtmosphereServletProcessor)a).init(config);
-    }
-  }
-  if (atmosphereHandlers.size() == 0 && !SimpleHttpProtocol.class.isAssignableFrom(webSocketProtocol.getClass())) {
-    logger.debug("Adding a void AtmosphereHandler mapped to /* to allow WebSocket application only");
-    addAtmosphereHandler(Broadcaster.ROOT_MASTER,new AbstractReflectorAtmosphereHandler(){
-      @Override public void onRequest(      AtmosphereResource r) throws IOException {
-        logger.debug("No AtmosphereHandler defined.");
-        if (!r.transport().equals(AtmosphereResource.TRANSPORT.WEBSOCKET)) {
-          WebSocket.notSupported(r.getRequest(),r.getResponse());
-        }
-      }
-      @Override public void destroy(){
-      }
-    }
-);
-  }
+  initAtmosphereHandler();
 }

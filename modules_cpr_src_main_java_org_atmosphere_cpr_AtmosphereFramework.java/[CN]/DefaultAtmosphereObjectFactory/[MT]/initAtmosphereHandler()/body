@@ -1,0 +1,12 @@
+{
+  AtmosphereHandler a;
+  AtmosphereHandlerWrapper w;
+  for (  Entry<String,AtmosphereHandlerWrapper> h : atmosphereHandlers.entrySet()) {
+    w=h.getValue();
+    a=w.atmosphereHandler;
+    if (a instanceof AtmosphereServletProcessor) {
+      ((AtmosphereServletProcessor)a).init(config);
+    }
+  }
+  checkWebSocketSupportState();
+}
