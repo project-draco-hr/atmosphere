@@ -7,5 +7,5 @@
       servlet=config.framework().newClassInstance(Servlet.class,(Class<Servlet>)IOUtils.loadClass(getClass(),servletClassName));
     }
   }
-  logger.info("Installing Servlet {}",servletClassName);
+  logger.info("Installing Servlet {}",servletClassName == null ? servlet.getClass().getName() : servletClassName);
 }
