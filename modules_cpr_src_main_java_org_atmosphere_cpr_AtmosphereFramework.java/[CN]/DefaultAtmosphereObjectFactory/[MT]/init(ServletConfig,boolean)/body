@@ -49,12 +49,14 @@
     if (s != null) {
       sharedThreadPools=Boolean.parseBoolean(s);
     }
-    Runtime.getRuntime().addShutdownHook(new Thread(){
+    this.shutdownHook=new Thread(){
       public void run(){
+        AtmosphereFramework.this.shutdownHook=null;
         AtmosphereFramework.this.destroy();
       }
     }
-);
+;
+    Runtime.getRuntime().addShutdownHook(this.shutdownHook);
     if (logger.isInfoEnabled()) {
       info();
     }

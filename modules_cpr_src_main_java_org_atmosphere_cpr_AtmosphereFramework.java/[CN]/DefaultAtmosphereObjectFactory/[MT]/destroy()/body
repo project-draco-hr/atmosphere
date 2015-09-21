@@ -22,5 +22,8 @@
   ExecutorsFactory.reset(config);
   resetStates();
   onPostDestroy();
+  if (this.shutdownHook != null) {
+    Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+  }
   return this;
 }
