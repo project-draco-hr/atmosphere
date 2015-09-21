@@ -1,6 +1,7 @@
 {
   isResumed.set(false);
   isCancelled.set(false);
+  isPendingClose.set(false);
   isInScope.set(true);
   isSuspendEvent.set(false);
   listeners.clear();
