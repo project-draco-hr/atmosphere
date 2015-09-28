@@ -1,11 +1,10 @@
 {
   String servletPath="";
-  try {
-    servletPath=config.getServletContext().getServletRegistration(config.getServletConfig().getServletName()).getMappings().iterator().next();
-    servletPath=getCleanedServletPath(servletPath);
+  if (config.getServletConfig() != null) {
+    servletPath=getCleanedServletPath(guestRawServletPath(config));
   }
- catch (  Exception ex) {
-    logger.trace("",ex);
+ else {
+    throw new IllegalStateException("Unable to configure jsr356 at that stage");
   }
   return servletPath;
 }

@@ -1,10 +1,18 @@
 {
   String servletPath="";
   try {
-    servletPath=config.getServletContext().getServletRegistration(config.getServletConfig().getServletName()).getMappings().iterator().next();
+    if (config.getServletConfig() != null) {
+      ServletRegistration s=config.getServletContext().getServletRegistration(config.getServletConfig().getServletName());
+      if (s.getMappings().size() > 1) {
+        logger.warn("More than one Servlet Mapping defined. WebSocket may not work {}",s);
+      }
+      for (      String m : s.getMappings()) {
+        servletPath=m;
+      }
+    }
+    return servletPath;
   }
  catch (  Exception ex) {
-    logger.trace("",ex);
+    throw new IllegalStateException("Unable to configure jsr356 at that stage");
   }
-  return servletPath;
 }
