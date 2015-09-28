@@ -11,7 +11,7 @@
     }
   }
   if (handleAtmosphereAnnotation) {
-    scanForCustomAnnotation();
+    scanForCustomAnnotation(atmosphereAnnotatedClasses);
   }
   return this;
 }

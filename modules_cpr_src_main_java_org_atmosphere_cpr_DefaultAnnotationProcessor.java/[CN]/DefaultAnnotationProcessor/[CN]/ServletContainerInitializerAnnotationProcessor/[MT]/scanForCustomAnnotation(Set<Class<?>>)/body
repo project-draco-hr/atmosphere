@@ -1,4 +1,5 @@
 {
+  handler.flushCoreAnnotations(atmosphereAnnotatedClasses);
   BytecodeBasedAnnotationProcessor b=new BytecodeBasedAnnotationProcessor(handler);
   b.configure(framework.getAtmosphereConfig());
   String path=framework.getServletContext().getRealPath(framework.getHandlersPath());

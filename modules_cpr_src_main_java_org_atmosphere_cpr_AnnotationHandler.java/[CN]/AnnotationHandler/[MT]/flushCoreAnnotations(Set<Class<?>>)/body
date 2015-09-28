@@ -1,0 +1,12 @@
+{
+  List<Class<? extends Annotation>> l=new ArrayList<Class<? extends Annotation>>();
+  for (  Map.Entry<Class<? extends Annotation>,Class<? extends Processor>> e : annotations.entrySet()) {
+    if (e.getValue().getPackage().getName().equals("org.atmosphere.annotation") && classes.contains(e.getValue())) {
+      l.add(e.getKey());
+    }
+  }
+  for (  Class<? extends Annotation> c : l) {
+    annotations.remove(c);
+  }
+  return this;
+}
