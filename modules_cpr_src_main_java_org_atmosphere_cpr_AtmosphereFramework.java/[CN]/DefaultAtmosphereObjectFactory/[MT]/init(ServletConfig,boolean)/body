@@ -60,6 +60,9 @@
     if (logger.isInfoEnabled()) {
       info();
     }
+    if (initializationError != null) {
+      logger.trace("ContainerInitalizer exception. May not be an issue if Atmosphere started properly ",initializationError);
+    }
     universe();
   }
  catch (  Throwable t) {

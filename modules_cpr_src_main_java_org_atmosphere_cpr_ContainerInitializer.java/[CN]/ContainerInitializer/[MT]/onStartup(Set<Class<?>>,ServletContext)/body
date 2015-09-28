@@ -21,7 +21,7 @@
           framework.setAsyncSupport(new JSR356AsyncSupport(framework.getAtmosphereConfig(),c));
         }
  catch (        IllegalStateException ex) {
-          c.log("Unable to initialize websocket support",ex);
+          framework.initializationError(ex);
         }
       }
       try {
