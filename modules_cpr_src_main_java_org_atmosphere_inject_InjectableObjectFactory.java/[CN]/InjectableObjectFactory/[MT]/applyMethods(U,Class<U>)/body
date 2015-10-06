@@ -1,5 +1,4 @@
 {
-  Set<Method> methods=new HashSet<Method>();
-  methods.addAll(getInheritedPrivateMethod(defaultType));
+  Set<Method> methods=(getInheritedPrivateMethod(defaultType));
   injectMethods(methods,instance);
 }
