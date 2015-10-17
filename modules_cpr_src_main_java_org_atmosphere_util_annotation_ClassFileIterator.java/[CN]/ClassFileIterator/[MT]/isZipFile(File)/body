@@ -2,12 +2,19 @@
   DataInputStream in=null;
   try {
     in=new DataInputStream(new FileInputStream(file));
-    int n=in.readInt();
-    in.close();
+    final int n=in.readInt();
     return n == 0x504b0304;
   }
- catch (  Exception ex) {
-    if (in != null)     in.close();
+ catch (  IOException ex) {
     return false;
+  }
+ finally {
+    if (in != null) {
+      try {
+        in.close();
+      }
+ catch (      IOException ex) {
+      }
+    }
   }
 }
