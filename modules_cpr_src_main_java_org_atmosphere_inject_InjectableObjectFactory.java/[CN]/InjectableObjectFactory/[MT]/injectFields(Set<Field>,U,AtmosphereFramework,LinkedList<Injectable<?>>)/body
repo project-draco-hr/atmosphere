@@ -16,6 +16,21 @@
             if (field.getType().equals(Boolean.TYPE)) {
               field.setBoolean(instance,Boolean.class.cast(o).booleanValue());
             }
+ else             if (field.getType().equals(Integer.TYPE)) {
+              field.setInt(instance,Integer.class.cast(o).intValue());
+            }
+ else             if (field.getType().equals(Byte.TYPE)) {
+              field.setByte(instance,Byte.class.cast(o).byteValue());
+            }
+ else             if (field.getType().equals(Double.TYPE)) {
+              field.setDouble(instance,Double.class.cast(o).doubleValue());
+            }
+ else             if (field.getType().equals(Long.TYPE)) {
+              field.setLong(instance,Long.class.cast(o).longValue());
+            }
+ else             if (field.getType().equals(Float.TYPE)) {
+              field.setFloat(instance,Float.class.cast(o).floatValue());
+            }
  else {
               field.set(instance,o);
             }
