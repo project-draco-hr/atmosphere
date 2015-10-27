@@ -16,32 +16,45 @@
  else {
     request.body(new ByteArrayInputStream((byte[])webSocketMessageAsBody,offset,length));
   }
-  int tracing=0;
-  Action a=asynchronousProcessor.invokeInterceptors(framework.interceptors(),resource,tracing);
-  if (a.type() != Action.TYPE.CONTINUE && a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
-    return;
+  String path=webSocketHandler.proxied.getClass().isAnnotationPresent(WebSocketHandlerService.class) ? webSocketHandler.proxied.getClass().getAnnotation(WebSocketHandlerService.class).path() : "/";
+  AtmosphereFramework.AtmosphereHandlerWrapper w=framework.getAtmosphereHandlers().get(framework.normalizePath(path));
+  List<AtmosphereInterceptor> l;
+  if (w == null) {
+    l=framework.interceptors();
   }
-  boolean skipAtmosphereHandler=request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
-  if (!skipAtmosphereHandler) {
-    try {
-      if (String.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
-        webSocketHandler.onTextMessage(webSocket,String.class.cast(webSocketMessageAsBody));
-      }
- else       if (Reader.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
-        WebSocketStreamingHandler.class.cast(webSocketHandler.proxied).onTextStream(webSocket,Reader.class.cast(webSocketMessageAsBody));
-      }
- else       if (InputStream.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
-        WebSocketStreamingHandler.class.cast(webSocketHandler.proxied()).onBinaryStream(webSocket,InputStream.class.cast(webSocketMessageAsBody));
-      }
  else {
-        webSocketHandler.onByteMessage(webSocket,(byte[])webSocketMessageAsBody,offset,length);
+    l=w.interceptors;
+  }
+  try {
+    int tracing=0;
+    Action a=asynchronousProcessor.invokeInterceptors(l,resource,tracing);
+    if (a.type() != Action.TYPE.CONTINUE && a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
+      return;
+    }
+    boolean skipAtmosphereHandler=request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)request.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
+    if (!skipAtmosphereHandler) {
+      try {
+        if (String.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+          webSocketHandler.onTextMessage(webSocket,String.class.cast(webSocketMessageAsBody));
+        }
+ else         if (Reader.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+          WebSocketStreamingHandler.class.cast(webSocketHandler.proxied).onTextStream(webSocket,Reader.class.cast(webSocketMessageAsBody));
+        }
+ else         if (InputStream.class.isAssignableFrom(webSocketMessageAsBody.getClass())) {
+          WebSocketStreamingHandler.class.cast(webSocketHandler.proxied()).onBinaryStream(webSocket,InputStream.class.cast(webSocketMessageAsBody));
+        }
+ else {
+          webSocketHandler.onByteMessage(webSocket,(byte[])webSocketMessageAsBody,offset,length);
+        }
+      }
+ catch (      IOException t) {
+        resource.onThrowable(t);
+        throw t;
       }
     }
- catch (    IOException t) {
-      resource.onThrowable(t);
-      throw t;
-    }
+    request.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
   }
-  request.setAttribute(SKIP_ATMOSPHEREHANDLER.name(),Boolean.FALSE);
-  asynchronousProcessor.postInterceptors(framework.interceptors(),resource);
+  finally {
+    asynchronousProcessor.postInterceptors(l,resource);
+  }
 }

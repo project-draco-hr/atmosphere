@@ -1,0 +1,9 @@
+{
+  if (path.contains("*")) {
+    path=path.replace("*",mappingRegex);
+  }
+  if (path.endsWith("/")) {
+    path=path + mappingRegex;
+  }
+  return path;
+}
