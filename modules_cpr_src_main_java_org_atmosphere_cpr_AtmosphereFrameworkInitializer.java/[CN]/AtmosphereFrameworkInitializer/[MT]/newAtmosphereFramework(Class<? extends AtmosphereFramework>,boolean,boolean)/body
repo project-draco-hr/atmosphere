@@ -1,11 +1,3 @@
 {
-  AtmosphereFramework framework;
-  try {
-    framework=frameworkClass.getDeclaredConstructor(new Class[]{boolean.class,boolean.class}).newInstance(isFilter,autoDetectHandlers);
-  }
- catch (  Exception e) {
-    logger.error("",e);
-    framework=new AtmosphereFramework(isFilter,autoDetectHandlers);
-  }
-  return framework;
+  return newAtmosphereFramework(frameworkClass,isFilter,autoDetectHandlers,null);
 }

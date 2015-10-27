@@ -1,0 +1,19 @@
+{
+  AtmosphereFramework framework;
+  try {
+    framework=(AtmosphereFramework)frameworkClass.getDeclaredConstructor(new Class[]{boolean.class,boolean.class}).newInstance(isFilter,autoDetectHandlers);
+  }
+ catch (  Exception e) {
+    logger.error("",e);
+    framework=new AtmosphereFramework(isFilter,autoDetectHandlers);
+  }
+  if (c != null) {
+    framework.servletConfig(new VoidServletConfig(framework.initParams){
+      @Override public ServletContext getServletContext(){
+        return c;
+      }
+    }
+,false);
+  }
+  return framework;
+}

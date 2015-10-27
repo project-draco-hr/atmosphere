@@ -1,25 +1,6 @@
 {
   try {
-    init(servletConfig == null ? new ServletConfig(){
-      @Override public String getServletName(){
-        return "AtmosphereFramework";
-      }
-      @Override public ServletContext getServletContext(){
-        return (ServletContext)Proxy.newProxyInstance(getClass().getClassLoader(),new Class[]{ServletContext.class},new InvocationHandler(){
-          @Override public Object invoke(          Object proxy,          Method method,          Object[] args) throws Throwable {
-            return ServletProxyFactory.getDefault().proxy(proxy,method,args);
-          }
-        }
-);
-      }
-      @Override public String getInitParameter(      String name){
-        return initParams.get(name);
-      }
-      @Override public Enumeration<String> getInitParameterNames(){
-        return Collections.enumeration(initParams.values());
-      }
-    }
- : servletConfig,false);
+    init(servletConfig == null ? new VoidServletConfig(initParams) : servletConfig,false);
   }
  catch (  ServletException e) {
     logger.error("",e);

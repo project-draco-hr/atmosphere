@@ -1,6 +1,6 @@
 {
   if (isInit)   return this;
-  servletConfig=servletConfig(sc,wrap);
+  servletConfig(sc,wrap);
   readSystemProperties();
   populateBroadcasterType();
   populateObjectFactoryType();

@@ -1,5 +1,4 @@
 {
-  ServletConfig servletConfig;
   if (wrap) {
     String value=sc.getServletContext().getInitParameter(USE_SERVLET_CONTEXT_PARAMETERS);
     final boolean useServletContextParameters=value != null && Boolean.valueOf(value);
@@ -41,5 +40,4 @@
  else {
     servletConfig=sc;
   }
-  return servletConfig;
 }

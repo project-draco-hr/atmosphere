@@ -14,5 +14,5 @@
  catch (  Exception ex) {
     logger.error("",ex);
   }
-  return newAtmosphereFramework(AtmosphereFramework.class,isFilter,autoDetectHandlers);
+  return newAtmosphereFramework(AtmosphereFramework.class,isFilter,autoDetectHandlers,sc);
 }
