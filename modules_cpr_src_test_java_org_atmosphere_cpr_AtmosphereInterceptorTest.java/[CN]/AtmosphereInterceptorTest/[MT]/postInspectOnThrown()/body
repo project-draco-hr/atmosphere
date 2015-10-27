@@ -1,0 +1,25 @@
+{
+  AtmosphereHandler handler=mock(AtmosphereHandler.class);
+  Mockito.doThrow(new RuntimeException()).when(handler).onRequest(Mockito.any(AtmosphereResource.class));
+  framework.addAtmosphereHandler("/*",handler);
+  final AtomicBoolean postInspected=new AtomicBoolean(false);
+  framework.interceptor(new AtmosphereInterceptor(){
+    @Override public void configure(    AtmosphereConfig config){
+    }
+    @Override public void destroy(){
+    }
+    @Override public Action inspect(    AtmosphereResource r){
+      return Action.CONTINUE;
+    }
+    @Override public void postInspect(    AtmosphereResource r){
+      postInspected.set(true);
+    }
+  }
+);
+  try {
+    processor.service(mock(AtmosphereRequestImpl.class),AtmosphereResponseImpl.newInstance());
+  }
+ catch (  Throwable t) {
+  }
+  assertTrue(postInspected.get());
+}

@@ -56,32 +56,37 @@
   if (v != null) {
     resource.forceBinaryWrite(Boolean.valueOf(v));
   }
-  Action a=invokeInterceptors(handlerWrapper.interceptors,resource,tracing);
+  LinkedList<AtmosphereInterceptor> invokedInterceptors=handlerWrapper.interceptors;
+  Action a=invokeInterceptors(invokedInterceptors,resource,tracing);
   if (a.type() != Action.TYPE.CONTINUE && a.type() != Action.TYPE.SKIP_ATMOSPHEREHANDLER) {
     return a;
   }
-  if (req.getAttribute(FrameworkConfig.NEW_MAPPING) != null) {
-    req.removeAttribute(FrameworkConfig.NEW_MAPPING);
-    handlerWrapper=map(req);
-    if (handlerWrapper == null) {
-      logger.debug("Remap {}",resource.uuid());
-      throw new AtmosphereMappingException("Invalid state. No AtmosphereHandler maps request for " + req.getRequestURI());
+  try {
+    if (req.getAttribute(FrameworkConfig.NEW_MAPPING) != null) {
+      req.removeAttribute(FrameworkConfig.NEW_MAPPING);
+      handlerWrapper=map(req);
+      if (handlerWrapper == null) {
+        logger.debug("Remap {}",resource.uuid());
+        throw new AtmosphereMappingException("Invalid state. No AtmosphereHandler maps request for " + req.getRequestURI());
+      }
+      resource=configureWorkflow(resource,handlerWrapper,req,res);
+      resource.setBroadcaster(handlerWrapper.broadcaster);
     }
-    resource=configureWorkflow(resource,handlerWrapper,req,res);
-    resource.setBroadcaster(handlerWrapper.broadcaster);
+    boolean skipAtmosphereHandler=req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
+    if (!skipAtmosphereHandler) {
+      try {
+        logger.trace("\t Last: {}",handlerWrapper.atmosphereHandler.getClass().getName());
+        handlerWrapper.atmosphereHandler.onRequest(resource);
+      }
+ catch (      IOException t) {
+        resource.onThrowable(t);
+        throw t;
+      }
+    }
   }
-  boolean skipAtmosphereHandler=req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) != null ? (Boolean)req.getAttribute(SKIP_ATMOSPHEREHANDLER.name()) : Boolean.FALSE;
-  if (!skipAtmosphereHandler) {
-    try {
-      logger.trace("\t Last: {}",handlerWrapper.atmosphereHandler.getClass().getName());
-      handlerWrapper.atmosphereHandler.onRequest(resource);
-    }
- catch (    IOException t) {
-      resource.onThrowable(t);
-      throw t;
-    }
+  finally {
+    postInterceptors(handlerWrapper != null ? handlerWrapper.interceptors : invokedInterceptors,resource);
   }
-  postInterceptors(handlerWrapper.interceptors,resource);
   Action action=resource.action();
   if (supportSession() && allowSessionTimeoutRemoval() && action.type().equals(Action.TYPE.SUSPEND)) {
     SessionTimeoutSupport.setupTimeout(config,req.getSession(config.getInitParameter(ApplicationConfig.PROPERTY_SESSION_CREATE,true)));
