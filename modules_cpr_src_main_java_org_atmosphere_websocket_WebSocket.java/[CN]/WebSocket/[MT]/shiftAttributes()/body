@@ -1,6 +1,4 @@
 {
-  Map<String,Object> m=new HashMap<String,Object>();
-  m.putAll(AtmosphereResourceImpl.class.cast(r).getRequest(false).localAttributes());
-  attributesAtWebSocketOpen=Collections.unmodifiableMap(m);
+  attributesAtWebSocketOpen=AtmosphereResourceImpl.class.cast(r).getRequest(false).localAttributes().unmodifiableMap();
   return this;
 }

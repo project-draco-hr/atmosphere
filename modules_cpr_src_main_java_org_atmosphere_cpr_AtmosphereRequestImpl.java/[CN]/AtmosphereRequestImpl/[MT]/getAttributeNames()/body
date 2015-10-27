@@ -1,11 +1,8 @@
 {
   Set<String> l=new HashSet();
-  l.addAll(b.localAttributes.keySet());
-  Enumeration<String> e=(isNotNoOps() ? b.request.getAttributeNames() : null);
-  if (e != null) {
-    while (e.hasMoreElements()) {
-      l.add(e.nextElement());
-    }
+  l.addAll(b.localAttributes.unmodifiableMap().keySet());
+  if (isNotNoOps()) {
+    l.addAll(Collections.list(b.request.getAttributeNames()));
   }
   return Collections.enumeration(l);
 }
