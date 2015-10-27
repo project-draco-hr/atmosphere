@@ -1,0 +1,11 @@
+{
+  try {
+    Object o=req.getAttribute(AtmosphereResourceImpl.METEOR);
+    if (o != null && Meteor.class.isAssignableFrom(o.getClass())) {
+      Meteor.class.cast(o).destroy();
+    }
+  }
+ catch (  Exception ex) {
+    LOGGER.debug("Meteor resume exception: Cannot resume an already resumed/cancelled request",ex);
+  }
+}

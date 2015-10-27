@@ -43,15 +43,7 @@
   }
  finally {
     unregister();
-    try {
-      Meteor m=(Meteor)req.getAttribute(METEOR);
-      if (m != null) {
-        m.destroy();
-      }
-    }
- catch (    Exception ex) {
-      logger.debug("Meteor resume exception: Cannot resume an already resumed/cancelled request",ex);
-    }
+    Utils.destroyMeteor(req);
   }
   listeners.clear();
   return this;

@@ -15,9 +15,9 @@
       }
       asyncSupport.complete(this);
       try {
-        Meteor m=(Meteor)req.getAttribute(AtmosphereResourceImpl.METEOR);
-        if (m != null) {
-          m.destroy();
+        Object o=req.getAttribute(AtmosphereResourceImpl.METEOR);
+        if (o != null && Meteor.class.isAssignableFrom(o.getClass())) {
+          Meteor.class.cast(o).destroy();
         }
       }
  catch (      Exception ex) {
