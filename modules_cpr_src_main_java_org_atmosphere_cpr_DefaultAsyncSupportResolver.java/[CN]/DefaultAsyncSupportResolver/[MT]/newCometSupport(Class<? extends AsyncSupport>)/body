@@ -6,7 +6,7 @@
     logger.warn("Failed to create AsyncSupport class: {}, error: {}",targetClass,e);
     Throwable cause=e.getCause();
     if (cause != null) {
-      logger.error("Real error: {}, error: {}",targetClass,cause);
+      logger.error("Real error: {}",cause.getMessage(),cause);
     }
     return null;
   }
