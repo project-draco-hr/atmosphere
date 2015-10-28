@@ -16,6 +16,9 @@
       if (s != null && s.equals(JSR356AsyncSupport.class.getName())) {
         force=true;
       }
+ else       if (s != null) {
+        force=false;
+      }
       if (force || l.size() == size && resolver.testClassExists(DefaultAsyncSupportResolver.JSR356_WEBSOCKET)) {
         try {
           framework.setAsyncSupport(new JSR356AsyncSupport(framework.getAtmosphereConfig(),c));
