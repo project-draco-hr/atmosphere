@@ -1,7 +1,12 @@
 {
   this.config=config;
-  mapper=config.framework().endPointMapper();
   closingTime=Long.valueOf(config.getInitParameter(ApplicationConfig.CLOSED_ATMOSPHERE_THINK_TIME,"0"));
   isServlet30=Servlet30CometSupport.class.isAssignableFrom(this.getClass());
   closeOnCancel=config.getInitParameter(ApplicationConfig.CLOSE_STREAM_ON_CANCEL,false);
+  config.startupHook(new AtmosphereConfig.StartupHook(){
+    @Override public void started(    AtmosphereFramework framework){
+      mapper=framework.endPointMapper();
+    }
+  }
+);
 }
