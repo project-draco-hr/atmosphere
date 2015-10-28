@@ -1,0 +1,5 @@
+{
+  super(config);
+  application=new Grizzly2WebSocketApplication(config);
+  WebSocketEngine.getEngine().register(sc.getContextPath(),IOUtils.guestRawServletPath(config),application);
+}

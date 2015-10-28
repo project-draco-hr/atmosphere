@@ -24,7 +24,13 @@
           framework.setAsyncSupport(new JSR356AsyncSupport(framework.getAtmosphereConfig(),c));
         }
  catch (        IllegalStateException ex) {
-          framework.initializationError(ex);
+          if (c.getServerInfo().toLowerCase().contains("glassfish")) {
+            framework.setAsyncSupport(new GlassFishServ30WebSocketSupport(framework.getAtmosphereConfig(),c));
+            framework.initializationError(null);
+          }
+ else {
+            framework.initializationError(ex);
+          }
         }
       }
       try {
