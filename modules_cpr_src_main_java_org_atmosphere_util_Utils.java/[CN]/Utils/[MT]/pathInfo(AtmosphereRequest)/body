@@ -1,0 +1,19 @@
+{
+  String pathInfo=null;
+  String path=null;
+  try {
+    pathInfo=request.getPathInfo();
+  }
+ catch (  IllegalStateException ex) {
+  }
+  if (pathInfo != null) {
+    path=request.getServletPath() + pathInfo;
+  }
+ else {
+    path=request.getServletPath();
+  }
+  if (path == null || path.isEmpty()) {
+    path="/";
+  }
+  return path;
+}
