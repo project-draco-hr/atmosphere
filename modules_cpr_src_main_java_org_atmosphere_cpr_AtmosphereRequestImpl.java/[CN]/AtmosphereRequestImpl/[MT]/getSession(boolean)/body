@@ -23,7 +23,13 @@
     throw ex;
   }
 catch (  NullPointerException ex) {
-    return b.request.getSession(create);
+    try {
+      return b.request.getSession(create);
+    }
+ catch (    Exception e) {
+      logger.trace("",ex);
+      return null;
+    }
   }
 catch (  RuntimeException ex) {
     logger.trace("",ex);

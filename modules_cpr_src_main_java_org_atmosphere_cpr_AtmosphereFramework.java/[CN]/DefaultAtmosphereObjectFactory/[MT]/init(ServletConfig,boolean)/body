@@ -51,7 +51,6 @@
     }
     this.shutdownHook=new Thread(){
       public void run(){
-        AtmosphereFramework.this.shutdownHook=null;
         AtmosphereFramework.this.destroy();
       }
     }

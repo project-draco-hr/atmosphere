@@ -24,6 +24,7 @@
   onPostDestroy();
   if (this.shutdownHook != null) {
     Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+    shutdownHook=null;
   }
   return this;
 }
