@@ -1,5 +1,6 @@
 {
   this.config=config;
+  this.maxTry=config.getInitParameter(ApplicationConfig.INJECTION_TRY,5);
   for (  Injectable<?> i : injectableServiceLoader) {
     try {
       logger.debug("Adding class {} as injectable",i.getClass());
@@ -30,20 +31,25 @@
   config.startupHook(new AtmosphereConfig.StartupHook(){
     @Override public void started(    AtmosphereFramework framework){
       Set<Field> fields=new HashSet<Field>();
-      try {
-        for (        Object instance : pushBackInjection) {
-          fields.addAll(getInheritedPrivateFields(instance.getClass()));
-          try {
-            injectFields(fields,instance,framework,injectables);
-          }
- catch (          IllegalAccessException e) {
-            logger.warn("",e);
-          }
+      Object instance=null;
+      while (pushBackInjection.size() > 0 & maxTry-- > 0) {
+        java.util.Iterator<Object> t=pushBackInjection.iterator();
+        pushBackInjection.clear();
+        while (t.hasNext())         instance=t.next();
+        fields.addAll(getInheritedPrivateFields(instance.getClass()));
+        try {
+          injectFields(fields,instance,framework,injectables);
+          applyMethods(instance,(Class<Object>)instance.getClass());
+        }
+ catch (        IllegalAccessException e) {
+          logger.warn("",e);
+        }
+ finally {
           fields.clear();
         }
       }
-  finally {
-        pushBackInjection.clear();
+      if (pushBackInjection.size() > 0) {
+        logger.warn("Injection failed for {}",pushBackInjection);
       }
     }
   }
