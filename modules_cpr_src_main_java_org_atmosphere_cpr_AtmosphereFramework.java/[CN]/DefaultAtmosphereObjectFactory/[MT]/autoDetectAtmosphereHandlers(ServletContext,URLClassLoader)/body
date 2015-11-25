@@ -1,5 +1,5 @@
 {
-  if (atmosphereHandlers.size() > 0)   return;
+  if (!atmosphereHandlers.isEmpty())   return;
   logger.info("Auto detecting atmosphere handlers {}",handlersPath);
   String realPath=servletContext.getRealPath(handlersPath);
   if (realPath == null) {

@@ -1,5 +1,5 @@
 {
-  if (atmosphereHandlers.size() == 0 && !SimpleHttpProtocol.class.isAssignableFrom(webSocketProtocol.getClass())) {
+  if (atmosphereHandlers.isEmpty() && !SimpleHttpProtocol.class.isAssignableFrom(webSocketProtocol.getClass())) {
     logger.debug("Adding a void AtmosphereHandler mapped to /* to allow WebSocket application only");
     addAtmosphereHandler(Broadcaster.ROOT_MASTER,new AbstractReflectorAtmosphereHandler(){
       @Override public void onRequest(      AtmosphereResource r) throws IOException {

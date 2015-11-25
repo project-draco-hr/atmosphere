@@ -9,7 +9,7 @@
  else {
     logger.debug("Installed AtmosphereHandler {} mapped to context-path {} and Broadcaster Class {}",new String[]{h.getClass().getName(),mapping,broadcaster.getClass().getName()});
   }
-  if (l.size() > 0) {
+  if (!l.isEmpty()) {
     logger.info("Installed AtmosphereInterceptor {} mapped to AtmosphereHandler {}",l,h.getClass().getName());
   }
   return this;

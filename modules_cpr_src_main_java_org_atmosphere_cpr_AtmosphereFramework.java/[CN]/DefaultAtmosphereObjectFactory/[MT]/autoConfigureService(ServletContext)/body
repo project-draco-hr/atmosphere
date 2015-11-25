@@ -4,7 +4,7 @@
     annotationProcessor=newClassInstance(AnnotationProcessor.class,(Class<AnnotationProcessor>)IOUtils.loadClass(getClass(),annotationProcessorClassName));
     logger.info("Atmosphere is using {} for processing annotation",annotationProcessorClassName);
     annotationProcessor.configure(config);
-    if (packages.size() > 0) {
+    if (!packages.isEmpty()) {
       for (      String s : packages) {
         annotationProcessor.scan(s);
       }

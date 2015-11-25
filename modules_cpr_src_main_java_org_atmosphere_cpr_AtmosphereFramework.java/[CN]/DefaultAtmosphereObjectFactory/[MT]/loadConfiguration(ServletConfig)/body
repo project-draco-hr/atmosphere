@@ -4,9 +4,9 @@
     URL url=sc.getServletContext().getResource(handlersPath);
     URLClassLoader urlC=new URLClassLoader(new URL[]{url},Thread.currentThread().getContextClassLoader());
     loadAtmosphereDotXml(sc.getServletContext().getResourceAsStream(atmosphereDotXmlPath),urlC);
-    if (atmosphereHandlers.size() == 0) {
+    if (atmosphereHandlers.isEmpty()) {
       autoDetectAtmosphereHandlers(sc.getServletContext(),urlC);
-      if (atmosphereHandlers.size() == 0) {
+      if (atmosphereHandlers.isEmpty()) {
         detectSupportedFramework(sc);
       }
     }

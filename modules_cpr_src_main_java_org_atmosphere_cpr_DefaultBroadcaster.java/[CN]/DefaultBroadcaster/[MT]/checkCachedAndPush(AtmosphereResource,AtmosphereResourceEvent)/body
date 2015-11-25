@@ -22,7 +22,7 @@
         filteredMessage.addLast(deliver.message);
       }
     }
-    if (filteredMessage.size() == 0) {
+    if (filteredMessage.isEmpty()) {
       return false;
     }
     e.setMessage(filteredMessage);

@@ -1,5 +1,5 @@
 {
-  Object decodedObject=decoders.size() == 0 ? instanceType : null;
+  Object decodedObject=decoders.isEmpty() ? instanceType : null;
   for (  Decoder d : decoders) {
     Class<?>[] typeArguments=TypeResolver.resolveArguments(d.getClass(),Decoder.class);
     if (instanceType != null && typeArguments.length > 0 && typeArguments[0].isAssignableFrom(instanceType.getClass())) {

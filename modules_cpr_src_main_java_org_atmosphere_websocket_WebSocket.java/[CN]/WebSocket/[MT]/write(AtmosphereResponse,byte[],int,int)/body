@@ -8,7 +8,7 @@
   if (logger.isTraceEnabled()) {
     logger.trace("WebSocket.write() {}",new String(b,offset,length,"UTF-8"));
   }
-  boolean transform=filters.size() > 0 && r.getStatus() < 400;
+  boolean transform=!filters.isEmpty() && r.getStatus() < 400;
   if (binaryWrite || resource().forceBinaryWrite()) {
     if (transform) {
       b=transform(r,b,offset,length);

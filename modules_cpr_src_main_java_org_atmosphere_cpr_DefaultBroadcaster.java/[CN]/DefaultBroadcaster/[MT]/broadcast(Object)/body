@@ -9,7 +9,7 @@
     logger.debug("Broadcast Interrupted {}",msg);
     return futureDone(msg);
   }
-  int callee=resources.size() == 0 ? 1 : resources.size();
+  int callee=resources.isEmpty() ? 1 : resources.size();
   BroadcasterFuture<Object> f=new BroadcasterFuture<Object>(newMsg,callee);
   dispatchMessages(new Deliver(newMsg,f,msg));
   return f;

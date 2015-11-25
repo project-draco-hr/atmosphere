@@ -59,7 +59,7 @@ synchronized (resources) {
     }
   }
   finally {
-    if (resources.size() > 0) {
+    if (!resources.isEmpty()) {
 synchronized (awaitBarrier) {
         awaitBarrier.notifyAll();
       }

@@ -10,7 +10,7 @@
   webSocket=new JSR356WebSocket(session,framework.getAtmosphereConfig());
   Map<String,String> headers=new HashMap<String,String>();
   for (  Map.Entry<String,List<String>> e : handshakeRequest.getHeaders().entrySet()) {
-    headers.put(e.getKey(),e.getValue().size() > 0 ? e.getValue().get(0) : "");
+    headers.put(e.getKey(),!e.getValue().isEmpty() ? e.getValue().get(0) : "");
   }
   headers.put("Connection","Upgrade");
   String servletPath=framework.getAtmosphereConfig().getInitParameter(ApplicationConfig.JSR356_MAPPING_PATH);
@@ -61,7 +61,7 @@
           l=handshakeRequest.getHeaders().get("Origin");
         }
         String origin;
-        if (l != null && l.size() > 0) {
+        if (l != null && !l.isEmpty()) {
           origin=l.get(0);
         }
  else {

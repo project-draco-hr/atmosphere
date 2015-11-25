@@ -1,6 +1,6 @@
 {
   if (instanceType == null)   return null;
-  Object encodedObject=encoders.size() == 0 ? instanceType : null;
+  Object encodedObject=encoders.isEmpty() ? instanceType : null;
   for (  Encoder d : encoders) {
     Class<?>[] typeArguments=TypeResolver.resolveArguments(d.getClass(),Encoder.class);
     if (instanceType != null && typeArguments.length > 0 && typeArguments[0].isAssignableFrom(instanceType.getClass())) {

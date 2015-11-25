@@ -2,7 +2,7 @@
   if (!Utils.pollableTransport(r.transport()) && !Utils.webSocketMessage(r)) {
     final BroadcasterTracker tracker=track(r).tick();
     List<Object> cachedMessages=retrieveCache(r,tracker,false);
-    if (cachedMessages.size() > 0) {
+    if (!cachedMessages.isEmpty()) {
       logger.trace("cached messages");
       writeCache(r,cachedMessages);
       return Action.CANCELLED;
@@ -39,7 +39,7 @@
           if (logger.isTraceEnabled()) {
             logger.trace("message size {}",cachedMessages.size());
           }
-          if (cachedMessages.size() > 0) {
+          if (!cachedMessages.isEmpty()) {
             logger.trace("About to write to the cache {}",r.uuid());
             writeCache(r,cachedMessages);
             doNotSuspend.set(true);

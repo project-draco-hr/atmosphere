@@ -6,7 +6,7 @@
   }
   if (!isOpen())   throw new IOException("Connection remotely closed for " + uuid);
   logger.trace("WebSocket.write() {}",data);
-  boolean transform=filters.size() > 0 && r.getStatus() < 400;
+  boolean transform=!filters.isEmpty() && r.getStatus() < 400;
   if (binaryWrite) {
     byte[] b=data.getBytes(resource().getResponse().getCharacterEncoding());
     if (transform) {

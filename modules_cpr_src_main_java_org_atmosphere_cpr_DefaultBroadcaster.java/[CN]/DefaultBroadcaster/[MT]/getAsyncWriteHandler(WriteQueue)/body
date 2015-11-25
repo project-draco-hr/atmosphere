@@ -7,7 +7,7 @@
           token=writeQueue.queue.poll(waitTime,TimeUnit.MILLISECONDS);
           if (token == null && !outOfOrderBroadcastSupported.get()) {
 synchronized (writeQueue) {
-              if (writeQueue.queue.size() == 0) {
+              if (writeQueue.queue.isEmpty()) {
                 writeQueue.monitored.set(false);
                 writeQueues.remove(writeQueue.uuid);
                 return;
