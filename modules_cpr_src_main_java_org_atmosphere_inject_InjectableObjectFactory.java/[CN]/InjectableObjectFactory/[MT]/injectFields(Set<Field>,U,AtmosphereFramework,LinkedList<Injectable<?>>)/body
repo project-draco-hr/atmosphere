@@ -8,11 +8,13 @@
           }
           try {
             field.setAccessible(true);
+            preFieldInjection(field,instance,(Class<U>)instance.getClass());
             Object o=c.injectable(framework.getAtmosphereConfig());
             if (o == null) {
               pushBackInjection.addFirst(instance);
               continue;
             }
+            postFieldInjection(field,instance,(Class<U>)instance.getClass());
             if (field.getType().equals(Boolean.TYPE)) {
               field.setBoolean(instance,Boolean.class.cast(o).booleanValue());
             }

@@ -1,6 +1,15 @@
 {
   this.config=config;
   this.maxTry=config.getInitParameter(ApplicationConfig.INJECTION_TRY,5);
+  String[] listeners=config.getInitParameter(ApplicationConfig.INJECTION_LISTENERS,"").split(",");
+  for (  String l : listeners) {
+    try {
+      listener((InjectionListener)IOUtils.loadClass(getClass(),l).newInstance());
+    }
+ catch (    Exception ex) {
+      logger.warn("",ex);
+    }
+  }
   for (  Injectable<?> i : injectableServiceLoader) {
     try {
       logger.debug("Adding class {} as injectable",i.getClass());
@@ -33,23 +42,25 @@
       Set<Field> fields=new HashSet<Field>();
       Object instance=null;
       while (pushBackInjection.size() > 0 & maxTry-- > 0) {
-        java.util.Iterator<Object> t=pushBackInjection.iterator();
+        Iterator<Object> t=new LinkedList(pushBackInjection).iterator();
         pushBackInjection.clear();
-        while (t.hasNext())         instance=t.next();
-        fields.addAll(getInheritedPrivateFields(instance.getClass()));
-        try {
-          injectFields(fields,instance,framework,injectables);
-          applyMethods(instance,(Class<Object>)instance.getClass());
-        }
- catch (        IllegalAccessException e) {
-          logger.warn("",e);
-        }
+        while (t.hasNext()) {
+          instance=t.next();
+          fields.addAll(getInheritedPrivateFields(instance.getClass()));
+          try {
+            injectFields(fields,instance,framework,injectables);
+            applyMethods(instance,(Class<Object>)instance.getClass());
+          }
+ catch (          IllegalAccessException e) {
+            logger.warn("",e);
+          }
  finally {
-          fields.clear();
+            fields.clear();
+          }
         }
       }
       if (pushBackInjection.size() > 0) {
-        logger.warn("Injection failed for {}",pushBackInjection);
+        injectionFailed();
       }
     }
   }

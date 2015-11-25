@@ -1,0 +1,10 @@
+{
+  for (  InjectionListener i : listeners) {
+    try {
+      i.postMethodInjection(method,instance,clazz);
+    }
+ catch (    Exception ex) {
+      logger.error("",ex);
+    }
+  }
+}

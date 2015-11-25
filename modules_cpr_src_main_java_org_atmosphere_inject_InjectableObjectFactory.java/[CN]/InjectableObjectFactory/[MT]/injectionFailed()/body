@@ -1,0 +1,10 @@
+{
+  for (  InjectionListener i : listeners) {
+    try {
+      i.injectionFailed(pushBackInjection);
+    }
+ catch (    Exception ex) {
+      logger.error("",ex);
+    }
+  }
+}

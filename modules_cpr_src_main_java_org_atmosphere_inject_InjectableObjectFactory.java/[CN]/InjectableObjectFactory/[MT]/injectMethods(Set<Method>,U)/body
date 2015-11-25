@@ -1,7 +1,11 @@
 {
   for (  Method m : methods) {
     for (    Injectable c : introspectors) {
-      InjectIntrospector.class.cast(c).introspectMethod(m,instance);
+      if (!pushBackInjection.contains(instance)) {
+        preMethodInjection(m,instance,(Class<U>)instance.getClass());
+        InjectIntrospector.class.cast(c).introspectMethod(m,instance);
+        postMethodInjection(m,instance,(Class<U>)instance.getClass());
+      }
     }
   }
 }

@@ -12,7 +12,7 @@
     doInitParams(servletConfig);
     doInitParamsForWebSocket(servletConfig);
     lookupDefaultObjectFactoryType();
-    if (logger.isDebugEnabled()) {
+    if (logger.isTraceEnabled()) {
       asyncSupportListener(newClassInstance(AsyncSupportListener.class,AsyncSupportListenerAdapter.class));
     }
     configureObjectFactory();
