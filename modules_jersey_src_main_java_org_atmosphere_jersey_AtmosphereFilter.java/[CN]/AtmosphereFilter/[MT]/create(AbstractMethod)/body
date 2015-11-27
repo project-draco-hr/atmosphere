@@ -82,7 +82,7 @@
       list.addFirst(new Filter(Action.SCHEDULE,period,waitFor));
     }
   }
-  if (list.size() == 0) {
+  if (!list.isEmpty()) {
     f=new Filter(Action.NONE);
     list.addFirst(f);
   }
