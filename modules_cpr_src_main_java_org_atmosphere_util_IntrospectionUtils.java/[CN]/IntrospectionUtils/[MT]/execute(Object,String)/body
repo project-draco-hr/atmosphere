@@ -1,10 +1,2 @@
 {
-  Method executeM=null;
-  Class<?> c=proxy.getClass();
-  Class<?> params[]=new Class[0];
-  executeM=findMethod(c,method,params);
-  if (executeM == null) {
-    throw new RuntimeException("No execute in " + proxy.getClass());
-  }
-  executeM.invoke(proxy,(Object[])null);
 }
