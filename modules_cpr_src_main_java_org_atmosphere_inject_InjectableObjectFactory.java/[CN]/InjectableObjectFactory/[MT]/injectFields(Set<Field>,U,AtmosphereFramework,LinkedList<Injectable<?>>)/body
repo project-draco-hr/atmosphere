@@ -11,7 +11,7 @@
             preFieldInjection(field,instance,(Class<U>)instance.getClass());
             Object o=c.injectable(framework.getAtmosphereConfig());
             if (o == null) {
-              pushBackInjection.addFirst(instance);
+              pushBackInjection.add(instance);
               continue;
             }
             postFieldInjection(field,instance,(Class<U>)instance.getClass());
@@ -38,7 +38,8 @@
             }
           }
  catch (          Exception ex) {
-            logger.warn("Injectable {} failed to inject",c,ex);
+            fieldInjectionException(field,instance,(Class<U>)instance.getClass(),ex);
+            throw ex;
           }
  finally {
             field.setAccessible(false);

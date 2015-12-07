@@ -2,9 +2,15 @@
   for (  Method m : methods) {
     for (    Injectable c : introspectors) {
       if (!pushBackInjection.contains(instance)) {
-        preMethodInjection(m,instance,(Class<U>)instance.getClass());
-        InjectIntrospector.class.cast(c).introspectMethod(m,instance);
-        postMethodInjection(m,instance,(Class<U>)instance.getClass());
+        try {
+          preMethodInjection(m,instance,(Class<U>)instance.getClass());
+          InjectIntrospector.class.cast(c).introspectMethod(m,instance);
+          postMethodInjection(m,instance,(Class<U>)instance.getClass());
+        }
+ catch (        Exception ex) {
+          methodInjectionException(m,instance,(Class<U>)instance.getClass(),ex);
+          throw ex;
+        }
       }
     }
   }

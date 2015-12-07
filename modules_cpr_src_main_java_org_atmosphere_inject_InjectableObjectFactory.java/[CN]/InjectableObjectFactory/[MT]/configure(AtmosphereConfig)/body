@@ -29,7 +29,7 @@
       }
     }
  catch (    Exception e) {
-      logger.error("",e);
+      logger.error("",e.getCause());
     }
   }
   for (  Injectable<?> i : injectables) {
@@ -37,7 +37,7 @@
       inject(i);
     }
  catch (    Exception e) {
-      logger.error("",e);
+      logger.error("",e.getCause());
     }
   }
   config.startupHook(new AtmosphereConfig.StartupHook(){
