@@ -1,4 +1,6 @@
 {
-  Set<Method> methods=(getInheritedPrivateMethod(defaultType));
-  injectMethods(methods,instance);
+  if (!pushBackInjection.contains(instance)) {
+    Set<Method> methods=(getInheritedPrivateMethod(defaultType));
+    injectMethods(methods,instance);
+  }
 }
