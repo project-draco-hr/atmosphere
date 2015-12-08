@@ -3,6 +3,12 @@
     return testClass != null && testClass.length() > 0 && Thread.currentThread().getContextClassLoader().loadClass(testClass) != null;
   }
  catch (  ClassNotFoundException ex) {
+    try {
+      Class.forName(testClass);
+      return true;
+    }
+ catch (    ClassNotFoundException ex2) {
+    }
     return false;
   }
 catch (  NoClassDefFoundError ex) {

@@ -2,7 +2,7 @@
   return new LinkedList<Class<? extends AsyncSupport>>(){
 {
       if (useServlet30Async && !useNativeIfPossible) {
-        if (testClassExists(JSR356_WEBSOCKET)) {
+        if (!suppress356 && testClassExists(JSR356_WEBSOCKET)) {
           add(JSR356AsyncSupport.class);
         }
  else {
