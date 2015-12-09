@@ -1,0 +1,10 @@
+{
+  for (  InjectionListener i : listeners) {
+    try {
+      i.nullFieldInjectionFor(field,instance,clazz);
+    }
+ catch (    Exception ex2) {
+      logger.error("",ex2);
+    }
+  }
+}

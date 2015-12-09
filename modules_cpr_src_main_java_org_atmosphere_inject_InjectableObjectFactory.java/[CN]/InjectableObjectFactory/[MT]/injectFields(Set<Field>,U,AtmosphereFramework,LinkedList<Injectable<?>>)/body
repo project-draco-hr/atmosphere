@@ -6,15 +6,17 @@
           if (InjectIntrospector.class.isAssignableFrom(c.getClass())) {
             InjectIntrospector.class.cast(c).introspectField(instance.getClass(),field);
           }
+          Class<U> clazz=(Class<U>)instance.getClass();
           try {
             field.setAccessible(true);
-            preFieldInjection(field,instance,(Class<U>)instance.getClass());
+            preFieldInjection(field,instance,clazz);
             Object o=c.injectable(framework.getAtmosphereConfig());
             if (o == null) {
+              nullFieldInjectionFor(field,instance,clazz);
               pushBackInjection.add(instance);
               continue;
             }
-            postFieldInjection(field,instance,(Class<U>)instance.getClass());
+            postFieldInjection(field,instance,clazz);
             if (field.getType().equals(Boolean.TYPE)) {
               field.setBoolean(instance,Boolean.class.cast(o).booleanValue());
             }
@@ -38,7 +40,7 @@
             }
           }
  catch (          Exception ex) {
-            fieldInjectionException(field,instance,(Class<U>)instance.getClass(),ex);
+            fieldInjectionException(field,instance,clazz,ex);
             throw ex;
           }
  finally {
