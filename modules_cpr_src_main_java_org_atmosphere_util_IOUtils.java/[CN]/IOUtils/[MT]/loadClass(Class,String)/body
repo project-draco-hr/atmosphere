@@ -1,8 +1,0 @@
-{
-  try {
-    return Thread.currentThread().getContextClassLoader().loadClass(className);
-  }
- catch (  Throwable t) {
-    return thisClass.getClassLoader().loadClass(className);
-  }
-}

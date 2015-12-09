@@ -1,0 +1,16 @@
+{
+  try {
+    return Thread.currentThread().getContextClassLoader().loadClass(className);
+  }
+ catch (  Throwable t) {
+    try {
+      return Class.forName(className);
+    }
+ catch (    Throwable t2) {
+      if (thisClass != null) {
+        return thisClass.getClassLoader().loadClass(className);
+      }
+      throw t2;
+    }
+  }
+}
