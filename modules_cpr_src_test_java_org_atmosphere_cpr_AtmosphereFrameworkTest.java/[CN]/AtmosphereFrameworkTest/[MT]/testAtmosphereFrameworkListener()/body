@@ -24,7 +24,7 @@
       return mock(ServletContext.class);
     }
     @Override public String getInitParameter(    String name){
-      if ("org.atmosphere.suppressDetectingJSR356".equals(name)) {
+      if (ApplicationConfig.WEBSOCKET_SUPPRESS_JSR356.equals(name)) {
         return "true";
       }
       return null;
