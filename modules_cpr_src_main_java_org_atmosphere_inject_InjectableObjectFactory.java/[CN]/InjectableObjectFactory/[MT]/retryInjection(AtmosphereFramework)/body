@@ -1,8 +1,9 @@
 {
+  int maxTryPerCycle=maxTry;
   Set<Field> fields=new HashSet<Field>();
   Object instance=null;
   final LinkedHashSet<Object> postponedMethodExecution=new LinkedHashSet<>(pushBackInjection);
-  while (!pushBackInjection.isEmpty() & maxTry-- > 0) {
+  while (!pushBackInjection.isEmpty() & maxTryPerCycle-- > 0) {
     Iterator<Object> t=new LinkedList(pushBackInjection).iterator();
     pushBackInjection.clear();
     while (t.hasNext()) {
