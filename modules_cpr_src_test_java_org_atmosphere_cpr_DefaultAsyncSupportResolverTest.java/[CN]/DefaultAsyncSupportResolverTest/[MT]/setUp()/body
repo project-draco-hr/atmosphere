@@ -1,4 +1,4 @@
 {
-  config=new AtmosphereFramework().getAtmosphereConfig();
+  config=new AtmosphereFramework().addInitParameter("org.atmosphere.suppressDetectingJSR356","true").init().getAtmosphereConfig();
   defaultAsyncSupportResolver=new DefaultAsyncSupportResolver(config);
 }

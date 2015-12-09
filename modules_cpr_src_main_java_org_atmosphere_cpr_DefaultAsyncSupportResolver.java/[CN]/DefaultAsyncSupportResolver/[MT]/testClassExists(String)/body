@@ -1,6 +1,8 @@
 {
   try {
-    return testClass != null && testClass.length() > 0 && IOUtils.loadClass(null,testClass) != null;
+    final boolean exists=testClass != null && testClass.length() > 0 && IOUtils.loadClass(null,testClass) != null;
+    logger.debug(exists ? "Found {}" : "Not found {}",testClass);
+    return exists;
   }
  catch (  Exception ex) {
     return false;

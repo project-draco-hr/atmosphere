@@ -1,5 +1,5 @@
 {
-  final AtmosphereFramework framework=new AtmosphereFramework();
+  final AtmosphereFramework framework=new AtmosphereFramework().addInitParameter("org.atmosphere.suppressDetectingJSR356","true");
   framework.addAtmosphereHandler("/*",mock(AtmosphereHandler.class));
   framework.metaServicePath="META-INF/test-services/";
   framework.init();

@@ -1,5 +1,5 @@
 {
-  AtmosphereFramework f=new AtmosphereFramework();
+  AtmosphereFramework f=new AtmosphereFramework().addInitParameter("org.atmosphere.suppressDetectingJSR356","true");
   f.init();
   assertNotNull(ServletContextFactory.getDefault().getServletContext());
 }

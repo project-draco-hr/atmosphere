@@ -8,6 +8,9 @@
       return mock(ServletContext.class);
     }
     @Override public String getInitParameter(    String name){
+      if ("org.atmosphere.suppressDetectingJSR356".equals(name)) {
+        return "true";
+      }
       return null;
     }
     @Override public Enumeration<String> getInitParameterNames(){

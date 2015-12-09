@@ -1,5 +1,6 @@
 {
-  config=new AtmosphereFramework().init().getAtmosphereConfig();
+  AtmosphereFramework f=new AtmosphereFramework().addInitParameter("org.atmosphere.suppressDetectingJSR356","true");
+  config=f.init().getAtmosphereConfig();
   factory=config.getBroadcasterFactory();
   factory.remove(Broadcaster.ROOT_MASTER);
   metaBroadcaster=config.metaBroadcaster();
