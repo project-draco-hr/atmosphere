@@ -13,8 +13,10 @@
       }
     }
   }
-  for (  Injectable<?> i : injectableServiceLoader) {
+  Iterator<Injectable> iterator=injectableServiceLoader.iterator();
+  while (iterator.hasNext()) {
     try {
+      Injectable<?> i=iterator.next();
       logger.debug("Adding class {} as injectable",i.getClass());
       if (InjectIntrospector.class.isAssignableFrom(i.getClass())) {
         InjectIntrospector<?> ii=InjectIntrospector.class.cast(i);
