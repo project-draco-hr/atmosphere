@@ -1,3 +1,6 @@
 {
+  if (AtmosphereResource.TRANSPORT.WEBSOCKET == resource().transport()) {
+    return true;
+  }
   return b.request.isAsyncStarted();
 }

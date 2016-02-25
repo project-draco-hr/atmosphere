@@ -1,3 +1,6 @@
 {
+  if (AtmosphereResource.TRANSPORT.WEBSOCKET == resource().transport()) {
+    return new NoOpsAsyncContext(request,response);
+  }
   return b.request.startAsync(request,response);
 }
