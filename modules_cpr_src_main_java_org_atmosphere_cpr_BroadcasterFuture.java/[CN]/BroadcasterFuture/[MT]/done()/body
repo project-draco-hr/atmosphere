@@ -1,7 +1,7 @@
 {
-  isDone=true;
   if (latch != null) {
     latch.countDown();
   }
+  isDone=latch == null || latch.getCount() == 0;
   return this;
 }
