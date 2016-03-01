@@ -1,0 +1,16 @@
+{
+  if (!validFlushOrClose())   return;
+  writeStatusAndHeaders();
+  boolean b=forceAsyncIOWriter;
+  forceAsyncIOWriter=false;
+  try {
+    asyncIOWriter.flush(AtmosphereResponseImpl.this);
+  }
+ catch (  IOException e) {
+    handleException(e);
+    throw e;
+  }
+ finally {
+    forceAsyncIOWriter=b;
+  }
+}
