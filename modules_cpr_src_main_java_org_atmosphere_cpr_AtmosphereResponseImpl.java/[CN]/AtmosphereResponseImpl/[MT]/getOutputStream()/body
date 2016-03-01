@@ -1,6 +1,6 @@
 {
   if (forceAsyncIOWriter || !delegateToNativeResponse) {
-    return stream;
+    return new Stream();
   }
  else {
     return _r().getOutputStream() != null ? _r().getOutputStream() : new ServletOutputStream(){
