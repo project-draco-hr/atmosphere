@@ -1,5 +1,5 @@
 {
-  StringBuffer regexBuffer=new StringBuffer();
+  StringBuilder regexBuffer=new StringBuilder();
   int braceCount=1;
   while (true) {
     char c=ci.next();

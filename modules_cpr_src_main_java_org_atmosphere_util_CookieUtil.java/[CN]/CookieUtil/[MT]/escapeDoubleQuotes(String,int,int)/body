@@ -2,7 +2,7 @@
   if (s == null || s.length() == 0 || s.indexOf('"') == -1) {
     return s;
   }
-  StringBuffer b=new StringBuffer();
+  StringBuilder b=new StringBuilder();
   for (int i=beginIndex; i < endIndex; i++) {
     char c=s.charAt(i);
     if (c == '\\') {

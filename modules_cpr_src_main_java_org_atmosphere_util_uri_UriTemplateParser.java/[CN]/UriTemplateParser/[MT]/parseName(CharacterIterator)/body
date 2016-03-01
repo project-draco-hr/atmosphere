@@ -1,6 +1,6 @@
 {
   char c=consumeWhiteSpace(ci);
-  StringBuffer nameBuffer=new StringBuffer();
+  StringBuilder nameBuffer=new StringBuilder();
   if (Character.isLetterOrDigit(c) || c == '_') {
     nameBuffer.append(c);
   }

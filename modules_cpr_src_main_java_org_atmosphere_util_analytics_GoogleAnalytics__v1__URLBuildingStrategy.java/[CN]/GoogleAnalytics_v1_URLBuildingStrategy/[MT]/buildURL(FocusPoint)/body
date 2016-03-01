@@ -3,7 +3,7 @@
   int randomValue=random.nextInt(2147483647) - 1;
   long now=new Date().getTime();
   focusPoint.setParentTrackPoint(appFocusPoint);
-  StringBuffer url=new StringBuffer(TRACKING_URL_Prefix);
+  StringBuilder url=new StringBuilder(TRACKING_URL_Prefix);
   url.append("?utmwv=1");
   url.append("&utmn=" + random.nextInt());
   url.append("&utmcs=UTF-8");
