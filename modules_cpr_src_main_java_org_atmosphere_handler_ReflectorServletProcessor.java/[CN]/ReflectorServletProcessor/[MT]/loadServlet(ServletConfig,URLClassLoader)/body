@@ -7,5 +7,10 @@
       servlet=config.framework().newClassInstance(Servlet.class,(Class<Servlet>)IOUtils.loadClass(getClass(),servletClassName));
     }
   }
-  logger.info("Installing Servlet {}",servletClassName == null ? servlet.getClass().getName() : servletClassName);
+  if (servlet != null) {
+    logger.info("Installing Servlet {}",servletClassName == null ? servlet.getClass().getName() : servletClassName);
+  }
+ else {
+    logger.warn("No servlet installed. Neither servlet nor servletClassName is set");
+  }
 }
