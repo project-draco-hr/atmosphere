@@ -11,6 +11,6 @@
     logger.info("Installing Servlet {}",servletClassName == null ? servlet.getClass().getName() : servletClassName);
   }
  else {
-    logger.warn("No servlet installed. Neither servlet nor servletClassName is set");
+    logger.info("No servlet installed. Neither servlet nor servletClassName is set");
   }
 }
