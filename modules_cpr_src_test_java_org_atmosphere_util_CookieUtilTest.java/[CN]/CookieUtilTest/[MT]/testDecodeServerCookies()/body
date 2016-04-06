@@ -1,0 +1,18 @@
+{
+  Set<Cookie> cookies=new HashSet<Cookie>();
+  for (  String cookieHeader : COOKIES1) {
+    CookieUtil.ServerCookieDecoder.STRICT.decode(cookieHeader,cookies);
+  }
+  assertEquals(cookies.size(),3);
+  for (  Cookie cookie : cookies) {
+    if ("theme".equals(cookie.getName())) {
+      assertEquals(cookie.getValue(),"light");
+    }
+ else     if ("sessionToken".equals(cookie.getName())) {
+      assertEquals(cookie.getValue(),"abc123");
+    }
+ else     if ("name".equals(cookie.getName())) {
+      assertEquals(cookie.getValue(),"atmosphere");
+    }
+  }
+}
