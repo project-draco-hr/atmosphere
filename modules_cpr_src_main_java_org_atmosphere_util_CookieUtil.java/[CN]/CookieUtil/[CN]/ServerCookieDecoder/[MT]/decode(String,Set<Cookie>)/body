@@ -1,0 +1,66 @@
+{
+  final int headerLen=header.length();
+  if (headerLen == 0) {
+    return;
+  }
+  int i=0;
+  boolean rfc2965Style=false;
+  if (header.regionMatches(true,0,RFC2965_VERSION,0,RFC2965_VERSION.length())) {
+    i=header.indexOf(';') + 1;
+    rfc2965Style=true;
+  }
+  loop:   for (; ; ) {
+    for (; ; ) {
+      if (i == headerLen) {
+        break loop;
+      }
+      char c=header.charAt(i);
+      if (c == '\t' || c == '\n' || c == 0x0b || c == '\f' || c == '\r' || c == ' ' || c == ',' || c == ';') {
+        i++;
+        continue;
+      }
+      break;
+    }
+    int nameBegin=i;
+    int nameEnd=i;
+    int valueBegin=-1;
+    int valueEnd=-1;
+    if (i != headerLen) {
+      keyValLoop:       for (; ; ) {
+        char curChar=header.charAt(i);
+        if (curChar == ';') {
+          nameEnd=i;
+          valueBegin=valueEnd=-1;
+          break keyValLoop;
+        }
+ else         if (curChar == '=') {
+          nameEnd=i;
+          i++;
+          if (i == headerLen) {
+            valueBegin=valueEnd=0;
+            break keyValLoop;
+          }
+          valueBegin=i;
+          int semiPos=header.indexOf(';',i);
+          valueEnd=i=semiPos > 0 ? semiPos : headerLen;
+          break keyValLoop;
+        }
+ else {
+          i++;
+        }
+        if (i == headerLen) {
+          nameEnd=headerLen;
+          valueBegin=valueEnd=-1;
+          break;
+        }
+      }
+    }
+    if (rfc2965Style && (header.regionMatches(nameBegin,RFC2965_PATH,0,RFC2965_PATH.length()) || header.regionMatches(nameBegin,RFC2965_DOMAIN,0,RFC2965_DOMAIN.length()) || header.regionMatches(nameBegin,RFC2965_PORT,0,RFC2965_PORT.length()))) {
+      continue;
+    }
+    Cookie cookie=initCookie(header,nameBegin,nameEnd,valueBegin,valueEnd);
+    if (cookie != null) {
+      cookies.add(cookie);
+    }
+  }
+}

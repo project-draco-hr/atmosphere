@@ -1,0 +1,14 @@
+{
+  if (value == null) {
+    return null;
+  }
+  value=value.trim();
+  if (value.isEmpty()) {
+    return null;
+  }
+  int i=firstInvalidOctet(value,VALID_COOKIE_ATTRIBUTE_VALUE_OCTETS);
+  if (i != -1) {
+    throw new IllegalArgumentException(name + " contains the prohibited characters: " + value.charAt(i));
+  }
+  return value;
+}

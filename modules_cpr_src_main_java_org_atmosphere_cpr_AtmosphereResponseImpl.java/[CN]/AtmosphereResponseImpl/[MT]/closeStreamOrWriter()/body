@@ -1,5 +1,5 @@
 {
-  if (resource() != null && resource().transport() != AtmosphereResource.TRANSPORT.WEBSOCKET) {
+  if (resource() != null) {
     try {
       if (isUsingStream()) {
         getOutputStream().close();

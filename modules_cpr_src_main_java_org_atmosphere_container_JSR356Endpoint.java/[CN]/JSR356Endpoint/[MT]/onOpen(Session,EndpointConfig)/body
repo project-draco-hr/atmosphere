@@ -77,7 +77,13 @@
         requestURL=requestURL.replace("wss://","https://");
       }
     }
-    request=new AtmosphereRequestImpl.Builder().requestURI(uri.getPath()).requestURL(requestURL).headers(headers).session((HttpSession)handshakeRequest.getHttpSession()).servletPath(servletPath).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).destroyable(false).userPrincipal(session.getUserPrincipal()).remoteInetSocketAddress(new Callable<InetSocketAddress>(){
+    List<String> cookieHeaders=handshakeRequest.getHeaders().get("Cookie");
+    Set<Cookie> cookies=null;
+    if (cookieHeaders != null) {
+      cookies=new HashSet<Cookie>();
+      for (      String cookieHeader : cookieHeaders)       cookies.addAll(CookieUtil.ServerCookieDecoder.STRICT.decode(cookieHeader));
+    }
+    request=new AtmosphereRequestImpl.Builder().requestURI(uri.getPath()).requestURL(requestURL).headers(headers).cookies(cookies).session((HttpSession)handshakeRequest.getHttpSession()).servletPath(servletPath).contextPath(framework.getServletContext().getContextPath()).pathInfo(pathInfo).destroyable(false).userPrincipal(session.getUserPrincipal()).remoteInetSocketAddress(new Callable<InetSocketAddress>(){
       @Override public InetSocketAddress call() throws Exception {
         return (InetSocketAddress)endpointConfig.getUserProperties().get(JAVAX_WEBSOCKET_ENDPOINT_REMOTE_ADDRESS);
       }

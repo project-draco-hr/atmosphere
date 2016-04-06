@@ -1,0 +1,5 @@
+{
+  Set<Cookie> cookies=new HashSet<Cookie>();
+  decode(header,cookies);
+  return cookies;
+}

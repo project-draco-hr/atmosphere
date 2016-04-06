@@ -1,0 +1,11 @@
+{
+  BitSet bits=new BitSet();
+  for (int i=32; i < 127; i++) {
+    bits.set(i);
+  }
+  int[] separators=new int[]{'(',')','<','>','@',',',';',':','\\','"','/','[',']','?','=','{','}',' ','\t'};
+  for (  int separator : separators) {
+    bits.set(separator,false);
+  }
+  return bits;
+}

@@ -1,0 +1,12 @@
+{
+  final int len=cs.length();
+  if (len > 0 && cs.charAt(0) == '"') {
+    if (len >= 2 && cs.charAt(len - 1) == '"') {
+      return len == 2 ? "" : cs.subSequence(1,len - 1);
+    }
+ else {
+      return null;
+    }
+  }
+  return cs;
+}

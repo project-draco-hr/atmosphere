@@ -1,0 +1,22 @@
+{
+  if (nameBegin == -1 || nameBegin == nameEnd) {
+    return null;
+  }
+  if (valueBegin == -1) {
+    return null;
+  }
+  CharSequence wrappedValue=CharBuffer.wrap(header,valueBegin,valueEnd);
+  CharSequence unwrappedValue=unwrapValue(wrappedValue);
+  if (unwrappedValue == null) {
+    return null;
+  }
+  final String name=header.substring(nameBegin,nameEnd);
+  if (strict && firstInvalidCookieNameOctet(name) >= 0) {
+    return null;
+  }
+  if (strict && firstInvalidCookieValueOctet(unwrappedValue) >= 0) {
+    return null;
+  }
+  Cookie cookie=new Cookie(name,unwrappedValue.toString());
+  return cookie;
+}

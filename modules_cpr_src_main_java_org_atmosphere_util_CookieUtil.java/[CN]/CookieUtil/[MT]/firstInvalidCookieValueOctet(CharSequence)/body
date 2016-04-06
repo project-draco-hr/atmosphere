@@ -1,0 +1,3 @@
+{
+  return firstInvalidOctet(cs,VALID_COOKIE_VALUE_OCTETS);
+}

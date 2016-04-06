@@ -1,0 +1,5 @@
+String header
+int nameBegin
+int nameEnd
+int valueBegin
+int valueEnd

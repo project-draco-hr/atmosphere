@@ -1,0 +1,8 @@
+{
+  BitSet bits=new BitSet();
+  for (int i=32; i < 127; i++) {
+    bits.set(i);
+  }
+  bits.set(';',false);
+  return bits;
+}

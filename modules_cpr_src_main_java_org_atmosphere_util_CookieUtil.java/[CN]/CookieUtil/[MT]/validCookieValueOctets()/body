@@ -1,0 +1,17 @@
+{
+  BitSet bits=new BitSet();
+  bits.set(0x21);
+  for (int i=0x23; i <= 0x2B; i++) {
+    bits.set(i);
+  }
+  for (int i=0x2D; i <= 0x3A; i++) {
+    bits.set(i);
+  }
+  for (int i=0x3C; i <= 0x5B; i++) {
+    bits.set(i);
+  }
+  for (int i=0x5D; i <= 0x7E; i++) {
+    bits.set(i);
+  }
+  return bits;
+}
