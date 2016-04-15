@@ -1,7 +1,11 @@
 {
+  AsyncContext ac;
   if (AtmosphereResource.TRANSPORT.WEBSOCKET == resource().transport()) {
     noopsAsyncContextStarted=true;
-    return new NoOpsAsyncContext(getRequest(),resource().getResponse().getResponse());
+    ac=new NoOpsAsyncContext(getRequest(),resource().getResponse().getResponse());
   }
-  return b.request.getAsyncContext();
+ else {
+    ac=b.request.getAsyncContext();
+  }
+  return isCompletionAware() ? new CompletionAwareAsyncContext(ac,(CompletionAware)resource().getResponse()) : ac;
 }

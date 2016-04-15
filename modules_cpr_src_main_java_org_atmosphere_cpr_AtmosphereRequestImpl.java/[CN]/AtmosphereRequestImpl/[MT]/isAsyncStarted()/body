@@ -2,5 +2,11 @@
   if (AtmosphereResource.TRANSPORT.WEBSOCKET == resource().transport()) {
     return noopsAsyncContextStarted;
   }
-  return b.request.isAsyncStarted();
+  try {
+    return b.request.isAsyncStarted();
+  }
+ catch (  Throwable ex) {
+    logger.trace("",ex);
+    return false;
+  }
 }

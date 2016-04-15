@@ -1,0 +1,3 @@
+{
+  return Boolean.parseBoolean(resource().getAtmosphereConfig().getInitParameter(ApplicationConfig.RESPONSE_COMPLETION_AWARE));
+}

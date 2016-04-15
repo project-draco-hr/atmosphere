@@ -1,0 +1,17 @@
+{
+  Servlet s=mock(Servlet.class);
+  if (aware) {
+    framework.addInitParameter(ApplicationConfig.RESPONSE_COMPLETION_AWARE,"true");
+  }
+  ReflectorServletProcessor handler=new ReflectorServletProcessor(s);
+  handler.init(framework.getAtmosphereConfig());
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").build();
+  AtmosphereResponseImpl response=mock(AtmosphereResponseImpl.class);
+  AtmosphereResourceImpl res=new AtmosphereResourceImpl();
+  res.initialize(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().get(),request,response,null,null);
+  res.transport(AtmosphereResource.TRANSPORT.WEBSOCKET);
+  request.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,res);
+  request.setAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE,res);
+  handler.onRequest(res);
+  verify(response,times(aware ? 1 : 0)).onComplete();
+}

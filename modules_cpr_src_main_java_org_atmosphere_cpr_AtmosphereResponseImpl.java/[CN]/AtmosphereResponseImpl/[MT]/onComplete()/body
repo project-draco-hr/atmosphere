@@ -1,0 +1,8 @@
+{
+  completed=true;
+  try {
+    writeWithBuffering(null);
+  }
+ catch (  IOException e) {
+  }
+}

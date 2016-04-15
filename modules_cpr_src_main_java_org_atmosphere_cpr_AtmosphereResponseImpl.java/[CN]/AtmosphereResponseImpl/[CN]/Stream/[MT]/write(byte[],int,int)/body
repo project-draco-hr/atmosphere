@@ -4,7 +4,14 @@
     validAsyncIOWriter();
     writeStatusAndHeaders();
     forceAsyncIOWriter=false;
-    asyncIOWriter.write(AtmosphereResponseImpl.this,bytes,start,offset);
+    if (buffering) {
+      byte[] copy=new byte[offset];
+      System.arraycopy(bytes,start,copy,0,offset);
+      writeWithBuffering(copy);
+    }
+ else {
+      asyncIOWriter.write(AtmosphereResponseImpl.this,bytes,start,offset);
+    }
   }
  catch (  IOException e) {
     handleException(e);

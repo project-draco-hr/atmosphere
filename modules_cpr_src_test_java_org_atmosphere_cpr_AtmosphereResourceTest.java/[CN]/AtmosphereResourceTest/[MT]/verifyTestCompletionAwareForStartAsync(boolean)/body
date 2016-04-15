@@ -1,0 +1,15 @@
+{
+  if (aware) {
+    framework.addInitParameter(ApplicationConfig.RESPONSE_COMPLETION_AWARE,"true");
+  }
+  AtmosphereRequest request=AtmosphereRequestImpl.newInstance();
+  AtmosphereResponseImpl response=mock(AtmosphereResponseImpl.class);
+  AtmosphereResourceImpl res=new AtmosphereResourceImpl();
+  res.initialize(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().get(),request,response,null,null);
+  res.transport(AtmosphereResource.TRANSPORT.WEBSOCKET);
+  request.setAttribute(FrameworkConfig.ATMOSPHERE_RESOURCE,res);
+  AsyncContext ac=request.startAsync();
+  verify(response,times(0)).onComplete();
+  ac.complete();
+  verify(response,times(aware ? 1 : 0)).onComplete();
+}
