@@ -29,4 +29,10 @@
   baos.reset();
   response.write("Hello World!\nHave a nice day!".getBytes());
   assertEquals(baos.toString(),"data:Hello World!\r\ndata:Have a nice day!\r\n\r\n");
+  baos.reset();
+  response.write("Hello World!\rHave a nice day!".getBytes());
+  assertEquals(baos.toString(),"data:Hello World!\r\ndata:Have a nice day!\r\n\r\n");
+  baos.reset();
+  response.write("Hello World!\r\nHave a nice day!".getBytes());
+  assertEquals(baos.toString(),"data:Hello World!\r\ndata:Have a nice day!\r\n\r\n");
 }
