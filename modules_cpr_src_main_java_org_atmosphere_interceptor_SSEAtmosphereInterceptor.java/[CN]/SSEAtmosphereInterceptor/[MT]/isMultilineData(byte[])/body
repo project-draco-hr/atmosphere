@@ -1,0 +1,8 @@
+{
+  for (  byte b : data) {
+    if (b == '\r' || b == '\n') {
+      return true;
+    }
+  }
+  return false;
+}

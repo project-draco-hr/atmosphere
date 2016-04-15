@@ -1,0 +1,38 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  int bp=0;
+  int ep=0;
+  try {
+    while (ep < data.length) {
+      int c=data[ep];
+      if (c == '\r') {
+        if (baos.size() > 0) {
+          baos.write(NEWLINE);
+          baos.write(DATA);
+        }
+        baos.write(data,bp,ep - bp);
+        if (ep + 1 < data.length && data[ep + 1] == '\n') {
+          ep++;
+          bp=ep + 1;
+        }
+      }
+ else       if (c == '\n') {
+        if (baos.size() > 0) {
+          baos.write(NEWLINE);
+          baos.write(DATA);
+        }
+        baos.write(data,bp,ep - bp);
+        bp=ep + 1;
+      }
+      ep++;
+    }
+    if (baos.size() > 0) {
+      baos.write(NEWLINE);
+      baos.write(DATA);
+    }
+    baos.write(data,bp,ep - bp);
+  }
+ catch (  IOException e) {
+  }
+  return baos.toByteArray();
+}

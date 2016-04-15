@@ -1,0 +1,20 @@
+{
+  framework=new AtmosphereFramework();
+  framework.setAsyncSupport(Mockito.mock(AsyncSupport.class));
+  framework.init(new ServletConfig(){
+    @Override public String getServletName(){
+      return "void";
+    }
+    @Override public ServletContext getServletContext(){
+      return Mockito.mock(ServletContext.class);
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return null;
+    }
+  }
+);
+  config=framework.getAtmosphereConfig();
+}

@@ -1,0 +1,32 @@
+{
+  final ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  ServletResponse resp=Mockito.mock(HttpServletResponse.class);
+  Mockito.when(resp.getOutputStream()).thenReturn(new ServletOutputStream(){
+    @Override public void write(    int b) throws IOException {
+      baos.write(b);
+    }
+    @Override public void write(    byte[] b) throws IOException {
+      baos.write(b);
+    }
+    @Override public void write(    byte[] b,    int off,    int len) throws IOException {
+      baos.write(b,off,len);
+    }
+  }
+);
+  AtmosphereRequest request=AtmosphereRequestImpl.newInstance();
+  request.header(HeaderConfig.X_ATMOSPHERE_TRANSPORT,"SSE");
+  AtmosphereResponse response=AtmosphereResponseImpl.newInstance(request);
+  response.request(request);
+  response.setResponse(resp);
+  AtmosphereResourceImpl resource=new AtmosphereResourceImpl();
+  resource.initialize(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().get(),request,response,Mockito.mock(AsyncSupport.class),null);
+  resource.suspend();
+  SSEAtmosphereInterceptor interceptor=new SSEAtmosphereInterceptor();
+  interceptor.configure(config);
+  interceptor.inspect(resource);
+  response.write("Good Morning".getBytes());
+  assertEquals(baos.toString(),"data:Good Morning\r\n\r\n");
+  baos.reset();
+  response.write("Hello World!\nHave a nice day!".getBytes());
+  assertEquals(baos.toString(),"data:Hello World!\r\ndata:Have a nice day!\r\n\r\n");
+}

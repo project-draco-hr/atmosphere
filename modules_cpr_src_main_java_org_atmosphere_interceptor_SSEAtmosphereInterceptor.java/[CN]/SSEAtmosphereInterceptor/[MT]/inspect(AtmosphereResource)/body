@@ -18,8 +18,17 @@
         @Override public void prePayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           boolean noPadding=padding();
           if (!noPadding || r.getRequest().getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL) != null) {
-            response.write("data:",true);
+            response.write(DATA,true);
           }
+        }
+        @Override public byte[] transformPayload(        AtmosphereResponse response,        byte[] responseDraft,        byte[] data) throws IOException {
+          boolean noPadding=padding();
+          if (!noPadding || r.getRequest().getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL) != null) {
+            if (isMultilineData(responseDraft)) {
+              return encodeMultilineData(responseDraft);
+            }
+          }
+          return responseDraft;
         }
         @Override public void postPayload(        AtmosphereResponse response,        byte[] data,        int offset,        int length){
           if (r.isSuspended() || r.getRequest().getAttribute(CALLBACK_JAVASCRIPT_PROTOCOL) != null || r.getRequest().getAttribute(CONTAINER_RESPONSE) != null) {
