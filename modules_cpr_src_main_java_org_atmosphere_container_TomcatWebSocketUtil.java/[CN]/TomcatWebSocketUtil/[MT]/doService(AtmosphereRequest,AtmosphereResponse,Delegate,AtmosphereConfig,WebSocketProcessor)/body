@@ -15,7 +15,7 @@
       if (!headerContainsToken(req,"Connection","upgrade")) {
         return delegate.doService(req,res);
       }
-      if (!headerContainsToken(req,"sec-websocket-version","13")) {
+      if (!headerContainsToken(req,WEBSOCKET_VERSION,"13")) {
         WebSocket.notSupported(req,res);
         return new Action(Action.TYPE.CANCELLED);
       }
