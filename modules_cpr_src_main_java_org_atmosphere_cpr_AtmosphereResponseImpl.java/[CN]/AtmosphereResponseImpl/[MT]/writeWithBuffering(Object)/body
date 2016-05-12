@@ -1,0 +1,47 @@
+{
+  if (NO_BUFFERING.get() != null) {
+    boolean b=forceAsyncIOWriter;
+    try {
+      if (data instanceof String) {
+        asyncIOWriter.write(AtmosphereResponseImpl.this,(String)data);
+      }
+ else       if (data instanceof byte[]) {
+        asyncIOWriter.write(AtmosphereResponseImpl.this,(byte[])data);
+      }
+    }
+ catch (    IOException e) {
+      handleException(e);
+      throw e;
+    }
+ finally {
+      forceAsyncIOWriter=b;
+    }
+  }
+ else {
+    try {
+      NO_BUFFERING.set(Boolean.TRUE);
+      Object previous=buffered.getAndSet(data);
+      if (previous != null) {
+        boolean b=forceAsyncIOWriter;
+        try {
+          if (previous instanceof String) {
+            asyncIOWriter.write(AtmosphereResponseImpl.this,(String)previous);
+          }
+ else           if (previous instanceof byte[]) {
+            asyncIOWriter.write(AtmosphereResponseImpl.this,(byte[])previous);
+          }
+        }
+ catch (        IOException e) {
+          handleException(e);
+          throw e;
+        }
+ finally {
+          forceAsyncIOWriter=b;
+        }
+      }
+    }
+  finally {
+      NO_BUFFERING.remove();
+    }
+  }
+}

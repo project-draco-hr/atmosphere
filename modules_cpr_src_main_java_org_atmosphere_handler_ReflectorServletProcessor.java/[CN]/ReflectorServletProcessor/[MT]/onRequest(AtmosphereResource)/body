@@ -1,9 +1,18 @@
 {
+  final boolean completionAware=Boolean.parseBoolean(r.getAtmosphereConfig().getInitParameter(ApplicationConfig.RESPONSE_COMPLETION_AWARE));
   try {
+    if (completionAware) {
+      r.getRequest().setAttribute(ApplicationConfig.RESPONSE_COMPLETION_AWARE,Boolean.TRUE);
+    }
     wrapper.service(r.getRequest(),r.getResponse());
   }
  catch (  Throwable ex) {
     logger.error("onRequest()",ex);
     throw new RuntimeException(ex);
+  }
+ finally {
+    if (completionAware && r.getResponse() instanceof CompletionAware && !r.getRequest().isAsyncStarted()) {
+      ((CompletionAware)r.getResponse()).onComplete();
+    }
   }
 }

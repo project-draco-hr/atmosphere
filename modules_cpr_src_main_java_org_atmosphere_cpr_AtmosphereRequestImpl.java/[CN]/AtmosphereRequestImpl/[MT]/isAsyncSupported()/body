@@ -2,7 +2,7 @@
   try {
     return b.request.isAsyncSupported();
   }
- catch (  Exception ex) {
+ catch (  Throwable ex) {
     logger.trace("",ex);
     return false;
   }

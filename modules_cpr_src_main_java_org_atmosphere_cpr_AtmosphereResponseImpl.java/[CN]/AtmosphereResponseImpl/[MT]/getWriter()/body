@@ -1,6 +1,6 @@
 {
   if (forceAsyncIOWriter || !delegateToNativeResponse) {
-    return new Writer(new Stream());
+    return new Writer(new Stream(isBuffering()));
   }
  else {
     return _r().getWriter() != null ? _r().getWriter() : new PrintWriter(new StringWriter());

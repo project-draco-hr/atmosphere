@@ -3,6 +3,9 @@
   boolean b=forceAsyncIOWriter;
   forceAsyncIOWriter=false;
   try {
+    if (buffering) {
+      writeWithBuffering(null);
+    }
     asyncIOWriter.close(AtmosphereResponseImpl.this);
   }
  catch (  IOException e) {
