@@ -1,0 +1,7 @@
+{
+  int c=next(true);
+  if (c == '"' || c == '\'') {
+    return nextQuoted(c);
+  }
+  throw new IOException("invalid name: missing quote '\"'");
+}

@@ -1,0 +1,47 @@
+{
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("createResponse for payload {}",new String(payload));
+  }
+  AtmosphereRequest request=response.request();
+  String id=(String)request.getAttribute(REQUEST_ID);
+  if (id == null) {
+    return payload;
+  }
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  if (id != null) {
+    try {
+      baos.write(RESPONSE_TEMPLATE_HEAD);
+      baos.write(id.getBytes());
+      if (detached) {
+        if (isLastResponse(request,response)) {
+          baos.write(RESPONSE_TEMPLATE_BELLY_DETACHED);
+        }
+ else {
+          baos.write(RESPONSE_TEMPLATE_BELLY_CONTINUE_DETACHED);
+        }
+        baos.write(RESPONSE_TEMPLATE_TAIL);
+        baos.write(RESPONSE_TEMPLATE_NEWLINE);
+        baos.write(payload);
+      }
+ else {
+        boolean isobj=isJSONObject(payload);
+        if (isLastResponse(request,response)) {
+          baos.write(RESPONSE_TEMPLATE_BELLY);
+        }
+ else {
+          baos.write(RESPONSE_TEMPLATE_BELLY_CONTINUE);
+        }
+        if (!isobj) {
+          baos.write(quote(payload));
+        }
+ else {
+          baos.write(payload);
+        }
+        baos.write(RESPONSE_TEMPLATE_TAIL);
+      }
+    }
+ catch (    IOException e) {
+    }
+  }
+  return baos.toByteArray();
+}

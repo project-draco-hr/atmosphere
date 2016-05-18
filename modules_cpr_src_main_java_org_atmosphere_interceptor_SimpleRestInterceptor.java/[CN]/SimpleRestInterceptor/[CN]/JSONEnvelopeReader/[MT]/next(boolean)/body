@@ -1,0 +1,11 @@
+{
+  int c;
+  if (peek != -1) {
+    c=peek;
+    peek=-1;
+  }
+ else {
+    while ((c=reader.read()) != -1 && skipws && isWS(c))     ;
+  }
+  return c;
+}

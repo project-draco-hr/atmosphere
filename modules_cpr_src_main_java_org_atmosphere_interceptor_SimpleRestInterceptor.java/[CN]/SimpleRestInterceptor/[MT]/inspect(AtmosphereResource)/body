@@ -1,0 +1,87 @@
+{
+  if (AtmosphereResource.TRANSPORT.WEBSOCKET != r.transport() && AtmosphereResource.TRANSPORT.SSE != r.transport() && AtmosphereResource.TRANSPORT.POLLING != r.transport()) {
+    LOG.debug("Skipping for non websocket request");
+    return Action.CONTINUE;
+  }
+  if (AtmosphereResource.TRANSPORT.POLLING == r.transport()) {
+    final String saruuid=(String)r.getRequest().getAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
+    final AtmosphereResponse suspendedResponse=suspendedResponses.get(saruuid);
+    LOG.debug("Attaching a proxy writer to suspended response");
+    r.getResponse().asyncIOWriter(new AtmosphereInterceptorWriter(){
+      @Override public AsyncIOWriter write(      AtmosphereResponse r,      String data) throws IOException {
+        suspendedResponse.write(data);
+        suspendedResponse.flushBuffer();
+        return this;
+      }
+      @Override public AsyncIOWriter write(      AtmosphereResponse r,      byte[] data) throws IOException {
+        suspendedResponse.write(data);
+        suspendedResponse.flushBuffer();
+        return this;
+      }
+      @Override public AsyncIOWriter write(      AtmosphereResponse r,      byte[] data,      int offset,      int length) throws IOException {
+        suspendedResponse.write(data,offset,length);
+        suspendedResponse.flushBuffer();
+        return this;
+      }
+      @Override public void close(      AtmosphereResponse response) throws IOException {
+      }
+    }
+);
+    r.getResponse().destroyable(false);
+    return Action.CONTINUE;
+  }
+  r.addEventListener(new AtmosphereResourceEventListenerAdapter(){
+    @Override public void onSuspend(    AtmosphereResourceEvent event){
+      final String srid=(String)event.getResource().getRequest().getAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
+      LOG.debug("Registrering suspended resource: {}",srid);
+      suspendedResponses.put(srid,event.getResource().getResponse());
+      AsyncIOWriter writer=event.getResource().getResponse().getAsyncIOWriter();
+      if (writer == null) {
+        writer=new AtmosphereInterceptorWriter();
+        r.getResponse().asyncIOWriter(writer);
+      }
+      if (writer instanceof AtmosphereInterceptorWriter) {
+        ((AtmosphereInterceptorWriter)writer).interceptor(interceptor);
+      }
+    }
+    @Override public void onDisconnect(    AtmosphereResourceEvent event){
+      super.onDisconnect(event);
+      final String srid=(String)event.getResource().getRequest().getAttribute(ApplicationConfig.SUSPENDED_ATMOSPHERE_RESOURCE_UUID);
+      LOG.debug("Unregistrering suspended resource: {}",srid);
+      suspendedResponses.remove(srid);
+    }
+  }
+);
+  AtmosphereRequest request=r.getRequest();
+  if (request.getAttribute(REQUEST_DISPATCHED) == null) {
+    try {
+      String body=IOUtils.readEntirelyAsString(r).toString();
+      LOG.debug("Request message: '{}'",body);
+      if (body.length() == 0) {
+        if ((AtmosphereResource.TRANSPORT.WEBSOCKET == r.transport() || AtmosphereResource.TRANSPORT.SSE == r.transport()) && request.getAttribute(HEARTBEAT_SCHEDULED) == null) {
+          r.suspend();
+          scheduleHeartbeat(r);
+          request.setAttribute(HEARTBEAT_SCHEDULED,"true");
+          return Action.SUSPEND;
+        }
+        return Action.CANCELLED;
+      }
+      AtmosphereRequest ar=createAtmosphereRequest(request,body);
+      AtmosphereResponse response=r.getResponse();
+      ar.localAttributes().put(REQUEST_DISPATCHED,"true");
+      request.removeAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);
+      response.request(ar);
+      attachWriter(r);
+      Action action=r.getAtmosphereConfig().framework().doCometSupport(ar,response);
+      if (action.type() == Action.TYPE.SUSPEND) {
+        ar.destroyable(false);
+        response.destroyable(false);
+      }
+      return Action.CANCELLED;
+    }
+ catch (    IOException|ServletException e) {
+      LOG.error("Failed to process",e);
+    }
+  }
+  return Action.CONTINUE;
+}

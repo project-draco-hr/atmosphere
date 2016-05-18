@@ -1,0 +1,11 @@
+{
+  int c=next(true);
+  if (c == '"' || c == '\'') {
+    return nextQuoted(c);
+  }
+ else   if (c == 't' || c == 'f' || ('0' <= c && c <= '9')) {
+    unread(c);
+    return nextNonQuoted();
+  }
+  throw new IOException("invalid value: unquoted non literals");
+}

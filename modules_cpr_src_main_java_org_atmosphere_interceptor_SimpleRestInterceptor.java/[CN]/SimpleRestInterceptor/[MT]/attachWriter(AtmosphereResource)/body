@@ -1,0 +1,7 @@
+{
+  AtmosphereResponse res=r.getResponse();
+  AsyncIOWriter writer=res.getAsyncIOWriter();
+  if (writer instanceof AtmosphereInterceptorWriter) {
+    ((AtmosphereInterceptorWriter)writer).interceptor(interceptor,0);
+  }
+}

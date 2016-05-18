@@ -1,0 +1,7 @@
+{
+  heartbeat.addAtmosphereResource(r);
+  if (!heartbeatScheduled) {
+    heartbeat.scheduleFixedBroadcast(String.format(getHeartbeatTemplate(),getHeartbeatTemplateArguments()),DEFAULT_HEARTBEAT_INTERVAL,DEFAULT_HEARTBEAT_INTERVAL,TimeUnit.SECONDS);
+    heartbeatScheduled=true;
+  }
+}

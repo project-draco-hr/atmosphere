@@ -1,0 +1,12 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  baos.write('"');
+  for (  byte c : b) {
+    if (c == '"') {
+      baos.write('\\');
+    }
+    baos.write(c);
+  }
+  baos.write('"');
+  return baos.toByteArray();
+}

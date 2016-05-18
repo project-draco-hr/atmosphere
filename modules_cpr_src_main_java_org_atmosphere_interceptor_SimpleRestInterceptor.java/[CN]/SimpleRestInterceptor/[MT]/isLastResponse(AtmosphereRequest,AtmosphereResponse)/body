@@ -1,0 +1,3 @@
+{
+  return (response instanceof CompletionAware && ((CompletionAware)response).completed()) || Boolean.TRUE != request.getAttribute(ApplicationConfig.RESPONSE_COMPLETION_AWARE);
+}

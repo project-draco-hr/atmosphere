@@ -1,0 +1,30 @@
+{
+  int c=next(true);
+  if (c == '{') {
+    for (; ; ) {
+      String name=nextName();
+      c=next(true);
+      if (c == ':') {
+        if ("data".equals(name)) {
+          datap=true;
+          break;
+        }
+ else {
+          String value=nextValue();
+          headers.put(name,value);
+        }
+      }
+ else {
+        throw new IOException("invalid value: missing name-separator ':'");
+      }
+      c=next(true);
+      if (c != ',') {
+        unread(c);
+        break;
+      }
+    }
+  }
+ else {
+    throw new IOException("invalid object: missing being-object '{'");
+  }
+}

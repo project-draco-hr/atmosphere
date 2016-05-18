@@ -1,0 +1,3 @@
+{
+  return HEARTBEAT_BROADCASTER_NAME;
+}

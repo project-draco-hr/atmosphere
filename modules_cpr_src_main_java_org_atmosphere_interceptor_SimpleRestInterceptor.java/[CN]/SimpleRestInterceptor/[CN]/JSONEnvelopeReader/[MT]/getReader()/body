@@ -1,0 +1,49 @@
+{
+  if (!datap) {
+    return null;
+  }
+  return new Reader(){
+    private int b;
+    @Override public int read(    char[] cbuf,    int off,    int len) throws IOException {
+      int n=reader.read(cbuf,off,len);
+      if (n > 0) {
+        boolean escaping=false;
+        char quot=0;
+        for (int i=off; i < n; i++) {
+          char c=cbuf[i];
+          if (c == '{' && !escaping) {
+            b++;
+          }
+ else           if (c == '}' && !escaping) {
+            b--;
+            if (b < 0) {
+              n--;
+            }
+          }
+ else           if ((c == '"' || c == '\'') && !escaping) {
+            if (c == quot) {
+              quot=0;
+            }
+ else {
+              quot=c;
+            }
+          }
+ else           if (c == '\\' && quot != 0 && !escaping) {
+            escaping=true;
+          }
+ else           if (escaping) {
+            escaping=false;
+          }
+        }
+      }
+      return n;
+    }
+    @Override public void close() throws IOException {
+      reader.close();
+    }
+    @Override public boolean ready() throws IOException {
+      return reader.ready();
+    }
+  }
+;
+}

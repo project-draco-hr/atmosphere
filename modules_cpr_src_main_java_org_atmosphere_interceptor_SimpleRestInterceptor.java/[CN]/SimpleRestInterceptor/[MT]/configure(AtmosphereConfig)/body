@@ -1,0 +1,8 @@
+{
+  super.configure(config);
+  detached=Boolean.parseBoolean(config.getInitParameter(PROTOCOL_DETACHED_KEY));
+  heartbeat=config.getBroadcasterFactory().lookup(DefaultBroadcaster.class,getHeartbeatBroadcasterName());
+  if (heartbeat == null) {
+    heartbeat=config.getBroadcasterFactory().get(DefaultBroadcaster.class,getHeartbeatBroadcasterName());
+  }
+}
