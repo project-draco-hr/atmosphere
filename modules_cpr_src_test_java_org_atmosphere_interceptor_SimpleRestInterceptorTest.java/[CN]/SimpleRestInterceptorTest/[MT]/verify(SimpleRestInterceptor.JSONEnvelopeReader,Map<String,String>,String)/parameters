@@ -1,0 +1,3 @@
+SimpleRestInterceptor.JSONEnvelopeReader jer
+Map<String,String> expectedHeaders
+String expectedBody

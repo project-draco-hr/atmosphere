@@ -1,0 +1,13 @@
+{
+  Map<String,String> headers=jer.getHeaders();
+  assertEquals(expectedHeaders.size(),headers.size());
+  for (  String key : expectedHeaders.keySet()) {
+    assertEquals(headers.get(key),expectedHeaders.get(key),"value of key " + key + " differs");
+  }
+  if (expectedBody == null) {
+    assertNull(jer.getReader());
+  }
+ else {
+    assertEquals(extractContent(jer.getReader()),expectedBody);
+  }
+}

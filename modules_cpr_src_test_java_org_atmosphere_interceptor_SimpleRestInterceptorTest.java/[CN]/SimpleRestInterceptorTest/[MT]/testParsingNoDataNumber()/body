@@ -1,0 +1,10 @@
+{
+  final String data="{'id': \"123\", \"size\" : 69124, 'ack' : true }";
+  Reader r=new StringReader(data);
+  SimpleRestInterceptor.JSONEnvelopeReader jer=new SimpleRestInterceptor.JSONEnvelopeReader(r);
+  Map<String,String> expectedHeaders=new HashMap<String,String>();
+  expectedHeaders.put("id","123");
+  expectedHeaders.put("size","69124");
+  expectedHeaders.put("ack","true");
+  verify(jer,expectedHeaders,null);
+}

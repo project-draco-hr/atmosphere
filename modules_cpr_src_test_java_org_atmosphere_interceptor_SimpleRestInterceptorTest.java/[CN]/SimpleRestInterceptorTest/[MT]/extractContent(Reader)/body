@@ -1,0 +1,13 @@
+{
+  char[] cbuf=new char[512];
+  StringBuilder sb=new StringBuilder();
+  int n;
+  try {
+    while ((n=reader.read(cbuf,0,cbuf.length)) != -1) {
+      sb.append(cbuf,0,n);
+    }
+  }
+ catch (  IOException e) {
+  }
+  return sb.toString().trim();
+}
