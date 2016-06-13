@@ -12,7 +12,7 @@
     try {
       baos.write(RESPONSE_TEMPLATE_HEAD);
       baos.write(id.getBytes());
-      if (detached) {
+      if (isDetached(request)) {
         if (isLastResponse(request,response)) {
           baos.write(RESPONSE_TEMPLATE_BELLY_DETACHED);
         }

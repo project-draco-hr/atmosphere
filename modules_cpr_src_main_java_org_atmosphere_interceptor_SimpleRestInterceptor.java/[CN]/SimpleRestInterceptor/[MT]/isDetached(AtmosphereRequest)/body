@@ -1,0 +1,4 @@
+{
+  final String prop=request.getHeader(X_ATMOSPHERE_SIMPLE_REST_PROTOCOL_DETACHED);
+  return (detached && prop == null) || Boolean.valueOf(prop);
+}

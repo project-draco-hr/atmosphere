@@ -9,9 +9,13 @@
           datap=true;
           break;
         }
+ else         if ("detached".equals(name)) {
+          if (Boolean.valueOf(nextValue())) {
+            detachedp=true;
+          }
+        }
  else {
-          String value=nextValue();
-          headers.put(name,value);
+          headers.put(name,nextValue());
         }
       }
  else {

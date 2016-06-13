@@ -1,9 +1,9 @@
 {
-  final String data="{\"id\": \"123\", \"type\" : \"text/xml\", \"data\": {\"records\": [{\"value\": \"S2Fma2E=\"}]}}";
+  final String data="{\"id\": \"123\", \"type\" : \"application/json\", \"data\": {\"records\": [{\"value\": \"S2Fma2E=\"}]}}";
   Reader r=new StringReader(data);
   SimpleRestInterceptor.JSONEnvelopeReader jer=new SimpleRestInterceptor.JSONEnvelopeReader(r);
   Map<String,String> expectedHeaders=new HashMap<String,String>();
   expectedHeaders.put("id","123");
-  expectedHeaders.put("type","text/xml");
+  expectedHeaders.put("type","application/json");
   verify(jer,expectedHeaders,"{\"records\": [{\"value\": \"S2Fma2E=\"}]}");
 }

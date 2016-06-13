@@ -1,5 +1,5 @@
 {
-  final String data="{\"id\": \"123\", \"type\" : \"application/json\", " + "\"data\": {\"records\": [{\"value\": \"S2Fma2E=\"}, {\"value\": \"S2Fma2E=\"},{\"value\": \"S2Fma2E=\"}]}}";
+  final String data="{\"id\": \"123\", \"type\" : \"application/json\", \"detached\": true}\r\n" + "{\"records\": [{\"value\": \"S2Fma2E=\"}, {\"value\": \"S2Fma2E=\"},{\"value\": \"S2Fma2E=\"}]}";
   Reader r=new StringReader(data);
   SimpleRestInterceptor.JSONEnvelopeReader jer=new SimpleRestInterceptor.JSONEnvelopeReader(r);
   Map<String,String> expectedHeaders=new HashMap<String,String>();

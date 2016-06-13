@@ -1,5 +1,5 @@
 {
-  if (!datap) {
+  if (!datap && !detachedp) {
     return null;
   }
   return new Reader(){

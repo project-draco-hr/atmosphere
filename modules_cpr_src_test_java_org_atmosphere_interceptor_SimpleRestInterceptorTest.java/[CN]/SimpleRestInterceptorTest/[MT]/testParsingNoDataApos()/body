@@ -1,10 +1,9 @@
 {
-  final String data="{'id': \"123\", \"type\" : 'text/xml', 'accept' : 'text/plain' }";
+  final String data="{'id': \"123\", 'accept' : 'text/plain' }";
   Reader r=new StringReader(data);
   SimpleRestInterceptor.JSONEnvelopeReader jer=new SimpleRestInterceptor.JSONEnvelopeReader(r);
   Map<String,String> expectedHeaders=new HashMap<String,String>();
   expectedHeaders.put("id","123");
-  expectedHeaders.put("type","text/xml");
   expectedHeaders.put("accept","text/plain");
   verify(jer,expectedHeaders,null);
 }
