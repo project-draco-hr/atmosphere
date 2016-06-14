@@ -1,0 +1,15 @@
+{
+  final ChunkConcatReaderPool pool=new ChunkConcatReaderPool();
+  pool.setTimeout(100);
+  Reader reader=pool.getReader("123",true);
+  pool.addChunk("123",new StringReader(TEST_MESSAGES[0]),true);
+  assertNotNull(reader);
+  try {
+    String s=readAll(reader,512,false);
+    fail("IOException expected");
+  }
+ catch (  IOException e) {
+  }
+  reader.close();
+  assertNull(pool.getReader("123",false));
+}

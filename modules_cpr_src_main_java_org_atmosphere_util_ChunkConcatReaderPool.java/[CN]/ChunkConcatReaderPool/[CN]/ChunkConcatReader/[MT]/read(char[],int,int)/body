@@ -1,0 +1,41 @@
+{
+  int count=0;
+  while (!closed && count < len) {
+    if (readers.isEmpty()) {
+      if (continued) {
+        if (count > 0) {
+          break;
+        }
+synchronized (readers) {
+          try {
+            readers.wait(timeout);
+          }
+ catch (          InterruptedException e) {
+          }
+          if (readers.isEmpty()) {
+            throw new IOException("Read timeout");
+          }
+          continue;
+        }
+      }
+      break;
+    }
+ else {
+      Reader reader=readers.getFirst();
+      int c=reader.read(cbuf,off + count,len - count);
+      if (c == -1) {
+synchronized (readers) {
+          readers.removeFirst();
+        }
+        try {
+          reader.close();
+        }
+ catch (        IOException e) {
+        }
+        continue;
+      }
+      count+=c;
+    }
+  }
+  return count == 0 ? -1 : count;
+}

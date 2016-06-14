@@ -67,6 +67,9 @@
         return Action.CANCELLED;
       }
       AtmosphereRequest ar=createAtmosphereRequest(request,body);
+      if (ar == null) {
+        return Action.CANCELLED;
+      }
       AtmosphereResponse response=r.getResponse();
       ar.localAttributes().put(REQUEST_DISPATCHED,"true");
       request.removeAttribute(FrameworkConfig.INJECTED_ATMOSPHERE_RESOURCE);

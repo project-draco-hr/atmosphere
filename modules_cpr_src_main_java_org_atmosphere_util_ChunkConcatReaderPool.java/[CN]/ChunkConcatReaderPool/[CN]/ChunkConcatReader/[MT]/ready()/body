@@ -1,0 +1,6 @@
+{
+  if (readers.isEmpty()) {
+    return false;
+  }
+  return readers.getFirst().ready();
+}

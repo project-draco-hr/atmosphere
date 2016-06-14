@@ -1,0 +1,12 @@
+{
+  setupAtmosphere();
+  final String data="{\"id\": \"123\", \"method\": \"POST\", \"path\": \"/topics/test\", " + "\"type\": \"application/json\", \"data\":{\"records\": [{\"value\": \"S2Fma2E=\"}]}}";
+  AtmosphereResource resource=createAtmosphereResource("POST","/",data);
+  SimpleRestInterceptor interceptor=new SimpleRestInterceptor();
+  interceptor.configure(config);
+  AtmosphereRequest dipatchedRequest=interceptor.createAtmosphereRequest(resource.getRequest(),IOUtils.readEntirelyAsString(resource).toString());
+  assertEquals(dipatchedRequest.getMethod(),"POST");
+  assertEquals(dipatchedRequest.getRequestURI(),"/topics/test");
+  assertEquals(dipatchedRequest.getContentType(),"application/json");
+  assertEquals(extractContent(dipatchedRequest.getReader()),"{\"records\": [{\"value\": \"S2Fma2E=\"}]}");
+}

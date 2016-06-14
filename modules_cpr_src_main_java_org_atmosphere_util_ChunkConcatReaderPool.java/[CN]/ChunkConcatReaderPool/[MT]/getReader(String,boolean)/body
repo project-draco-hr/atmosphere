@@ -1,0 +1,8 @@
+{
+  ChunkConcatReader reader=readersPool.get(key);
+  if (create && reader == null) {
+    reader=new ChunkConcatReader(key);
+    readersPool.put(key,reader);
+  }
+  return reader;
+}

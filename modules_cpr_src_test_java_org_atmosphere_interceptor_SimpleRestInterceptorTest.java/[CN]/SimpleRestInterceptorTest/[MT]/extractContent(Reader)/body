@@ -9,5 +9,5 @@
   }
  catch (  IOException e) {
   }
-  return sb.toString().trim();
+  return sb.toString();
 }

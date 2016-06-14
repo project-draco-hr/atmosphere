@@ -1,0 +1,17 @@
+{
+  final ChunkConcatReaderPool pool=new ChunkConcatReaderPool();
+  Reader reader=pool.getReader("123",true);
+  assertNotNull(reader);
+  pool.addChunk("123",new StringReader(TEST_MESSAGES[0]),true);
+  assertTrue(reader.ready());
+  String s=readOnlyAvailable(reader);
+  assertEquals(s,TEST_MESSAGES[0]);
+  assertFalse(reader.ready());
+  for (int i=1; i < TEST_MESSAGES.length; i++) {
+    pool.addChunk("123",new StringReader(TEST_MESSAGES[i]),i < TEST_MESSAGES.length - 1);
+    assertTrue(reader.ready());
+    s=readOnlyAvailable(reader);
+    assertEquals(s,TEST_MESSAGES[i]);
+    assertFalse(reader.ready());
+  }
+}

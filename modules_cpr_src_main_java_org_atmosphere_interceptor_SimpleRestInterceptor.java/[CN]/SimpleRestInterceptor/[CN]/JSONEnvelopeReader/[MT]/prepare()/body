@@ -23,7 +23,17 @@
       }
       c=next(true);
       if (c != ',') {
-        unread(c);
+        if (c == '}' && detachedp) {
+          while (c != -1) {
+            c=next(false);
+            if (c == '\n') {
+              break;
+            }
+          }
+        }
+ else {
+          unread(c);
+        }
         break;
       }
     }

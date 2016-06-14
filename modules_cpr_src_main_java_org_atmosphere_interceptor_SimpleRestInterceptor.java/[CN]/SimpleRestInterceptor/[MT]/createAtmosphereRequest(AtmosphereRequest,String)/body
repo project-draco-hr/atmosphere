@@ -1,35 +1,59 @@
 {
   JSONEnvelopeReader jer=new JSONEnvelopeReader(new StringReader(body));
-  AtmosphereRequest.Builder b=new AtmosphereRequestImpl.Builder();
   final String id=jer.getHeader("id");
   if (id != null) {
     request.localAttributes().put(REQUEST_ID,id);
   }
-  final String method=jer.getHeader("method");
-  String path=jer.getHeader("path");
-  final String type=jer.getHeader("type");
-  final String accept=jer.getHeader("accept");
-  b.method(method != null ? method : "GET").pathInfo(path != null ? path : "/");
-  if (accept != null || type != null) {
-    Map<String,String> headers=new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
-    if (accept != null) {
-      headers.put("Accept",accept);
+  boolean skip=false;
+  final boolean continued=Boolean.valueOf(jer.getHeader("continue"));
+  Reader reader=readerPool.getReader(id,false);
+  if (reader != null) {
+    skip=true;
+  }
+ else   if (continued) {
+    reader=readerPool.getReader(id,true);
+  }
+  if (skip) {
+    final Reader data=jer.getReader();
+    if (data != null) {
+      readerPool.addChunk(id,data,continued);
     }
-    if (type != null) {
-      b.contentType(type);
+    return null;
+  }
+ else {
+    final String method=jer.getHeader("method");
+    String path=jer.getHeader("path");
+    final String type=jer.getHeader("type");
+    final String accept=jer.getHeader("accept");
+    AtmosphereRequest.Builder b=new AtmosphereRequestImpl.Builder();
+    b.method(method != null ? method : "GET").pathInfo(path != null ? path : "/");
+    if (accept != null || type != null) {
+      Map<String,String> headers=new TreeMap<String,String>(String.CASE_INSENSITIVE_ORDER);
+      if (accept != null) {
+        headers.put("Accept",accept);
+      }
+      if (type != null) {
+        b.contentType(type);
+      }
+      b.headers(headers);
     }
-    b.headers(headers);
+    final int qpos=path.indexOf('?');
+    if (qpos > 0) {
+      b.queryString(path.substring(qpos + 1));
+      path=path.substring(0,qpos);
+    }
+    final Reader data=jer.getReader();
+    if (data != null) {
+      if (reader != null) {
+        b.reader(reader);
+        readerPool.addChunk(id,data,true);
+      }
+ else {
+        b.reader(data);
+      }
+    }
+    String requestURL=request.getRequestURL() + path.substring(request.getRequestURI().length());
+    b.requestURI(path).requestURL(requestURL).request(request);
+    return b.build();
   }
-  final int qpos=path.indexOf('?');
-  if (qpos > 0) {
-    b.queryString(path.substring(qpos + 1));
-    path=path.substring(0,qpos);
-  }
-  final Reader data=jer.getReader();
-  if (data != null) {
-    b.reader(data);
-  }
-  String requestURL=request.getRequestURL() + path.substring(request.getRequestURI().length());
-  b.requestURI(path).requestURL(requestURL).request(request);
-  return b.build();
 }

@@ -1,0 +1,9 @@
+{
+  AtmosphereRequest.Builder b=new AtmosphereRequestImpl.Builder();
+  AtmosphereRequest request=b.method("POST").pathInfo("/").body(data).build();
+  AtmosphereResponse response=AtmosphereResponseImpl.newInstance(request);
+  response.request(request);
+  AtmosphereResourceImpl resource=new AtmosphereResourceImpl();
+  resource.initialize(framework.getAtmosphereConfig(),framework.getBroadcasterFactory().get(),request,response,Mockito.mock(AsyncSupport.class),null);
+  return resource;
+}

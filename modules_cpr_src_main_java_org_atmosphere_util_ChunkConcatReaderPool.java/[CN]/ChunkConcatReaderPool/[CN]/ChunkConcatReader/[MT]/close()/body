@@ -1,0 +1,17 @@
+{
+  if (closed) {
+    return;
+  }
+  for (  Reader r : readers) {
+    try {
+      r.close();
+    }
+ catch (    IOException e) {
+    }
+  }
+  releaseReader(key);
+  closed=true;
+synchronized (readers) {
+    readers.notifyAll();
+  }
+}

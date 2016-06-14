@@ -1,0 +1,7 @@
+{
+  ChunkConcatReader reader=readersPool.get(key);
+  if (reader == null) {
+    throw new IllegalArgumentException("No reader with key: " + key);
+  }
+  reader.addChunk(chunk,continued);
+}

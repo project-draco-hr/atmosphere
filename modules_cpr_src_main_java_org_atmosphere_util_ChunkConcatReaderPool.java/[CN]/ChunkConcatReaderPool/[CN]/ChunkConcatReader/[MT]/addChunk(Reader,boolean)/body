@@ -1,0 +1,7 @@
+{
+synchronized (readers) {
+    readers.addLast(chunk);
+    readers.notifyAll();
+  }
+  this.continued=continued;
+}
