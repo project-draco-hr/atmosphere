@@ -7,6 +7,9 @@
           break;
         }
 synchronized (readers) {
+          if (!readers.isEmpty()) {
+            continue;
+          }
           try {
             readers.wait(timeout);
           }
