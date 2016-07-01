@@ -1,4 +1,5 @@
 {
-  attributesAtWebSocketOpen=AtmosphereResourceImpl.class.cast(r).getRequest(false).localAttributes().unmodifiableMap();
+  attributesAtWebSocketOpen=new ConcurrentHashMap<String,Object>();
+  attributesAtWebSocketOpen.putAll(AtmosphereResourceImpl.class.cast(r).getRequest(false).localAttributes().unmodifiableMap());
   return this;
 }
