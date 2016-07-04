@@ -4,7 +4,7 @@
     validAsyncIOWriter();
     writeStatusAndHeaders();
     forceAsyncIOWriter=false;
-    if (buffering) {
+    if (buffering && !AtmosphereResponseImpl.this.completed()) {
       byte[] copy=new byte[offset];
       System.arraycopy(bytes,start,copy,0,offset);
       writeWithBuffering(copy);

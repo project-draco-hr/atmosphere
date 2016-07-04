@@ -4,7 +4,7 @@
     validAsyncIOWriter();
     writeStatusAndHeaders();
     forceAsyncIOWriter=false;
-    if (buffering) {
+    if (buffering && !AtmosphereResponseImpl.this.completed()) {
       writeWithBuffering(bytes);
     }
  else {

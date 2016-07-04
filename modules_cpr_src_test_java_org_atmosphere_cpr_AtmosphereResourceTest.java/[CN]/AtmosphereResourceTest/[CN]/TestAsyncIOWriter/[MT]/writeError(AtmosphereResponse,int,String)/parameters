@@ -1,0 +1,3 @@
+AtmosphereResponse r
+int errorCode
+String message
