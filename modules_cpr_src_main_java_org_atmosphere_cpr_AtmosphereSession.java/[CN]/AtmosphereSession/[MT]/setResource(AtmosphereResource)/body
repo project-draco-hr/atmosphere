@@ -1,7 +1,7 @@
 {
   monitor.enter();
   try {
-    return resource;
+    resource=res;
   }
   finally {
     monitor.leave();
