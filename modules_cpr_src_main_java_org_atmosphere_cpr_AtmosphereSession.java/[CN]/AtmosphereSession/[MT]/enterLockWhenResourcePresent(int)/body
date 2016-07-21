@@ -1,0 +1,30 @@
+{
+  long timeoutNanos=TimeUnit.SECONDS.toNanos(timeInSecond);
+  final boolean reentrant=lock.isHeldByCurrentThread();
+  if (!lock.tryLock()) {
+    final long deadline=System.nanoTime() + timeoutNanos;
+    if (!lock.tryLock(timeInSecond,TimeUnit.SECONDS)) {
+      return false;
+    }
+    timeoutNanos=deadline - System.nanoTime();
+  }
+  boolean satisfied=false;
+  boolean threw=true;
+  try {
+    satisfied=(resource != null) || awaitNanosForResourceToBePresent(timeoutNanos,reentrant);
+    threw=false;
+    return satisfied;
+  }
+  finally {
+    if (!satisfied) {
+      try {
+        if (threw && !reentrant) {
+          signalWaiter();
+        }
+      }
+  finally {
+        lock.unlock();
+      }
+    }
+  }
+}

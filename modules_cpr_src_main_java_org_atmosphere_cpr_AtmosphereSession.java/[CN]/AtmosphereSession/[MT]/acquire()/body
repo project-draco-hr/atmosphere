@@ -1,9 +1,9 @@
 {
-  monitor.enter();
+  enterLock();
   try {
     return resource;
   }
   finally {
-    monitor.leave();
+    releaseLock();
   }
 }

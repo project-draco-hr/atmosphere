@@ -1,11 +1,11 @@
 {
-  if (!monitor.enterWhen(resourcePresent,timeInSecond,TimeUnit.SECONDS)) {
+  if (!enterLockWhenResourcePresent(timeInSecond)) {
     throw new IllegalStateException("There is no resource for session " + uuid);
   }
   try {
     return resource;
   }
   finally {
-    monitor.leave();
+    releaseLock();
   }
 }

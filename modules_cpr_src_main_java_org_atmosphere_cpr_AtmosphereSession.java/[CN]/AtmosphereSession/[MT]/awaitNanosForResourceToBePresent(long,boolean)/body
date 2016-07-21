@@ -1,0 +1,13 @@
+{
+  if (signalBeforeWaiting) {
+    signalWaiter();
+  }
+  do {
+    if (nanos < 0L) {
+      return false;
+    }
+    nanos=resourcePresent.awaitNanos(nanos);
+  }
+ while (resource == null);
+  return true;
+}
