@@ -1,8 +1,15 @@
 {
-  completed=true;
-  try {
-    writeWithBuffering(null);
-  }
- catch (  IOException e) {
+  if (!completed) {
+    completed=true;
+    try {
+      writeWithBuffering(null);
+    }
+ catch (    IOException e) {
+    }
+ finally {
+      if (isCompletionReset()) {
+        completed=false;
+      }
+    }
   }
 }

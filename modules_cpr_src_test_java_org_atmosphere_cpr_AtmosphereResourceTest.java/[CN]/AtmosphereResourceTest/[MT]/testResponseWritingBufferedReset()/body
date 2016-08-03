@@ -1,0 +1,20 @@
+{
+  final ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  AtmosphereRequest request=mock(AtmosphereRequestImpl.class);
+  when(request.getAttribute(ApplicationConfig.RESPONSE_COMPLETION_AWARE)).thenReturn(Boolean.TRUE);
+  when(request.getAttribute(ApplicationConfig.RESPONSE_COMPLETION_RESET)).thenReturn(Boolean.TRUE);
+  AtmosphereResponse response=new AtmosphereResponseImpl.Builder().request(request).asyncIOWriter(new TestAsyncIOWriter(baos)).build();
+  response.getOutputStream();
+  response.write("hello".getBytes());
+  assertEquals(baos.toString(),"");
+  response.write("hello again".getBytes());
+  assertEquals(baos.toString(),"hello");
+  ((AtmosphereResponseImpl)response).onComplete();
+  assertEquals(baos.toString(),"hellohello again");
+  response.write("bye".getBytes());
+  assertEquals(baos.toString(),"hellohello again");
+  response.write("bye again".getBytes());
+  assertEquals(baos.toString(),"hellohello againbye");
+  ((AtmosphereResponseImpl)response).onComplete();
+  assertEquals(baos.toString(),"hellohello againbyebye again");
+}

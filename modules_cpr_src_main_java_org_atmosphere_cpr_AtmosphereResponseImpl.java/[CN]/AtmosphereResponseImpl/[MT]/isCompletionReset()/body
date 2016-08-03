@@ -1,0 +1,3 @@
+{
+  return atmosphereRequest != null && Boolean.TRUE == atmosphereRequest.getAttribute(ApplicationConfig.RESPONSE_COMPLETION_RESET);
+}

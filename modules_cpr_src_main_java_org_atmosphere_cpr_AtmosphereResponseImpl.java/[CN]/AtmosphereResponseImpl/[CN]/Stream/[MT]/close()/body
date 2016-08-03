@@ -1,4 +1,5 @@
 {
+  AtmosphereResponseImpl.this.onComplete();
   if (!validFlushOrClose() || asyncIOWriter instanceof KeepOpenStreamAware)   return;
   boolean b=forceAsyncIOWriter;
   forceAsyncIOWriter=false;
