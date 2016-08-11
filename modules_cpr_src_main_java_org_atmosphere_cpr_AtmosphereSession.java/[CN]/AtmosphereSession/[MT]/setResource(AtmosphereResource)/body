@@ -1,7 +1,7 @@
 {
   enterLock();
   try {
-    return resource;
+    resource=res;
   }
   finally {
     releaseLock();

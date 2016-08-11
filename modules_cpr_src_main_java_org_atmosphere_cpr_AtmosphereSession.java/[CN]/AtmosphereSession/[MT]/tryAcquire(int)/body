@@ -1,6 +1,11 @@
 {
-  if (usesLongPolling || resource.get() == null) {
-    latch.tryAcquire(timeInSecond,TimeUnit.SECONDS);
+  if (!enterLockWhenResourcePresent(timeInSecond)) {
+    throw new IllegalStateException("There is no resource for session " + uuid);
   }
-  return resource.get();
+  try {
+    return resource;
+  }
+  finally {
+    releaseLock();
+  }
 }

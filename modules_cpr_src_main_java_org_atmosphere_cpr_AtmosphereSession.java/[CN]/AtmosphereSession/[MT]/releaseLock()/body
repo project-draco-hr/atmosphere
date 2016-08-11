@@ -1,0 +1,10 @@
+{
+  try {
+    if (lock.getHoldCount() == 1) {
+      signalWaiter();
+    }
+  }
+  finally {
+    lock.unlock();
+  }
+}

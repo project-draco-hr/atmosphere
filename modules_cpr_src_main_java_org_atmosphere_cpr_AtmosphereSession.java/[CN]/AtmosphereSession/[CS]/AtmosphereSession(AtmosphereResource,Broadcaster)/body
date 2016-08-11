@@ -1,23 +1,18 @@
 {
-  this.uuid=r.uuid();
-  this.relatedBroadcasters=broadcasters;
-  this.usesLongPolling=AtmosphereResource.TRANSPORT.LONG_POLLING == r.transport();
-  resource.set(r);
+  uuid=r.uuid();
+  relatedBroadcasters=broadcasters;
+  resource=r;
   broadcasterListener=new BroadcasterListenerAdapter(){
     @Override public void onAddAtmosphereResource(    Broadcaster b,    AtmosphereResource r){
-      boolean found=false;
       if (r.uuid().equalsIgnoreCase(uuid)) {
         logger.trace("AtmosphereSession tracking :  AtmosphereResource {} added",uuid);
-        resource.set(r);
-        found=true;
+        setResource(r);
       }
-      if (found && latch.availablePermits() == 0)       latch.release();
     }
     @Override public void onRemoveAtmosphereResource(    Broadcaster b,    AtmosphereResource r){
       if (r.uuid().equalsIgnoreCase(uuid)) {
         logger.trace("AtmosphereSession tracking :  AtmosphereResource {} removed",uuid);
-        resource.set(null);
-        latch.tryAcquire();
+        setResource(null);
       }
     }
   }
