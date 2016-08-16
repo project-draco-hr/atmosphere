@@ -1,3 +1,5 @@
 String id
+Long now
 Object message
 String uuid
+String broadcasterId

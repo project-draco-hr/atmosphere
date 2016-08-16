@@ -9,11 +9,13 @@
   }
   for (  String clientId : inactiveClients) {
     activeClients.remove(clientId);
-    messages.remove(clientId);
+    ClientQueue messageQueue=messages.remove(clientId);
+    notifyRemoveCache(messageQueue);
   }
-  for (  String msg : messages().keySet()) {
-    if (!activeClients().containsKey(msg)) {
-      messages().remove(msg);
+  for (  String clientId : messages().keySet()) {
+    if (!activeClients().containsKey(clientId)) {
+      ClientQueue messageQueue=messages().remove(clientId);
+      notifyRemoveCache(messageQueue);
     }
   }
 }

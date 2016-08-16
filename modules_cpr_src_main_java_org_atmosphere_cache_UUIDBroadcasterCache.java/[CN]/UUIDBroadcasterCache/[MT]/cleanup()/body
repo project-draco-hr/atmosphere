@@ -1,7 +1,6 @@
 {
   messages.clear();
   activeClients.clear();
-  emptyList.clear();
   inspectors.clear();
   if (scheduledFuture != null) {
     scheduledFuture.cancel(false);

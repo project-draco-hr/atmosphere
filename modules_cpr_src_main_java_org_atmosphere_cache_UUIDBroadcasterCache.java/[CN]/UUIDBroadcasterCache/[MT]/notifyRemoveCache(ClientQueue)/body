@@ -1,0 +1,5 @@
+{
+  for (  CacheMessage message : messageQueue.getQueue()) {
+    notifyRemoveCache(message.getBroadcasterId(),message);
+  }
+}

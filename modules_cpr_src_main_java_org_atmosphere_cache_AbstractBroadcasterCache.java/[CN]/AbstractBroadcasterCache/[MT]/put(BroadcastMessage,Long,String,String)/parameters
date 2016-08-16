@@ -1,3 +1,4 @@
 BroadcastMessage message
 Long now
 String uuid
+String broadcasterId

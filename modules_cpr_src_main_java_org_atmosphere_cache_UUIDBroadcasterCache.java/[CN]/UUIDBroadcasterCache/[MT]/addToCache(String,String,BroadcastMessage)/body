@@ -8,8 +8,7 @@
   if (!inspect(message)) {
     cache=false;
   }
-  CacheMessage cacheMessage=new CacheMessage(messageId,message.message(),uuid);
-  ;
+  CacheMessage cacheMessage=new CacheMessage(messageId,message.message(),uuid,broadcasterId);
   if (cache) {
     if (uuid.equals(NULL)) {
       for (      Map.Entry<String,Long> entry : activeClients.entrySet()) {
