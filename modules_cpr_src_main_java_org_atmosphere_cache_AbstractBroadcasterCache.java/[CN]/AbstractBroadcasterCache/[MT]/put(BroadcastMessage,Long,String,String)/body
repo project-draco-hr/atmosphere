@@ -6,7 +6,7 @@
   try {
     boolean hasMessageWithSameId=messagesIds.contains(message.id());
     if (!hasMessageWithSameId) {
-      cacheMessage=new CacheMessage(message.id(),now,message.message(),uuid);
+      cacheMessage=new CacheMessage(message.id(),now,message.message(),uuid,broadcasterId);
       messages.add(cacheMessage);
       messagesIds.add(message.id());
     }

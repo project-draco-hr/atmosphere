@@ -3,4 +3,5 @@
   this.message=message;
   this.createTime=now;
   this.uuid=uuid;
+  this.broadcasterId=broadcasterId;
 }
