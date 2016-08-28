@@ -1,3 +1,0 @@
-{
-  return resource() != null && Boolean.parseBoolean(resource().getAtmosphereConfig().getInitParameter(ApplicationConfig.FORCE_CONTENT_TYPE));
-}
