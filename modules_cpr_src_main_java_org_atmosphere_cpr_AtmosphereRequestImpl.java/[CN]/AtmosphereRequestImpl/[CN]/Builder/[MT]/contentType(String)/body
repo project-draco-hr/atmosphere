@@ -1,4 +1,7 @@
 {
   this.contentType=contentType;
+  if (contentType == null) {
+    noContentType=true;
+  }
   return this;
 }

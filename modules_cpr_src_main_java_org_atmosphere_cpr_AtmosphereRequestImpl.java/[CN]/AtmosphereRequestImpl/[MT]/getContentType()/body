@@ -1,3 +1,3 @@
 {
-  return b.contentType != null ? b.contentType : b.request.getContentType();
+  return b.contentType != null || b.noContentType ? b.contentType : b.request.getContentType();
 }

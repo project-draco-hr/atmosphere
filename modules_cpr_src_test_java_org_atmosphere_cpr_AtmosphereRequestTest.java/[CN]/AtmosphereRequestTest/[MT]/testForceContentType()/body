@@ -1,0 +1,8 @@
+{
+  AtmosphereRequest request=new AtmosphereRequestImpl.Builder().pathInfo("/a").body("test".getBytes()).build();
+  assertEquals(request.getContentType(),"text/plain");
+  request=new AtmosphereRequestImpl.Builder().pathInfo("/a").build();
+  assertEquals(request.getContentType(),"text/plain");
+  request=new AtmosphereRequestImpl.Builder().pathInfo("/a").contentType(null).build();
+  assertNull(request.getContentType());
+}
