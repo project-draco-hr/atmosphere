@@ -1,8 +1,0 @@
-{
-  if (!hasMessage(clientId,message.getId())) {
-    addMessage(broadcasterId,clientId,message);
-  }
- else {
-    logger.debug("Duplicate message {} for client {}",message,clientId);
-  }
-}

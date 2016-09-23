@@ -12,12 +12,12 @@
   if (cache) {
     if (uuid.equals(NULL)) {
       for (      Map.Entry<String,Long> entry : activeClients.entrySet()) {
-        addMessageIfNotExists(broadcasterId,entry.getKey(),cacheMessage);
+        addMessage(broadcasterId,entry.getKey(),cacheMessage);
       }
     }
  else {
       cacheCandidate(broadcasterId,uuid);
-      addMessageIfNotExists(broadcasterId,uuid,cacheMessage);
+      addMessage(broadcasterId,uuid,cacheMessage);
     }
   }
   return cacheMessage;

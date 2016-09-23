@@ -1,11 +1,9 @@
 {
-  ClientQueue clientQueue;
-  clientQueue=messages.get(uuid);
+  ConcurrentLinkedQueue<CacheMessage> clientQueue=messages.get(uuid);
   if (clientQueue != null) {
-    logger.trace("Removing for AtmosphereResource {} cached message {}",uuid,message.getMessage());
+    logger.trace("Removing for broadcaster {} AtmosphereResource {} cached message {}",broadcasterId,uuid,message.getMessage());
     notifyRemoveCache(broadcasterId,message);
-    clientQueue.getQueue().remove(message);
-    clientQueue.getIds().remove(message.getId());
+    clientQueue.remove(message);
   }
   return this;
 }

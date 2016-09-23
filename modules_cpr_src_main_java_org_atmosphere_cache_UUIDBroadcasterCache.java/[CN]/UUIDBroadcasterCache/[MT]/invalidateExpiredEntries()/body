@@ -1,6 +1,6 @@
 {
   long now=System.currentTimeMillis();
-  Set<String> inactiveClients=new HashSet<String>();
+  Set<String> inactiveClients=new HashSet<>();
   for (  Map.Entry<String,Long> entry : activeClients.entrySet()) {
     if (now - entry.getValue() > clientIdleTime) {
       logger.trace("Invalidate client {}",entry.getKey());
@@ -9,13 +9,18 @@
   }
   for (  String clientId : inactiveClients) {
     activeClients.remove(clientId);
-    ClientQueue messageQueue=messages.remove(clientId);
-    notifyRemoveCache(messageQueue);
+    ConcurrentLinkedQueue<CacheMessage> queue=messages.remove(clientId);
+    if (queue != null) {
+      logger.debug("removed  client queue of size: {} for client uuid {}",queue.size(),clientId);
+      notifyRemoveCache(queue);
+    }
+ else {
+      logger.trace("queue is already null for client: {}",clientId);
+    }
   }
   for (  String clientId : messages().keySet()) {
     if (!activeClients().containsKey(clientId)) {
-      ClientQueue messageQueue=messages().remove(clientId);
-      notifyRemoveCache(messageQueue);
+      messages().get(clientId).clear();
     }
   }
 }
