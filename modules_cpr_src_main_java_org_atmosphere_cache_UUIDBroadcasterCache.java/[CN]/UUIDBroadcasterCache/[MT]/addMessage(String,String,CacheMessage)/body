@@ -1,16 +1,20 @@
 {
-  ClientQueue clientQueue=messages.get(clientId);
+  ConcurrentLinkedQueue<CacheMessage> clientQueue=messages.get(clientId);
   if (clientQueue == null) {
-    clientQueue=new ClientQueue();
     if (activeClients.get(clientId) != null) {
-      messages.put(clientId,clientQueue);
+      clientQueue=new ConcurrentLinkedQueue<>();
+      if (messages.putIfAbsent(clientId,clientQueue) == null) {
+        logger.debug("new queue created for message {}, broadcaster {} for resource {} ",message.getMessage(),broadcasterId,clientId);
+      }
     }
  else {
-      logger.debug("Client {} is no longer active. Not caching message {}}",clientId,message);
+      logger.debug("Client {} is no longer active. Not caching message {} for broadcaster {}",clientId,message,broadcasterId);
       return;
     }
   }
   notifyAddCache(broadcasterId,message);
-  clientQueue.getQueue().offer(message);
-  clientQueue.getIds().add(message.getId());
+  if (logger.isDebugEnabled()) {
+    logger.debug("offering message {}, broadcaster {} for resource {}",message.getMessage(),broadcasterId,clientId);
+  }
+  messages.get(clientId).offer(message);
 }

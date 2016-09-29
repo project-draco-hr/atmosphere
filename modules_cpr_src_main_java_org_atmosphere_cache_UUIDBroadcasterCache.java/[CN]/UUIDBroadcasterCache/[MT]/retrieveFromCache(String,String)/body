@@ -1,14 +1,14 @@
 {
-  List<Object> result=new ArrayList<Object>();
-  ClientQueue clientQueue;
   cacheCandidate(broadcasterId,uuid);
-  clientQueue=messages.remove(uuid);
-  ConcurrentLinkedQueue<CacheMessage> clientMessages;
-  if (clientQueue != null) {
-    clientMessages=clientQueue.getQueue();
-    for (    CacheMessage cacheMessage : clientMessages) {
-      result.add(cacheMessage.getMessage());
-    }
+  ConcurrentLinkedQueue<CacheMessage> clientQueue=messages.get(uuid);
+  CacheMessage message;
+  List<Object> result=new ArrayList<>();
+  if (clientQueue == null) {
+    logger.trace("client queue is null (not yet created), hence returning back for broadcaster {} and uuid {}",broadcasterId,uuid);
+    return result;
+  }
+  while ((message=clientQueue.poll()) != null) {
+    result.add(message);
   }
   if (logger.isTraceEnabled()) {
     logger.trace("Retrieved for AtmosphereResource {} cached messages {}",uuid,result);
